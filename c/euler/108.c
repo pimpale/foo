@@ -17,16 +17,19 @@ uint32_t countFactors(uint32_t value) {
   return factors;
 }
 
+
 int main() {
   // the problem is fundamentally equivalent to how many factors n has
   // knowing that, we can simply solve for all factors of n
   for(uint32_t i = 1; i < 121; i++) {
-    uint32_t factors = countFactors(i);
+    uint32_t solutions = countSolutions(i) {
+
+
+    /*uint32_t factors = countFactors(i);
+    if(factors > 100000000) {
       printf("FOUND n %" PRIu32 " WITH %" PRIu32 " DISTINCT SOLUTIONS\n", i, factors);
-    if(factors > 10) {
-      printf("FOUND n %" PRIu32 " WITH %" PRIu32 " DISTINCT SOLUTIONS\n", i, factors);
-      //return 0;
-    }
+      return 0;
+    }*/
   }
   return 1;
 }
