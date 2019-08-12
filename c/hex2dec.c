@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <inttypes.h>
 
 int main() {
-  while(!feof(stdin)) {
-    char hexstring[20];
-    fgets(hexstring, 20, stdin);
+  char *hexstring = NULL;
+  size_t bufsize = 0;
+  ssize_t nbytes;
+  while((nbytes = getline(&hexstring, &bufsize, stdin)) != -1) {
     printf("%" PRIi64 "\n", strtoll(hexstring, NULL, 16));
   }
+  free(hexstring);
 }
