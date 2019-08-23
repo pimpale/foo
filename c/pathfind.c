@@ -66,19 +66,12 @@ void step() {
 void backtrack(int32_t x, int32_t y) {
   while(1) {
     bakmap[y][x] = 1;
+    int currentmapval = genmap[y][x];
     for(int32_t rx = x -1; rx <= x+1; rx++) {
       for(int32_t ry = y -1; ry <= y+1; ry++) {
         // if it is valid
         if(rx >= 0 && rx < xsize && ry >= 0 && ry < ysize) {
-          // if open and the map is free
-          if(genmap[ry][rx] != 0) {
-            continue;
-          } else if(charmap[ry][rx] == 'E') {
-            backtrack(rx, ry);
-          } else if(charmap[ry][rx] == 'O') {
-            genmap[ry][rx] = 1;
-          }
-        }
+          if(bakmap
       }
 
 
