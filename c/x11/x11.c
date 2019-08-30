@@ -1,11 +1,9 @@
 /*
  * README:
  * to compile issue
- * cc -lOpenCL -lX11 main.c
+ * cc -lX11 x11.c
  * to run, do
  * ./a.out
- * shader.cl must be in the same directory as a.out for the program to properly
- * run
  */
 
 #include <stdio.h>
