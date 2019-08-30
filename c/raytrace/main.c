@@ -14,6 +14,8 @@
 #include <time.h>
 #include <math.h>
 
+#include "CL/opencl.h"
+
 #include <X11/Xlib.h>
 #include <X11/Xos.h>
 #include <X11/Xutil.h>
