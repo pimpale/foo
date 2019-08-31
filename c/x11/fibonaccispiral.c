@@ -21,6 +21,11 @@
 #define FRAME_XSIZE 500
 #define FRAME_YSIZE 500
 
+#define INPUTONKEY(key, boolean) \
+  case XK_##key: {               \
+    input->key = boolean;        \
+  } break;
+
 // structs
 typedef struct {
   bool w;
@@ -30,10 +35,10 @@ typedef struct {
   bool q;
   bool e;
   bool mouse_down;
-  uint32_t mouse_x;
-  uint32_t mouse_y;
-  uint32_t previous_mouse_x;
-  uint32_t previous_mouse_y;
+  int32_t mouse_x;
+  int32_t mouse_y;
+  int32_t previous_mouse_x;
+  int32_t previous_mouse_y;
   uint32_t x_size;
   uint32_t y_size;
 } UserInput;
@@ -87,24 +92,12 @@ void update_user_input(Display *dis, UserInput* input) {
         KeySym k = XLookupKeysym(&event.xkey, 0);
         // turn on keys when pressed
         switch(k) {
-          case XK_a: {
-            input->a = true;
-          } break;
-          case XK_w: {
-            input->w = true;
-          } break;
-          case XK_s: {
-            input->s = true;
-          } break;
-          case XK_d: {
-            input->d = true;
-          } break;
-          case XK_q: {
-            input->q = true;
-          } break;
-          case XK_e: {
-            input->e = true;
-          } break;
+          INPUTONKEY(w, true)
+          INPUTONKEY(a, true)
+          INPUTONKEY(s, true)
+          INPUTONKEY(d, true)
+          INPUTONKEY(q, true)
+          INPUTONKEY(e, true)
           default: {
           } break;
         }
@@ -113,24 +106,12 @@ void update_user_input(Display *dis, UserInput* input) {
         // turn off keys when released
         KeySym k = XLookupKeysym(&event.xkey, 0);
         switch(k) {
-          case XK_a: {
-            input->a = false;
-          } break;
-          case XK_w: {
-            input->w = false;
-          } break;
-          case XK_s: {
-            input->s = false;
-          } break;
-          case XK_d: {
-            input->d = false;
-          } break;
-          case XK_q: {
-            input->q = false;
-          } break;
-          case XK_e: {
-            input->e = false;
-          } break;
+          INPUTONKEY(w, false)
+          INPUTONKEY(a, false)
+          INPUTONKEY(s, false)
+          INPUTONKEY(d, false)
+          INPUTONKEY(q, false)
+          INPUTONKEY(e, false)
           default: {
           } break;
         }
@@ -167,16 +148,16 @@ void draw() {
 
   // put ellipse
   XSetForeground(dis, gc, 0xFF0000);
-  uint32_t center_x = input.x_size/2;
-  uint32_t center_y = input.y_size/2;
+  int32_t center_x = input.x_size/2;
+  int32_t center_y = input.y_size/2;
 
 
   for(int i = 0; i < NUM_POINTS; i++) {
     double distance = 500*i / (NUM_POINTS -1.0);
     double angle = 2 * M_PI * i * turnfraction;
 
-    uint32_t x = center_x - (SIZE_POINTS/2) + cosf(angle)*distance;
-    uint32_t y = center_y - (SIZE_POINTS/2) + sinf(angle)*distance;
+    int32_t x = center_x - (SIZE_POINTS/2) + (int32_t)(cos(angle)*distance);
+    int32_t y = center_y - (SIZE_POINTS/2) + (int32_t)(sin(angle)*distance);
     if(i % HIGHLIGHT_EVERY == 0) {
       XSetForeground(dis, gc, 0xFFFF00);
       XFillArc(dis,win,gc,x, y, SIZE_POINTS, SIZE_POINTS, 0, 360*64);

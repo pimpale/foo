@@ -8,11 +8,11 @@
  * run
  */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <time.h>
 #include <math.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <time.h>
 
 #include "CL/opencl.h"
 
@@ -39,17 +39,42 @@ typedef struct {
   uint32_t previous_mouse_y;
   uint32_t x_size;
   uint32_t y_size;
+  uint32_t previous_x_size;
+  uint32_t previous_y_size;
 } UserInput;
 
 // Program control variables
 bool terminate = false;
-UserInput input = {0};
+UserInput user_input = {0};
 
 // here are our X variables
 Display *dis;
 int screen;
 Window win;
 GC gc;
+
+// and our OpenCL ones
+cl_context context;
+cl_command_queue queue;
+cl_device_id device;
+
+void init_cl() {
+  // Looking up the available GPUs
+  cl_uint num = 1;
+  clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 0, NULL, &num);
+  if (num < 1) {
+    fprintf(stderr, "could not find valid gpu");
+    exit(1);
+  }
+
+  // grab the first gpu
+  clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 1, &device, NULL);
+
+  // create a compute context with the device
+  context = clCreateContext(NULL, 1, &device, NULL, NULL, NULL);
+  // create a queue
+  queue = clCreateCommandQueueWithProperties(context, device, 0, NULL);
+}
 
 void init_x() {
   // open connection to x server
@@ -74,9 +99,19 @@ void delete_x() {
   XCloseDisplay(dis);
 }
 
-void update_user_input(Display *dis, UserInput* input) {
+#define INPUTONKEY(key, boolean) \
+  case XK_##key: {               \
+    input->key = boolean;        \
+    break;                       \
+  }
+void update_user_input(Display *display, UserInput *input) {
   // get the next event and stuff it into our event variable.
   // Note:  only events we set the mask for are detected!
+  int32_t previous_x_size = input->x_size;
+  int32_t previous_y_size = input->y_size;
+  int32_t previous_mouse_x = input->mouse_x;
+  int32_t previous_mouse_y = input->mouse_y;
+
   while (XPending(dis) > 0) {
     XEvent event;
     XNextEvent(dis, &event);
@@ -88,50 +123,26 @@ void update_user_input(Display *dis, UserInput* input) {
       } break;
       case KeyPress: {
         KeySym k = XLookupKeysym(&event.xkey, 0);
-        switch(k) {
-          case XK_a: {
-            input->a = true;
-          } break;
-          case XK_w: {
-            input->w = true;
-          } break;
-          case XK_s: {
-            input->s = true;
-          } break;
-          case XK_d: {
-            input->d = true;
-          } break;
-          case XK_q: {
-            input->q = true;
-          } break;
-          case XK_e: {
-            input->e = true;
-          } break;
+        switch (k) {
+          INPUTONKEY(w, true)
+          INPUTONKEY(a, true)
+          INPUTONKEY(s, true)
+          INPUTONKEY(d, true)
+          INPUTONKEY(q, true)
+          INPUTONKEY(e, true)
           default: {
           } break;
         }
       } break;
       case KeyRelease: {
         KeySym k = XLookupKeysym(&event.xkey, 0);
-        switch(k) {
-          case XK_a: {
-            input->a = false;
-          } break;
-          case XK_w: {
-            input->w = false;
-          } break;
-          case XK_s: {
-            input->s = false;
-          } break;
-          case XK_d: {
-            input->d = false;
-          } break;
-          case XK_q: {
-            input->q = false;
-          } break;
-          case XK_e: {
-            input->e = false;
-          } break;
+        switch (k) {
+          INPUTONKEY(w, false)
+          INPUTONKEY(a, false)
+          INPUTONKEY(s, false)
+          INPUTONKEY(d, false)
+          INPUTONKEY(q, false)
+          INPUTONKEY(e, false)
           default: {
           } break;
         }
@@ -146,8 +157,6 @@ void update_user_input(Display *dis, UserInput* input) {
       } break;
       case MotionNotify: {
         // set mouses
-        input->previous_mouse_x = input->mouse_x;
-        input->previous_mouse_y = input->mouse_y;
         input->mouse_x = event.xmotion.x;
         input->mouse_y = event.xmotion.y;
       } break;
@@ -155,27 +164,130 @@ void update_user_input(Display *dis, UserInput* input) {
       }
     }
   }
+  input->previous_x_size = previous_x_size;
+  input->previous_y_size = previous_y_size;
+  input->previous_mouse_x = previous_mouse_x;
+  input->previous_mouse_y = previous_mouse_y;
+
+}
+#undef INPUTONKEY
+
+uint32_t *color_buffer = NULL;
+cl_mem color_buffer_cl_mem;
+cl_kernel kernel;
+
+void set_kernel_buffer(uint32_t x, uint32_t y) {
+  size_t buffer_size = x * y * sizeof(uint32_t);
+  color_buffer = realloc(color_buffer, buffer_size);
+  if (color_buffer_cl_mem != NULL) {
+    clReleaseMemObject(color_buffer_cl_mem);
+  }
+  color_buffer_cl_mem =
+      clCreateBuffer(context, CL_MEM_READ_WRITE, buffer_size, NULL, NULL);
+  clSetKernelArg(kernel, 0, buffer_size, &color_buffer_cl_mem);
 }
 
-void draw() {
+void initialize() {
+  const char *kernel_source =
+
+      "void kernel main(global unsigned int* color) {"
+      "  unsigned int id = get_global_id(0);"
+      "  color[id] = 0xFF;"
+      "}";
+
+  cl_program program =
+      clCreateProgramWithSource(context, 1, &kernel_source, NULL, NULL);
+
+  // build the compute program executable
+  cl_int ret = clBuildProgram(program, 0, NULL, "-w", NULL, NULL);
+  if (ret != CL_SUCCESS) {
+    fprintf(stderr, "failed to build program: %d\n", ret);
+    if (ret == CL_BUILD_PROGRAM_FAILURE) {
+      fprintf(stderr, "compilation error\n");
+      size_t length = !NULL;
+      clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, 0, NULL,
+                            &length);
+      char *buffer = malloc(length);
+      clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, length,
+                            buffer, NULL);
+      fprintf(stderr, buffer);
+      free(buffer);
+    }
+    exit(1);
+  }
+
+  // create the compute kernel
+  kernel = clCreateKernel(program, "main", NULL);
+  set_kernel_buffer(FRAME_XSIZE, FRAME_YSIZE);
+  user_input.previous_x_size = FRAME_XSIZE;
+  user_input.previous_y_size = FRAME_YSIZE;
+  user_input.x_size = FRAME_XSIZE;
+  user_input.y_size = FRAME_YSIZE;
+}
+
+void loop() {
+  update_user_input(dis, &user_input);
+  if (user_input.x_size != user_input.previous_x_size ||
+      user_input.y_size != user_input.previous_y_size) {
+
+    printf("%d %d\n", user_input.x_size, user_input.y_size);
+    set_kernel_buffer(user_input.x_size, user_input.y_size);
+  }
+
+  if(user_input.q) {
+    terminate = true;
+  }
+
+  size_t point_count = user_input.x_size * user_input.y_size;
+  size_t buffer_size = point_count  * sizeof(uint32_t);
+
+  // copy the info
+  clEnqueueWriteBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
+                       color_buffer, 0, NULL, NULL);
+
+  const size_t global_work_offset[3] = {0, 0, 0};
+  const size_t local_work_size[3] = {1, 1, 1};
+  const size_t global_work_size[3] = {point_count, 1, 1};
+
+  // send kernel
+  clEnqueueNDRangeKernel(queue, kernel, 1, global_work_offset, global_work_size,
+                         local_work_size, 0, NULL, NULL);
+
+  // finish work
+
+  clEnqueueReadBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
+                       color_buffer, 0, NULL, NULL);
+
+  clFinish(queue);
   // blank screen
   XSetForeground(dis, gc, 0x000000);
-  XFillRectangle(dis,win,gc,0,0,input.x_size,input.y_size);
+  XFillRectangle(dis, win, gc, 0, 0, user_input.x_size, user_input.y_size);
 
-  // put ellipse
-  XSetForeground(dis, gc, 0xFF0000);
-  for(int i = 0; i < 100; i++) {
-    XFillArc(dis,win,gc,i*2, i*10, 10,10, 0, 360*64);
+  // put pixels
+  for (uint32_t i = 0; i < point_count; i++) {
+    //printf("%d\n", i);
+    XSetForeground(dis, gc, color_buffer[i]);
+    XDrawPoint(dis, win, gc, i%user_input.y_size, i/user_input.y_size);
+  }
+
+  usleep(10000);
+}
+
+void finalize() {
+  free(color_buffer);
+  if (color_buffer_cl_mem != NULL) {
+    clReleaseMemObject(color_buffer_cl_mem);
   }
 }
 
 int main() {
   init_x();
+  init_cl();
+  initialize();
   while (!terminate) {
-    update_user_input(dis, &input);
-    draw();
-    usleep(100000);
+    loop();
   }
+  finalize();
   delete_x();
   return 0;
 }
