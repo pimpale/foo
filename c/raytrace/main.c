@@ -1,10 +1,9 @@
 /*
  * README:
  * to compile issue
- * cc -lOpenCL -lX11 main.c
+ * cc -lOpenCL -lX11 -lm main.c
  * to run, do
  * ./a.out
- * shader.cl must be in the same directory as a.out for the program to properly
  * run
  */
 
@@ -192,7 +191,7 @@ void initialize() {
 
       "void kernel main(global unsigned int* color) {"
       "  unsigned int id = get_global_id(0);"
-      "  color[id] = 0xFF;"
+      "  color[id] = 0xCCFFCC;"
       "}";
 
   cl_program program =
@@ -230,7 +229,6 @@ void loop() {
   if (user_input.x_size != user_input.previous_x_size ||
       user_input.y_size != user_input.previous_y_size) {
 
-    printf("%d %d\n", user_input.x_size, user_input.y_size);
     set_kernel_buffer(user_input.x_size, user_input.y_size);
   }
 
@@ -241,31 +239,36 @@ void loop() {
   size_t point_count = user_input.x_size * user_input.y_size;
   size_t buffer_size = point_count  * sizeof(uint32_t);
 
+  /*
   // copy the info
   clEnqueueWriteBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
                        color_buffer, 0, NULL, NULL);
 
   const size_t global_work_offset[3] = {0, 0, 0};
-  const size_t local_work_size[3] = {1, 1, 1};
   const size_t global_work_size[3] = {point_count, 1, 1};
+  const size_t local_work_size[3] = {1, 1, 1};
 
   // send kernel
   clEnqueueNDRangeKernel(queue, kernel, 1, global_work_offset, global_work_size,
                          local_work_size, 0, NULL, NULL);
 
   // finish work
-
   clEnqueueReadBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
                        color_buffer, 0, NULL, NULL);
 
   clFinish(queue);
+  */
+
+  for(uint32_t i = 0; i < point_count; i++) {
+    color_buffer[i] = i;
+  }
+
   // blank screen
   XSetForeground(dis, gc, 0x000000);
   XFillRectangle(dis, win, gc, 0, 0, user_input.x_size, user_input.y_size);
 
   // put pixels
   for (uint32_t i = 0; i < point_count; i++) {
-    //printf("%d\n", i);
     XSetForeground(dis, gc, color_buffer[i]);
     XDrawPoint(dis, win, gc, i%user_input.y_size, i/user_input.y_size);
   }
