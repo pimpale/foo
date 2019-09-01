@@ -176,23 +176,26 @@ cl_mem color_buffer_cl_mem;
 cl_kernel kernel;
 
 void set_kernel_buffer(uint32_t x, uint32_t y) {
-  size_t buffer_size = x * y * sizeof(uint32_t);
-  color_buffer = realloc(color_buffer, buffer_size);
+  size_t point_count = x * y;
+  color_buffer = reallocarray(color_buffer, point_count, sizeof(uint32_t));
   if (color_buffer_cl_mem != NULL) {
     clReleaseMemObject(color_buffer_cl_mem);
   }
+  cl_int ret = !NULL;
   color_buffer_cl_mem =
-      clCreateBuffer(context, CL_MEM_READ_WRITE, buffer_size, NULL, NULL);
-  clSetKernelArg(kernel, 0, buffer_size, &color_buffer_cl_mem);
+      clCreateBuffer(context, CL_MEM_READ_WRITE, point_count*sizeof(uint32_t), NULL, NULL);
+  clSetKernelArg(kernel, 0, sizeof(uint32_t), &x);
+  clSetKernelArg(kernel, 1, sizeof(uint32_t), &y);
+  clSetKernelArg(kernel, 2, sizeof(cl_mem), &color_buffer_cl_mem);
 }
 
 void initialize() {
   const char *kernel_source =
-
-      "void kernel main(global unsigned int* color) {"
-      "  unsigned int id = get_global_id(0);"
-      "  color[id] = 0xCCFFCC;"
-      "}";
+    "void kernel main(unsigned int x_size, unsigned int y_size, global unsigned int* color) {"
+    "  unsigned int x = get_global_id(0);"
+    "  unsigned int y = get_global_id(1);"
+    "  color[y*x_size + x] = 63*(2.0 + sin(x/10.0) + sin(y/10.0));"
+    "}";
 
   cl_program program =
       clCreateProgramWithSource(context, 1, &kernel_source, NULL, NULL);
@@ -228,52 +231,46 @@ void loop() {
   update_user_input(dis, &user_input);
   if (user_input.x_size != user_input.previous_x_size ||
       user_input.y_size != user_input.previous_y_size) {
-
     set_kernel_buffer(user_input.x_size, user_input.y_size);
   }
+  uint32_t x_size = user_input.x_size;
+  uint32_t y_size = user_input.y_size;
 
   if(user_input.q) {
     terminate = true;
   }
 
-  size_t point_count = user_input.x_size * user_input.y_size;
+  size_t point_count = x_size*y_size;
   size_t buffer_size = point_count  * sizeof(uint32_t);
 
-  /*
   // copy the info
-  clEnqueueWriteBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
-                       color_buffer, 0, NULL, NULL);
+  //clEnqueueWriteBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
+  //                     color_buffer, 0, NULL, NULL);
 
   const size_t global_work_offset[3] = {0, 0, 0};
-  const size_t global_work_size[3] = {point_count, 1, 1};
+  const size_t global_work_size[3] = {x_size, y_size, 1};
   const size_t local_work_size[3] = {1, 1, 1};
 
   // send kernel
-  clEnqueueNDRangeKernel(queue, kernel, 1, global_work_offset, global_work_size,
+  cl_int ret = clEnqueueNDRangeKernel(queue, kernel, 2, global_work_offset, global_work_size,
                          local_work_size, 0, NULL, NULL);
+
+  usleep(10000);
 
   // finish work
   clEnqueueReadBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
                        color_buffer, 0, NULL, NULL);
 
   clFinish(queue);
-  */
-
-  for(uint32_t i = 0; i < point_count; i++) {
-    color_buffer[i] = i;
-  }
-
-  // blank screen
-  XSetForeground(dis, gc, 0x000000);
-  XFillRectangle(dis, win, gc, 0, 0, user_input.x_size, user_input.y_size);
 
   // put pixels
-  for (uint32_t i = 0; i < point_count; i++) {
-    XSetForeground(dis, gc, color_buffer[i]);
-    XDrawPoint(dis, win, gc, i%user_input.y_size, i/user_input.y_size);
+  for (uint32_t y = 0; y < y_size; y++) {
+    for (uint32_t x = 0; x < x_size; x++) {
+      XSetForeground(dis, gc, color_buffer[x_size*y + x]);
+      XDrawPoint(dis, win, gc, x, y);
+    }
   }
 
-  usleep(10000);
 }
 
 void finalize() {
