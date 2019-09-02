@@ -175,6 +175,8 @@ uint32_t *color_buffer = NULL;
 cl_mem color_buffer_cl_mem;
 cl_kernel kernel;
 
+cl_float3 eye = {0.0, 0.0, -100.0};
+
 void set_kernel_buffer(uint32_t x, uint32_t y) {
   size_t point_count = x * y;
   color_buffer = reallocarray(color_buffer, point_count, sizeof(uint32_t));
@@ -186,15 +188,30 @@ void set_kernel_buffer(uint32_t x, uint32_t y) {
       clCreateBuffer(context, CL_MEM_READ_WRITE, point_count*sizeof(uint32_t), NULL, NULL);
   clSetKernelArg(kernel, 0, sizeof(uint32_t), &x);
   clSetKernelArg(kernel, 1, sizeof(uint32_t), &y);
-  clSetKernelArg(kernel, 2, sizeof(cl_mem), &color_buffer_cl_mem);
+  clSetKernelArg(kernel, 3, sizeof(cl_mem), &color_buffer_cl_mem);
 }
 
 void initialize() {
   const char *kernel_source =
-    "void kernel main(unsigned int x_size, unsigned int y_size, global unsigned int* color) {"
+    "void kernel main("
+    "                 const unsigned int x_size,"
+    "                 const unsigned int y_size,"
+    "                 float3 eye,"
+    "                 global unsigned int* colorarray"
+    "                ) {"
     "  unsigned int x = get_global_id(0);"
     "  unsigned int y = get_global_id(1);"
-    "  color[y*x_size + x] = 63*(2.0 + sin(x/10.0) + sin(y/10.0));"
+    "  unsigned int color = 0x000000;"
+    "  float3 march_direction = normalize((float3) { x - (x_size/2.0), y - (y_size/2.0), 100 });"
+    "  float3 loc = eye;"
+    "  for(int i = 0; i < 200; i++) {"
+    "    if(loc.x > -50 && loc.x < 50 && loc.y > -50 && loc.y < 50 && loc.z > -50 && loc.z < 5) {"
+    "      color += 1;"
+    "    }"
+    "    loc += march_direction;"
+    "  }"
+    "  /* set array value */"
+    "  colorarray[y*x_size + x] = color;"
     "}";
 
   cl_program program =
@@ -239,6 +256,21 @@ void loop() {
   if(user_input.q) {
     terminate = true;
   }
+
+  // set eye location
+  if(user_input.w) {
+    eye.z += 1;
+  }
+  if(user_input.s) {
+    eye.z += -1;
+  }
+  if(user_input.a) {
+    eye.x += -1;
+  }
+  if(user_input.d) {
+    eye.x += 1;
+  }
+  clSetKernelArg(kernel, 2, sizeof(cl_float3), &eye);
 
   size_t point_count = x_size*y_size;
   size_t buffer_size = point_count  * sizeof(uint32_t);
