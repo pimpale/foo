@@ -193,6 +193,29 @@ void set_kernel_buffer(uint32_t x, uint32_t y) {
 
 void initialize() {
   const char *kernel_source =
+    "unsigned int float_to_color(float hue) {"
+    "  unsigned int bluecomp = hue*0xFF;"
+    "  unsigned int redcomp = (1-hue)*0xFF;"
+    "  return bluecomp + (redcomp << 16);"
+    "}"
+    "float within_cube(float3 loc) {"
+    "  if(loc.x > -50 && loc.x < 50 && loc.y > -50 && loc.y < 50 && loc.z > -50 && loc.z < 50) {"
+    "    return (loc.z+50)/100.0;"
+    "  }"
+    "  return 0;"
+    "}"
+    "float within_sphere(float3 loc) {"
+    "  if(distance(loc, (float3) {0,0,0}) < 50) {"
+    "    return (loc.z+50)/100.0;"
+    "  }"
+    "  return 0;"
+    "}"
+    "float within_sin(float3 loc) {"
+    "  if(loc.z >  3*cos(loc.y)+ 3*cos(loc.x)+10*sin(loc.x/10) + 10*sin(loc.y/10)) {"
+    "    return (loc.z+50)/100.0;"
+    "  }"
+    "  return 0;"
+    "}"
     "void kernel main("
     "                 const unsigned int x_size,"
     "                 const unsigned int y_size,"
@@ -205,8 +228,10 @@ void initialize() {
     "  float3 march_direction = normalize((float3) { x - (x_size/2.0), y - (y_size/2.0), 100 });"
     "  float3 loc = eye;"
     "  for(int i = 0; i < 200; i++) {"
-    "    if(loc.x > -50 && loc.x < 50 && loc.y > -50 && loc.y < 50 && loc.z > -50 && loc.z < 5) {"
-    "      color += 1;"
+    "    float val = within_sin(loc);"
+    "    if(val > 0) {"
+    "      color = float_to_color(val);"
+    "      break;"
     "    }"
     "    loc += march_direction;"
     "  }"
@@ -287,7 +312,7 @@ void loop() {
   cl_int ret = clEnqueueNDRangeKernel(queue, kernel, 2, global_work_offset, global_work_size,
                          local_work_size, 0, NULL, NULL);
 
-  usleep(10000);
+  usleep(40000);
 
   // finish work
   clEnqueueReadBuffer(queue, color_buffer_cl_mem, CL_TRUE, 0, buffer_size,
