@@ -193,6 +193,11 @@ void set_kernel_buffer(uint32_t x, uint32_t y) {
 
 void initialize() {
   const char *kernel_source =
+    "float3 quat_mul_vec3(float3 v, float4 q) {"
+    "  /* from linmath.h */"
+    "  float3 t = 2 * cross(q.xyz,v);"
+    "  return v + q.w * t + cross(q.xyz, t);"
+    "}"
     "unsigned int float_to_color(float hue) {"
     "  unsigned int bluecomp = hue*0xFF;"
     "  unsigned int redcomp = (1-hue)*0xFF;"
@@ -211,7 +216,7 @@ void initialize() {
     "  return 0;"
     "}"
     "float within_sin(float3 loc) {"
-    "  if(loc.z >  3*cos(loc.y)+ 3*cos(loc.x)+10*sin(loc.x/10) + 10*sin(loc.y/10)) {"
+    "  if(loc.z >  3*cos(loc.y/2)+ 3*cos(loc.x/2)+10*cos(loc.x/4) + 10*cos(loc.y/4)) {"
     "    return (loc.z+50)/100.0;"
     "  }"
     "  return 0;"
