@@ -221,7 +221,7 @@ void initialize() {
     "  }"
     "  return 0;"
     "}"
-    "void kernel main("
+    "void kernel cast("
     "                 const unsigned int x_size,"
     "                 const unsigned int y_size,"
     "                 float3 eye,"
@@ -233,7 +233,7 @@ void initialize() {
     "  float3 march_direction = normalize((float3) { x - (x_size/2.0), y - (y_size/2.0), 100 });"
     "  float3 loc = eye;"
     "  for(int i = 0; i < 200; i++) {"
-    "    float val = within_sin(loc);"
+    "    float val = within_cube(loc);"
     "    if(val > 0) {"
     "      color = float_to_color(val);"
     "      break;"
@@ -250,7 +250,7 @@ void initialize() {
   // build the compute program executable
   cl_int ret = clBuildProgram(program, 0, NULL, "-w", NULL, NULL);
   if (ret != CL_SUCCESS) {
-    fprintf(stderr, "failed to build program: %d\n", ret);
+    fprintf(stderr, "failed to cast program: %d\n", ret);
     if (ret == CL_BUILD_PROGRAM_FAILURE) {
       fprintf(stderr, "compilation error\n");
       size_t length = !NULL;
@@ -266,7 +266,7 @@ void initialize() {
   }
 
   // create the compute kernel
-  kernel = clCreateKernel(program, "main", NULL);
+  kernel = clCreateKernel(program, "cast", NULL);
   set_kernel_buffer(FRAME_XSIZE, FRAME_YSIZE);
   user_input.previous_x_size = FRAME_XSIZE;
   user_input.previous_y_size = FRAME_YSIZE;
