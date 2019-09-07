@@ -24,6 +24,7 @@
 
 #define FRAME_XSIZE 500
 #define FRAME_YSIZE 500
+#define SCALE 5
 
 // structs
 typedef struct {
@@ -248,11 +249,8 @@ void initialize() {
       "  }"
       "  return 0;"
       "}"
-      "float within_sin(float3 loc, float time) {"
-      "  if(cos(loc.z/4) + cos(loc.x/4) + cos(loc.y/4) > 2*sin(time/10.0)) {"
-      "    return (loc.z+50)/100.0;"
-      "  }"
-      "  return 0;"
+      "float within_sin(float3 loc) {"
+      "  return cos(loc.z/4) + cos(loc.x/5) + cos(loc.y/5) - 2;"
       "}"
       "void kernel cast("
       "                 const unsigned int x_size,"
@@ -265,17 +263,20 @@ void initialize() {
       "  unsigned int x = get_global_id(0);"
       "  unsigned int y = get_global_id(1);"
       "  unsigned int color = 0x000000;"
-      "  float3 march_direction = (float3) { x - (x_size/2.0), y - "
-      "(y_size/2.0), 300 };"
-      "  march_direction = normalize(quat_mul_vec3(march_direction, quat));"
+      "  float3 march_direction = (float3) {"
+      "       x - (x_size/2.0),"
+      "       y - (y_size/2.0),"
+      "       y_size"
+      "     };"
+      "  march_direction = 0.2f*normalize(quat_mul_vec3(march_direction, quat));"
       "  float3 loc = eye;"
       "  for(int i = 0; i < 200; i++) {"
-      "    float val = within_sin(loc, time);"
+      "    float val = within_sin(loc);"
       "    if(val > 0) {"
       "      color = float_to_color(val);"
       "      break;"
       "    }"
-      "    loc += 0.5f * march_direction;"
+      "    loc += march_direction;"
       "  }"
       "  /* set array value */"
       "  framebuffer[y*x_size + x] = color;"
@@ -312,8 +313,8 @@ void initialize() {
 void loop() {
   update_user_input(dis, &user_input);
 
-  if (user_input.x_size != x_size || user_input.y_size != y_size) {
-    set_size(user_input.x_size, user_input.y_size);
+  if (user_input.x_size/SCALE != x_size/SCALE || user_input.y_size != y_size) {
+    set_size(user_input.x_size/SCALE, user_input.y_size/SCALE);
   }
 
   if (user_input.q) {
@@ -409,7 +410,7 @@ void loop() {
   for (uint32_t y = 0; y < y_size; y++) {
     for (uint32_t x = 0; x < x_size; x++) {
       XSetForeground(dis, gc, framebuffer[x_size * y + x]);
-      XDrawPoint(dis, win, gc, x, y);
+      XFillRectangle(dis, win, gc, x*SCALE, y*SCALE, SCALE, SCALE);
     }
   }
 }
