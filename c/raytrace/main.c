@@ -43,8 +43,6 @@ typedef struct {
   uint32_t previous_mouse_y;
   uint32_t x_size;
   uint32_t y_size;
-  uint32_t previous_x_size;
-  uint32_t previous_y_size;
 } UserInput;
 
 // Program control variables
@@ -111,8 +109,6 @@ void delete_x() {
 void update_user_input(Display *display, UserInput *input) {
   // get the next event and stuff it into our event variable.
   // Note:  only events we set the mask for are detected!
-  int32_t previous_x_size = input->x_size;
-  int32_t previous_y_size = input->y_size;
   int32_t previous_mouse_x = input->mouse_x;
   int32_t previous_mouse_y = input->mouse_y;
 
@@ -149,10 +145,10 @@ void update_user_input(Display *display, UserInput *input) {
           INPUTONKEY(s, false)
           INPUTONKEY(d, false)
           INPUTONKEY(q, false)
-          INPUTONKEY(Left, true)
-          INPUTONKEY(Right, true)
-          INPUTONKEY(Up, true)
-          INPUTONKEY(Down, true)
+          INPUTONKEY(Left, false)
+          INPUTONKEY(Right, false)
+          INPUTONKEY(Up, false)
+          INPUTONKEY(Down, false)
           default: {
           } break;
         }
@@ -174,20 +170,46 @@ void update_user_input(Display *display, UserInput *input) {
       }
     }
   }
-  input->previous_x_size = previous_x_size;
-  input->previous_y_size = previous_y_size;
   input->previous_mouse_x = previous_mouse_x;
   input->previous_mouse_y = previous_mouse_y;
 }
 #undef INPUTONKEY
 
+// represents size of buffer in kernel
+cl_uint x_size;
+cl_uint y_size;
+
 uint32_t *framebuffer = NULL;
 cl_mem framebuffer_cl_mem;
 cl_kernel kernel;
 
+// represents the eye position
 cl_float3 eye = {0.0, 0.0, -100.0};
+// represents rotation
+cl_float4 rotation = {
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+};
 
-void set_kernel_buffer(uint32_t x, uint32_t y) {
+// time since start
+cl_float current_time = 0.0f;
+
+void set_eye(cl_float3 new_eye) {
+  eye = new_eye;
+  clSetKernelArg(kernel, 3, sizeof(cl_float3), &new_eye);
+}
+
+void set_rotation(cl_float4 new_rotation) {
+  // set globals
+  rotation = new_rotation;
+  clSetKernelArg(kernel, 4, sizeof(cl_float4), &new_rotation);
+}
+
+void set_size(uint32_t x, uint32_t y) {
+  x_size = x;
+  y_size = y;
   size_t point_count = x * y;
   framebuffer = reallocarray(framebuffer, point_count, sizeof(uint32_t));
   if (framebuffer_cl_mem != NULL) {
@@ -198,11 +220,16 @@ void set_kernel_buffer(uint32_t x, uint32_t y) {
       context, CL_MEM_READ_WRITE, point_count * sizeof(uint32_t), NULL, NULL);
   clSetKernelArg(kernel, 0, sizeof(uint32_t), &x);
   clSetKernelArg(kernel, 1, sizeof(uint32_t), &y);
-  clSetKernelArg(kernel, 3, sizeof(cl_mem), &framebuffer_cl_mem);
+  clSetKernelArg(kernel, 2, sizeof(cl_mem), &framebuffer_cl_mem);
 }
 
 void initialize() {
   const char *kernel_source =
+      "float3 quat_mul_vec3(float3 v, float4 q) {"
+      "  /* from linmath.h */"
+      "  float3 t = 2 * cross(q.xyz,v);"
+      "  return v + q.w * t + cross(q.xyz, t);"
+      "}"
       "unsigned int float_to_color(float hue) {"
       "  unsigned int bluecomp = hue*0xFF;"
       "  unsigned int redcomp = (1-hue)*0xFF;"
@@ -221,8 +248,8 @@ void initialize() {
       "  }"
       "  return 0;"
       "}"
-      "float within_sin(float3 loc) {"
-      "  if(cos(loc.z/4) + cos(loc.x/4) + cos(loc.y/4) > 2) {"
+      "float within_sin(float3 loc, float time) {"
+      "  if(cos(loc.z/4) + cos(loc.x/4) + cos(loc.y/4) > 2*sin(time/10.0)) {"
       "    return (loc.z+50)/100.0;"
       "  }"
       "  return 0;"
@@ -230,17 +257,20 @@ void initialize() {
       "void kernel cast("
       "                 const unsigned int x_size,"
       "                 const unsigned int y_size,"
+      "                 global unsigned int* framebuffer,"
       "                 const float3 eye,"
-      "                 global unsigned int* framebuffer"
+      "                 const float4 quat,"
+      "                 const float time"
       "                ) {"
       "  unsigned int x = get_global_id(0);"
       "  unsigned int y = get_global_id(1);"
       "  unsigned int color = 0x000000;"
-      "  float3 march_direction = (float3) { x - (x_size/2.0), y - (y_size/2.0), 300 };"
-      "  march_direction = normalize(march_direction);"
+      "  float3 march_direction = (float3) { x - (x_size/2.0), y - "
+      "(y_size/2.0), 300 };"
+      "  march_direction = normalize(quat_mul_vec3(march_direction, quat));"
       "  float3 loc = eye;"
       "  for(int i = 0; i < 200; i++) {"
-      "    float val = within_sin(loc);"
+      "    float val = within_sin(loc, time);"
       "    if(val > 0) {"
       "      color = float_to_color(val);"
       "      break;"
@@ -257,7 +287,7 @@ void initialize() {
   // build the compute program executable
   cl_int ret = clBuildProgram(program, 0, NULL, "-w", NULL, NULL);
   if (ret != CL_SUCCESS) {
-    fprintf(stderr, "failed to cast program: %d\n", ret);
+    fprintf(stderr, "failed to build program: %d\n", ret);
     if (ret == CL_BUILD_PROGRAM_FAILURE) {
       fprintf(stderr, "compilation error\n");
       size_t length = !NULL;
@@ -274,47 +304,88 @@ void initialize() {
 
   // create the compute kernel
   kernel = clCreateKernel(program, "cast", NULL);
-  set_kernel_buffer(FRAME_XSIZE, FRAME_YSIZE);
-  user_input.previous_x_size = FRAME_XSIZE;
-  user_input.previous_y_size = FRAME_YSIZE;
+  set_size(FRAME_XSIZE, FRAME_YSIZE);
   user_input.x_size = FRAME_XSIZE;
   user_input.y_size = FRAME_YSIZE;
 }
 
 void loop() {
   update_user_input(dis, &user_input);
-  if (user_input.x_size != user_input.previous_x_size ||
-      user_input.y_size != user_input.previous_y_size) {
-    set_kernel_buffer(user_input.x_size, user_input.y_size);
+
+  if (user_input.x_size != x_size || user_input.y_size != y_size) {
+    set_size(user_input.x_size, user_input.y_size);
   }
-  uint32_t x_size = user_input.x_size;
-  uint32_t y_size = user_input.y_size;
 
   if (user_input.q) {
     terminate = true;
   }
 
+  // move value
+  const float mval = 5;
+  // rotate value
+  const float rval = 0.05;
+
+  // set rotation
+  cl_float3 horizontal_axis = {1.0f, 0.0f, 0.0f};
+  cl_float3 vertical_axis = {0.0f, 1.0f, 0.0f};
+  cl_float3 depth_axis = {0.0f, 0.0f, 1.0f};
+
+  cl_float4 new_rotation = rotation;
+  if (user_input.Left) {
+    quat q;
+    quat_rotate(q, -rval, vertical_axis.s);
+    cl_float4 current_rotation = new_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Right) {
+    quat q;
+    quat_rotate(q, rval, vertical_axis.s);
+    cl_float4 current_rotation = new_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Up) {
+    quat q;
+    quat_rotate(q, rval, horizontal_axis.s);
+    cl_float4 current_rotation = new_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Down) {
+    quat q;
+    quat_rotate(q, -rval, horizontal_axis.s);
+    cl_float4 current_rotation = new_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+
+  set_rotation(new_rotation);
+
+  cl_float3 rotated_horizontal_axis;
+  cl_float3 rotated_vertical_axis;
+  cl_float3 rotated_depth_axis;
+
+  quat_mul_vec3(rotated_horizontal_axis.s, rotation.s, horizontal_axis.s);
+  quat_mul_vec3(rotated_vertical_axis.s, rotation.s, vertical_axis.s);
+  quat_mul_vec3(rotated_depth_axis.s, rotation.s, depth_axis.s);
+
   // set eye location
+  cl_float3 new_eye = eye;
   if (user_input.w) {
-    eye.z += 1;
+    vec3_add(new_eye.s, new_eye.s, rotated_depth_axis.s);
   }
   if (user_input.s) {
-    eye.z += -1;
+    vec3_sub(new_eye.s, new_eye.s, rotated_depth_axis.s);
   }
   if (user_input.a) {
-    eye.x += -1;
+    vec3_sub(new_eye.s, new_eye.s, rotated_horizontal_axis.s);
   }
   if (user_input.d) {
-    eye.x += 1;
+    vec3_add(new_eye.s, new_eye.s, rotated_horizontal_axis.s);
   }
-  clSetKernelArg(kernel, 2, sizeof(cl_float3), &eye);
+  set_eye(new_eye);
+
+  current_time++;
+  clSetKernelArg(kernel, 5, sizeof(cl_float), &current_time);
 
   size_t point_count = x_size * y_size;
-  size_t buffer_size = point_count * sizeof(uint32_t);
-
-  // copy the info
-  // clEnqueueWriteBuffer(queue, framebuffer_cl_mem, CL_TRUE, 0, buffer_size,
-  //                     framebuffer, 0, NULL, NULL);
 
   const size_t global_work_offset[3] = {0, 0, 0};
   const size_t global_work_size[3] = {x_size, y_size, 1};
@@ -328,8 +399,9 @@ void loop() {
   usleep(40000);
 
   // finish work
-  clEnqueueReadBuffer(queue, framebuffer_cl_mem, CL_TRUE, 0, buffer_size,
-                      framebuffer, 0, NULL, NULL);
+  clEnqueueReadBuffer(queue, framebuffer_cl_mem, CL_TRUE, 0,
+                      point_count * sizeof(uint32_t), framebuffer, 0, NULL,
+                      NULL);
 
   clFinish(queue);
 
