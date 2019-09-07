@@ -20,6 +20,8 @@
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 
+#include "quat.h"
+
 #define INITIAL_FRAME_XSIZE 500
 #define INITIAL_FRAME_YSIZE 500
 
@@ -29,8 +31,11 @@ typedef struct {
   bool a;
   bool s;
   bool d;
+  bool Left;
+  bool Right;
+  bool Up;
+  bool Down;
   bool q;
-  bool e;
   bool mouse_down;
   uint32_t mouse_x;
   uint32_t mouse_y;
@@ -57,68 +62,60 @@ cl_device_id device;
 
 // kernel sources
 
-const char *raygen_source =
-    "float3 quat_mul_vec3(float3 v, float4 q) {"
-    "  /* from linmath.h */"
-    "  float3 t = 2 * cross(q.xyz,v);"
-    "  return v + q.w * t + cross(q.xyz, t);"
-    "}"
-    "void kernel raygen("
-    "                 const unsigned int x_size,"
-    "                 const unsigned int y_size,"
-    "                 const float4 quaternion,"
-    "                 global float3* rays"
-    "                ) {"
-    "  unsigned int x = get_global_id(0);"
-    "  unsigned int y = get_global_id(1);"
-    "  float3 ray = (float3) { x - (x_size/2.0), y - (y_size/2.0), 300 };"
-    "  ray = normalize(quat_mul_vec3(ray, quaternion));"
-    "  rays[y*x_size + x] = ray;"
-    "}";
-
-const char *cast_source =
-    "unsigned int float_to_color(float hue) {"
-    "  unsigned int bluecomp = hue*0xFF;"
-    "  unsigned int redcomp = (1-hue)*0xFF;"
-    "  return bluecomp + (redcomp << 16);"
-    "}"
-    "float within_cube(float3 loc) {"
-    "  if(loc.x > -50 && loc.x < 50 && loc.y > -50 && loc.y < 50 && loc.z > "
-    "-50 && loc.z < 50) {"
-    "    return (loc.z+50)/100.0;"
-    "  }"
-    "  return 0;"
-    "}"
-    "float within_sin(float3 loc) {"
-    "  if(cos(loc.z/4) + cos(loc.x/4) + cos(loc.y/4) > 2) {"
-    "    return (loc.z+50)/100.0;"
-    "  }"
-    "  return 0;"
-    "}"
-    "void kernel cast("
-    "                 const unsigned int x_size,"
-    "                 const unsigned int y_size,"
-    "                 float3 eye,"
-    "                 float3* rays,"
-    "                 global unsigned int* framebuffer"
-    "                ) {"
-    "  unsigned int x = get_global_id(0);"
-    "  unsigned int y = get_global_id(1);"
-    "  unsigned int color = 0x000000;"
-    "  float3 march_direction = normalize((float3) { x - (x_size/2.0), y - "
-    "(y_size/2.0), 300 });"
-    "  float3 loc = eye;"
-    "  for(int i = 0; i < 200; i++) {"
-    "    float val = within_sin(loc);"
-    "    if(val > 0) {"
-    "      color = float_to_color(val);"
-    "      break;"
-    "    }"
-    "    loc += 0.5f * march_direction;"
-    "  }"
-    "  /* set array value */"
-    "  framebuffer[y*x_size + x] = color;"
-    "}";
+const char *source =
+  "float3 quat_mul_vec3(float3 v, float4 q) {"
+  "  /* from linmath.h */"
+  "  float3 t = 2 * cross(q.xyz,v);"
+  "  return v + q.w * t + cross(q.xyz, t);"
+  "}"
+  "void kernel raygen("
+  "                 const unsigned int x_size,"
+  "                 const unsigned int y_size,"
+  "                 const float4 quaternion,"
+  "                 global float3* rays"
+  "                ) {"
+  "  unsigned int x = get_global_id(0);"
+  "  unsigned int y = get_global_id(1);"
+  "  float3 ray = (float3) { x - (x_size/2.0), y - (y_size/2.0), 300 };"
+  "  ray = normalize(quat_mul_vec3(ray, quaternion));"
+  "  rays[y*x_size + x] = ray;"
+  "}"
+  "unsigned int float_to_color(float hue) {"
+  "  unsigned int bluecomp = hue*0xFF;"
+  "  unsigned int redcomp = (1-hue)*0xFF;"
+  "  return bluecomp + (redcomp << 16);"
+  "}"
+  "float within_sin(float3 loc) {"
+  "  if(cos(loc.z/4) + cos(loc.x/4) + cos(loc.y/4) > 2) {"
+  "    return (loc.z+50)/100.0;"
+  "  }"
+  "  return 0;"
+  "}"
+  "void kernel cast("
+  "                 const unsigned int x_size,"
+  "                 const unsigned int y_size,"
+  "                 const float3 eye,"
+  "                 global float3* rays,"
+  "                 global unsigned int* framebuffer"
+  "                ) {"
+  "  unsigned int x = get_global_id(0);"
+  "  unsigned int y = get_global_id(1);"
+  "  unsigned int color = 0x0000FF;"
+  "  framebuffer[y*x_size + x] = 0xFF;"
+  "  return;"
+//  "  float3 march_direction = rays[y*x_size + x];"
+//  "  float3 loc = eye;"
+//  "  for(int i = 0; i < 200; i++) {"
+//  "    float val = within_sin(loc);"
+//  "    if(val > 0) {"
+//  "      color = float_to_color(val);"
+//  "      break;"
+//  "    }"
+//  "    loc += march_direction;"
+//  "  }"
+//  "  /* set array value */"
+//  "  framebuffer[y*x_size + x] = color;"
+  "}";
 
 void init_cl() {
   // Looking up the available GPUs
@@ -188,8 +185,11 @@ void update_user_input(Display *display, UserInput *input) {
           INPUTONKEY(a, true)
           INPUTONKEY(s, true)
           INPUTONKEY(d, true)
+          INPUTONKEY(Left, true)
+          INPUTONKEY(Right, true)
+          INPUTONKEY(Up, true)
+          INPUTONKEY(Down, true)
           INPUTONKEY(q, true)
-          INPUTONKEY(e, true)
           default: {
           } break;
         }
@@ -201,8 +201,11 @@ void update_user_input(Display *display, UserInput *input) {
           INPUTONKEY(a, false)
           INPUTONKEY(s, false)
           INPUTONKEY(d, false)
+          INPUTONKEY(Left, false)
+          INPUTONKEY(Right, false)
+          INPUTONKEY(Up, false)
+          INPUTONKEY(Down, false)
           INPUTONKEY(q, false)
-          INPUTONKEY(e, false)
           default: {
           } break;
         }
@@ -232,10 +235,15 @@ void update_user_input(Display *display, UserInput *input) {
 // represents size of buffer in kernel
 cl_uint x_size;
 cl_uint y_size;
+
+size_t global_work_offset[3] = {0, 0, 0};
+size_t global_work_size[3] = {INITIAL_FRAME_XSIZE, INITIAL_FRAME_YSIZE, 1};
+size_t local_work_size[3] = {1, 1, 1};
+
 // represents location in 3d space
 cl_float3 eye = {0.0, 0.0, -100.0};
 // represents rotation
-cl_float4 rotation = {0.0, 0.0, -100.0};
+cl_float4 rotation;
 
 // variables for casting kernel
 cl_kernel cast_kernel;
@@ -246,15 +254,31 @@ cl_kernel raygen_kernel;
 cl_mem rays_cl_mem;
 
 void set_kernel_size(uint32_t x, uint32_t y) {
-  size_t point_count = x * y;
+  // set globals
+  x_size = user_input.x_size;
+  y_size = user_input.y_size;
+  global_work_size[0] = x;
+  global_work_size[1] = y;
 
+  size_t point_count = x * y;
   // do raygen kernel
   if (rays_cl_mem != NULL) {
     clReleaseMemObject(rays_cl_mem);
   }
   rays_cl_mem = clCreateBuffer(context, CL_MEM_READ_WRITE,
                                point_count * sizeof(cl_float3), NULL, NULL);
+  clSetKernelArg(raygen_kernel, 0, sizeof(uint32_t), &x);
+  clSetKernelArg(raygen_kernel, 1, sizeof(uint32_t), &y);
   clSetKernelArg(raygen_kernel, 3, sizeof(cl_mem), &rays_cl_mem);
+
+  // regenerate rays
+  cl_int ret =
+      clEnqueueNDRangeKernel(queue, raygen_kernel, 2,
+          global_work_offset,
+          global_work_size,
+          local_work_size,
+          0, NULL, NULL);
+  printf("%d, %d, %d\n", x, y, ret);
 
   // do cast kernel
   framebuffer = reallocarray(framebuffer, point_count, sizeof(uint32_t));
@@ -266,9 +290,29 @@ void set_kernel_size(uint32_t x, uint32_t y) {
   clSetKernelArg(cast_kernel, 0, sizeof(uint32_t), &x);
   clSetKernelArg(cast_kernel, 1, sizeof(uint32_t), &y);
   clSetKernelArg(cast_kernel, 3, sizeof(cl_mem), &framebuffer_cl_mem);
+
 }
 
-cl_kernel build_kernel(const char *source, const char *name) {
+void set_rotation(cl_float4 new_rotation) {
+  // set globals
+  rotation = new_rotation;
+
+  clSetKernelArg(raygen_kernel, 2, sizeof(cl_float4), &new_rotation);
+  // regenerate rays
+  cl_int ret =
+      clEnqueueNDRangeKernel(queue, raygen_kernel, 2,
+          global_work_offset,
+          global_work_size,
+          local_work_size,
+          0, NULL, NULL);
+}
+
+void set_eye(cl_float3 new_eye) {
+  eye = new_eye;
+  clSetKernelArg(cast_kernel, 2, sizeof(cl_float3), &new_eye);
+}
+
+cl_program build_program(const char *source) {
   cl_int program_status = !NULL;
   cl_program program =
       clCreateProgramWithSource(context, 1, &source, NULL, &program_status);
@@ -295,9 +339,7 @@ cl_kernel build_kernel(const char *source, const char *name) {
     }
     exit(1);
   }
-
-  // create the compute kernel
-  return clCreateKernel(program, name, NULL);
+  return program;
 }
 
 void initialize() {
@@ -307,56 +349,98 @@ void initialize() {
   user_input.x_size = INITIAL_FRAME_XSIZE;
   user_input.y_size = INITIAL_FRAME_YSIZE;
   // set up kernels
-  cast_kernel = build_kernel(cast_source, "cast");
+  cl_int ret = !NULL;
+  cl_program program = build_program(source);
+  cast_kernel = clCreateKernel(program, "cast", &ret);
+  raygen_kernel = clCreateKernel(program, "raygen", &ret);
   set_kernel_size(INITIAL_FRAME_XSIZE, INITIAL_FRAME_YSIZE);
+
+  // set rotation
+  cl_float4 new_rotation;
+  quat_identity(new_rotation.s);
+  set_rotation(new_rotation);
 }
 
 void loop() {
   update_user_input(dis, &user_input);
   if (user_input.x_size != x_size || user_input.y_size != y_size) {
     set_kernel_size(user_input.x_size, user_input.y_size);
-    x_size = user_input.x_size;
-    y_size = user_input.y_size;
   }
 
   if (user_input.q) {
     terminate = true;
   }
 
+  // move value
+  const float mval = 1;
+  // rotate value
+  const float rval = 0.01;
+
   // set eye location
+  cl_float3 new_eye = eye;
   if (user_input.w) {
-    eye.z += 1;
+    new_eye.z += mval;
   }
   if (user_input.s) {
-    eye.z += -1;
+    new_eye.z += -mval;
   }
   if (user_input.a) {
-    eye.x += -1;
+    new_eye.x += -mval;
   }
   if (user_input.d) {
-    eye.x += 1;
+    new_eye.x += mval;
+  }
+  set_eye(new_eye);
+
+  // set rotation
+  vec3 horizontal_axis = {1.0f, 0.0f, 0.0f};
+  vec3 vertical_axis = {0.0f, 1.0f, 0.0f};
+  vec3 depth_axis = { 0.0f, 0.0f, 1.0f };
+
+  cl_float4 new_rotation = rotation;
+  if (user_input.Left) {
+    quat q;
+    quat_rotate(q,-rval, vertical_axis);
+    cl_float4 current_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Right) {
+    quat q;
+    quat_rotate(q, rval, vertical_axis);
+    cl_float4 current_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Up) {
+    quat q;
+    quat_rotate(q, rval, horizontal_axis);
+    cl_float4 current_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
+  }
+  if (user_input.Down) {
+    quat q;
+    quat_rotate(q, -rval, horizontal_axis);
+    cl_float4 current_rotation;
+    quat_mul(new_rotation.s, current_rotation.s, q);
   }
 
-  clSetKernelArg(cast_kernel, 2, sizeof(cl_float3), &eye);
+  set_rotation(new_rotation);
+
 
   size_t point_count = x_size * y_size;
 
-  const size_t global_work_offset[3] = {0, 0, 0};
-  const size_t global_work_size[3] = {x_size, y_size, 1};
-  const size_t local_work_size[3] = {1, 1, 1};
 
   // send kernel
   cl_int ret =
       clEnqueueNDRangeKernel(queue, cast_kernel, 2, global_work_offset,
                              global_work_size, local_work_size, 0, NULL, NULL);
 
-  usleep(40000);
 
   // finish work
-  clEnqueueReadBuffer(queue, framebuffer_cl_mem, CL_TRUE, 0,
+  clEnqueueReadBuffer(queue, framebuffer_cl_mem, CL_FALSE, 0,
                       point_count * sizeof(uint32_t), framebuffer, 0, NULL,
                       NULL);
 
+  usleep(40000);
   clFinish(queue);
 
   // put pixels
