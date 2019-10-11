@@ -1,40 +1,26 @@
-module cylinder(diameter, length) {
-  linear_extrude(height=length) {
-    circle(d=diameter);
-  }
-}
+union() {
 
-difference() {
-  union() {
-    bend = 150;
-    cylinder(6, 10);
-    rotate([bend, 0, 0]) {
-      cylinder(6, 11);
-      translate([0, 0, 10]) {
-        rotate([180-bend, 0, 0]) {
-          translate([0,0,-1]) {
-            cylinder(6, 10);
-          }
-        }
-      }
+  rotate([0, 90, 0]) {
+    translate([0, 0, 2]) {
+      cylinder(h=10);
     }
-    rotate([-bend, 0, 0]) {
-      cylinder(6, 10);
-      translate([0, 0, 10]) {
-        rotate([-(180-bend), 0, 0]) {
-          cylinder(6, 10);
-        }
-      }
+    translate([0, -2, -10]) {
+      cylinder(h=10);
+    }
+    translate([0, 2, -10]) {
+      cylinder(h=10);
     }
   }
-  union() {
-    cylinder(5, 11);
-    rotate([150, 0, 0]) {
-      cylinder(5, 10);
+
+  rotate_extrude(angle = 90) {
+    translate([2, 0, 0]) {
+      circle(r=1);
     }
-    rotate([-150, 0, 0]) {
-      cylinder(5, 10);
+  }
+
+  rotate_extrude(angle = -90) {
+    translate([2, 0, 0]) {
+      circle(r=1);
     }
   }
 }
-
