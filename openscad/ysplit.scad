@@ -5,13 +5,16 @@ union() {
       cylinder(h=10);
     }
     translate([0, -2, -10]) {
-      cylinder(h=10);
+      rotate([0, 0, 54]) {
+        cylinder(h=10);
+      }
     }
     translate([0, 2, -10]) {
-      cylinder(h=10);
+      rotate([0, 0, -54]) {
+        cylinder(h=10);
+      }
     }
   }
-
   rotate_extrude(angle = 90) {
     translate([2, 0, 0]) {
       circle(r=1);
