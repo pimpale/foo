@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+/home/fidgetsinner/foo/java/workspace/.metadata/.plugins/org.eclipse.jdt.core
-3842426239.index
-4010541665.index
