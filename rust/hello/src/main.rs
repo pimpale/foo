@@ -1,15 +1,19 @@
-struct Triplet {
-  x: i32,
-  y: i32,
-  z: i32,
+struct Foo {
+    a: String,
+    b: String,
 }
 
 fn main() {
-  let Triplet { x, y, z } ; Triplet { x: 1, y: 2, z: 3 };
+    let x = Foo {
+        a: String::from("a"),
+        b: String::from("b"),
+    };
 
-  x = 20;
-  y = 20;
-  z = 20;
+    let xr = &x;
 
-  println!("Hello, world! {} {} {}",x,y,z);
+    let xra = &(*xr).a;
+    let xrb = &(*xr).b;
+
+    println!("{}", xra);
+
 }

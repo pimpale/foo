@@ -1,7 +1,13 @@
 constant f : Nat → Nat
 
-def double : (Nat → Nat) :=
-  λ x => x + x
+def thing : (Nat → (Nat → Nat)) :=
+  λ x y => x + y
+
+
+
+#check 1
+#check thing 1 2
+#check (thing 9) 1
 
 
 
@@ -16,3 +22,12 @@ def double : (Nat → Nat) :=
 -- normalize : ℝ × ℝ → ℝ × ℝ
 
 -- 
+
+inductive nat1 : Type
+| zero : nat1
+| succ : nat1 → nat1
+
+open nat1
+#check nat1
+#check succ (succ zero)
+

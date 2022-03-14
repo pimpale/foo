@@ -1,10 +1,16 @@
-use std::io;
-
-fn stuff(x:String) {
-    &x
-    // x is deallocated
+struct Foo {
+    a: String,
+    b: String,
 }
 
 fn main() {
-    let x = stuff(String::from("hi"));
+    let x = Foo {
+        a: String::from("a"),
+        b: String::from("b"),
+    };
+
+    let xr = &x;
+
+    println!("{}", xr.a);
+
 }
