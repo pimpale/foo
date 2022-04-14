@@ -29,38 +29,37 @@ fn main() {
   let fooref2 = &foo;
   myfn2(fooref2);
 
+}
 
-      struct Sub {
-          x: String
-      }
+fn ok0() {
+  let mut y = String::from("hi");
 
-      struct Super {
-          a: Sub,
-          b: Sub
-      }
+  let x = &mut y;
 
-      let mut ok = Super {
-          a: Sub { x: String::new() },
-          b: Sub { x: String::new() }
-      };
+  let mut q = || {
+      let y = &mut *x;
+      y.push_str("ok");
+  };
 
-      let borrow_a = &mut ok.a;
-      let borrow_b = &mut ok.b;
+  q();
 
-      //let borrow2 = &mut ok;
+  x.push_str("ok");
 
+}
 
-      //borrow2.a.x = String::from("hi");
-      //borrow2.b.x = String::from("hi");
+fn ok1() {
+  let mut y = String::from("hi");
 
-      borrow_a.x = String::from("tho");
-      borrow_b.x = String::from("tho");
+  let mut w = &mut y;
+  let x = &mut w;
 
+  let mut q = || {
+      let y = &mut **x;
+      y.push_str("ok");
+  };
 
+  q();
 
-      let aa = 2;
-      let bb = 2;
-      (aa, bb) = (1,2);
-
+  (*x).push_str("ok");
 
 }
