@@ -5,7 +5,7 @@ from transformers import GPTJForCausalLM
 import torch
 
 model = GPTJForCausalLM.from_pretrained(
-    "ykilcher/gpt-4chan", revision="float16", torch_dtype=torch.float16, low_cpu_mem_usage=True
+    "~/projects/gpt4chan_model_float16/", revision="float16", torch_dtype=torch.float16, low_cpu_mem_usage=True
 )
 model.cuda()
 tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
