@@ -2,3 +2,4 @@ target/
 *.class
 a.out
 nimcache/
+zig-cache/
