@@ -1,29 +1,34 @@
 const std = @import("std");
-const Allocator = std.mem.Allocator;
 
 const Node = struct {
     val: i32,
     next: ?*Node,
 };
 
-pub fn mkNode(allocator:Allocator, val:i32, next: ?*Node) !*Node {
-  try allocator.create(Node);
+pub fn mkNode(allocator: std.mem.Allocator, val: i32, next: ?*Node) !*Node {
+    var n = try allocator.create(Node);
+    n.val = val;
+    n.next = next;
+    return n;
 }
 
-pub fn printNode(stream: std.writer ,head:?*Node) !void {
-  while(head != null) {
-      print(head.val);
-      head = head.next;
-  }
+pub fn printNode(stream: anytype, head: ?*Node) !void {
+    while (head != null) {
+        try stream.print(head.val);
+        head = head.next;
+    }
 }
-
 
 pub fn main() !void {
-    const stdout= std.io.getStdOut().writer();
+    var general_purpose_allocator = std.heap.GeneralPurposeAllocator(.{}){};
+    const gpa = general_purpose_allocator.allocator();
 
-    var ll = try mkNode(Allocator
+    const stdout = std.io.getStdOut().writer();
 
+    var ll = try mkNode(gpa, 1, null);
 
     printNode(stdout, ll);
     try stdout.print("Hello, {s}!\n", .{"world"});
 }
+
+
