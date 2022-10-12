@@ -27,7 +27,7 @@ pub fn main() !void {
 
     var ll = try mkNode(gpa, 1, null);
 
-    printNode(stdout, ll);
+    try printNode(stdout, ll);
     try stdout.print("Hello, {s}!\n", .{"world"});
 }
 
