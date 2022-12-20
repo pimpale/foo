@@ -1,11 +1,8 @@
 from transformers import GPTJForCausalLM, AutoTokenizer
 import torch
 
-from transformers import GPTJForCausalLM
-import torch
-
 model = GPTJForCausalLM.from_pretrained(
-    "~/projects/gpt4chan_model_float16/", revision="float16", torch_dtype=torch.float16, low_cpu_mem_usage=True
+    "EleutherAI/gpt-j-6B", revision="float16", low_cpu_mem_usage=True
 )
 model.cuda()
 tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
