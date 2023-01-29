@@ -1,14 +1,12 @@
-constant f : Nat → Nat
+axiom f : Nat → Nat
 
 def thing : (Nat → (Nat → Nat)) :=
   λ x y => x + y
 
 
-
 #check 1
 #check thing 1 2
 #check (thing 9) 1
-
 
 
 #check Nat
