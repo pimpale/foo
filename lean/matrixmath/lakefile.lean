@@ -5,7 +5,11 @@ package «matrixmath» {
   -- add package configuration options here
 }
 
-lean_lib «MyMatrixImpl» {
+lean_lib «Matrix» {
+  -- add library configuration options here
+}
+
+lean_lib «Vector» {
   -- add library configuration options here
 }
 
