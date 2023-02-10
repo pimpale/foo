@@ -11,7 +11,7 @@ def replicate (m: ℕ) (n: ℕ) (a: α) : Matrix α m n := {
 }
 
 def ofFn (m: ℕ) (n: ℕ) (f: Fin m → Fin n → α) : Matrix α m n := {
-  rows := Vector.ofFn m (fun i => Vector.ofFn n (f i))
+  rows := Vector.ofFn (fun i => Vector.ofFn (f i))
 }
 
  /-- Create a row matrix from a vector -/
@@ -42,13 +42,25 @@ def setCol (x : Matrix α m n) (i : Fin n) (v: Vector α m): Matrix α m n :=
 def getElem (x : Matrix α m n) (row : Fin m) (col: Fin n): α :=
   (x.getRow row).get col
 
+-- instance to get a row
+instance : GetElem (Matrix α m n) (ℕ) (Vector α n) (fun _ i => i < m) where
+  getElem xs i h := xs.getRow ⟨i, h⟩
+
+/-- Get the  i'th column of every row  -/
+def indexRows (x : Matrix α m n) (idxs : Vector (Fin n) m) : Vector α m :=
+  Vector.zipWith Vector.get x.rows idxs
+
+/-- Get the  i'th row of every column  -/
+def indexCols (x : Matrix α m n) (idxs : Vector (Fin m) n) : Vector α n :=
+  idxs.mapIdx (fun j i => x[i][j])
+
 /-- Update an element in the matrix -/
 def setElem (x : Matrix α m n) (row : Fin m) (col: Fin n) (a:α) : Matrix α m n :=
-  x.setRow row ((x.getRow row).set col a)
+  x.setRow row (x[row].set col a)
 
 /-- Transpose a matrix -/
 def transpose (x : Matrix α m n) : Matrix α n m :=
-  Matrix.ofFn n m (fun i j =>  x.getElem j i)
+  Matrix.ofFn n m (fun i j => x[j][i])
 
 @[inherit_doc]
 scoped postfix:1024 "ᵀ" => Matrix.transpose
@@ -62,7 +74,7 @@ def identity (α : Type u) (n :ℕ) [Zero α] [One α] : Matrix α n n :=
 def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ : Nat} (a : Matrix α m₁ p) (b : Matrix α p n₂) : Matrix α m₁ n₂ :=
   let rows := a.rows;
   let cols := (bᵀ).rows;
-  Matrix.ofFn m₁ n₂ (fun i j => Vector.dot (rows.get i) (cols.get j))
+  Matrix.ofFn m₁ n₂ (fun i j => Vector.dot rows[i] cols[j])
 
 
 end Matrix
