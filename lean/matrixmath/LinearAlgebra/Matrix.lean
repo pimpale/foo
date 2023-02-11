@@ -1,4 +1,4 @@
-import «Vector»
+import LinearAlgebra.Vector
 
 structure Matrix (α :Type u) (m: Nat) (n: Nat) where
   -- row major order
@@ -10,9 +10,16 @@ def replicate (m: ℕ) (n: ℕ) (a: α) : Matrix α m n := {
   rows := Vector.replicate m (Vector.replicate n a)
 }
 
-def ofFn (m: ℕ) (n: ℕ) (f: Fin m → Fin n → α) : Matrix α m n := {
+def ofFn (f: Fin m → Fin n → α) : Matrix α m n := {
   rows := Vector.ofFn (fun i => Vector.ofFn (f i))
 }
+
+example (_:Matrix ℕ 3 3) := Matrix.mk !v[
+   !v[1,2,3],
+   !v[1,2,3],
+   !v[1,2,3]
+]
+
 
  /-- Create a row matrix from a vector -/
 def row (v : Vector α n) : Matrix α 1 n := 
@@ -60,21 +67,38 @@ def setElem (x : Matrix α m n) (row : Fin m) (col: Fin n) (a:α) : Matrix α m 
 
 /-- Transpose a matrix -/
 def transpose (x : Matrix α m n) : Matrix α n m :=
-  Matrix.ofFn n m (fun i j => x[j][i])
+  Matrix.ofFn (fun i j => x[j][i])
 
 @[inherit_doc]
 scoped postfix:1024 "ᵀ" => Matrix.transpose
+
+theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin n) (j : Fin n), m1[i][j] = m2[i][j]) 
+  : m1 = m2
+  := by
+    cases m1 with m1
+    cases m2 with m2
+    have h1 : m1 = m2 := Vector.ext (fun i => Vector.ext (h i))
+    cases h1
+    rfl
+
+
+
+@[simp]
+theorem transpose_transpose (M : Matrix m n α) :
+  Mᵀᵀ = M :=
+by 
+  ext;
+  rfl
 
 def zeros (α : Type u) [Zero α] (m: Nat) (n:Nat) : Matrix α m n :=
   Matrix.replicate m n 0
 
 def identity (α : Type u) (n :ℕ) [Zero α] [One α] : Matrix α n n :=
-  Matrix.ofFn n n (fun i j => if i == j then 1 else 0)
+  Matrix.ofFn (fun i j => if i == j then 1 else 0)
 
 def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ : Nat} (a : Matrix α m₁ p) (b : Matrix α p n₂) : Matrix α m₁ n₂ :=
   let rows := a.rows;
   let cols := (bᵀ).rows;
-  Matrix.ofFn m₁ n₂ (fun i j => Vector.dot rows[i] cols[j])
-
+  Matrix.ofFn (fun i j => Vector.dot rows[i] cols[j])
 
 end Matrix

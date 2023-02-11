@@ -1,4 +1,4 @@
-import «MyMatrixImpl»
+import LinearAlgebra.Matrix
 
 #check 1 + 1
 
