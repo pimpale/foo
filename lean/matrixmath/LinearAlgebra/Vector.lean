@@ -90,28 +90,37 @@ def pop {α: Type u} {n : ℕ} (v: Vector α n) : Vector α (n - 1) :=  {
   isEq := Eq.trans (Array.size_pop v.data) (congrArg Nat.pred v.isEq)
 }
 
+
 @[inline]
-def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=  
+def truncateTR {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=  
   if h1: n = n' then
    v.proveLen (v.isEq.trans h1)
   else 
     have n'_ne_n := (Ne.intro h1).symm;
     have n'_lt_n := Nat.lt_of_le_of_ne h (n'_ne_n);
     have n'_succ_le_n := Nat.succ_le_of_lt n'_lt_n;
-    v.pop.truncate n' (Nat.pred_le_pred n'_succ_le_n)
+    v.pop.truncateTR n' (Nat.pred_le_pred n'_succ_le_n)
+
+def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=
+  Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (cs : Vector γ i) : Vector γ n :=
-  if h1: i < n then
-    let a := as[i]'h1;
-    let b := bs[i]'h1;
-    zipWithAux f as bs (cs.push (f a b))
+def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (cs : Vector γ i) (h : i ≤ n) : Vector γ n :=
+  if h1: i = n then
+    cs.proveLen (cs.isEq.trans h1)
   else
-    cs.truncate n (Nat.not_lt.mp h1)
+    have h2: i < n := Nat.lt_of_le_of_ne h h1
+    let a := as[i]'h2;
+    let b := bs[i]'h2;
+    zipWithAux f as bs (cs.push (f a b)) h2
 termination_by _ => n - i
 
+def zipWithTR {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
+  zipWithAux f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
+
+-- This is only 85% as fast as zipWithTR, but they're both pretty fast, and this is a lot easier to prove things with
 def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
-  zipWithAux f v1 v2 (Vector.empty γ)
+  Vector.ofFn (fun i => f v1[i] v2[i])
 
 @[inline]
 def map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) : Vector β n := {
@@ -121,11 +130,11 @@ def map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) : V
 
 @[inline]
 def mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vector α n) : Vector β n := 
-let f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq));
-{
-  data := Array.mapIdx v.data f',
-  isEq := Eq.trans (Array.size_mapIdx v.data f') v.isEq   
-}
+  let f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq));
+  {
+    data := Array.mapIdx v.data f',
+    isEq := Eq.trans (Array.size_mapIdx v.data f') v.isEq   
+  }
 
 
 instance : Inhabited (Vector α 0) where default := empty α
@@ -160,11 +169,34 @@ def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: ℕ} (v1: Vector α n) (v2
 -- Some theorems
 
 /-- Object permanence??? 😳 -/
+@[simp]
 theorem get_set_eq {α: Type u} {n: ℕ} (v: Vector α n) (i: Fin n) (a: α)
   : Vector.get (Vector.set v i a) i = a
   := Array.get_set_eq v.data ⟨i, lt_n_lt_data_size v i⟩ a
 
+/-- If we construct a vector through ofFn, then each element is the result of the function -/
+@[simp]
+theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n) 
+  : (ofFn f)[i] = f i
+  :=
+    -- prove that the i < Array.size (Array.ofFn f)
+    have i_lt_size_ofFn_data : i.val < Array.size (Array.ofFn f) := lt_n_lt_data_size (ofFn f) i
+    -- prove that v.data.get i = f i
+    Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
+
+theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
+  : (v.truncate n' h)[i] = v[i]
+  := get_ofFn (fun i => v[i]) i
+
+/-- If we construct a vector through ofFn, then each element is the result of the function -/
+@[simp]
+theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
+  : (Vector.zipWith f v1 v2)[i] = f v1[i] v2[i]
+  := get_ofFn (fun i => f v1[i] v2[i]) i
+
+
+@[ext]
 theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[i] = v2[i]) :
   v1 = v2
   :=
@@ -191,3 +223,4 @@ theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[
     
 
 end Vector
+

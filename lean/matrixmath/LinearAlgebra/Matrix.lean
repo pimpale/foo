@@ -72,23 +72,58 @@ def transpose (x : Matrix α m n) : Matrix α n m :=
 @[inherit_doc]
 scoped postfix:1024 "ᵀ" => Matrix.transpose
 
-theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin n) (j : Fin n), m1[i][j] = m2[i][j]) 
+@[ext]
+theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) (j : Fin n), m1[i][j] = m2[i][j]) 
   : m1 = m2
-  := by
-    cases m1 with m1
-    cases m2 with m2
-    have h1 : m1 = m2 := Vector.ext (fun i => Vector.ext (h i))
-    cases h1
-    rfl
-
-
+  := 
+    -- prove m1.rows[i] = m2.rows[i] for all i
+    have m1_row_i_eq_m2_row_i : ∀ (i : Fin m), m1.rows[i] = m2.rows[i] :=
+        fun i => Vector.ext (m1.rows.get i) (m2.rows.get i) (h i)
+    -- prove m1.rows = m2.rows
+    have hrows : m1.rows = m2.rows :=
+        Vector.ext m1.rows m2.rows m1_row_i_eq_m2_row_i;
+    -- prove m1 = m2
+    congrArg Matrix.mk hrows 
 
 @[simp]
-theorem transpose_transpose (M : Matrix m n α) :
-  Mᵀᵀ = M :=
-by 
-  ext;
-  rfl
+theorem get_ofFn (f: Fin m → Fin n → α) (i : Fin m) (j : Fin n)
+  : (Matrix.ofFn f)[i][j] = f i j
+  := 
+    -- prove that the i'th row of the matrix is equal to the i'th row of the matrix created by the function
+    have hrows : (Matrix.ofFn f).rows[i] = Vector.ofFn (f i) := 
+        (Vector.get_ofFn (fun i => Vector.ofFn (f i)) i)
+    -- prove the j'th element of row i is equal to f i j
+    have ofFn_f_i_eq_f_i_j : (Vector.ofFn (f i))[j] = f i j := 
+          (Vector.get_ofFn (f i) j)
+    -- prove that the j'th element of the i'th row of the matrix is equal to the j'th element of the i'th row of the matrix created by the function
+    have result : (Matrix.ofFn f).rows[i][j] = f i j := 
+        (congrArg (fun x => x[j]) hrows).trans ofFn_f_i_eq_f_i_j
+    result
+
+@[simp]
+theorem transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
+  : aᵀ[j][i] = a[i][j]
+  :=
+      -- definition of transpose
+      Matrix.get_ofFn (fun i j => a[j][i]) j i
+
+@[simp]
+theorem transpose_transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
+  : aᵀᵀ[i][j] = a[i][j]
+  := 
+      -- prove that aᵀᵀ[i][j] = aᵀ[j][i]
+      have att_ij_eq_at_ji := transpose_elem aᵀ j i
+      -- prove that aᵀ[j][i] = a[i][j]
+      have at_ji_eq_a_ij := transpose_elem a i j
+      -- prove that aᵀᵀ[i][j] = a[i][j]
+      att_ij_eq_at_ji.trans at_ji_eq_a_ij
+
+@[simp]
+theorem transpose_transpose (a : Matrix α m n)
+  : aᵀᵀ = a
+  := Matrix.ext aᵀᵀ a (fun i j => transpose_transpose_elem a i j)
+
+
 
 def zeros (α : Type u) [Zero α] (m: Nat) (n:Nat) : Matrix α m n :=
   Matrix.replicate m n 0
