@@ -1,4 +1,5 @@
 import Mathlib.Order.Basic
+import Mathlib.Tactic.SplitIfs
 
 structure Vector (α : Type u) (n: ℕ) where
   data: Array α
@@ -105,18 +106,18 @@ def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Ve
   Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (cs : Vector γ i) (h : i ≤ n) : Vector γ n :=
+def zipWithAuxTR (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
   if h1: i = n then
-    cs.proveLen (cs.isEq.trans h1)
+    acc.proveLen (acc.isEq.trans h1)
   else
     have h2: i < n := Nat.lt_of_le_of_ne h h1
     let a := as[i]'h2;
     let b := bs[i]'h2;
-    zipWithAux f as bs (cs.push (f a b)) h2
+    zipWithAuxTR f as bs (acc.push (f a b)) h2
 termination_by _ => n - i
 
 def zipWithTR {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
-  zipWithAux f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
+  zipWithAuxTR f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
 
 -- This is only 85% as fast as zipWithTR, but they're both pretty fast, and this is a lot easier to prove things with
 def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
@@ -189,6 +190,61 @@ theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' �
   : (v.truncate n' h)[i] = v[i]
   := get_ofFn (fun i => v[i]) i
 
+
+/-- After push, the last element of the array is what we pushed -/
+@[simp]
+theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
+  : (v.push a)[n] = a
+  := 
+    -- prove that n < n + 1
+    have n_lt_n_plus_1
+        : n < n + 1
+        := Nat.lt_succ_self n
+    -- prove that n < v.push.data.size
+    have n_lt_push_data_size
+        : n < (v.push a).data.size
+        := lt_of_lt_of_eq n_lt_n_plus_1 (v.push a).isEq.symm
+    -- prove that (Array.push v.data a)[Array.size v.data] = a
+    have array_push_v_data_size_eq_a 
+        : (Array.push v.data a)[v.data.size] = a
+        := Array.get_push_eq v.data a
+    -- prove that (Vector.push v a)[n] = a
+    have array_push_v_data_n_eq_a : (Array.push v.data a)[n] = a := by
+      convert array_push_v_data_size_eq_a
+      rw [v.isEq]
+    array_push_v_data_n_eq_a
+
+
+theorem proveLen_getElem {α: Type u} {n: ℕ} (v: Vector α n) (h: v.data.size = n') (i: Fin n) (i': Fin n')
+  : (v.proveLen h)[i'] = v[i]
+  := sorry
+
+
+theorem get_zipWithAuxTR 
+    (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (hin : i ≤ n)
+    (hacc : ∀ (j:ℕ) (h1:j < i) (h2:j < n), acc[j] = f as[j] bs[j])
+  : (∀ (k:ℕ) (h:k < n), (zipWithAuxTR f as bs acc hin)[k] = f as[k] bs[k])
+  := by
+      unfold zipWithAuxTR
+      split_ifs
+      case inl => sorry
+      case inr => sorry
+      
+
+      
+
+--  if hin : i < n then
+--    have : 1 + (n - (i + 1)) = n - i :=
+--      Nat.sub_sub .. ▸ Nat.add_sub_cancel' (Nat.le_sub_of_add_le (Nat.add_comm .. ▸ hin))
+--    simp only [dif_pos hin]
+--    rw [getElem_ofFn_go f (i+1) _ hin (by simp [*]) (fun j hj => ?hacc)]
+--    cases (Nat.lt_or_eq_of_le <| Nat.le_of_lt_succ (by simpa using hj)) with
+--    | inl hj => simp [get_push, hj, hacc j hj]
+--    | inr hj => simp [get_push, *]
+--  else
+--    simp [hin, hacc k (Nat.lt_of_lt_of_le hki (Nat.le_of_not_lt (hi ▸ hin)))]
+
+
 /-- If we construct a vector through ofFn, then each element is the result of the function -/
 @[simp]
 theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
@@ -213,11 +269,12 @@ theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[
             v2.data 
             v1_data_size_eq_v2_data_size 
             forall_i_hi_v1_i_v2_i
+    
     -- prove that v1 = v2
     have v1_eq_v2: v1 = v2 := by calc
       v1 = ⟨v1.data, v1.isEq⟩ := by rfl
       _ = ⟨v2.data, v2.isEq⟩ := by simp [v1_data_eq_v2_data]
-      _ = v2 := by rfl
+      v2 = v2 := by rfl
     v1_eq_v2
 
     
