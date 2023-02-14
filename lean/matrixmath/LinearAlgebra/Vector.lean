@@ -64,7 +64,7 @@ theorem lt_data_size_lt_n {α : Type u} {i n :ℕ}  (v: Vector α n) (h: i < v.d
 
 @[inline]
 def get (v: Vector α n) (i : Fin n) : α :=
-  v.data[i]'(lt_n_lt_data_size v i)
+  v.data.get ⟨i, (lt_n_lt_data_size v i)⟩
 
 -- instance to get element
 instance : GetElem (Vector α n) Nat α (fun _ i => i < n) where
@@ -102,26 +102,25 @@ def truncateTR {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): 
     have n'_succ_le_n := Nat.succ_le_of_lt n'_lt_n;
     v.pop.truncateTR n' (Nat.pred_le_pred n'_succ_le_n)
 
+@[inline]
 def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=
   Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAuxTR (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
+def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
   if h1: i = n then
     acc.proveLen (acc.isEq.trans h1)
   else
     have h2: i < n := Nat.lt_of_le_of_ne h h1
     let a := as[i]'h2;
     let b := bs[i]'h2;
-    zipWithAuxTR f as bs (acc.push (f a b)) h2
+    zipWithAux f as bs (acc.push (f a b)) h2
 termination_by _ => n - i
 
-def zipWithTR {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
-  zipWithAuxTR f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
-
--- This is only 85% as fast as zipWithTR, but they're both pretty fast, and this is a lot easier to prove things with
+@[inline]
 def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
-  Vector.ofFn (fun i => f v1[i] v2[i])
+  zipWithAux f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
+
 
 @[inline]
 def map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) : Vector β n := {
@@ -215,41 +214,43 @@ theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
     array_push_v_data_n_eq_a
 
 
-theorem proveLen_getElem {α: Type u} {n: ℕ} (v: Vector α n) (h: v.data.size = n') (i: Fin n) (i': Fin n')
-  : (v.proveLen h)[i'] = v[i]
-  := sorry
-
-
-theorem get_zipWithAuxTR 
+theorem get_zipWithAux
     (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (hin : i ≤ n)
-    (hacc : ∀ (j:ℕ) (h1:j < i) (h2:j < n), acc[j] = f as[j] bs[j])
-  : (∀ (k:ℕ) (h:k < n), (zipWithAuxTR f as bs acc hin)[k] = f as[k] bs[k])
+    (hacc : ∀ (j:Fin i), acc[j] = f as[j] bs[j])
+  : (∀ (k:Fin n), (zipWithAux f as bs acc hin)[k] = f as[k] bs[k])
   := by
-      unfold zipWithAuxTR
-      split_ifs
-      case inl => sorry
-      case inr => sorry
-      
+      unfold zipWithAux
+      split_ifs with h1
+      case inl =>
+       intro k
+       exact hacc ⟨k.val, (Nat.lt_of_lt_of_eq k.isLt h1.symm)⟩ 
+      case inr =>
+        have h2: i < n := Nat.lt_of_le_of_ne hin h1
+        intro k
+        sorry
 
-      
+/-- proves the absurd if we have an instance of Fin 0-/
+theorem Fin_0_absurd (i: Fin 0) : False
+  := by
+    have i_lt_0 : i.val < 0 := i.isLt
+    exact Nat.not_lt_zero i.val i_lt_0
 
---  if hin : i < n then
---    have : 1 + (n - (i + 1)) = n - i :=
---      Nat.sub_sub .. ▸ Nat.add_sub_cancel' (Nat.le_sub_of_add_le (Nat.add_comm .. ▸ hin))
---    simp only [dif_pos hin]
---    rw [getElem_ofFn_go f (i+1) _ hin (by simp [*]) (fun j hj => ?hacc)]
---    cases (Nat.lt_or_eq_of_le <| Nat.le_of_lt_succ (by simpa using hj)) with
---    | inl hj => simp [get_push, hj, hacc j hj]
---    | inr hj => simp [get_push, *]
---  else
---    simp [hin, hacc k (Nat.lt_of_lt_of_le hki (Nat.le_of_not_lt (hi ▸ hin)))]
-
-
-/-- If we construct a vector through ofFn, then each element is the result of the function -/
+/-- If we construct a vector through zipWith, then the i'th element is f a[i] b[i] -/
 @[simp]
 theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
   : (Vector.zipWith f v1 v2)[i] = f v1[i] v2[i]
-  := get_ofFn (fun i => f v1[i] v2[i]) i
+  := by unfold zipWith
+        exact 
+        (get_zipWithAux 
+          f 
+          v1 
+          v2 
+          ⟨Array.mkEmpty n, rfl⟩
+          (by simp)
+          -- prove that for all j < i, acc[j] = f as[j] bs[j]
+          -- note that in this case, i = 0, so we don't have to prove anything
+          (by intro z; exact False.elim (Fin_0_absurd z))
+        ) i
 
 
 @[ext]
@@ -277,7 +278,6 @@ theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[
       v2 = v2 := by rfl
     v1_eq_v2
 
-    
 
 end Vector
 

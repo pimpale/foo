@@ -47,13 +47,6 @@ def isInt (d:DType) : Bool :=
 
 end DType
 
-structure point (A : Type) :=
-mk :: (x : A) (y : A)
-deriving Repr
-
-#eval point.mk 1 2
-
-
 mutual
 /-- Symbolic vector data -/
 inductive SVector where
@@ -67,8 +60,8 @@ inductive SVector where
 | of_col : (data : SMatrix) -> (i : Fin m) -> SVector
 -- Symbolic
 | input : (n : Nat) -> (d: DType) -> SVector
--- StaticOp
-| op : (a: SVector) -> (b: SVector) -> SVector
+-- Operations
+| unaryOp : (a: SVector) -> (b: SVector) -> SVector
 
 inductive SMatrix where
 -- From constant data
@@ -82,6 +75,29 @@ inductive SMatrix where
 -- Symbolic
 | input : (n m : Nat) -> (d: DType) -> SMatrix
 end
+
+mutual
+def vectorSize (v: SVector) : Bool :=
+  match v with
+  | SVector.of_float _ _ => true
+  | SVector.of_int _ _ => true
+  | SVector.of_nat _ _ => true
+  | SVector.of_bool _ _ => true
+  | SVector.of_row _ _ => true
+  | SVector.of_col _ _ => true
+  | SVector.input _ _ (n : Nat) -> (d: DType) -> SVector
+  | SVector.pointwiseOp : (a: SVector) -> (b: SVector) -> SVector
+
+def isMatrixValid (v: SVector) : Bool :=
+  sorry
+
+
+end
+
+structure LVector (n:ℕ) where
+  data: SVector
+  size: data.isValid == true
+
 
 #eval (!v[0.5, 0.2])[0]
 
