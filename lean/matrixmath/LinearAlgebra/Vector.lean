@@ -189,24 +189,48 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
     -- prove that v.data.get i = f i
     Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
+/-- If we construct a vector through ofFn, then each element is the result of the function -/
+@[simp]
+theorem Array_getElem_mk {n: Nat} (a:α) (i: Fin n) 
+  : (Array.mkArray n a)[i.val] = a
+  := by
+    -- prove that the i < Array.size (Array.mkArray n a)
+    haveI i_lt_size_array : i.val < Array.size (Array.mkArray n a) := lt_of_lt_of_eq i.isLt (Array.size_mkArray n a).symm
+    -- convert array access to list access
+    have list_get_eq := Array.getElem_eq_data_get (Array.mkArray n a) i_lt_size_array
+    rw [list_get_eq]
+    -- convert mkArray to replicate
+    have mkArray_eq: (mkArray n a).data = List.replicate n a:= by rfl
+    rw [mkArray_eq]
+
+    
+
 theorem get_eq_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
   : v[i] = v.data.get ⟨i, lt_n_lt_data_size v i⟩
   := rfl
 
+theorem get_eq_data_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
+  : v[i] = v.data.data.get ⟨i, lt_n_lt_data_size v i⟩
+  := rfl
+
+
 /-- If we construct a vector through replicate, then each element is the provided function -/
 @[simp]
 theorem get_replicate {n: Nat} (a:α) (i: Fin n) 
-  : (replicate n f)[i] = a
+  : (replicate n a)[i] = a
   :=
-    -- prove that the i < Array.size (Array.mk f)
-    have i_lt_size_ofFn_data : i.val < Array.size (Array.mkArray n a) := lt_n_lt_data_size (replicate n a) i
-    -- prove that v.data.get i = f i
-    by 
-      unfold replicate
-      unfold mkArray
-      
+    -- prove that the i < (List.replicate a n).length
+    have i_lt_length : i.val < (List.replicate n a).length := lt_n_lt_data_size (replicate n a) i
 
-    Array.getElem_mk f i.val i_lt_size_ofFn_data
+    by
+      rw [get_eq_data_get]
+      unfold replicate
+      rw [mkArray_data]
+      have replicate_data_data_eq_replicate : (replicate n a).data.data = List.replicate n a := by rfl 
+      rw [replicate_data_data_eq_replicate]
+
+
+
 
 theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
