@@ -76,6 +76,7 @@ inductive SMatrix where
 | input : (n m : Nat) -> (d: DType) -> SMatrix
 end
 
+
 mutual
 def vectorSize (v: SVector) : Bool :=
   match v with

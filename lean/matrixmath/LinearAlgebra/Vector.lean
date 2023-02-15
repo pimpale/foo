@@ -1,4 +1,5 @@
 import Mathlib.Order.Basic
+import Mathlib.Algebra.Group.Defs
 import Mathlib.Tactic.SplitIfs
 
 structure Vector (α : Type u) (n: ℕ) where
@@ -107,15 +108,25 @@ def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Ve
   Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
+def zipWithAux {α β γ:Type u} {i n:ℕ} (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
   if h1: i = n then
     acc.proveLen (acc.isEq.trans h1)
   else
-    have h2: i < n := Nat.lt_of_le_of_ne h h1
-    let a := as[i]'h2;
-    let b := bs[i]'h2;
+    -- we have to use letI in order to not have to deal with let fns in the proof when we unfold
+    letI h2: i < n := Nat.lt_of_le_of_ne h h1
+    letI a := as[i]'h2;
+    letI b := bs[i]'h2;
     zipWithAux f as bs (acc.push (f a b)) h2
-termination_by _ => n - i
+termination_by _ => n-i
+decreasing_by 
+  simp_wf
+  -- current goal: n - (i + 1) < n - i
+  apply Nat.sub_add_lt_sub
+  -- h₂ is 0 < 1
+  case h₂ => exact Nat.one_pos
+  have h2 := Nat.lt_of_le_of_ne h h1
+  -- h₁ is 1 + 1 ≤ n
+  case h₁ => exact Nat.succ_le_of_lt h2
 
 @[inline]
 def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
@@ -137,33 +148,27 @@ def mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vec
   }
 
 
-instance : Inhabited (Vector α 0) where default := empty α
+def zero [Zero α] {n:ℕ}: Vector α n := Vector.replicate n 0
 
-def zeros [Zero α] (n:ℕ): Vector α n := Vector.replicate n 0
-instance [Zero α] : Zero (Vector α n) where zero := zeros n
+def one [One α] {n:ℕ}: Vector α n := Vector.replicate n 1
 
-def ones [One α] (n:ℕ): Vector α n := Vector.replicate n 1
-instance [One α] : One (Vector α n) where one := ones n
-
-def neg [Neg α] (v: Vector α n) : Vector α n := Vector.map Neg.neg v
-instance [Neg α] : Neg (Vector α n) where neg := neg
+def neg [Neg α] (v: Vector α n) : Vector α n := Vector.map (-·) v
 
 def add [Add α] (v1: Vector α n) (v2: Vector α n) : Vector α n :=
-  Vector.zipWith Add.add v1 v2
+  Vector.zipWith (·+·) v1 v2
 
-instance {α : Type u} [Add α] {n: ℕ} : Add (Vector α n) where add := add
+def sub {α : Type u} [Sub α] {n: ℕ} (a b: Vector α n) : Vector α n :=
+  Vector.zipWith (·-·) a b
 
-def sub {α : Type u} [Sub α] {n: ℕ} (v1: Vector α n) (v2: Vector α n) : Vector α n :=
-  Vector.zipWith Sub.sub v1 v2
+def scale {α : Type u} [Mul α] {n: ℕ} (k: α) (v: Vector α n) : Vector α n := 
+  v.map (fun x => k*x)
 
-instance {α : Type u} [Sub α] {n: ℕ} : Sub (Vector α n) where
-  sub := Vector.sub
+def hadamard {α : Type u} [Mul α] {n: ℕ} (a b: Vector α n) : Vector α n :=
+  Vector.zipWith (·*·) a b  
 
-def hadamard {α : Type u} [Mul α] {n: ℕ} (v1: Vector α n) (v2: Vector α n) : Vector α n :=
-  Vector.zipWith Mul.mul v1 v2  
+def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: ℕ} (a b: Vector α n) : α :=
+  Array.foldl (·+·) 0 (Vector.zipWith (·*·) a b).data
 
-def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: ℕ} (v1: Vector α n) (v2: Vector α n) : α :=
-  Array.foldl Add.add 0 (Array.zipWith v1.data v2.data Mul.mul)
 
 
 -- Some theorems
@@ -184,6 +189,24 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
     -- prove that v.data.get i = f i
     Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
+theorem get_eq_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
+  : v[i] = v.data.get ⟨i, lt_n_lt_data_size v i⟩
+  := rfl
+
+/-- If we construct a vector through replicate, then each element is the provided function -/
+@[simp]
+theorem get_replicate {n: Nat} (a:α) (i: Fin n) 
+  : (replicate n f)[i] = a
+  :=
+    -- prove that the i < Array.size (Array.mk f)
+    have i_lt_size_ofFn_data : i.val < Array.size (Array.mkArray n a) := lt_n_lt_data_size (replicate n a) i
+    -- prove that v.data.get i = f i
+    by 
+      unfold replicate
+      unfold mkArray
+      
+
+    Array.getElem_mk f i.val i_lt_size_ofFn_data
 
 theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
@@ -277,6 +300,83 @@ theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[
       _ = ⟨v2.data, v2.isEq⟩ := by simp [v1_data_eq_v2_data]
       v2 = v2 := by rfl
     v1_eq_v2
+
+
+instance : Inhabited (Vector α 0) where default := empty α
+instance [Zero α] : Zero (Vector α n) where zero := zero
+instance [One α] : One (Vector α n) where one := one
+instance [Neg α] : Neg (Vector α n) where neg := neg
+instance {α : Type u} [Add α] {n: ℕ} : Add (Vector α n) where add := add
+instance {α : Type u} [Sub α] {n: ℕ} : Sub (Vector α n) where sub := sub
+instance {α : Type u} [Mul α] {n: ℕ} : Mul (Vector α n) where mul := hadamard
+
+theorem add_assoc {α : Type u} [q:AddSemigroup α] {n: ℕ} (a b c:Vector α n) 
+  : (a + b) + c = a + (b + c)
+  :=
+    have ab_c_eq_a_bc : (add (add a b) c) = (add a (add b c)) := by
+      unfold add
+      apply ext
+      intro i
+      rw [get_zipWith]
+      rw [get_zipWith]
+      rw [get_zipWith]
+      rw [get_zipWith]
+      -- current goal is a[i] + b[i] + c[i] = a[i] + (b[i] + c[i])
+      rw [q.add_assoc]
+
+    ab_c_eq_a_bc
+
+theorem add_comm {α : Type u} [q:AddCommSemigroup α] {n: ℕ} (a b: Vector α n) 
+  : a + b = b + a
+  :=
+    have ab_eq_ba : (add a b) = (add b a) := by
+      unfold add
+      apply ext
+      intro i
+      rw [get_zipWith]
+      rw [get_zipWith]
+      -- current goal is a[i] + b[i]  = b[i] + a[i]
+      rw [q.add_comm]
+    ab_eq_ba
+
+theorem mul_assoc {α : Type u} [q:Semigroup α] {n: ℕ} (a b c:Vector α n) 
+  : (a * b) * c = a * (b * c)
+  :=
+    have ab_c_eq_a_bc : (hadamard (hadamard a b) c) = (hadamard a (hadamard b c)) := by
+      unfold hadamard
+      apply ext
+      intro i
+      rw [get_zipWith]
+      rw [get_zipWith]
+      rw [get_zipWith]
+      rw [get_zipWith]
+      -- current goal is a[i] * b[i] * c[i] = a[i] * (b[i] * c[i])
+      rw [q.mul_assoc]
+
+    ab_c_eq_a_bc
+
+instance {α : Type u} [AddSemigroup α] {n:ℕ} : AddSemigroup (Vector α n) where
+  add_assoc := add_assoc
+
+instance {α : Type u} [AddCommSemigroup α] {n:ℕ} : AddCommSemigroup (Vector α n) where
+  add_comm := add_comm
+
+instance {α : Type u} [Semigroup α] {n:ℕ} : Semigroup (Vector α n) where
+  mul_assoc := mul_assoc
+
+
+theorem add_zero {α : Type u} [q:AddMonoid α] {n: ℕ} (a:Vector α n)
+  : a + 0 = a
+  :=
+    have a_0_eq_a : (add a zero) = a := by
+      unfold add zero
+      apply ext
+      intro i
+      rw [get_zipWith]
+      rw [get_replicate]
+      -- current goal is a[i] + 0[i] = a[i]
+      rw [q.add_zero]
+    a_0_eq_a
 
 
 end Vector
