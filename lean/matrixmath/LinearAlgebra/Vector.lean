@@ -189,21 +189,27 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
     -- prove that v.data.get i = f i
     Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
-/-- If we construct a vector through ofFn, then each element is the result of the function -/
+/-- If we construct an array through mkArray then each element is the provided value -/
 @[simp]
-theorem Array_getElem_mk {n: Nat} (a:α) (i: Fin n) 
-  : (Array.mkArray n a)[i.val] = a
+theorem Array_getElem_mk {n: Nat} (a:α) (i: ℕ) (h: i < Array.size (Array.mkArray n a)) 
+  : (Array.mkArray n a)[i] = a
   := by
-    -- prove that the i < Array.size (Array.mkArray n a)
-    haveI i_lt_size_array : i.val < Array.size (Array.mkArray n a) := lt_of_lt_of_eq i.isLt (Array.size_mkArray n a).symm
-    -- convert array access to list access
-    have list_get_eq := Array.getElem_eq_data_get (Array.mkArray n a) i_lt_size_array
-    rw [list_get_eq]
-    -- convert mkArray to replicate
-    have mkArray_eq: (mkArray n a).data = List.replicate n a:= by rfl
-    rw [mkArray_eq]
+      -- wrap both sides in some
+      apply Option.some.inj
+      -- use get? = some a to prove that get i = a
+      have some_mkArray_i_eq_mkArray_i? := (Array.getElem?_eq_getElem (Array.mkArray n a) i h).symm
+      rw [some_mkArray_i_eq_mkArray_i?]
+      -- here's a neat trick: in order to avoid "motive type correctness" issues, we can use get? instead of get
+      rw [Array.getElem?_eq_data_get?]
+      rw [mkArray_data]
+      have mkArray_eq_n := Array.size_mkArray n a
+      have replicate_eq_n := List.length_replicate n a
+      have i_lt_replicate_n_length : i < (List.replicate n a).length := lt_of_lt_of_eq h (mkArray_eq_n.trans replicate_eq_n.symm)
+      have get?_eq_get := List.get?_eq_get i_lt_replicate_n_length
+      rw [get?_eq_get]
+      have get_replicate := List.get_replicate a ⟨i, i_lt_replicate_n_length⟩
+      rw [get_replicate]
 
-    
 
 theorem get_eq_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
   : v[i] = v.data.get ⟨i, lt_n_lt_data_size v i⟩
@@ -213,23 +219,15 @@ theorem get_eq_data_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
   : v[i] = v.data.data.get ⟨i, lt_n_lt_data_size v i⟩
   := rfl
 
-
 /-- If we construct a vector through replicate, then each element is the provided function -/
 @[simp]
 theorem get_replicate {n: Nat} (a:α) (i: Fin n) 
   : (replicate n a)[i] = a
   :=
-    -- prove that the i < (List.replicate a n).length
-    have i_lt_length : i.val < (List.replicate n a).length := lt_n_lt_data_size (replicate n a) i
-
-    by
-      rw [get_eq_data_get]
-      unfold replicate
-      rw [mkArray_data]
-      have replicate_data_data_eq_replicate : (replicate n a).data.data = List.replicate n a := by rfl 
-      rw [replicate_data_data_eq_replicate]
-
-
+    -- prove that the i < Array.size (Array.mkArray n a)
+    have i_lt_size_mkArray_data : i.val < Array.size (Array.mkArray n a) := lt_n_lt_data_size (replicate n a) i
+    -- prove that v.data.get i = f i
+    Array_getElem_mk a i.val i_lt_size_mkArray_data
 
 
 theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
