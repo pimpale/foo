@@ -1,5 +1,4 @@
 import Mathlib.Order.Basic
-import Mathlib.Algebra.Group.Defs
 import Mathlib.Tactic.SplitIfs
 
 structure Vector (α : Type u) (n: ℕ) where
@@ -194,18 +193,21 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
 theorem Array_getElem_mk {n: Nat} (a:α) (i: ℕ) (h: i < Array.size (Array.mkArray n a)) 
   : (Array.mkArray n a)[i] = a
   := by
-      -- wrap both sides in some
+      -- here's a neat trick: in order to avoid "motive type correctness" issues, we can use get? instead of get
+      -- let's execute this strategy:
+      -- first, wrap both sides in some
       apply Option.some.inj
-      -- use get? = some a to prove that get i = a
+      -- move from (some (mkArray n a)[i]) to (mkArray n a).get? i
       have some_mkArray_i_eq_mkArray_i? := (Array.getElem?_eq_getElem (Array.mkArray n a) i h).symm
       rw [some_mkArray_i_eq_mkArray_i?]
-      -- here's a neat trick: in order to avoid "motive type correctness" issues, we can use get? instead of get
+      -- now we can use the fact that mkArray n a uses List.replicate n a
       rw [Array.getElem?_eq_data_get?]
       rw [mkArray_data]
       have mkArray_eq_n := Array.size_mkArray n a
       have replicate_eq_n := List.length_replicate n a
       have i_lt_replicate_n_length : i < (List.replicate n a).length := lt_of_lt_of_eq h (mkArray_eq_n.trans replicate_eq_n.symm)
       have get?_eq_get := List.get?_eq_get i_lt_replicate_n_length
+      -- move back from get? to get
       rw [get?_eq_get]
       have get_replicate := List.get_replicate a ⟨i, i_lt_replicate_n_length⟩
       rw [get_replicate]
@@ -230,10 +232,13 @@ theorem get_replicate {n: Nat} (a:α) (i: Fin n)
     Array_getElem_mk a i.val i_lt_size_mkArray_data
 
 
-theorem truncate_get {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
+theorem get_truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
   := get_ofFn (fun i => v[i]) i
 
+theorem get_map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) (i: Fin n)
+  : (v.map f)[i] = f v[i]
+  := Array.getElem_map f v.data i (lt_n_lt_data_size (v.map f) i)
 
 /-- After push, the last element of the array is what we pushed -/
 @[simp]
@@ -331,75 +336,6 @@ instance [Neg α] : Neg (Vector α n) where neg := neg
 instance {α : Type u} [Add α] {n: ℕ} : Add (Vector α n) where add := add
 instance {α : Type u} [Sub α] {n: ℕ} : Sub (Vector α n) where sub := sub
 instance {α : Type u} [Mul α] {n: ℕ} : Mul (Vector α n) where mul := hadamard
-
-theorem add_assoc {α : Type u} [q:AddSemigroup α] {n: ℕ} (a b c:Vector α n) 
-  : (a + b) + c = a + (b + c)
-  :=
-    have ab_c_eq_a_bc : (add (add a b) c) = (add a (add b c)) := by
-      unfold add
-      apply ext
-      intro i
-      rw [get_zipWith]
-      rw [get_zipWith]
-      rw [get_zipWith]
-      rw [get_zipWith]
-      -- current goal is a[i] + b[i] + c[i] = a[i] + (b[i] + c[i])
-      rw [q.add_assoc]
-
-    ab_c_eq_a_bc
-
-theorem add_comm {α : Type u} [q:AddCommSemigroup α] {n: ℕ} (a b: Vector α n) 
-  : a + b = b + a
-  :=
-    have ab_eq_ba : (add a b) = (add b a) := by
-      unfold add
-      apply ext
-      intro i
-      rw [get_zipWith]
-      rw [get_zipWith]
-      -- current goal is a[i] + b[i]  = b[i] + a[i]
-      rw [q.add_comm]
-    ab_eq_ba
-
-theorem mul_assoc {α : Type u} [q:Semigroup α] {n: ℕ} (a b c:Vector α n) 
-  : (a * b) * c = a * (b * c)
-  :=
-    have ab_c_eq_a_bc : (hadamard (hadamard a b) c) = (hadamard a (hadamard b c)) := by
-      unfold hadamard
-      apply ext
-      intro i
-      rw [get_zipWith]
-      rw [get_zipWith]
-      rw [get_zipWith]
-      rw [get_zipWith]
-      -- current goal is a[i] * b[i] * c[i] = a[i] * (b[i] * c[i])
-      rw [q.mul_assoc]
-
-    ab_c_eq_a_bc
-
-instance {α : Type u} [AddSemigroup α] {n:ℕ} : AddSemigroup (Vector α n) where
-  add_assoc := add_assoc
-
-instance {α : Type u} [AddCommSemigroup α] {n:ℕ} : AddCommSemigroup (Vector α n) where
-  add_comm := add_comm
-
-instance {α : Type u} [Semigroup α] {n:ℕ} : Semigroup (Vector α n) where
-  mul_assoc := mul_assoc
-
-
-theorem add_zero {α : Type u} [q:AddMonoid α] {n: ℕ} (a:Vector α n)
-  : a + 0 = a
-  :=
-    have a_0_eq_a : (add a zero) = a := by
-      unfold add zero
-      apply ext
-      intro i
-      rw [get_zipWith]
-      rw [get_replicate]
-      -- current goal is a[i] + 0[i] = a[i]
-      rw [q.add_zero]
-    a_0_eq_a
-
 
 end Vector
 
