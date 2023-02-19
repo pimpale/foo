@@ -172,6 +172,7 @@ def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: ℕ} (a b: Vector α n) : 
 
 -- Some theorems
 
+
 /-- Object permanence??? 😳 -/
 @[simp]
 theorem get_set_eq {α: Type u} {n: ℕ} (v: Vector α n) (i: Fin n) (a: α)
@@ -263,21 +264,66 @@ theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
       rw [v.isEq]
     array_push_v_data_n_eq_a
 
+/-- After push, the previous elements are the same -/
+@[simp]
+theorem get_push_lt {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin n)
+  : (v.push a)[i] = v[i]
+  := 
+    have i_lt_size_data : i.val < v.data.size := lt_n_lt_data_size v i
+    Array.get_push_lt v.data a i.val i_lt_size_data
+
+@[simp]
+theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
+  : (v.push a)[i] = if h:i < n then v[i]'h else a
+  := by
+    split_ifs with h1
+    case inl =>
+      exact get_push_lt v a ⟨i, h1⟩
+    case inr =>
+      have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ i.isLt) (Nat.ge_of_not_lt h1)
+      simp [get_push_lt, h2]
 
 theorem get_zipWithAux
     (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (hin : i ≤ n)
     (hacc : ∀ (j:Fin i), acc[j] = f as[j] bs[j])
-  : (∀ (k:Fin n), (zipWithAux f as bs acc hin)[k] = f as[k] bs[k])
+    (k: Fin n)
+  : (zipWithAux f as bs acc hin)[k] = f as[k] bs[k]
   := by
       unfold zipWithAux
       split_ifs with h1
       case inl =>
-       intro k
        exact hacc ⟨k.val, (Nat.lt_of_lt_of_eq k.isLt h1.symm)⟩ 
       case inr =>
-        have h2: i < n := Nat.lt_of_le_of_ne hin h1
-        intro k
-        sorry
+        have hin_next: i + 1 ≤ n := Nat.succ_le_of_lt (Nat.lt_of_le_of_ne hin h1)
+        exact get_zipWithAux 
+          -- input elements
+          f as bs 
+          -- accumulator
+          (acc.push (f as[i] bs[i]))
+          -- proof that accumulator length is valid
+          (hin_next)
+          -- proof that accumulator is correct
+          (by
+            intro j
+            -- we want to prove that (acc.push (f as[i] bs[i]))[j] = f as[j] bs[j]
+            -- split into the case where j < i and j = i
+            rw [get_push acc (f as[i] bs[i]) j]
+            split_ifs with h2
+            -- case j < i
+            case inl => 
+              -- prove that acc[j] = f as[j] bs[j]
+              exact hacc ⟨j.val, h2⟩
+            -- case j = i
+            case inr =>
+              -- prove that f as[i] bs[i] = f as[j] bs[j]
+              have h3 : j.val = i := Nat.le_antisymm (Nat.le_of_lt_succ j.isLt) (Nat.ge_of_not_lt h2)
+              have h3' : j = ⟨i, Nat.lt.base i⟩ := Fin.eq_of_val_eq h3
+              rw [h3']
+              rfl
+          )
+          -- index we want to get
+          k
+termination_by _ => n - i
 
 /-- proves the absurd if we have an instance of Fin 0-/
 theorem Fin_0_absurd (i: Fin 0) : False
@@ -290,18 +336,18 @@ theorem Fin_0_absurd (i: Fin 0) : False
 theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
   : (Vector.zipWith f v1 v2)[i] = f v1[i] v2[i]
   := by unfold zipWith
-        exact 
-        (get_zipWithAux 
-          f 
-          v1 
-          v2 
+        exact get_zipWithAux 
+          -- input elements
+          f v1 v2 
+          -- accumulator
           ⟨Array.mkEmpty n, rfl⟩
+          -- a proof that i ≤ n
           (by simp)
-          -- prove that for all j < i, acc[j] = f as[j] bs[j]
+          -- a proof that for all j < i, acc[j] = f as[j] bs[j]
           -- note that in this case, i = 0, so we don't have to prove anything
           (by intro z; exact False.elim (Fin_0_absurd z))
-        ) i
-
+          -- the index we want to get
+          i
 
 @[ext]
 theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[i] = v2[i]) :

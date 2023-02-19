@@ -46,60 +46,33 @@ def isInt (d:DType) : Bool :=
   d.isSInt ∨ d.isUInt
 
 end DType
-
+-- SMatrixElem and SVectorElem are the symbolic representation of the data
+-- They form the graph. However they 
 mutual
 /-- Symbolic vector data -/
-inductive SVector where
+inductive SVectorElem where
 -- From constant data
-| of_float : (data : Vector Float n) -> (d: DType) -> SVector
-| of_int : (data : Vector Int n) -> (d: DType) -> SVector
-| of_nat : (data : Vector Nat n) -> (d: DType)-> SVector
-| of_bool : (data : Vector Bool n) -> (d: DType) -> SVector
+| of_float : (data : Vector Float n) -> (d: DType) -> SVectorElem
+| of_int : (data : Vector Int n) -> (d: DType) -> SVectorElem
+| of_nat : (data : Vector Nat n) -> (d: DType)-> SVectorElem
+| of_bool : (data : Vector Bool n) -> (d: DType) -> SVectorElem
 -- From Symbolic Matrix
-| of_row : (data : SMatrix) -> (i : Fin m) -> SVector
-| of_col : (data : SMatrix) -> (i : Fin m) -> SVector
--- Symbolic
-| input : (n : Nat) -> (d: DType) -> SVector
+| of_row : (data : SMatrixElem) -> (i : Fin m) -> SVectorElem
+| of_col : (data : SMatrixElem) -> (i : Fin m) -> SVectorElem
 -- Operations
-| unaryOp : (a: SVector) -> (b: SVector) -> SVector
+| unary_op : (a: SVectorElem)  -> SVectorElem
+| binary_op : (a b: SVectorElem) -> SVectorElem
 
-inductive SMatrix where
+
+inductive SMatrixElem where
 -- From constant data
-| of_float : (data : Matrix Float m n) -> (d: DType) -> SMatrix
-| of_int : (data : Matrix Int m n) -> (d: DType) -> SMatrix
-| of_nat : (data : Matrix Nat m n) -> (d: DType)-> SMatrix
-| of_bool : (data : Matrix Bool m n) -> (d: DType) -> SMatrix
+| of_float : (data : Matrix Float m n) -> (d: DType) -> SMatrixElem
+| of_int : (data : Matrix Int m n) -> (d: DType) -> SMatrixElem
+| of_nat : (data : Matrix Nat m n) -> (d: DType)-> SMatrixElem
+| of_bool : (data : Matrix Bool m n) -> (d: DType) -> SMatrixElem
 -- From Symbolic Vector
-| row : SVector -> SMatrix
-| col : SVector -> SMatrix
+| row : SVectorElem -> SMatrixElem
+| col : SVectorElem -> SMatrixElem
 -- Symbolic
-| input : (n m : Nat) -> (d: DType) -> SMatrix
+| input : (n m : Nat) -> (d: DType) -> SMatrixElem
 end
-
-
-mutual
-def vectorSize (v: SVector) : Bool :=
-  match v with
-  | SVector.of_float _ _ => true
-  | SVector.of_int _ _ => true
-  | SVector.of_nat _ _ => true
-  | SVector.of_bool _ _ => true
-  | SVector.of_row _ _ => true
-  | SVector.of_col _ _ => true
-  | SVector.input _ _ (n : Nat) -> (d: DType) -> SVector
-  | SVector.pointwiseOp : (a: SVector) -> (b: SVector) -> SVector
-
-def isMatrixValid (v: SVector) : Bool :=
-  sorry
-
-
-end
-
-structure LVector (n:ℕ) where
-  data: SVector
-  size: data.isValid == true
-
-
-#eval (!v[0.5, 0.2])[0]
-
-#check (SVector.of_float !v[0.5, 0.2] DType.f32)
