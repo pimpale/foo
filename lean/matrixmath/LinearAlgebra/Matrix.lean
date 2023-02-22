@@ -24,7 +24,6 @@ example (_:Matrix ℕ 3 3) := Matrix.mk !v[
    !v[1,2,3]
 ]
 
-
  /-- Create a row matrix from a vector -/
 def row (v : Vector α n) : Matrix α 1 n := 
   { rows := Vector.singleton v } 
@@ -73,6 +72,18 @@ def setElem (x : Matrix α m n) (row : Fin m) (col: Fin n) (a:α) : Matrix α m 
 def transpose (x : Matrix α m n) : Matrix α n m :=
   Matrix.ofFn (fun i j => x[j][i])
 
+/-- Map each element of a matrix -/
+def map (f: α → β) (x : Matrix α m n) : Matrix β m n :=
+  { rows := x.rows.map (fun v => v.map f) }
+
+/-- Map each element of a matrix with its index -/
+def mapIdx (f: Fin m → Fin n → α → β) (x : Matrix α m n) : Matrix β m n :=
+  { rows := x.rows.mapIdx (fun i v => v.mapIdx (fun j a => f i j a)) }
+
+/-- Create a matrix by applying a binary function to each element of two matrices -/
+def zipWith (f: α → β → γ) (x : Matrix α m n) (y : Matrix β m n) : Matrix γ m n :=
+  { rows := x.rows.zipWith (fun v1 v2 => v1.zipWith f v2) y.rows }
+
 @[inherit_doc]
 scoped postfix:1024 "ᵀ" => Matrix.transpose
 
@@ -89,16 +100,19 @@ theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) 
     -- prove m1 = m2
     congrArg Matrix.mk hrows 
 
+
 @[simp]
 theorem get_ofFn (f: Fin m → Fin n → α) (i : Fin m) (j : Fin n)
   : (Matrix.ofFn f)[i][j] = f i j
   := 
     -- prove that the i'th row of the matrix is equal to the i'th row of the matrix created by the function
-    have hrows : (Matrix.ofFn f).rows[i] = Vector.ofFn (f i) := 
-        (Vector.get_ofFn (fun i => Vector.ofFn (f i)) i)
+    have hrows 
+      : (Matrix.ofFn f).rows[i] = Vector.ofFn (f i) 
+      := Vector.get_ofFn (fun i => Vector.ofFn (f i)) i
     -- prove the j'th element of row i is equal to f i j
-    have ofFn_f_i_eq_f_i_j : (Vector.ofFn (f i))[j] = f i j := 
-          (Vector.get_ofFn (f i) j)
+    have ofFn_f_i_eq_f_i_j 
+      : (Vector.ofFn (f i))[j] = f i j
+      := Vector.get_ofFn (f i) j
     -- prove that the j'th element of the i'th row of the matrix is equal to the j'th element of the i'th row of the matrix created by the function
     have result : (Matrix.ofFn f).rows[i][j] = f i j := 
         (congrArg (fun x => x[j]) hrows).trans ofFn_f_i_eq_f_i_j
@@ -138,21 +152,17 @@ def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ :
   let cols := (bᵀ).rows;
   Matrix.ofFn (fun i j => Vector.dot rows[i] cols[j])
 
-def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n := {
-  rows := a.rows.map (-·)
-}
+def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n := 
+  Matrix.map (-·) a
 
-def add {α : Type u} [Add α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
-  rows := Vector.zipWith (·+·) a.rows b.rows
-}
+def add {α : Type u} [Add α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
+  Matrix.zipWith (·+·) a b
 
-def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
-  rows := Vector.zipWith (·-·) a.rows b.rows
-}
+def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := 
+  Matrix.zipWith (·-·) a b
 
-def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
-  rows := Vector.zipWith (·*·) a.rows b.rows
-}
+def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := 
+  Matrix.zipWith (·*·) a b
 
 instance : Inhabited (Matrix α 0 0) where default := empty
 instance [Zero α] : Zero (Matrix α n m) where zero := zero
