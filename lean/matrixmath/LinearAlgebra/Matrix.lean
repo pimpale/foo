@@ -14,6 +14,10 @@ def ofFn (f: Fin m → Fin n → α) : Matrix α m n := {
   rows := Vector.ofFn (fun i => Vector.ofFn (f i))
 }
 
+def empty {α : Type u} : Matrix α 0 0 := {
+  rows := Vector.empty
+}
+
 example (_:Matrix ℕ 3 3) := Matrix.mk !v[
    !v[1,2,3],
    !v[1,2,3],
@@ -100,7 +104,6 @@ theorem get_ofFn (f: Fin m → Fin n → α) (i : Fin m) (j : Fin n)
         (congrArg (fun x => x[j]) hrows).trans ofFn_f_i_eq_f_i_j
     result
 
-@[simp]
 theorem transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
   : aᵀ[j][i] = a[i][j]
   :=
@@ -124,16 +127,38 @@ theorem transpose_transpose (a : Matrix α m n)
   := Matrix.ext aᵀᵀ a (fun i j => transpose_transpose_elem a i j)
 
 
-
-def zeros (α : Type u) [Zero α] (m: Nat) (n:Nat) : Matrix α m n :=
+def zero {α : Type u} [Zero α] {m n: ℕ} : Matrix α m n :=
   Matrix.replicate m n 0
 
-def identity (α : Type u) (n :ℕ) [Zero α] [One α] : Matrix α n n :=
+def identity {α : Type u} {n :ℕ} [Zero α] [One α] : Matrix α n n :=
   Matrix.ofFn (fun i j => if i == j then 1 else 0)
 
 def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ : Nat} (a : Matrix α m₁ p) (b : Matrix α p n₂) : Matrix α m₁ n₂ :=
   let rows := a.rows;
   let cols := (bᵀ).rows;
   Matrix.ofFn (fun i j => Vector.dot rows[i] cols[j])
+
+def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n := {
+  rows := a.rows.map (-·)
+}
+
+def add {α : Type u} [Add α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
+  rows := Vector.zipWith (·+·) a.rows b.rows
+}
+
+def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
+  rows := Vector.zipWith (·-·) a.rows b.rows
+}
+
+def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := {
+  rows := Vector.zipWith (·*·) a.rows b.rows
+}
+
+instance : Inhabited (Matrix α 0 0) where default := empty
+instance [Zero α] : Zero (Matrix α n m) where zero := zero
+instance [One α] [Zero α] : One (Matrix α n n) where one := identity
+instance [Neg α] : Neg (Matrix α n m) where neg := neg
+instance {α : Type u} [Add α] {n m: ℕ} : Add (Matrix α n m) where add := add
+instance {α : Type u} [Sub α] {n m: ℕ} : Sub (Matrix α n m) where sub := sub
 
 end Matrix

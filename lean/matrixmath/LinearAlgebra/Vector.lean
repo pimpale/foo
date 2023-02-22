@@ -15,7 +15,7 @@ def proveLen {n:ℕ} {n':ℕ} (v:Vector α n) (h: v.data.size = n'): Vector α n
 }
 
 @[inline]
-def empty (α : Type u) : Vector α 0 := {
+def empty {α : Type u} : Vector α 0 := {
   data := Array.empty
   isEq := List.length_nil
 }
@@ -375,7 +375,7 @@ theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[
     v1_eq_v2
 
 
-instance : Inhabited (Vector α 0) where default := empty α
+instance : Inhabited (Vector α 0) where default := empty
 instance [Zero α] : Zero (Vector α n) where zero := zero
 instance [One α] : One (Vector α n) where one := one
 instance [Neg α] : Neg (Vector α n) where neg := neg
