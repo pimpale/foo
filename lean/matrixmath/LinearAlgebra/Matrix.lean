@@ -10,13 +10,13 @@ def replicate (m: ℕ) (n: ℕ) (a: α) : Matrix α m n := {
   rows := Vector.replicate m (Vector.replicate n a)
 }
 
-def ofFn (f: Fin m → Fin n → α) : Matrix α m n := {
-  rows := Vector.ofFn (fun i => Vector.ofFn (f i))
-}
+def ofFn (f: Fin m → Fin n → α) : Matrix α m n :=
+  Matrix.mk (Vector.ofFn (fun i => Vector.ofFn (f i)))
 
-def empty {α : Type u} : Matrix α 0 0 := {
-  rows := Vector.empty
-}
+
+def empty {α : Type u} : Matrix α 0 0 := 
+  Matrix.mk Vector.empty
+
 
 example (_:Matrix ℕ 3 3) := Matrix.mk !v[
    !v[1,2,3],
@@ -26,11 +26,11 @@ example (_:Matrix ℕ 3 3) := Matrix.mk !v[
 
  /-- Create a row matrix from a vector -/
 def row (v : Vector α n) : Matrix α 1 n := 
-  { rows := Vector.singleton v } 
+  Matrix.mk (Vector.singleton v)
 
 /-- Create a column matrix from a vector -/
 def col (v: Vector α m) : Matrix α m 1 :=
-  { rows := Vector.map Vector.singleton v }
+  Matrix.mk (Vector.map Vector.singleton v)
 
 /-- Get a row of the matrix as a vector -/
 def getRow (x : Matrix α m n) (i : Fin m): Vector α n :=
@@ -50,7 +50,7 @@ def setCol (x : Matrix α m n) (i : Fin n) (v: Vector α m): Matrix α m n :=
 
 /-- Get an element in the matrix -/
 def getElem (x : Matrix α m n) (row : Fin m) (col: Fin n): α :=
-  (x.getRow row).get col
+  (x.rows.get row).get col
 
 -- instance to get a row
 instance : GetElem (Matrix α m n) (ℕ) (Vector α n) (fun _ i => i < m) where
@@ -74,7 +74,7 @@ def transpose (x : Matrix α m n) : Matrix α n m :=
 
 /-- Map each element of a matrix -/
 def map (f: α → β) (x : Matrix α m n) : Matrix β m n :=
-  { rows := x.rows.map (fun v => v.map f) }
+  Matrix.mk (x.rows.map (Vector.map f)) 
 
 /-- Map each element of a matrix with its index -/
 def mapIdx (f: Fin m → Fin n → α → β) (x : Matrix α m n) : Matrix β m n :=
@@ -82,7 +82,7 @@ def mapIdx (f: Fin m → Fin n → α → β) (x : Matrix α m n) : Matrix β m 
 
 /-- Create a matrix by applying a binary function to each element of two matrices -/
 def zipWith (f: α → β → γ) (x : Matrix α m n) (y : Matrix β m n) : Matrix γ m n :=
-  { rows := x.rows.zipWith (fun v1 v2 => v1.zipWith f v2) y.rows }
+  Matrix.mk (x.rows.zipWith (fun v1 v2 => v1.zipWith f v2) y.rows)
 
 @[inherit_doc]
 scoped postfix:1024 "ᵀ" => Matrix.transpose
@@ -101,22 +101,64 @@ theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) 
     congrArg Matrix.mk hrows 
 
 
+theorem get_mk_rows (rows: Vector (Vector α n) m) 
+  : (Matrix.mk rows).rows = rows
+  := rfl
+
+theorem getElem_rows (x: Matrix α m n) (i: Fin m) (j: Fin n)
+  : x[i][j] = x.rows[i][j]
+  := rfl
+
 @[simp]
 theorem get_ofFn (f: Fin m → Fin n → α) (i : Fin m) (j : Fin n)
   : (Matrix.ofFn f)[i][j] = f i j
-  := 
-    -- prove that the i'th row of the matrix is equal to the i'th row of the matrix created by the function
-    have hrows 
-      : (Matrix.ofFn f).rows[i] = Vector.ofFn (f i) 
-      := Vector.get_ofFn (fun i => Vector.ofFn (f i)) i
-    -- prove the j'th element of row i is equal to f i j
-    have ofFn_f_i_eq_f_i_j 
-      : (Vector.ofFn (f i))[j] = f i j
-      := Vector.get_ofFn (f i) j
-    -- prove that the j'th element of the i'th row of the matrix is equal to the j'th element of the i'th row of the matrix created by the function
-    have result : (Matrix.ofFn f).rows[i][j] = f i j := 
-        (congrArg (fun x => x[j]) hrows).trans ofFn_f_i_eq_f_i_j
-    result
+  := by
+      rewrite [getElem_rows (Matrix.ofFn f) i j]
+      unfold Matrix.ofFn
+      rewrite [get_mk_rows _]
+      rewrite [Vector.get_ofFn (fun i => Vector.ofFn (f i)) i]
+      rewrite [Vector.get_ofFn (f i) j]
+      rfl
+
+
+@[simp]
+theorem get_map (f: α → β) (x: Matrix α m n) (i : Fin m) (j: Fin n)
+  : (x.map f)[i][j] = f x[i][j]
+  := by
+      rewrite [getElem_rows x i j]
+      rewrite [getElem_rows (map f x) i j]
+      unfold Matrix.map
+      rewrite [get_mk_rows _]
+      rewrite [Vector.get_map (Vector.map f) x.rows i]
+      rewrite [Vector.get_map f x.rows[i] j]
+      rfl
+
+@[simp]
+theorem get_mapIdx (f: Fin m → Fin n → α → β) (x: Matrix α m n) (i : Fin m) (j: Fin n)
+  : (x.mapIdx f)[i][j] = f i j x[i][j]
+  := by
+      rewrite [getElem_rows x i j]
+      rewrite [getElem_rows (mapIdx f x) i j]
+      unfold Matrix.mapIdx
+      rewrite [get_mk_rows _]
+      rewrite [Vector.get_mapIdx (fun i v => Vector.mapIdx (fun j a => f i j a) v) x.rows i]
+      rewrite [Vector.get_mapIdx (fun j a => f i j a) x.rows[i] j]
+      rfl
+
+
+@[simp]
+theorem get_zipWith (f: α → β → γ) (x: Matrix α m n) (y: Matrix β m n) (i : Fin m) (j: Fin n)
+  : (Matrix.zipWith f x y)[i][j] = f x[i][j] y[i][j]
+  := by
+      rewrite [getElem_rows x i j]
+      rewrite [getElem_rows y i j]
+      rewrite [getElem_rows (zipWith f x y) i j]
+      unfold Matrix.zipWith
+      rewrite [get_mk_rows (Vector.zipWith (fun v1 v2 => Vector.zipWith f v1 v2) x.rows y.rows)]
+      rewrite [Vector.get_zipWith (fun v1 v2 => Vector.zipWith f v1 v2) x.rows y.rows i]
+      rewrite [Vector.get_zipWith f x.rows[i] y.rows[i] j]
+      rfl
+
 
 theorem transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
   : aᵀ[j][i] = a[i][j]
@@ -127,7 +169,7 @@ theorem transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
 @[simp]
 theorem transpose_transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
   : aᵀᵀ[i][j] = a[i][j]
-  := 
+  :=
       -- prove that aᵀᵀ[i][j] = aᵀ[j][i]
       have att_ij_eq_at_ji := transpose_elem aᵀ j i
       -- prove that aᵀ[j][i] = a[i][j]

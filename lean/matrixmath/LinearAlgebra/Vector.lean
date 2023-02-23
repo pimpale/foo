@@ -1,5 +1,4 @@
 import Mathlib.Order.Basic
-import Mathlib.Tactic.SplitIfs
 
 structure Vector (α : Type u) (n: ℕ) where
   data: Array α
@@ -140,7 +139,7 @@ def map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) : V
 
 @[inline]
 def mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vector α n) : Vector β n := 
-  let f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq));
+  letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq));
   {
     data := Array.mapIdx v.data f',
     isEq := Eq.trans (Array.size_mapIdx v.data f') v.isEq   
@@ -241,6 +240,13 @@ theorem get_map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector �
   : (v.map f)[i] = f v[i]
   := Array.getElem_map f v.data i (lt_n_lt_data_size (v.map f) i)
 
+
+theorem get_mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vector α n) (i: Fin n)
+  : (v.mapIdx f)[i] = f i v[i]
+  := 
+    letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq))
+    Array.getElem_mapIdx v.data f' i (lt_n_lt_data_size (v.mapIdx f) i)
+
 /-- After push, the last element of the array is what we pushed -/
 @[simp]
 theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
@@ -276,10 +282,12 @@ theorem get_push_lt {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin n)
 theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
   : (v.push a)[i] = if h:i < n then v[i]'h else a
   := by
-    split_ifs with h1
+    split
     case inl =>
+      rename _ => h1
       exact get_push_lt v a ⟨i, h1⟩
     case inr =>
+      rename _ => h1
       have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ i.isLt) (Nat.ge_of_not_lt h1)
       simp [get_push_lt, h2]
 
@@ -290,10 +298,12 @@ theorem get_zipWithAux
   : (zipWithAux f as bs acc hin)[k] = f as[k] bs[k]
   := by
       unfold zipWithAux
-      split_ifs with h1
+      split
       case inl =>
+       rename _ => h1
        exact hacc ⟨k.val, (Nat.lt_of_lt_of_eq k.isLt h1.symm)⟩ 
       case inr =>
+        rename _ => h1
         have hin_next: i + 1 ≤ n := Nat.succ_le_of_lt (Nat.lt_of_le_of_ne hin h1)
         exact get_zipWithAux 
           -- input elements
@@ -308,13 +318,15 @@ theorem get_zipWithAux
             -- we want to prove that (acc.push (f as[i] bs[i]))[j] = f as[j] bs[j]
             -- split into the case where j < i and j = i
             rw [get_push acc (f as[i] bs[i]) j]
-            split_ifs with h2
+            split
             -- case j < i
             case inl => 
+              rename _ => h2
               -- prove that acc[j] = f as[j] bs[j]
               exact hacc ⟨j.val, h2⟩
             -- case j = i
             case inr =>
+              rename _ => h2
               -- prove that f as[i] bs[i] = f as[j] bs[j]
               have h3 : j.val = i := Nat.le_antisymm (Nat.le_of_lt_succ j.isLt) (Nat.ge_of_not_lt h2)
               have h3' : j = ⟨i, Nat.lt.base i⟩ := Fin.eq_of_val_eq h3
