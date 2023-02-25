@@ -1,6 +1,9 @@
-import Mathlib.Order.Basic
+import Std.Data.Array.Init.Basic
+import Std.Data.Array.Lemmas
 
-structure Vector (α : Type u) (n: ℕ) where
+import Mathlib.Init.Algebra.Order
+
+structure Vector (α : Type u) (n: Nat) where
   data: Array α
   -- a proof that the data.length = n
   isEq: data.size = n
@@ -8,7 +11,7 @@ deriving Repr
 
 namespace Vector 
 
-def proveLen {n:ℕ} {n':ℕ} (v:Vector α n) (h: v.data.size = n'): Vector α n' := {
+def proveLen {n:Nat} {n':Nat} (v:Vector α n) (h: v.data.size = n'): Vector α n' := {
   data := v.data,
   isEq := h
 }
@@ -20,7 +23,7 @@ def empty {α : Type u} : Vector α 0 := {
 }
 
 @[inline]
-def replicate (n: ℕ) (x: α) : Vector α n := {
+def replicate (n: Nat) (x: α) : Vector α n := {
     data := Array.mkArray n x,
     isEq := Array.size_mkArray n x
 }
@@ -52,12 +55,12 @@ def singleton (x:α) : Vector α 1 :=
   Vector.replicate 1 x
 
 /-- prove that i < v.data.size if i < n-/
-theorem lt_n_lt_data_size {α : Type u} {n :ℕ} (v: Vector α n) (i : Fin n)
+theorem lt_n_lt_data_size {α : Type u} {n :Nat} (v: Vector α n) (i : Fin n)
   : (i < v.data.size)
-  := lt_of_lt_of_eq i.isLt (Eq.symm v.isEq)
+  := Nat.lt_of_lt_of_eq i.isLt (Eq.symm v.isEq)
 
 /-- prove that i < n if i < v.array.size-/
-theorem lt_data_size_lt_n {α : Type u} {i n :ℕ}  (v: Vector α n) (h: i < v.data.size) 
+theorem lt_data_size_lt_n {α : Type u} {i n :Nat}  (v: Vector α n) (h: i < v.data.size) 
   : (i < n)
   := v.isEq.symm ▸ h
 
@@ -72,7 +75,7 @@ instance : GetElem (Vector α n) Nat α (fun _ i => i < n) where
 @[inline]
 def set (v: Vector α n) (i : Fin n) (a : α) : Vector α n :=
   -- prove that i ≤ v.data.length
-  let i := Fin.mk i.val (lt_of_lt_of_eq i.isLt (Eq.symm v.isEq));
+  let i := Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt (Eq.symm v.isEq));
   {
     data := Array.set v.data i a,
     isEq := Eq.trans (Array.size_set v.data i a) v.isEq 
@@ -85,14 +88,14 @@ def push (v: Vector α n) (a : α) : Vector α (n + 1) :=  {
 }
 
 @[inline]
-def pop {α: Type u} {n : ℕ} (v: Vector α n) : Vector α (n - 1) :=  {
+def pop {α: Type u} {n : Nat} (v: Vector α n) : Vector α (n - 1) :=  {
   data := Array.pop v.data,
   isEq := Eq.trans (Array.size_pop v.data) (congrArg Nat.pred v.isEq)
 }
 
 
 @[inline]
-def truncateTR {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=  
+def truncateTR {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=  
   if h1: n = n' then
    v.proveLen (v.isEq.trans h1)
   else 
@@ -102,11 +105,11 @@ def truncateTR {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): 
     v.pop.truncateTR n' (Nat.pred_le_pred n'_succ_le_n)
 
 @[inline]
-def truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n): Vector α n' :=
+def truncate {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=
   Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAux {α β γ:Type u} {i n:ℕ} (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
+def zipWithAux {α β γ:Type u} {i n:Nat} (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
   if h1: i = n then
     acc.proveLen (acc.isEq.trans h1)
   else
@@ -132,49 +135,60 @@ def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β →
 
 
 @[inline]
-def map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) : Vector β n := {
+def map {α : Type u} {β : Type u} {n: Nat} (f: α → β) (v: Vector α n) : Vector β n := {
   data := Array.map f v.data,
   isEq := Eq.trans (Array.size_map f v.data) v.isEq   
 }
 
 @[inline]
-def mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vector α n) : Vector β n := 
-  letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq));
+def mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β) (v: Vector α n) : Vector β n := 
+  letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt v.isEq));
   {
     data := Array.mapIdx v.data f',
     isEq := Eq.trans (Array.size_mapIdx v.data f') v.isEq   
   }
 
 
-def zero [Zero α] {n:ℕ}: Vector α n := Vector.replicate n 0
+def zero [Zero α] {n:Nat}: Vector α n := Vector.replicate n 0
 
-def one [One α] {n:ℕ}: Vector α n := Vector.replicate n 1
+def one [One α] {n:Nat}: Vector α n := Vector.replicate n 1
 
 def neg [Neg α] (v: Vector α n) : Vector α n := Vector.map (-·) v
 
 def add [Add α] (v1: Vector α n) (v2: Vector α n) : Vector α n :=
   Vector.zipWith (·+·) v1 v2
 
-def sub {α : Type u} [Sub α] {n: ℕ} (a b: Vector α n) : Vector α n :=
+def sub {α : Type u} [Sub α] {n: Nat} (a b: Vector α n) : Vector α n :=
   Vector.zipWith (·-·) a b
 
-def scale {α : Type u} [Mul α] {n: ℕ} (k: α) (v: Vector α n) : Vector α n := 
+def scale {α : Type u} [Mul α] {n: Nat} (k: α) (v: Vector α n) : Vector α n := 
   v.map (fun x => k*x)
 
-def hadamard {α : Type u} [Mul α] {n: ℕ} (a b: Vector α n) : Vector α n :=
+def hadamard {α : Type u} [Mul α] {n: Nat} (a b: Vector α n) : Vector α n :=
   Vector.zipWith (·*·) a b  
 
-def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: ℕ} (a b: Vector α n) : α :=
+def dot {α : Type u} [Add α] [Mul α] [Zero α] {n: Nat} (a b: Vector α n) : α :=
   Array.foldl (·+·) 0 (Vector.zipWith (·*·) a b).data
 
-
-
 -- Some theorems
+@[simp]
+theorem getElem_data {α: Type u} {n: Nat} (v: Vector α n) (i: Fin n)
+  : v[i] = v.data[i]'(lt_n_lt_data_size v i)
+  := rfl
 
+@[simp]
+theorem get_fin_of_get_nat {α: Type u} {n: Nat} (v: Vector α n) (i: Nat) (h: i < n)
+  : v[i] = v[Fin.mk i h]
+  := rfl
+
+@[simp]
+theorem mk_data_eq {α: Type u} (data: Array α) (h: data.size = n)
+  : (Vector.mk (n := n) data h).data = data
+  := rfl
 
 /-- Object permanence??? 😳 -/
 @[simp]
-theorem get_set_eq {α: Type u} {n: ℕ} (v: Vector α n) (i: Fin n) (a: α)
+theorem get_set_eq {α: Type u} {n: Nat} (v: Vector α n) (i: Fin n) (a: α)
   : Vector.get (Vector.set v i a) i = a
   := Array.get_set_eq v.data ⟨i, lt_n_lt_data_size v i⟩ a
 
@@ -190,12 +204,10 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
 
 /-- If we construct an array through mkArray then each element is the provided value -/
 @[simp]
-theorem Array_getElem_mk {n: Nat} (a:α) (i: ℕ) (h: i < Array.size (Array.mkArray n a)) 
+theorem Array_getElem_mk {n: Nat} (a:α) (i: Nat) (h: i < Array.size (Array.mkArray n a)) 
   : (Array.mkArray n a)[i] = a
   := by
-      -- here's a neat trick: in order to avoid "motive type correctness" issues, we can use get? instead of get
-      -- let's execute this strategy:
-      -- first, wrap both sides in some
+      -- in order to avoid "motive type correctness" issues, we can use get? instead of get
       apply Option.some.inj
       -- move from (some (mkArray n a)[i]) to (mkArray n a).get? i
       have some_mkArray_i_eq_mkArray_i? := (Array.getElem?_eq_getElem (Array.mkArray n a) i h).symm
@@ -205,21 +217,13 @@ theorem Array_getElem_mk {n: Nat} (a:α) (i: ℕ) (h: i < Array.size (Array.mkAr
       rw [mkArray_data]
       have mkArray_eq_n := Array.size_mkArray n a
       have replicate_eq_n := List.length_replicate n a
-      have i_lt_replicate_n_length : i < (List.replicate n a).length := lt_of_lt_of_eq h (mkArray_eq_n.trans replicate_eq_n.symm)
+      have i_lt_replicate_n_length : i < (List.replicate n a).length := Nat.lt_of_lt_of_eq h (mkArray_eq_n.trans replicate_eq_n.symm)
       have get?_eq_get := List.get?_eq_get i_lt_replicate_n_length
       -- move back from get? to get
       rw [get?_eq_get]
       have get_replicate := List.get_replicate a ⟨i, i_lt_replicate_n_length⟩
       rw [get_replicate]
 
-
-theorem get_eq_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
-  : v[i] = v.data.get ⟨i, lt_n_lt_data_size v i⟩
-  := rfl
-
-theorem get_eq_data_data_get {α : Type u} {n: Nat} (v : Vector α n) (i: Fin n)
-  : v[i] = v.data.data.get ⟨i, lt_n_lt_data_size v i⟩
-  := rfl
 
 /-- If we construct a vector through replicate, then each element is the provided function -/
 @[simp]
@@ -232,26 +236,25 @@ theorem get_replicate {n: Nat} (a:α) (i: Fin n)
     Array_getElem_mk a i.val i_lt_size_mkArray_data
 
 
-theorem get_truncate {α: Type u} {n : ℕ} (v: Vector α n) (n': ℕ) (h: n' ≤ n) (i : Fin n')
+theorem get_truncate {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
   := get_ofFn (fun i => v[i]) i
 
-theorem get_map {α : Type u} {β : Type u} {n: ℕ} (f: α → β) (v: Vector α n) (i: Fin n)
+theorem get_map {α : Type u} {β : Type u} {n: Nat} (f: α → β) (v: Vector α n) (i: Fin n)
   : (v.map f)[i] = f v[i]
   := Array.getElem_map f v.data i (lt_n_lt_data_size (v.map f) i)
 
 
-theorem get_mapIdx {α : Type u} {β : Type u} {n: ℕ} (f: Fin n → α → β) (v: Vector α n) (i: Fin n)
+theorem get_mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β) (v: Vector α n) (i: Fin n)
   : (v.mapIdx f)[i] = f i v[i]
   := 
-    letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (i.isLt.trans_eq v.isEq))
+    letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt v.isEq))
     Array.getElem_mapIdx v.data f' i (lt_n_lt_data_size (v.mapIdx f) i)
 
 /-- After push, the last element of the array is what we pushed -/
-@[simp]
 theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
   : (v.push a)[n] = a
-  := 
+  :=
     -- prove that n < n + 1
     have n_lt_n_plus_1
         : n < n + 1
@@ -259,14 +262,14 @@ theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
     -- prove that n < v.push.data.size
     have n_lt_push_data_size
         : n < (v.push a).data.size
-        := lt_of_lt_of_eq n_lt_n_plus_1 (v.push a).isEq.symm
+        := Nat.lt_of_lt_of_eq n_lt_n_plus_1 (v.push a).isEq.symm
     -- prove that (Array.push v.data a)[Array.size v.data] = a
     have array_push_v_data_size_eq_a 
         : (Array.push v.data a)[v.data.size] = a
         := Array.get_push_eq v.data a
     -- prove that (Vector.push v a)[n] = a
     have array_push_v_data_n_eq_a : (Array.push v.data a)[n] = a := by
-      convert array_push_v_data_size_eq_a
+      convert [array_push_v_data_size_eq_a]
       rw [v.isEq]
     array_push_v_data_n_eq_a
 
@@ -290,6 +293,7 @@ theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
       rename _ => h1
       have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ i.isLt) (Nat.ge_of_not_lt h1)
       simp [get_push_lt, h2]
+
 
 theorem get_zipWithAux
     (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (hin : i ≤ n)
@@ -362,14 +366,14 @@ theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α �
           i
 
 @[ext]
-theorem ext {α: Type u} {n: ℕ} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[i] = v2[i]) :
+theorem ext {α: Type u} {n: Nat} (v1 v2: Vector α n) (h : ∀ (i : Fin n), v1[i] = v2[i]) :
   v1 = v2
   :=
     -- prove that v1.data.size = v2.data.size
     have v1_data_size_eq_v2_data_size := v1.isEq.trans v2.isEq.symm
     -- prove that for all i < v1.data.size, v1.data.get i = v2.data.get i
     have forall_i_hi_v1_i_v2_i 
-      : ∀ (i : ℕ) (h1: i < v1.data.size) (h2: i < v2.data.size), v1.data[i] = v2.data[i] 
+      : ∀ (i : Nat) (h1: i < v1.data.size) (h2: i < v2.data.size), v1.data[i] = v2.data[i] 
       := fun i h1 _ => h ⟨i, lt_data_size_lt_n v1 h1⟩;
     -- prove that v1.data = v2.data
     have v1_data_eq_v2_data :v1.data = v2.data := 
@@ -391,9 +395,9 @@ instance : Inhabited (Vector α 0) where default := empty
 instance [Zero α] : Zero (Vector α n) where zero := zero
 instance [One α] : One (Vector α n) where one := one
 instance [Neg α] : Neg (Vector α n) where neg := neg
-instance {α : Type u} [Add α] {n: ℕ} : Add (Vector α n) where add := add
-instance {α : Type u} [Sub α] {n: ℕ} : Sub (Vector α n) where sub := sub
-instance {α : Type u} [Mul α] {n: ℕ} : Mul (Vector α n) where mul := hadamard
+instance {α : Type u} [Add α] {n: Nat} : Add (Vector α n) where add := add
+instance {α : Type u} [Sub α] {n: Nat} : Sub (Vector α n) where sub := sub
+instance {α : Type u} [Mul α] {n: Nat} : Mul (Vector α n) where mul := hadamard
 
 end Vector
 
