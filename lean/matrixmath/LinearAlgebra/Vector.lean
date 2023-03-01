@@ -1,8 +1,6 @@
 import Std.Data.Array.Init.Basic
 import Std.Data.Array.Lemmas
 
-import Mathlib.Init.Algebra.Order
-
 structure Vector (α : Type u) (n: Nat) where
   data: Array α
   -- a proof that the data.length = n
@@ -255,6 +253,7 @@ theorem get_mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β)
 theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
   : (v.push a)[n] = a
   :=
+    have x := 1
     -- prove that n < n + 1
     have n_lt_n_plus_1
         : n < n + 1
@@ -274,14 +273,12 @@ theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
     array_push_v_data_n_eq_a
 
 /-- After push, the previous elements are the same -/
-@[simp]
 theorem get_push_lt {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin n)
   : (v.push a)[i] = v[i]
   := 
     have i_lt_size_data : i.val < v.data.size := lt_n_lt_data_size v i
     Array.get_push_lt v.data a i.val i_lt_size_data
 
-@[simp]
 theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
   : (v.push a)[i] = if h:i < n then v[i]'h else a
   := by
