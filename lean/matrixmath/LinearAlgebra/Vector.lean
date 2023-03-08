@@ -1,6 +1,8 @@
 import Std.Data.Array.Init.Basic
 import Std.Data.Array.Lemmas
 
+import Mathlib.Init.ZeroOne
+
 structure Vector (α : Type u) (n: Nat) where
   data: Array α
   -- a proof that the data.length = n
@@ -175,8 +177,14 @@ theorem getElem_data {α: Type u} {n: Nat} (v: Vector α n) (i: Fin n)
   := rfl
 
 @[simp]
-theorem get_fin_of_get_nat {α: Type u} {n: Nat} (v: Vector α n) (i: Nat) (h: i < n)
-  : v[i] = v[Fin.mk i h]
+theorem getElem_data' {α: Type u} {n: Nat} (v: Vector α n) (i: Nat) (h: i < n)
+  : v[i] = v.data[i]'(lt_n_lt_data_size v ⟨i, h⟩)
+  := rfl
+
+
+@[simp]
+theorem getElem_eq_get {α: Type u} {n: Nat} (v: Vector α n) (i: Nat) (h: i < n)
+  : v[i] = v.get (Fin.mk i h)
   := rfl
 
 @[simp]
@@ -253,24 +261,16 @@ theorem get_mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β)
 theorem get_push_eq {α : Type u} {n: Nat} (v: Vector α n) (a: α)
   : (v.push a)[n] = a
   :=
-    have x := 1
-    -- prove that n < n + 1
-    have n_lt_n_plus_1
-        : n < n + 1
-        := Nat.lt_succ_self n
-    -- prove that n < v.push.data.size
-    have n_lt_push_data_size
-        : n < (v.push a).data.size
-        := Nat.lt_of_lt_of_eq n_lt_n_plus_1 (v.push a).isEq.symm
-    -- prove that (Array.push v.data a)[Array.size v.data] = a
-    have array_push_v_data_size_eq_a 
-        : (Array.push v.data a)[v.data.size] = a
-        := Array.get_push_eq v.data a
-    -- prove that (Vector.push v a)[n] = a
-    have array_push_v_data_n_eq_a : (Array.push v.data a)[n] = a := by
-      convert [array_push_v_data_size_eq_a]
-      rw [v.isEq]
-    array_push_v_data_n_eq_a
+     -- prove that n < v.push.data.size
+     have n_lt_push_data_size
+         : n < (v.push a).data.size
+         := Nat.lt_of_lt_of_eq (Nat.lt_succ_self n) (v.push a).isEq.symm
+     -- prove that (Vector.push v a)[n] = a
+     have array_push_v_data_n_eq_a : (Array.push v.data a)[n] = a := by
+        simp only [v.isEq.symm]
+        exact Array.get_push_eq v.data a
+     array_push_v_data_n_eq_a
+
 
 /-- After push, the previous elements are the same -/
 theorem get_push_lt {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin n)
@@ -279,8 +279,12 @@ theorem get_push_lt {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin n)
     have i_lt_size_data : i.val < v.data.size := lt_n_lt_data_size v i
     Array.get_push_lt v.data a i.val i_lt_size_data
 
-theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
-  : (v.push a)[i] = if h:i < n then v[i]'h else a
+theorem replace_index (v: Vector α n) (i j: Nat) (h1: i < n) (h2: j < n) (h3: i = j)
+  : v[i] = v[j]
+  := by simp only [h3]
+
+theorem get_push' {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Nat) (h: i < n+1)
+  : (v.push a)[i]'h = if h1:i < n then v[i]'h1 else a 
   := by
     split
     case inl =>
@@ -288,8 +292,13 @@ theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
       exact get_push_lt v a ⟨i, h1⟩
     case inr =>
       rename _ => h1
-      have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ i.isLt) (Nat.ge_of_not_lt h1)
-      simp [get_push_lt, h2]
+      have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ h) (Nat.ge_of_not_lt h1)
+      rw [replace_index (push v a) i n h (by simp) h2]
+      exact get_push_eq v a 
+
+theorem get_push {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Fin (n+1))
+  : (v.push a)[i] = if h:i < n then v[i]'h else a
+  := get_push' v a i.val i.isLt
 
 
 theorem get_zipWithAux
@@ -337,6 +346,9 @@ theorem get_zipWithAux
           -- index we want to get
           k
 termination_by _ => n - i
+decreasing_by
+    sorry
+
 
 /-- proves the absurd if we have an instance of Fin 0-/
 theorem Fin_0_absurd (i: Fin 0) : False
