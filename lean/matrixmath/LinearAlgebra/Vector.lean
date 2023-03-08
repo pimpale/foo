@@ -209,27 +209,11 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
     Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
 /-- If we construct an array through mkArray then each element is the provided value -/
-@[simp]
 theorem Array_getElem_mk {n: Nat} (a:α) (i: Nat) (h: i < Array.size (Array.mkArray n a)) 
   : (Array.mkArray n a)[i] = a
-  := by
-      -- in order to avoid "motive type correctness" issues, we can use get? instead of get
-      apply Option.some.inj
-      -- move from (some (mkArray n a)[i]) to (mkArray n a).get? i
-      have some_mkArray_i_eq_mkArray_i? := (Array.getElem?_eq_getElem (Array.mkArray n a) i h).symm
-      rw [some_mkArray_i_eq_mkArray_i?]
-      -- now we can use the fact that mkArray n a uses List.replicate n a
-      rw [Array.getElem?_eq_data_get?]
-      rw [mkArray_data]
-      have mkArray_eq_n := Array.size_mkArray n a
-      have replicate_eq_n := List.length_replicate n a
-      have i_lt_replicate_n_length : i < (List.replicate n a).length := Nat.lt_of_lt_of_eq h (mkArray_eq_n.trans replicate_eq_n.symm)
-      have get?_eq_get := List.get?_eq_get i_lt_replicate_n_length
-      -- move back from get? to get
-      rw [get?_eq_get]
-      have get_replicate := List.get_replicate a ⟨i, i_lt_replicate_n_length⟩
-      rw [get_replicate]
-
+  := by 
+    rw [Array.getElem_eq_data_get]
+    simp [mkArray_data]
 
 /-- If we construct a vector through replicate, then each element is the provided function -/
 @[simp]
@@ -240,7 +224,6 @@ theorem get_replicate {n: Nat} (a:α) (i: Fin n)
     have i_lt_size_mkArray_data : i.val < Array.size (Array.mkArray n a) := lt_n_lt_data_size (replicate n a) i
     -- prove that v.data.get i = f i
     Array_getElem_mk a i.val i_lt_size_mkArray_data
-
 
 theorem get_truncate {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
@@ -347,7 +330,15 @@ theorem get_zipWithAux
           k
 termination_by _ => n - i
 decreasing_by
-    sorry
+    simp_wf
+    -- current goal: n - (i + 1) < n - i
+    apply Nat.sub_add_lt_sub
+    -- h₂ is 0 < 1
+    case h₂ => exact Nat.one_pos
+    rename ¬i = n => h1
+    have h2 := Nat.lt_of_le_of_ne hin h1
+    -- h₁ is 1 + 1 ≤ n
+    case h₁ => exact Nat.succ_le_of_lt h2
 
 
 /-- proves the absurd if we have an instance of Fin 0-/
