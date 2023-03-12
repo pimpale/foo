@@ -13,7 +13,7 @@ def NonTRversion  (v: Vector UInt8 i) (m: Matrix UInt8 i i): IO (UInt64) := do
 def main : IO Unit := do
   let q ← IO.getRandomBytes n.toUSize
   let v2 := ⟨q.data, rfl⟩
-  let m := Matrix.identity UInt8 q.data.size
+  let m := Matrix.one
   let x ← timeit "Non Tail Recursive" (NonTRversion v2 m)
 
   IO.println s!"Done"
