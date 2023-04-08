@@ -10,6 +10,8 @@
 7. [VTrace Algorithm](#vtrace-algorithm)
 8. [Implementation Details](#implementation-details)
 9. [Appendix A: Citations](#appendix-a-citations)
+10. [Appendix B: References](#appendix-b-references)
+11. [Appendix C: Code](#appendix-c-code)
 
 ## Summary
 ### Goals
@@ -74,3 +76,7 @@ Number of citations for selected RL algorithms:
 | [DreamerV2](https://arxiv.org/abs/2010.02193) | 2020 | 391 |
 | [R2D2](https://www.deepmind.com/publications/recurrent-experience-replay-in-distributed-reinforcement-learning) | 2018 | 380 |
 | [DreamerV3](https://arxiv.org/abs/2301.04104) | 2023 | 12 |
+
+## Appendix B
+
+## Appendix C
