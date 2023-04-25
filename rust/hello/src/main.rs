@@ -11,6 +11,7 @@ fn main() {
 
     let xr = &x;
 
+
     let xra = &(*xr).a;
     let xrb = &(*xr).b;
 

@@ -9,6 +9,8 @@ fn main() {
         b: String::from("b"),
     };
 
+    let q:u8 = 1;
+
     let xr = &x;
 
     println!("{}", xr.a);
