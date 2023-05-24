@@ -16,15 +16,15 @@ def set_pdeathsig():
         raise OSError(ctypes.get_errno(), 'SET_PDEATHSIG')
 
 
-def shutdown():
+def shutdown(msg:str):
     with open('yeeted', 'a+') as f:
-        f.write('beans')
+        f.write(msg)
 
 
 # call shutdown on sigchld
-# set_pdeathsig()
-# signal.signal(signal.SIGUSR1, lambda sig, frame: shutdown())
-signal.signal(signal.SIGCHLD, lambda sig, frame: shutdown())
+set_pdeathsig()
+signal.signal(signal.SIGUSR1, lambda sig, frame: shutdown("cool"))
+signal.signal(signal.SIGCHLD, lambda sig, frame: shutdown("beans"))
 
 pid = os.fork()
 if pid > 0:
