@@ -32,3 +32,6 @@ Here's what the poisoned images look like:
 Figure 1 summarizes the process:
 
 ![Figure 1](./mnist-mad-assets/figure1.png)
+
+### Training the Model
+Our model is a simple fully connected neural network with two hidden layers. The input layer has 784 nodes, one for each pixel in the image. The first hidden layer has 256 nodes, and the second hidden layer has 128 nodes. The output layer has 10 nodes, one for each digit. The model is trained using the AdamW optimizer with a learning rate of 0.001, and a batch size of 64. The model is trained for 10 epochs.
