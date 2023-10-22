@@ -1,0 +1,36 @@
+td {
+   border: 1px solid black;
+   padding: 0;
+   width: 50px;
+   text-align: center;
+}
+tr {
+    height: 50px;
+}
+table {
+    border: 1px solid black;
+    border-collapse: collapse; 
+    table-layout: fixed; 
+}
+
+.pit {
+    background-color: black;
+    color: white;
+}
+.goal {
+    background-color: lightgreen;
+    color: black;
+}
+.agent {
+    margin-right: auto;
+    margin-left: auto;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: black;
+    border-radius: 15px;
+
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
