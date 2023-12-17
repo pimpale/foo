@@ -1,4 +1,3 @@
-axiom f : Nat → Nat
 
 def thing : (Nat → (Nat → Nat)) :=
   λ x y => x + y
@@ -19,7 +18,7 @@ def thing : (Nat → (Nat → Nat)) :=
 
 -- normalize : ℝ × ℝ → ℝ × ℝ
 
--- 
+--
 
 inductive nat1 : Type
 | zero : nat1
@@ -28,4 +27,3 @@ inductive nat1 : Type
 open nat1
 #check nat1
 #check succ (succ zero)
-
