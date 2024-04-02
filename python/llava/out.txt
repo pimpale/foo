@@ -1,0 +1,594 @@
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009629-g3ckpghgD5CRJqHrM.jpg
+"a group of people walking down a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-003174-eecyBKvvyQ75MxFrX.jpg
+"street scene with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-001049-NwrB4sbE2APoLjS8Z.jpg
+"a long, empty street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-001169-f4GPmW6AE3rbnHhCF.jpg
+"a photo of a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ZicHYAPRYGdu82nAa-frame-003471-g2gvndmv8n7EoycbH.jpg
+"a person riding a bicycle at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ZicHYAPRYGdu82nAa-frame-001912-x9YviHBfWd9xyHhzD.jpg
+"city street with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-evnmmkhaqckdxWa9P-frame-001891-ueijZ2bcjt8zheC68.jpg
+"a car driving on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WFkuHrJEHigf6HCWZ-frame-001276-YM93ZpYh4wZabEjQK.jpg
+"a quiet city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-kDDWXrnLSoSdHCZ7S-frame-002139-ohG38zCMqx2rGNAwj.jpg
+"a person walking a dog on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5RBAcNR5F6fB3i6P5-frame-015719-kPaTex8K7D7g9Hu3J.jpg
+"a street with cars parked on both sides." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WiuWWrsHrJsDcfFzg-frame-007937-gpaJ92Xvf8forQxQq.jpg
+"a city street at night, with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-003851-qiMvn8fDqxo3aJKTd.jpg
+"a scene of a person riding a bicycle on a street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5YuhMWusfM3ZMtvDx-frame-007014-Jjs2xfEWEaqNTHY96.jpg
+"a city street with a car and a bicyclist." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5YuhMWusfM3ZMtvDx-frame-004267-vyf6zzaDdbcNrNL7u.jpg
+"a city street at night, with cars and a bus in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AkvAvb4X72cnTbbCw-frame-002094-kiH9S8BWLdSwXY8av.jpg
+"city street with traffic and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-PY5tYnNPcGE9WrZuq-frame-001701-AAHKXns4v7iEcGvDe.jpg
+"a parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-005006-n96Hm3sYm7oXJEJa4.jpg
+"a person walking in a parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vvYEi6EdCrYXeHwpD-frame-015300-Q7Wtamhk3mpErurDE.jpg
+"traffic on a highway." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-004335-PXAKWPrHfvpBn92mx.jpg
+"a quiet, street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aiXLPEvp86raemrsp-frame-003825-aTd67CNNGNqWMmoqi.jpg
+"a city street with a double-decker bus and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-004469-YP4WajtXu5keDi3uh.jpg
+"city street with traffic and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-yBdrow6zFe5E8uEwn-frame-006020-cyLajDhMFnWdozS4K.jpg
+"a city street at night, with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-9BBhGg3MKeaChnLjP-frame-000910-J7RKteKJGqH87ueAB.jpg
+"a photo of a road with a bridge in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Jbg7v6iuvSJavrMsD-frame-006150-BfhRKWhBYPq9J452g.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-2SReBn5LtAkL5HMj2-frame-001902-D2NiN9hfxGZyN2NMv.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009569-XxFpicNJK986dWub6.jpg
+"a group of people walking down a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aMQG7QCtJKfnEdue5-frame-002930-ePfrDM9H77k8htMrX.jpg
+"a group of people walking on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-FWQff8BQpTRSt9hfA-frame-005850-LscaeCR2QwnKXjyKh.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-PY5tYnNPcGE9WrZuq-frame-003360-76zEEW5oLaAMDY67D.jpg
+"highway scene with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dpPsuZToLaq9myAK8-frame-004854-SwEswiejqoXq5t3dH.jpg
+"a row of parked cars on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aiXLPEvp86raemrsp-frame-004240-B9dRpFeiSAXmn2wP9.jpg
+"city street with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-evnmmkhaqckdxWa9P-frame-002381-fwgaRDoG4vteX2q2c.jpg
+"a train on the tracks at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AkvAvb4X72cnTbbCw-frame-000245-wiT5vuHJQsziDntpg.jpg
+"two people walking on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-003325-3874EGMkvbHgmNgDC.jpg
+"a quiet, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vbhpsNpMoX2Qbhw2A-frame-000865-5FX3WaGkM9XpmDmef.jpg
+"a night scene of a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-000890-6j3vh5faXBYy8jujv.jpg
+"a photo of a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-010936-DhpSfeReresBY5ctB.jpg
+"a street scene with people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-49ZHZYTfjWxQXmrQs-frame-004050-36Wv4B3DQ2Bkp9FJo.jpg
+"a lonely road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Bfb39QmAgJQZfE7Pu-frame-010300-yCrig7NfWdS5PbsCB.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-007781-SgSB4qKiKZnTrwGyn.jpg
+"a view of a parking lot with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-008780-ELH7X6s5BzggWaDss.jpg
+"a photo of a person riding a bicycle on a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-003567-BL2rumRamXgxsjwZu.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-002988-c6xG7dMX3gbS6g44b.jpg
+"a photo of a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-evnmmkhaqckdxWa9P-frame-002266-pNaXToLcA3s6DFyz5.jpg
+"a train on a track at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4E8nAe7bkHkSZfpjq-frame-008700-a4SMFQgdw9YyqcCvb.jpg
+"a blurry street scene with palm trees and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-muKWZNM2FxQoStMQh-frame-000079-v4JW5QvY8uL7M2xES.jpg
+"street scene with a person walking." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-006186-2pbiekf8q3dG4qCq9.jpg
+"a view of a city street with a person walking and a truck driving." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-2SReBn5LtAkL5HMj2-frame-003487-9bEr7zjLAu5oir9f5.jpg
+"city street with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-000730-RTYQmbnePf5LKoRpF.jpg
+"a stop sign at an intersection." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7EPybiwBrzjDKn7TZ-frame-000950-KzgjJYrydEM6yDCwC.jpg
+"a car on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-RzCFkE9yg95GWAnYj-frame-004500-sqvQhsqLPtZb9gPGW.jpg
+"a photo of a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-003942-47cqtpMMdATtwyYS5.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aMQG7QCtJKfnEdue5-frame-003158-SYrZXtSaavAJtThj4.jpg
+"a photo of a building and people." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-001546-4BEMK9fQqSocs7qCA.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-jNQtRj6NGycZDEXpe-frame-008660-kaf9P2ibsoqfCZcR2.jpg
+"a city street with a tree work sign." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iTrM5ner4KQGLvpdC-frame-003442-47NLt2KBeySX95L3N.jpg
+"a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rnZseY2bPiYhWEF2m-frame-003038-S55bnXiLWCiLYkXwT.jpg
+"a city street with a van and a building in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-008870-Cm5actLBSBhw9GnCP.jpg
+"a quiet street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-000423-PQahnhbbaFoBA9AtS.jpg
+"a photo of a person walking on a sidewalk at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-QvjyFt7jvqczmaoNZ-frame-003909-Aq5daoREdCDkqpjxc.jpg
+"a lonely road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aMQG7QCtJKfnEdue5-frame-003188-tCYHLc58CgLyTXrok.jpg
+"a photo of a crowd of people in front of a building." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-003507-5zoP35CFrMXEZmGyg.jpg
+"a group of people walking on a sidewalk at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-86XuF6pPvWfBCqyNt-frame-001896-rLKLTxY4XSgzY3ZGq.jpg
+"a photo of a street scene with a truck and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-c3Lxro5s7dbYgdGRp-frame-001906-3rh48ih3c9YNNFJwg.jpg
+"a blurry road at night, with trees and a building on the side." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-bk2x9u9JivsWRS9Nk-frame-011772-A4ug42hRkpPFQFapY.jpg
+"traffic on a busy highway." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-004788-FWqEPSkPjccWWRuwJ.jpg
+"a street scene with a tree and a streetlight." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-003901-acDWMAa5sWNEheCG7.jpg
+"a person riding a bicycle on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-67ZzTP4GCNj69eNPs-frame-002021-D3tvKPAutbsCm7LGZ.jpg
+"city street with a car and a person on a bike." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-014118-nf5A3T7kuzPvBJemv.jpg
+"a city street with a few cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gfv3kbdf5KAYRtPcz-frame-001152-ByKLDxon2ZyGdwnfB.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-nodg7n2aFzCWFJBnv-frame-002827-Hck2C5LXR8cYft775.jpg
+"a quiet street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-jNQtRj6NGycZDEXpe-frame-014951-HNL3S9MsftrHEtNPx.jpg
+"a scene of a street with a car and people." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vvYEi6EdCrYXeHwpD-frame-013453-YTPLS9eAoxt6kGCxZ.jpg
+"a busy highway with multiple vehicles." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-000780-94bn6DScvn4BNMQvN.jpg
+"empty road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-xEYBrQ5tarcDbiw9p-frame-012319-z4PJNMcsuzu2ZsAXL.jpg
+"a city street at night, with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-014430-HfpB7GdtGpWuC7Knr.jpg
+"a city street with trees and lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Bfb39QmAgJQZfE7Pu-frame-023925-dMvjKWLCQPjuKBtGr.jpg
+"a city street at night, with a person walking on the sidewalk." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-c3Lxro5s7dbYgdGRp-frame-004769-tzhPGj5NM2Wam9zNc.jpg
+"a blurry road through a forest." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WXTMrJkrK8BMoMkxk-frame-000020-BSG5ju72prnHCnDDm.jpg
+"a photo of a city street at night, with palm trees and a fountain." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-kDDWXrnLSoSdHCZ7S-frame-003063-eaKjPvPskDPjenZ8S.jpg
+"a group of people crossing the street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-86XuF6pPvWfBCqyNt-frame-003597-XGEhXLfAsjL5gxhYQ.jpg
+"a photo of a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-PY5tYnNPcGE9WrZuq-frame-001921-KaHPPkdBmyhdmSZ7d.jpg
+"a car parked in a lot with a truck in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-24ysbPEGoEKKDvRt6-frame-000270-AFJ2A96MgC3NdCuKA.jpg
+"a car driving on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-3eAD4KjAqae5iq48L-frame-010556-rZYe2mHR3muQx4oaH.jpg
+"a busy city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ipHbyAv8iW9kmxTGj-frame-007820-KwkEDWHA4SFfBtYeF.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GXXqNLCqyu72TLx5i-frame-001602-C7tteqXTtgTKYZXFd.jpg
+"a city scene with a car and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-PY5tYnNPcGE9WrZuq-frame-005460-YsdGudNdgfdMNA5bb.jpg
+"a street with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-MoCHppHsM4bnncPmS-frame-001217-pzakQhiTiuxcqMSmt.jpg
+"a person riding a bicycle on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BvDJ7TewksQCjCtyN-frame-004741-8NEQcymJDjQh2MPji.jpg
+"a city street at night, with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-002229-LxbsXHpsmZqysW7mg.jpg
+"a night scene with people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-010041-iHafskkjw5pYQrN7A.jpg
+"street scene with people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iTrM5ner4KQGLvpdC-frame-003622-pbJQFqJjW6TAgq8XP.jpg
+"a lonely street at night, with trees lining the road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vbhpsNpMoX2Qbhw2A-frame-000885-KrkjPqb22Lq67fQBh.jpg
+"a view of a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-000450-tNeES9XNBvHiRZEba.jpg
+"a row of cars parked on the side of a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4zQqsnWRwK7SFPpBy-frame-001508-2N3yarSzroqBJyiAo.jpg
+"a scene of a city street with cars and a building in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-004607-Hd3gbWF8AAbH3PmPJ.jpg
+"scene of people skateboarding on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-008643-GY6Rw2RtvMvTeRv5G.jpg
+"cityscape with a person on a staircase." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7ac97f4pH2W94Kgm4-frame-016050-jesDYRFk87aXWcWWn.jpg
+"a lonely road in the middle of nowhere." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4dy5Hhcg93BTyG9KZ-frame-000768-uTP6KX8kruWYdtu4e.jpg
+"a person standing on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-002439-NdQFaJ4GL8TXGR43Z.jpg
+"a person pushing a shopping cart in a parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WFkuHrJEHigf6HCWZ-frame-001160-5uGRFyZ53t3Ck2Dbm.jpg
+"city street with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-001189-PuaP3gesqxkpeuYpT.jpg
+"a street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-016909-oF6LxSAf5yt5R9fuh.jpg
+"street scene with traffic lights and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-001209-vFENKSveCo7fv9LMr.jpg
+"a street scene with cars and trees, captured in black and white." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aiXLPEvp86raemrsp-frame-001700-XK8aX4DdCecmSsdkQ.jpg
+"city street with blurry people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-qmuvFTzLkR28JMp7r-frame-002563-ttoQE2aaeNkzfDqdz.jpg
+"a cityscape at night, with a car driving on a bridge." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-yNoh5QQAPbR9Afm4i-frame-001559-fMNDJjKZ7FzYNChAP.jpg
+"city street with rain, cars, and a lit-up monument." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-jNQtRj6NGycZDEXpe-frame-014546-hn2zjkbsqNZREM9Gz.jpg
+"city street with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iFWh9r9TJWmTzTrha-frame-007998-eDxWETSAAL5ikuWiw.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-kDDWXrnLSoSdHCZ7S-frame-003228-ESuRbNA8SXF45hNjS.jpg
+"a person riding a bike on a night time". 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-005579-yBKskyWbsf5gF3pKx.jpg
+"a scene of a road with vehicles and people." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-nCxsLGvXK8o25AmXW-frame-009247-qKaoz4PSpXA3HrLav.jpg
+"two people walking on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-G9ZpKLJEKsMheip7b-frame-000150-v6E3JiJvaZYEiPwDq.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009509-ZebvuM2maHeYN7Jv8.jpg
+"a group of people skateboarding at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TEAocgWiwwMWxYtgJ-frame-004401-Y24ziWCY8t7Zan2gs.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-QvjyFt7jvqczmaoNZ-frame-003158-7BQ55DEJhjGt6z7KS.jpg
+"a photo of a church and its surroundings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-o68zKob2nb8QMktLF-frame-000551-m3LjbMdSqpC2adQHT.jpg
+"a view of a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-nodg7n2aFzCWFJBnv-frame-001435-Fut8bN7cnxZvacRoj.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-005306-b2FngwDQGyiHGNW6y.jpg
+"a long, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4KhLCjoeEmjGBaRLQ-frame-001449-zRaTW75QXNCpxByRb.jpg
+"a car on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-006106-XiYPjpi5ND2r4d7dH.jpg
+"a photo of a busy street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-000213-Nx5FCkyh2Y4r7B9C2.jpg
+"a city street with trees and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-004290-GKGfbmyyQotodqo4k.jpg
+"a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-004468-Nt9Lug6W8DEiieGRi.jpg
+"a person walking on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-003656-ee6ywJivWJbSsAdyz.jpg
+"street scene with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iFWh9r9TJWmTzTrha-frame-000826-YdC4nYWzZje2GHi6R.jpg
+"a car driving down a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-S5osy2ei487eAM2fw-frame-001301-RNvZaHJGJE9o4Lqfd.jpg
+"city street with cars and motorcycles." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-6WgZhpFdCJP3a2cWi-frame-011600-vKMfTZzH6r99LhfDB.jpg
+"a person riding a motorcycle on a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-xEYBrQ5tarcDbiw9p-frame-014959-EEqQJWx3Wu7xauSFh.jpg
+"a city street with a car and a truck." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-002521-W8YZRBS83TZXbEsRr.jpg
+"a photo of a parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-003642-WM8DATh4NtGSKDuLq.jpg
+"a person walking on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BvDJ7TewksQCjCtyN-frame-000816-JSS7zuYH3ZQFHcoK7.jpg
+"a truck driving down a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-003445-DurttH7koLrW7fh8r.jpg
+"empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WiuWWrsHrJsDcfFzg-frame-007885-WarHBPgoXLLF7XkFD.jpg
+"a long, dark street with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TEAocgWiwwMWxYtgJ-frame-005094-YLYrSZRafzmo3wiMi.jpg
+"two people walking on a brick road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-EcPY55txZdfhevYiW-frame-005816-5hmLvGp758R7meTyC.jpg
+"a city street with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vbhpsNpMoX2Qbhw2A-frame-000564-vqPRXFMJC9MJXqBmc.jpg
+"a view of a city street with palm trees and a fountain." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5HPT2goT53ceRpvRm-frame-000825-wCCNqPs9ossebdKsn.jpg
+"two people riding bikes on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-008813-dkrv8zEriK4KskCRe.jpg
+"a scene with a flag, a car, and a person." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-001428-cQTy2cPLuoZS82Ane.jpg
+"a photo of a building with palm trees in the foreground." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-001229-kauHkWp2q5AB6miqX.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5YffDt2oYT6CDzYHk-frame-002487-g7Y9cTw9Lacasgd7o.jpg
+"photo of a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5v4MPkCMGEKPfroxc-frame-000105-euqT42fCrk7rnWfjR.jpg
+"a scene of a busy street with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-003845-TLeN6YWPQCgQ9MBZv.jpg
+"a street scene at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gj7ejTPCZZnD5YwPv-frame-001660-zF9xjTiodgkY58B5A.jpg
+"empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5Lwe5DATf4BxKtaiB-frame-001292-omuSqnYKtg85pYwAP.jpg
+"a group of cyclists riding down a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-soRFb9y3iqE3YpJSG-frame-001938-ZGHa2sAYbmpsPMmJ8.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rnZseY2bPiYhWEF2m-frame-004235-e9hbTe5x5bfAub4ZE.jpg
+"a scene with a person walking on the sidewalk and a van driving on the road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-013798-MFtHcaPaBks2PA9bu.jpg
+"street scene with a person and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-bk2x9u9JivsWRS9Nk-frame-003924-mZfQgnvs2yYuaYA4p.jpg
+"a city street with cars and a person." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GzdKTLbkG5F7gAunM-frame-001128-wmDw2qxuHCCmAp6fy.jpg
+"a city street at night, with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-G9ZpKLJEKsMheip7b-frame-007350-QzFoqXYtQmgYTXNaD.jpg
+"a lonely road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GMDwNs5TdqejpF4vu-frame-003204-o9W9KrZGfHzkrNPy7.jpg
+"a quiet, street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-001610-DimevKAxWyLQoEQgx.jpg
+"a photo of a man walking across a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aiXLPEvp86raemrsp-frame-006572-J8QCBZkKGJtbYmWM4.jpg
+"a city street with a van driving down the road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-2Af3dwvs6YPfwSSf6-frame-004500-9TTgt9x8qdvFo9HDi.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iFWh9r9TJWmTzTrha-frame-001460-WhfbqHJdKxo6fFPba.jpg
+"a long, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-fg5eBhFE7kHyXPtBi-frame-000152-QnDgqzmptMhnQPH9J.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-eLrXYzMxSL9NCXiQq-frame-002048-tKjjoeE7Rzuxxaj3C.jpg
+"a city street at night, with a car driving down the middle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-soRFb9y3iqE3YpJSG-frame-006401-58oM2sCfenozxbknj.jpg
+"a person walking on a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ZicHYAPRYGdu82nAa-frame-001942-qNH6ZRBnJNqiHvEsP.jpg
+"city street with cars and a bicycle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-000375-4L99MXFowaHj5wxwP.jpg
+"a city street at night, with cars and palm trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-yBdrow6zFe5E8uEwn-frame-009890-omWgKZemDKh5DgRf9.jpg
+"two people walking on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rnZseY2bPiYhWEF2m-frame-002739-QPExicdgeSgQEEdD3.jpg
+"a city street at night, with a bus and a few cars in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-XNM8eHsvxCMJ6peuj-frame-001050-LZCYWunaHM24CYqkP.jpg
+"a car on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-001439-wnDwBG2XHfF72iR8F.jpg
+"a long, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009701-qMG4wxRNKiE7q4eW2.jpg
+"street scene with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BvDJ7TewksQCjCtyN-frame-001071-73KX9z7xQcgnofFNf.jpg
+"a truck on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GzdKTLbkG5F7gAunM-frame-001383-i7TieqLZJLqZdBYZv.jpg
+"a street scene with a car in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009689-CzfbuSrcs27rJZq4s.jpg
+"street scene with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-MoCHppHsM4bnncPmS-frame-002802-mzWpapEFdeCRqvLB8.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-013938-gk3DzNCy9uq3d72wD.jpg
+"a person walking across a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TTDq3x6HSvFx3YRDH-frame-006698-tpjYtYKF9GqneSRXf.jpg
+"a deserted road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iTrM5ner4KQGLvpdC-frame-003352-wNWo7T8xxTrMpEfEw.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-004397-6zi6aRsDjF6vLL5iv.jpg
+"city street with palm trees and people." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-kZvY7NeD8kA7PiMWX-frame-006648-dNtvP9okb8XytYAYe.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TEAocgWiwwMWxYtgJ-frame-005064-oCYsNQyN2rjTi8frQ.jpg
+"two people walking on a brick sidewalk at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gfv3kbdf5KAYRtPcz-frame-002891-6dNtBBtSKT6nzyPsy.jpg
+"street scene with people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-EcPY55txZdfhevYiW-frame-003635-9QcS7YnHozdjyTuJw.jpg
+"a person riding a motorcycle on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-016181-zAkEC2YqDhMA6usST.jpg
+"a street scene with people and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GXXqNLCqyu72TLx5i-frame-001518-PbEQ34XxCRJwCh29F.jpg
+"a city street at night, with a car and a bicycle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-8CvM2BExBLyQFZrK8-frame-005142-4TDDTKFhYLqWZhrpt.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-009353-yf7txbMCbK7tvL8JE.jpg
+"a person walking on a bridge at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4E8nAe7bkHkSZfpjq-frame-006900-duJL2JvwijdfG5FBx.jpg
+"a lonely road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5v4MPkCMGEKPfroxc-frame-000015-S7gtcdxwniTCQ62fL.jpg
+"traffic on a city street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-nodg7n2aFzCWFJBnv-frame-001405-T5cbvdHYAsH4DtSL8.jpg
+"a person walking on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-yBdrow6zFe5E8uEwn-frame-002150-RRQDvQbZufMyA3mf7.jpg
+"a city street at night, with a car driving down the road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5v4MPkCMGEKPfroxc-frame-000180-y47vLkPvwHbTfNwTB.jpg
+"a busy street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-a9TgkAvMGtM2gXpdj-frame-016500-6HrpXHNwMpSJufa8M.jpg
+"a city street at night, with a van and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rYXSHjnEfuLmjE6Z4-frame-001123-3623HeJcXYGys3Pvd.jpg
+"a quiet, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-49ZHZYTfjWxQXmrQs-frame-008250-p8YYkzsofEKRsp3Jw.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-003897-JfJvmfwfcnA6qH9qb.jpg
+"street scene with a car parked on the side." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-qmuvFTzLkR28JMp7r-frame-004171-WrHwonwJohEwu7H4z.jpg
+"a highway scene with cars and buses." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5v4MPkCMGEKPfroxc-frame-000587-DxgcAGbWD3nMbJB2J.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gfv3kbdf5KAYRtPcz-frame-001182-cYNPanCkrceY99Wf4.jpg
+"a deserted highway at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dpPsuZToLaq9myAK8-frame-004096-mSi4Jif6gnT9sXwga.jpg
+"a photo of a parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vbhpsNpMoX2Qbhw2A-frame-006164-uLQ2PY6v6t5XLE4P5.jpg
+"view of a parking lot with a building in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-SyzNY82LYZrhkPH7x-frame-003725-bptQ7cevCytozJRpr.jpg
+"street scene with a car and a stop sign." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-hmsJCeMCWjX2FhxD8-frame-005610-E6DNqf72PGfYu3Fza.jpg
+"a city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-003515-k69XedWYreTiS6nxz.jpg
+"a street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Bfb39QmAgJQZfE7Pu-frame-010413-fsa7MzjGNNyagjvK3.jpg
+"blurry city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-006737-KjZdK7oDvRaWrZM8x.jpg
+"a person riding a bicycle on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-001800-QJyNnSFiR9ebk4Q6A.jpg
+"a blurry highway scene with a car and a bridge." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GXXqNLCqyu72TLx5i-frame-002168-BYiQT82MrB3CPiHfN.jpg
+"a city street with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-010993-RPLmDCMT6sTn3jEXA.jpg
+"a view of a city street with palm trees and a roundabout." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-4KhLCjoeEmjGBaRLQ-frame-000069-s5R2QqeHdtLReAih8.jpg
+"a blurry image of a van driving down a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dgYrcYcm5G75w2GJc-frame-004009-DbWsPXRmyv57jt4oR.jpg
+"a person riding a bicycle on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vvYEi6EdCrYXeHwpD-frame-017748-8gxC3JeMGQf3ZZom8.jpg
+"traffic on a highway." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-017042-Qk4R8SadJ332SrqPZ.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-006556-dghL6wuGzFvkvdr27.jpg
+"a city street with a truck and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-sEs53HkN6oRqWdeQK-frame-001820-N4d36RHZRmfsykdxa.jpg
+"a scene of a city street with cars and a bicyclist." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-2MbnnGTv27EBLGqiQ-frame-005550-5KRKAthjTDCh6MYKz.jpg
+"a view of a city street with a car driving down it." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-xEYBrQ5tarcDbiw9p-frame-008712-S2eiu5vDfQYQbfEoE.jpg
+"scene of a car on a street with people riding bikes." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-mBQmysFvQtPK36MsF-frame-004252-Qw3MA6KNKFPeksxSF.jpg
+"a blurry highway scene with a car in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5An82wT7iBmfZSwx7-frame-000899-YNCXoN3SDNTFPrgWt.jpg
+"a city street with a few people and a bicycle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-S5osy2ei487eAM2fw-frame-000995-aB3qvNaww55pqPp4d.jpg
+"city street with cars and motorcycles." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5An82wT7iBmfZSwx7-frame-000914-QcyYyyYfAACpoRHud.jpg
+"a city street with a few people and a bicycle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rYXSHjnEfuLmjE6Z4-frame-001093-KeqRAYTMaFi2Yqjb3.jpg
+"a quiet, empty street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5YffDt2oYT6CDzYHk-frame-001904-QqAPs7WtcumAG7T8y.jpg
+"a person riding a bicycle on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-XqruwSRkto63xLX3v-frame-008073-CfKssvLavjan5zkYL.jpg
+"a person walking on a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5YffDt2oYT6CDzYHk-frame-001964-hxk9n9Qz3Awa7cK3i.jpg
+"street scene with cars and a cyclist." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-008863-mNx3CGjkvcDzjxXpg.jpg
+"a view of a city street with a flag and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-004618-8ZneiHBkTfjJGF8rE.jpg
+"a scene of a store with a stop sign in the foreground." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dpPsuZToLaq9myAK8-frame-004989-R9k8XPG4z5iN7g3cb.jpg
+"a photo of a man walking in a parking lot." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aTxg8EcSRQyDvisMX-frame-000534-JzJdoe6BW5AZs47YA.jpg
+"a city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gfv3kbdf5KAYRtPcz-frame-003021-NKChfpfRWG5MDDLLE.jpg
+"a night scene of a city street with palm trees and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7EPybiwBrzjDKn7TZ-frame-004831-vuAnXACazhXkhggu3.jpg
+"a truck in mid-air on a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7RdKmtytvKgfNcTNv-frame-002700-BNAzKRqi3GHCNhT8Y.jpg
+"a view of a highway with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iTrM5ner4KQGLvpdC-frame-003952-tpCQNd24DBEphgAmD.jpg
+"a street with trees and cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ZicHYAPRYGdu82nAa-frame-002334-YQC5LGJmzEsKDGYmL.jpg
+"city street with people and cars, captured in black and white." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dgYrcYcm5G75w2GJc-frame-003165-JLGhtJnzbwmYdXvKG.jpg
+"a lonely road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-003871-J7qarjoe2pxT3YHe5.jpg
+"a scene of a person riding a bicycle on a street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WiuWWrsHrJsDcfFzg-frame-003319-3c8KjDGWLH7352uwE.jpg
+"city street with people walking and a car parked." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-evnmmkhaqckdxWa9P-frame-001666-q9JFYjvK4KQpqwX6a.jpg
+"a night scene on a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iTrM5ner4KQGLvpdC-frame-000943-BhxPCszEwoXcYtgSh.jpg
+"a car driving down a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-PY5tYnNPcGE9WrZuq-frame-002306-sgtH87ujfCKb5JRqi.jpg
+"a person on a bicycle in a parking lot." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-MoCHppHsM4bnncPmS-frame-001693-Be2hwhdRLCN4RyXdE.jpg
+"a person riding a bicycle on a bridge at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-000810-ipR2eyuKEvJhGDkme.jpg
+"street scene with cars and pedestrians." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-qmuvFTzLkR28JMp7r-frame-003277-HfKD664cuKsGXqRjA.jpg
+"traffic on a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-hmsJCeMCWjX2FhxD8-frame-002160-SZaeHqBkSaf4tChFh.jpg
+"a city street at night, captured in black and white." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aMQG7QCtJKfnEdue5-frame-000160-YF5oLv2vcYomCJ2y2.jpg
+"a car on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TEAocgWiwwMWxYtgJ-frame-005259-7GoioSDMsNWAxoz7o.jpg
+"a person walking on a brick sidewalk at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-24ysbPEGoEKKDvRt6-frame-000705-QigveiFNY7MiM7Mn7.jpg
+"a blurry street scene with a car in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AkvAvb4X72cnTbbCw-frame-000215-2uwrA4244ba5vi2CT.jpg
+"two women walking on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dpPsuZToLaq9myAK8-frame-005562-rWDQkENJrzfytswE3.jpg
+"a scene with a car on a street." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-003611-pLejp5tXkCbatGLF5.jpg
+"a street scene with a truck in the foreground." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-TEAocgWiwwMWxYtgJ-frame-004731-3J2iPLiJB8woZyada.jpg
+"a photo of a building entrance." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-000795-P5iJWsndqMvCAfSto.jpg
+"a photo of a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rzDLT664bgLJ29B2f-frame-005250-AchR4NqtrnWTbwGf7.jpg
+"a photo of a road with a mountain in the background." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-008552-MLLdysoYHMoZjkugN.jpg
+"a city street with a person crossing." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AkvAvb4X72cnTbbCw-frame-000665-M5JybnqSAyGQMa5Xx.jpg
+"two people walking on a sidewalk at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5An82wT7iBmfZSwx7-frame-001828-ED8WPZyAxJt3p7qDr.jpg
+"a city street with a car and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ozJ2BvNKN96SvRTFv-frame-003000-Yz63SNBTe6YEx4JxJ.jpg
+"a street with cars parked on the side." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-vvYEi6EdCrYXeHwpD-frame-016524-fjiso6KpwjJA9hYEC.jpg
+"view of a highway with cars and streetlights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-24ysbPEGoEKKDvRt6-frame-000450-BA4p5cv9iTkB9Ke6s.jpg
+"a blurry street scene with a car in motion." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-rnZseY2bPiYhWEF2m-frame-009711-A8N4qcQtx8cvNarZ6.jpg
+"city street with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-BjSfmxLQqCGjg8tya-frame-007348-MnctDzBdady5NErD5.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-a9TgkAvMGtM2gXpdj-frame-010241-EDFiCWG5fMeGZBxHf.jpg
+"a city street at night, with a truck driving down the middle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-GXXqNLCqyu72TLx5i-frame-000581-StYmiFKJf84WWGodF.jpg
+"a long, empty bridge at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-004301-2xoekik96jMjqMnBK.jpg
+"a scene of a person riding a bicycle on a street with parked cars." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-dpPsuZToLaq9myAK8-frame-006706-eGucjtKfKS3icdEnk.jpg
+"a photo of a street with a person riding a bicycle." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-015151-fhKhost4gMLNv7XLp.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-hmsJCeMCWjX2FhxD8-frame-008502-T2Jus6237FiNsA8sA.jpg
+"city street with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-008830-cnHCQ39p7BqWQ3o4J.jpg
+"two women walking on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-XNM8eHsvxCMJ6peuj-frame-001088-qHn255ABsFKhHsbti.jpg
+"a blurry street scene at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-aiXLPEvp86raemrsp-frame-004250-eoYq4L4trvfPPentx.jpg
+"city street with cars and lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-86XuF6pPvWfBCqyNt-frame-002412-dnGLTFcpGwEayfbLq.jpg
+"a city street with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-008310-vXHAoYYMh32fNWwFv.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-008573-WcRtsA7kbEJKWebY7.jpg
+"a photo of a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-7yaY3LisuPdNyfZH9-frame-003145-ozC9rHhg9qigoXq5q.jpg
+"street scene with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-r68Yr9RPWEp5fW2ZF-frame-014270-HFtnyXmEF7oFC7gRJ.jpg
+"street scene with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ooW42bEtJrR4gufJr-frame-000300-DtqcteZpdFGM2dN4g.jpg
+"a view of a road with cars and trees." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ipHbyAv8iW9kmxTGj-frame-002720-mZp4eDwspNLtXYt53.jpg
+"city street with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-2rsjnZFyGQGeynfbv-frame-002065-WFdXm8AhxSSZwh3tx.jpg
+"city street with cars and streetlights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-EFh9oKSJrkMFW8gtT-frame-006900-PHkjw7vDtv3YD9ToT.jpg
+"a street scene with a truck and a car." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-j884P5ZjKNEm9pq56-frame-000750-Wac6gFfAAzqACPKRQ.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-wGdqQimawNX3RYv76-frame-009082-Ym2hQtWWRpTB9dLH4.jpg
+"a person standing in a parking lot." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5RBAcNR5F6fB3i6P5-frame-014819-AXhZM4KdNFxiMbgnX.jpg
+"a street with cars and houses." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-WFkuHrJEHigf6HCWZ-frame-003016-TKoo449uuuJjgNM54.jpg
+"a person walking on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-5Lwe5DATf4BxKtaiB-frame-001672-sfHQk538gN67v8p7E.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-KTtJnXH7CcPgLeF2G-frame-002523-P68dLHiaoax7A8eQT.jpg
+"a person riding a bicycle on a street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-016461-AaooymyFG8ZLdDNvr.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-zNFzcc9wW8XB4QwTa-frame-001327-TQLW6YDaEY9KNAkj2.jpg
+"a quiet street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-JFiGa9oAAN2queuLt-frame-007651-FqKhaDeTZwJCcejmA.jpg
+"street scene with cars parked along the side." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-iFWh9r9TJWmTzTrha-frame-000173-LBiT37Wu6eghWCmgp.jpg
+"city street with cars and trees, captured in black and white." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-nodg7n2aFzCWFJBnv-frame-004531-FSRKwS7YSNhkbKZk7.jpg
+"a photo of a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-DJYDQTZH7GLCqw3Tx-frame-002767-Mo2ezRBuMFYgCwrKS.jpg
+"a long line of cars on a road." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-001666-fiJ8P4b4uXqDdoeB8.jpg
+"a deserted parking lot at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-ELruYFQjkqpZnir29-frame-001516-yfcDvmmgDSQFykNPx.jpg
+"a deserted street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-EcPY55txZdfhevYiW-frame-008349-88RRxzQFCuXC4soyy.jpg
+"a city street at night, with cars and people." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-SyzNY82LYZrhkPH7x-frame-003109-5qgJgajHCrJx5WnSM.jpg
+"a blurry street scene." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-qmuvFTzLkR28JMp7r-frame-001936-v7ELBWWW62qB7YtDM.jpg
+"a city street at night, with cars and buildings." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gj7ejTPCZZnD5YwPv-frame-000345-6EpsvisunWWEXMnYn.jpg
+"a person riding a bike on a city street at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-Gfv3kbdf5KAYRtPcz-frame-001773-nqpyc2iczdeEXSdAi.jpg
+"a city street at night, with cars and traffic lights." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-AEZAaF8epmvQv5Nfj-frame-009739-yc8GasSrq9YG3NF8w.jpg
+"a quiet street at night, with a few cars parked along the curb." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-evnmmkhaqckdxWa9P-frame-001651-F6GMjkHYmxfkXaez4.jpg
+"a car driving down a road at night." 
+/scratch/govind/modality_translation/images_thermal_train/data/video-S5osy2ei487eAM2fw-frame-006102-6soY4KXvhEDcifXNm.jpg
+"view of a city street with buildings and a streetlight." 
