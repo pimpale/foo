@@ -8,9 +8,13 @@ import argparse
 def process_caption(completed_prompt):
     caption = completed_prompt.split('ASSISTANT: ')[1].lower()
     caption = caption.replace('black and white ', '')
+    caption = caption.replace(', captured in black and white', '')
     caption = caption.replace('snowy ', '')
+    caption = caption.replace(' in the snow', '')
     caption = caption.replace('at night ', '')
+    caption = caption.replace(' at night', '')
     caption = caption.replace('nighttime ', '')
+    caption = caption.replace('"', '')
     return caption
 
 def main(data_dir, device):
@@ -37,9 +41,10 @@ def main(data_dir, device):
 
         captions = [process_caption(completed_prompt) for completed_prompt in completed_prompts]
 
-        for f, c in zip(batch, captions):
+        for f, c, cp in zip(batch, captions, completed_prompts):
             print(f)
             print(c)
+            print(cp)
             caption_path = pathlib.Path(f).with_suffix(".txt")
             with open(caption_path, "w") as f:
                 f.write(c)
