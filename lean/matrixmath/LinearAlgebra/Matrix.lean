@@ -14,7 +14,7 @@ def ofFn (f: Fin m → Fin n → α) : Matrix α m n :=
   Matrix.mk (Vector.ofFn (fun i => Vector.ofFn (f i)))
 
 
-def empty {α : Type u} : Matrix α 0 0 := 
+def empty {α : Type u} : Matrix α 0 0 :=
   Matrix.mk Vector.empty
 
 
@@ -25,7 +25,7 @@ example (_:Matrix ℕ 3 3) := Matrix.mk !v[
 ]
 
  /-- Create a row matrix from a vector -/
-def row (v : Vector α n) : Matrix α 1 n := 
+def row (v : Vector α n) : Matrix α 1 n :=
   Matrix.mk (Vector.singleton v)
 
 /-- Create a column matrix from a vector -/
@@ -37,7 +37,7 @@ def getRow (x : Matrix α m n) (i : Fin m): Vector α n :=
   x.rows.get i
 
 /-- Get a column of the matrix as a vector -/
-def getCol (x: Matrix α m n) (i : Fin n): Vector α m := 
+def getCol (x: Matrix α m n) (i : Fin n): Vector α m :=
   x.rows.map (fun v => v.get i)
 
 /-- Update a row in the matrix -/
@@ -74,7 +74,7 @@ def transpose (x : Matrix α m n) : Matrix α n m :=
 
 /-- Map each element of a matrix -/
 def map (f: α → β) (x : Matrix α m n) : Matrix β m n :=
-  Matrix.mk (x.rows.map (Vector.map f)) 
+  Matrix.mk (x.rows.map (Vector.map f))
 
 /-- Map each element of a matrix with its index -/
 def mapIdx (f: Fin m → Fin n → α → β) (x : Matrix α m n) : Matrix β m n :=
@@ -88,9 +88,9 @@ def zipWith (f: α → β → γ) (x : Matrix α m n) (y : Matrix β m n) : Matr
 scoped postfix:1024 "ᵀ" => Matrix.transpose
 
 @[ext]
-theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) (j : Fin n), m1[i][j] = m2[i][j]) 
+theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) (j : Fin n), m1[i][j] = m2[i][j])
   : m1 = m2
-  := 
+  :=
     -- prove m1.rows[i] = m2.rows[i] for all i
     have m1_row_i_eq_m2_row_i : ∀ (i : Fin m), m1.rows[i] = m2.rows[i] :=
         fun i => Vector.ext (m1.rows.get i) (m2.rows.get i) (h i)
@@ -98,10 +98,10 @@ theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) 
     have hrows : m1.rows = m2.rows :=
         Vector.ext m1.rows m2.rows m1_row_i_eq_m2_row_i;
     -- prove m1 = m2
-    congrArg Matrix.mk hrows 
+    congrArg Matrix.mk hrows
 
 
-theorem get_mk_rows (rows: Vector (Vector α n) m) 
+theorem get_mk_rows (rows: Vector (Vector α n) m)
   : (Matrix.mk rows).rows = rows
   := rfl
 
@@ -180,7 +180,7 @@ theorem transpose_transpose_elem (a : Matrix α m n ) (i : Fin m) (j : Fin n)
 @[simp]
 theorem transpose_transpose (a : Matrix α m n)
   : aᵀᵀ = a
-  := Matrix.ext aᵀᵀ a (fun i j => transpose_transpose_elem a i j)
+  := Matrix.ext aᵀᵀ a (transpose_transpose_elem a)
 
 
 def zero {α : Type u} [Zero α] {m n: ℕ} : Matrix α m n :=
@@ -194,16 +194,16 @@ def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ :
   let cols := (bᵀ).rows;
   Matrix.ofFn (fun i j => Vector.dot rows[i] cols[j])
 
-def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n := 
+def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n :=
   Matrix.map (-·) a
 
 def add {α : Type u} [Add α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·+·) a b
 
-def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := 
+def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·-·) a b
 
-def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n := 
+def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·*·) a b
 
 instance : Inhabited (Matrix α 0 0) where default := empty
