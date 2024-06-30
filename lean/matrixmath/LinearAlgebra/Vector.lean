@@ -1,6 +1,3 @@
-import Std.Data.Array.Init.Basic
-import Std.Data.Array.Lemmas
-
 import Mathlib.Init.ZeroOne
 
 structure Vector (α : Type u) (n: Nat) where
@@ -118,16 +115,6 @@ def zipWithAux {α β γ:Type u} {i n:Nat} (f : α → β → γ) (as : Vector �
     letI a := as[i]'h2;
     letI b := bs[i]'h2;
     zipWithAux f as bs (acc.push (f a b)) h2
-termination_by _ => n-i
-decreasing_by
-  simp_wf
-  -- current goal: n - (i + 1) < n - i
-  apply Nat.sub_add_lt_sub
-  -- h₂ is 0 < 1
-  case h₂ => exact Nat.one_pos
-  have h2 := Nat.lt_of_le_of_ne h h1
-  -- h₁ is 1 + 1 ≤ n
-  case h₁ => exact Nat.succ_le_of_lt h2
 
 @[inline]
 def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
@@ -213,7 +200,7 @@ theorem Array_getElem_mk {n: Nat} (a:α) (i: Nat) (h: i < Array.size (Array.mkAr
   : (Array.mkArray n a)[i] = a
   := by
     rw [Array.getElem_eq_data_get]
-    simp [mkArray_data]
+    simp [Array.mkArray_data]
 
 /-- If we construct a vector through replicate, then each element is the provided function -/
 @[simp]
@@ -270,10 +257,10 @@ theorem get_push' {α : Type u} {n: Nat} (v: Vector α n) (a: α) (i: Nat) (h: i
   : (v.push a)[i]'h = if h1:i < n then v[i]'h1 else a
   := by
     split
-    case inl =>
+    case isTrue =>
       rename _ => h1
       exact get_push_lt v a ⟨i, h1⟩
-    case inr =>
+    case isFalse =>
       rename _ => h1
       have h2: i = n := Nat.le_antisymm (Nat.le_of_lt_succ h) (Nat.ge_of_not_lt h1)
       rw [replace_index (push v a) i n h (by simp) h2]
@@ -292,10 +279,10 @@ theorem get_zipWithAux
   := by
       unfold zipWithAux
       split
-      case inl =>
+      case isTrue =>
        rename _ => h1
        exact hacc ⟨k.val, (Nat.lt_of_lt_of_eq k.isLt h1.symm)⟩
-      case inr =>
+      case isFalse =>
         rename _ => h1
         have hin_next: i + 1 ≤ n := Nat.succ_le_of_lt (Nat.lt_of_le_of_ne hin h1)
         exact get_zipWithAux
@@ -313,12 +300,12 @@ theorem get_zipWithAux
             rw [get_push acc (f as[i] bs[i]) j]
             split
             -- case j < i
-            case inl =>
+            case isTrue =>
               rename _ => h2
               -- prove that acc[j] = f as[j] bs[j]
               exact hacc ⟨j.val, h2⟩
             -- case j = i
-            case inr =>
+            case isFalse =>
               rename _ => h2
               -- prove that f as[i] bs[i] = f as[j] bs[j]
               have h3 : j.val = i := Nat.le_antisymm (Nat.le_of_lt_succ j.isLt) (Nat.ge_of_not_lt h2)
@@ -328,18 +315,6 @@ theorem get_zipWithAux
           )
           -- index we want to get
           k
-termination_by _ => n - i
-decreasing_by
-    simp_wf
-    -- current goal: n - (i + 1) < n - i
-    apply Nat.sub_add_lt_sub
-    -- h₂ is 0 < 1
-    case h₂ => exact Nat.one_pos
-    rename ¬i = n => h1
-    have h2 := Nat.lt_of_le_of_ne hin h1
-    -- h₁ is 1 + 1 ≤ n
-    case h₁ => exact Nat.succ_le_of_lt h2
-
 
 /-- proves the absurd if we have an instance of Fin 0-/
 theorem Fin_0_absurd (i: Fin 0) : False
