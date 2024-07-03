@@ -1,5 +1,6 @@
 import LinearAlgebra.Vector
 import Aesop
+import Mathlib.Data.Nat.Defs
 
 inductive IndexType : Type where
   | Mono : Nat -> IndexType
@@ -54,6 +55,22 @@ def from_fin {bound: IndexType} (i: Fin (card bound)): IndexVal bound :=
     have hr : i % card tail_t < card tail_t := Nat.mod_lt i (by assumption);
     IndexVal.Multi ⟨i / card tail_t, hq⟩ (from_fin ⟨i % card tail_t, hr⟩)
 
+theorem div_add {m n k : ℕ} (h: k < n) : (m * n + k) / n = m
+  := by
+      -- prove 0 < n
+      have zero_lt_n : 0 < n := by
+        have k_ge_0 : k ≥ 0 := by
+          apply Nat.zero_le;
+        apply Nat.lt_of_le_of_lt k_ge_0 h;
+      -- convert to (k + m * n) / n = m
+      rw [Nat.add_comm];
+      -- convert to  k / n + m = m
+      rw [Nat.add_mul_div_right k m zero_lt_n];
+      -- convert to k / n = 0
+      simp;
+      -- convert to k < n
+      rw [Nat.div_eq_of_lt h]
+
 def bijection (it: IndexType) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
  := by
     intro i;
@@ -69,8 +86,15 @@ def bijection (it: IndexType) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
       unfold to_fin;
       simp;
       apply And.intro;
-      sorry
-      sorry
+      -- only care about the fin val
+      case Multi.left =>
+        -- we have an expression of (m * n + k) / n = m and a hypothesis k < n
+        -- need to reduce to m
+        have to_fin_tail_lt_card_tail : ↑(to_fin tail) < card tail_t := by
+          sorry;
+        simp [div_add];
+      case Multi.right =>
+        sorry;
 
 structure Tensor (α : Type u) (dims: List Nat) where
   data: Array α
