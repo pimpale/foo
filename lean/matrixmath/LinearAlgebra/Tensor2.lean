@@ -96,6 +96,17 @@ def bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
       case Cons.right =>
         sorry;
 
+def bijection_inv (it: List Nat) : ∀ (i : Fin (card it)), to_fin (from_fin i) = i
+ := by
+      intro i;
+      induction it with
+      | nil =>
+        simp [card, Fin.fin_one_eq_zero]
+      | cons n tail_t ih =>
+        unfold to_fin;
+        unfold from_fin;
+        simp [ih, Nat.div_add_mod'];
+
 structure Tensor (α : Type u) (dims: List Nat) where
   data: Array α
   -- a proof that the data.length = n
@@ -227,20 +238,22 @@ def zero [Zero α] : Tensor α dims := Tensor.replicate dims 0
 
 def one [One α] : Tensor α dims := Tensor.replicate dims 1
 
-def neg [Neg α]  (t: Tensor α dims) : Tensor α dims := Tensor.map (-·) t
+def neg [Neg α] (t: Tensor α dims) : Tensor α dims := Tensor.map (-·) t
 
-def add [Add α]  (a b: Tensor α dims) : Tensor α dims :=
+def add [Add α] (a b: Tensor α dims) : Tensor α dims :=
   Tensor.zipWith (·+·) a b
 
-def sub [Sub α]  (a b: Tensor α dims) : Tensor α dims :=
+def sub [Sub α] (a b: Tensor α dims) : Tensor α dims :=
   Tensor.zipWith (·-·) a b
 
-def scale [Mul α]  (k: α) (t: Tensor α dims) : Tensor α dims :=
+def scale [Mul α] (k: α) (t: Tensor α dims) : Tensor α dims :=
   t.map (fun x => k*x)
 
-def hadamard [Mul α]  (a b: Tensor α dims) : Tensor α dims :=
+def hadamard [Mul α] (a b: Tensor α dims) : Tensor α dims :=
   Tensor.zipWith (·*·) a b
 
+def mul [Mul α] (a: Tensor α [m, n]) (b: Tensor α [n, p]) : Tensor α [m, p] :=
+  sorry
 
 /-- Object permanence??? 😳 -/
 @[simp]
@@ -302,7 +315,39 @@ theorem get_mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) (i: Inde
       rw [bijection]
 
 
-def mul (a: Tensor α [m, n]) (b: Tensor α [n, p]) : Tensor α [m, p] :=
-  sorry
+@[ext]
+theorem extMono (t1 t2: Tensor α dims) (h : ∀ (i : Fin (card dims)), t1.getMono i = t2.getMono i) :
+  t1 = t2
+  :=
+    -- prove that t1.data.size = t2.data.size
+    have t1_data_size_eq_t2_data_size := t1.isEq.trans t2.isEq.symm
+    -- prove that for all i < t1.data.size, t1.data.get i = t2.data.get i
+    have forall_i_hi_t1_i_t2_i
+      : ∀ (i : Nat) (h1: i < t1.data.size) (h2: i < t2.data.size), t1.data[i] = t2.data[i]
+      := fun i h1 _ => h ⟨i, lt_data_size_lt_n t1 h1⟩;
+    -- prove that t1.data = t2.data
+    have t1_data_eq_t2_data :t1.data = t2.data :=
+        Array.ext
+            t1.data
+            t2.data
+            t1_data_size_eq_t2_data_size
+            forall_i_hi_t1_i_t2_i
+
+    -- prove that t1 = t2
+    have t1_eq_t2: t1 = t2 := by calc
+      t1 = ⟨t1.data, t1.isEq⟩ := by rfl
+      _ = ⟨t2.data, t2.isEq⟩ := by simp [t1_data_eq_t2_data]
+      t2 = t2 := by rfl
+    t1_eq_t2
+
+@[ext]
+theorem ext (t1 t2: Tensor α dims) (h : ∀ (i : IndexVal dims), t1.get i = t2.get i) :
+  t1 = t2
+  := by
+      apply extMono;
+      intro i;
+      have z := h (from_fin i);
+      unfold Tensor.get at z;
+      simp_all [bijection_inv]
 
 end Tensor
