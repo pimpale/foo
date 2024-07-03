@@ -9,6 +9,8 @@ inductive IndexVal : List ℕ -> Type where
 #check IndexVal.Cons 0 (IndexVal.Nil)
 #check IndexVal [1, 2, 3]
 
+-- def example_index : IndexVal [1, 2, 3] := IndexVal.Cons 0 (IndexVal.Cons 1 (IndexVal.Cons 2 IndexVal.Nil))
+
 def card : List ℕ -> ℕ
   | [] => 1
   | (n :: tail) => n * card tail
@@ -298,5 +300,9 @@ theorem get_mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) (i: Inde
       unfold Tensor.get;
       rw [get_mapIdxMono];
       rw [bijection]
+
+
+def mul (a: Tensor α [m, n]) (b: Tensor α [n, p]) : Tensor α [m, p] :=
+  sorry
 
 end Tensor

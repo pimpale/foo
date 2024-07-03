@@ -231,7 +231,7 @@ theorem get_mapIdxMono {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α →
   : (v.mapIdx f)[i] = f i v[i]
   :=
     letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt v.isEq))
-    Array.getElem_mapIdx v.data f' i (lt_n_lt_data_size (v.mapIdx f) i)
+    Array.getElem_mapIdx v.data f' i (lt_n_lt_data_size (v.mapIdxMono f) i)
 
 
 end Tensor
