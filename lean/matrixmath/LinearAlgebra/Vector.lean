@@ -316,12 +316,6 @@ theorem get_zipWithAux
           -- index we want to get
           k
 
-/-- proves the absurd if we have an instance of Fin 0-/
-theorem Fin_0_absurd (i: Fin 0) : False
-  := by
-    have i_lt_0 : i.val < 0 := i.isLt
-    exact Nat.not_lt_zero i.val i_lt_0
-
 /-- If we construct a vector through zipWith, then the i'th element is f a[i] b[i] -/
 @[simp]
 theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
@@ -336,7 +330,7 @@ theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α �
           (by simp)
           -- a proof that for all j < i, acc[j] = f as[j] bs[j]
           -- note that in this case, i = 0, so we don't have to prove anything
-          (by intro z; exact False.elim (Fin_0_absurd z))
+          (by intro z; exact Fin.elim0 z)
           -- the index we want to get
           i
 

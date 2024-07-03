@@ -72,7 +72,7 @@ theorem div_add {m n k : ℕ} (h: k < n) : (m * n + k) / n = m
       -- convert to k < n
       rw [Nat.div_eq_of_lt h]
 
-def bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
+theorem bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
  := by
     intro i;
     induction i with
@@ -96,7 +96,7 @@ def bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
       case Cons.right =>
         sorry;
 
-def bijection_inv (it: List Nat) : ∀ (i : Fin (card it)), to_fin (from_fin i) = i
+theorem bijection_inv (it: List Nat) : ∀ (i : Fin (card it)), to_fin (from_fin i) = i
  := by
       intro i;
       induction it with
