@@ -1,7 +1,6 @@
 import LinearAlgebra.Matrix
 import LinearAlgebra.Vector
 
-
 def n := 10*1000
 
 def NonTRversion  (v: Vector UInt8 i) (m: Matrix UInt8 i i): IO (UInt64) := do

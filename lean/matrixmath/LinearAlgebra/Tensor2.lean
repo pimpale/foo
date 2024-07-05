@@ -15,6 +15,10 @@ def card : List ℕ -> ℕ
   | [] => 1
   | (n :: tail) => n * card tail
 
+-- t : Tensor α [2, 2]
+-- t = [[1, 2], [3, 4]]
+-- t.get i![0, 1] = t.data[0*2 + 1]
+
 def to_fin : IndexVal dims → Fin (card dims)
   | IndexVal.Nil =>
     let v := 0;
@@ -31,7 +35,7 @@ def to_fin : IndexVal dims → Fin (card dims)
       let ⟨b, hb⟩ := to_fin tail;
       let v := a * card tail_t + b
       let hv : v < card (n :: tail_t) := by calc
-            _ < a * card tail_t + card tail_t := by
+            v < a * card tail_t + card tail_t := by
               apply Nat.add_lt_add_left hb
             _ ≤ n * card tail_t := by
               rw [← Nat.succ_mul]
@@ -44,17 +48,18 @@ def from_fin {bound: List ℕ} (i: Fin (card bound)): IndexVal bound :=
   | [] => IndexVal.Nil
   | n :: tail_t =>
   let ⟨i, hi⟩ := i;
-    have hq : i / card tail_t < n := Nat.div_lt_of_lt_mul (by rw [Nat.mul_comm]; exact hi);
-    have b_gt_0 : 0 < card tail_t := by
+    let q : ℕ := i / card tail_t;
+    let hq : q < n := Nat.div_lt_of_lt_mul (by rw [Nat.mul_comm]; exact hi);
+    let b_gt_0 : 0 < card tail_t := by
       apply Nat.pos_of_ne_zero;
       intro h;
       unfold card at hi;
       rw [h] at hi;
       rw [Nat.mul_zero] at hi;
       contradiction;
-
-    have hr : i % card tail_t < card tail_t := Nat.mod_lt i (by assumption);
-    IndexVal.Cons ⟨i / card tail_t, hq⟩ (from_fin ⟨i % card tail_t, hr⟩)
+    let r := i % card tail_t;
+    let hr : r < card tail_t := Nat.mod_lt i (by assumption);
+    IndexVal.Cons ⟨q, hq⟩ (from_fin ⟨r, hr⟩)
 
 theorem div_add {m n k : ℕ} (h: k < n) : (m * n + k) / n = m
   := by
@@ -72,6 +77,15 @@ theorem div_add {m n k : ℕ} (h: k < n) : (m * n + k) / n = m
       -- convert to k < n
       rw [Nat.div_eq_of_lt h]
 
+theorem mod_add {m n k : ℕ } (h: k < n) : (m * n + k) % n = k
+  := by
+      -- convert to (k + m * n) % n = k
+      rw [Nat.add_comm];
+      -- convert to k % n = k
+      simp [Nat.add_mul_mod_self_left k m n];
+      -- use k < n
+      simp [Nat.mod_eq_of_lt h]
+
 theorem bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
  := by
     intro i;
@@ -80,21 +94,14 @@ theorem bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = 
       unfold from_fin;
       rfl
     | Cons head tail =>
-      rename_i a_ih;
-      rename_i tail_t;
-      unfold from_fin;
-      unfold to_fin;
+      rename_i n tail_t a_ih;
+      unfold from_fin to_fin;
       simp;
       apply And.intro;
-      -- only care about the fin val
       case Cons.left =>
-        -- we have an expression of (m * n + k) / n = m and a hypothesis k < n
-        -- need to reduce to m
-        have to_fin_tail_lt_card_tail : ↑(to_fin tail) < card tail_t := by
-          sorry;
-        simp [div_add];
+        simp_all [div_add];
       case Cons.right =>
-        sorry;
+        simp_all [mod_add];
 
 theorem bijection_inv (it: List Nat) : ∀ (i : Fin (card it)), to_fin (from_fin i) = i
  := by

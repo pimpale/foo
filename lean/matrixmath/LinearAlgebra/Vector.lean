@@ -85,14 +85,14 @@ def push (v: Vector α n) (a : α) : Vector α (n + 1) :=  {
 }
 
 @[inline]
-def pop {α: Type u} {n : Nat} (v: Vector α n) : Vector α (n - 1) :=  {
+def pop (v: Vector α n) : Vector α (n - 1) :=  {
   data := Array.pop v.data,
   isEq := Eq.trans (Array.size_pop v.data) (congrArg Nat.pred v.isEq)
 }
 
 
 @[inline]
-def truncateTR {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=
+def truncateTR (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=
   if h1: n = n' then
    v.proveLen (v.isEq.trans h1)
   else
@@ -102,11 +102,11 @@ def truncateTR {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n): 
     v.pop.truncateTR n' (Nat.pred_le_pred n'_succ_le_n)
 
 @[inline]
-def truncate {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=
+def truncate (v: Vector α n) (n': Nat) (h: n' ≤ n): Vector α n' :=
   Vector.ofFn (fun i => v[i])
 
 @[specialize]
-def zipWithAux {α β γ:Type u} {i n:Nat} (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
+def zipWithAux (f : α → β → γ) (as : Vector α n) (bs : Vector β n) (acc : Vector γ i) (h : i ≤ n) : Vector γ n :=
   if h1: i = n then
     acc.proveLen (acc.isEq.trans h1)
   else
@@ -117,12 +117,12 @@ def zipWithAux {α β γ:Type u} {i n:Nat} (f : α → β → γ) (as : Vector �
     zipWithAux f as bs (acc.push (f a b)) h2
 
 @[inline]
-def zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
+def zipWith (f: α → β → γ) (v1: Vector α n) (v2: Vector β n): Vector γ n :=
   zipWithAux f v1 v2 ⟨Array.mkEmpty n, rfl⟩ (by simp)
 
 
 @[inline]
-def map {α : Type u} {β : Type u} {n: Nat} (f: α → β) (v: Vector α n) : Vector β n := {
+def map (f: α → β) (v: Vector α n) : Vector β n := {
   data := Array.map f v.data,
   isEq := Eq.trans (Array.size_map f v.data) v.isEq
 }
@@ -212,11 +212,11 @@ theorem get_replicate {n: Nat} (a:α) (i: Fin n)
     -- prove that v.data.get i = f i
     Array_getElem_mk a i.val i_lt_size_mkArray_data
 
-theorem get_truncate {α: Type u} {n : Nat} (v: Vector α n) (n': Nat) (h: n' ≤ n) (i : Fin n')
+theorem get_truncate (v: Vector α n) (n': Nat) (h: n' ≤ n) (i : Fin n')
   : (v.truncate n' h)[i] = v[i]
   := get_ofFn (fun i => v[i]) i
 
-theorem get_map {α : Type u} {β : Type u} {n: Nat} (f: α → β) (v: Vector α n) (i: Fin n)
+theorem get_map (f: α → β) (v: Vector α n) (i: Fin n)
   : (v.map f)[i] = f v[i]
   := Array.getElem_map f v.data i (lt_n_lt_data_size (v.map f) i)
 
@@ -318,7 +318,7 @@ theorem get_zipWithAux
 
 /-- If we construct a vector through zipWith, then the i'th element is f a[i] b[i] -/
 @[simp]
-theorem get_zipWith {α : Type u} {β : Type u} {γ : Type u} {n: Nat} (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
+theorem get_zipWith (f: α → β → γ) (v1: Vector α n) (v2: Vector β n) (i: Fin n)
   : (Vector.zipWith f v1 v2)[i] = f v1[i] v2[i]
   := by unfold zipWith
         exact get_zipWithAux
