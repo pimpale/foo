@@ -16,8 +16,6 @@ namespace IndexVal
 
 -- def example_index : IndexVal [1, 2, 3] := IndexVal.Cons 0 (IndexVal.Cons 1 (IndexVal.Cons 2 IndexVal.Nil))
 
-
-
 -- t : Tensor α [2, 2]
 -- t = [[1, 2], [3, 4]]
 -- t.get i![0, 1] = t.data[0*2 + 1]
@@ -119,14 +117,12 @@ theorem bijection_inv (it: List Nat) : ∀ (i : Fin (dim_card it)), to_fin (from
 
 end IndexVal
 
-
 inductive IndexValR : List ℕ -> Type where
   | Nil : IndexValR []
   | ConsI : Fin n -> (IndexValR tail_t) -> IndexValR (n :: tail_t)
   | ConsR : (b:Fin n) -> (e:Fin n) -> (IndexValR tail_t) -> IndexValR (n :: tail_t)
 
-section IndexValR
-
+namespace IndexValR
 /-- Dimensions of the resulting tensor -/
 def result_dims: IndexValR dims -> List Nat
   | IndexValR.Nil => []
@@ -134,7 +130,7 @@ def result_dims: IndexValR dims -> List Nat
   | IndexValR.ConsR b e tail => (e - b + 1) :: result_dims tail
 
 /-- Gets a list of all indexes accessed by this query -/
-def get_range_indices (v: IndexValR dims): List (IndexVal dims) :=
+def to_src_fin (v: IndexValR dims) (i: Fin (dim_card (result_dims v))): Fin (dim_card dims) :=
   sorry
 
 end IndexValR

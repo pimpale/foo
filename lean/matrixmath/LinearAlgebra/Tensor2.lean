@@ -82,6 +82,10 @@ def getMono  (t: Tensor α dims) (i : Fin (dim_card dims)) : α :=
 def get (t: Tensor α dims) (i : IndexVal dims) : α :=
   getMono t (to_fin i)
 
+@[inline]
+def getR (t: Tensor α dims) (i : IndexValR dims) : Tensor α (i.result_dims) :=
+  ofFnMono (fun j => t.getMono (i.to_src_fin j))
+
 -- instance to get element
 instance : GetElem (Tensor α dims) (IndexVal dims) α (fun _ _ => true) where
   getElem xs i _ := xs.get i
