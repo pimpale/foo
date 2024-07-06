@@ -1,147 +1,36 @@
 import LinearAlgebra.Vector
-import Aesop
+import LinearAlgebra.IndexVal
 import Mathlib.Data.Nat.Defs
+import Batteries.Data.List.Basic
 
-inductive IndexVal : List ℕ -> Type where
-  | Nil : IndexVal []
-  | Cons : Fin n -> (IndexVal tail_t) -> IndexVal (n :: tail_t)
-
-#check IndexVal.Cons 0 (IndexVal.Nil)
-#check IndexVal [1, 2, 3]
-
--- def example_index : IndexVal [1, 2, 3] := IndexVal.Cons 0 (IndexVal.Cons 1 (IndexVal.Cons 2 IndexVal.Nil))
-
-def card : List ℕ -> ℕ
-  | [] => 1
-  | (n :: tail) => n * card tail
-
--- t : Tensor α [2, 2]
--- t = [[1, 2], [3, 4]]
--- t.get i![0, 1] = t.data[0*2 + 1]
-
-def to_fin : IndexVal dims → Fin (card dims)
-  | IndexVal.Nil =>
-    let v := 0;
-    let hv := by
-      unfold card;
-      simp;
-    ⟨v,hv⟩
-  | (IndexVal.Cons head tail) =>
-    by
-      -- n is the cardinality of the head
-      -- tail_t is the tail
-      rename_i n tail_t;
-      let ⟨a, ha⟩ := head;
-      let ⟨b, hb⟩ := to_fin tail;
-      let v := a * card tail_t + b
-      let hv : v < card (n :: tail_t) := by calc
-            v < a * card tail_t + card tail_t := by
-              apply Nat.add_lt_add_left hb
-            _ ≤ n * card tail_t := by
-              rw [← Nat.succ_mul]
-              apply Nat.mul_le_mul_right
-              exact ha
-      exact ⟨v, hv⟩
-
-def from_fin {bound: List ℕ} (i: Fin (card bound)): IndexVal bound :=
-  match bound with
-  | [] => IndexVal.Nil
-  | n :: tail_t =>
-  let ⟨i, hi⟩ := i;
-    let q : ℕ := i / card tail_t;
-    let hq : q < n := Nat.div_lt_of_lt_mul (by rw [Nat.mul_comm]; exact hi);
-    let b_gt_0 : 0 < card tail_t := by
-      apply Nat.pos_of_ne_zero;
-      intro h;
-      unfold card at hi;
-      rw [h] at hi;
-      rw [Nat.mul_zero] at hi;
-      contradiction;
-    let r := i % card tail_t;
-    let hr : r < card tail_t := Nat.mod_lt i (by assumption);
-    IndexVal.Cons ⟨q, hq⟩ (from_fin ⟨r, hr⟩)
-
-theorem div_add {m n k : ℕ} (h: k < n) : (m * n + k) / n = m
-  := by
-      -- prove 0 < n
-      have zero_lt_n : 0 < n := by
-        have k_ge_0 : k ≥ 0 := by
-          apply Nat.zero_le;
-        apply Nat.lt_of_le_of_lt k_ge_0 h;
-      -- convert to (k + m * n) / n = m
-      rw [Nat.add_comm];
-      -- convert to  k / n + m = m
-      rw [Nat.add_mul_div_right k m zero_lt_n];
-      -- convert to k / n = 0
-      simp;
-      -- convert to k < n
-      rw [Nat.div_eq_of_lt h]
-
-theorem mod_add {m n k : ℕ } (h: k < n) : (m * n + k) % n = k
-  := by
-      -- convert to (k + m * n) % n = k
-      rw [Nat.add_comm];
-      -- convert to k % n = k
-      simp [Nat.add_mul_mod_self_left k m n];
-      -- use k < n
-      simp [Nat.mod_eq_of_lt h]
-
-theorem bijection (it: List Nat) : ∀ (i : IndexVal it), from_fin (to_fin i) = i
- := by
-    intro i;
-    induction i with
-    | Nil =>
-      unfold from_fin;
-      rfl
-    | Cons head tail =>
-      rename_i n tail_t a_ih;
-      unfold from_fin to_fin;
-      simp;
-      apply And.intro;
-      case Cons.left =>
-        simp_all [div_add];
-      case Cons.right =>
-        simp_all [mod_add];
-
-theorem bijection_inv (it: List Nat) : ∀ (i : Fin (card it)), to_fin (from_fin i) = i
- := by
-      intro i;
-      induction it with
-      | nil =>
-        simp [card, Fin.fin_one_eq_zero]
-      | cons n tail_t ih =>
-        unfold to_fin;
-        unfold from_fin;
-        simp [ih, Nat.div_add_mod'];
 
 structure Tensor (α : Type u) (dims: List Nat) where
   data: Array α
   -- a proof that the data.length = n
-  isEq: data.size = card dims
+  data_is_eq: data.size = dim_card dims
 deriving Repr
 
 
 namespace Tensor
-def reshape
-  {dims: List Nat}
-  {dims': List Nat}
-  (t:Tensor α dims)
-  (h: t.data.size = (card dims'))
-: Tensor α dims' := {
-  data := t.data,
-  isEq := h
-}
+
+open IndexVal
+
+def reshape (t:Tensor α dims) (h: t.data.size = (dim_card dims')): Tensor α dims'
+  := {
+    data := t.data,
+    data_is_eq := h,
+  }
 
 @[inline]
 def replicate (dims: List Nat)  (x: α) : Tensor α dims := {
-    data := Array.mkArray (card dims) x,
-    isEq := Array.size_mkArray (card dims) x
+    data := Array.mkArray (dim_card dims) x,
+    data_is_eq := Array.size_mkArray (dim_card dims) x,
 }
 
 @[inline]
-def ofFnMono (f: Fin (card dims) -> α) : Tensor α dims := {
+def ofFnMono (f: Fin (dim_card dims) -> α) : Tensor α dims := {
   data := Array.ofFn f,
-  isEq := Array.size_ofFn f
+  data_is_eq := Array.size_ofFn f,
 }
 
 @[inline]
@@ -150,19 +39,19 @@ def ofFn  (f: IndexVal dims -> α) : Tensor α dims :=
 
 def ofArray (a:Array α) : Tensor α [a.size] := {
   data := a,
-  isEq := by
-    unfold card;
-    unfold card;
-    simp
+  data_is_eq := by
+    unfold dim_card;
+    unfold dim_card;
+    simp,
 }
 
 @[inline]
 def ofList (l: List α) : Tensor α [l.length] := {
   data := Array.mk l,
-  isEq := by
-    unfold card;
-    unfold card;
-    simp
+  data_is_eq := by
+    unfold dim_card;
+    unfold dim_card;
+    simp,
 }
 
 syntax "!t[" withoutPosition(sepBy(term, ", ")) "]" : term
@@ -175,22 +64,22 @@ def singleton (x:α) : Tensor α [1] :=
   Tensor.replicate [1] x
 
 /-- prove that i < t.data.size if i < t.cardinality-/
-theorem lt_n_lt_data_size  (t: Tensor α dims) (i : Fin (card dims))
+theorem lt_n_lt_data_size  (t: Tensor α dims) (i : Fin (dim_card dims))
   : (i < t.data.size)
-  := Nat.lt_of_lt_of_eq i.isLt (Eq.symm t.isEq)
+  := Nat.lt_of_lt_of_eq i.isLt (Eq.symm t.data_is_eq)
 
 /-- prove that i < n if i < v.array.size-/
 theorem lt_data_size_lt_n  {i :Nat}  (t: Tensor α dims) (h: i < t.data.size)
-  : (i < card dims)
-  := t.isEq.symm ▸ h
+  : (i < dim_card dims)
+  := t.data_is_eq.symm ▸ h
 
 
 @[inline]
-def getMono  (t: Tensor α dims) (i : Fin (card dims)) : α :=
+def getMono  (t: Tensor α dims) (i : Fin (dim_card dims)) : α :=
   t.data.get ⟨i.val, (lt_n_lt_data_size t i)⟩
 
 @[inline]
-def get  (t: Tensor α dims) (i : IndexVal dims) : α :=
+def get (t: Tensor α dims) (i : IndexVal dims) : α :=
   getMono t (to_fin i)
 
 -- instance to get element
@@ -198,12 +87,12 @@ instance : GetElem (Tensor α dims) (IndexVal dims) α (fun _ _ => true) where
   getElem xs i _ := xs.get i
 
 @[inline]
-def setMono (t: Tensor α dims) (i : Fin (card dims)) (a : α) : Tensor α dims :=
+def setMono (t: Tensor α dims) (i : Fin (dim_card dims)) (a : α) : Tensor α dims :=
   -- prove that i ≤ v.data.length
-  let i :=  ⟨i.val, (Nat.lt_of_lt_of_eq i.isLt (Eq.symm t.isEq))⟩;
+  let i :=  ⟨i.val, (Nat.lt_of_lt_of_eq i.isLt (Eq.symm t.data_is_eq))⟩;
   {
     data := Array.set t.data i a,
-    isEq := Eq.trans (Array.size_set t.data i a) t.isEq
+    data_is_eq := Eq.trans (Array.size_set t.data i a) t.data_is_eq,
   }
 
 @[inline]
@@ -213,33 +102,73 @@ def set  (t: Tensor α dims) (i : IndexVal dims) (a : α) : Tensor α dims :=
 @[inline]
 def zipWith (f: α → β → γ) (t1: Tensor α dims) (t2: Tensor β dims): Tensor γ dims :=
   -- create vector
-  let v1: Vector α (card dims) := ⟨t1.data, t1.isEq⟩;
-  let v2: Vector β (card dims) := ⟨t2.data, t2.isEq⟩;
+  let v1: Vector α (dim_card dims) := ⟨t1.data, t1.data_is_eq⟩;
+  let v2: Vector β (dim_card dims) := ⟨t2.data, t2.data_is_eq⟩;
   -- zipWith
   let v3 := Vector.zipWith f v1 v2;
   -- back to tensor
   {
     data := v3.data,
-    isEq := v3.isEq
+    data_is_eq := v3.isEq,
   }
 
 @[inline]
 def map (f: α → β) (t: Tensor α dims) : Tensor β dims := {
   data := Array.map f t.data,
-  isEq := Eq.trans (Array.size_map f t.data) t.isEq
+  data_is_eq := Eq.trans (Array.size_map f t.data) t.data_is_eq,
 }
 
 @[inline]
-def mapIdxMono (f: Fin (card dims) → α → β) (t: Tensor α dims) : Tensor β dims :=
-  letI f' := fun (i: Fin t.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt t.isEq));
+def mapIdxMono (f: Fin (dim_card dims) → α → β) (t: Tensor α dims) : Tensor β dims :=
+  letI f' := fun (i: Fin t.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt t.data_is_eq));
   {
     data := Array.mapIdx t.data f',
-    isEq := Eq.trans (Array.size_mapIdx t.data f') t.isEq
+    data_is_eq := Eq.trans (Array.size_mapIdx t.data f') t.data_is_eq,
   }
 
 @[inline]
 def mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) : Tensor β dims :=
   mapIdxMono (λ i a => f (from_fin i) a) t
+
+set_option diagnostics true
+
+def transposeDims
+  (dims: List Nat)
+  (permutation: List Nat)
+  (h: List.Perm permutation (List.range dims.length))
+: List Nat :=
+
+  -- convert to array for O(1) access
+  let perm_arr := Array.mk permutation;
+  let dims_arr := Array.mk dims;
+
+  -- prove each element of permutation is less than dims.length
+  let permutation_lt_dims_arr_size : ∀ (i: Nat), i ∈ perm_arr -> i < dims_arr.size := by
+    intro i;
+    intro h;
+    rename_i h2;
+    apply List.mem_range.mp;
+    apply (List.Perm.mem_iff h2).mp;
+    apply (Array.mem_def i perm_arr).mp;
+    exact h;
+
+  List.ofFn (fun i:Fin perm_arr.size =>
+    let p := perm_arr[i.val]'i.isLt;
+    let hp := by
+      apply permutation_lt_dims_arr_size;
+      apply (Array.mem_def p perm_arr).mpr;
+      apply Array.getElem_mem_data perm_arr i.isLt;
+    dims_arr[p]'hp
+  )
+
+
+def transpose
+  (t: Tensor α dims)
+  (permutation: List Nat)
+  (h: List.Perm permutation (List.range dims.length))
+: Tensor α (transposeDims dims permutation h) :=
+  sorry
+
 
 def zero [Zero α] : Tensor α dims := Tensor.replicate dims 0
 
@@ -259,12 +188,24 @@ def scale [Mul α] (k: α) (t: Tensor α dims) : Tensor α dims :=
 def hadamard [Mul α] (a b: Tensor α dims) : Tensor α dims :=
   Tensor.zipWith (·*·) a b
 
-def mul [Mul α] (a: Tensor α [m, n]) (b: Tensor α [n, p]) : Tensor α [m, p] :=
+def sum [Zero α] [Add α] (t: Tensor α dims) : α :=
+  t.data.foldl (·+·) 0
+
+def mul [Mul α] (a: Tensor α [m₁, p]) (b: Tensor α [p, n₂]) : Tensor α [m₁, n₂] :=
+  let rows := a;
+  let cols := b.transpose [1, 0] (by
+    unfold List.length List.length List.length;
+    unfold List.range;
+    unfold List.range.loop List.range.loop List.range.loop;
+    simp;
+    apply List.Perm.swap'
+    apply List.Perm.nil
+  );
   sorry
 
 /-- Object permanence??? 😳 -/
 @[simp]
-theorem get_set_eq_mono  (t: Tensor α dims) (i: Fin (card dims)) (a: α)
+theorem get_set_eq_mono  (t: Tensor α dims) (i: Fin (dim_card dims)) (a: α)
   : Tensor.getMono (Tensor.setMono t i a) i = a
   := Array.get_set_eq t.data ⟨i, lt_n_lt_data_size t i⟩ a
 
@@ -275,7 +216,7 @@ theorem get_set_eq  (t: Tensor α dims) (i: IndexVal dims) (a: α)
 
 /-- If we construct a vector through ofFn, then each element is the result of the function -/
 @[simp]
-theorem get_ofFnMono  (f: Fin (card dims) -> α) (i: Fin (card dims))
+theorem get_ofFnMono  (f: Fin (dim_card dims) -> α) (i: Fin (dim_card dims))
   : (Tensor.ofFnMono f).getMono i = f i
   :=
     -- prove that the i < Array.size (Array.ofFn f)
@@ -294,7 +235,7 @@ theorem get_ofFn (f: IndexVal dims -> α) (i: IndexVal dims)
       rw [get_ofFnMono];
       rw [bijection]
 
-theorem get_mapMono (f: α → β) (t: Tensor α dims) (i: Fin (card dims))
+theorem get_mapMono (f: α → β) (t: Tensor α dims) (i: Fin (dim_card dims))
   : (t.map f).getMono i = f (t.getMono i)
   := Array.getElem_map f t.data i (lt_n_lt_data_size (t.map f) i)
 
@@ -305,10 +246,10 @@ theorem get_map (f: α → β) (t: Tensor α dims) (i: IndexVal dims)
       unfold Tensor.get;
       rw [get_mapMono];
 
-theorem get_mapIdxMono (f: Fin (card dims) → α → β) (t: Tensor α dims) (i: Fin (card dims))
+theorem get_mapIdxMono (f: Fin (dim_card dims) → α → β) (t: Tensor α dims) (i: Fin (dim_card dims))
   : (t.mapIdxMono f).getMono i = f i (t.getMono i)
   :=
-    letI f' := fun (i: Fin t.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt t.isEq))
+    let f' := fun (i: Fin t.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt t.data_is_eq))
     Array.getElem_mapIdx t.data f' i (lt_n_lt_data_size (t.mapIdxMono f) i)
 
 
@@ -323,11 +264,11 @@ theorem get_mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) (i: Inde
 
 
 @[ext]
-theorem extMono (t1 t2: Tensor α dims) (h : ∀ (i : Fin (card dims)), t1.getMono i = t2.getMono i) :
+theorem extMono (t1 t2: Tensor α dims) (h : ∀ (i : Fin (dim_card dims)), t1.getMono i = t2.getMono i) :
   t1 = t2
   :=
     -- prove that t1.data.size = t2.data.size
-    have t1_data_size_eq_t2_data_size := t1.isEq.trans t2.isEq.symm
+    have t1_data_size_eq_t2_data_size := t1.data_is_eq.trans t2.data_is_eq.symm
     -- prove that for all i < t1.data.size, t1.data.get i = t2.data.get i
     have forall_i_hi_t1_i_t2_i
       : ∀ (i : Nat) (h1: i < t1.data.size) (h2: i < t2.data.size), t1.data[i] = t2.data[i]
@@ -342,8 +283,8 @@ theorem extMono (t1 t2: Tensor α dims) (h : ∀ (i : Fin (card dims)), t1.getMo
 
     -- prove that t1 = t2
     have t1_eq_t2: t1 = t2 := by calc
-      t1 = ⟨t1.data, t1.isEq⟩ := by rfl
-      _ = ⟨t2.data, t2.isEq⟩ := by simp [t1_data_eq_t2_data]
+      t1 = ⟨t1.data, t1.data_is_eq⟩ := by rfl
+      _ = ⟨t2.data, t2.data_is_eq⟩ := by simp [t1_data_eq_t2_data]
       t2 = t2 := by rfl
     t1_eq_t2
 

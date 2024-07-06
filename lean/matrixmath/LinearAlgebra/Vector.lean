@@ -128,13 +128,12 @@ def map (f: α → β) (v: Vector α n) : Vector β n := {
 }
 
 @[inline]
-def mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β) (v: Vector α n) : Vector β n :=
+def mapIdx (f: Fin n → α → β) (v: Vector α n) : Vector β n :=
   letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt v.isEq));
   {
     data := Array.mapIdx v.data f',
     isEq := Eq.trans (Array.size_mapIdx v.data f') v.isEq
   }
-
 
 def zero [Zero α] {n:Nat}: Vector α n := Vector.replicate n 0
 
@@ -199,7 +198,7 @@ theorem get_ofFn {n: Nat} (f: Fin n -> α) (i: Fin n)
 theorem Array_getElem_mk {n: Nat} (a:α) (i: Nat) (h: i < Array.size (Array.mkArray n a))
   : (Array.mkArray n a)[i] = a
   := by
-    rw [Array.getElem_eq_data_get]
+    rw [Array.getElem_eq_data_getElem]
     simp [Array.mkArray_data]
 
 /-- If we construct a vector through replicate, then each element is the provided function -/
@@ -221,7 +220,7 @@ theorem get_map (f: α → β) (v: Vector α n) (i: Fin n)
   := Array.getElem_map f v.data i (lt_n_lt_data_size (v.map f) i)
 
 
-theorem get_mapIdx {α : Type u} {β : Type u} {n: Nat} (f: Fin n → α → β) (v: Vector α n) (i: Fin n)
+theorem get_mapIdx (f: Fin n → α → β) (v: Vector α n) (i: Fin n)
   : (v.mapIdx f)[i] = f i v[i]
   :=
     letI f' := fun (i: Fin v.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt v.isEq))

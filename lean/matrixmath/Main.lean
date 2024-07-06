@@ -1,5 +1,6 @@
 import LinearAlgebra.Matrix
 import LinearAlgebra.Vector
+import LinearAlgebra.Tensor2
 
 def n := 10*1000
 
