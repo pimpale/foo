@@ -1,8 +1,10 @@
 import LinearAlgebra.Vector
 import LinearAlgebra.IndexVal
 import Mathlib.Data.Nat.Defs
+import Mathlib.Data.List.OfFn
 import Batteries.Data.List.Basic
-
+import Batteries.Data.List.Lemmas
+import Batteries.Data.List.Perm
 
 structure Tensor (α : Type u) (dims: List Nat) where
   data: Array α
@@ -136,7 +138,7 @@ def mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) : Tensor β dims
 
 set_option diagnostics true
 
-def transposeDims
+def transpose_dims
   (dims: List Nat)
   (permutation: List Nat)
   (h: List.Perm permutation (List.range dims.length))
@@ -165,13 +167,35 @@ def transposeDims
     dims_arr[p]'hp
   )
 
+theorem transpose_dims_length
+  (dims: List Nat)
+  (permutation: List Nat)
+  (h: List.Perm permutation (List.range dims.length))
+: List.length (transpose_dims dims permutation h) = List.length dims :=
+  by
+    unfold transpose_dims;
+    simp
+    have z := List.Perm.length_eq h;
+    simp_all
+
+theorem transpose_dims_card
+  (dims: List Nat)
+  (permutation: List Nat)
+  (h: List.Perm permutation (List.range dims.length))
+: dim_card (transpose_dims dims permutation h) = dim_card dims :=
+  sorry
+
+def transpose_elem_idx (i: IndexVal (transpose_dims dims permutation h))
+: IndexVal dims :=
+  let i' := Fin.cast (transpose_dims_card dims permutation h) i;
+  sorry
 
 def transpose
   (t: Tensor α dims)
   (permutation: List Nat)
   (h: List.Perm permutation (List.range dims.length))
-: Tensor α (transposeDims dims permutation h) :=
-  sorry
+: Tensor α (transpose_dims dims permutation h) :=
+  Tensor.ofFn fun i => t.get (transpose_elem_idx i)
 
 
 def zero [Zero α] : Tensor α dims := Tensor.replicate dims 0
@@ -198,10 +222,9 @@ def sum [Zero α] [Add α] (t: Tensor α dims) : α :=
 def mul [Mul α] (a: Tensor α [m₁, p]) (b: Tensor α [p, n₂]) : Tensor α [m₁, n₂] :=
   let rows := a;
   let cols := b.transpose [1, 0] (by
-    unfold List.length List.length List.length;
+    repeat unfold List.length;
     unfold List.range;
-    unfold List.range.loop List.range.loop List.range.loop;
-    simp;
+    repeat unfold List.range.loop;
     apply List.Perm.swap'
     apply List.Perm.nil
   );
@@ -224,7 +247,7 @@ theorem get_ofFnMono  (f: Fin (dim_card dims) -> α) (i: Fin (dim_card dims))
   : (Tensor.ofFnMono f).getMono i = f i
   :=
     -- prove that the i < Array.size (Array.ofFn f)
-    have i_lt_size_ofFn_data : i.val < Array.size (Array.ofFn f) := lt_n_lt_data_size (ofFnMono f) i
+    let i_lt_size_ofFn_data := lt_n_lt_data_size (ofFnMono f) i
     -- prove that v.data.get i = f i
     Array.getElem_ofFn f i.val i_lt_size_ofFn_data
 
@@ -253,7 +276,7 @@ theorem get_map (f: α → β) (t: Tensor α dims) (i: IndexVal dims)
 theorem get_mapIdxMono (f: Fin (dim_card dims) → α → β) (t: Tensor α dims) (i: Fin (dim_card dims))
   : (t.mapIdxMono f).getMono i = f i (t.getMono i)
   :=
-    let f' := fun (i: Fin t.data.size) => f (Fin.mk i.val (Nat.lt_of_lt_of_eq i.isLt t.data_is_eq))
+    let f' := fun (i: Fin t.data.size) => f (Fin.cast t.data_is_eq i)
     Array.getElem_mapIdx t.data f' i (lt_n_lt_data_size (t.mapIdxMono f) i)
 
 

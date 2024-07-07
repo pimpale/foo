@@ -14,7 +14,7 @@ def ofFn (f: Fin m → Fin n → α) : Matrix α m n :=
   Matrix.mk (Vector.ofFn (fun i => Vector.ofFn (f i)))
 
 
-def empty {α : Type u} : Matrix α 0 0 :=
+def empty : Matrix α 0 0 :=
   Matrix.mk Vector.empty
 
 
@@ -88,7 +88,7 @@ def zipWith (f: α → β → γ) (x : Matrix α m n) (y : Matrix β m n) : Matr
 scoped postfix:1024 "ᵀ" => Matrix.transpose
 
 @[ext]
-theorem ext {α: Type u} {m n: ℕ} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) (j : Fin n), m1[i][j] = m2[i][j])
+theorem ext {α: Type u} (m1 m2: Matrix α m n) (h : ∀ (i : Fin m) (j : Fin n), m1[i][j] = m2[i][j])
   : m1 = m2
   :=
     -- prove m1.rows[i] = m2.rows[i] for all i
@@ -183,34 +183,34 @@ theorem transpose_transpose (a : Matrix α m n)
   := Matrix.ext aᵀᵀ a (transpose_transpose_elem a)
 
 
-def zero {α : Type u} [Zero α] {m n: ℕ} : Matrix α m n :=
+def zero [Zero α] : Matrix α m n :=
   Matrix.replicate m n 0
 
-def identity {α : Type u} {n :ℕ} [Zero α] [One α] : Matrix α n n :=
+def identity {n :ℕ} [Zero α] [One α] : Matrix α n n :=
   Matrix.ofFn (fun i j => if i == j then 1 else 0)
 
-def mul {α : Type u} [Zero α] [Add α] [Mul α] {m₁ : ℕ} {p : ℕ} {n₂ : Nat} (a : Matrix α m₁ p) (b : Matrix α p n₂) : Matrix α m₁ n₂ :=
+def mul [Zero α] [Add α] [Mul α] (a : Matrix α m₁ p) (b : Matrix α p n₂) : Matrix α m₁ n₂ :=
   let rows := a.rows;
   let cols := (bᵀ).rows;
   Matrix.ofFn (fun i j => Vector.dot rows[i] cols[j])
 
-def neg {α : Type u} [Neg α] {m n: ℕ} (a : Matrix α m n) : Matrix α m n :=
+def neg [Neg α] (a : Matrix α m n) : Matrix α m n :=
   Matrix.map (-·) a
 
-def add {α : Type u} [Add α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
+def add [Add α] (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·+·) a b
 
-def sub {α : Type u} [Sub α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
+def sub [Sub α] (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·-·) a b
 
-def hadamard {α : Type u} [Mul α] {m n: ℕ} (a b : Matrix α m n) : Matrix α m n :=
+def hadamard [Mul α] (a b : Matrix α m n) : Matrix α m n :=
   Matrix.zipWith (·*·) a b
 
 instance : Inhabited (Matrix α 0 0) where default := empty
 instance [Zero α] : Zero (Matrix α n m) where zero := zero
 instance [One α] [Zero α] : One (Matrix α n n) where one := identity
 instance [Neg α] : Neg (Matrix α n m) where neg := neg
-instance {α : Type u} [Add α] {n m: ℕ} : Add (Matrix α n m) where add := add
-instance {α : Type u} [Sub α] {n m: ℕ} : Sub (Matrix α n m) where sub := sub
+instance [Add α] : Add (Matrix α n m) where add := add
+instance [Sub α] : Sub (Matrix α n m) where sub := sub
 
 end Matrix
