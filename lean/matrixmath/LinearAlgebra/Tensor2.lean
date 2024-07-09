@@ -23,6 +23,13 @@ def reshape (t:Tensor α dims) (h: t.data.size = (dim_card dims')): Tensor α di
     data_is_eq := h,
   }
 
+def cast_tensor (t: Tensor α dims) (h: dims = dims'): Tensor α dims'
+  := {
+    data := t.data,
+    data_is_eq := by
+      simp [t.data_is_eq, h]
+  }
+
 @[inline]
 def replicate (dims: List Nat)  (x: α) : Tensor α dims := {
     data := Array.mkArray (dim_card dims) x,
@@ -78,7 +85,7 @@ theorem lt_data_size_lt_n  {i :Nat}  (t: Tensor α dims) (h: i < t.data.size)
 
 @[inline]
 def getMono  (t: Tensor α dims) (i : Fin (dim_card dims)) : α :=
-  t.data.get ⟨i.val, (lt_n_lt_data_size t i)⟩
+  t.data.get (Fin.cast t.data_is_eq.symm i)
 
 @[inline]
 def get (t: Tensor α dims) (i : IndexVal dims) : α :=
@@ -138,34 +145,37 @@ def mapIdx (f: IndexVal dims → α → β) (t: Tensor α dims) : Tensor β dims
 
 set_option diagnostics true
 
+
 def transpose_dims
   (dims: List Nat)
   (permutation: List Nat)
   (h: List.Perm permutation (List.range dims.length))
 : List Nat :=
-
-  -- convert to array for O(1) access
-  let perm_arr := Array.mk permutation;
-  let dims_arr := Array.mk dims;
-
   -- prove each element of permutation is less than dims.length
-  let permutation_lt_dims_arr_size : ∀ (i: Nat), i ∈ perm_arr -> i < dims_arr.size := by
+  let permutation_lt_dims_arr_size : ∀ (i: Nat), i ∈ permutation -> i < dims.length := by
     intro i;
     intro h;
     rename_i h2;
     apply List.mem_range.mp;
     apply (List.Perm.mem_iff h2).mp;
-    apply (Array.mem_def i perm_arr).mp;
     exact h;
 
-  List.ofFn (fun i:Fin perm_arr.size =>
-    let p := perm_arr[i.val]'i.isLt;
+
+  List.ofFn (fun i:Fin permutation.length =>
+    let p := permutation[i];
     let hp := by
-      apply permutation_lt_dims_arr_size;
-      apply (Array.mem_def p perm_arr).mpr;
-      apply Array.getElem_mem_data perm_arr i.isLt;
-    dims_arr[p]'hp
+      apply permutation_lt_dims_arr_size
+      apply List.getElem_mem
+    dims[p]'hp
   )
+
+theorem transpose_dims_perm_dims
+  (dims: List Nat)
+  (permutation: List Nat)
+  (h: List.Perm permutation (List.range dims.length))
+: List.Perm (transpose_dims dims permutation h) dims :=
+  by
+    sorry
 
 theorem transpose_dims_length
   (dims: List Nat)
@@ -173,10 +183,9 @@ theorem transpose_dims_length
   (h: List.Perm permutation (List.range dims.length))
 : List.length (transpose_dims dims permutation h) = List.length dims :=
   by
-    unfold transpose_dims;
-    simp
-    have z := List.Perm.length_eq h;
-    simp_all
+    have z := (transpose_dims_perm_dims dims permutation h);
+    apply List.Perm.length_eq z
+
 
 theorem transpose_dims_card
   (dims: List Nat)
@@ -185,17 +194,24 @@ theorem transpose_dims_card
 : dim_card (transpose_dims dims permutation h) = dim_card dims :=
   sorry
 
-def transpose_elem_idx (i: IndexVal (transpose_dims dims permutation h))
-: IndexVal dims :=
-  let i' := Fin.cast (transpose_dims_card dims permutation h) i;
-  sorry
+-- def untranspose_elem_idx_aux
+
+/-- gets the untransposed index -/
+def untranspose_elem_idx (i: Fin (dim_card (transpose_dims dims permutation h)))
+: Fin (dim_card dims) :=
+  match dims with
+  | [] => Fin.cast (by simp [transpose_dims_card]) i
+  | d::dims_tail =>
+    let i_head := i.val / (dim_card dims_tail);
+    sorry
 
 def transpose
   (t: Tensor α dims)
   (permutation: List Nat)
   (h: List.Perm permutation (List.range dims.length))
 : Tensor α (transpose_dims dims permutation h) :=
-  Tensor.ofFn fun i => t.get (transpose_elem_idx i)
+  Tensor.ofFnMono fun i => t.getMono (untranspose_elem_idx i)
+
 
 
 def zero [Zero α] : Tensor α dims := Tensor.replicate dims 0
@@ -219,16 +235,64 @@ def hadamard [Mul α] (a b: Tensor α dims) : Tensor α dims :=
 def sum [Zero α] [Add α] (t: Tensor α dims) : α :=
   t.data.foldl (·+·) 0
 
-def mul [Mul α] (a: Tensor α [m₁, p]) (b: Tensor α [p, n₂]) : Tensor α [m₁, n₂] :=
-  let rows := a;
-  let cols := b.transpose [1, 0] (by
-    repeat unfold List.length;
-    unfold List.range;
-    repeat unfold List.range.loop;
-    apply List.Perm.swap'
-    apply List.Perm.nil
-  );
+def mul [Zero α] [Add α] [Mul α] (a: Tensor α [m₁, p]) (b: Tensor α [p, n₂]) : Tensor α [m₁, n₂] :=
+  Tensor.ofFn fun !ti[i, j] =>
+    let row: Tensor α [p] := a.getR !tr[i, all];
+    let col: Tensor α [p] := b.getR !tr[all, j];
+    sum (hadamard row col)
+
+def mul₂ [Zero α] [Add α] [Mul α] (a: Tensor α [p, m₁]) (b: Tensor α [n₂, p]) : Tensor α [n₂, m₁] :=
+  Tensor.ofFn fun !ti[j, i] =>
+    let row: Tensor α [p] := a.getR !tr[all, i];
+    let col: Tensor α [p] := b.getR !tr[j, all];
+    sum (hadamard row col)
+
+#check
+  let a: Tensor ℕ [2, 2] := sorry;
+  let b: Tensor ℕ [2, 2] := sorry;
+  mul a b
+
+
+def mulb₁ [Zero α] [Add α] [Mul α]
+  (batch_dims: List Nat)
+  (a: Tensor α (List.reverse (p :: m₁ :: batch_dims)))
+  (b: Tensor α (List.reverse (n₂ :: p :: batch_dims)))
+: Tensor α (List.reverse (n₂ :: m₁ :: batch_dims)) :=
   sorry
+
+def mulb₂ [Zero α] [Add α] [Mul α]
+  (batch_dims: List Nat)
+  (a: Tensor α (batch_dims ++ [m₁, p]))
+  (b: Tensor α (batch_dims ++ [p, n₂]))
+: Tensor α (batch_dims ++ [m₁, n₂]) :=
+  Tensor.ofFn fun idx =>
+    let (batch_idx, !ti[i, j]) := idx.splitAt batch_dims [m₁, n₂]
+    let row := a.getR (batch_idx ++ !tr[i, all])
+    let col := b.getR (batch_idx ++ !tr[all, j])
+    sum (hadamard row col)
+
+def mulb₃ [Zero α] [Add α] [Mul α]
+  -- (batch_dims: List Nat)
+  (a: Tensor α (p :: m₁ :: batch_dims))
+  (b: Tensor α (n₂ :: p :: batch_dims))
+: Tensor α (n₂ :: m₁ :: batch_dims) :=
+  Tensor.ofFn fun (Cons j (Cons i batch_idx)) =>
+    let as: Tensor α [p, m₁] := a.getR (IndexValR.ConsR (IndexValR.ConsR (IndexValR.ofIdx batch_idx)))
+
+    let row := a.getR (IndexValR.ConsR (IndexValR.ConsI i (IndexValR.ofIdx batch_idx )))
+    let col := b.getR (IndexValR.ConsI j (IndexValR.ConsR (IndexValR.ofIdx batch_idx )))
+
+
+
+
+    let z := hadamard row col;
+    sum z
+
+#check
+  let a: Tensor ℕ (List.reverse [1, 1, 2, 4]) := sorry;
+  let b: Tensor ℕ (List.reverse [1, 1, 4, 3]) := sorry;
+  let z: Tensor ℕ (List.reverse [1, 1, 2, 3]) := mulb₃ a b;
+  z
 
 /-- Object permanence??? 😳 -/
 @[simp]
@@ -324,5 +388,6 @@ theorem ext (t1 t2: Tensor α dims) (h : ∀ (i : IndexVal dims), t1.get i = t2.
       have z := h (from_fin i);
       unfold Tensor.get at z;
       simp_all [bijection_inv]
+
 
 end Tensor

@@ -4,10 +4,21 @@ def dim_card : List ℕ -> ℕ
   | [] => 1
   | (n :: tail) => n * dim_card tail
 
-
 inductive IndexVal : List ℕ -> Type where
   | Nil : IndexVal []
   | Cons : Fin n -> (IndexVal tail_t) -> IndexVal (n :: tail_t)
+
+syntax "!ti[" withoutPosition(term,*,?) "]"  : term
+macro_rules
+  | `(!ti[ $elems,* ]) => do
+    -- NOTE: we do not have `TSepArray.getElems` yet at this point
+    let rec expandListLit (i : Nat) (skip : Bool) (result : Lean.TSyntax `term) : Lean.MacroM Lean.Syntax := do
+      match i, skip with
+      | 0,   _     => pure result
+      | i+1, true  => expandListLit i false result
+      | i+1, false => expandListLit i true  (← ``(IndexVal.Cons $(⟨elems.elemsAndSeps.get! i⟩) $result))
+    let size := elems.elemsAndSeps.size
+    expandListLit size (size % 2 == 0) (← ``(IndexVal.Nil))
 
 namespace IndexVal
 
@@ -115,22 +126,74 @@ theorem bijection_inv (it: List Nat) : ∀ (i : Fin (dim_card it)), to_fin (from
         unfold from_fin;
         simp [ih, Nat.div_add_mod'];
 
+def splitAt (dims dims': List Nat) (v: IndexVal (dims ++ dims') ): IndexVal dims × IndexVal dims' :=
+  sorry
+
+instance : HAppend (IndexVal dims) (IndexVal dims') (IndexVal (dims ++ dims')) where
+  hAppend := fun x y => sorry
+
 end IndexVal
 
 inductive IndexValR : List ℕ -> Type where
   | Nil : IndexValR []
   | ConsI : Fin n -> (IndexValR tail_t) -> IndexValR (n :: tail_t)
-  | ConsR : (b:Fin n) -> (e:Fin n) -> (IndexValR tail_t) -> IndexValR (n :: tail_t)
+  | ConsR : (IndexValR tail_t) -> IndexValR (n :: tail_t)
+
+syntax "!tr[" withoutPosition(term,*,?) "]" : term
+macro_rules
+  | `(!tr[ $elems,* ]) => do
+    -- NOTE: we do not have `TSepArray.getElems` yet at this point
+    let rec expandListLit (i : Nat) (skip : Bool) (result : Lean.TSyntax `term) : Lean.MacroM Lean.Syntax := do
+      match i, skip with
+      | 0,   _     => pure result
+      | i+1, true  => expandListLit i false result
+      | i+1, false => expandListLit i true (
+        ← match (elems.elemsAndSeps.get! i)  with
+          | Lean.Syntax.ident _ _ `all _ =>
+            -- let z := dbgTrace "z"
+            ``(IndexValR.ConsR $result)
+          | _ => ``(IndexValR.ConsI $(⟨elems.elemsAndSeps.get! i⟩) $result)
+      )
+    let size := elems.elemsAndSeps.size
+    expandListLit size (size % 2 == 0) (← ``(IndexValR.Nil))
+
 
 namespace IndexValR
+
+def ofIdx: (v: IndexVal dims) → IndexValR dims
+  | IndexVal.Nil => IndexValR.Nil
+  | (IndexVal.Cons head tail) => IndexValR.ConsI head (ofIdx tail)
+
 /-- Dimensions of the resulting tensor -/
 def result_dims: IndexValR dims -> List Nat
   | IndexValR.Nil => []
   | IndexValR.ConsI _ tail => result_dims tail
-  | IndexValR.ConsR b e tail => (e - b + 1) :: result_dims tail
+  | IndexValR.ConsR tail => by
+     rename_i tail_t n
+     exact n :: result_dims tail
+
+@[simp]
+theorem result_dims_ofIdx (v: IndexVal dims) : result_dims (ofIdx v) = [] :=
+  by
+    induction v with
+    | Nil =>
+      rfl
+    | Cons head tail =>
+      simp [ofIdx, result_dims]
+      rename_i a_ih
+      exact a_ih
 
 /-- Gets a list of all indexes accessed by this query -/
 def to_src_fin (v: IndexValR dims) (i: Fin (dim_card (result_dims v))): Fin (dim_card dims) :=
   sorry
+
+instance : HAppend (IndexValR dims) (IndexValR dims') (IndexValR (dims ++ dims')) where
+  hAppend := fun x y => sorry
+
+instance : HAppend (IndexValR dims) (IndexVal dims') (IndexValR (dims ++ dims')) where
+  hAppend := fun x y => sorry
+
+instance : HAppend (IndexVal dims) (IndexValR dims') (IndexValR (dims ++ dims')) where
+  hAppend := fun x y => sorry
 
 end IndexValR
