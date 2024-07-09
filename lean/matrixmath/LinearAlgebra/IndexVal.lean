@@ -187,13 +187,31 @@ theorem result_dims_ofIdx (v: IndexVal dims) : result_dims (ofIdx v) = [] :=
 def to_src_fin (v: IndexValR dims) (i: Fin (dim_card (result_dims v))): Fin (dim_card dims) :=
   sorry
 
+#check List.append
+
+def appendIndexValR: IndexValR dims -> IndexValR dims' -> IndexValR (dims ++ dims')
+  | Nil, y => y
+  | ConsI head tail, y => ConsI head (appendIndexValR tail y)
+  | ConsR tail, y => ConsR (appendIndexValR tail y)
+
+@[reducible]
 instance : HAppend (IndexValR dims) (IndexValR dims') (IndexValR (dims ++ dims')) where
-  hAppend := fun x y => sorry
+  hAppend := appendIndexValR
 
+@[reducible]
 instance : HAppend (IndexValR dims) (IndexVal dims') (IndexValR (dims ++ dims')) where
-  hAppend := fun x y => sorry
+  hAppend x y := x ++ (ofIdx y)
 
+@[reducible]
 instance : HAppend (IndexVal dims) (IndexValR dims') (IndexValR (dims ++ dims')) where
-  hAppend := fun x y => sorry
+  hAppend x y := (ofIdx x) ++ y
+
+@[simp]
+theorem result_dims_ofIdx_app (v0: IndexValR dims) (v1: IndexValR dims')
+: result_dims (v0 ++ v1) = (result_dims v0) ++ (result_dims v1) :=
+  by
+    sorry
+
+
 
 end IndexValR

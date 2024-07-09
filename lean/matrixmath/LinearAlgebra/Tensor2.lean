@@ -241,12 +241,6 @@ def mul [Zero α] [Add α] [Mul α] (a: Tensor α [m₁, p]) (b: Tensor α [p, n
     let col: Tensor α [p] := b.getR !tr[all, j];
     sum (hadamard row col)
 
-def mul₂ [Zero α] [Add α] [Mul α] (a: Tensor α [p, m₁]) (b: Tensor α [n₂, p]) : Tensor α [n₂, m₁] :=
-  Tensor.ofFn fun !ti[j, i] =>
-    let row: Tensor α [p] := a.getR !tr[all, i];
-    let col: Tensor α [p] := b.getR !tr[j, all];
-    sum (hadamard row col)
-
 #check
   let a: Tensor ℕ [2, 2] := sorry;
   let b: Tensor ℕ [2, 2] := sorry;
@@ -270,6 +264,26 @@ def mulb₂ [Zero α] [Add α] [Mul α]
     let row := a.getR (batch_idx ++ !tr[i, all])
     let col := b.getR (batch_idx ++ !tr[all, j])
     sum (hadamard row col)
+
+#check
+  let a: Tensor ℕ [1, 1, 2, 4] := sorry;
+  let b: Tensor ℕ [1, 1, 4, 3] := sorry;
+  let z: Tensor ℕ [1, 1, 2, 3] := mulb₂ [1, 1] a b;
+
+  let a: Tensor ℕ [2, 4] := sorry;
+  let b: Tensor ℕ [4, 3] := sorry;
+  let z: Tensor ℕ [2, 3] := mulb₂ [] a b;
+
+  Unit.unit
+
+
+
+def mul₂ [Zero α] [Add α] [Mul α] (a: Tensor α [p, m₁]) (b: Tensor α [n₂, p]) : Tensor α [n₂, m₁] :=
+  Tensor.ofFn fun !ti[j, i] =>
+    let row: Tensor α [p] := a.getR !tr[all, i];
+    let col: Tensor α [p] := b.getR !tr[j, all];
+    sum (hadamard row col)
+
 
 def mulb₃ [Zero α] [Add α] [Mul α]
   -- (batch_dims: List Nat)
