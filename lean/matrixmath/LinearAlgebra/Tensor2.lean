@@ -291,16 +291,10 @@ def mulb₃ [Zero α] [Add α] [Mul α]
   (b: Tensor α (n₂ :: p :: batch_dims))
 : Tensor α (n₂ :: m₁ :: batch_dims) :=
   Tensor.ofFn fun (Cons j (Cons i batch_idx)) =>
-    let as: Tensor α [p, m₁] := a.getR (IndexValR.ConsR (IndexValR.ConsR (IndexValR.ofIdx batch_idx)))
-
     let row := a.getR (IndexValR.ConsR (IndexValR.ConsI i (IndexValR.ofIdx batch_idx )))
     let col := b.getR (IndexValR.ConsI j (IndexValR.ConsR (IndexValR.ofIdx batch_idx )))
 
-
-
-
-    let z := hadamard row col;
-    sum z
+    sum (hadamard row col)
 
 #check
   let a: Tensor ℕ (List.reverse [1, 1, 2, 4]) := sorry;
