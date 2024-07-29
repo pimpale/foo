@@ -35,3 +35,6 @@ def main (args: List String) : IO Unit := do
   match args with
     | [] => catFilename "-"
     | _ => args.forM catFilename
+
+
+#check λ t: Type => λ x: t => (x, x)
