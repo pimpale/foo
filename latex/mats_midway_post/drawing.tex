@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}
+
+
+
+    \usetikzlibrary {graphs}
+    \tikz
+      \graph [grow down,
+              branch right=2.5cm] {
+      root -> {
+        child 1,
+        child 2 -> {
+          grand child 1,
+          grand child 2
+        },
+        child 3 -> {
+          grand child 3
+        }
+      }
+    };
+
+\end{tikzpicture}
+\end{document}
