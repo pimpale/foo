@@ -1,0 +1,9 @@
+pyproject.toml
+browse/__init__.py
+browse/cli.py
+browse.egg-info/PKG-INFO
+browse.egg-info/SOURCES.txt
+browse.egg-info/dependency_links.txt
+browse.egg-info/entry_points.txt
+browse.egg-info/requires.txt
+browse.egg-info/top_level.txt
