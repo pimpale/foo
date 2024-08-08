@@ -17,6 +17,7 @@ dependencies = ["click", "playwright"]
 "Homepage" = "https://github.com/pimpale/foo"
 
 [project.scripts]
+browse-start = "browse.cli:browse_start"
 browse-goto = "browse.cli:browse_goto"
 browse-click = "browse.cli:browse_click"
 browse-type = "browse.cli:browse_type"

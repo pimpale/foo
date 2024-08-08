@@ -1,1 +1,3 @@
-my_package.
+browse.egg-info/
+nohup.out
+browse/__pycache__/
