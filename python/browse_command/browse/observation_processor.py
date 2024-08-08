@@ -1,5 +1,5 @@
 from playwright.async_api import Page, CDPSession, ViewportSize
-from types import Any
+from typing import Any
 import re
 from .utils import (
     AccessibilityTree,
@@ -23,7 +23,7 @@ IGNORED_ACTREE_PROPERTIES = (
 IN_VIEWPORT_RATIO_THRESHOLD = 0.6
 
 
-class TextObervationProcessor:
+class TextObservationProcessor:
     def __init__(
         self,
         current_viewport_only: bool,
@@ -32,13 +32,13 @@ class TextObervationProcessor:
         self.current_viewport_only = current_viewport_only
         self.viewport_size = viewport_size
 
-    def fetch_browser_info(
+    async def fetch_browser_info(
         self,
         page: Page,
         client: CDPSession,
     ) -> BrowserInfo:
         # extract domtree
-        tree = client.send(
+        tree = await client.send(
             "DOMSnapshot.captureSnapshot",
             {
                 "computedStyles": [],
@@ -55,13 +55,13 @@ class TextObervationProcessor:
         tree["documents"][0]["layout"]["bounds"] = bounds
 
         # extract browser info
-        win_top_bound = page.evaluate("window.pageYOffset")
-        win_left_bound = page.evaluate("window.pageXOffset")
-        win_width = page.evaluate("window.screen.width")
-        win_height = page.evaluate("window.screen.height")
+        win_top_bound = await page.evaluate("window.pageYOffset")
+        win_left_bound = await page.evaluate("window.pageXOffset")
+        win_width = await page.evaluate("window.screen.width")
+        win_height = await page.evaluate("window.screen.height")
         win_right_bound = win_left_bound + win_width
         win_lower_bound = win_top_bound + win_height
-        device_pixel_ratio = page.evaluate("window.devicePixelRatio")
+        device_pixel_ratio = await page.evaluate("window.devicePixelRatio")
         assert device_pixel_ratio == 1.0, "devicePixelRatio is not 1.0"
 
         config: BrowserConfig = {
@@ -80,11 +80,11 @@ class TextObervationProcessor:
         return info
 
     @staticmethod
-    def get_bounding_client_rect(client: CDPSession, backend_node_id: str) -> dict[str, Any]:
+    async def get_bounding_client_rect(client: CDPSession, backend_node_id: str) -> dict[str, Any]:
         try:
-            remote_object = client.send("DOM.resolveNode", {"backendNodeId": int(backend_node_id)})
+            remote_object = await client.send("DOM.resolveNode", {"backendNodeId": int(backend_node_id)})
             remote_object_id = remote_object["object"]["objectId"]
-            response = client.send(
+            response = await client.send(
                 "Runtime.callFunctionOn",
                 {
                     "objectId": remote_object_id,
@@ -140,13 +140,13 @@ class TextObervationProcessor:
 
  
 
-    def fetch_page_accessibility_tree(
+    async def fetch_page_accessibility_tree(
         self,
         info: BrowserInfo,
         client: CDPSession,
         current_viewport_only: bool,
     ) -> AccessibilityTree:
-        accessibility_tree: AccessibilityTree = client.send("Accessibility.getFullAXTree", {})[
+        accessibility_tree: AccessibilityTree = (await client.send("Accessibility.getFullAXTree", {}))[
             "nodes"
         ]
 
@@ -171,7 +171,7 @@ class TextObervationProcessor:
                 # always inside the viewport
                 node["union_bound"] = [0.0, 0.0, 10.0, 10.0]
             else:
-                response = self.get_bounding_client_rect(client, backend_node_id)
+                response = await self.get_bounding_client_rect(client, backend_node_id)
                 if response.get("result", {}).get("subtype", "") == "error":
                     node["union_bound"] = None
                 else:
@@ -342,28 +342,28 @@ class TextObervationProcessor:
 
         return "\n".join(clean_lines)
 
-    def process(self, page: Page, client: CDPSession) -> str:
+    async def process(self, page: Page, client: CDPSession) -> str:
         # get the tab info
         open_tabs = page.context.pages
         try:
-            tab_titles = [tab.title() for tab in open_tabs]
+            tab_titles = [await tab.title() for tab in open_tabs]
             current_tab_idx = open_tabs.index(page)
             for idx in range(len(open_tabs)):
                 if idx == current_tab_idx:
-                    tab_titles[idx] = f"Tab {idx} (current): {open_tabs[idx].title()}"
+                    tab_titles[idx] = f"Tab {idx} (current): {await open_tabs[idx].title()}"
                 else:
-                    tab_titles[idx] = f"Tab {idx}: {open_tabs[idx].title()}"
+                    tab_titles[idx] = f"Tab {idx}: {await open_tabs[idx].title()}"
             tab_title_str = " | ".join(tab_titles)
         except Exception:
             tab_title_str = " | ".join(["Tab {idx}" for idx in range(len(open_tabs))])
 
         try:
-            browser_info = self.fetch_browser_info(page, client)
+            browser_info = await self.fetch_browser_info(page, client)
         except Exception:
-            page.wait_for_load_state("load", timeout=500)
-            browser_info = self.fetch_browser_info(page, client)
+            await page.wait_for_load_state("load", timeout=500)
+            browser_info = await self.fetch_browser_info(page, client)
 
-        accessibility_tree = self.fetch_page_accessibility_tree(
+        accessibility_tree = await self.fetch_page_accessibility_tree(
             browser_info,
             client,
             current_viewport_only=self.current_viewport_only,

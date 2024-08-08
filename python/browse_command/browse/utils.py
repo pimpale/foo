@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, Dict, TypedDict, Union
 
-import numpy as np
-import numpy.typing as npt
-
-
 @dataclass
 class DetachedPage:
     url: str
