@@ -80,9 +80,13 @@ class TextObservationProcessor:
         return info
 
     @staticmethod
-    async def get_bounding_client_rect(client: CDPSession, backend_node_id: str) -> dict[str, Any]:
+    async def get_bounding_client_rect(
+        client: CDPSession, backend_node_id: str
+    ) -> dict[str, Any]:
         try:
-            remote_object = await client.send("DOM.resolveNode", {"backendNodeId": int(backend_node_id)})
+            remote_object = await client.send(
+                "DOM.resolveNode", {"backendNodeId": int(backend_node_id)}
+            )
             remote_object_id = remote_object["object"]["objectId"]
             response = await client.send(
                 "Runtime.callFunctionOn",
@@ -127,7 +131,8 @@ class TextObservationProcessor:
         # Compute the overlap in x and y axes
         overlap_width = max(
             0,
-            min(elem_right_bound, win_right_bound) - max(elem_left_bound, win_left_bound),
+            min(elem_right_bound, win_right_bound)
+            - max(elem_left_bound, win_left_bound),
         )
         overlap_height = max(
             0,
@@ -138,17 +143,15 @@ class TextObservationProcessor:
         ratio = overlap_width * overlap_height / width * height
         return ratio
 
- 
-
     async def fetch_page_accessibility_tree(
         self,
         info: BrowserInfo,
         client: CDPSession,
         current_viewport_only: bool,
     ) -> AccessibilityTree:
-        accessibility_tree: AccessibilityTree = (await client.send("Accessibility.getFullAXTree", {}))[
-            "nodes"
-        ]
+        accessibility_tree: AccessibilityTree = (
+            await client.send("Accessibility.getFullAXTree", {})
+        )["nodes"]
 
         # a few nodes are repeated in the accessibility tree
         seen_ids = set()
@@ -192,13 +195,18 @@ class TextObservationProcessor:
                 children_nodeids = node["childIds"]
                 parent_cursor = nodeid_to_cursor[parent_nodeid]
                 # update the children of the parent node
-                assert accessibility_tree[parent_cursor].get("parentId", "Root") is not None
+                assert (
+                    accessibility_tree[parent_cursor].get("parentId", "Root")
+                    is not None
+                )
                 # remove the nodeid from parent's childIds
                 index = accessibility_tree[parent_cursor]["childIds"].index(nodeid)
                 accessibility_tree[parent_cursor]["childIds"].pop(index)
                 # Insert children_nodeids in the same location
                 for child_nodeid in children_nodeids:
-                    accessibility_tree[parent_cursor]["childIds"].insert(index, child_nodeid)
+                    accessibility_tree[parent_cursor]["childIds"].insert(
+                        index, child_nodeid
+                    )
                     index += 1
                 # update children node's parent
                 for child_nodeid in children_nodeids:
@@ -232,7 +240,9 @@ class TextObservationProcessor:
                     remove_node_in_graph(node)
 
             accessibility_tree = [
-                node for node in accessibility_tree if node.get("parentId", "Root") != "[REMOVED]"
+                node
+                for node in accessibility_tree
+                if node.get("parentId", "Root") != "[REMOVED]"
             ]
 
         return accessibility_tree
@@ -262,7 +272,9 @@ class TextObservationProcessor:
                     try:
                         if property["name"] in IGNORED_ACTREE_PROPERTIES:
                             continue
-                        properties.append(f'{property["name"]}: {property["value"]["value"]}')
+                        properties.append(
+                            f'{property["name"]}: {property["value"]["value"]}'
+                        )
                     except KeyError:
                         pass
 
@@ -309,7 +321,9 @@ class TextObservationProcessor:
                     continue
                 # mark this to save some tokens
                 child_depth = depth + 1 if valid_node else depth
-                child_str = dfs(node_id_to_idx[child_node_id], child_node_id, child_depth)
+                child_str = dfs(
+                    node_id_to_idx[child_node_id], child_node_id, child_depth
+                )
                 if child_str.strip():
                     if tree_str.strip():
                         tree_str += "\n"
@@ -342,49 +356,44 @@ class TextObservationProcessor:
 
         return "\n".join(clean_lines)
 
+    @staticmethod
+    def tree_loaded_successfully(accessibility_tree: AccessibilityTree) -> bool:
+        root = next(obj for obj in accessibility_tree if obj["role"]["value"] == "RootWebArea")
+        # check if has busy attribute
+        busy_attr = next((obj for obj in root["properties"] if obj["name"] == "busy"), None)
+        return busy_attr is None
+
     async def process(self, page: Page, client: CDPSession) -> str:
-        # get the tab info
-        open_tabs = page.context.pages
-        try:
-            tab_titles = [await tab.title() for tab in open_tabs]
-            current_tab_idx = open_tabs.index(page)
-            for idx in range(len(open_tabs)):
-                if idx == current_tab_idx:
-                    tab_titles[idx] = f"Tab {idx} (current): {await open_tabs[idx].title()}"
-                else:
-                    tab_titles[idx] = f"Tab {idx}: {await open_tabs[idx].title()}"
-            tab_title_str = " | ".join(tab_titles)
-        except Exception:
-            tab_title_str = " | ".join(["Tab {idx}" for idx in range(len(open_tabs))])
+        browser_info = await self.fetch_browser_info(page, client)
 
-        try:
-            browser_info = await self.fetch_browser_info(page, client)
-        except Exception:
-            await page.wait_for_load_state("load", timeout=500)
-            browser_info = await self.fetch_browser_info(page, client)
-
-        accessibility_tree = await self.fetch_page_accessibility_tree(
-            browser_info,
-            client,
-            current_viewport_only=self.current_viewport_only,
-        )
+        # wait until content is not busy anymore
+        while True:
+            accessibility_tree = await self.fetch_page_accessibility_tree(
+                browser_info,
+                client,
+                current_viewport_only=self.current_viewport_only,
+            )
+            
+            # check if the tree is loaded successfully
+            if self.tree_loaded_successfully(accessibility_tree):
+                break
+            else:
+                # wait for a while
+                await page.wait_for_timeout(100)
+        
         content, obs_nodes_info = self.parse_accessibility_tree(accessibility_tree)
-        content = self.clean_accesibility_tree(content)
+
         self.obs_nodes_info = obs_nodes_info
 
+        return self.clean_accesibility_tree(content)
 
-        self.browser_config = browser_info["config"]
-        content = f"{tab_title_str}\n\n{content}"
-        return content
-
-    def get_element_center(self, element_id: str) -> tuple[float, float]:
-        node_info = self.obs_nodes_info[element_id]
+    def get_element_center(self, element_id: int) -> tuple[float, float]:
+        node_info = self.obs_nodes_info[str(element_id)]
         node_bound = node_info["union_bound"]
         x, y, width, height = node_bound
         center_x = x + width / 2
         center_y = y + height / 2
         return (
-            center_x / self.viewport_size["width"],
-            center_y / self.viewport_size["height"],
+            center_x,
+            center_y,
         )
-

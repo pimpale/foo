@@ -32,36 +32,61 @@ class BackCommand:
     pass
 
 
-BrowserCommand = GotoCommand | ClickCommand | TypeCommand | ScrollCommand | BackCommand
+@dataclass
+class ForwardCommand:
+    pass
+
+
+BrowserCommand = (
+    GotoCommand
+    | ClickCommand
+    | TypeCommand
+    | ScrollCommand
+    | BackCommand
+    | ForwardCommand
+)
+
 
 class BrowserEngine:
     def __init__(self, playwright: Playwright, viewport_size: ViewportSize):
         self.playwright = playwright
+        self.viewport_size = viewport_size
         self.observation_processor = TextObservationProcessor(
-            current_viewport_only=True,
-            viewport_size = viewport_size
+            current_viewport_only=True, viewport_size=viewport_size
         )
-    
+
     async def setup(self):
-        chromium = self.playwright.chromium # or "firefox" or "webkit".
-        self.browser = await chromium.launch()
-        self.page = await self.browser.new_page()
-        self.cdpsession = await self.page.context.new_cdp_session(self.page)
-        
+        self.browser = await self.playwright.chromium.launch(
+            headless=False,
+        )
+        self.context = await self.browser.new_context(viewport=self.viewport_size)
+        self.page = await self.context.new_page()
+        self.cdpsession = await self.context.new_cdp_session(self.page)
+
     async def do(self, command: BrowserCommand):
         match command:
             case GotoCommand(url):
                 await self.page.goto(url)
             case ClickCommand(id):
-                await self.page.click(f"#{id}")
+                x, y = self.observation_processor.get_element_center(id)
+                await self.page.mouse.move(x, y, steps=20)
+                await self.page.mouse.click(x, y)
             case TypeCommand(id, text, enter):
-                await self.page.type(f"#{id}", text)
+                x, y = self.observation_processor.get_element_center(id)
+                await self.page.mouse.move(x, y, steps=20)
+                await self.page.mouse.click(x, y)
+                await self.page.keyboard.type(text, delay=100)
                 if enter:
-                    await self.page.press(f"#{id}", "Enter")
+                    await self.page.keyboard.press("Enter")
             case ScrollCommand(direction):
-                await self.page.evaluate(f"window.scrollBy(0, {'-100' if direction == 'up' else '100'})")
+                await self.page.evaluate(
+                    f"window.scrollBy(0, {'-100' if direction == 'up' else '100'})"
+                )
             case BackCommand():
-                await self.page.goBack()
+                await self.page.go_back()
+            case ForwardCommand():
+                await self.page.go_forward()
                 
     async def observe(self) -> str:
+        await self.page.wait_for_load_state()
         return await self.observation_processor.process(self.page, self.cdpsession)
