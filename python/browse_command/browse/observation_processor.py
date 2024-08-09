@@ -22,11 +22,16 @@ IGNORED_ACTREE_PROPERTIES = (
 
 IN_VIEWPORT_RATIO_THRESHOLD = 0.6
 
+CURRENT_VIEWPORT_ONLY = True
+
 
 async def fetch_browser_info(
     page: Page,
     client: CDPSession,
 ) -> BrowserInfo:
+    viewport_size = page.viewport_size
+    assert viewport_size is not None, "Viewport size is None"
+
     # extract domtree
     tree = await client.send(
         "DOMSnapshot.captureSnapshot",
@@ -236,24 +241,24 @@ async def fetch_page_accessibility_tree(
 
 class ObsNode(TypedDict):
     backend_id: str
-    union_bound: list[float]
+    union_bound: list[float] | None
     text: str
 
 
-ObsNodesInfo = dict[int, ObsNode]
+ObsNodesInfo = dict[str, ObsNode]
 
 
 def parse_accessibility_tree(
     accessibility_tree: AccessibilityTree,
 ) -> tuple[str, ObsNodesInfo]:
     """Parse the accessibility tree into a string text"""
-    node_id_to_idx = {}
+    node_id_to_idx: dict[str, int] = {}
     for idx, node in enumerate(accessibility_tree):
         node_id_to_idx[node["nodeId"]] = idx
 
     obs_nodes_info: ObsNodesInfo = {}
 
-    def dfs(idx: int, obs_node_id: int, depth: int) -> str:
+    def dfs(idx: int, obs_node_id: str, depth: int) -> str:
         tree_str = ""
         node = accessibility_tree[idx]
         indent = "\t" * depth
@@ -359,9 +364,7 @@ def tree_loaded_successfully(accessibility_tree: AccessibilityTree) -> bool:
     return busy_attr is None
 
 
-async def process(
-    page: Page, client: CDPSession, current_viewport_only: bool
-) -> tuple[str, ObsNodesInfo]:
+async def process(page: Page, client: CDPSession) -> tuple[str, ObsNodesInfo]:
     browser_info = await fetch_browser_info(page, client)
 
     # wait until content is not busy anymore
@@ -369,7 +372,7 @@ async def process(
         accessibility_tree = await fetch_page_accessibility_tree(
             browser_info,
             client,
-            current_viewport_only,
+            CURRENT_VIEWPORT_ONLY,
         )
 
         # check if the tree is loaded successfully
@@ -385,10 +388,15 @@ async def process(
 
 
 def get_element_center(
-    obs_nodes_info: ObsNodesInfo, element_id: int
+    obs_nodes_info: ObsNodesInfo, element_id: str
 ) -> tuple[float, float]:
-    node_info = obs_nodes_info[element_id]
+    try:
+        node_info = obs_nodes_info[element_id]
+    except KeyError:
+        raise ValueError(f"Element with id {element_id} not found")
     node_bound = node_info["union_bound"]
+    if node_bound is None:
+        raise ValueError("Node bound is None")
     x, y, width, height = node_bound
     center_x = x + width / 2
     center_y = y + height / 2

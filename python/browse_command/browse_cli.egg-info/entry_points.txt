@@ -1,7 +1,9 @@
 [console_scripts]
-browse-back = browse.cli:browse_back
 browse-click = browse.cli:browse_click
 browse-goto = browse.cli:browse_goto
+browse-navigate = browse.cli:browse_navigate
+browse-observe = browse.cli:browse_observe
+browse-reload = browse.cli:browse_reload
 browse-scroll = browse.cli:browse_scroll
 browse-start = browse.cli:browse_start
 browse-type = browse.cli:browse_type

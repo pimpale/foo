@@ -3,6 +3,11 @@ from dataclasses import dataclass
 from typing import Literal
 from playwright.async_api import async_playwright, Playwright, ViewportSize
 from .observation_processor import get_element_center, process
+import math
+
+@dataclass
+class NoOpCommand:
+    pass
 
 
 @dataclass
@@ -12,12 +17,12 @@ class GotoCommand:
 
 @dataclass
 class ClickCommand:
-    id: int
+    id: str
 
 
 @dataclass
 class TypeCommand:
-    id: int
+    id: str
     text: str
     enter: bool
 
@@ -28,22 +33,23 @@ class ScrollCommand:
 
 
 @dataclass
-class BackCommand:
-    pass
+class NavigateCommand:
+    direction: Literal["back", "forward"]
 
 
 @dataclass
-class ForwardCommand:
+class ReloadCommand:
     pass
 
 
 BrowserCommand = (
-    GotoCommand
+    NoOpCommand
+    | GotoCommand
     | ClickCommand
     | TypeCommand
     | ScrollCommand
-    | BackCommand
-    | ForwardCommand
+    | NavigateCommand
+    | ReloadCommand
 )
 
 
@@ -61,8 +67,11 @@ class BrowserEngine:
         self.cdpsession = await self.context.new_cdp_session(self.page)
 
     async def do(self, command: BrowserCommand):
-        _, obs_nodes = await self.observation_processor.process(self.page, self.cdpsession)
+        content, obs_nodes = await process(self.page, self.cdpsession)
+        print(content)
         match command:
+            case NoOpCommand():
+                pass
             case GotoCommand(url):
                 await self.page.goto(url)
             case ClickCommand(id):
@@ -86,11 +95,30 @@ class BrowserEngine:
                 await self.page.evaluate(
                     f"window.scrollBy(0, {'-100' if direction == 'up' else '100'})"
                 )
-            case BackCommand():
-                await self.page.go_back()
-            case ForwardCommand():
-                await self.page.go_forward()
-                
-    async def observe(self) -> str:
+            case NavigateCommand(direction):
+                match direction:
+                    case "back":
+                        await self.page.go_back()
+                    case "forward":
+                        await self.page.go_forward()
+            case ReloadCommand():
+                await self.page.reload()
+
+    async def scroll_percentage(self) -> float:
+        return await self.page.evaluate(
+            "(document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100"
+        )
+
+    async def user_friendly_observation(self) -> str:
         content, _ = await process(self.page, self.cdpsession)
-        return content
+
+        scroll_percentage = await self.scroll_percentage()
+
+        scroll_text = "You are viewing the entire page." if math.isnan(scroll_percentage) else f"You are only viewing part of the page. Scroll percentage: {scroll_percentage:.2f}%" 
+
+        return f"{scroll_text}\n\nContent:\n\n{content}"
+
+
+    async def user_friendly_error(self, e: ValueError) -> str:
+        observation = await self.user_friendly_observation()
+        return f"Error: {e.args[0]}\n\n{observation}"

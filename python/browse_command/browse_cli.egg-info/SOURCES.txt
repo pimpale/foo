@@ -1,0 +1,13 @@
+pyproject.toml
+browse/__init__.py
+browse/browser_engine.py
+browse/cli.py
+browse/observation_processor.py
+browse/server.py
+browse/utils.py
+browse_cli.egg-info/PKG-INFO
+browse_cli.egg-info/SOURCES.txt
+browse_cli.egg-info/dependency_links.txt
+browse_cli.egg-info/entry_points.txt
+browse_cli.egg-info/requires.txt
+browse_cli.egg-info/top_level.txt

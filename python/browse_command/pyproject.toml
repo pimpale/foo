@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "browse"
+name = "browse-cli"
 version = "0.1.0"
 description = "A simple CLI tool to browse the web"
 readme = "README.md"
@@ -22,4 +22,6 @@ browse-goto = "browse.cli:browse_goto"
 browse-click = "browse.cli:browse_click"
 browse-type = "browse.cli:browse_type"
 browse-scroll = "browse.cli:browse_scroll"
-browse-back = "browse.cli:browse_back"
+browse-navigate = "browse.cli:browse_navigate"
+browse-reload = "browse.cli:browse_reload"
+browse-observe = "browse.cli:browse_observe"
