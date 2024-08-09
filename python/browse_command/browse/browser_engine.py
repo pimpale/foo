@@ -2,7 +2,7 @@ import asyncio
 from dataclasses import dataclass
 from typing import Literal
 from playwright.async_api import async_playwright, Playwright, ViewportSize
-from .observation_processor import TextObservationProcessor
+from .observation_processor import get_element_center, process
 
 
 @dataclass
@@ -51,9 +51,6 @@ class BrowserEngine:
     def __init__(self, playwright: Playwright, viewport_size: ViewportSize):
         self.playwright = playwright
         self.viewport_size = viewport_size
-        self.observation_processor = TextObservationProcessor(
-            current_viewport_only=True, viewport_size=viewport_size
-        )
 
     async def setup(self):
         self.browser = await self.playwright.chromium.launch(
@@ -64,20 +61,27 @@ class BrowserEngine:
         self.cdpsession = await self.context.new_cdp_session(self.page)
 
     async def do(self, command: BrowserCommand):
+        _, obs_nodes = await self.observation_processor.process(self.page, self.cdpsession)
         match command:
             case GotoCommand(url):
                 await self.page.goto(url)
             case ClickCommand(id):
-                x, y = self.observation_processor.get_element_center(id)
+                x, y = get_element_center(obs_nodes, id)
                 await self.page.mouse.move(x, y, steps=20)
                 await self.page.mouse.click(x, y)
             case TypeCommand(id, text, enter):
-                x, y = self.observation_processor.get_element_center(id)
+                x, y = get_element_center(obs_nodes, id)
                 await self.page.mouse.move(x, y, steps=20)
                 await self.page.mouse.click(x, y)
-                await self.page.keyboard.type(text, delay=100)
+                focused = await self.page.locator("*:focus").all()
+                if focused == []:
+                    raise ValueError("Element was not focusable")
+                text_input = focused[0]
+                # clear
+                await text_input.clear()
                 if enter:
-                    await self.page.keyboard.press("Enter")
+                    text += "\n"
+                await text_input.type(text, delay=100)
             case ScrollCommand(direction):
                 await self.page.evaluate(
                     f"window.scrollBy(0, {'-100' if direction == 'up' else '100'})"
@@ -88,5 +92,5 @@ class BrowserEngine:
                 await self.page.go_forward()
                 
     async def observe(self) -> str:
-        await self.page.wait_for_load_state()
-        return await self.observation_processor.process(self.page, self.cdpsession)
+        content, _ = await process(self.page, self.cdpsession)
+        return content
