@@ -15,12 +15,6 @@ import typing
 import jax
 
 
-# ```java
-# // generics in java
-# class StateBase<Action> {
-# ```
-
-
 class State[Action](ABC):
     """
     A representation of a single board state.
@@ -41,26 +35,32 @@ class State[Action](ABC):
         raise NotImplementedError
 
 
+@dataclass
+class Node[Action]:
+    state: State[Action]  # board state
+    reward: float  # reward gained by reaching this node
+    children_reward: float  # reward gained by all its children
+    terminal: bool  # whether this node is terminal
+    visit_count: int  # number of times this node was visited
+    unvisited_actions: list[Action]  # untried actions
+    children: list[tuple[Action, Self]]  # (action, child_node) pairs
+
+
 class MCTS[Action]:
     "Monte Carlo tree searcher. First rollout the tree then choose a move."
-
-    @dataclass
-    class Node:
-        state: State[Action]  # board state
-        reward: float  # reward gained by reaching this node
-        terminal: bool  # whether this node is terminal
-        visit_count: int  # number of times this node was visited
-        unvisited_actions: list[Action]  # untried actions
-        children: list[tuple[Action, int]]  # (action, child_node) pairs
-
     rng: jax.Array
-    nodes: list[Node]  # all nodes
+    root: Optional[Node[Action]]
     exploration_weight: float
 
     def __init__(self: Self, exploration_weight=1):
         self.rng = jax.random.key(0)
         self.nodes = []
         self.exploration_weight = exploration_weight
+
+    def randint(self: Self, low: int, high: int) -> int:
+        key1, key2 = jax.random.split(self.rng)
+        self.rng = key1
+        return jax.random.randint(key2, shape=(), minval=low, maxval=high).item()
 
     def choose(self: Self) -> Action:
         "Choose the best successor of node. (Choose a move in the game)"
@@ -72,12 +72,8 @@ class MCTS[Action]:
 
         # if we don't have any children, just act randomly
         if not node.children:
-            key1, key2 = jax.random.split(self.rng)
-            self.rng = key1
             legal_actions = node.state.legal_actions()
-            return legal_actions[
-                jax.random.randint(key2, shape=(), minval=0, maxval=len(legal_actions))
-            ]
+            return legal_actions[self.randint(0, len(legal_actions))]
 
         def score(action_child: tuple[jax.Array, int]):
             _, n = action_child
@@ -91,36 +87,36 @@ class MCTS[Action]:
 
         return action
 
-    def do_rollout(self: Self, node_idx: int):
+    def do_rollout(self: Self, node: Node):
         "Make the tree one layer better. (Train for one iteration.)"
-        path, maybe_action = self._select(node_idx)
+        path, maybe_action = self._select(node)
         if maybe_action is not None:
-            bud_idx = path[-1]
-            self._expand(bud_idx, maybe_action)
-            reward = self._simulate(bud_idx)
+            bud = path[-1]
+            self._expand(bud, maybe_action)
+            reward = self._simulate(bud)
             self._backpropagate(path, reward)
 
-    def _select(self: Self, node_idx: int) -> tuple[list[int], Optional[Action]]:
+    def _select(self: Self, node: Node) -> tuple[list[Node], Optional[Action]]:
         "Find an unexplored descendent of `node`"
         path = []
         while True:
-            path.append(node_idx)
-            node = self.nodes[node_idx]
+            path.append(node)
             if node.terminal:
                 return path, None
             elif len(node.unvisited_actions) > 0:
                 action = node.unvisited_actions.pop()
                 return path, action
             else:
-                node_idx = self._uct_select(node)  # descend a layer deeper
+                node = self._uct_select(node)  # descend a layer deeper
 
-    def _expand(self, node_idx: int, maybe_action: Action):
+    def _expand(self, node: Node, action: Action):
         "Update the `children` dict with the children of `node`"
-        state, reward, terminal = self.nodes[node_idx].state.act(maybe_action)
+        state, reward, terminal = node.state.act(action)
         self.nodes.append(
-            self.Node(
+            Node(
                 state=state,
                 reward=reward,
+                children_reward=0,
                 terminal=terminal,
                 visit_count=0,
                 unvisited_actions=state.legal_actions(),
@@ -134,18 +130,19 @@ class MCTS[Action]:
         while True:
             if node.terminal:
                 reward = node.reward
-                return 1 - reward if invert_reward else reward
-            node = node.find_random_child()
+                return - reward if invert_reward else reward
+
+            action, node = node.children[self.randint(0, len(node.children))]
             invert_reward = not invert_reward
 
-    def _backpropagate(self: Self, path: list[State], reward: float):
+    def _backpropagate(self: Self, path: list[Node], reward: float):
         "Send the reward back up to the ancestors of the leaf"
         for node in reversed(path):
-            self.N[node] += 1
-            self.Q[node] += reward
-            reward = 1 - reward  # 1 for me is 0 for my enemy, and vice versa
+            node.visit_count += 1
+            node.children_reward += reward
+            reward = -reward  # 1 for me is -1 for you
 
-    def _uct_select(self: Self, node: Node) -> int:
+    def _uct_select(self: Self, node: Node) -> Node:
         "Select a child of node, balancing exploration & exploitation"
 
         # All children of node should already be expanded:
@@ -153,10 +150,12 @@ class MCTS[Action]:
 
         log_N_vertex = math.log(node.visit_count)
 
-        def uct(n):
+        def uct(action_child: tuple[Action, Node]) -> float:
+            action, node = action_child
             "Upper confidence bound for trees"
-            return self.Q[n] / self.N[n] + self.exploration_weight * math.sqrt(
-                log_N_vertex / self.N[n]
+            return (
+                node.visit_count / node.children_reward
+                + self.exploration_weight * math.sqrt(log_N_vertex / node.visit_count)
             )
 
-        return max(self.children[node], key=uct)
+        return max(node.children, key=lambda action_child: uct(action_child))[1]
