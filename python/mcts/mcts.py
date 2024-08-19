@@ -57,7 +57,7 @@ class Edge[Action]:
     node: Node[Action]
 
 
-class MCTS[Action]:
+class SinglePlayerMCTS[Action]:
     "Monte Carlo tree searcher. First rollout the tree then choose a move."
     rng: jax.Array
     root: Node[Action]
@@ -100,26 +100,36 @@ class MCTS[Action]:
 
     def rollout(self: Self, node: Node):
         "Make the tree one layer better. (Train for one iteration.)"
-        path, bud, maybe_action = self._select(node)
-        if maybe_action is not None:
-            child = self._expand(bud, maybe_action)
+        path, bud, maybe_action_id = self._select(node)
+        print("select_id", maybe_action_id)
+
+        if maybe_action_id is not None:
+            # expand node
+            action = bud.unvisited_actions.pop(maybe_action_id)
+            child = self._expand(bud, action)
             bud.children.append(child)
+            # simulate
             reward = self._simulate(child)
             path.append(child)
+            # backpropagate
             self._backpropagate(path, reward)
+        else:
+            # visit nodes
+            self._backpropagate(path, 0)
 
-    def _select(self: Self, node: Node) -> tuple[list[Edge], Node, Optional[Action]]:
+    def _select(self: Self, node: Node) -> tuple[list[Edge], Node, Optional[int]]:
         "Find an unexplored descendent of `node`"
         path: list[Edge] = []
         while True:
             if node.terminal:
                 return path, node, None
             elif len(node.unvisited_actions) > 0:
-                action = node.unvisited_actions.pop()
-                return path, node, action
+                action_id = self.randint(0, len(node.unvisited_actions))
+                return path, node, action_id
             else:
                 edge = self._uct_select(node)  # descend a layer deeper
                 path.append(edge)
+                print("_select", edge.action)
                 node = edge.node
 
     def _expand(self, node: Node, action: Action):
@@ -140,21 +150,18 @@ class MCTS[Action]:
 
     def _simulate(self: Self, edge: Edge) -> float:
         "Returns the reward for a random simulation (to completion) of `node`"
-        invert_reward = True
         while True:
             if edge.node.terminal:
                 reward = edge.reward
-                return -reward if invert_reward else reward
+                return reward
 
             edge = self._expand(edge.node, edge.node.unvisited_actions[self.randint(0, len(edge.node.unvisited_actions))])
-            invert_reward = not invert_reward
 
     def _backpropagate(self: Self, path: list[Edge], reward: float):
         "Send the reward back up to the ancestors of the leaf"
         for edge in reversed(path):
             edge.N += 1
             edge.Q += reward
-            reward = -reward  # 1 for me is -1 for you
 
     def _uct_select(self: Self, node: Node) -> Edge:
         "Select a child of node, balancing exploration & exploitation"
@@ -164,6 +171,7 @@ class MCTS[Action]:
         assert len(node.unvisited_actions) == 0
 
         N_s = sum(edge.N for edge in node.children)
+        print("N_s", N_s)
 
         def uct(edge: Edge) -> float:
             "Upper confidence bound for trees"
@@ -177,10 +185,11 @@ class MCTS[Action]:
         self._print_tree(self.root, 0)
         
     def _print_tree(self: Self, node: Node, depth: int):
-        print(node.state.display('  ' * depth))
+        print(f"{'\t' * depth}<{depth}>")
+        print(node.state.display('\t' * depth))
         if node.terminal:
-            print(f"{'  ' * depth} [{depth}] terminal")
+            print(f"{'\t' * depth}terminal")
         else:
             for edge in node.children:
-                print(f"{'  ' * depth} <{depth}> action: {edge.action}, reward: {edge.reward * (1 if depth % 2 else -1)}, Q: {edge.Q * (1 if depth % 2 else -1)}, N: {edge.N}")
+                print(f"{'\t' * depth}action: {edge.action}, reward: {edge.reward}, Q: {edge.Q}, N: {edge.N}")
                 self._print_tree(edge.node, depth + 1)
