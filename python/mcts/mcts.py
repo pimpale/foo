@@ -138,8 +138,8 @@ class SinglePlayerMCTS[Action]:
         return Edge(
             action=action,
             reward=reward,
-            Q=reward,
-            N=1,
+            Q=0,
+            N=0,
             node=Node(
                 state=state,
                 terminal=terminal,
@@ -171,7 +171,6 @@ class SinglePlayerMCTS[Action]:
         assert len(node.unvisited_actions) == 0
 
         N_s = sum(edge.N for edge in node.children)
-        print("N_s", N_s)
 
         def uct(edge: Edge) -> float:
             "Upper confidence bound for trees"

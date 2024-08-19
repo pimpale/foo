@@ -3,7 +3,7 @@
 #% autoreload 2
 import jax
 import jax.numpy as jnp
-import jax.scipy.signal as signal
+from jax.scipy.signal import convolve2d
 from typing import Self, override
 from mcts import SinglePlayerMCTS, State
 from dataclasses import dataclass
@@ -14,6 +14,7 @@ vertical_kernel = jnp.transpose(horizontal_kernel)
 diag1_kernel = jnp.eye(3, dtype=jnp.uint8)
 diag2_kernel = jnp.fliplr(diag1_kernel)
 detection_kernels = [horizontal_kernel, vertical_kernel, diag1_kernel, diag2_kernel]
+
 
 
 class TicTacToeState(State[jax.Array]):
@@ -41,19 +42,43 @@ class TicTacToeState(State[jax.Array]):
         def won(board: jax.Array, actor: int) -> bool:
             obs = board == actor
             for kernel in detection_kernels:
-                if (signal.convolve2d(obs, kernel, mode="valid") == 3).any().item():
+                if (convolve2d(obs, kernel, mode="valid") == 3).any().item():
                     return True
             return False
 
         if won(new_board, self.actor):
             return (new_state, 1.0, True)
-        elif won(new_board, self.next_actor()):
-            print("Next actor won")
-            return (new_state, -1.0, True)
         elif (new_board != 0).all().item():
             return (new_state, 0.0, True)
         else:
             return (new_state, 0.0, False)
+
+
+    @staticmethod
+    def _heuristic(board: jax.Array, me: int, opp: int) -> float:
+        my_score:float = 0
+        opp_score:float = 0
+        for kernel in detection_kernels:
+            my_score += jnp.sum(convolve2d(board == me, kernel, mode="valid") >= 2).item()
+            opp_score += jnp.sum(convolve2d(board == opp, kernel, mode="valid") >= 2).item()
+            
+        return my_score - opp_score
+    
+    def _heuristic_player(self: Self) -> jax.Array:
+        best_action = None
+        best_score = float("-inf")
+        for action in self.legal_actions():
+            board = self.board.at[action[0], action[1]].set(self.actor)
+            score = self._heuristic(board, self.actor, self.next_actor())
+            if score > best_score:
+                best_score = score
+                best_action = action
+        
+        assert best_action is not None
+        return best_action
+    
+    def _naive_player(self: Self) -> jax.Array:
+        return self.legal_actions()[0]
 
     @override
     def act(self: Self, action: jax.Array) -> tuple[Self, float, bool]:
@@ -61,7 +86,7 @@ class TicTacToeState(State[jax.Array]):
         s, r, t = self._act(action)
         # take random action
         if not t:
-            s, r, t = s._act(s.legal_actions()[0])
+            s, r, t = s._act(s._heuristic_player())
             r = -r
 
         return s, r, t
@@ -70,6 +95,7 @@ class TicTacToeState(State[jax.Array]):
     def display(self: Self, indent) -> str:
         lines = str(self.board).splitlines()
         return "\n".join(indent + line for line in lines)
+
 
 
 def new_tic_tac_toe_board():
