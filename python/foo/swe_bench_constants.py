@@ -8,6 +8,7 @@ ENV_IMAGE_BUILD_DIR = Path("logs/build_images/env")
 INSTANCE_IMAGE_BUILD_DIR = Path("logs/build_images/instances")
 RUN_EVALUATION_LOG_DIR = Path("logs/run_evaluation")
 
+
 # Constants - Task Instance Class
 class SWEbenchInstance(TypedDict):
     repo: str
@@ -23,6 +24,17 @@ class SWEbenchInstance(TypedDict):
     PASS_TO_PASS: str
     environment_setup_commit: str
 
+class SpecInstance(TypedDict, total=False):
+    python: str
+    packages: str
+    install: str
+    pre_install: list[str]
+    pip_packages: list[str]
+    eval_commands: list[str]
+    test_cmd: str
+    execute_test_as_nonroot: bool
+    nano_cpus: int
+    no_use_env: bool
 
 # Constants - Test Types, Statuses, Commands
 FAIL_TO_PASS = "FAIL_TO_PASS"
@@ -41,8 +53,8 @@ class TestStatus(Enum):
     SKIPPED = "SKIPPED"
     ERROR = "ERROR"
 
-TEST_PYTEST = "pytest --no-header -rA --tb=no -p no:cacheprovider"
-TEST_PYTEST_VERBOSE = "pytest -rA --tb=long -p no:cacheprovider"
+# TEST_PYTEST = "pytest --no-header -rA --tb=no -p no:cacheprovider"
+# TEST_PYTEST_VERBOSE = "pytest -rA --tb=long -p no:cacheprovider"
 TEST_ASTROPY_PYTEST = "pytest -rA -vv -o console_output_style=classic --tb=no"
 TEST_DJANGO = "./tests/runtests.py --verbosity 2 --settings=test_sqlite --parallel 1"
 TEST_DJANGO_NO_PARALLEL = "./tests/runtests.py --verbosity 2"
@@ -56,7 +68,7 @@ TEST_SYMPY_VERBOSE = "bin/test -C --verbose"
 
 
 # Constants - Installation Specifications
-SPECS_SKLEARN = {
+SPECS_SKLEARN: dict[str, SpecInstance] = {
     k: {
         "python": "3.6",
         "packages": "numpy scipy cython pytest pandas matplotlib",
@@ -84,7 +96,7 @@ SPECS_SKLEARN.update(
     }
 )
 
-SPECS_FLASK = {
+SPECS_FLASK: dict[str, SpecInstance] = {
     "2.0": {
         "python": "3.9",
         "packages": "requirements.txt",
@@ -132,7 +144,7 @@ SPECS_FLASK.update(
     }
 )
 
-SPECS_DJANGO = {
+SPECS_DJANGO: dict[str, SpecInstance] = {
     k: {
         "python": "3.5",
         "packages": "requirements.txt",
@@ -215,7 +227,7 @@ SPECS_DJANGO.update(
 )
 SPECS_DJANGO['1.9']['test_cmd'] = TEST_DJANGO_NO_PARALLEL
 
-SPECS_REQUESTS = {
+SPECS_REQUESTS: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "packages": "pytest",
@@ -227,7 +239,7 @@ SPECS_REQUESTS = {
     + ["2.18", "2.19", "2.22", "2.26", "2.25", "2.27", "3.0"]
 }
 
-SPECS_SEABORN = {
+SPECS_SEABORN: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .",
@@ -286,7 +298,7 @@ SPECS_SEABORN.update(
     }
 )
 
-SPECS_PYTEST = {
+SPECS_PYTEST: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .",
@@ -414,7 +426,7 @@ SPECS_PYTEST["8.0"]["pip_packages"] = [
     "tomli==2.0.1",
 ]
 
-SPECS_MATPLOTLIB = {
+SPECS_MATPLOTLIB: dict[str, SpecInstance] = {
     k: {
         "python": "3.11",
         "packages": "environment.yml",
@@ -489,7 +501,7 @@ SPECS_MATPLOTLIB.update(
     }
 )
 
-SPECS_SPHINX = {
+SPECS_SPHINX: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "pip_packages": ["tox==4.16.0", "tox-current-env==0.0.11"],
@@ -539,7 +551,7 @@ SPECS_SPHINX["7.2"]["pre_install"] += [
     "apt-get update && apt-get install -y graphviz"
 ]
 
-SPECS_ASTROPY = {
+SPECS_ASTROPY: dict[str, SpecInstance]= {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .[test] --verbose",
@@ -621,7 +633,7 @@ for k in ["4.1", "4.2", "4.3", "5.0", "5.1", "5.2"]:
         'sed -i \'s/requires = \\["setuptools",/requires = \\["setuptools==68.0.0",/\' pyproject.toml'
     ]
 
-SPECS_SYMPY = {
+SPECS_SYMPY: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "packages": "mpmath flake8",
@@ -645,7 +657,7 @@ SPECS_SYMPY.update(
     }
 )
 
-SPECS_PYLINT = {
+SPECS_PYLINT: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "packages": "requirements.txt",
@@ -681,7 +693,7 @@ SPECS_PYLINT.update(
 for v in ["2.14", "2.15", "2.17", "3.0"]:
     SPECS_PYLINT[v]["nano_cpus"] = int(2e9)
 
-SPECS_XARRAY = {
+SPECS_XARRAY: dict[str, SpecInstance] = {
     k: {
         "python": "3.10",
         "packages": "environment.yml",
@@ -704,7 +716,7 @@ SPECS_XARRAY = {
     for k in ["0.12", "0.18", "0.19", "0.20", "2022.03", "2022.06", "2022.09"]
 }
 
-SPECS_SQLFLUFF = {
+SPECS_SQLFLUFF : dict[str, SpecInstance]= {
     k: {
         "python": "3.9",
         "packages": "requirements.txt",
@@ -732,7 +744,7 @@ SPECS_SQLFLUFF = {
     ]
 }
 
-SPECS_DBT_CORE = {
+SPECS_DBT_CORE: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "packages": "requirements.txt",
@@ -759,7 +771,7 @@ SPECS_DBT_CORE = {
     ]
 }
 
-SPECS_PYVISTA = {
+SPECS_PYVISTA: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .",
@@ -802,7 +814,7 @@ SPECS_PYVISTA.update(
     }
 )
 
-SPECS_ASTROID = {
+SPECS_ASTROID: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .",
@@ -825,7 +837,7 @@ SPECS_ASTROID = {
     ]
 }
 
-SPECS_MARSHMALLOW = {
+SPECS_MARSHMALLOW: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e '.[dev]'",
@@ -851,7 +863,7 @@ SPECS_MARSHMALLOW = {
     ]
 }
 
-SPECS_PVLIB = {
+SPECS_PVLIB: dict[str, SpecInstance] = {
     k: {
         "python": "3.9",
         "install": "python -m pip install -e .[all]",
@@ -862,7 +874,7 @@ SPECS_PVLIB = {
     for k in ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9"]
 }
 
-SPECS_PYDICOM = {
+SPECS_PYDICOM: dict[str, SpecInstance] = {
     k: {
         "python": "3.6",
         "install": "python -m pip install -e .",
@@ -897,10 +909,10 @@ SPECS_PYDICOM.update(
     {k: {**SPECS_PYDICOM[k], "python": "3.11"} for k in ["2.4", "3.0"]}
 )
 
-SPECS_HUMANEVAL = {k: {"python": "3.9", "test_cmd": "python"} for k in ["1.0"]}
+SPECS_HUMANEVAL: dict[str, SpecInstance] = {k: {"python": "3.9", "test_cmd": "python"} for k in ["1.0"]}
 
 # Constants - Task Instance Instllation Environment
-MAP_REPO_VERSION_TO_SPECS = {
+MAP_REPO_VERSION_TO_SPECS: dict[str, dict[str, SpecInstance]] = {
     "astropy/astropy": SPECS_ASTROPY,
     "dbt-labs/dbt-core": SPECS_DBT_CORE,
     "django/django": SPECS_DJANGO,
