@@ -1,0 +1,154 @@
+{
+    "go": {
+        "VB": "go",
+        "VBD": "went",
+        "VBN": "gone",
+        "VBG": "going",
+        "VBZ": "goes",
+        "VBP": "go"
+    },
+    "speak": {
+        "VB": "speak",
+        "VBD": "spoke",
+        "VBN": "spoken",
+        "VBG": "speaking",
+        "VBZ": "speaks",
+        "VBP": "speak"
+    },
+    "think": {
+        "VB": "think",
+        "VBD": "thought",
+        "VBN": "thought",
+        "VBG": "thinking",
+        "VBZ": "thinks",
+        "VBP": "think"
+    },
+    "be": {
+        "VB": "be",
+        "VBD": "was",
+        "VBN": "been",
+        "VBG": "being",
+        "VBZ": "is",
+        "VBP": "are"
+    },
+    "say": {
+        "VB": "say",
+        "VBD": "said",
+        "VBN": "said",
+        "VBG": "saying",
+        "VBZ": "says",
+        "VBP": "say"
+    },
+    "know": {
+        "VB": "know",
+        "VBD": "knew",
+        "VBN": "known",
+        "VBG": "knowing",
+        "VBZ": "knows",
+        "VBP": "know"
+    },
+    "understand": {
+        "VB": "understand",
+        "VBD": "understood",
+        "VBN": "understood",
+        "VBG": "understanding",
+        "VBZ": "understands",
+        "VBP": "understand"
+    },
+    "forget": {
+        "VB": "forget",
+        "VBD": "forgot",
+        "VBN": "forgotten",
+        "VBG": "forgetting",
+        "VBZ": "forgets",
+        "VBP": "forget"
+    },
+    "tell": {
+        "VB": "tell",
+        "VBD": "told",
+        "VBN": "told",
+        "VBG": "telling",
+        "VBZ": "tells",
+        "VBP": "tell"
+    },
+    "see": {
+        "VB": "see",
+        "VBD": "saw",
+        "VBN": "seen",
+        "VBG": "seeing",
+        "VBZ": "sees",
+        "VBP": "see"
+    },
+    "hear": {
+        "VB": "hear",
+        "VBD": "heard",
+        "VBN": "heard",
+        "VBG": "hearing",
+        "VBZ": "hears",
+        "VBP": "hear"
+    },
+    "have": {
+        "VB": "have",
+        "VBD": "had",
+        "VBN": "had",
+        "VBG": "having",
+        "VBZ": "has",
+        "VBP": "have"
+    },
+    "make": {
+        "VB": "make",
+        "VBD": "made",
+        "VBN": "made",
+        "VBG": "making",
+        "VBZ": "makes",
+        "VBP": "make"
+    },
+    "put": {
+        "VB": "put",
+        "VBD": "put",
+        "VBN": "put",
+        "VBG": "putting",
+        "VBZ": "puts",
+        "VBP": "put"
+    },
+    "give": {
+        "VB": "give",
+        "VBD": "gave",
+        "VBN": "given",
+        "VBG": "giving",
+        "VBZ": "gives",
+        "VBP": "give"
+    },
+    "bring": {
+        "VB": "bring",
+        "VBD": "brought",
+        "VBN": "brought",
+        "VBG": "bringing",
+        "VBZ": "brings",
+        "VBP": "bring"
+    },
+    "buy": {
+        "VB": "buy",
+        "VBD": "bought",
+        "VBN": "bought",
+        "VBG": "buying",
+        "VBZ": "buys",
+        "VBP": "buy"
+    },
+    "lend": {
+        "VB": "lend",
+        "VBD": "lent",
+        "VBN": "lent",
+        "VBG": "lending",
+        "VBZ": "lends",
+        "VBP": "lend"
+    },
+    "sell": {
+        "VB": "sell",
+        "VBD": "sold",
+        "VBN": "sold",
+        "VBG": "selling",
+        "VBZ": "sells",
+        "VBP": "sell"
+    }
+}

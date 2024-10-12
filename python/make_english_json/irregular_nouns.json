@@ -3,6 +3,10 @@
         "singular": "child",
         "plural": "children"
     },
+    "grandchild": {
+        "singular": "grandchild",
+        "plural": "grandchildren"
+    },
     "goose": {
         "singular": "goose",
         "plural": "geese"
@@ -102,5 +106,9 @@
     "quiz": {
         "singular": "quiz",
         "plural": "quizzes"
+    },
+    "thief": {
+        "singular": "thief",
+        "plural": "thieves"
     }
 }
