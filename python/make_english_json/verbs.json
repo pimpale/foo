@@ -38,7 +38,13 @@
         "love": null,
         "prefer": null
     },
-    "vb_bare_inf_cl": {
+    "vb_vbg_cl": {
+        "be": null
+    },
+    "vb_vbn_cl": {
+        "have": null
+    },
+    "vb_aux": {
         "can": null,
         "could": null,
         "may": null,
@@ -48,6 +54,9 @@
         "will": null,
         "would": null,
         "must": null
+    },
+    "vb_bare_inf_cl": {
+        "help": null
     },
     "vb_declarative_cl": {
         "say": null,

@@ -541,7 +541,43 @@
         "love": null,
         "prefer": null
     },
-    "vb_bare_inf_cl": {
+    "vb_vbg_cl": {
+        "be": null
+    },
+    "vbd_vbg_cl": {
+        "was": null
+    },
+    "vbn_vbg_cl": {
+        "been": null
+    },
+    "vbg_vbg_cl": {
+        "being": null
+    },
+    "vbz_vbg_cl": {
+        "is": null
+    },
+    "vbp_vbg_cl": {
+        "was": null
+    },
+    "vb_vbn_cl": {
+        "have": null
+    },
+    "vbd_vbn_cl": {
+        "had": null
+    },
+    "vbn_vbn_cl": {
+        "had": null
+    },
+    "vbg_vbn_cl": {
+        "having": null
+    },
+    "vbz_vbn_cl": {
+        "has": null
+    },
+    "vbp_vbn_cl": {
+        "had": null
+    },
+    "vb_aux": {
         "can": null,
         "could": null,
         "may": null,
@@ -551,6 +587,24 @@
         "will": null,
         "would": null,
         "must": null
+    },
+    "vb_bare_inf_cl": {
+        "help": null
+    },
+    "vbd_bare_inf_cl": {
+        "helped": null
+    },
+    "vbn_bare_inf_cl": {
+        "helped": null
+    },
+    "vbg_bare_inf_cl": {
+        "helping": null
+    },
+    "vbz_bare_inf_cl": {
+        "helps": null
+    },
+    "vbp_bare_inf_cl": {
+        "help": null
     },
     "vb_declarative_cl": {
         "say": null,
@@ -1314,17 +1368,17 @@
         "have": null
     },
     "vbd_np_bare_inf_cl": {
-        "leted": null,
+        "let": null,
         "made": null,
         "had": null
     },
     "vbn_np_bare_inf_cl": {
-        "leted": null,
+        "let": null,
         "made": null,
         "had": null
     },
     "vbg_np_bare_inf_cl": {
-        "leting": null,
+        "letting": null,
         "making": null,
         "having": null
     },
