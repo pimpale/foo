@@ -262,5 +262,13 @@
         "VBG": "paying",
         "VBZ": "pays",
         "VBP": "pay"
+    },
+    "let": {
+        "VB": "let",
+        "VBD": "let",
+        "VBN": "let",
+        "VBG": "letting",
+        "VBZ": "lets",
+        "VBP": "let"
     }
 }
