@@ -150,5 +150,117 @@
         "VBG": "selling",
         "VBZ": "sells",
         "VBP": "sell"
+    },
+    "eat": {
+        "VB": "eat",
+        "VBD": "ate",
+        "VBN": "eaten",
+        "VBG": "eating",
+        "VBZ": "eats",
+        "VBP": "eat"
+    },
+    "run": {
+        "VB": "run",
+        "VBD": "ran",
+        "VBN": "run",
+        "VBG": "running",
+        "VBZ": "runs",
+        "VBP": "run"
+    },
+    "sing": {
+        "VB": "sing",
+        "VBD": "sang",
+        "VBN": "sung",
+        "VBG": "singing",
+        "VBZ": "sings",
+        "VBP": "sing"
+    },
+    "drink": {
+        "VB": "drink",
+        "VBD": "drank",
+        "VBN": "drunk",
+        "VBG": "drinking",
+        "VBZ": "drinks",
+        "VBP": "drink"
+    },
+    "read": {
+        "VB": "read",
+        "VBD": "read",
+        "VBN": "read",
+        "VBG": "reading",
+        "VBZ": "reads",
+        "VBP": "read"
+    },
+    "write": {
+        "VB": "write",
+        "VBD": "wrote",
+        "VBN": "written",
+        "VBG": "writing",
+        "VBZ": "writes",
+        "VBP": "write"
+    },
+    "smell": {
+        "VB": "smell",
+        "VBD": "smelt",
+        "VBN": "smelt",
+        "VBG": "smelling",
+        "VBZ": "smells",
+        "VBP": "smell"
+    },
+    "feel": {
+        "VB": "feel",
+        "VBD": "felt",
+        "VBN": "felt",
+        "VBG": "feeling",
+        "VBZ": "feels",
+        "VBP": "feel"
+    },
+    "hit": {
+        "VB": "hit",
+        "VBD": "hit",
+        "VBN": "hit",
+        "VBG": "hitting",
+        "VBZ": "hits",
+        "VBP": "hit"
+    },
+    "send": {
+        "VB": "send",
+        "VBD": "sent",
+        "VBN": "sent",
+        "VBG": "sending",
+        "VBZ": "sends",
+        "VBP": "send"
+    },
+    "keep": {
+        "VB": "keep",
+        "VBD": "kept",
+        "VBN": "kept",
+        "VBG": "keeping",
+        "VBZ": "keeps",
+        "VBP": "keep"
+    },
+    "stop": {
+        "VB": "stop",
+        "VBD": "stopped",
+        "VBN": "stopped",
+        "VBG": "stopping",
+        "VBZ": "stops",
+        "VBP": "stop"
+    },
+    "regret": {
+        "VB": "regret",
+        "VBD": "regretted",
+        "VBN": "regretted",
+        "VBG": "regretting",
+        "VBZ": "regrets",
+        "VBP": "regret"
+    },
+    "pay": {
+        "VB": "pay",
+        "VBD": "paid",
+        "VBN": "paid",
+        "VBG": "paying",
+        "VBZ": "pays",
+        "VBP": "pay"
     }
 }
