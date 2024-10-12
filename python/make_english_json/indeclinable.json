@@ -1,0 +1,98 @@
+{
+    "det": {
+        "a": null,
+        "an": null,
+        "the": null,
+        "some": null
+    },
+    "pronoun": {
+        "i": null,
+        "you": null,
+        "he": null,
+        "she": null,
+        "it": null,
+        "we": null,
+        "they": null
+    },
+    "pronoun_pos": {
+        "mine": null,
+        "yours": null,
+        "his": null,
+        "hers": null,
+        "its": null,
+        "ours": null,
+        "theirs": null
+    },
+    "proper_noun": {
+        "john": null,
+        "mary": null,
+        "london": null,
+        "paris": null
+    },
+    "uncountable_noun": {
+        "water": null,
+        "milk": null,
+        "rice": null,
+        "money": null,
+        "food": null
+    },
+    "preposition": {
+        "in": null,
+        "on": null,
+        "at": null,
+        "to": null,
+        "from": null
+    },
+    "to": {
+        "to": null
+    },
+    "s": {
+        "s": null
+    },
+    "that": {
+        "that": null
+    },
+    "interrogative_subordinator": {
+        "if": null,
+        "whether": null
+    },
+    "adj": {
+        "big": null,
+        "small": null,
+        "happy": null
+    },
+    "adj_pp": {
+        "interested": null,
+        "glad": null,
+        "sad": null,
+        "sorry": null
+    },
+    "adj_declarative_cl": {
+        "happy": null,
+        "glad": null,
+        "sad": null,
+        "sorry": null
+    },
+    "adv": {
+        "quickly": null,
+        "slowly": null,
+        "happily": null
+    },
+    "precorenp_modifier": {
+        "even": null,
+        "all": null
+    },
+    "postcorenp_modifier": {
+        "too": null,
+        "altogether": null
+    },
+    "wh": {
+        "who": null,
+        "what": null,
+        "which": null,
+        "where": null,
+        "when": null,
+        "why": null,
+        "how": null
+    }
+}
