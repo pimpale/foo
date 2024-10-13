@@ -319,7 +319,9 @@
         "behave": null,
         "belch": null,
         "bellow": null,
-        "go": null
+        "go": null,
+        "sing": null,
+        "speak": null
     },
     "vbd": {
         "smoked": null,
@@ -333,7 +335,9 @@
         "behaved": null,
         "belched": null,
         "bellowed": null,
-        "went": null
+        "went": null,
+        "sang": null,
+        "spoke": null
     },
     "vbn": {
         "smoked": null,
@@ -347,7 +351,9 @@
         "behaved": null,
         "belched": null,
         "bellowed": null,
-        "gone": null
+        "gone": null,
+        "sung": null,
+        "spoken": null
     },
     "vbg": {
         "smoking": null,
@@ -361,7 +367,9 @@
         "behaving": null,
         "belching": null,
         "bellowing": null,
-        "going": null
+        "going": null,
+        "singing": null,
+        "speaking": null
     },
     "vbz": {
         "smokes": null,
@@ -375,7 +383,9 @@
         "behaves": null,
         "belches": null,
         "bellows": null,
-        "goes": null
+        "goes": null,
+        "sings": null,
+        "speaks": null
     },
     "vbp": {
         "smoke": null,
@@ -389,7 +399,9 @@
         "behave": null,
         "belch": null,
         "bellow": null,
-        "went": null
+        "go": null,
+        "sing": null,
+        "speak": null
     },
     "vb_pp": {
         "look": null,
@@ -433,11 +445,11 @@
     },
     "vbp_pp": {
         "look": null,
-        "spoke": null,
+        "speak": null,
         "listen": null,
         "talk": null,
-        "thought": null,
-        "went": null
+        "think": null,
+        "go": null
     },
     "vb_ap": {
         "be": null,
@@ -490,14 +502,14 @@
         "feels": null
     },
     "vbp_ap": {
-        "was": null,
+        "are": null,
         "seem": null,
         "appear": null,
         "look": null,
         "sound": null,
         "taste": null,
-        "smelt": null,
-        "felt": null
+        "smell": null,
+        "feel": null
     },
     "vb_to_inf_cl": {
         "want": null,
@@ -557,7 +569,7 @@
         "is": null
     },
     "vbp_vbg_cl": {
-        "was": null
+        "are": null
     },
     "vb_vbn_cl": {
         "have": null
@@ -575,7 +587,7 @@
         "has": null
     },
     "vbp_vbn_cl": {
-        "had": null
+        "have": null
     },
     "vb_aux": {
         "can": null,
@@ -702,14 +714,14 @@
         "complains": null
     },
     "vbp_declarative_cl": {
-        "said": null,
-        "knew": null,
-        "thought": null,
+        "say": null,
+        "know": null,
+        "think": null,
         "believe": null,
-        "understood": null,
+        "understand": null,
         "realize": null,
         "remember": null,
-        "forgot": null,
+        "forget": null,
         "imagine": null,
         "agree": null,
         "promise": null,
@@ -791,7 +803,7 @@
         "says": null
     },
     "vbp_exclamative_cl": {
-        "told": null,
+        "tell": null,
         "show": null,
         "explain": null,
         "describe": null,
@@ -801,8 +813,8 @@
         "convince": null,
         "persuade": null,
         "remember": null,
-        "forgot": null,
-        "said": null
+        "forget": null,
+        "say": null
     },
     "vb_interrogative_cl": {
         "know": null,
@@ -840,7 +852,7 @@
         "discovers": null
     },
     "vbp_interrogative_cl": {
-        "knew": null,
+        "know": null,
         "wonder": null,
         "inqure": null,
         "ask": null,
@@ -910,7 +922,8 @@
         "know": null,
         "ignore": null,
         "recognize": null,
-        "watch": null
+        "watch": null,
+        "sing": null
     },
     "vbd_np": {
         "ate": null,
@@ -976,7 +989,8 @@
         "knew": null,
         "ignored": null,
         "recognized": null,
-        "watched": null
+        "watched": null,
+        "sang": null
     },
     "vbn_np": {
         "eaten": null,
@@ -1042,7 +1056,8 @@
         "known": null,
         "ignored": null,
         "recognized": null,
-        "watched": null
+        "watched": null,
+        "sung": null
     },
     "vbg_np": {
         "eating": null,
@@ -1108,7 +1123,8 @@
         "knowing": null,
         "ignoring": null,
         "recognizing": null,
-        "watching": null
+        "watching": null,
+        "singing": null
     },
     "vbz_np": {
         "eats": null,
@@ -1174,17 +1190,18 @@
         "knows": null,
         "ignores": null,
         "recognizes": null,
-        "watches": null
+        "watches": null,
+        "sings": null
     },
     "vbp_np": {
-        "ate": null,
-        "drank": null,
+        "eat": null,
+        "drink": null,
         "read": null,
-        "wrote": null,
-        "saw": null,
-        "heard": null,
-        "smelt": null,
-        "felt": null,
+        "write": null,
+        "see": null,
+        "hear": null,
+        "smell": null,
+        "feel": null,
         "touch": null,
         "hit": null,
         "kick": null,
@@ -1194,13 +1211,13 @@
         "dislike": null,
         "want": null,
         "need": null,
-        "had": null,
+        "have": null,
         "own": null,
         "possess": null,
-        "bought": null,
-        "sent": null,
+        "buy": null,
+        "send": null,
         "show": null,
-        "told": null,
+        "tell": null,
         "ask": null,
         "order": null,
         "promise": null,
@@ -1214,16 +1231,16 @@
         "learn": null,
         "help": null,
         "prevent": null,
-        "stopped": null,
+        "stop": null,
         "avoid": null,
         "finish": null,
         "start": null,
         "continue": null,
-        "kept": null,
+        "keep": null,
         "mind": null,
         "miss": null,
-        "regretted": null,
-        "forgot": null,
+        "regret": null,
+        "forget": null,
         "remember": null,
         "imagine": null,
         "expect": null,
@@ -1231,16 +1248,17 @@
         "wish": null,
         "fear": null,
         "worry": null,
-        "understood": null,
+        "understand": null,
         "believe": null,
         "deny": null,
         "confirm": null,
         "doubt": null,
         "suspect": null,
-        "knew": null,
+        "know": null,
         "ignore": null,
         "recognize": null,
-        "watch": null
+        "watch": null,
+        "sing": null
     },
     "vb_np_pp": {
         "put": null,
@@ -1269,7 +1287,7 @@
     },
     "vbp_np_pp": {
         "put": null,
-        "kept": null,
+        "keep": null,
         "leave": null
     },
     "vb_np_ap": {
@@ -1288,7 +1306,7 @@
         "makes": null
     },
     "vbp_np_ap": {
-        "made": null
+        "make": null
     },
     "vb_np_to_inf_cl": {
         "tell": null,
@@ -1351,7 +1369,7 @@
         "wants": null
     },
     "vbp_np_to_inf_cl": {
-        "told": null,
+        "tell": null,
         "ask": null,
         "order": null,
         "invite": null,
@@ -1389,8 +1407,8 @@
     },
     "vbp_np_bare_inf_cl": {
         "let": null,
-        "made": null,
-        "had": null
+        "make": null,
+        "have": null
     },
     "vb_np_declarative_cl": {
         "tell": null,
@@ -1423,7 +1441,7 @@
         "persuades": null
     },
     "vbp_np_declarative_cl": {
-        "told": null,
+        "tell": null,
         "show": null,
         "convince": null,
         "persuade": null
@@ -1449,7 +1467,7 @@
         "shows": null
     },
     "vbp_np_exclamative_cl": {
-        "told": null,
+        "tell": null,
         "show": null
     },
     "vb_np_interrogative_cl": {
@@ -1586,20 +1604,20 @@
         "helps": null
     },
     "vbp_np_np": {
-        "gave": null,
-        "sent": null,
+        "give": null,
+        "send": null,
         "show": null,
         "offer": null,
-        "brought": null,
-        "lent": null,
+        "bring": null,
+        "lend": null,
         "pass": null,
         "hand": null,
-        "sold": null,
-        "bought": null,
-        "paid": null,
+        "sell": null,
+        "buy": null,
+        "pay": null,
         "promise": null,
         "teach": null,
-        "told": null,
+        "tell": null,
         "ask": null,
         "order": null,
         "invite": null,

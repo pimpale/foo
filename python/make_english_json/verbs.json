@@ -11,7 +11,9 @@
         "behave": null,
         "belch": null,
         "bellow": null,
-        "go": null
+        "go": null,
+        "sing": null,
+        "speak": null
     },
     "vb_pp": {
         "look": null,
@@ -162,7 +164,8 @@
         "know": null,
         "ignore": null,
         "recognize": null,
-        "watch": null
+        "watch": null,
+        "sing": null
     },
     "vb_np_pp": {
         "put": null,
