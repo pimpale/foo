@@ -34,14 +34,39 @@ for task, model_scores in results_dict.items():
             }
     results_dict_avg_std[task] = avg_scores    
 
+results_dict_avg_std2 = results_dict_avg_std
+results_dict_avg_std = {}
+
+
+# only select tasks which are not completely flat
+
+
 # create plot for each task, with pc1_score on x-axis and the average success rate on y-axis
 
-for task, model_scores in results_dict_avg_std.items():
-    fig, ax = plt.subplots()
+# decide how many subplots to create
+n_subplots = len(results_dict_avg_std)
+n_cols = 8
+n_rows = n_subplots // n_cols + 1
+
+fig, axs = plt.subplots(n_rows, n_cols, figsize=(n_cols * 5, n_rows * 5))
+for i, (task, model_scores) in enumerate(results_dict_avg_std.items()):
+    row = i // n_cols
+    col = i % n_cols
+    ax = axs[row, col]
     ax.set_title(task)
     ax.set_xlabel('PC1')
     ax.set_ylabel('Average Success Rate')
     for model, scores in model_scores.items():
-        ax.errorbar(pc1_scores_dict[model], scores['avg'], yerr=scores['std'], fmt='o', label=model)
+        ax.errorbar(scores['pc1'], scores['avg'], yerr=scores['std'], fmt='o', label=model)
     ax.legend()
-    plt.show()
+
+# for task, model_scores in results_dict_avg_std.items():
+#     fig, ax = plt.subplots()
+#     ax.set_title(task)
+#     ax.set_xlabel('PC1')
+#     ax.set_ylabel('Average Success Rate')
+#     for model, scores in model_scores.items():
+#         ax.errorbar(pc1_scores_dict[model], scores['avg'], yerr=scores['std'], fmt='o', label=model)
+#     ax.legend()
+#     plt.show()
+# %%

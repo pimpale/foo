@@ -46,17 +46,6 @@
     "vb_vbn_cl": {
         "have": null
     },
-    "vb_aux": {
-        "can": null,
-        "could": null,
-        "may": null,
-        "might": null,
-        "shall": null,
-        "should": null,
-        "will": null,
-        "would": null,
-        "must": null
-    },
     "vb_bare_inf_cl": {
         "help": null
     },
@@ -80,6 +69,7 @@
         "complain": null
     },
     "vb_exclamative_cl": {
+        "know": null,
         "tell": null,
         "show": null,
         "explain": null,

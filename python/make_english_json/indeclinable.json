@@ -43,6 +43,9 @@
         "to": null,
         "from": null
     },
+    "not": {
+        "not": null
+    },
     "to": {
         "to": null
     },
@@ -59,7 +62,8 @@
     "adj": {
         "big": null,
         "small": null,
-        "happy": null
+        "happy": null,
+        "sad": null
     },
     "adj_pp": {
         "interested": null,
@@ -86,13 +90,46 @@
         "too": null,
         "altogether": null
     },
+    "modal": {
+        "can": null,
+        "could": null,
+        "may": null,
+        "might": null,
+        "shall": null,
+        "should": null,
+        "will": null,
+        "would": null,
+        "must": null
+    },
+    "how": {
+        "how": null
+    },
+    "why": {
+        "why": null
+    },
     "wh": {
         "who": null,
         "what": null,
         "which": null,
         "where": null,
-        "when": null,
-        "why": null,
-        "how": null
+        "when": null
+    },
+    "is": {
+        "is": null
+    },
+    "are": {
+        "are": null
+    },
+    "were": {
+        "were": null
+    },
+    "does": {
+        "does": null
+    },
+    "do": {
+        "do": null
+    },
+    "did": {
+        "did": null
     }
 }
