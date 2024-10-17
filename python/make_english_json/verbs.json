@@ -13,7 +13,15 @@
         "bellow": null,
         "go": null,
         "sing": null,
-        "speak": null
+        "speak": null,
+        "slip": null,
+        "smile": null,
+        "snarl": null,
+        "laugh": null,
+        "stumble": null,
+        "swim": null,
+        "talk": null,
+        "think": null
     },
     "vb_pp": {
         "look": null,
@@ -56,6 +64,7 @@
         "believe": null,
         "understand": null,
         "realize": null,
+        "learn": null,
         "remember": null,
         "forget": null,
         "imagine": null,
@@ -91,6 +100,7 @@
         "discover": null
     },
     "vb_np": {
+        "be": null,
         "eat": null,
         "drink": null,
         "read": null,

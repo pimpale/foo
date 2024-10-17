@@ -24,17 +24,29 @@
         "theirs": null
     },
     "proper_noun": {
-        "john": null,
-        "mary": null,
-        "london": null,
-        "paris": null
+        "John": null,
+        "Mary": null,
+        "London": null,
+        "Paris": null,
+        "Berlin": null,
+        "Moscow": null,
+        "Tokyo": null,
+        "Beijing": null,
+        "New York": null,
+        "Los Angeles": null,
+        "San Francisco": null,
+        "Roxy": null,
+        "Max": null,
+        "Daisy": null,
+        "Sue": null
     },
     "uncountable_noun": {
         "water": null,
         "milk": null,
         "rice": null,
         "money": null,
-        "food": null
+        "food": null,
+        "snow": null
     },
     "preposition": {
         "in": null,
@@ -62,8 +74,13 @@
     "adj": {
         "big": null,
         "small": null,
+        "little": null,
         "happy": null,
-        "sad": null
+        "sad": null,
+        "icy": null,
+        "thoughtful": null,
+        "careful": null,
+        "lonely": null
     },
     "adj_pp": {
         "interested": null,
@@ -72,6 +89,12 @@
         "sorry": null
     },
     "adj_declarative_cl": {
+        "happy": null,
+        "glad": null,
+        "sad": null,
+        "sorry": null
+    },
+    "adj_to_inf_cl": {
         "happy": null,
         "glad": null,
         "sad": null,
