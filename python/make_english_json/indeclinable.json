@@ -24,8 +24,6 @@
         "theirs": null
     },
     "proper_noun": {
-        "John": null,
-        "Mary": null,
         "London": null,
         "Paris": null,
         "Berlin": null,
@@ -38,7 +36,30 @@
         "Roxy": null,
         "Max": null,
         "Daisy": null,
-        "Sue": null
+        "Sue": null,
+        "John": null,
+        "Mary": null,
+        "Peter": null,
+        "Paul": null,
+        "Carlos": null,
+        "Jesus": null,
+        "Darnell": null,
+        "Milly": null,
+        "Alice": null,
+        "Anna": null,
+        "Becky": null,
+        "Bertha": null,
+        "Bob": null,
+        "Charlie": null,
+        "Carol": null,
+        "David": null,
+        "Disney": null,
+        "Emily": null,
+        "Eve": null,
+        "Frank": null,
+        "Grace": null,
+        "Gloria": null,
+        "Henry": null
     },
     "uncountable_noun": {
         "water": null,
@@ -80,7 +101,8 @@
         "icy": null,
         "thoughtful": null,
         "careful": null,
-        "lonely": null
+        "lonely": null,
+        "kind": null
     },
     "adj_pp": {
         "interested": null,
@@ -103,7 +125,8 @@
     "adv": {
         "quickly": null,
         "slowly": null,
-        "happily": null
+        "happily": null,
+        "now": null
     },
     "precorenp_modifier": {
         "even": null,
