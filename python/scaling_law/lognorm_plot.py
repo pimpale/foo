@@ -59,8 +59,7 @@ def get_lognormal_cdf_fit_params(
     return popt
 
 
-#%%
-
+# Load the data
 results  = pd.read_csv("./results.csv")
 
 pc1_scores = pd.read_csv('./leaderboard_pca_scores.csv')

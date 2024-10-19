@@ -34,12 +34,6 @@ for task, model_scores in results_dict.items():
             }
     results_dict_avg_std[task] = avg_scores    
 
-results_dict_avg_std2 = results_dict_avg_std
-results_dict_avg_std = {}
-
-
-# only select tasks which are not completely flat
-
 
 # create plot for each task, with pc1_score on x-axis and the average success rate on y-axis
 
