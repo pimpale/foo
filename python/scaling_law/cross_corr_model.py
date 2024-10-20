@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import scipy.optimize as opt
 
 # convolve normal curve with step function, contrast this with convolving normal curve with sigmoid function
 
@@ -28,7 +29,7 @@ plt.show()
 
 
 # now convolve normal curve with sigmoid function
-sigmoid = 1/(1+np.exp(-x_extended))
+sigmoid = stats.norm.cdf(x_extended, 0, 1)
 
 convolution = np.convolve(y, sigmoid, mode='valid')
 convolution = convolution * (x[1] - x[0])
@@ -64,3 +65,60 @@ plt.plot(x, lognormal_convolution, label='convolution')
 plt.xlim(-10, 10)
 plt.legend()
 plt.show()
+
+# fit a lognormal distribution to the convolution
+
+def lognormal_cdf(x, loc, sigma, mu):
+    return stats.lognorm.cdf(x, loc=loc, s=sigma, scale=np.exp(mu))
+
+def lognormal_pdf(x, loc, sigma, mu):
+    return stats.lognorm.pdf(x, loc=loc, s=sigma, scale=np.exp(mu))
+
+def norm_cdf(x, loc, scale):
+    return stats.norm.cdf(x, loc=loc, scale=scale)
+
+def get_lognormal_cdf_fit_params(
+    x_values: np.ndarray, y_values: np.ndarray
+) -> tuple[float, float, float]:
+    assert len(x_values) == len(y_values)
+    popt, _ = opt.curve_fit(
+        lognormal_cdf,
+        x_values,
+        y_values,
+        p0=[
+            # center at the median
+            -10, 0.4, 2.6
+        ],
+        bounds=([-100, 0.01, 0.1], [20, 10, 10]),
+        maxfev=5000
+    )
+    return popt
+
+def get_norm_cdf_fit_params(
+    x_values: np.ndarray, y_values: np.ndarray
+) -> tuple[float, float]:
+    assert len(x_values) == len(y_values)
+    popt, _ = opt.curve_fit(
+        norm_cdf,
+        x_values,
+        y_values,
+        p0=[
+            # center at the median
+            0, 1
+        ],
+        bounds=([-100, 0.01], [20, 10]),
+        maxfev=5000
+    )
+    return popt
+
+lognormal_fit_params = get_lognormal_cdf_fit_params(x, lognormal_convolution)
+print("loc, sigma, mu", lognormal_fit_params)
+
+normal_fit_params = get_norm_cdf_fit_params(x, lognormal_convolution)
+print("loc, scale", normal_fit_params)
+
+plt.plot(x, lognormal_convolution, label='convolution (True distribution)')
+plt.plot(x, lognormal_cdf(x, *lognormal_fit_params), label='lognormal cdf best fit')
+plt.plot(x, norm_cdf(x, *normal_fit_params), label='normal cdf best fit')
+plt.xlim(-3, 5)
+plt.legend()

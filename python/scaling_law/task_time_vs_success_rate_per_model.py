@@ -58,6 +58,11 @@ def exponential_decay(x, a, b, c):
     return a * np.exp(-b * (x - c))
 
 
+# sigmoid
+def sigmoid(x, slope, shift):
+    return 1 / (1 + np.exp(-slope * (x - shift)))
+
+
 fig, axs = plt.subplots(nrows, ncols, figsize=(ncols*5, nrows*5))
 axs = axs.flatten()
 for model, ax in zip(models, axs):
@@ -81,10 +86,20 @@ for model, ax in zip(models, axs):
     lin = np.linspace(0, max(modelTaskResultsMinute['Minutes']), 1000)
     ax.plot(lin, exponential_decay(lin, *best_params), label="Exponential Decay Fit", color="orange")
     
+    # now try fitting a sigmoid
+    best_params = opt.curve_fit(
+        sigmoid, 
+        modelTaskResultsMinuteModel["Minutes"], 
+        modelTaskResultsMinuteModel["avg_score"], 
+        p0=[1, 0]
+    )[0]
+    print(best_params)
+    lin = np.linspace(0, max(modelTaskResultsMinute['Minutes']), 1000)
+    ax.plot(lin, sigmoid(lin, *best_params), label="Sigmoid Fit", color="green")
+    
     ax.set_title(model)
     ax.set_xlabel("Minutes")
     ax.set_ylabel("Average Score")
     ax.set_ylim(0, 1)    
     ax.legend()
     
-
