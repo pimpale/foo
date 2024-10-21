@@ -100,6 +100,6 @@ for model, ax in zip(models, axs):
     ax.set_title(model)
     ax.set_xlabel("Minutes")
     ax.set_ylabel("Average Score")
-    ax.set_ylim(0, 1)    
+    ax.set_ylim(0, 1)
     ax.legend()
     
