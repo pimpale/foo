@@ -1,0 +1,39 @@
+model,flops,explanation
+llama3_1_405b, 3.8e25, 6 * (405*10^9)*(15.6*10^12) https://ai.meta.com/research/publications/the-llama-3-herd-of-models/
+llama3_1_70b, 6.6e24, 6 * (70*10^9)*(15.6*10^12)
+llama3_1_8b, 7.5e23, 6 * (8*10^9)*(15.6*10^12)
+llama3_70b, 6.6e+24, https://epochai.org/data/notable-ai-models?view=table#explore-the-data
+llama3_8b, 7.5e+23, 8/70 * 6.6e24 (llama3_70b flops)
+llama2_70b, 8.4e23, 6 * (70*10^9)*(2*10^12) https://huggingface.co/meta-llama/Llama-2-70b-hf
+llama2_13b, 1.56e23, 6 * (13*10^9)*(2*10^12)
+llama2_7b, 8.4e22, 6 * (7*10^9)*(2*10^12)
+gemma2_27b, 2.106e24, 6 * (27*10^9)*(13*10^12) https://arxiv.org/pdf/2408.00118
+gemma2_9b, 4.32e23, 6 * (9*10^9)*(8*10^12)
+gemma2_2b, 2.4e22, 6 * (2*10^9)*(2*10^12)
+qwen1_5_72b, 1.296e24, https://arxiv.org/pdf/2405.10938 for full table in appendix B.2
+qwen1_5_32b, 7.68e23, see table
+qwen1_5_14b, 3.36e23, see table
+qwen1_5_7b, 1.68e23, see table
+qwen1_5_4b, 5.7e22, see table
+qwen1_5_1_8b, 2.592e22, see table
+qwen1_5_0_5b, 7.2e21, see table
+qwen2_5_72b, 7.776e24, 6 * (72*10^9)*(18*10^12)
+qwen2_5_32b, 3.456e24, 6 * (32*10^9)*(18*10^12)
+qwen2_5_14b, 1.512e24, 6 * (14*10^9)*(18*10^12)
+qwen2_5_7b, 7.56e23, 6 * (7*10^9)*(18*10^12)
+qwen2_5_3b, 3.24e23, 6 * (3*10^9)*(18*10^12)
+qwen2_5_1_5b, 1.62e23, 6 * (1.5*10^9)*(18*10^12)
+qwen2_5_0_5b, 5.4e22, 6 * (0.5*10^9)*(18*10^12)
+gemma_1_1_7b, 2.52e23, 6 * (7*10^9)*(6*10^12)
+gemma_1_1_2b, 7.2e22, 6 * (2*10^9)*(6*10^12)
+llama3_2_3b, 1.62e23, 6 * (3*10^9)*(9*10^12)
+llama3_2_1b, 5.4e22, 6 * (1*10^9)*(9*10^12)
+yi_6b, 1.116e23, 6 * (6*10^9)*(3.1*10^12)
+yi_9b, 1.548e23, Yi-9B is continuously trained based on Yi-6B using 0.8T tokens. See https://huggingface.co/01-ai/Yi-34B. What does this mean exactly? I will assume 6b compute + 0.8T tokens for a 9b model. eg. 1.116e23 + 6 * (9*10^9)*(0.8*10^12) = 1.512e23
+yi_34b, 6.324e23, 6 * (34*10^9)*(3.1*10^12)
+yi_1_5_6b, 1.296e+23, 1.116e23 + 6 * (6*10^9)*(0.5*10^12)
+yi_1_5_9b, 1.818e+23, 1.548e23 + 6 * (9*10^9)*(0.5*10^12)
+yi_1_5_34b, 7.344e+23, 6.324e23 + 6 * (34*10^9)*(0.5*10^12)
+phi3_mini_128k, 1.1172e+23, 6 * (3.8*10^9) * (4.9*10^12) see https://huggingface.co/microsoft/Phi-3-mini-128k-instruct
+phi3_small_128k, 2.058e+23, 6 * (7*10^9) * (4.9*10^12) see https://huggingface.co/microsoft/Phi-3-small-128k-instruct
+phi3_medium_128k, 4.116e+23, 6 * (14*10^9) * (4.9*10^12) see https://huggingface.co/microsoft/Phi-3-medium-128k-instruct

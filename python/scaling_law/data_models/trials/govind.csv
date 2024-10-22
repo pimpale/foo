@@ -1,4 +1,4 @@
-containerId,score,taskFamily,taskName,model,timestamp
+container_id,score,task_family,task_name,model,timestamp
 1112528065,0,swebench,django__django-10097,gpt_4o_mini,2024-10-15T18:30:45.633Z
 1804287673,1,agentbench,1,gpt_4o_may,2024-10-15T19:47:54.625Z
 1045979894,1,agentbench,1,gpt_4o_may,2024-10-15T19:47:57.603Z
