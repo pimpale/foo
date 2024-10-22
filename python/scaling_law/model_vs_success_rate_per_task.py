@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from collections import defaultdict
 
 
-results  = pd.read_csv("./results.csv")
+results  = pd.read_csv("./data_models/trials/joint.csv")
 
 pc1_scores = pd.read_csv('./leaderboard_pca_scores.csv')
 
@@ -17,7 +17,7 @@ pc1_scores_dict = dict(zip(pc1_scores['model'], pc1_scores['PC1']))
 results_dict = defaultdict(lambda: defaultdict(list))
 for idx, row in results.iterrows():
     # print(row)
-    task = row['taskFamily'] +' ' + row['taskName']
+    task = row['task_family'] +' ' + row['task_name']
     if row['score'] != -1:
         results_dict[task][row['model']] += [row['score']]
 

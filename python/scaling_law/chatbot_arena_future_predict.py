@@ -6,6 +6,64 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 from scipy import stats
+from scipy.optimize import curve_fit
+from scipy.stats import lognorm
+from ipywidgets import interact
+import ipywidgets as widgets
+
+
+def sigmoid(x: np.ndarray, slope: float, shift: float) -> np.ndarray:
+    return 1 / (1 + np.exp(-slope * (x - shift)))
+
+
+def lognormal_cdf(x, loc, sigma, mu):
+    return lognorm.cdf(x, loc=loc, s=sigma, scale=np.exp(mu))
+
+
+def lognormal_pdf(x, loc, sigma, mu):
+    return lognorm.pdf(x, loc=loc, s=sigma, scale=np.exp(mu))
+
+
+def get_sigmoid_parameters(
+    x_values: np.ndarray,
+    y_values: np.ndarray,
+    p0: tuple[
+        # slope
+        float,
+        # shift
+        float,
+    ],
+) -> tuple[float, float]:
+    assert len(x_values) == len(y_values)
+    popt, _ = curve_fit(
+        sigmoid, x_values, y_values, p0=p0, bounds=([0, 1000], [10, 2300]), maxfev=5000
+    )
+    return popt
+
+
+def get_lognormal_cdf_fit_params(
+    x_values: np.ndarray,
+    y_values: np.ndarray,
+    p0: tuple[
+        # loc
+        float,
+        # mu
+        float,
+        # sigma
+        float,
+    ],
+) -> tuple[float, float, float]:
+    assert len(x_values) == len(y_values)
+    popt, _ = curve_fit(
+        lognormal_cdf,
+        x_values,
+        y_values,
+        p0=p0,
+        bounds=([900, 0.01, 0.1], [2024, 10, 10]),
+        maxfev=5000,
+    )
+    return popt
+
 
 model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
 
@@ -30,7 +88,7 @@ msrd = duckdb.sql(
 plt.scatter(msrd["release_date"], msrd["score"])
 
 # create x that can be used for plotting functions
-x = np.linspace(min(msrd["release_date"]), max(msrd["release_date"])+1, 100)
+x = np.linspace(min(msrd["release_date"]), max(msrd["release_date"]) + 1, 100)
 
 # table of models that were ever at the top 5 of the chatbot arena
 top_n_results = duckdb.sql(
@@ -47,7 +105,7 @@ top_n_results = duckdb.sql(
     """
 ).df()
 
-plt.scatter(top_n_results["release_date"], top_n_results["score"], label='top 5')
+plt.scatter(top_n_results["release_date"], top_n_results["score"], label="top 5")
 
 top5_params = stats.linregress(top_n_results["release_date"], top_n_results["score"])
 print(top5_params)
@@ -75,7 +133,9 @@ best_results = duckdb.sql(
     """
 ).df()
 
-plt.scatter(best_results["release_date"], best_results["score"], label='best', color='green')
+plt.scatter(
+    best_results["release_date"], best_results["score"], label="best", color="green"
+)
 
 # drop llama 13b because it is an outlier
 best_results = best_results[best_results["score"] > 1000]
@@ -91,7 +151,8 @@ plt.plot(
 )
 
 plt.legend()
-#%%
+plt.show()
+
 
 # create a seperate plot where we fit the task results
 trials = duckdb.read_csv("./data_models/trials/joint.csv")
@@ -133,6 +194,107 @@ elo_scores = duckdb.sql(
     """
 ).df()
 
-plt.scatter(elo_scores["score"], elo_scores["success_rate"], label='success rate')
 
-# fit sigmoid
+# scatter plot of each model's PC1 score vs. average success rate (labeled)
+
+
+fig, ax = plt.subplots(2, 1, figsize=(10, 10))
+ax1, ax2 = ax
+
+ax1.set_xlabel("ELO Score")
+ax1.set_ylabel("Average Success Rate")
+ax1.set_ylim(0, 1)
+
+# Scatter plot of ELO score vs. success rate
+ax1.scatter(elo_scores["score"], elo_scores["success_rate"], label="success rate")
+
+# fit a sigmoid to the data
+x_values = np.array(elo_scores["score"])
+y_values = np.array(elo_scores["success_rate"])
+params = get_sigmoid_parameters(x_values, y_values, [1, 1200])
+print("Slope", params[0], "Shift", params[1])
+x_linspace = np.linspace(1000, 1600, 512)
+y_sigmoid = sigmoid(x_linspace, *params)
+ax1.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
+
+# fit a lognormal to the data
+params = get_lognormal_cdf_fit_params(x_values, y_values, [1000, 0.4, 2.6])
+print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+y_lognormal = lognormal_cdf(x_linspace, *params)
+ax1.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+
+
+ax1.legend()
+
+# Try a linear transformation from ELO to year, then graph the success rate over time
+
+top5_score_2_releasedate = stats.linregress(
+    top_n_results["score"], top_n_results["release_date"]
+)
+
+x_values = (
+    np.array(elo_scores["score"]) * top5_score_2_releasedate.slope
+    + top5_score_2_releasedate.intercept
+)
+y_values = np.array(elo_scores["success_rate"])
+
+# Scatter plot of ELO score vs. success rate
+ax2.scatter(x_values, y_values, label="success rate")
+
+ax2.set_xlabel("Year")
+ax2.set_ylabel("Average Success Rate")
+ax2.set_ylim(0, 1)
+
+# fit a sigmoid to the data
+params = get_sigmoid_parameters(x_values, y_values, [1, 2022])
+print("Slope", params[0], "Shift", params[1])
+x_linspace = np.linspace(2022, 2025.5, 512)
+y_sigmoid = sigmoid(x_linspace, *params)
+ax2.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
+
+# fit a lognormal to the data
+params = get_lognormal_cdf_fit_params(x_values, y_values, [2022, 0.4, 2.6])
+print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+y_lognormal = lognormal_cdf(x_linspace, *params)
+ax2.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+
+ax2.legend()
+
+#%% 
+
+# Try to figure out why the lognormal fit is so bad
+
+@interact(
+    loc=widgets.FloatSlider(min=2000, max=2025, step=0.1, value=2022),
+    sigma=widgets.FloatSlider(min=0, max=1, step=0.01, value=0.4),
+    mu=widgets.FloatSlider(min=0, max=10, step=0.1, value=2.6),
+)
+def g(slope, shift, loc, sigma, mu):
+    x_values = (
+        np.array(elo_scores["score"]) * top5_score_2_releasedate.slope
+        + top5_score_2_releasedate.intercept
+    )
+    y_values = np.array(elo_scores["success_rate"])
+
+    # Scatter plot of ELO score vs. success rate
+    plt.scatter(x_values, y_values, label="success rate")
+
+    plt.xlabel("Year")
+    plt.ylabel("Average Success Rate")
+    plt.ylim(0, 1)
+
+    # fit a sigmoid to the data
+    params = get_sigmoid_parameters(x_values, y_values, [slope, shift])
+    print("Slope", params[0], "Shift", params[1])
+    x_linspace = np.linspace(2022, 2025.5, 512)
+    y_sigmoid = sigmoid(x_linspace, *params)
+    plt.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
+
+    # fit a lognormal to the data
+    params = get_lognormal_cdf_fit_params(x_values, y_values, [loc, sigma, mu])
+    print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+    y_lognormal = lognormal_cdf(x_linspace, *params)
+    plt.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+
+    plt.legend()
+    plt.show()
