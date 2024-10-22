@@ -1,21 +1,94 @@
-#%%
+# %%
 
 import numpy as np
 import duckdb
+import pandas as pd
 import matplotlib.pyplot as plt
 import re
+from scipy import stats
 
-openllm_release_dates = duckdb.read_csv('./data_models/meta/open_llm_release_dates.csv')
+model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
 
-model_name_mapping = duckdb.read_csv('./data_models/meta/model_name_mapping.csv')
+chatbot_arena_scores = duckdb.read_csv("./data_models/cache_new/chatbot_arena.csv")
 
-chatbot_arena_scores = duckdb.read_csv('./data_models/cache/chatbot_arena_20241017.csv')
+chatbot_arena_release_dates = duckdb.read_csv(
+    "./data_models/meta/chatbot_arena_release_dates.csv"
+)
 
-def extract_a_tag_content(text: str) -> str:
-    pattern = r"<a.*>(.*?)</a>"
-    match = re.search(pattern, text)
-    return match.group(1) if match else None
+# scatter plot of chatbot arena scores
+msrd = duckdb.sql(
+    """
+    SELECT 
+        cas.Model as model, 
+        cas."Arena Score" as score, 
+        (year(card.release_date) + (1/365)*dayofyear(card.release_date)) as release_date
+    FROM chatbot_arena_scores cas
+    JOIN chatbot_arena_release_dates card ON card.Model = cas.Model
+    """
+).df()
+
+plt.scatter(msrd["release_date"], msrd["score"])
+
+# create x that can be used for plotting functions
+x = np.linspace(min(msrd["release_date"]), max(msrd["release_date"])+1, 100)
+
+# table of models that were ever at the top 5 of the chatbot arena
+top_n_results = duckdb.sql(
+    """
+    SELECT model, score, release_date
+    FROM msrd
+    WHERE score >= (
+        SELECT msrd2.score
+        FROM msrd as msrd2
+        WHERE msrd2.release_date <= msrd.release_date
+        ORDER BY msrd2.score DESC
+        LIMIT 1 OFFSET 5
+    )
+    """
+).df()
+
+plt.scatter(top_n_results["release_date"], top_n_results["score"], label='top 5')
+
+top5_params = stats.linregress(top_n_results["release_date"], top_n_results["score"])
+print(top5_params)
+
+# plot line
+plt.plot(
+    x,
+    top5_params.intercept + top5_params.slope * x,
+    color="red",
+)
 
 
+# table of models that were ever at the top of the chatbot arena
+best_results = duckdb.sql(
+    """
+    SELECT model, score, release_date
+    FROM msrd
+    WHERE score >= (
+        SELECT msrd2.score
+        FROM msrd as msrd2
+        WHERE msrd2.release_date <= msrd.release_date
+        ORDER BY msrd2.score DESC
+        LIMIT 1
+    )
+    """
+).df()
 
-print(duckdb.sql('DESCRIBE chatbot_arena_scores'))
+plt.scatter(best_results["release_date"], best_results["score"], label='best', color='green')
+
+# drop llama 13b because it is an outlier
+best_results = best_results[best_results["score"] > 1000]
+
+top1_params = stats.linregress(best_results["release_date"], best_results["score"])
+print(top1_params)
+
+# plot line
+plt.plot(
+    x,
+    top1_params.intercept + top1_params.slope * x,
+    color="green",
+)
+
+
+plt.legend()
