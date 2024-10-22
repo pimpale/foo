@@ -90,5 +90,49 @@ plt.plot(
     color="green",
 )
 
-
 plt.legend()
+#%%
+
+# create a seperate plot where we fit the task results
+trials = duckdb.read_csv("./data_models/trials/joint.csv")
+model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
+
+# filter out the -1 scores
+# and rename the models to what they would be in the chatbot arena
+trials_filtered = duckdb.sql(
+    """
+    SELECT score, concat(task_family, ' ', task_name) as task, mnm.chatbot_arena_name as model
+    FROM trials as t
+    JOIN model_name_mapping as mnm ON t.model = mnm.model_name
+    WHERE score != -1
+    """
+).df()
+
+# average over the tasks
+tasks = duckdb.sql(
+    """
+    SELECT model, avg(score) as score
+    FROM trials_filtered
+    GROUP BY model, task
+    """
+).df()
+
+success_rates = duckdb.sql(
+    """
+    SELECT model, avg(score) as success_rate, 
+    FROM tasks
+    GROUP BY model
+    """
+).df()
+
+elo_scores = duckdb.sql(
+    """
+    SELECT msrd.model, success_rate, score, release_date
+    FROM success_rates
+    JOIN msrd ON success_rates.model = msrd.model
+    """
+).df()
+
+plt.scatter(elo_scores["score"], elo_scores["success_rate"], label='success rate')
+
+# fit sigmoid
