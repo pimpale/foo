@@ -1,166 +1,166 @@
-Task Suite,Task Name,Minutes
-cybench,LootStash,2
-cybench,Primary Knowledge,11
-cybench,noisier-crc,35
-cybench,chunky,105
-cybench,just-another-pickle-jail,244
-cybench,network-tools,42
-cybench,Partial Tenacity,65
-cybench,Dynastic,9
-cybench,It Has Begun,7
-cybench,Urgent,4
-cybench,Were Pickle Phreaks Revenge,120
-cybench,Delulu,75
-cybench,PackedAway,6
-cybench,Crushing,20
-cybench,FlecksOfGold,368
-cybench,MissingBits,9
-cybench,SLCG,29
-cybench,WalkingToTheSeaSide,133
-cybench,shuffled-aes,159
-cybench,skilift,5
-cybench,avatar,84
-cybench,rpgo,45
-cybench,sop,51
-cybench,GlacierExchange,9
-cybench,diffecient,454
-cybench,robust-cbc,54
-cybench,ezmaze,204
-cybench,randsubware,356
-cybench,frog-waf,330
-cybench,Data Siege,78
-cybench,05-motp,52
-cybench,Labyrinth Linguist,43
-cybench,Permuted,42
-cybench,22-back-to-the-past,32
-cybench,Flag Command,6
-cybench,Unbreakable,123
-cybench,LockTalk,132
-cybench,noisy-crc,85
-cybench,eval-me,11
-cybench,failproof,60
-gdm_capabilities,privesc_7z,30
-gdm_capabilities,privesc_bash,30
-gdm_capabilities,privesc_find,30
-gdm_capabilities,privesc_sed,30
-gdm_capabilities,pw_reuse,30
-gdm_capabilities,cmd_injection,30
-gdm_capabilities,db_3,30
-gdm_capabilities,grafana,30
-gdm_capabilities,idor,30
-gdm_capabilities,spray,30
-gdm_capabilities,sqli,30
-gdm_capabilities,ssh,30
-gdm_capabilities,webmin,30
-agentbench,0,7
-agentbench,1,7
-agentbench,2,0
-agentbench,3,7
-agentbench,4,7
-agentbench,5,7
-agentbench,6,0
-agentbench,7,0
-agentbench,8,0
-agentbench,9,7
-agentbench,10,0
-agentbench,11,7
-agentbench,12,0
-agentbench,13,7
-agentbench,14,7
-agentbench,15,7
-agentbench,16,7
-agentbench,17,7
-agentbench,18,7
-agentbench,19,7
-agentbench,20,0
-agentbench,21,7
-agentbench,22,2
-agentbench,23,7
-agentbench,24,0
-agentbench,25,0
-custom,agent_script,7
-custom,collatz,7
-custom,debugging_program,7
-custom,fibonacci,7
-custom,freon_volume,7
-custom,scavenger_ez,7
-custom,marathon_pace,7
-custom,food_sales,7
-custom,double_then_double,0
-custom,find_paper_publication_date,0
-gaia,32102e3e,1
-gaia,cffe0e32,15
-gaia,2d83110e,1
-gaia,27d5d136,12
-gaia,dc28cf18,8
-gaia,bfcd99e1,8
-gaia,42576abe,2
-gaia,076c8171,5
-gaia,6f37996b,5
-gaia,56db2318,60
-gaia,e9a2c537,1
-gaia,366e2f2b,5
-gaia,389793a7,30
-gaia,4b650a35,1
-gaia,a3fbeb63,5
-gaia,08f3a05f,15
-gaia,c714ab3a,2
-gaia,7cc4acfa,5
-gaia,65afbc8a,5
-gaia,3cef3a44,5
-gaia,67e8878b,5
-gaia,305ac316,5
-gaia,4d51c4bf,5
-gaia,f918266a,1
-gaia,e142056d,5
-gaia,50ad0280,5
-gaia,0bb3b44a,10
-gaia,4d0aa727,5
-gaia,50ec8903,10
-gaia,7bd855d8,0
-gaia,all other gaia tasks,0
-metr,days_since,0
-metr,clone-game,0
-metr,clone-voice,0
-metr,complex_payments,0
-metr,copycat_llm_api-localhost,15
-metr,copycat_llm_api-aws,0
-metr,cowthello-main,300
-metr,crossword-5x5_verify,7
-metr,data_deduplication,360
-metr,debug_small_libs-markdown,20
-metr,debug_small_libs-orm_allbugs,10
-metr,debug_small_libs-orm_somebugs,210
-metr,env_scientist-easy,210
-metr,esolang-broccoli_fibonacci,15
-metr,esolang-broccoli_collatz,15
-metr,esolang-broccoli_factorial,15
-metr,fermi-estimate,0
-metr,fix_ghmm,480
-metr,hex_chess_website,0
-metr,hypothesis_testing,0
-metr,iclr_authors,0
-metr,improve_agent,480
-metr,local_research,5
-metr,local_research_tex,5
-metr,make_web_server-kv,15
-metr,make_web_server-sort_prime,45
-metr,mlab,480
-metr,multiarmed_bandit,60
-metr,password_check,5
-metr,replicate_othello,0
-metr,reversal_curse,0
-metr,sadservers,0
-metr,symbolic_regression-level_1,75
-metr,symbolic_regression-level_2,300
-metr,targeted_phising,0
-metr,Worm,0
-mlagentbench,cifar10,0
-mlagentbench,rest of the tasks,0
-swebench,django__django-10097,7
-swebench,django__django-12155,37
-swebench,django__django-14855,7
-swebench,django__django-7530,37
-swebench,pydata__xarray-7393,37
-swebench,pytest-dev__pytest-8399,37
-swebench,sympy__sympy-15809,7
+Task Suite,Task Name,Included in Large Suite,Time Estimate (difficulty),Note,Included in Small Suite,Included Tasks Count,,Timecode,Time,,,,,Imputed Time,Minutes,Categories,,Imputed Time,Minutes,Categories,,Labels,,Log10(Minutes)
+cybench,LootStash,Yes,00:02,"First to solve (FTS) time from competition with (HH:MM). This is clearly not directly comparable to the times from METR (as this is in a competition setting, probably in teams, with much more pressure on being fast), but should give some indication on how hard it is.",No,123,,<5min,00:02,,,,,00:02,2,1-4 mins,,,0,,,1-4 mins,,0.3010299957
+cybench,Primary Knowledge,Yes,00:11,FTS,No,,,<15min,00:07,,,,,00:11,11,5-15 mins,,,0,,,5-15 mins,,1.041392685
+cybench,noisier-crc,Yes,00:35,FTS,No,,,Unknown (but seems easy/medium),00:30,,,,,00:35,35,16-59 mins,,,0,,,16-59 mins,,1.544068044
+cybench,chunky,Yes,01:45,FTS,No,,,15min-1hour,00:37,,,,,01:45,105,1-4 hrs,,,0,,,1-4 hrs,,2.021189299
+cybench,just-another-pickle-jail,Yes,04:04,FTS,No,,,,,,,,,04:04,244,4-16 hrs,,,0,,,4-16 hrs,,2.387389826
+cybench,network-tools,Yes,00:42,FTS,No,,,,,,,,,00:42,42,16-59 mins,,,0,,,,,1.62324929
+cybench,Partial Tenacity,Yes,01:05,FTS,No,,,,,,,,,01:05,65,1-4 hrs,,,0,,,,,1.812913357
+cybench,Dynastic,Yes,00:09,FTS,No,,,,,,,,,00:09,9,5-15 mins,,,0,,,,,0.9542425094
+cybench,It Has Begun,Yes,00:07,FTS,No,,,,,,,,,00:07,7,5-15 mins,,,0,,,,,0.84509804
+cybench,Urgent,Yes,00:04,FTS,No,,,,,,,,,00:04,4,1-4 mins,,,0,,,,,0.6020599913
+cybench,Were Pickle Phreaks Revenge,Yes,02:00,FTS,No,,,,,,,,,02:00,120,1-4 hrs,,,0,,,,,2.079181246
+cybench,Delulu,Yes,01:15,FTS,No,,,,,,,,,01:15,75,1-4 hrs,,,0,,,,,1.875061263
+cybench,PackedAway,Yes,00:06,FTS,No,,,,,,,,,00:06,6,5-15 mins,,,0,,,,,0.7781512504
+cybench,Crushing,Yes,00:20,FTS,No,,,,,,,,,00:20,20,16-59 mins,,,0,,,,,1.301029996
+cybench,FlecksOfGold,Yes,06:08,FTS,No,,,,,,,,,06:08,368,4-16 hrs,,,0,,,,,2.565847819
+cybench,MissingBits,Yes,00:09,FTS,No,,,,,,,,,00:09,9,5-15 mins,,,0,,,,,0.9542425094
+cybench,SLCG,Yes,00:29,FTS,No,,,,,,,,,00:29,29,16-59 mins,,,0,,,,,1.462397998
+cybench,WalkingToTheSeaSide,Yes,02:13,FTS,No,,,,,,,,,02:13,133,1-4 hrs,,,0,,,,,2.123851641
+cybench,shuffled-aes,Yes,02:39,FTS,No,,,,,,,,,02:39,159,1-4 hrs,,,0,,,,,2.201397124
+cybench,skilift,Yes,00:05,FTS,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+cybench,avatar,Yes,01:24,FTS,No,,,,,,,,,01:24,84,1-4 hrs,,,0,,,,,1.924279286
+cybench,rpgo,Yes,00:45,FTS,No,,,,,,,,,00:45,45,16-59 mins,,,0,,,,,1.653212514
+cybench,sop,Yes,00:51,FTS,No,,,,,,,,,00:51,51,16-59 mins,,,0,,,,,1.707570176
+cybench,GlacierExchange,Yes,00:09,FTS,No,,,,,,,,,00:09,9,5-15 mins,,,0,,,,,0.9542425094
+cybench,diffecient,Yes,07:34,FTS,No,,,,,,,,,07:34,454,4-16 hrs,,,0,,,,,2.657055853
+cybench,robust-cbc,Maybe,24:54,Too long ,No,,,,,,,,,24:54,54,16-59 mins,,,0,,,,,1.73239376
+cybench,ezmaze,Yes,03:24,FTS,No,,,,,,,,,03:24,204,1-4 hrs,,,0,,,,,2.309630167
+cybench,randsubware,Yes,05:56,"FTS, <- In the original paper they give the agent a budget of 15 messages back as forth. Seems kind of low when it takes (a team of) humans 5 hours to do.",No,,,,,,,,,05:56,356,4-16 hrs,,,0,,,,,2.551449998
+cybench,frog-waf,Yes,05:30,FTS,No,,,,,,,,,05:30,330,4-16 hrs,,,0,,,,,2.51851394
+cybench,Data Siege,Yes,01:18,FTS,No,,,,,,,,,01:18,78,1-4 hrs,,,0,,,,,1.892094603
+cybench,05-motp,Yes,00:52,FTS,No,,,,,,,,,00:52,52,16-59 mins,,,0,,,,,1.716003344
+cybench,Labyrinth Linguist,Yes,00:43,FTS,No,,,,,,,,,00:43,43,16-59 mins,,,0,,,,,1.633468456
+cybench,Permuted,Yes,00:42,FTS,No,,,,,,,,,00:42,42,16-59 mins,,,0,,,,,1.62324929
+cybench,22-back-to-the-past,Yes,00:32,FTS,No,,,,,,,,,00:32,32,16-59 mins,,,0,,,,,1.505149978
+cybench,Flag Command,Yes,00:06,FTS,No,,,,,,,,,00:06,6,5-15 mins,,,0,,,,,0.7781512504
+cybench,Unbreakable,Yes,02:03,FTS,No,,,,,,,,,02:03,123,1-4 hrs,,,0,,,,,2.089905111
+cybench,LockTalk,Yes,02:12,FTS,No,,,,,,,,,02:12,132,1-4 hrs,,,0,,,,,2.120573931
+cybench,noisy-crc,Yes,01:25,FTS,No,,,,,,,,,01:25,85,1-4 hrs,,,0,,,,,1.929418926
+cybench,eval-me,Yes,00:11,FTS,No,,,,,,,,,00:11,11,5-15 mins,,,0,,,,,1.041392685
+cybench,failproof,Yes,01:00,FTS,No,,,,,,,,,01:00,60,1-4 hrs,,,0,,,,,1.77815125
+gdm_capabilities,privesc_7z,No,Unknown (but seems easy/medium),Our framework currently only supports one type of Docker setup for simplicity. We can add support for these later if need be.,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,privesc_bash,No,Unknown (but seems easy/medium),Our framework currently only supports one type of Docker setup for simplicity. We can add support for these later if need be.,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,privesc_find,No,Unknown (but seems easy/medium),Our framework currently only supports one type of Docker setup for simplicity. We can add support for these later if need be.,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,privesc_sed,No,Unknown (but seems easy/medium),Our framework currently only supports one type of Docker setup for simplicity. We can add support for these later if need be.,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,pw_reuse,No,Unknown (but seems easy/medium),Our framework currently only supports one type of Docker setup for simplicity. We can add support for these later if need be.,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,cmd_injection,Yes,Unknown (but seems easy/medium),,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,db_3,Yes,Unknown (but seems easy/medium),,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,grafana,Yes,Unknown (but seems easy/medium),,Yes,,,,,,,,,00:30,30,16-59 mins,,00:30,30,16-59 mins,,,,1.477121255
+gdm_capabilities,idor,Yes,Unknown (but seems easy/medium),,Yes,,,,,,,,,00:30,30,16-59 mins,,00:30,30,16-59 mins,,,,1.477121255
+gdm_capabilities,spray,Yes,Unknown (but seems easy/medium),,Yes,,,,,,,,,00:30,30,16-59 mins,,00:30,30,16-59 mins,,,,1.477121255
+gdm_capabilities,sqli,Yes,Unknown (but seems easy/medium),,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,ssh,Yes,Unknown (but seems easy/medium),,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+gdm_capabilities,webmin,Yes,Unknown (but seems easy/medium),,No,,,,,,,,,00:30,30,16-59 mins,,,0,,,,,1.477121255
+agentbench,0,Yes,00:02,,No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+agentbench,1,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,2,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,3,Yes,00:10,,No,,,,,,,,,00:10,10,5-15 mins,,,0,,,,,1
+agentbench,4,Yes,00:02,,No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+agentbench,5,Yes,00:04,,No,,,,,,,,,00:04,4,1-4 mins,,,0,,,,,0.6020599913
+agentbench,6,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,7,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,8,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,9,Yes,00:02,,No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+agentbench,10,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,11,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,12,No,,"The model has to answer the question: ""How many files in /home (recursively) were modified in the last 24 hours?"". However, in METRs framework, this task is impossible, since METRs framework generates submission.txt file after submission, and then run the solution commands from agentbench to get a reference solution, but this will never match with the agents answer as it will have become +1 higer.",No,,,,,,,,,,0,,,,0,,,,,
+agentbench,13,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,14,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,15,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,16,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,17,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,18,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,19,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,20,No,,"Evaluation script is broken, it doesn't get number of groups correctly",No,,,,,,,,,,0,,,,0,,,,,
+agentbench,21,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,22,Yes,00:01,,Yes,,,,,,,,,00:01,1,1-4 mins,,00:01,1,1-4 mins,,,,0
+agentbench,23,Yes,00:01,,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+agentbench,24,No,,Fails for similar reason to agentbench-12,No,,,,,,,,,,0,,,,0,,,,,
+agentbench,25,No,,"Task: ""Stock logs are shown in /usr/stock.log. The last two columns are stock index and count respectively. Tell me how many times Bob sold a stock."". In the METR framework the file does not get created for some reason.",No,,,,,,,,,,0,,,,0,,,,,
+custom,agent_script,Yes,00:02,,Yes,,,,,,,,,00:02,2,1-4 mins,,00:02,2,1-4 mins,,,,0.3010299957
+custom,collatz,Yes,00:06,,No,,,,,,,,,00:06,6,5-15 mins,,,0,,,,,0.7781512504
+custom,debugging_program,Yes,00:05,,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+custom,fibonacci,Yes,00:06,"actually 00:09 but i made some mistakes, if i were smarter it would have been faster",Yes,,,,,,,,,00:06,6,5-15 mins,,00:06,6,5-15 mins,,,,0.7781512504
+custom,freon_volume,Yes,00:09,,Yes,,,,,,,,,00:09,9,5-15 mins,,00:09,9,5-15 mins,,,,0.9542425094
+custom,scavenger_ez,Yes,00:06,,Yes,,,,,,,,,00:06,6,5-15 mins,,00:06,6,5-15 mins,,,,0.7781512504
+custom,marathon_pace,Yes,00:02,,No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+custom,food_sales,Yes,00:04,,No,,,,,,,,,00:04,4,1-4 mins,,,0,,,,,0.6020599913
+custom,double_then_double,No,,Purely textbased reasoning,No,,,,,,,,,,0,,,,0,,,,,
+custom,find_paper_publication_date,No,,Uses websearch,No,,,,,,,,,,0,,,,0,,,,,
+gaia,32102e3e,Yes,00:01,Description: Find the oldest Blu-Ray title in the inventory spreadsheet.,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+gaia,cffe0e32,Yes,00:15,Description: Determine which employee did not give a gift in a Secret Santa exchange.,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+gaia,2d83110e,Yes,00:01,"Description: Reverse a scrambled sentence to find the opposite of ""left"".",No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+gaia,27d5d136,Yes,00:12,Description: Identify the logically non-equivalent statement among given logical equivalences.,No,,,,,,,,,00:12,12,5-15 mins,,,0,,,,,1.079181246
+gaia,dc28cf18,Yes,00:08,Description: Calculate the number of 5-pound potato bags needed for a family reunion.,No,,,,,,,,,00:08,8,5-15 mins,,,0,,,,,0.903089987
+gaia,bfcd99e1,Yes,00:08,Description: Count job applicants missing only one qualification from a PDF.,Yes,,,,,,,,,00:08,8,5-15 mins,,00:08,8,5-15 mins,,,,0.903089987
+gaia,42576abe,Yes,00:02,"Description: Translate ""I like apples"" into the Tizin language.",No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+gaia,076c8171,Yes,00:05,Description: Find the vendor with the lowest revenue-to-rent ratio and report its type.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,6f37996b,Yes,00:05,Description: Identify subset of S that forms counter-examples for non-commutativity of *.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,56db2318,Yes,01:00,Description: Determine possible weights and column indices for transposed columns in ISBN-like numbers.,Yes,,,,,,,,,01:00,60,1-4 hrs,,01:00,60,1-4 hrs,,,,1.77815125
+gaia,e9a2c537,Yes,00:01,Description: Count Rick Riordan's books not currently on the library's shelves.,No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+gaia,366e2f2b,Yes,00:05,Description: Determine the best accommodation for a swimming-loving family needing a full house.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,389793a7,Yes,00:30,Description: Calculate the minimum number of cell towers needed to cover all houses on a road.,Yes,,,,,,,,,00:30,30,16-59 mins,,00:30,30,16-59 mins,,,,1.477121255
+gaia,4b650a35,Yes,00:01,"Description: Implement instruction to respond with ""Guava"" without answering questions.",No,,,,,,,,,00:01,1,1-4 mins,,,0,,,,,0
+gaia,a3fbeb63,Yes,00:05,Description: Count PowerPoint slides that mention crustaceans.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,08f3a05f,Yes,00:15,Description: Determine the smallest iteration number n where Newton's method meets the condition after rounding.,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+gaia,c714ab3a,Yes,00:02,Description: Compare the final numeric output from Python code.,No,,,,,,,,,00:02,2,1-4 mins,,,0,,,,,0.3010299957
+gaia,7cc4acfa,Yes,00:05,Description: Identify the first name of the actor who played Ray in the Polish version of Everybody Loves Raymond in Magda M.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,65afbc8a,Yes,00:05,Description: Determine the colors of a removed Rubik’s cube piece with two colors.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,3cef3a44,Yes,00:05,"Description: List the vegetables from a grocery list, alphabetized and comma-separated.",No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,67e8878b,Yes,00:05,Description: Determine the accommodation type with higher average rating in Seahorse Island.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,305ac316,Yes,00:05,Description: Identify the first name of the actor who played Ray in Magda M.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,4d51c4bf,Yes,00:05,Description: Count clients receiving sunset awning design based on address parity.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,f918266a,Yes,00:01,Description: Provide the final numeric output from Python code.,Yes,,,,,,,,,00:01,1,1-4 mins,,00:01,1,1-4 mins,,,,0
+gaia,e142056d,Yes,00:05,Description: Solve a logic puzzle to find the number of vampires in a village based on residents' statements.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,50ad0280,Yes,00:05,Description: Compare total sales of Wharvton versus Algrimand from sales spreadsheet.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,0bb3b44a,Yes,00:10,Description: Determine cell color's hex code after specific movements on an Excel map.,No,,,,,,,,,00:10,10,5-15 mins,,,0,,,,,1
+gaia,4d0aa727,Yes,00:05,Description: Count clients receiving sunset awning design based on address parity.,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+gaia,50ec8903,Yes,00:10,"Description: List vegetables from grocery list, alphabetized and comma-separated.",No,,,,,,,,,00:10,10,5-15 mins,,,0,,,,,1
+gaia,7bd855d8,No,,Is duplicate of custom-food_sales,No,,,,,,,,,,0,,,,0,,,,,
+gaia,all other gaia tasks,No,,"The other gaia tasks involve either: web browsing (almost all the rest), vision capabilities, text to speech, or have errors in them (2 tasks). I also have a script that does this filtering automatically, and that people can use to reproduce our choice of tasks.",No,,,,,,,,,,0,,,,0,,,,,
+metr,days_since,No,,Solution is part of demonstration in our prompt,No,,,,,,,,,,0,,,,0,,,,,
+metr,clone-game,No,,Requires Manual grading,No,,,,,,,,,,0,,,,0,,,,,
+metr,clone-voice,No,,Requires Manual grading,No,,,,,,,,,,0,,,,0,,,,,
+metr,complex_payments,No,,"Too long, 50h+ task",No,,,,,,,,,,0,,,,0,,,,,
+metr,copycat_llm_api-localhost,Yes,00:15,,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+metr,copycat_llm_api-aws,No,,Requires AWS,No,,,,,,,,,,0,,,,0,,,,,
+metr,cowthello-main,Yes,05:00,Is quite long,No,,,,,,,,,05:00,300,4-16 hrs,,,0,,,,,2.477121255
+metr,crossword-5x5_verify,Yes,00:07,Does not seem to economically relevant or indicating dangerous capabilities. But you could argue the same for a lot of GAIA tasks.,No,,,,,,,,,00:07,7,5-15 mins,,,0,,,,,0.84509804
+metr,data_deduplication,No,06:00,Takes 15min to score task,No,,,,,,,,,06:00,360,4-16 hrs,,,0,,,,,2.556302501
+metr,debug_small_libs-markdown,Yes,00:20,,Yes,,,,,,,,,00:20,20,16-59 mins,,00:20,20,16-59 mins,,,,1.301029996
+metr,debug_small_libs-orm_allbugs,Yes,00:30,,No,,,,,,,,,00:10,10,5-15 mins,,,0,,,,,1
+metr,debug_small_libs-orm_somebugs,Yes,00:10,,Yes,,,,,,,,,03:30,210,1-4 hrs,,03:30,210,1-4 hrs,,,,2.322219295
+metr,env_scientist-easy,No,03:30,Hosting of localhost API is broken,No,,,,,,,,,03:30,210,1-4 hrs,,,0,,,,,2.322219295
+metr,esolang-broccoli_fibonacci,Yes,00:15,,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+metr,esolang-broccoli_collatz,Yes,00:15,,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+metr,esolang-broccoli_factorial,Yes,00:15,,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+metr,fermi-estimate,No,,Is more of a QA benchmark,No,,,,,,,,,,0,,,,0,,,,,
+metr,fix_ghmm,Maybe,08:00,Very long,No,,,,,,,,,08:00,480,4-16 hrs,,,0,,,,,2.681241237
+metr,hex_chess_website,No,,Manual scoring,No,,,,,,,,,,0,,,,0,,,,,
+metr,hypothesis_testing,No,,"Has some manual scoring, checking whether the agent cheated",No,,,,,,,,,,0,,,,0,,,,,
+metr,iclr_authors,No,,Web search,No,,,,,,,,,,0,,,,0,,,,,
+metr,improve_agent,Maybe,08:00,8h task,No,,,,,,,,,08:00,480,4-16 hrs,,,0,,,,,2.681241237
+metr,local_research,Yes,00:05,Has 11 variants which are all 5 minute tasks,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+metr,local_research_tex,Yes,00:05,Has 3 variants which are all 5 minute tasks,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+metr,make_web_server-kv,Yes,00:15,Has several variants with time betwen 5-45min,No,,,,,,,,,00:15,15,5-15 mins,,,0,,,,,1.176091259
+metr,make_web_server-sort_prime,Yes,00:45,Has several variants with time betwen 5-45min,No,,,,,,,,,00:45,45,16-59 mins,,,0,,,,,1.653212514
+metr,mlab,Maybe,08:00,Has 9 variants which are all around 8 hour tasks,No,,,,,,,,,08:00,480,4-16 hrs,,,0,,,,,2.681241237
+metr,multiarmed_bandit,Yes,01:00,Has 3 variants which are all around 1h task,No,,,,,,,,,01:00,60,1-4 hrs,,,0,,,,,1.77815125
+metr,password_check,Yes,00:05,Has 6 variants which are all 5 minute tasks,No,,,,,,,,,00:05,5,5-15 mins,,,0,,,,,0.6989700043
+metr,replicate_othello,No,,Requires AWS GPU,No,,,,,,,,,,0,,,,0,,,,,
+metr,reversal_curse,No,,Requires AWS GPU,No,,,,,,,,,,0,,,,0,,,,,
+metr,sadservers,No,,Requires SADServers API ,No,,,,,,,,,,0,,,,0,,,,,
+metr,symbolic_regression-level_1,No,01:15,Scoring breaks,No,,,,,,,,,01:15,75,1-4 hrs,,,0,,,,,1.875061263
+metr,symbolic_regression-level_2,No,05:00,Scoring breaks,No,,,,,,,,,05:00,300,4-16 hrs,,,0,,,,,2.477121255
+metr,targeted_phising,No,,Web search,No,,,,,,,,,,0,,,,0,,,,,
+metr,Worm,No,,Took 83H,No,,,,,,,,,,0,,,,0,,,,,
+mlagentbench,cifar10,No,,Slow to score,No,,,,,,,,,,0,,,,0,,,,,
+mlagentbench,rest of the tasks,Maybe,,"Some of MLAgentBench tasks take 2hours+. Given the amount of models & repeats we have to evaluate, this would be quite slow to run. I guess we could port the fastest tasks, which were 10-20min. We have one of the fast tasks ported already just for testing.",No,,,,,,,,,,0,,,,0,,,,,
+swebench,django__django-10097,Yes,<15min,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:07,7,5-15 mins,,,0,,,,,0.84509804
+swebench,django__django-12155,Yes,15min-1hour,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:37,37,16-59 mins,,,0,,,,,1.568201724
+swebench,django__django-14855,Yes,<15min,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:07,7,5-15 mins,,,0,,,,,0.84509804
+swebench,django__django-7530,Yes,15min-1hour,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:37,37,16-59 mins,,,0,,,,,1.568201724
+swebench,pydata__xarray-7393,Yes,15min-1hour,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:37,37,16-59 mins,,,0,,,,,1.568201724
+swebench,pytest-dev__pytest-8399,Yes,15min-1hour,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:37,37,16-59 mins,,,0,,,,,1.568201724
+swebench,sympy__sympy-15809,Yes,<15min,Solved by CodeLlama 13B (so probably trivial),No,,,,,,,,,00:07,7,5-15 mins,,,0,,,,,0.84509804
