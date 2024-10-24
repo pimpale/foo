@@ -9,9 +9,8 @@ from collections import defaultdict
 import scipy.optimize as opt
 
 
-results = duckdb.read_csv("./results.csv")
+results = duckdb.read_csv("./data_models/trials/joint.csv")
 tasks = duckdb.read_csv("./tasks.csv")
-pc1_scores = duckdb.read_csv("./leaderboard_pca_scores.csv")
 
 # for each model:
 # graph the time each task takes on the x-axis and the success rate on the y-axis
@@ -21,18 +20,18 @@ modelTaskResultsMinute = duckdb.sql(
     """
     WITH 
     filteredResults AS (
-        SELECT score, taskFamily, taskName, model
+        SELECT score, task_family, task_name, model
         FROM results
         WHERE score != -1
     ),
     modelTaskResults AS (
-        SELECT AVG(score) as avg_score, taskFamily, taskName,  model
+        SELECT AVG(score) as avg_score, task_family, task_name,  model
         FROM filteredResults
-        GROUP BY taskFamily, taskName, model
+        GROUP BY task_family, task_name, model
     )
-    SELECT model, taskFamily, taskName, avg_score, Minutes
+    SELECT model, task_family, task_name, avg_score, Minutes
     FROM modelTaskResults
-    JOIN tasks ON modelTaskResults.taskFamily = tasks."Task Suite" AND modelTaskResults.taskName = tasks."Task Name"
+    JOIN tasks ON modelTaskResults.task_family = tasks."Task Suite" AND modelTaskResults.task_name = tasks."Task Name"
     """
 ).df()
 

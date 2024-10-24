@@ -10,7 +10,6 @@ import numpy as np
 from ipywidgets import interact
 import ipywidgets as widgets
 
-#%%
 
 
 def generate_sigmoid_parameters(

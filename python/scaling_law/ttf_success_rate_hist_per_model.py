@@ -11,7 +11,6 @@ import scipy.optimize as opt
 
 results = duckdb.read_csv("./data_models/trials/joint.csv")
 tasks = duckdb.read_csv("./tasks.csv")
-pc1_scores = duckdb.read_csv("./leaderboard_pca_scores.csv")
 
 # for each model:
 # graph the time each task takes on the x-axis and the success rate on the y-axis
