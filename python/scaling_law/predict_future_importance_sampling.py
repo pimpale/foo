@@ -1,5 +1,9 @@
-# %%
-
+#%%
+import duckdb
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import scipy.stats as stats
 import numpy as np
 import duckdb
 import pandas as pd
@@ -11,6 +15,60 @@ from scipy.stats import lognorm
 from ipywidgets import interact
 import ipywidgets as widgets
 from utils.plot_markers import markers
+
+
+tasks = duckdb.read_csv("./tasks.csv")
+
+all_task_ttfs = duckdb.sql(
+    """
+    SELECT concat("Task Suite", ' ', "Task Name") as task, Minutes as minutes
+    FROM tasks
+    WHERE "Included in Large Suite" = 'Yes'
+    """
+).df()
+
+log_task_ttfs = np.log(all_task_ttfs["minutes"])
+
+# fit a log normal distribution to the data
+mu, std = stats.norm.fit(log_task_ttfs)
+
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3))
+fig.suptitle("All tasks")
+ax1, ax2 = ax
+
+ax1.hist(all_task_ttfs["minutes"], bins=10, density=True)
+ax1.set_title("Time to finish tasks")
+ax1.set_xlabel("Time to finish (minutes)")
+ax1.set_ylabel("Proportion of tasks")
+
+x_linspace = np.linspace(1, 400, 1000)
+ax1.plot(x_linspace, stats.norm.pdf(np.log(x_linspace), mu, std)/100)
+
+ax2.hist(log_task_ttfs, bins=10, density=True)
+ax2.set_title("Log time to finish tasks")
+ax2.set_xlabel("Log time to finish (minutes)")
+ax2.set_ylabel("Proportion of tasks")
+
+x_linspace = np.linspace(0, 6, 1000)
+ax2.plot(x_linspace, stats.norm.pdf(x_linspace, mu, std))
+
+plt.show()
+
+# compute p(x) for all tasks
+
+# But first, note that we need to account for the fact that p(x) has infinite support
+extra_mass = stats.norm.cdf(min(log_task_ttfs), mu, std) + (1 - stats.norm.cdf(max(log_task_ttfs), mu, std))
+
+px = stats.norm.pdf(log_task_ttfs, mu, std) * (1+extra_mass)
+
+# create histogram of log_task_ttfs using numpy (use 10 bdins)
+q_pmf, bins = np.histogram(log_task_ttfs, bins=10, density=True)
+qx = q_pmf[np.digitize(log_task_ttfs, bins, right=True) - 1]
+
+wx = px / qx
+
+task_ttfs_weights = all_task_ttfs.copy().assign(weight=wx)
 
 def sigmoid(x: np.ndarray, slope: float, shift: float) -> np.ndarray:
     return 1 / (1 + np.exp(-slope * (x - shift)))
@@ -178,6 +236,17 @@ tasks = duckdb.sql(
     """
 ).df()
 
+# average over the tasks
+tasks_weighted = duckdb.sql(
+    """
+    SELECT model, avg(score*weight) as score
+    FROM trials_filtered
+    JOIN task_ttfs_weights as ttfs ON trials_filtered.task = ttfs.task
+    GROUP BY model, trials_filtered.task
+    """
+).df()
+
+
 success_rates = duckdb.sql(
     """
     SELECT model, avg(score) as success_rate, 
@@ -185,6 +254,15 @@ success_rates = duckdb.sql(
     GROUP BY model
     """
 ).df()
+
+success_rates_weighted = duckdb.sql(
+    """
+    SELECT model, avg(score) as success_rate
+    FROM tasks_weighted
+    GROUP BY model
+    """
+).df()
+    
 
 elo_scores = duckdb.sql(
     """
@@ -194,12 +272,19 @@ elo_scores = duckdb.sql(
     """
 ).df()
 
+elo_scores_weighted = duckdb.sql(
+    """
+    SELECT msrd.model, success_rate, score, release_date
+    FROM success_rates_weighted
+    JOIN msrd ON success_rates_weighted.model = msrd.model
+    """
+).df()
 
 # scatter plot of each model's PC1 score vs. average success rate (labeled)
 
 
-fig, ax = plt.subplots(3, 1, figsize=(10, 10))
-ax1, ax2, ax3 = ax
+fig, ax = plt.subplots(2, 1, figsize=(10, 10))
+ax1, ax2 = ax
 
 ax1.set_xlabel("ELO Score")
 ax1.set_ylabel("Average Success Rate")
@@ -224,136 +309,30 @@ print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
 y_lognormal = lognormal_cdf(x_linspace, *params)
 ax1.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
 
-# Try a linear transformation from ELO to year, then graph the success rate over time
-
-top5_score_2_releasedate = stats.linregress(
-    top_n_results["score"], top_n_results["release_date"]
-)
-
-x_values = (
-    np.array(elo_scores["score"]) * top5_score_2_releasedate.slope
-    + top5_score_2_releasedate.intercept
-)
-y_values = np.array(elo_scores["success_rate"])
-
-# Scatter plot of ELO score vs. success rate
-for i, row in elo_scores.iterrows():
-    ax2.scatter(x_values[i], y_values[i], marker=markers[i])
-
-ax2.set_xlabel("Year")
-ax2.set_ylabel("Average Success Rate")
-ax2.set_ylim(0, 1)
-
-# fit a sigmoid to the data
-params = get_sigmoid_parameters(x_values, y_values, [1, 2022])
-print("Slope", params[0], "Shift", params[1])
-x_linspace = np.linspace(2022, 2025.5, 512)
-y_sigmoid = sigmoid(x_linspace, *params)
-ax2.plot(x_linspace, y_sigmoid, color="red")
-
-# fit a lognormal to the data
-params = get_lognormal_cdf_fit_params(x_values, y_values, [2022, 0.7, 2.6])
-print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-y_lognormal = lognormal_cdf(x_linspace, *params)
-ax2.plot(x_linspace, y_lognormal, color="green")
-
-
-# Try a linear transformation from ELO to year, then graph the success rate over time
-
-top1_score_2_releasedate = stats.linregress(
-    top1_results["score"], top1_results["release_date"]
-)
-
-x_values = (
-    np.array(elo_scores["score"]) * top1_score_2_releasedate.slope
-    + top1_score_2_releasedate.intercept
-)
-y_values = np.array(elo_scores["success_rate"])
-
-# Scatter plot of ELO score vs. success rate
-for i, row in elo_scores.iterrows():
-    ax3.scatter(x_values[i], y_values[i], marker=markers[i])
-
-ax3.set_xlabel("Year")
-ax3.set_ylabel("Average Success Rate")
-ax3.set_ylim(0, 1)
-
-# fit a sigmoid to the data
-params = get_sigmoid_parameters(x_values, y_values, [1, 2022])
-print("Slope", params[0], "Shift", params[1])
-x_linspace = np.linspace(2022, 2025.5, 512)
-y_sigmoid = sigmoid(x_linspace, *params)
-ax3.plot(x_linspace, y_sigmoid, color="red")
-
-# fit a lognormal to the data
-params = get_lognormal_cdf_fit_params(x_values, y_values, [2022, 0.7, 2.6])
-print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-y_lognormal = lognormal_cdf(x_linspace, *params)
-ax3.plot(x_linspace, y_lognormal, color="green")
 
 fig.legend(loc="upper center", bbox_to_anchor=(0.5, 1.05), ncol=4)
 
+ax2.set_xlabel("ELO Score")
+ax2.set_ylabel("Average Success Rate (Weighted)")
+ax2.set_ylim(0, 1)
 
-
-#%% 
-
-# Try to figure out why the lognormal fit is so bad
-
-@interact(
-    loc=widgets.FloatSlider(min=2000, max=2025, step=0.1, value=2022),
-    sigma=widgets.FloatSlider(min=0, max=1, step=0.01, value=0.4),
-    mu=widgets.FloatSlider(min=0, max=10, step=0.1, value=2.6),
-)
-def g(loc, sigma, mu):
-    x_values = (
-        np.array(elo_scores["score"]) * top5_score_2_releasedate.slope
-        + top5_score_2_releasedate.intercept
-    )
-    y_values = np.array(elo_scores["success_rate"])
-
-    # Scatter plot of ELO score vs. success rate
-    plt.scatter(x_values, y_values, label="success rate")
-
-    plt.xlabel("Year")
-    plt.ylabel("Average Success Rate")
-    plt.ylim(0, 1)
-
-    # fit a lognormal to the data
-    params = get_lognormal_cdf_fit_params(x_values, y_values, [loc, sigma, mu])
-    print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-    y_lognormal = lognormal_cdf(x_linspace, *params)
-    plt.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
-
-    plt.legend()
-    plt.show()
+# Scatter plot of ELO score vs. success rate (weighted)
+for i, row in elo_scores_weighted.iterrows():
+    ax2.scatter(row["score"], row["success_rate"], label=row["model"], marker=markers[i])
     
-#%% 
+# fit a sigmoid to the data
+x_values = np.array(elo_scores_weighted["score"])
+y_values = np.array(elo_scores_weighted["success_rate"])
+params = get_sigmoid_parameters(x_values, y_values, [1, 1200])
+print("Slope", params[0], "Shift", params[1])
+x_linspace = np.linspace(1000, 1600, 512)
+y_sigmoid = sigmoid(x_linspace, *params)
+ax2.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
 
-# Try to figure out why the lognormal fit is so bad
+# fit a lognormal to the data
+params = get_lognormal_cdf_fit_params(x_values, y_values, [1200, 0.7, 2.6])
+print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+y_lognormal = lognormal_cdf(x_linspace, *params)
+ax2.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
 
-@interact(
-    loc=widgets.FloatSlider(min=1000, max=1600, step=0.1, value=1200),
-    sigma=widgets.FloatSlider(min=0, max=1, step=0.01, value=0.4),
-    mu=widgets.FloatSlider(min=0, max=10, step=0.1, value=2.6),
-)
-def g(loc, sigma, mu):
-    x_linspace = np.linspace(1000, 1600, 512)
 
-    x_values = np.array(elo_scores["score"])
-    y_values = np.array(elo_scores["success_rate"])
-
-    # Scatter plot of ELO score vs. success rate
-    plt.scatter(x_values, y_values, label="success rate")
-
-    plt.xlabel("Year")
-    plt.ylabel("Average Success Rate")
-    plt.ylim(0, 1)
-
-    # fit a lognormal to the data
-    params = get_lognormal_cdf_fit_params(x_values, y_values, [loc, sigma, mu])
-    print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-    y_lognormal = lognormal_cdf(x_linspace, *params)
-    plt.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
-
-    plt.legend()
-    plt.show()
