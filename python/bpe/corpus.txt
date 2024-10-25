@@ -1,0 +1,115 @@
+import unicode_str
+
+use unicode_str.{
+  UStr
+  addUStr,
+};
+
+let test = (a: UStr, b: UStr) -> UStr
+:: {
+  a + b
+}
+
+
+let test = (a: UStr, b: UStr) -> UStr
+:: {
+  (_:@Add(_)).add(a, b)
+}
+
+Hint: Any
+
+enter function
+
+enter left side
+
+assign a Ustr
+assign b Ustr
+
+enter right side
+
+context = UStr
+
+enter Function Call (context UStr)
+
+Enter Left side
+Context: Function (_, _) -> UStr
+
+enter FieldAccess
+
+enter Left side
+Context : Struct { add: (_, _) -> UStr, .. }
+
+enter Typed
+Context : Struct { add: (_, _) -> UStr, .. }
+unify with ???
+
+======================
+
+problem:
+
+i wanted to use staged compilation to simplify typechecking in the compiler.
+First, interpret the higher universes and completely determine the type annotations for all terms at that universe.
+
+Then go to the next lower universe and solve all of the types there.
+
+However, there's a problem: type inference.
+
+
+Imagine I have a generic function [id]
+
+First, here's an int version of id
+
+let.0 intId := (a: int) -> a
+
+the type of intId is
+Fn.0(a: int -> <closure> int </closure>)
+
+Here's a generic version
+
+let id := (T: Type 0) -> (a: T) -> a;
+
+the type of id is
+Fn.1(T: Type 0 -> <closure> Fn.0(T -> <closure> T </closure>) </closure>)
+written as
+id: Fn.1(T: Type 0 -> Fn.0(T -> T))
+
+
+observe:
+
+generics go from a universe higher to a universe lower
+constructors go from the same universe to the same universe
+i actually noticed this earlier when i was doing kind inference
+
+anyway, resuming the discussion about type inference:
+
+let id := (T: Type 0) -> (a: T) -> a;
+
+to apply this function to a certain boolean, we do:
+
+id(Bool)(true)
+
+but ideally we'd like to be able to infer the type from the call
+so writing this should have the same effect
+
+id(_)(true)
+
+however, what will happen using strict top down universe compilation, is:
+
+we see:
+let x:@Bool.0 := id(_) (true)
+
+we know we need an instance of Type 0
+there are dozens of such types. The search fails.
+
+what if we modified the semantics of _ to try to use the information from lower universes?
+We would then know that id(_) must have a *value* of Fn.0(Bool.0 -> Bool.0)
+
+so its probably not a good idea to try to infer this type, because we have to invert a function T -> T which seems intractable
+
+example
+
+let structid := (T: Type 0) ->.1 (a: T) ->.0 struct { field: T }
+:: .{ struct: a };
+
+considering
+let z := structid(_)(true)
