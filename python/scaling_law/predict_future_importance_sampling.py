@@ -42,7 +42,7 @@ ax1.set_title("Time to finish tasks")
 ax1.set_xlabel("Time to finish (minutes)")
 ax1.set_ylabel("Proportion of tasks")
 
-x_linspace = np.linspace(1, 400, 1000)
+x_linspace = np.linspace(min(all_task_ttfs["minutes"]), max(all_task_ttfs["minutes"]), 1000)
 ax1.plot(x_linspace, stats.norm.pdf(np.log(x_linspace), mu, std)/100)
 
 ax2.hist(log_task_ttfs, bins=10, density=True)
@@ -50,7 +50,7 @@ ax2.set_title("Log time to finish tasks")
 ax2.set_xlabel("Log time to finish (minutes)")
 ax2.set_ylabel("Proportion of tasks")
 
-x_linspace = np.linspace(0, 6, 1000)
+x_linspace = np.linspace(min(log_task_ttfs), max(log_task_ttfs), 1000)
 ax2.plot(x_linspace, stats.norm.pdf(x_linspace, mu, std))
 
 plt.show()
@@ -143,75 +143,6 @@ msrd = duckdb.sql(
     """
 ).df()
 
-plt.scatter(msrd["release_date"], msrd["score"])
-
-# create x that can be used for plotting functions
-x = np.linspace(min(msrd["release_date"]), max(msrd["release_date"]) + 1, 100)
-
-# table of models that were ever at the top 5 of the chatbot arena
-top_n_results = duckdb.sql(
-    """
-    SELECT model, score, release_date
-    FROM msrd
-    WHERE score >= (
-        SELECT msrd2.score
-        FROM msrd as msrd2
-        WHERE msrd2.release_date <= msrd.release_date
-        ORDER BY msrd2.score DESC
-        LIMIT 1 OFFSET 5
-    )
-    """
-).df()
-
-plt.scatter(top_n_results["release_date"], top_n_results["score"], label="top 5")
-
-top5_params = stats.linregress(top_n_results["release_date"], top_n_results["score"])
-print(top5_params)
-
-# plot line
-plt.plot(
-    x,
-    top5_params.intercept + top5_params.slope * x,
-    color="red",
-)
-
-
-# table of models that were ever at the top of the chatbot arena
-top1_results = duckdb.sql(
-    """
-    SELECT model, score, release_date
-    FROM msrd
-    WHERE score >= (
-        SELECT msrd2.score
-        FROM msrd as msrd2
-        WHERE msrd2.release_date <= msrd.release_date
-        ORDER BY msrd2.score DESC
-        LIMIT 1
-    )
-    """
-).df()
-
-plt.scatter(
-    top1_results["release_date"], top1_results["score"], label="best", color="green"
-)
-
-# drop llama 13b because it is an outlier
-top1_results = top1_results[top1_results["score"] > 1000]
-
-top1_params = stats.linregress(top1_results["release_date"], top1_results["score"])
-print(top1_params)
-
-# plot line
-plt.plot(
-    x,
-    top1_params.intercept + top1_params.slope * x,
-    color="green",
-)
-
-plt.legend()
-plt.show()
-
-
 # create a seperate plot where we fit the task results
 trials = duckdb.read_csv("./data_models/trials/joint.csv")
 model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
@@ -246,39 +177,48 @@ tasks_weighted = duckdb.sql(
     """
 ).df()
 
+def plot_task_success_rate_vs_elo(title, ax, tasks, threshold_elo=1200):
 
-success_rates = duckdb.sql(
-    """
-    SELECT model, avg(score) as success_rate, 
-    FROM tasks
-    GROUP BY model
-    """
-).df()
+    elo_scores = duckdb.sql(
+        """
+        WITH success_rates AS (
+            SELECT model, avg(score) as success_rate, 
+            FROM tasks
+            GROUP BY model
+        )
+        SELECT msrd.model, success_rate, score, release_date
+        FROM success_rates
+        JOIN msrd ON success_rates.model = msrd.model
+        ORDER BY score ASC
+        """
+    ).df()  
 
-success_rates_weighted = duckdb.sql(
-    """
-    SELECT model, avg(score) as success_rate
-    FROM tasks_weighted
-    GROUP BY model
-    """
-).df()
+    ax.set_title(title)
+    ax.set_xlabel("ELO Score")
+    ax.set_ylabel("Average Success Rate")
+    ax.set_ylim(0, 1)
+
+    # Scatter plot of ELO score vs. success rate
+    for i, row in elo_scores.iterrows():
+        color = "red" if row["score"] > threshold_elo else "blue"
     
+        ax.scatter(row["score"], row["success_rate"], label=row["model"], marker=markers[i], color=color)
 
-elo_scores = duckdb.sql(
-    """
-    SELECT msrd.model, success_rate, score, release_date
-    FROM success_rates
-    JOIN msrd ON success_rates.model = msrd.model
-    """
-).df()
+    # fit a sigmoid to the data
+    x_values = np.array(elo_scores[elo_scores["score"] <= threshold_elo]["score"])
+    y_values = np.array(elo_scores[elo_scores["score"] <= threshold_elo]["success_rate"])
+    params = get_sigmoid_parameters(x_values, y_values, [1, 1100])
+    print("Slope", params[0], "Shift", params[1])
+    x_linspace = np.linspace(1000, 1600, 512)
+    y_sigmoid = sigmoid(x_linspace, *params)
+    ax.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
 
-elo_scores_weighted = duckdb.sql(
-    """
-    SELECT msrd.model, success_rate, score, release_date
-    FROM success_rates_weighted
-    JOIN msrd ON success_rates_weighted.model = msrd.model
-    """
-).df()
+    # fit a lognormal to the data
+    params = get_lognormal_cdf_fit_params(x_values, y_values, [1100, 0.7, 2.6])
+    print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+    y_lognormal = lognormal_cdf(x_linspace, *params)
+    ax.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+
 
 # scatter plot of each model's PC1 score vs. average success rate (labeled)
 
@@ -286,53 +226,10 @@ elo_scores_weighted = duckdb.sql(
 fig, ax = plt.subplots(2, 1, figsize=(10, 10))
 ax1, ax2 = ax
 
-ax1.set_xlabel("ELO Score")
-ax1.set_ylabel("Average Success Rate")
-ax1.set_ylim(0, 1)
-
-# Scatter plot of ELO score vs. success rate
-for i, row in elo_scores.iterrows():
-    ax1.scatter(row["score"], row["success_rate"], label=row["model"], marker=markers[i])
-
-# fit a sigmoid to the data
-x_values = np.array(elo_scores["score"])
-y_values = np.array(elo_scores["success_rate"])
-params = get_sigmoid_parameters(x_values, y_values, [1, 1200])
-print("Slope", params[0], "Shift", params[1])
-x_linspace = np.linspace(1000, 1600, 512)
-y_sigmoid = sigmoid(x_linspace, *params)
-ax1.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
-
-# fit a lognormal to the data
-params = get_lognormal_cdf_fit_params(x_values, y_values, [1200, 0.7, 2.6])
-print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-y_lognormal = lognormal_cdf(x_linspace, *params)
-ax1.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
-
+plot_task_success_rate_vs_elo("Unweighted Tasks", ax1, tasks)
 
 fig.legend(loc="upper center", bbox_to_anchor=(0.5, 1.05), ncol=4)
 
-ax2.set_xlabel("ELO Score")
-ax2.set_ylabel("Average Success Rate (Weighted)")
-ax2.set_ylim(0, 1)
-
-# Scatter plot of ELO score vs. success rate (weighted)
-for i, row in elo_scores_weighted.iterrows():
-    ax2.scatter(row["score"], row["success_rate"], label=row["model"], marker=markers[i])
-    
-# fit a sigmoid to the data
-x_values = np.array(elo_scores_weighted["score"])
-y_values = np.array(elo_scores_weighted["success_rate"])
-params = get_sigmoid_parameters(x_values, y_values, [1, 1200])
-print("Slope", params[0], "Shift", params[1])
-x_linspace = np.linspace(1000, 1600, 512)
-y_sigmoid = sigmoid(x_linspace, *params)
-ax2.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
-
-# fit a lognormal to the data
-params = get_lognormal_cdf_fit_params(x_values, y_values, [1200, 0.7, 2.6])
-print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
-y_lognormal = lognormal_cdf(x_linspace, *params)
-ax2.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+plot_task_success_rate_vs_elo("Weighted Tasks (Importance Sampled)", ax2, tasks_weighted)
 
 
