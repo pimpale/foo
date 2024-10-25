@@ -39,12 +39,11 @@ def decode(ids: list[int], vocab: dict[int, list[int]]) -> str:
 def encode(ids: list[int], merges: dict[tuple[int, int], int]) -> list[int]:
     # encode earlier ids first
     while len(ids) > 1:
-        for i in range(len(ids) - 1):
-            if (ids[i], ids[i + 1]) in merges:
-                ids = merge(ids, (ids[i], ids[i + 1]), merges[(ids[i], ids[i + 1])])
-                break
-        else:
-            break
+        stats = get_stats(ids)
+        # get earliest pair
+        pair = min(stats, key=merges.get)
+        ids = merge(ids, pair, merges[pair])
+            
     return ids
 
 ids = list(corpus.encode('utf-8'))
@@ -58,10 +57,7 @@ n_merges = 100
 while len(merges) < n_merges:
     stats = get_stats(ids)
     # get most populous pair:
-    mergepair = None
-    for pair, count in stats.items():
-        if mergepair is None or count > stats[mergepair]:
-            mergepair = pair
+    mergepair = max(stats, key=stats.get)
     if mergepair is None:
         break
     # coin a new id
