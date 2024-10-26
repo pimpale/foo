@@ -36,15 +36,22 @@ def encode_chunk(ids: list[int], merges: dict[tuple[int, int], int]) -> list[int
     while len(ids) > 1:
         stats = {}
         get_stats(ids, stats)
-        # get earliest pair
-        pair = min(stats, key=merges.get)
-        ids = merge(ids, pair, merges[pair])
+        # get earliest pair if exists
+        mergepair = None
+        min_id = float('inf')
+        for pair in stats:
+            if pair in merges and merges[pair] < min_id:
+                min_id = merges[pair]
+                mergepair = pair
+        if mergepair is None:
+            break
+        ids = merge(ids, mergepair, merges[mergepair])
     return ids
 
 def encode(corpus: str, merges: dict[tuple[int, int], int]) -> list[int]:
     chunks = pretokenize(corpus)
     idchunks = [list(chunk.encode('utf-8')) for chunk in chunks]
-    return [encode_chunk(idchunk, merges) for idchunk in idchunks]
+    return sum((encode_chunk(idchunk, merges) for idchunk in idchunks), [])
 
 def pretokenize(corpus: str) -> list[str]:
     # first, split the corpus into chunks
@@ -74,7 +81,12 @@ if True:
         for idchunk in idchunks:
             get_stats(idchunk, stats)
         # get most populous pair:
-        mergepair = max(stats, key=stats.get)
+        mergepair = None
+        max_freq = 0
+        for pair in stats:
+            if stats[pair] > max_freq:
+                max_freq = stats[pair]
+                mergepair = pair
         if mergepair is None:
             break
         # coin a new id
