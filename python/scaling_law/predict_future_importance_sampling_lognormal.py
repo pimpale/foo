@@ -32,6 +32,9 @@ log_task_ttfs = np.log(all_task_ttfs["minutes"])
 # fit a log normal distribution to the data
 mu, std = stats.norm.fit(log_task_ttfs)
 
+# truncated, compute the normalizing constant
+z = 1 - stats.norm.cdf(np.log(1), mu, std)
+
 
 fig, ax = plt.subplots(1, 2, figsize=(10, 3))
 fig.suptitle("All tasks")
@@ -43,7 +46,8 @@ ax1.set_xlabel("Time to finish (minutes)")
 ax1.set_ylabel("Proportion of tasks")
 
 x_linspace = np.linspace(min(all_task_ttfs["minutes"]), max(all_task_ttfs["minutes"]), 1000)
-ax1.plot(x_linspace, stats.norm.pdf(np.log(x_linspace), mu, std)/100)
+# ax1.plot(x_linspace, np.gradient(stats.norm.cdf(np.log(x_linspace), mu, std), x_linspace))
+ax1.plot(x_linspace, stats.lognorm.pdf(x_linspace, s=std, scale=np.exp(mu))/z)
 
 ax2.hist(log_task_ttfs, bins=10, density=True)
 ax2.set_title("Log time to finish tasks")
@@ -51,16 +55,12 @@ ax2.set_xlabel("Log time to finish (minutes)")
 ax2.set_ylabel("Proportion of tasks")
 
 x_linspace = np.linspace(min(log_task_ttfs), max(log_task_ttfs), 1000)
-ax2.plot(x_linspace, stats.norm.pdf(x_linspace, mu, std))
+ax2.plot(x_linspace, stats.norm.pdf(x_linspace, mu, std)/z)
 
 plt.show()
-
+#%%
 # compute p(x) for all tasks
-
-# But first, note that we need to account for the fact that p(x) has infinite support
-extra_mass = stats.norm.cdf(min(log_task_ttfs), mu, std) + (1 - stats.norm.cdf(max(log_task_ttfs), mu, std))
-
-px = stats.norm.pdf(log_task_ttfs, mu, std) * (1+extra_mass)
+px = stats.norm.pdf(log_task_ttfs, mu, std)/z
 
 # create histogram of log_task_ttfs using numpy (use 10 bdins)
 q_pmf, bins = np.histogram(log_task_ttfs, bins=10, density=True)
