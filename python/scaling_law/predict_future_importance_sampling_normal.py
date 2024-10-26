@@ -52,8 +52,9 @@ ax1.hist(all_task_ttfs["minutes"], bins=10, density=True)
 x_linspace = np.linspace(
     min(all_task_ttfs["minutes"]), max(all_task_ttfs["minutes"]), 1000
 )
-ax1.plot(x_linspace, stats.norm.pdf(x_linspace, p_mu, p_std) / p_z)
-ax1.plot(x_linspace, stats.lognorm.pdf(x_linspace, scale=np.exp(q_mu), s=q_std) / q_z)
+ax1.plot(x_linspace, stats.norm.pdf(x_linspace, p_mu, p_std) / p_z, label="p(x)")
+ax1.plot(x_linspace, stats.lognorm.pdf(x_linspace, scale=np.exp(q_mu), s=q_std) / q_z, label="q(x)")
+ax1.legend()
 
 ax2.set_title("Log time to finish tasks")
 ax2.set_xlabel("Time to finish (minutes)")
@@ -64,11 +65,12 @@ log_bins = np.geomspace(
 )
 ax2.hist(all_task_ttfs["minutes"], bins=log_bins, density=True)
 
-ax2.plot(x_linspace, stats.norm.pdf(x_linspace, p_mu, p_std) / p_z)
-ax2.plot(x_linspace, stats.lognorm.pdf(x_linspace, scale=np.exp(q_mu), s=q_std) / q_z)
+ax2.plot(x_linspace, stats.norm.pdf(x_linspace, p_mu, p_std) / p_z, label="p(x)")
+ax2.plot(x_linspace, stats.lognorm.pdf(x_linspace, scale=np.exp(q_mu), s=q_std) / q_z, label="q(x)")
 ax2.set_xscale("log")
-plt.show()
+ax2.legend()
 
+plt.show()
 
 # compute p(x) for all tasks
 px = stats.norm.pdf(all_task_ttfs["minutes"], p_mu, p_std) / p_z
