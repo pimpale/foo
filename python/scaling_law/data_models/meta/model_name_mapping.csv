@@ -1,4 +1,4 @@
-chatbot_arena_name,open_llm_name,model_name
+chatbot_arena_name,open_llm_name,model
 microsoft/Phi-3-medium-4k-instruct,microsoft/Phi-3-medium-4k-instruct,phi3_medium_4k
 berkeley-nest/Starling-LM-7B-alpha,berkeley-nest/Starling-LM-7B-alpha,starling_7b
 mistralai/Mistral-7B-Instruct-v0.2,mistralai/Mistral-7B-Instruct-v0.2,mistral_7b_v0_2
@@ -69,3 +69,10 @@ Meta-Llama-3.1-405b-Instruct-fp8,,llama3_1_405b
 ,Qwen/Qwen2.5-3B-Instruct,qwen2_5_3b
 ,Qwen/Qwen2.5-1.5B-Instruct,qwen2_5_1_5b
 ,Qwen/Qwen2.5-0.5B-Instruct,qwen2_5_0_5b
+GPT-3.5-Turbo-0613,,gpt_3_5_turbo_0613
+mistralai/Mistral-7B-Instruct-v0.1,,mistral_7b_instruct
+Mixtral-8x22b-Instruct-v0.1,,mixtral_moe_8x22B
+GPT-4-Turbo-2024-04-09,,gpt_4_turbo
+Gemini-1.5-Flash-002,,gemini_1_5_flash
+Gemini-1.5-Pro-002,,gemini_1_5_pro
+Gemini-1.5-Flash-8B-001,,gemini_1_5_flash_8b_001

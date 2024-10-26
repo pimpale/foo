@@ -163,7 +163,7 @@ trials_filtered = duckdb.sql(
     """
     SELECT score, concat(task_family, ' ', task_name) as task, mnm.chatbot_arena_name as model
     FROM trials as t
-    JOIN model_name_mapping as mnm ON t.model = mnm.model_name
+    JOIN model_name_mapping as mnm ON t.model = mnm.model
     WHERE score != -1
     """
 ).df()
@@ -241,7 +241,7 @@ def plot_task_success_rate_vs_elo(
         elo_scores[elo_scores["score"] > threshold_elo]["success_rate"]
     )
 
-    params = get_sigmoid_parameters(x_values, y_values, [1, 1100])
+    params = get_sigmoid_parameters(x_values, y_values, [0.1, 1100])
     print("Slope", params[0], "Shift", params[1])
     x_linspace = np.linspace(1000, 1600, 512)
     y_sigmoid = sigmoid(x_linspace, *params)
@@ -262,7 +262,7 @@ def plot_task_success_rate_vs_elo(
 
     if use_lognormal:
         # fit a lognormal to the data
-        params = get_lognormal_cdf_fit_params(x_values, y_values, [1100, 0.7, 2.6])
+        params = get_lognormal_cdf_fit_params(x_values, y_values, [1100, 0.9, 5.0])
         print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
         y_lognormal = lognormal_cdf(x_linspace, *params)
         ax.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")

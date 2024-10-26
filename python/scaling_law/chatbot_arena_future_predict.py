@@ -164,7 +164,7 @@ trials_filtered = duckdb.sql(
     """
     SELECT score, concat(task_family, ' ', task_name) as task, mnm.chatbot_arena_name as model
     FROM trials as t
-    JOIN model_name_mapping as mnm ON t.model = mnm.model_name
+    JOIN model_name_mapping as mnm ON t.model = mnm.model
     WHERE score != -1
     """
 ).df()
@@ -212,15 +212,16 @@ for i, row in elo_scores.iterrows():
 # fit a sigmoid to the data
 x_values = np.array(elo_scores["score"])
 y_values = np.array(elo_scores["success_rate"])
-params = get_sigmoid_parameters(x_values, y_values, [1, 1200])
+params = get_sigmoid_parameters(x_values, y_values, [0.1, 1100])
 print("Slope", params[0], "Shift", params[1])
 x_linspace = np.linspace(1000, 1600, 512)
 y_sigmoid = sigmoid(x_linspace, *params)
 ax1.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
 
 # fit a lognormal to the data
-params = get_lognormal_cdf_fit_params(x_values, y_values, [1200, 0.7, 2.6])
+params = get_lognormal_cdf_fit_params(x_values, y_values, [1100, 0.4, 5.0])
 print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+x_linspace = np.linspace(1000, 1600, 512)
 y_lognormal = lognormal_cdf(x_linspace, *params)
 ax1.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
 
@@ -297,7 +298,7 @@ fig.legend(loc="upper center", bbox_to_anchor=(0.5, 1.05), ncol=4)
 
 #%% 
 
-# Try to figure out why the lognormal fit is so bad
+# Try to figure out why the lognormal fit is so bad (on year vs success rate)
 
 @interact(
     loc=widgets.FloatSlider(min=2000, max=2025, step=0.1, value=2022),
@@ -321,12 +322,43 @@ def g(loc, sigma, mu):
     # fit a lognormal to the data
     params = get_lognormal_cdf_fit_params(x_values, y_values, [loc, sigma, mu])
     print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+    x_linspace = np.linspace(2022, 2025.5, 512)
     y_lognormal = lognormal_cdf(x_linspace, *params)
     plt.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
 
     plt.legend()
     plt.show()
-    
+
+#%% 
+
+# Try to figure out why the lognormal fit is so bad (on Elo vs success rate)
+
+@interact(
+    loc=widgets.FloatSlider(min=1000, max=1600, step=0.1, value=1100),
+    sigma=widgets.FloatSlider(min=0, max=1, step=0.01, value=0.4),
+    mu=widgets.FloatSlider(min=0, max=10, step=0.1, value=2.6),
+)
+def g(loc, sigma, mu):
+    x_values = np.array(elo_scores["score"])
+    y_values = np.array(elo_scores["success_rate"])
+
+    # Scatter plot of ELO score vs. success rate
+    plt.scatter(x_values, y_values, label="success rate")
+
+    plt.xlabel("Year")
+    plt.ylabel("Average Success Rate")
+    plt.ylim(0, 1)
+
+    # fit a lognormal to the data
+    print("Interact", "Loc", loc, "Sigma", sigma, "Mu", mu)
+    params = get_lognormal_cdf_fit_params(x_values, y_values, [loc, sigma, mu])
+    print("Loc", params[0], "Sigma", params[1], "Mu", params[2])
+    x_linspace = np.linspace(1000, 1600, 512)
+    y_lognormal = lognormal_cdf(x_linspace, *params)
+    plt.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
+
+    plt.legend()
+    plt.show()
 #%% 
 
 # Try to figure out why the lognormal fit is so bad
