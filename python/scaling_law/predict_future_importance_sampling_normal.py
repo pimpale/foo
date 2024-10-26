@@ -29,9 +29,11 @@ all_task_ttfs = duckdb.sql(
 
 log_task_ttfs = np.log(all_task_ttfs["minutes"])
 
-# fit a log normal distribution to the data
-mu, std = stats.norm.fit(log_task_ttfs)
+# fit a normal distribution to the non-log data
+p_mu, p_std = stats.norm.fit(all_task_ttfs["minutes"])
 
+# fit a normal distribution to the log data
+q_mu, q_std = stats.norm.fit(log_task_ttfs)
 
 fig, ax = plt.subplots(1, 2, figsize=(10, 3))
 fig.suptitle("All tasks")
@@ -43,7 +45,8 @@ ax1.set_xlabel("Time to finish (minutes)")
 ax1.set_ylabel("Proportion of tasks")
 
 x_linspace = np.linspace(min(all_task_ttfs["minutes"]), max(all_task_ttfs["minutes"]), 1000)
-ax1.plot(x_linspace, stats.norm.pdf(np.log(x_linspace), mu, std)/100)
+ax1.plot(x_linspace, stats.norm.pdf(x_linspace, p_mu, p_std))
+ax1.plot(x_linspace, stats.norm.pdf(np.log(x_linspace), q_mu, q_std))
 
 ax2.hist(log_task_ttfs, bins=10, density=True)
 ax2.set_title("Log time to finish tasks")
@@ -51,9 +54,12 @@ ax2.set_xlabel("Log time to finish (minutes)")
 ax2.set_ylabel("Proportion of tasks")
 
 x_linspace = np.linspace(min(log_task_ttfs), max(log_task_ttfs), 1000)
-ax2.plot(x_linspace, stats.norm.pdf(x_linspace, mu, std))
+ax2.plot(x_linspace, stats.norm.pdf(np.exp(x_linspace), p_mu, p_std)*20)
+ax2.plot(x_linspace, stats.norm.pdf(x_linspace, q_mu, q_std))
 
 plt.show()
+
+#%%
 
 # compute p(x) for all tasks
 
@@ -179,6 +185,15 @@ tasks_weighted = duckdb.sql(
 
 def plot_task_success_rate_vs_elo(title, ax, tasks, threshold_elo=1200):
 
+    def compute_mse_sigmoid(x_values, y_values, params):
+        y_sigmoid = sigmoid(x_values, *params)
+        return np.mean((y_sigmoid - y_values) ** 2)
+    
+    def compute_mse_lognormal(x_values, y_values, params):
+        y_lognormal = lognormal_cdf(x_values, *params)
+        return np.mean((y_lognormal - y_values) ** 2)
+
+
     elo_scores = duckdb.sql(
         """
         WITH success_rates AS (
@@ -201,17 +216,26 @@ def plot_task_success_rate_vs_elo(title, ax, tasks, threshold_elo=1200):
     # Scatter plot of ELO score vs. success rate
     for i, row in elo_scores.iterrows():
         color = "red" if row["score"] > threshold_elo else "blue"
-    
         ax.scatter(row["score"], row["success_rate"], label=row["model"], marker=markers[i], color=color)
 
     # fit a sigmoid to the data
     x_values = np.array(elo_scores[elo_scores["score"] <= threshold_elo]["score"])
     y_values = np.array(elo_scores[elo_scores["score"] <= threshold_elo]["success_rate"])
+
+    x_values_test = np.array(elo_scores[elo_scores["score"] > threshold_elo]["score"])
+    y_values_test = np.array(elo_scores[elo_scores["score"] > threshold_elo]["success_rate"])
+
     params = get_sigmoid_parameters(x_values, y_values, [1, 1100])
     print("Slope", params[0], "Shift", params[1])
     x_linspace = np.linspace(1000, 1600, 512)
     y_sigmoid = sigmoid(x_linspace, *params)
     ax.plot(x_linspace, y_sigmoid, label="Sigmoid Fit", color="red")
+
+    # compute the MSE of the test data
+    train_mse_sigmoid = compute_mse_sigmoid(x_values, y_values, params)
+    test_mse_sigmoid = compute_mse_sigmoid(x_values_test, y_values_test, params)
+    ax.text(0.1, 0.95, f"[train] Sigmoid MSE: {train_mse_sigmoid:.2e}", transform=ax.transAxes)
+    ax.text(0.1, 0.9, f"[test] Sigmoid MSE: {test_mse_sigmoid:.2e}", transform=ax.transAxes)
 
     # fit a lognormal to the data
     params = get_lognormal_cdf_fit_params(x_values, y_values, [1100, 0.7, 2.6])
@@ -219,6 +243,11 @@ def plot_task_success_rate_vs_elo(title, ax, tasks, threshold_elo=1200):
     y_lognormal = lognormal_cdf(x_linspace, *params)
     ax.plot(x_linspace, y_lognormal, label="Lognormal Fit", color="green")
 
+    # compute the MSE of the test data
+    train_mse_lognormal = compute_mse_lognormal(x_values, y_values, params)
+    test_mse_lognormal = compute_mse_lognormal(x_values_test, y_values_test, params)
+    ax.text(0.1, 0.85, f"[train] Lognormal MSE: {train_mse_lognormal:.2e}", transform=ax.transAxes)
+    ax.text(0.1, 0.8, f"[test] Lognormal MSE: {test_mse_lognormal:.2e}", transform=ax.transAxes)
 
 # scatter plot of each model's PC1 score vs. average success rate (labeled)
 
