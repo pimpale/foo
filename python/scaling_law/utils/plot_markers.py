@@ -1,3 +1,5 @@
+import random
+
 markers = [
     ".",
     "o",
@@ -62,3 +64,7 @@ markers = [
     (5, 2, 0),  # 5-pointed asterisk
     (6, 2, 0),  # 6-pointed asterisk
 ]
+
+random.seed(1)
+markers_scrambled = markers[:20].copy()
+random.shuffle(markers_scrambled)
