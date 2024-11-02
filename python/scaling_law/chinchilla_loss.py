@@ -99,8 +99,8 @@ for i, (n, d, label) in enumerate(models):
     if not any(abs(l - l_) < 0.01 for l_ in visualized_loss_curves):
         visualized_loss_curves.append(l)
         # Plot the isoloss curve at L = 2.0
-        CS3 = ax.contour(N, D, Loss, levels=[l], colors="yellow", linewidths=2)
-        ax.clabel(CS3, fmt=f"Loss: {l:2.2}", inline=True, fontsize=10, colors="yellow")
+        CS3 = ax.contour(N, D, Loss, levels=[l], colors="yellow")
+        ax.clabel(CS3, fmt=f"Loss: {l:2.2}", inline=True, fontsize=7, colors="yellow")
 
     plt.plot(
         n,
