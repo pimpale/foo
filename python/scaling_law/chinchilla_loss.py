@@ -40,9 +40,9 @@ def loss(n, d) -> float:
 
 
 def opt_params(L_budget: float) -> tuple[float, float]:
-    S = L_budget - E
-    N_opt = (A * (alpha + beta) / (S * beta)) ** (1 / alpha)
-    D_opt = (B * (alpha + beta) / (S * alpha)) ** (1 / beta)
+    l = L_budget - E
+    N_opt = (A * (alpha + beta) / (l * beta)) ** (1 / alpha)
+    D_opt = (B * (alpha + beta) / (l * alpha)) ** (1 / beta)
     return N_opt, D_opt
 
 
