@@ -95,6 +95,9 @@ visualized_loss_curves = []
 for i, (n, d, label) in enumerate(models):
     marker = utils.plot_markers.markers_scrambled[i]
 
+    l = loss(n, d)
+    n_opt, d_opt = opt_params(l)
+
     # check that l is not too close to any previously visualized loss curves
     if not any(abs(l - l_) < 0.01 for l_ in visualized_loss_curves):
         visualized_loss_curves.append(l)
@@ -110,8 +113,6 @@ for i, (n, d, label) in enumerate(models):
         linestyle="none",
         label=label,
     )
-    l = loss(n, d)
-    n_opt, d_opt = opt_params(l)
     plt.plot(
         n_opt,
         d_opt,
