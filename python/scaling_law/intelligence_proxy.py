@@ -284,7 +284,7 @@ families = duckdb.sql(
     SELECT "Model Family" 
     FROM base_llm_benchmark_eval 
     GROUP BY "Model Family" 
-    HAVING COUNT(*) >= 4
+    HAVING COUNT(*) >= 3
     """
 ).fetchall()
 
@@ -325,3 +325,29 @@ for i, family in enumerate(families):
 ax.legend()
 
 
+family_release_dates = {
+    "Yi-1.5": "2024-05-13",
+    "Pythia": "2023-04-03",
+    "SmolLM": "2024-07-16",
+    "Qwen":   "2023-04-01",
+    "BLOOM":  "2022-07-06",
+    "CodeLlama": "2023-07-18",
+    "Llama-2": "2023-07-18",
+    "Qwen1.5": "2024-02-04",
+    "Gemma-2": "2024-06-27",
+    "OLMo":    "2024-02-01",
+    "GPT-Neo/J": "2021-03-01",
+    "StarCoder": "2023-05-04",
+    "StarCoder2": "2023-02-28",
+    "StableLM": "2023-08-05",
+    "Cerebras-GPT": "2023-03-28",
+    "H2O-Danube": "2024-02-28",
+    "Llama": "2023-02-01",
+    "DeepSeek-Coder": "2023-11-02",
+    "OPT": "2022-05-03",
+    "XGLM": "2021-12-20"
+}
+
+# write this to a file as CSV
+df = pd.DataFrame(family_release_dates.items(), columns=["family", "release_date"])
+df.to_csv("family_release_dates.csv", index=False)
