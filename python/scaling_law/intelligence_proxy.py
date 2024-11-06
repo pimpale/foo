@@ -72,17 +72,31 @@ base_llm_benchmark_eval = duckdb.sql(
     """
 ).df()
 
+pc1_components = [
+    ("MMLU", 0.45),
+    ("ARC-C", 0.34),
+    ("HellaSwag", 0.38),
+    ("Winograd", 0.24),
+    ("TruthfulQA", 0.08),
+    ("GSM8K", 0.55),
+    ("XWinograd", 0.21),
+    ("HumanEval", 0.35),
+]
+
 # add PC1- to the dataframe
-base_llm_benchmark_eval["PC-1"] = (
-    0.45 * base_llm_benchmark_eval["MMLU"]
-    + 0.34 * base_llm_benchmark_eval["ARC-C"]
-    + 0.38 * base_llm_benchmark_eval["HellaSwag"]
-    + 0.24 * base_llm_benchmark_eval["Winograd"]
-    + 0.08 * base_llm_benchmark_eval["TruthfulQA"]
-    + 0.55 * base_llm_benchmark_eval["GSM8K"]
-    + 0.21 * base_llm_benchmark_eval["XWinograd"]
-    + 0.35 * base_llm_benchmark_eval["HumanEval"]
+base_llm_benchmark_eval["PC-1"] = sum(
+    base_llm_benchmark_eval[benchmark] * weight
+    for benchmark, weight in pc1_components
 )
+
+for (benchmark, _) in pc1_components:
+    base_llm_benchmark_eval["PC-1 excluding " + benchmark] = sum(
+        base_llm_benchmark_eval[b] * weight
+        for b, weight in pc1_components
+        if b != benchmark
+    )
+        
+
 
 # add optimal params to the dataframe
 for param, label in [(HOFF_PARAMS, "Hoffman"), (EPOCH_PARAMS, "Besiroglu")]:
@@ -170,21 +184,25 @@ def get_scaled_sigmoid_parameters(
     )
     return popt
 
+#%%
 
 def plot_with_sigmoids(
     ax: plt.Axes,
-    xlabel: str, 
-    ylabel: str, 
+    xlabel: str,
+    ylabel: str,
+    release_date_thresholds: list[tuple[float, str]],
     p0: tuple[
         # slope
-        float, 
+        float,
         # shift
-        float, 
+        float,
         # scale
-        float, 
+        float,
         # yoffset
-        float
-    ]
+        float,
+    ],
+    # error in (Release Date Thresholds)
+    error: np.ndarray,
 ):
     ax.set_title(f"{xlabel} vs {ylabel}")
     ax.set_xlabel(xlabel)
@@ -194,41 +212,193 @@ def plot_with_sigmoids(
     ypoints_all = base_llm_benchmark_eval[ylabel]
 
     xspace = np.linspace(min(xpoints_all), max(xpoints_all), 100)
-    
-    release_date_thresholds = [
-        (2022.0, "green"),
-        (2023.0, "yellow"),
-        (2024.0, "orange"),
-        (2025.0, "red"),
-    ]
 
-    for (thresh, color) in reversed(release_date_thresholds):    
-        subset = base_llm_benchmark_eval[base_llm_benchmark_eval["release_date"] < thresh]
+    for thresh, color in reversed(release_date_thresholds + [(2025.0, "red")]):
+        subset = base_llm_benchmark_eval[
+            base_llm_benchmark_eval["release_date"] < thresh
+        ]
         ax.scatter(subset[xlabel], subset[ylabel], color=color)
 
 
-    for i, (release_date_thresh, color) in enumerate(release_date_thresholds): 
-        subset = base_llm_benchmark_eval[base_llm_benchmark_eval["release_date"] < release_date_thresh]
+    for i, (release_date_thresh, color) in enumerate(release_date_thresholds):
+        subset = base_llm_benchmark_eval[
+            base_llm_benchmark_eval["release_date"] < release_date_thresh
+        ]
         xpoints = subset[xlabel]
         ypoints = subset[ylabel]
-    
+
+        validation_subset = base_llm_benchmark_eval[
+            (base_llm_benchmark_eval["release_date"] >= release_date_thresh)
+            & (base_llm_benchmark_eval["release_date"] < release_date_thresh + 1)
+        ]
+        xpoints_val = validation_subset[xlabel]
+        ypoints_val = validation_subset[ylabel]
+
         scaled_sigmoid_params = get_scaled_sigmoid_parameters(xpoints, ypoints, p0)
         y_sigmoid = scaled_sigmoid(xspace, *scaled_sigmoid_params)
 
-        sigmoid_mse = np.mean((ypoints_all - scaled_sigmoid(xpoints_all, *scaled_sigmoid_params)) ** 2)
+        sigmoid_mse = np.mean(
+            (ypoints_all - scaled_sigmoid(xpoints_all, *scaled_sigmoid_params)) ** 2
+        )
+
+        sigmoid_mse_val = np.mean(
+            (ypoints_val - scaled_sigmoid(xpoints_val, *scaled_sigmoid_params)) ** 2
+        )
+
+        error[i] = sigmoid_mse_val
 
         ax.plot(xspace, y_sigmoid, color=color, label=f"{release_date_thresh} sigmoid")
-        yloc = 0.95 - 0.05*i
-        ax.text(0.05, yloc, f"{release_date_thresh} MSE: {sigmoid_mse:.2e}", transform=ax.transAxes)
-    
+        yloc = 0.95 - 0.05 * i
+        ax.text(
+            0.05,
+            yloc,
+            f"{release_date_thresh} MSE: {sigmoid_mse_val:.2e}",
+            transform=ax.transAxes,
+        )
+
     ax.legend()
 
 
-benchmarks = ["MMLU", "ARC-C", "HellaSwag", "Winograd", "TruthfulQA", "GSM8K", "XWinograd", "HumanEval"]
+benchmarks = [
+    "MMLU",
+    "ARC-C",
+    "HellaSwag",
+    "Winograd",
+    "TruthfulQA",
+    "GSM8K",
+    "XWinograd",
+    "HumanEval",
+]
 
-fig, ax = plt.subplots(len(benchmarks), 3, figsize=(21, len(benchmarks)*6))  # 3 columns
+release_date_thresholds = [
+    (2022.0, "green"),
+    (2023.0, "yellow"),
+    (2024.0, "orange"),
+    # (2025.0, "red"),
+]
+
+# error in Intelligence Proxy x Benchmarks x Release Date Thresholds
+error = np.zeros((3, len(benchmarks), len(release_date_thresholds)))
+
+fig, ax = plt.subplots(
+    len(benchmarks), 3, figsize=(21, len(benchmarks) * 6)
+)  # 3 columns
 
 for i, benchmark in enumerate(benchmarks):
-    plot_with_sigmoids(ax[i, 0], "log10 FLOPs (1E21)", benchmark, (1, 0, 0.5, 0.25))
-    plot_with_sigmoids(ax[i, 1], "log10 FLOPs_opt_Besiroglu (1E21)", benchmark, (1, 0, 0.5, 0.25))
-    plot_with_sigmoids(ax[i, 2], "PC-1", benchmark, (1, 0, 0.5, 0.25))
+    plot_with_sigmoids(
+        ax[i, 0],
+        "log10 FLOPs (1E21)",
+        benchmark,
+        release_date_thresholds,
+        (1, 0, 0.5, 0.25),
+        error[0, i],
+    )
+    plot_with_sigmoids(
+        ax[i, 1],
+        "log10 FLOPs_opt_Besiroglu (1E21)",
+        benchmark,
+        release_date_thresholds,
+        (1, 0, 0.5, 0.25),
+        error[1, i],
+    )
+    plot_with_sigmoids(
+        ax[i, 2],
+        f"PC-1 excluding {benchmark}",
+        benchmark,
+        release_date_thresholds,
+        (1, 0, 0.5, 0.25),
+        error[2, i],
+    )
+
+#%%
+fig, ax = plt.subplots(1, 1, figsize=(7, 7))
+plot_with_sigmoids(
+    ax,
+    "log10 FLOPs_opt_Besiroglu (1E21)",
+    "MMLU",
+    release_date_thresholds,
+    (1, 0, 0.5, 0.25),
+    np.zeros(len(release_date_thresholds)),
+)
+#%%
+fig, ax = plt.subplots(1, 1, figsize=(7, 7))
+plot_with_sigmoids(
+    ax,
+    "PC-1 excluding MMLU",
+    "MMLU",
+    release_date_thresholds,
+    (1, 0, 0.5, 0.25),
+    np.zeros(len(release_date_thresholds)),
+)
+
+#%%
+
+# print the error matrix
+for i, proxy in enumerate(["FLOPs", "FLOPs_opt_Besiroglu", "PC-1"]):
+    print(f"Proxy: {proxy}")
+    print(f"Mean Error of {proxy}: {np.mean(error[i]):.2e}")
+    for j, benchmark in enumerate(benchmarks):
+        print(f"Benchmark: {benchmark}")
+        for k, (release_date_thresh, color) in enumerate(release_date_thresholds):
+            print(
+                f"Release Date Threshold: {release_date_thresh} Error: {error[i, j, k]:.2e}"
+            
+            )
+        # print mean
+        print(f"Mean Error of {benchmark}: {np.mean(error[i, j]):.2e}")
+    
+    # print means for each release date threshold
+    for k, (release_date_thresh, color) in enumerate(release_date_thresholds):
+        print(f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error[i, :, k]):.2e}")
+    print()
+    
+#%%
+
+############################
+# Chatbot Arena Elo
+############################
+
+
+model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
+chatbot_arena_scores = duckdb.read_csv("./data_models/cache_new/chatbot_arena.csv")
+open_llm_leaderboard = duckdb.read_csv("./data_models/cache_new/open_llm_leaderboard.csv")
+organization_to_hf_id = duckdb.read_csv("./data_models/meta/organization_to_hf_id.csv")
+
+# # # scatter plot of chatbot arena scores
+# msrd = duckdb.sql(
+#     """
+#     SELECT 
+#         cas.organization as organization,
+#         cas.Model as model, 
+#         cas."Arena Score" as score,
+#         year(oll."Upload to Hub Date") + (1/365)*dayofyear(oll."Upload to Hub Date") as release_date
+#     FROM chatbot_arena_scores cas
+#     JOIN model_name_mapping mnm ON mnm.chatbot_arena_name = cas.Model
+#     JOIN open_llm_leaderboard oll ON oll.fullname = mnm.open_llm_name
+#     JOIN open_llm_release_dates olrd ON olrd.model = oll.fullname
+#     """
+# ).df()
+
+msrd = duckdb.sql(
+    """
+    SELECT
+        cas.organization as organization,
+        cas.Model as model,
+        cas."Arena Score" as score,
+        cast(cas."Knowledge Cutoff"[:4] as float) + cast(cas."Knowledge Cutoff"[6:] as float)/12.0 as release_date,
+        oll."IFEval Raw" as IFEval,
+        oll."BBH Raw" as BBH,
+        oll."Math Lvl 5 Raw" as MATH,
+        oll."GPQA Raw" as GPQA,
+        oll."MUSR Raw" as MUSR,
+        oll."MMLU-PRO Raw" as MMLUPro,
+    FROM chatbot_arena_scores cas
+    JOIN organization_to_hf_id oth ON lower(cas.organization) = oth.org
+    JOIN open_llm_leaderboard oll ON 
+           lower(oll.fullname) = concat(oth.hf_id , '/', lower(cas.model))
+        or lower(oll.fullname) = concat(oth.hf_id , '/', replace(lower(cas.model), '.', '_'))
+    """
+).df()
+
+
+
