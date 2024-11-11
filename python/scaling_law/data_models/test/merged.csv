@@ -1,0 +1,153 @@
+,chatbot_arena_name,arena_score,release_date,open_llm_name,model,IFEval Raw,BBH Raw,MATH Lvl 5 Raw,GPQA Raw,MUSR Raw,MMLU-PRO Raw,mmlu
+0,ChatGPT-4o-latest (2024-09-03),1340,2024-09-03,,,,,,,,,
+1,o1-preview,1337,2024-09-12,,,,,,,,,
+2,o1-mini,1309,2024-09-12,,,,,,,,,
+3,Gemini-1.5-Pro-002,1303,2024-09-24,,gemini_1_5_pro,,,,,,,
+4,Gemini-1.5-Pro-Exp-0827,1299,2024-08-27,,,,,,,,,
+5,Grok-2-08-13,1290,2024-08-13,,,,,,,,,
+6,Yi-Lightning,1286,2024-10-16,,,,,,,,,
+7,GPT-4o-2024-05-13,1285,2024-05-13,,gpt_4o_may,,,,,,,88.7
+8,GLM-4-Plus,1275,,,,,,,,,,
+9,GPT-4o-mini-2024-07-18,1274,2024-07-18,,gpt_4o_mini,,,,,,,82.0
+10,Gemini-1.5-Flash-002,1271,2024-09-24,,gemini_1_5_flash,,,,,,,
+11,Gemini-1.5-Flash-Exp-0827,1269,2024-08-27,,,,,,,,,
+12,Claude 3.5 Sonnet,1268,2024-06-21,,claude3_5_sonnet,,,,,,,
+13,Llama-3.1-Nemotron-70b-Instruct,1267,,,,,,,,,,
+14,Grok-2-Mini-08-13,1267,2024-08-13,,,,,,,,,
+15,Meta-Llama-3.1-405b-Instruct-fp8,1267,2024-07-23,,llama3_1_405b,,,,,,,88.6
+16,Gemini Advanced App (2024-05-14),1266,2024-05-14,,,,,,,,,
+17,Meta-Llama-3.1-405b-Instruct-bf16,1266,2024-07-23,,,,,,,,,88.6
+18,Yi-Lightning-lite,1265,2024-10-16,,,,,,,,,
+19,GPT-4o-2024-08-06,1264,2024-08-06,,,,,,,,,
+20,Qwen-Max-0919,1263,2024-09-19,,,,,,,,,
+21,Gemini-1.5-Pro-001,1260,2024-05-24,,,,,,,,,85.9
+22,Qwen2.5-72b-Instruct,1259,2024-09-19,Qwen/Qwen2.5-72B-Instruct,qwen2_5_72b,0.87,0.73,0.01,0.38,0.42,0.56,
+23,GPT-4-Turbo-2024-04-09,1257,2024-04-09,,gpt_4_turbo,,,,,,,
+24,deepseek-ai/DeepSeek-V2.5,1256,2024-09-06,,,,,,,,,
+25,Mistral-Large-2407,1251,2024-07-24,,,,,,,,,
+26,Nexusflow/Athene-70B,1250,2024-07-19,,,,,,,,,
+27,GPT-4-1106-preview,1250,2024-06-11,,,,,,,,,
+28,Claude 3 Opus,1248,2024-03-04,,,,,,,,,86.8
+29,Meta-Llama-3.1-70b-Instruct,1247,2024-07-23,meta-llama/Meta-Llama-3.1-70B-Instruct,llama3_1_70b,0.87,0.69,0.28,0.36,0.46,0.53,86.0
+30,GPT-4-0125-preview,1245,2024-01-25,,,,,,,,,
+31,Yi-Large-preview,1240,,,,,,,,,,
+32,Reka-Core-20240722,1230,2024-07-22,,,,,,,,,
+33,Qwen-Plus-0828,1227,2024-08-28,,,,,,,,,
+34,Gemini-1.5-Flash-001,1227,2024-05-24,,,,,,,,,78.9
+35,Jamba-1.5-Large,1221,2024-08-22,,,,,,,,,81.2
+36,Deepseek-v2-API-0628,1219,2024-06-28,,,,,,,,,
+37,Gemma-2-27b-it,1219,2024-06-27,google/gemma-2-27b-it,gemma2_27b,0.8,0.65,0.01,0.38,0.4,0.45,
+38,princeton-nlp/gemma-2-9b-it-SimPO,1216,2024-07-17,,,,,,,,,
+39,Command R+ (08-2024),1215,2024-08-24,CohereForAI/c4ai-command-r-plus-08-2024,c4ai_command_r_plus_08_2024,0.75,0.6,0.11,0.35,0.48,0.44,
+40,Deepseek-Coder-v2-0724,1214,2024-07-24,,,,,,,,,
+41,Yi-Large,1213,2024-06-16,,,,,,,,,
+42,Gemini-1.5-Flash-8B-001,1210,2024-05-24,,gemini_1_5_flash_8b_001,,,,,,,
+43,nvidia/Nemotron-4-340B-Instruct,1209,2024-06-14,,,,,,,,,
+44,GLM-4-0520,1207,2024-05-20,,,,,,,,,
+45,Llama-3-70b-Instruct,1206,2024-04-18,meta-llama/Meta-Llama-3-70B-Instruct,llama3_70b,0.81,0.65,0.23,0.29,0.42,0.52,82.0
+46,Gemini-1.5-Flash-8b-Exp-0827,1205,2024-08-27,,,,,,,,,
+47,Claude 3 Sonnet,1201,2024-03-04,,,,,,,,,79.0
+48,Reka-Flash-20240722,1201,2024-07-22,,,,,,,,,
+49,Reka-Core-20240501,1200,,,,,,,,,,83.2
+50,Command R+ (04-2024),1190,2024-04-04,,,,,,,,,
+51,Gemma-2-9b-it,1190,2024-06-27,google/gemma-2-9b-it,gemma2_9b,0.74,0.6,0.0,0.36,0.41,0.39,
+52,Qwen2-72B-Instruct,1187,2024-06-07,Qwen/Qwen2-72B-Instruct,qwen2_72b,0.8,0.7,0.35,0.37,0.46,0.54,84.2
+53,GPT-4-0314,1186,2023-03-14,,,,,,,,,86.4
+54,GLM-4-0116,1183,2024-01-16,,,,,,,,,
+55,Qwen-Max-0428,1183,2024-04-28,,,,,,,,,
+56,Command R (08-2024),1179,,,,,,,,,,
+57,Claude 3 Haiku,1179,2024-03-24,,,,,,,,,75.2
+58,deepseek-ai/DeepSeek-Coder-V2-Instruct,1178,2024-05-06,,,,,,,,,
+59,Jamba-1.5-Mini,1176,2024-08-22,,,,,,,,,69.7
+60,Meta-Llama-3.1-8b-Instruct,1174,2024-07-23,meta-llama/Meta-Llama-3.1-8B-Instruct,llama3_1_8b,0.79,0.51,0.18,0.27,0.39,0.38,73.0
+61,Reka-Flash-Preview-20240611,1165,2024-06-11,,,,,,,,,
+62,GPT-4-0613,1163,2023-06-13,,,,,,,,,
+63,Qwen1.5-110B-Chat,1161,2024-04-25,Qwen/Qwen1.5-110B-Chat,qwen1_5_110b,0.59,0.62,0.0,0.34,0.45,0.48,80.4
+64,01-ai/Yi-1.5-34B-Chat,1157,2024-05-13,01-ai/Yi-1.5-34B-Chat,yi_1_5_34b,0.61,0.61,0.23,0.36,0.43,0.45,
+65,Mistral-Large-2402,1157,2024-02-24,,,,,,,,,81.2
+66,Reka-Flash-21B-online,1156,,,,,,,,,,
+67,Llama-3-8b-Instruct,1152,2024-04-18,meta-llama/Meta-Llama-3-8B-Instruct,llama3_8b,0.48,0.49,0.08,0.29,0.38,0.36,68.4
+68,internlm/internlm2_5-20b-chat,1150,,internlm/internlm2_5-20b-chat,internlm_2_5_20b,0.7,0.75,0.0,0.32,0.46,0.4,
+69,Claude-1,1149,2023-03-14,,,,,,,,,77.0
+70,Command R (04-2024),1149,,,,,,,,,,
+71,Mistral Medium,1148,2023-12-11,,,,,,,,,75.3
+72,Reka-Flash-21B,1148,2024-04-15,,,,,,,,,73.5
+73,Mixtral-8x22b-Instruct-v0.1,1148,2024-04-17,mistralai/Mixtral-8x22B-Instruct-v0.1,mixtral_moe_8x22B,0.72,0.61,0.19,0.37,0.43,0.45,77.8
+74,Qwen1.5-72B-Chat,1147,2024-02-04,,qwen1_5_72b,,,,,,,77.5
+75,Gemma-2-2b-it,1138,2024-06-27,google/gemma-2-2b-it,gemma2_2b,0.57,0.42,0.0,0.27,0.39,0.25,51.3
+76,Gemini-1.0-Pro-001,1132,2024-02-15,,,,,,,,,71.8
+77,Claude-2.0,1132,2023-07-11,,,,,,,,,78.5
+78,HuggingFaceH4/zephyr-orpo-141b-A35b-v0.1,1128,,HuggingFaceH4/zephyr-orpo-141b-A35b-v0.1,zephyr_141b_a35b_v0_1,0.65,0.63,0.18,0.38,0.45,0.46,
+79,Qwen1.5-32B-Chat,1125,2024-02-04,Qwen/Qwen1.5-32B-Chat,qwen1_5_32b,0.55,0.61,0.07,0.31,0.42,0.45,73.4
+80,Mistral-Next,1124,2024-02-16,,,,,,,,,
+81,microsoft/Phi-3-medium-4k-instruct,1123,2024-04-23,microsoft/Phi-3-medium-4k-instruct,phi3_medium_4k,0.64,0.64,0.17,0.34,0.43,0.47,
+82,Nexusflow/Starling-LM-7B-beta,1119,,,,,,,,,,
+83,Claude-2.1,1118,2023-11-21,,,,,,,,,
+84,GPT-3.5-Turbo-0613,1117,2023-06-13,,gpt_3_5_turbo_0613,,,,,,,
+85,Mixtral-8x7b-Instruct-v0.1,1114,2023-12-11,mistralai/Mixtral-8x7B-Instruct-v0.1,mistral_8x7b_v0_1,0.56,0.5,0.08,0.3,0.42,0.37,70.6
+86,01-ai/Yi-34B-Chat,1111,2023-11-02,01-ai/Yi-34B-Chat,yi_34b,0.47,0.56,0.04,0.34,0.4,0.41,
+87,Claude-Instant-1,1111,2023-08-09,,,,,,,,,73.4
+88,Gemini Pro,1111,2023-12-06,,,,,,,,,71.8
+89,Qwen1.5-14B-Chat,1109,2024-02-04,Qwen/Qwen1.5-14B-Chat,qwen1_5_14b,0.48,0.52,0.0,0.27,0.44,0.36,67.6
+90,GPT-3.5-Turbo-0314,1107,2023-03-14,,,,,,,,,70.0
+91,WizardLM/WizardLM-70B-V1.0,1106,2023-08-09,WizardLMTeam/WizardLM-70B-V1.0,wizardlm_70b_v1_0,0.5,0.56,0.03,0.27,0.44,0.34,
+92,GPT-3.5-Turbo-0125,1106,2024-01-25,,,,,,,,,
+93,Meta-Llama-3.2-3b-Instruct,1103,2024-09-25,meta-llama/Llama-3.2-3B-Instruct,llama3_2_3b,0.74,0.46,0.16,0.28,0.35,0.32,
+94,DBRX-Instruct-Preview,1103,2024-03-27,databricks/dbrx-instruct,dbrx,0.54,0.54,0.07,0.34,0.43,0.37,73.7
+95,microsoft/Phi-3-small-8k-instruct,1102,2024-04-23,microsoft/Phi-3-small-8k-instruct,phi3_small_8k,0.65,0.62,0.03,0.31,0.46,0.45,
+96,allenai/tulu-2-dpo-70b,1099,2023-11-17,,,,,,,,,
+97,meta-llama/Llama-2-70b-chat-hf,1093,2023-07-18,meta-llama/Llama-2-70b-chat-hf,llama2_70b,0.5,0.3,0.01,0.26,0.37,0.24,
+98,openchat/openchat-3.5-0106,1091,2024-01-06,openchat/openchat-3.5-0106,openchat_3_5_0106,0.6,0.46,0.06,0.31,0.43,0.33,
+99,lmsys/vicuna-33b-v1.3,1091,2023-06-22,,,,,,,,,
+100,Snowflake Arctic Instruct,1090,2024-04-24,,,,,,,,,67.3
+101,berkeley-nest/Starling-LM-7B-alpha,1088,2023-11-15,berkeley-nest/Starling-LM-7B-alpha,starling_7b,0.55,0.44,0.07,0.3,0.41,0.32,
+102,NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO,1084,2024-01-15,NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO,nous_hermes_2_mixtral_8x7b_dpo,0.59,0.55,0.11,0.32,0.46,0.37,
+103,google/gemma-1.1-7b-it,1084,2024-04-05,google/gemma-1.1-7b-it,gemma_1_1_7b,0.5,0.39,0.03,0.29,0.42,0.26,
+104,nvidia/Llama2-70B-SteerLM-Chat,1080,2023-11-27,,,,,,,,,
+105,pplx-70b-online,1078,2023-11-29,,,,,,,,,
+106,deepseek-ai/deepseek-llm-67b-chat,1077,2024-01-05,deepseek-ai/deepseek-llm-67b-chat,deepseek_67b,0.56,0.52,0.07,0.32,0.51,0.39,
+107,openchat/openchat_3.5,1076,2023-11-02,openchat/openchat_3.5,openchat_3_5,0.59,0.44,0.07,0.3,0.42,0.32,
+108,teknium/OpenHermes-2.5-Mistral-7B,1075,,teknium/OpenHermes-2.5-Mistral-7B,openhermes_2_5_mistral_7b,0.56,0.49,0.04,0.28,0.42,0.31,
+109,mistralai/Mistral-7B-Instruct-v0.2,1072,,mistralai/Mistral-7B-Instruct-v0.2,mistral_7b_v0_2,0.55,0.45,0.03,0.28,0.4,0.27,
+110,microsoft/Phi-3-mini-4k-instruct,1071,,microsoft/Phi-3-mini-4k-instruct,phi3_mini_4k,0.55,0.55,0.14,0.33,0.43,0.4,
+111,Qwen1.5-7B-Chat,1070,2024-02-04,Qwen/Qwen1.5-7B-Chat,qwen1_5_7b,0.44,0.45,0.0,0.3,0.38,0.3,61.0
+112,GPT-3.5-Turbo-1106,1068,2023-11-06,,,,,,,,,
+113,meta-llama/Llama-2-13b-chat-hf,1063,2023-07-18,meta-llama/Llama-2-13b-chat-hf,llama2_13b,0.4,0.33,0.01,0.23,0.4,0.19,
+114,upstage/SOLAR-10.7B-Instruct-v1.0,1062,2023-12-13,upstage/SOLAR-10.7B-Instruct-v1.0,solar_10_7b,0.47,0.52,0.0,0.31,0.39,0.31,
+115,ehartford/dolphin-2.2.1-mistral-7b,1062,,,,,,,,,,
+116,WizardLM/WizardLM-13B-V1.2,1059,2023-07-25,WizardLMTeam/WizardLM-13B-V1.2,wizardlm_13b_v1_2,0.34,0.45,0.02,0.26,0.44,0.25,
+117,Meta-Llama-3.2-1b-Instruct,1053,2024-09-24,meta-llama/Llama-3.2-1B-Instruct,llama3_2_1b,0.57,0.35,0.03,0.28,0.33,0.17,
+118,HuggingFaceH4/zephyr-7b-beta,1053,,HuggingFaceH4/zephyr-7b-beta,zephyr_7b_beta,0.5,0.43,0.02,0.29,0.39,0.28,
+119,mosaicml/mpt-30b-chat,1046,2023-06-22,,,,,,,,,
+120,pplx-7b-online,1045,2023-11-29,,,,,,,,,
+121,codellama/CodeLlama-34b-Instruct-hf,1043,2023-07-15,,,,,,,,,
+122,codellama/CodeLlama-70b-hf,1042,2024-01-29,,,,,,,,,
+123,lmsys/vicuna-13b-v1.5,1042,2023-10-23,,,,,,,,,
+124,HuggingFaceH4/zephyr-7b-alpha,1041,2023-10-14,HuggingFaceH4/zephyr-7b-alpha,zephyr_7b_alpha,0.52,0.46,0.02,0.3,0.39,0.28,
+125,google/gemma-7b-it,1037,2024-02-21,google/gemma-7b-it,gemma_7b,0.39,0.36,0.02,0.28,0.43,0.17,
+126,meta-llama/Llama-2-7b-chat-hf,1037,2023-07-18,meta-llama/Llama-2-7b-chat-hf,llama2_7b,0.4,0.31,0.01,0.25,0.37,0.17,
+127,Phi-3-Mini-128k-Instruct,1037,2024-04-23,microsoft/Phi-3-mini-128k-instruct,phi3_mini_128k,0.6,0.56,0.09,0.32,0.39,0.37,68.1
+128,Qwen/Qwen-14B-Chat,1035,2023-09-28,,,,,,,,,
+129,tiiuae/falcon-180B-chat,1034,,,,,,,,,,
+130,timdettmers/guanaco-33b-merged,1033,,,,,,,,,,
+131,google/gemma-1.1-2b-it,1021,2024-04-05,google/gemma-1.1-2b-it,gemma_1_1_2b,0.31,0.32,0.0,0.27,0.34,0.15,
+132,togethercomputer/StripedHyena-Nous-7B,1018,2023-12-08,,,,,,,,,
+133,allenai/OLMo-7B-Instruct,1015,,allenai/OLMo-7B-Instruct-hf,olmo_7b,0.35,0.37,0.01,0.27,0.38,0.18,
+134,mistralai/Mistral-7B-Instruct-v0.1,1008,2023-09-27,mistralai/Mistral-7B-Instruct-v0.1,mistral_7b_instruct,0.45,0.34,0.02,0.25,0.38,0.24,
+135,lmsys/vicuna-7b-v1.5,1005,2023-03-23,lmsys/vicuna-7b-v1.5,vicuna_7b_v1_5,0.24,0.39,0.01,0.26,0.42,0.21,
+136,PaLM-Chat-Bison-001,1004,2023-07-10,,,,,,,,,
+137,google/gemma-2b-it,990,2024-02-21,google/gemma-2b-it,gemma_2b,0.27,0.32,0.0,0.28,0.33,0.14,
+138,Qwen1.5-4B-Chat,988,2024-02-04,Qwen/Qwen1.5-4B-Chat,qwen1_5_4b,0.32,0.4,0.01,0.27,0.4,0.24,56.1
+139,Koala-13B,965,2023-03-15,,,,,,,,,44.7
+140,THUDM/chatglm3-6b,955,,,,,,,,,,
+141,nomic-ai/gpt4all-13b-snoozy,932,,,,,,,,,,
+142,mosaicml/mpt-7b-chat,928,2023-05-05,,,,,,,,,
+143,THUDM/chatglm2-6b,924,2023-06-25,,,,,,,,,
+144,BlinkDL/rwkv-4-raven,922,,,,,,,,,,
+145,Alpaca-13B,902,2023-03-31,,,,,,,,,48.1
+146,OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5,894,,,,,,,,,,
+147,THUDM/chatglm-6b,879,,,,,,,,,,
+148,lmsys/fastchat-t5-3b-v1.0,868,,,,,,,,,,
+149,stabilityai/stablelm-tuned-alpha-7b,840,,,,,,,,,,
+150,databricks/dolly-v2-12b,822,2023-06-30,databricks/dolly-v2-12b,dolly_v2_12b,0.24,0.33,0.01,0.24,0.37,0.11,
+151,LLaMA-13B,799,2023-02-24,,,,,,,,,47.0

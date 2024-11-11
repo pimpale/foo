@@ -364,27 +364,31 @@ chatbot_arena_scores = duckdb.read_csv("./data_models/cache_new/chatbot_arena.cs
 open_llm_leaderboard = duckdb.read_csv("./data_models/cache_new/open_llm_leaderboard.csv")
 organization_to_hf_id = duckdb.read_csv("./data_models/meta/organization_to_hf_id.csv")
 
-# # # scatter plot of chatbot arena scores
-# msrd = duckdb.sql(
-#     """
-#     SELECT 
-#         cas.organization as organization,
-#         cas.Model as model, 
-#         cas."Arena Score" as score,
-#         year(oll."Upload to Hub Date") + (1/365)*dayofyear(oll."Upload to Hub Date") as release_date
-#     FROM chatbot_arena_scores cas
-#     JOIN model_name_mapping mnm ON mnm.chatbot_arena_name = cas.Model
-#     JOIN open_llm_leaderboard oll ON oll.fullname = mnm.open_llm_name
-#     JOIN open_llm_release_dates olrd ON olrd.model = oll.fullname
-#     """
-# ).df()
+msrd2 = duckdb.sql(
+    """
+    SELECT
+        cas.organization as organization,
+        cas.Model as model,
+        cas."Arena Score" as Elo,
+        cast(cas."Knowledge Cutoff"[:4] as float) + cast(cas."Knowledge Cutoff"[6:] as float)/12.0 as release_date,
+        oll."IFEval Raw" as IFEval,
+        oll."BBH Raw" as BBH,
+        oll."Math Lvl 5 Raw" as MATH,
+        oll."GPQA Raw" as GPQA,
+        oll."MUSR Raw" as MUSR,
+        oll."MMLU-PRO Raw" as MMLUPro,
+    FROM chatbot_arena_scores cas
+    JOIN model_name_mapping mnm ON cas.Model = mnm.chatbot_arena_name
+    JOIN open_llm_leaderboard oll ON mnm.open_llm_name = oll.fullname
+    """
+).df()
 
 msrd = duckdb.sql(
     """
     SELECT
         cas.organization as organization,
         cas.Model as model,
-        cas."Arena Score" as score,
+        cas."Arena Score" as Elo,
         cast(cas."Knowledge Cutoff"[:4] as float) + cast(cas."Knowledge Cutoff"[6:] as float)/12.0 as release_date,
         oll."IFEval Raw" as IFEval,
         oll."BBH Raw" as BBH,
@@ -402,3 +406,159 @@ msrd = duckdb.sql(
 
 
 
+def get_scaled_sigmoid_parameters_arena(
+    x_values: np.ndarray,
+    y_values: np.ndarray,
+    p0: tuple[
+        # slope
+        float,
+        # shift
+        float,
+        # scale
+        float,
+        # yoffset
+        float,
+    ],
+) -> tuple[float, float]:
+    assert len(x_values) == len(y_values)
+    popt, _ = curve_fit(
+        scaled_sigmoid,
+        x_values,
+        y_values,
+        p0=p0,
+        bounds=([0, 900, 0, 0], [0.5, 1200, 1, 1]),
+        maxfev=5000,
+    )
+    return popt
+
+
+def plot_with_sigmoids_arena(
+    ax: plt.Axes,
+    xlabel: str,
+    ylabel: str,
+    release_date_thresholds: list[tuple[float, str]],
+    p0: tuple[
+        # slope
+        float,
+        # shift
+        float,
+        # scale
+        float,
+        # yoffset
+        float,
+    ],
+    # error in (Release Date Thresholds)
+    error: np.ndarray,
+):
+    ax.set_title(f"{xlabel} vs {ylabel}")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+
+    xpoints_all = msrd[xlabel]
+    ypoints_all = msrd[ylabel]
+
+    xspace = np.linspace(min(xpoints_all), max(xpoints_all), 100)
+
+    for thresh, color in reversed(release_date_thresholds + [(2025.0, "red")]):
+        subset = msrd[
+            msrd["release_date"] < thresh
+        ]
+        ax.scatter(subset[xlabel], subset[ylabel], color=color)
+
+
+    for i, (release_date_thresh, color) in enumerate(release_date_thresholds):
+        subset = msrd[
+            msrd["release_date"] < release_date_thresh
+        ]
+        xpoints = subset[xlabel]
+        ypoints = subset[ylabel]
+
+        validation_subset = msrd[
+            (msrd["release_date"] >= release_date_thresh)
+            & (msrd["release_date"] < release_date_thresh + 1)
+        ]
+        xpoints_val = validation_subset[xlabel]
+        ypoints_val = validation_subset[ylabel]
+
+        scaled_sigmoid_params = get_scaled_sigmoid_parameters_arena(xpoints, ypoints, p0)
+        y_sigmoid = scaled_sigmoid(xspace, *scaled_sigmoid_params)
+
+        sigmoid_mse = np.mean(
+            (ypoints_all - scaled_sigmoid(xpoints_all, *scaled_sigmoid_params)) ** 2
+        )
+
+        sigmoid_mse_val = np.mean(
+            (ypoints_val - scaled_sigmoid(xpoints_val, *scaled_sigmoid_params)) ** 2
+        )
+
+        error[i] = sigmoid_mse_val
+
+        ax.plot(xspace, y_sigmoid, color=color, label=f"{release_date_thresh} sigmoid")
+        yloc = 0.95 - 0.05 * i
+        ax.text(
+            0.05,
+            yloc,
+            f"{release_date_thresh} MSE: {sigmoid_mse_val:.2e}",
+            transform=ax.transAxes,
+        )
+
+    ax.legend()
+
+
+
+
+benchmarks_arena = ["IFEval", "BBH", "MATH", "GPQA", "MUSR", "MMLUPro"]
+
+release_date_thresholds_arena = [
+    (2023.75, "green"),
+    (2024.0, "yellow"),
+    (2024.25, "orange"),
+]
+
+fig, ax = plt.subplots(
+    len(benchmarks_arena), 1, figsize=(7, len(benchmarks_arena) * 7)
+)  # 3 columns
+
+error_arena = np.zeros((len(benchmarks_arena), len(release_date_thresholds_arena)))
+
+
+for i, benchmark in enumerate(benchmarks_arena):
+    plot_with_sigmoids_arena(
+        ax[i],
+        "Elo",
+        benchmark,
+        release_date_thresholds_arena,
+        (0.25, 1000, 0.1, 0.25),
+        error_arena[i],
+    )
+
+#%%
+
+# Print the error matrix
+
+for i, benchmark in enumerate(benchmarks_arena):
+    print(f"Benchmark: {benchmark}")
+    for k, (release_date_thresh, color) in enumerate(release_date_thresholds_arena):
+        print(
+            f"Release Date Threshold: {release_date_thresh} Error: {error_arena[i, k]:.2e}"
+        
+        )
+    # print mean
+    print(f"Mean Error of {benchmark}: {np.mean(error_arena[i]):.2e}")
+    
+for k, (release_date_thresh, color) in enumerate(release_date_thresholds_arena):
+    print(f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error_arena[:, k]):.2e}")
+print()
+print(f"Mean Error of Elo: {np.mean(error_arena):.2e}")
+
+#%%
+fig, ax = plt.subplots(1, 1, figsize=(7, 7))
+
+plot_with_sigmoids_arena(
+    ax,
+    "Elo",
+    "IFEval",
+    release_date_thresholds_arena,
+    (0.25, 1000, 0.1, 0.25),
+    np.zeros(len(release_date_thresholds_arena)),
+)
