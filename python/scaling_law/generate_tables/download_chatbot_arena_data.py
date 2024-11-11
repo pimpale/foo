@@ -2,6 +2,7 @@
 from gradio_client import Client
 import pandas as pd
 import re
+from pathlib import Path
 
 client = Client("lmsys/chatbot-arena-leaderboard")
 result_tuple = client.predict(
@@ -17,7 +18,15 @@ def extract_a_tag_content(text: str) -> str|None:
     match = re.search(pattern, text)
     return match.group(1) if match else None
 
+def extract_huggingface_name(text: str):
+    pattern = r'href="https://huggingface\.co/(.*?)"'
+    match = re.search(pattern, text)
+    return match.group(1) if match else None
+
+
 # extract <a/> tag content
+df["Huggingface Name"] = df["Model"].apply(extract_huggingface_name)
 df["Model"] = df["Model"].apply(extract_a_tag_content)
 
-df.to_csv("./data_models/cache_new/chatbot_arena.csv", index=False)
+
+df.to_csv(Path(__file__).parent / "../data_models/cache_new/chatbot_arena.csv", index=False)
