@@ -1,5 +1,6 @@
 # %%
 
+import math
 import duckdb
 import pandas as pd
 import numpy as np
@@ -49,16 +50,35 @@ def opt_params(L_budget: float, p: ChinchillaParams) -> tuple[float, float]:
 
 base_llm_benchmark_eval = pd.read_csv("./data_models/meta/base_llm_benchmark_eval.csv")
 
-# add PC1- to the dataframe
-base_llm_benchmark_eval["PC-1"] = (
-    0.45 * base_llm_benchmark_eval["MMLU"]
-    + 0.34 * base_llm_benchmark_eval["ARC-C"]
-    + 0.38 * base_llm_benchmark_eval["HellaSwag"]
-    + 0.24 * base_llm_benchmark_eval["Winograd"]
-    + 0.08 * base_llm_benchmark_eval["TruthfulQA"]
-    + 0.55 * base_llm_benchmark_eval["GSM8K"]
-    + 0.21 * base_llm_benchmark_eval["XWinograd"]
-    + 0.35 * base_llm_benchmark_eval["HumanEval"]
+
+benchmarks = [
+    "MMLU",
+    "ARC-C",
+    "HellaSwag",
+    "Winograd",
+    "TruthfulQA",
+    "GSM8K",
+    "XWinograd",
+    "HumanEval",
+]
+benchmark_weights = [0.45, 0.34, 0.38, 0.24, 0.08, 0.55, 0.21, 0.35]
+benchmark_floor = [0.25, 0.2, 0.25, 0.5, 0.5, 0.0, 0.5, 0.0]
+
+PC1_EPS = 1e-6
+for floor, benchmark in zip(benchmark_floor, benchmarks):
+    base_llm_benchmark_eval[f"{benchmark}_floored"] = np.maximum(
+        (base_llm_benchmark_eval[benchmark] - floor) / (1 - floor),
+        PC1_EPS,
+    )
+
+def logit(x: np.ndarray) -> np.ndarray:
+    return np.log(x / (1 - x))
+
+for benchmark in benchmarks:
+    base_llm_benchmark_eval[f"{benchmark}_logit"] = logit(base_llm_benchmark_eval[f"{benchmark}_floored"])
+
+base_llm_benchmark_eval["PC-1"] = np.sum(
+    [base_llm_benchmark_eval[f"{benchmark}_logit"] * bf for benchmark, bf in zip(benchmarks, benchmark_weights)], axis=0
 )
 
 # add optimal params to the dataframe
@@ -238,7 +258,7 @@ families = duckdb.sql(
 ).fetchall()
 n_families = len(families)
 ncols = 3
-nrows = n_families // ncols + 1
+nrows = math.ceil(n_families / ncols)
 
 fig, ax = plt.subplots(nrows, ncols, figsize=(ncols * 5, nrows * 6))  # 3 columns
 
@@ -268,63 +288,11 @@ for i, family in enumerate(families):
     axs[i].set_xlabel("log10 FLOPs_opt (1E21)")
     axs[i].set_ylabel("PC-1")
     axs[i].scatter(xpoints, ypoints)
-    axs[i].plot(xspace, y_sigmoid, color="red", label="Sigmoid")
+    # axs[i].plot(xspace, y_sigmoid, color="red", label="Sigmoid")
     axs[i].plot(xspace, y_line, color="green", label="Linear")
-    axs[i].text(0.1, 0.9, f"Sigmoid MSE: {sigmoid_mse:.2e}", transform=axs[i].transAxes)
+    # axs[i].text(0.1, 0.9, f"Sigmoid MSE: {sigmoid_mse:.2e}", transform=axs[i].transAxes)
     axs[i].text(0.1, 0.8, f"Linear MSE: {linear_mse:.2e}", transform=axs[i].transAxes)
     axs[i].legend()
-
-# %%
-
-############################################
-# Plot each model family on the same graph
-############################################
-
-families = duckdb.sql(
-    """
-    SELECT "Model Family" 
-    FROM base_llm_benchmark_eval 
-    GROUP BY "Model Family" 
-    HAVING COUNT(*) >= 3
-    """
-).fetchall()
-
-fig, ax = plt.subplots(1, 1, figsize=(14, 14))  # 1 columns
-
-ax.set_title(f"FLOPs_opt vs PC-1")
-ax.set_xlabel("log10 FLOPs_opt (1E21)")
-ax.set_ylabel("PC-1")
-
-for i, family in enumerate(families):
-    family = family[0]
-    xpoints = np.log10(
-        base_llm_benchmark_eval[base_llm_benchmark_eval["Model Family"] == family][
-            "FLOPs_opt_Besiroglu (1E21)"
-        ]
-    )
-    ypoints = base_llm_benchmark_eval[
-        base_llm_benchmark_eval["Model Family"] == family
-    ]["PC-1"]
-    # Fit a sigmoid to the data
-    params = get_scaled_sigmoid_parameters(xpoints, ypoints, p0=(1, 0, 0, 0.555))
-    # Fit a line to the data
-    lparams = np.polyfit(xpoints, ypoints, 1)
-    # plot
-    xspace = np.linspace(xpoints.min(), xpoints.max(), 100)
-    y_sigmoid = scaled_sigmoid(xspace, *params)
-    y_line = np.polyval(lparams, xspace)
-    # compute MSE
-    sigmoid_mse = np.mean((ypoints - scaled_sigmoid(xpoints, *params)) ** 2)
-    linear_mse = np.mean((ypoints - np.polyval(lparams, xpoints)) ** 2)
-
-    ax.scatter(xpoints, ypoints, marker=utils.plot_markers.markers[i], label=family)
-    ax.plot(xspace, y_sigmoid, color="red", label="Sigmoid")
-    # ax.plot(xspace, y_line, color="green", label="Linear")
-    # ax.text(0.1, 0.9, f"Sigmoid MSE: {sigmoid_mse:.2e}", transform=axs[i].transAxes)
-    # ax.text(0.1, 0.8, f"Linear MSE: {linear_mse:.2e}", transform=axs[i].transAxes)
-
-ax.legend()
-
 
 # %%
 
@@ -345,7 +313,7 @@ families_release_dates = duckdb.sql(
     """
 ).fetchall()
 
-families, release_dates = zip(*families_release_dates) 
+families, release_dates = zip(*families_release_dates)
 
 fig, ax = plt.subplots(1, 1, figsize=(14, 14))  # 1 columns
 
@@ -353,7 +321,7 @@ ax.set_title(f"FLOPs_opt vs PC-1")
 ax.set_xlabel("log10 FLOPs_opt (1E21)")
 ax.set_ylabel("PC-1")
 norm = mcolors.Normalize(vmin=min(release_dates), vmax=max(release_dates))
-cmap = plt.get_cmap('viridis')
+cmap = plt.get_cmap("viridis")
 fig.colorbar(plt.cm.ScalarMappable(cmap=cmap, norm=norm), ax=ax, label="Release Date")
 
 linfit_release_dates = []
@@ -379,13 +347,11 @@ for i, (family, release_date) in enumerate(families_release_dates):
     if lparams[0] < 0:
         continue
 
-    
     # add the line fit to the list
     linfit_release_dates.append(release_date)
     linfit_yintercepts.append(lparams[1])
     linfit_slopes.append(lparams[0])
-    
-    
+
     # plot
     xspace = np.linspace(xpoints.min(), xpoints.max(), 100)
     y_sigmoid = scaled_sigmoid(xspace, *params)
@@ -409,11 +375,11 @@ ax[0].set_xlabel("Release Date")
 ax[0].set_ylabel("Slope")
 ax[0].scatter(linfit_release_dates, linfit_slopes)
 
-#fit line
+# fit line
 x = np.array(linfit_release_dates)
 y = np.array(linfit_slopes)
 m, b = np.polyfit(x, y, 1)
-ax[0].plot(x, m*x + b, label=f"y = {m:.2f}x + {b:.2f}")
+ax[0].plot(x, m * x + b, label=f"y = {m:.2f}x + {b:.2f}")
 ax[0].legend()
 
 
@@ -422,22 +388,32 @@ ax[1].set_xlabel("Release Date")
 ax[1].set_ylabel("Y-intercept")
 ax[1].scatter(linfit_release_dates, linfit_yintercepts)
 
-#fit line
+# fit line
 x = np.array(linfit_release_dates)
 y = np.array(linfit_yintercepts)
 m, b = np.polyfit(x, y, 1)
-ax[1].plot(x, m*x + b, label=f"y = {m:.2f}x + {b:.2f}")
+ax[1].plot(x, m * x + b, label=f"y = {m:.2f}x + {b:.2f}")
 ax[1].legend()
+
 
 # %%
 
 # Plot success rates vs Scaled Flop on all benchmarks
-benchmarks = ['MMLU', 'ARC-C', 'HellaSwag', 'Winograd', 'TruthfulQA', 'GSM8K', 'XWinograd', 'HumanEval']
+benchmarks = [
+    "MMLU",
+    "ARC-C",
+    "HellaSwag",
+    "Winograd",
+    "TruthfulQA",
+    "GSM8K",
+    "XWinograd",
+    "HumanEval",
+]
 
 fig, ax = plt.subplots(1, 1, figsize=(14, 14))  # 1 columns
 for i, benchmark in enumerate(benchmarks):
     xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = base_llm_benchmark_eval[benchmark]
+    ypoints = base_llm_benchmark_eval[f"{benchmark}_logit"]
     # Fit a sigmoid to the data
     params = get_scaled_sigmoid_parameters(xpoints, ypoints, p0=(1, 0, 0, 0.555))
     # plot
@@ -450,7 +426,12 @@ for i, benchmark in enumerate(benchmarks):
     ax.set_ylabel(f"{benchmark}")
     ax.scatter(xpoints, ypoints, label=benchmark)
     ax.plot(xspace, y_sigmoid, color="red")
-    ax.text(0.1, 0.9-0.05*i, f"{benchmark} MSE: {sigmoid_mse:.2e}", transform=ax.transAxes)
+    ax.text(
+        0.1,
+        0.9 - 0.05 * i,
+        f"{benchmark} MSE: {sigmoid_mse:.2e}",
+        transform=ax.transAxes,
+    )
     print("min score", benchmark, base_llm_benchmark_eval[benchmark].min())
-    
+
 ax.legend()
