@@ -69,13 +69,6 @@
         "food": null,
         "snow": null
     },
-    "preposition": {
-        "in": null,
-        "on": null,
-        "at": null,
-        "to": null,
-        "from": null
-    },
     "not": {
         "not": null
     },

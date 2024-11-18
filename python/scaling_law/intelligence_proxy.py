@@ -72,30 +72,60 @@ base_llm_benchmark_eval = duckdb.sql(
     """
 ).df()
 
-pc1_components = [
-    ("MMLU", 0.45),
-    ("ARC-C", 0.34),
-    ("HellaSwag", 0.38),
-    ("Winograd", 0.24),
-    ("TruthfulQA", 0.08),
-    ("GSM8K", 0.55),
-    ("XWinograd", 0.21),
-    ("HumanEval", 0.35),
+benchmarks = [
+    "MMLU",
+    "ARC-C",
+    "HellaSwag",
+    "Winograd",
+    "TruthfulQA",
+    "GSM8K",
+    "XWinograd",
+    "HumanEval",
 ]
+benchmark_weights = [0.45, 0.34, 0.38, 0.24, 0.08, 0.55, 0.21, 0.35]
+benchmark_floor = [0.25, 0.2, 0.25, 0.5, 0.5, 0.0, 0.5, 0.0]
 
-# add PC1- to the dataframe
-base_llm_benchmark_eval["PC-1"] = sum(
-    base_llm_benchmark_eval[benchmark] * weight
-    for benchmark, weight in pc1_components
+PC1_EPS = 1e-6
+for floor, benchmark in zip(benchmark_floor, benchmarks):
+    base_llm_benchmark_eval[f"{benchmark}_floored"] = np.maximum(
+        (base_llm_benchmark_eval[benchmark] - floor) / (1 - floor),
+        PC1_EPS,
+    )
+
+
+def logit(x: np.ndarray) -> np.ndarray:
+    return np.log(x / (1 - x))
+
+
+for benchmark in benchmarks:
+    base_llm_benchmark_eval[f"{benchmark}_logit"] = logit(
+        base_llm_benchmark_eval[f"{benchmark}_floored"]
+    )
+
+base_llm_benchmark_eval["PC-1"] = np.sum(
+    [
+        base_llm_benchmark_eval[f"{benchmark}_logit"] * bf
+        for benchmark, bf in zip(benchmarks, benchmark_weights)
+    ],
+    axis=0,
 )
 
-for (benchmark, _) in pc1_components:
-    base_llm_benchmark_eval["PC-1 excluding " + benchmark] = sum(
-        base_llm_benchmark_eval[b] * weight
-        for b, weight in pc1_components
-        if b != benchmark
+
+for benchmark in benchmarks:
+    base_llm_benchmark_eval["PC-1 excluding " + benchmark] = np.sum(
+        [
+            base_llm_benchmark_eval[f"{b}_logit"] * bf
+            for b, bf in zip(benchmarks, benchmark_weights)
+            if b != benchmark
+        ],
+        axis=0,
     )
-        
+
+    # base_llm_benchmark_eval["PC-1 excluding " + benchmark] = sum(
+    #     base_llm_benchmark_eval[f"{benchmark}_floored"] * weight
+    #     for b, weight in zip(benchmarks, benchmark_weights)
+    #     if b != benchmark
+    # )
 
 
 # add optimal params to the dataframe
@@ -184,7 +214,9 @@ def get_scaled_sigmoid_parameters(
     )
     return popt
 
-#%%
+
+# %%
+
 
 def plot_with_sigmoids(
     ax: plt.Axes,
@@ -218,7 +250,6 @@ def plot_with_sigmoids(
             base_llm_benchmark_eval["release_date"] < thresh
         ]
         ax.scatter(subset[xlabel], subset[ylabel], color=color)
-
 
     for i, (release_date_thresh, color) in enumerate(release_date_thresholds):
         subset = base_llm_benchmark_eval[
@@ -258,17 +289,6 @@ def plot_with_sigmoids(
 
     ax.legend()
 
-
-benchmarks = [
-    "MMLU",
-    "ARC-C",
-    "HellaSwag",
-    "Winograd",
-    "TruthfulQA",
-    "GSM8K",
-    "XWinograd",
-    "HumanEval",
-]
 
 release_date_thresholds = [
     (2022.0, "green"),
@@ -310,7 +330,7 @@ for i, benchmark in enumerate(benchmarks):
         error[2, i],
     )
 
-#%%
+# %%
 fig, ax = plt.subplots(1, 1, figsize=(7, 7))
 plot_with_sigmoids(
     ax,
@@ -320,7 +340,7 @@ plot_with_sigmoids(
     (1, 0, 0.5, 0.25),
     np.zeros(len(release_date_thresholds)),
 )
-#%%
+# %%
 fig, ax = plt.subplots(1, 1, figsize=(7, 7))
 plot_with_sigmoids(
     ax,
@@ -331,7 +351,7 @@ plot_with_sigmoids(
     np.zeros(len(release_date_thresholds)),
 )
 
-#%%
+# %%
 
 # print the error matrix
 for i, proxy in enumerate(["FLOPs", "FLOPs_opt_Besiroglu", "PC-1"]):
@@ -342,17 +362,18 @@ for i, proxy in enumerate(["FLOPs", "FLOPs_opt_Besiroglu", "PC-1"]):
         for k, (release_date_thresh, color) in enumerate(release_date_thresholds):
             print(
                 f"Release Date Threshold: {release_date_thresh} Error: {error[i, j, k]:.2e}"
-            
             )
         # print mean
         print(f"Mean Error of {benchmark}: {np.mean(error[i, j]):.2e}")
-    
+
     # print means for each release date threshold
     for k, (release_date_thresh, color) in enumerate(release_date_thresholds):
-        print(f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error[i, :, k]):.2e}")
+        print(
+            f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error[i, :, k]):.2e}"
+        )
     print()
-    
-#%%
+
+# %%
 
 ############################
 # Chatbot Arena Elo
@@ -361,7 +382,9 @@ for i, proxy in enumerate(["FLOPs", "FLOPs_opt_Besiroglu", "PC-1"]):
 
 model_name_mapping = duckdb.read_csv("./data_models/meta/model_name_mapping.csv")
 chatbot_arena_scores = duckdb.read_csv("./data_models/cache_new/chatbot_arena.csv")
-open_llm_leaderboard = duckdb.read_csv("./data_models/cache_new/open_llm_leaderboard.csv")
+open_llm_leaderboard = duckdb.read_csv(
+    "./data_models/cache_new/open_llm_leaderboard.csv"
+)
 organization_to_hf_id = duckdb.read_csv("./data_models/meta/organization_to_hf_id.csv")
 
 msrd2 = duckdb.sql(
@@ -403,7 +426,6 @@ msrd = duckdb.sql(
         or lower(oll.fullname) = concat(oth.hf_id , '/', replace(lower(cas.model), '.', '_'))
     """
 ).df()
-
 
 
 def get_scaled_sigmoid_parameters_arena(
@@ -460,16 +482,11 @@ def plot_with_sigmoids_arena(
     xspace = np.linspace(min(xpoints_all), max(xpoints_all), 100)
 
     for thresh, color in reversed(release_date_thresholds + [(2025.0, "red")]):
-        subset = msrd[
-            msrd["release_date"] < thresh
-        ]
+        subset = msrd[msrd["release_date"] < thresh]
         ax.scatter(subset[xlabel], subset[ylabel], color=color)
 
-
     for i, (release_date_thresh, color) in enumerate(release_date_thresholds):
-        subset = msrd[
-            msrd["release_date"] < release_date_thresh
-        ]
+        subset = msrd[msrd["release_date"] < release_date_thresh]
         xpoints = subset[xlabel]
         ypoints = subset[ylabel]
 
@@ -480,7 +497,9 @@ def plot_with_sigmoids_arena(
         xpoints_val = validation_subset[xlabel]
         ypoints_val = validation_subset[ylabel]
 
-        scaled_sigmoid_params = get_scaled_sigmoid_parameters_arena(xpoints, ypoints, p0)
+        scaled_sigmoid_params = get_scaled_sigmoid_parameters_arena(
+            xpoints, ypoints, p0
+        )
         y_sigmoid = scaled_sigmoid(xspace, *scaled_sigmoid_params)
 
         sigmoid_mse = np.mean(
@@ -503,8 +522,6 @@ def plot_with_sigmoids_arena(
         )
 
     ax.legend()
-
-
 
 
 benchmarks_arena = ["IFEval", "BBH", "MATH", "GPQA", "MUSR", "MMLUPro"]
@@ -532,7 +549,7 @@ for i, benchmark in enumerate(benchmarks_arena):
         error_arena[i],
     )
 
-#%%
+# %%
 
 # Print the error matrix
 
@@ -541,17 +558,18 @@ for i, benchmark in enumerate(benchmarks_arena):
     for k, (release_date_thresh, color) in enumerate(release_date_thresholds_arena):
         print(
             f"Release Date Threshold: {release_date_thresh} Error: {error_arena[i, k]:.2e}"
-        
         )
     # print mean
     print(f"Mean Error of {benchmark}: {np.mean(error_arena[i]):.2e}")
-    
+
 for k, (release_date_thresh, color) in enumerate(release_date_thresholds_arena):
-    print(f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error_arena[:, k]):.2e}")
+    print(
+        f"Mean Error for Release Date Threshold {release_date_thresh}: {np.mean(error_arena[:, k]):.2e}"
+    )
 print()
 print(f"Mean Error of Elo: {np.mean(error_arena):.2e}")
 
-#%%
+# %%
 fig, ax = plt.subplots(1, 1, figsize=(7, 7))
 
 plot_with_sigmoids_arena(
