@@ -93,212 +93,23 @@ base_llm_benchmark_eval["log10 FLOPs_opt_Besiroglu (1E21)"] = np.log10(
     base_llm_benchmark_eval["FLOPs_opt_Besiroglu (1E21)"]
 )
 
-
-
-PC1_EPS = 1e-6
-class AdjObsScalingLawPredictor(nn.Module):
-    def __init__(
-        self,
-        benchmarks: list[str],
-        benchmark_floor: list[float],
-        model_scores: list[list[float]],
-    ):
-        super().__init__()
-        B = len(benchmarks)
-        self.benchmarks = benchmarks
-        # in B
-        self.register_buffer(
-            "benchmark_floor", torch.tensor(benchmark_floor, dtype=torch.float32)
-        )
-        self.benchmark_ceil_raw = nn.Parameter(torch.tensor([1.0] * B, dtype=torch.float32))
-
-        # in M x B
-        self.register_buffer(
-            "model_scores", torch.tensor(model_scores, dtype=torch.float32).T
-        )
-
-        # in B
-        self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
-        self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
-        self.beta = nn.Parameter(torch.ones(B, dtype=torch.float32))
-
-    @property
-    def benchmark_ceil(self) -> torch.Tensor:
-        min_ceil = torch.max(self.model_scores, dim=0).values + PC1_EPS
-        return (1-min_ceil)*torch.sigmoid(self.benchmark_ceil_raw) + min_ceil 
-
-    @property
-    def logit_scores(self) -> torch.Tensor:
-        score_norm = (self.model_scores - self.benchmark_floor) / ((self.benchmark_ceil-self.benchmark_floor))
-        score_norm_floored = torch.clamp(score_norm, PC1_EPS, 1 - PC1_EPS)
-        return torch.log(score_norm_floored / (1 - score_norm_floored))
-
-    @property
-    def pca_benchmark_weights(self) -> torch.Tensor:
-        # perform PCA and get the first component, return it
-        # logit_scores: M x B
-        # benchmark_weights: B x 1
-        U, S, V = torch.pca_lowrank(self.logit_scores)
-        return -V[:, 0]
-
-    def predict_capability_scores(self, logit_scores: torch.Tensor) -> torch.Tensor:
-        # logit_scores: M x B
-        # benchmark_weights: B x 1
-        # benchmark_weights = self.get_benchmark_weights(logit_scores).unsqueeze(1)
-        benchmark_weights = self.benchmark_weights.unsqueeze(1)
-        # M x 1
-        capability_score = logit_scores @ benchmark_weights
-        return capability_score.squeeze(1)
-
-    def predict_benchmark_logit_scores(
-        self, capability_scores: torch.Tensor
-    ) -> torch.Tensor:
-        # capability_scores: M x 1
-        capability_scores = capability_scores.unsqueeze(1)
-        # beta = 1 x B
-        beta = self.beta.unsqueeze(0)
-        # M x B
-        predicted_logit_scores = capability_scores @ beta + self.alpha
-        return predicted_logit_scores
-
-    def predict_benchmark_scores(
-        self, benchmark_logit_scores: torch.Tensor
-    ) -> torch.Tensor:
-        # in M x B
-        return (self.benchmark_ceil-self.benchmark_floor) * torch.sigmoid(benchmark_logit_scores) + self.benchmark_floor
-
-
-    # loss due to the points that fall below the floor
-    def intrinsic_loss(self) -> torch.Tensor:
-        model_scores_floored = torch.max(self.model_scores, self.benchmark_floor)
-        return F.mse_loss(self.model_scores, model_scores_floored)
-
-    # compute loss
-    def forward(self) -> torch.Tensor:
-        logit_scores = self.logit_scores
-        capability_scores = self.predict_capability_scores(logit_scores)
-        benchmark_logit_scores = self.predict_benchmark_logit_scores(capability_scores)
-        pred_benchmark_scores = self.predict_benchmark_scores(benchmark_logit_scores)
-        return F.mse_loss(self.model_scores, pred_benchmark_scores)
-
-
-
-benchmarks = [
-    "MMLU",
-    "ARC-C",
-    "HellaSwag",
-    "Winograd",
-    "TruthfulQA",
-    "GSM8K",
-    "XWinograd",
-    "HumanEval",
+benchmark_data = [
+    ("MMLU", 0.25),
+    ("ARC-C", 0.2),
+    ("HellaSwag", 0.25),
+    ("Winograd", 0.5),
+    # ("TruthfulQA", 0.4),
+    ("GSM8K", 0.0),
+    ("XWinograd", 0.5),
+    ("HumanEval", 0.0),
 ]
-benchmark_floor = [0.25, 0.2, 0.25, 0.5, 0.5, 0.0, 0.5, 0.0]
+
+benchmarks, benchmark_floor = zip(*benchmark_data)
 
 model_scores = [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchmarks]
 
-model = AdjObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
 
-optimizer = optim.Adam(model.parameters(), lr=1e-2)
-for i in range(2000):
-    optimizer.zero_grad()
-    l = model.forward()
-    l.backward()
-    optimizer.step()
-    if i % 100 == 0:
-        print(l.item())
-    
-# %%
-
-fig, ax = plt.subplots(
-    len(benchmarks), 4, figsize=(20, len(benchmarks) * 5)
-)  # 1 columns
-for i, benchmark in enumerate(benchmarks):
-    xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = (
-        model.predict_benchmark_scores(
-            model.predict_benchmark_logit_scores(
-                model.predict_capability_scores(model.logit_scores)
-            )
-        )
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = model.model_scores.T[i].detach().numpy()
-    xspace = np.linspace(xpoints.min(), xpoints.max(), 100)
-    ax[i, 0].set_title(f"{benchmark} vs FLOPs")
-    ax[i, 0].set_xlabel("log10 FLOPs (1E21)")
-    ax[i, 0].set_ylabel(f"{benchmark}")
-    ax[i, 0].scatter(xpoints, ypoints, label=benchmark)
-    ax[i, 0].scatter(xpoints, ypoints_2, label=benchmark + " (observed)", alpha=0.5)
-    # ax.plot(xspace, y_sigmoid, color="red")
-    ax[i, 0].legend()
-
-    # now plot in flop x-space and logit y-space
-    xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = (
-        model.predict_benchmark_logit_scores(
-            model.predict_capability_scores(model.logit_scores)
-        )
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = model.logit_scores.T[i].detach().numpy()
-    ax[i, 1].set_title(f"{benchmark} vs FLOPs")
-    ax[i, 1].set_xlabel("log10 FLOPs (1E21)")
-    ax[i, 1].set_ylabel(f"{benchmark} logit")
-    ax[i, 1].scatter(xpoints, ypoints, label=benchmark)
-    ax[i, 1].scatter(xpoints, ypoints_2, label=benchmark + " (observed)", alpha=0.5)
-    # ax.plot(xspace, y_sigmoid, color="red")
-    ax[i, 1].legend()
-    
-    # now plot in capability x-space and benchmark y-space
-    xpoints = model.predict_capability_scores(model.logit_scores).detach().numpy()
-    ypoints = model.predict_benchmark_scores(
-        model.predict_benchmark_logit_scores(
-            model.predict_capability_scores(model.logit_scores)
-        )
-    ).T[i].detach().numpy()
-    ypoints_2 = model.model_scores.T[i].detach().numpy()
-    ax[i, 2].set_title(f"{benchmark} vs capability")
-    ax[i, 2].set_xlabel("Capability")
-    ax[i, 2].set_ylabel(f"{benchmark}")
-    ax[i, 2].scatter(xpoints, ypoints, label=benchmark)
-    ax[i, 2].scatter(xpoints, ypoints_2, label=benchmark + " (observed)", alpha=0.5)
-    # ax.plot(xspace, y_sigmoid, color="red")
-    ax[i, 2].legend()
-    
-    # now plot in capability x-space and logit y-space
-    xpoints = model.predict_capability_scores(model.logit_scores).detach().numpy()
-    ypoints = model.predict_benchmark_logit_scores(
-        model.predict_capability_scores(model.logit_scores)
-    ).T[i].detach().numpy()
-    ypoints_2 = model.logit_scores.T[i].detach().numpy()
-    ax[i, 3].set_title(f"{benchmark} vs capability")
-    ax[i, 3].set_xlabel("Capability")
-    ax[i, 3].set_ylabel(f"{benchmark} logit")
-    ax[i, 3].scatter(xpoints, ypoints, label=benchmark)
-    ax[i, 3].scatter(xpoints, ypoints_2, label=benchmark + " (observed)", alpha=0.5)
-    # ax.plot(xspace, y_sigmoid, color="red")
-    ax[i, 3].legend()
-
-plt.tight_layout()
-
-# %%
-
-# Plot flops vs capability
-fig, ax = plt.subplots(1, 1, figsize=(20, 10))
-
-xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-ypoints = model.predict_capability_scores(model.logit_scores).detach().numpy()
-ax.set_title("Capability vs FLOPs")
-ax.set_xlabel("log10 FLOPs (1E21)")
-ax.set_ylabel("Capability")
-ax.scatter(xpoints, ypoints)
-
-# %%
+PC1_EPS = 1e-4
 class AdjObsScalingLawPredictor(nn.Module):
     def __init__(
         self,
@@ -313,7 +124,9 @@ class AdjObsScalingLawPredictor(nn.Module):
         self.register_buffer(
             "benchmark_floor", torch.tensor(benchmark_floor, dtype=torch.float32)
         )
-        self.benchmark_ceil_raw = nn.Parameter(torch.tensor([1.0] * B, dtype=torch.float32))
+        self.benchmark_ceil_raw = nn.Parameter(
+            torch.tensor([1.0] * B, dtype=torch.float32)
+        )
 
         # in M x B
         self.register_buffer(
@@ -328,11 +141,13 @@ class AdjObsScalingLawPredictor(nn.Module):
     @property
     def benchmark_ceil(self) -> torch.Tensor:
         min_ceil = torch.max(self.model_scores, dim=0).values + PC1_EPS
-        return (1-min_ceil)*torch.sigmoid(self.benchmark_ceil_raw) + min_ceil 
+        return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
 
     @property
     def logit_scores(self) -> torch.Tensor:
-        score_norm = (self.model_scores - self.benchmark_floor) / ((self.benchmark_ceil-self.benchmark_floor))
+        score_norm = (self.model_scores - self.benchmark_floor) / (
+            (self.benchmark_ceil - self.benchmark_floor)
+        )
         score_norm_floored = torch.clamp(score_norm, PC1_EPS, 1 - PC1_EPS)
         return torch.log(score_norm_floored / (1 - score_norm_floored))
 
@@ -368,8 +183,9 @@ class AdjObsScalingLawPredictor(nn.Module):
         self, benchmark_logit_scores: torch.Tensor
     ) -> torch.Tensor:
         # in M x B
-        return (self.benchmark_ceil-self.benchmark_floor) * torch.sigmoid(benchmark_logit_scores) + self.benchmark_floor
-
+        return (self.benchmark_ceil - self.benchmark_floor) * torch.sigmoid(
+            benchmark_logit_scores
+        ) + self.benchmark_floor
 
     # loss due to the points that fall below the floor
     def intrinsic_loss(self) -> torch.Tensor:
@@ -386,3 +202,64 @@ class AdjObsScalingLawPredictor(nn.Module):
 
 
 
+class ObsScalingLawPredictor(nn.Module):
+    def __init__(
+        self,
+        benchmarks: list[str],
+        model_scores: list[list[float]],
+    ):
+        super().__init__()
+        B = len(benchmarks)
+        self.benchmarks = benchmarks
+
+        # in M x B
+        self.register_buffer(
+            "model_scores", torch.tensor(model_scores, dtype=torch.float32).T
+        )
+
+        # in B
+        self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
+        self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.ones(B, dtype=torch.float32))
+
+    @property
+    def benchmark_ceil(self) -> torch.Tensor:
+        min_ceil = torch.max(self.model_scores, dim=0).values + PC1_EPS
+        return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
+
+    @property
+    def pca_benchmark_weights(self) -> torch.Tensor:
+        # perform PCA and get the first component, return it
+        # logit_scores: M x B
+        # benchmark_weights: B x 1
+        U, S, V = torch.pca_lowrank(self.model_scores)
+        # gamma in B x 1
+        return -V[:, 0]
+
+    def predict_capability_scores(self) -> torch.Tensor:
+        # benchmark_weights: B x 1
+        benchmark_weights = self.benchmark_weights.unsqueeze(1)
+        # benchmark_weights = self.benchmark_weights.unsqueeze(1)
+        # M x 1
+        capability_score = self.model_scores @ benchmark_weights
+        return capability_score.squeeze(1)
+
+    def predict_benchmark_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
+        # capability_scores: M x 1
+        capability_scores = capability_scores.unsqueeze(1)
+        # beta = 1 x B
+        beta = self.beta.unsqueeze(0)
+        # M x B
+        predicted_logit_scores = capability_scores @ beta + self.alpha
+        return predicted_logit_scores
+
+    # compute loss
+    def forward(self) -> torch.Tensor:
+        capability_scores = self.predict_capability_scores()
+        pred_benchmark_scores = self.predict_benchmark_scores(capability_scores)
+        return F.mse_loss(self.model_scores, pred_benchmark_scores)
+
+
+# %%
+
+# Train AdjObs model and then create plot

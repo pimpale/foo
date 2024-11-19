@@ -8,7 +8,7 @@ import matplotlib.colors as mcolors
 from scipy.optimize import curve_fit
 from scipy.stats import lognorm
 from dataclasses import dataclass
-import utils.plot_markers
+import util_plot_markers
 
 
 # Define the Chinchilla loss function parameter set

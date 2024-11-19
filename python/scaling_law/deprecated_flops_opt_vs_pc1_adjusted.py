@@ -9,7 +9,7 @@ import matplotlib.colors as mcolors
 from scipy.optimize import curve_fit
 from scipy.stats import lognorm
 from dataclasses import dataclass
-import utils.plot_markers
+import util_plot_markers
 
 
 # Define the Chinchilla loss function parameter set
@@ -360,7 +360,7 @@ for i, (family, release_date) in enumerate(families_release_dates):
     sigmoid_mse = np.mean((ypoints - scaled_sigmoid(xpoints, *params)) ** 2)
     linear_mse = np.mean((ypoints - np.polyval(lparams, xpoints)) ** 2)
 
-    ax.scatter(xpoints, ypoints, marker=utils.plot_markers.markers[i], label=family)
+    ax.scatter(xpoints, ypoints, marker=util_plot_markers.markers[i], label=family)
     # ax.plot(xspace, y_sigmoid,  label="Sigmoid", color=cmap(norm(release_date)))
     ax.plot(xspace, y_line, label="Linear", color=cmap(norm(release_date)))
     # ax.text(0.1, 0.9, f"Sigmoid MSE: {sigmoid_mse:.2e}", transform=axs[i].transAxes)

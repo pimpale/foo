@@ -10,7 +10,7 @@ from scipy.optimize import curve_fit
 from scipy.stats import lognorm
 from ipywidgets import interact
 import ipywidgets as widgets
-from utils.plot_markers import markers
+from util_plot_markers import markers
 
 def sigmoid(x: np.ndarray, slope: float, shift: float) -> np.ndarray:
     return 1 / (1 + np.exp(-slope * (x - shift)))

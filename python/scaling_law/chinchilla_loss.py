@@ -1,7 +1,7 @@
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-import utils.plot_markers
+import util_plot_markers
 
 
 # Define the Chinchilla scaling law loss function
@@ -93,7 +93,7 @@ plt.plot(
 # plot known models
 visualized_loss_curves = []
 for i, (n, d, label) in enumerate(models):
-    marker = utils.plot_markers.markers_scrambled[i]
+    marker = util_plot_markers.markers_scrambled[i]
 
     l = loss(n, d)
     n_opt, d_opt = opt_params(l)

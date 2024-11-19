@@ -14,7 +14,7 @@ from scipy.optimize import curve_fit
 from scipy.stats import lognorm
 from ipywidgets import interact
 import ipywidgets as widgets
-from utils.plot_markers import markers
+from util_plot_markers import markers
 
 
 tasks = duckdb.read_csv("./tasks.csv")
