@@ -37,12 +37,12 @@ class LinearObsScalingLawPredictor(nn.Module):
         # gamma in B x 1
         return -V[:, 0]
 
-    def predict_capability_scores(self) -> torch.Tensor:
+    def predict_capability_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
         # benchmark_weights: B x 1
         benchmark_weights = self.benchmark_weights.unsqueeze(1)
         # benchmark_weights = self.benchmark_weights.unsqueeze(1)
         # M x 1
-        capability_score = self.model_scores @ benchmark_weights
+        capability_score = model_scores @ benchmark_weights
         return capability_score.squeeze(1)
 
     def predict_benchmark_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
@@ -56,7 +56,7 @@ class LinearObsScalingLawPredictor(nn.Module):
 
     # compute loss
     def forward(self) -> torch.Tensor:
-        capability_scores = self.predict_capability_scores()
+        capability_scores = self.predict_capability_scores(self.model_scores)
         pred_benchmark_scores = self.predict_benchmark_scores(capability_scores)
         return F.mse_loss(self.model_scores, pred_benchmark_scores)
 

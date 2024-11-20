@@ -118,7 +118,7 @@ logit_obs_model.fit(optim.Adam(logit_obs_model.parameters(), lr=1e-2))
 # %%
 
 fig, ax = plt.subplots(
-    len(benchmarks), 4, figsize=(20, len(benchmarks) * 5)
+    len(benchmarks), 4, figsize=(4*3, len(benchmarks) * 3)
 )  # 1 columns
 for i, benchmark in enumerate(benchmarks):
     xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
