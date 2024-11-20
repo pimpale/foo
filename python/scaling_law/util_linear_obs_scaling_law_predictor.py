@@ -2,11 +2,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from typing import override
+
+from util_obs_scaling_law_predictor import ObsScalingLawPredictor
 
 PC1_EPS = 1e-4
 
 
-class LinearObsScalingLawPredictor(nn.Module):
+class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
     def __init__(
         self,
         benchmarks: list[str],
@@ -38,7 +41,8 @@ class LinearObsScalingLawPredictor(nn.Module):
         # gamma in B x 1
         return -V[:, 0]
 
-    def predict_capability_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
+    @override
+    def predict_capability_scores_from_model_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
         # benchmark_weights: B x 1
         benchmark_weights = self.benchmark_weights.unsqueeze(1)
         # benchmark_weights = self.benchmark_weights.unsqueeze(1)
@@ -46,7 +50,8 @@ class LinearObsScalingLawPredictor(nn.Module):
         capability_score = model_scores @ benchmark_weights
         return capability_score.squeeze(1)
 
-    def predict_benchmark_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
+    @override
+    def predict_benchmark_scores_from_capability_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
         # capability_scores: M x 1
         capability_scores = capability_scores.unsqueeze(1)
         # beta = 1 x B
@@ -75,3 +80,4 @@ class LinearObsScalingLawPredictor(nn.Module):
             optimizer.step()
             if i % 500 == 0:
                 print(l.item())
+        self.eval()

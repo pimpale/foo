@@ -1,12 +1,15 @@
+from typing import override
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
+from util_obs_scaling_law_predictor import ObsScalingLawPredictor
+
 PC1_EPS = 1e-4
 
 
-class LogitObsScalingLawPredictor(nn.Module):
+class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
     def __init__(
         self,
         benchmarks: list[str],
@@ -53,6 +56,12 @@ class LogitObsScalingLawPredictor(nn.Module):
         capability_score = logit_scores @ benchmark_weights
         return capability_score.squeeze(1)
 
+    @override
+    def predict_capability_scores_from_model_scores(
+        self, model_scores: torch.Tensor
+    ) -> torch.Tensor:
+        return self.predict_capability_scores(self.predict_logit_scores(model_scores))
+
     def predict_benchmark_logit_scores(
         self, capability_scores: torch.Tensor
     ) -> torch.Tensor:
@@ -71,6 +80,14 @@ class LogitObsScalingLawPredictor(nn.Module):
         return (self.benchmark_ceil - self.benchmark_floor) * torch.sigmoid(
             benchmark_logit_scores
         ) + self.benchmark_floor
+
+    @override
+    def predict_benchmark_scores_from_capability_scores(
+        self, capability_scores: torch.Tensor
+    ) -> torch.Tensor:
+        return self.predict_benchmark_scores(
+            self.predict_benchmark_logit_scores(capability_scores)
+        )
 
     # loss due to the points that fall below the floor
     def intrinsic_loss(self) -> torch.Tensor:
@@ -96,3 +113,4 @@ class LogitObsScalingLawPredictor(nn.Module):
             optimizer.step()
             if i % 500 == 0:
                 print(l.item())
+        self.eval()

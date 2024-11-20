@@ -9,7 +9,8 @@ import torch.optim as optim
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
 
-from utiil_timeseries_backtesting import ExpandingWindowBacktestSplitter
+from util_obs_scaling_law_predictor import ScalingLaw
+from util_timeseries_backtesting import ExpandingWindowBacktestSplitter
 from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
 from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
 
@@ -107,16 +108,21 @@ benchmark_data = [
     ("XWinograd", 0.5),
     ("HumanEval", 0.0),
 ]
-benchmark_data_dict = {b: f for b, f in benchmark_data}
+benchmark_floor_dict = {b: f for b, f in benchmark_data}
+all_benchmarks = [b for b, _ in benchmark_data]
 
 
-def add_logit_model(train_df: pd.DataFrame, test_df: pd.DataFrame, benchmarks: list[str], key: str):
+def add_logit_model(
+    train_df: pd.DataFrame, test_df: pd.DataFrame, benchmarks: list[str], key: str
+) -> LogitObsScalingLawPredictor:
     """
     Trains a logit model with the following benchmarks, and inserts a new column
     """
-    benchmark_floor = [benchmark_data_dict[b] for b in benchmarks]
-    train_model_scores = [list(train_df[benchmark]) for benchmark in benchmarks]
-    test_model_scores = [list(test_df[benchmark]) for benchmark in benchmarks]
+    benchmark_floor = [benchmark_floor_dict[b] for b in benchmarks]
+    train_model_scores = torch.tensor(
+        train_df[benchmarks].values, dtype=torch.float32
+    ).T
+    test_model_scores = torch.tensor(test_df[benchmarks].values, dtype=torch.float32).T
 
     logit_obs_model = LogitObsScalingLawPredictor(
         benchmarks, benchmark_floor, train_model_scores
@@ -124,7 +130,9 @@ def add_logit_model(train_df: pd.DataFrame, test_df: pd.DataFrame, benchmarks: l
     logit_obs_model.fit()
 
     train_df[key] = (
-        logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
+        logit_obs_model.predict_capability_scores(
+            logit_obs_model.predict_logit_scores(train_model_scores)
+        )
         .detach()
         .numpy()
     )
@@ -136,44 +144,78 @@ def add_logit_model(train_df: pd.DataFrame, test_df: pd.DataFrame, benchmarks: l
         .numpy()
     )
 
+    return logit_obs_model
 
-def add_linear_model(df: pd.DataFrame, benchmarks: list[str], key: str):
+
+def add_linear_model(
+    train_df: pd.DataFrame, test_df: pd.DataFrame, benchmarks: list[str], key: str
+) -> LinearObsScalingLawPredictor:
     """
     Trains a linear model with the following benchmarks, and inserts a new column
     """
-    model_scores = [list(df[benchmark]) for benchmark in benchmarks]
+    train_model_scores = torch.tensor(
+        [list(train_df[benchmark]) for benchmark in benchmarks], dtype=torch.float32
+    ).T
 
-    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
+    test_model_scores = torch.tensor(
+        [list(test_df[benchmark]) for benchmark in benchmarks], dtype=torch.float32
+    ).T
+
+    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, train_model_scores)
     linear_obs_model.fit()
 
-    df[key] = (
-        linear_obs_model.predict_capability_scores(linear_obs_model.model_scores)
-        .detach()
-        .numpy()
+    train_df[key] = (
+        linear_obs_model.predict_capability_scores(train_model_scores).detach().numpy()
     )
+
+    test_df[key] = (
+        linear_obs_model.predict_capability_scores(test_model_scores).detach().numpy()
+    )
+
+    return linear_obs_model
 
 
 #####################################
 # Train and fit global linear and logit models of PC-1
 #####################################
 
-ewbs = ExpandingWindowBacktestSplitter(
-    min_train_size=10, test_size=10, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+ewbs_splits = list(
+    ExpandingWindowBacktestSplitter(
+        min_train_size=10, test_size=10, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+    ).split(base_llm_benchmark_eval)
 )
 
-for split in ewbs.split(base_llm_benchmark_eval):
-    
-    global_benchmark_list = ["MMLU", "ARC-C", "HellaSwag", "Winograd", "GSM8K", "XWinograd", "HumanEval"]
-    
-    train, test = split
-    add_linear_model(train, global_benchmark_list, "PC-1 linear")
-    add_logit_model(train, global_benchmark_list, "PC-1 logit")
+# create plot
+fig, ax = plt.subplots(
+    len(ewbs_splits),
+    len(all_benchmarks),
+    figsize=(4 * len(ewbs_splits), 4 * len(all_benchmarks)),
+)
 
-    # test the model
-    # evaluate the model
-    # save the model
+for train, test in ewbs_splits:
+    for excluded_benchmark in all_benchmarks:
+        benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
 
-    # plot the model
+        linear_model = add_linear_model(train, test, benchmark_list, "PC-1 linear")
+        logit_model = add_logit_model(train, test, benchmark_list, "PC-1 logit")
+
+        # predict the excluded benchmark
+        lin_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
+        lin_slaw.fit(
+            torch.tensor(train["PC-1 linear"].values, dtype=torch.float32),
+            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        )
+        
+        # compute error
+        lin_slaw.forward(torch.tensor(test["PC-1 linear"].values, dtype=torch.float32))
+        
+        # predict the excluded benchmark
+        logit_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
+        logit_slaw.fit(
+            torch.tensor(train["PC-1 logit"].values, dtype=torch.float32),
+            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        )
+
 
 #####################################
 # Train and fit family-specific linear models of PC-1
