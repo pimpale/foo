@@ -128,8 +128,11 @@ benchmark_data = [
 ]
 
 benchmarks, benchmark_floor = zip(*benchmark_data)
-model_scores = [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchmarks]
+benchmarks = list(benchmarks)
 
+model_scores = torch.tensor(
+    base_llm_benchmark_eval[benchmarks].values, dtype=torch.float32
+)
 
 ############################################
 # Calculate Logit Observational Capability Scores
@@ -139,7 +142,7 @@ logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model
 logit_obs_model.fit()
 
 base_llm_benchmark_eval["PC-1"] = (
-    logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
+    logit_obs_model.predict_capability_scores_from_model_scores(model_scores)
     .detach()
     .numpy()
 )
@@ -153,7 +156,7 @@ linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
 linear_obs_model.fit()
 
 base_llm_benchmark_eval["Linear PC-1"] = (
-    linear_obs_model.predict_capability_scores(linear_obs_model.model_scores)
+    linear_obs_model.predict_capability_scores_from_model_scores(model_scores)
     .detach()
     .numpy()
 )
@@ -582,7 +585,7 @@ for release_date in [2021.5, 2022.5, 2023.5, 2024.5]:
     )
 
     pred_linear_pc1 = (
-        linear_obs_model.predict_capability_scores(
+        linear_obs_model.predict_capability_scores_from_model_scores(
             torch.tensor(pred_benchmark_scores, dtype=torch.float32)
         )
         .detach()

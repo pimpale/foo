@@ -108,11 +108,11 @@ benchmark_data = [
 ]
 
 benchmarks, benchmark_floor = zip(*benchmark_data)
-
+benchmarks  = list(benchmarks)
 model_scores = torch.tensor(
-    [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchmarks],
+    base_llm_benchmark_eval[benchmarks].values,
     dtype=torch.float32,
-).T
+)
 
 logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
 logit_obs_model.fit()
@@ -194,8 +194,8 @@ fig, ax = plt.subplots(
 )  # 1 columns
 for i, benchmark in enumerate(benchmarks):
     train_model_scores = linear_obs_model.train_model_scores
-    capability_scores = linear_obs_model.predict_capability_scores(train_model_scores)
-    benchmark_scores = linear_obs_model.predict_benchmark_scores(capability_scores)
+    capability_scores = linear_obs_model.predict_capability_scores_from_model_scores(train_model_scores)
+    benchmark_scores = linear_obs_model.predict_benchmark_scores_from_capability_scores(capability_scores)
 
     xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
     ypoints = benchmark_scores.T[i].detach().numpy()

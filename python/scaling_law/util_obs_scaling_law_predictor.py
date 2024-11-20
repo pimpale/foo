@@ -32,9 +32,9 @@ class ScalingLaw(nn.Module):
     def __init__(self, floor: float):
         super().__init__()
         self.register_buffer("floor", torch.tensor(floor, dtype=torch.float32))
-        self.h = nn.Parameter(torch.Tensor(1))
-        self.alpha = nn.Parameter(torch.Tensor(0))
-        self.beta = nn.Parameter(torch.Tensor(1))
+        self.h = nn.Parameter(torch.tensor(1, dtype=torch.float32))
+        self.alpha = nn.Parameter(torch.tensor(0, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
 
     def forward(self, x):
         return self.h * torch.sigmoid(self.beta * x + self.alpha) + self.floor

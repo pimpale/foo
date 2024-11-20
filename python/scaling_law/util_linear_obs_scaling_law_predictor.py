@@ -62,8 +62,8 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
 
     # compute loss
     def forward(self, model_scores: torch.Tensor) -> torch.Tensor:
-        capability_scores = self.predict_capability_scores(model_scores)
-        return self.predict_benchmark_scores(capability_scores)
+        capability_scores = self.predict_capability_scores_from_model_scores(model_scores)
+        return self.predict_benchmark_scores_from_capability_scores(capability_scores)
 
     # compute loss
     def train_loss(self) -> torch.Tensor:
