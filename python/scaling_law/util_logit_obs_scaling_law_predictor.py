@@ -1,14 +1,17 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.optim as optim
 
 PC1_EPS = 1e-4
+
+
 class LogitObsScalingLawPredictor(nn.Module):
     def __init__(
         self,
         benchmarks: list[str],
         benchmark_floor: list[float],
-        model_scores: list[list[float]],
+        train_model_scores: torch.Tensor,
     ):
         super().__init__()
         B = len(benchmarks)
@@ -22,9 +25,7 @@ class LogitObsScalingLawPredictor(nn.Module):
         )
 
         # in M x B
-        self.register_buffer(
-            "model_scores", torch.tensor(model_scores, dtype=torch.float32).T
-        )
+        self.register_buffer("train_model_scores", train_model_scores)
 
         # in B
         self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
@@ -33,24 +34,15 @@ class LogitObsScalingLawPredictor(nn.Module):
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
-        min_ceil = torch.max(self.model_scores, dim=0).values + PC1_EPS
+        min_ceil = torch.max(self.train_model_scores, dim=0).values + PC1_EPS
         return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
 
-    @property
-    def logit_scores(self) -> torch.Tensor:
-        score_norm = (self.model_scores - self.benchmark_floor) / (
+    def predict_logit_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
+        score_norm = (model_scores - self.benchmark_floor) / (
             (self.benchmark_ceil - self.benchmark_floor)
         )
         score_norm_floored = torch.clamp(score_norm, PC1_EPS, 1 - PC1_EPS)
         return torch.log(score_norm_floored / (1 - score_norm_floored))
-
-    @property
-    def pca_benchmark_weights(self) -> torch.Tensor:
-        # perform PCA and get the first component, return it
-        # logit_scores: M x B
-        # benchmark_weights: B x 1
-        U, S, V = torch.pca_lowrank(self.logit_scores)
-        return -V[:, 0]
 
     def predict_capability_scores(self, logit_scores: torch.Tensor) -> torch.Tensor:
         # logit_scores: M x B
@@ -82,22 +74,25 @@ class LogitObsScalingLawPredictor(nn.Module):
 
     # loss due to the points that fall below the floor
     def intrinsic_loss(self) -> torch.Tensor:
-        model_scores_floored = torch.max(self.model_scores, self.benchmark_floor)
-        return F.mse_loss(self.model_scores, model_scores_floored)
+        model_scores_floored = torch.max(self.train_model_scores, self.benchmark_floor)
+        return F.mse_loss(self.train_model_scores, model_scores_floored)
 
-    # compute loss
-    def forward(self) -> torch.Tensor:
-        logit_scores = self.logit_scores
+    def forward(self, model_scores: torch.Tensor) -> torch.Tensor:
+        logit_scores = self.predict_logit_scores(model_scores)
         capability_scores = self.predict_capability_scores(logit_scores)
         benchmark_logit_scores = self.predict_benchmark_logit_scores(capability_scores)
-        pred_benchmark_scores = self.predict_benchmark_scores(benchmark_logit_scores)
-        return F.mse_loss(self.model_scores, pred_benchmark_scores)
+        return self.predict_benchmark_scores(benchmark_logit_scores)
 
-    def fit(self, optimizer):
-        for i in range(5000):
+    # compute loss
+    def train_loss(self) -> torch.Tensor:
+        return F.mse_loss(self.train_model_scores, self(self.train_model_scores))
+
+    def fit(self, epochs=5000):
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2)
+        for i in range(epochs):
             optimizer.zero_grad()
-            l = self.forward()
+            l = self.train_loss()
             l.backward()
             optimizer.step()
-            if i % 100 == 0:
+            if i % 500 == 0:
                 print(l.item())

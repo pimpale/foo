@@ -136,7 +136,7 @@ model_scores = [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchm
 ############################################
 
 logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
-logit_obs_model.fit(optim.Adam(logit_obs_model.parameters(), lr=1e-2))
+logit_obs_model.fit()
 
 base_llm_benchmark_eval["PC-1"] = (
     logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
@@ -150,10 +150,12 @@ base_llm_benchmark_eval["PC-1"] = (
 ############################################
 
 linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
-linear_obs_model.fit(optim.Adam(linear_obs_model.parameters(), lr=1e-2))
+linear_obs_model.fit()
 
 base_llm_benchmark_eval["Linear PC-1"] = (
-    linear_obs_model.predict_capability_scores(linear_obs_model.model_scores).detach().numpy()
+    linear_obs_model.predict_capability_scores(linear_obs_model.model_scores)
+    .detach()
+    .numpy()
 )
 
 # %%
@@ -235,8 +237,10 @@ ax[1].scatter(linfit_release_dates, linfit_yintercepts)
 # fit line
 x = np.array(linfit_release_dates)
 y = np.array(linfit_yintercepts)
-m, b = np.polyfit(x, y, 1)
-ax[1].plot(x, m * x + b, label=f"y = {m:.2f}x + {b:.2f}")
+algprog_m, algprog_b = np.polyfit(x, y, 1)
+ax[1].plot(
+    x, algprog_m * x + algprog_b, label=f"y = {algprog_m:.2f}x + {algprog_b:.2f}"
+)
 ax[1].legend()
 
 # %%
@@ -395,18 +399,10 @@ def expected_flops_opt(release_date: np.ndarray) -> np.ndarray:
     return flops_opt_vs_rd_m * release_date + flops_opt_vs_rd_b
 
 
-def expected_date_by_flops_opt(log10_flops_opt: np.ndarray) -> np.ndarray:
-    return (log10_flops_opt - flops_opt_vs_rd_b) / flops_opt_vs_rd_m
-
-
 def expected_pc1(log10_flops_opt: np.ndarray, release_date: np.ndarray) -> np.ndarray:
     dealgprog_pc1 = dealgprog_m * log10_flops_opt + dealgprog_b
-    algorithmic_progress_boost = m * release_date + b
+    algorithmic_progress_boost = algprog_m * release_date + algprog_b
     return dealgprog_pc1 + algorithmic_progress_boost
-
-
-def expected_date_by_pc1(pc1: np.ndarray) -> np.ndarray:
-    return (pc1 - dealgprog_b) / dealgprog_m
 
 
 fig, ax = plt.subplots(2, 1, figsize=(14, 14))  # 1 columns
@@ -585,10 +581,13 @@ for release_date in [2021.5, 2022.5, 2023.5, 2024.5]:
         .numpy()
     )
 
-    pred_linear_pc1 = linear_obs_model.predict_capability_scores(
-        torch.tensor(pred_benchmark_scores, dtype=torch.float32)
-    ).detach().numpy()
-
+    pred_linear_pc1 = (
+        linear_obs_model.predict_capability_scores(
+            torch.tensor(pred_benchmark_scores, dtype=torch.float32)
+        )
+        .detach()
+        .numpy()
+    )
 
     ax.plot(
         xspace,

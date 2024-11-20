@@ -1,22 +1,23 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.optim as optim
 
 PC1_EPS = 1e-4
+
+
 class LinearObsScalingLawPredictor(nn.Module):
     def __init__(
         self,
         benchmarks: list[str],
-        model_scores: list[list[float]],
+        train_model_scores: torch.Tensor,
     ):
         super().__init__()
         B = len(benchmarks)
         self.benchmarks = benchmarks
 
         # in M x B
-        self.register_buffer(
-            "model_scores", torch.tensor(model_scores, dtype=torch.float32).T
-        )
+        self.register_buffer("train_model_scores", train_model_scores)
 
         # in B
         self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
@@ -25,7 +26,7 @@ class LinearObsScalingLawPredictor(nn.Module):
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
-        min_ceil = torch.max(self.model_scores, dim=0).values + PC1_EPS
+        min_ceil = torch.max(self.train_model_scores, dim=0).values + PC1_EPS
         return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
 
     @property
@@ -33,7 +34,7 @@ class LinearObsScalingLawPredictor(nn.Module):
         # perform PCA and get the first component, return it
         # logit_scores: M x B
         # benchmark_weights: B x 1
-        U, S, V = torch.pca_lowrank(self.model_scores)
+        U, S, V = torch.pca_lowrank(self.train_model_scores)
         # gamma in B x 1
         return -V[:, 0]
 
@@ -55,16 +56,22 @@ class LinearObsScalingLawPredictor(nn.Module):
         return predicted_logit_scores
 
     # compute loss
-    def forward(self) -> torch.Tensor:
-        capability_scores = self.predict_capability_scores(self.model_scores)
-        pred_benchmark_scores = self.predict_benchmark_scores(capability_scores)
-        return F.mse_loss(self.model_scores, pred_benchmark_scores)
+    def forward(self, model_scores: torch.Tensor) -> torch.Tensor:
+        capability_scores = self.predict_capability_scores(model_scores)
+        return self.predict_benchmark_scores(capability_scores)
 
-    def fit(self, optimizer, epochs=1000):
-        for i in range(5000):
+    # compute loss
+    def train_loss(self) -> torch.Tensor:
+        return F.mse_loss(
+            self.train_model_scores, self.forward(self.train_model_scores)
+        )
+
+    def fit(self, epochs=5000):
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2)
+        for i in range(epochs):
             optimizer.zero_grad()
-            l = self.forward()
+            l = self.train_loss()
             l.backward()
             optimizer.step()
-            if i % 100 == 0:
+            if i % 500 == 0:
                 print(l.item())

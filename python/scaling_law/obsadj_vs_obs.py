@@ -109,30 +109,32 @@ benchmark_data = [
 
 benchmarks, benchmark_floor = zip(*benchmark_data)
 
-model_scores = [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchmarks]
+model_scores = torch.tensor(
+    [list(base_llm_benchmark_eval[benchmark]) for benchmark in benchmarks],
+    dtype=torch.float32,
+).T
 
 logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
-logit_obs_model.fit(optim.Adam(logit_obs_model.parameters(), lr=1e-2))
+logit_obs_model.fit()
 
 
 # %%
 
 fig, ax = plt.subplots(
-    len(benchmarks), 4, figsize=(4*3, len(benchmarks) * 3)
+    len(benchmarks), 4, figsize=(4 * 3, len(benchmarks) * 3)
 )  # 1 columns
 for i, benchmark in enumerate(benchmarks):
-    xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = (
-        logit_obs_model.predict_benchmark_scores(
-            logit_obs_model.predict_benchmark_logit_scores(
-                logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-            )
-        )
-        .T[i]
-        .detach()
-        .numpy()
+    train_model_scores = logit_obs_model.train_model_scores
+    logit_scores = logit_obs_model.predict_logit_scores(train_model_scores)
+    capability_scores = logit_obs_model.predict_capability_scores(logit_scores)
+    benchmark_logit_scores = logit_obs_model.predict_benchmark_logit_scores(
+        capability_scores
     )
-    ypoints_2 = logit_obs_model.model_scores.T[i].detach().numpy()
+    benchmark_scores = logit_obs_model.predict_benchmark_scores(benchmark_logit_scores)
+
+    xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
+    ypoints = benchmark_scores.T[i].detach().numpy()
+    ypoints_2 = train_model_scores.T[i].detach().numpy()
     xspace = np.linspace(xpoints.min(), xpoints.max(), 100)
     ax[i, 0].set_title(f"{benchmark} vs FLOPs")
     ax[i, 0].set_xlabel("log10 FLOPs (1E21)")
@@ -144,15 +146,8 @@ for i, benchmark in enumerate(benchmarks):
 
     # now plot in flop x-space and logit y-space
     xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = (
-        logit_obs_model.predict_benchmark_logit_scores(
-            logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-        )
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = logit_obs_model.logit_scores.T[i].detach().numpy()
+    ypoints = benchmark_logit_scores.T[i].detach().numpy()
+    ypoints_2 = logit_scores.T[i].detach().numpy()
     ax[i, 1].set_title(f"{benchmark} vs FLOPs")
     ax[i, 1].set_xlabel("log10 FLOPs (1E21)")
     ax[i, 1].set_ylabel(f"{benchmark} logit")
@@ -162,22 +157,9 @@ for i, benchmark in enumerate(benchmarks):
     ax[i, 1].legend()
 
     # now plot in capability x-space and benchmark y-space
-    xpoints = (
-        logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-        .detach()
-        .numpy()
-    )
-    ypoints = (
-        logit_obs_model.predict_benchmark_scores(
-            logit_obs_model.predict_benchmark_logit_scores(
-                logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-            )
-        )
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = logit_obs_model.model_scores.T[i].detach().numpy()
+    xpoints = capability_scores.detach().numpy()
+    ypoints = benchmark_scores.T[i].detach().numpy()
+    ypoints_2 = train_model_scores.T[i].detach().numpy()
     ax[i, 2].set_title(f"{benchmark} vs capability")
     ax[i, 2].set_xlabel("Capability")
     ax[i, 2].set_ylabel(f"{benchmark}")
@@ -187,20 +169,9 @@ for i, benchmark in enumerate(benchmarks):
     ax[i, 2].legend()
 
     # now plot in capability x-space and logit y-space
-    xpoints = (
-        logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-        .detach()
-        .numpy()
-    )
-    ypoints = (
-        logit_obs_model.predict_benchmark_logit_scores(
-            logit_obs_model.predict_capability_scores(logit_obs_model.logit_scores)
-        )
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = logit_obs_model.logit_scores.T[i].detach().numpy()
+    xpoints = capability_scores.detach().numpy()
+    ypoints = benchmark_logit_scores.T[i].detach().numpy()
+    ypoints_2 = logit_scores.T[i].detach().numpy()
     ax[i, 3].set_title(f"{benchmark} vs capability")
     ax[i, 3].set_xlabel("Capability")
     ax[i, 3].set_ylabel(f"{benchmark} logit")
@@ -214,7 +185,7 @@ plt.tight_layout()
 
 # %%
 linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
-linear_obs_model.fit(optim.Adam(linear_obs_model.parameters(), lr=1e-2))
+linear_obs_model.fit()
 
 # %%
 
@@ -222,14 +193,13 @@ fig, ax = plt.subplots(
     len(benchmarks), 2, figsize=(10, len(benchmarks) * 5)
 )  # 1 columns
 for i, benchmark in enumerate(benchmarks):
+    train_model_scores = linear_obs_model.train_model_scores
+    capability_scores = linear_obs_model.predict_capability_scores(train_model_scores)
+    benchmark_scores = linear_obs_model.predict_benchmark_scores(capability_scores)
+
     xpoints = np.log10(base_llm_benchmark_eval["FLOPs (1E21)"])
-    ypoints = (
-        linear_obs_model.predict_benchmark_scores(linear_obs_model.predict_capability_scores())
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = linear_obs_model.model_scores.T[i].detach().numpy()
+    ypoints = benchmark_scores.T[i].detach().numpy()
+    ypoints_2 = train_model_scores.T[i].detach().numpy()
     xspace = np.linspace(xpoints.min(), xpoints.max(), 100)
     ax[i, 0].set_title(f"{benchmark} vs FLOPs")
     ax[i, 0].set_xlabel("log10 FLOPs (1E21)")
@@ -240,14 +210,9 @@ for i, benchmark in enumerate(benchmarks):
     ax[i, 0].legend()
 
     # now plot in capability x-space and benchmark y-space
-    xpoints = linear_obs_model.predict_capability_scores().detach().numpy()
-    ypoints = (
-        linear_obs_model.predict_benchmark_scores(linear_obs_model.predict_capability_scores())
-        .T[i]
-        .detach()
-        .numpy()
-    )
-    ypoints_2 = linear_obs_model.model_scores.T[i].detach().numpy()
+    xpoints = capability_scores.detach().numpy()
+    ypoints = benchmark_scores.T[i].detach().numpy()
+    ypoints_2 = train_model_scores.T[i].detach().numpy()
     ax[i, 1].set_title(f"{benchmark} vs capability")
     ax[i, 1].set_xlabel("Capability")
     ax[i, 1].set_ylabel(f"{benchmark}")
