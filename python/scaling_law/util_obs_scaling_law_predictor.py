@@ -1,3 +1,4 @@
+import time
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -29,9 +30,16 @@ class ObsScalingLawPredictor(nn.Module):
 
 
 class ScalingLaw(nn.Module):
-    def __init__(self, floor: float):
+    def __init__(
+        self,
+        floor: float,
+        capability_scores: torch.Tensor,
+        benchmark_scores: torch.Tensor,
+    ):
         super().__init__()
         self.register_buffer("floor", torch.tensor(floor, dtype=torch.float32))
+        self.register_buffer("capability_scores", capability_scores)
+        self.register_buffer("benchmark_scores", benchmark_scores)
         self.h = nn.Parameter(torch.tensor(1, dtype=torch.float32))
         self.alpha = nn.Parameter(torch.tensor(0, dtype=torch.float32))
         self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
@@ -39,27 +47,22 @@ class ScalingLaw(nn.Module):
     def forward(self, x):
         return self.h * torch.sigmoid(self.beta * x + self.alpha) + self.floor
 
+    @torch.compile(fullgraph=True)
+    def train_loss(self):
+        return F.mse_loss(self(self.capability_scores), self.benchmark_scores)
+
     def fit(
         self,
-        # shape: M
-        capability_scores: torch.Tensor,
-        # shape: M
-        benchmark_scores: torch.Tensor,
         # how many epochs to train for
         epochs: int = 5000,
     ):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
-            l = F.mse_loss(
-                self.forward(capability_scores),
-                benchmark_scores,
-            )
+            l = self.train_loss()
             l.backward()
             optimizer.step()
-            if i % 500 == 0:
-                print(l.item())
         self.eval()

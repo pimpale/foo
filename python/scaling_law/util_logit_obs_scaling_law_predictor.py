@@ -19,12 +19,16 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         super().__init__()
         B = len(benchmarks)
         self.benchmarks = benchmarks
+
         # in B
         self.register_buffer(
             "benchmark_floor", torch.tensor(benchmark_floor, dtype=torch.float32)
         )
+
+        # note: We initialize with values that are likely to be close to the true values, but the model will learn them in training
+
         self.benchmark_ceil_raw = nn.Parameter(
-            torch.tensor([1.0] * B, dtype=torch.float32)
+            torch.full((B,), fill_value=-4, dtype=torch.float32)
         )
 
         # in M x B
@@ -33,7 +37,7 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         # in B
         self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
         self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
-        self.beta = nn.Parameter(torch.ones(B, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
@@ -101,16 +105,14 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         return self.predict_benchmark_scores(benchmark_logit_scores)
 
     # compute loss
+    @torch.compile(fullgraph=True)
     def train_loss(self) -> torch.Tensor:
         return F.mse_loss(self.train_model_scores, self(self.train_model_scores))
 
     def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
             l.backward()
             optimizer.step()
-            if i % 500 == 0:
-                print(l.item())
-        self.eval()

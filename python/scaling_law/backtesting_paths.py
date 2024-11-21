@@ -1,4 +1,5 @@
 # %%
+import time
 import duckdb
 import pandas as pd
 import numpy as np
@@ -8,9 +9,13 @@ import torch.nn.functional as F
 import torch.optim as optim
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 from util_obs_scaling_law_predictor import ScalingLaw
-from util_timeseries_backtesting import ExpandingWindowBacktestSplitter
+from util_timeseries_backtesting import (
+    ExpandingWindowBacktestSplitter,
+    RollingWindowBacktestSplitter,
+)
 from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
 from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
 
@@ -125,7 +130,9 @@ def add_logit_model(
     logit_obs_model = LogitObsScalingLawPredictor(
         benchmarks, benchmark_floor, train_model_scores
     )
+    t0 = time.time()
     logit_obs_model.fit()
+    print(f"Logit Training Time: {time.time() - t0:.2f} seconds")
 
     train_df[key] = (
         logit_obs_model.predict_capability_scores(
@@ -155,7 +162,9 @@ def add_linear_model(
     test_model_scores = torch.tensor(test_df[benchmarks].values, dtype=torch.float32)
 
     linear_obs_model = LinearObsScalingLawPredictor(benchmarks, train_model_scores)
+    t0 = time.time()
     linear_obs_model.fit()
+    print(f"Linear Training Time: {time.time() - t0:.2f} seconds")
 
     train_df[key] = (
         linear_obs_model.predict_capability_scores_from_model_scores(train_model_scores)
@@ -171,6 +180,8 @@ def add_linear_model(
 
     return linear_obs_model
 
+
+# %%
 
 #####################################
 # Train and fit global linear and logit models of PC-1
@@ -200,11 +211,16 @@ for i, (train, test) in enumerate(ewbs_splits):
         logit_model = add_logit_model(train, test, benchmark_list, "PC-1 logit")
 
         # predict the excluded benchmark
-        lin_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
-        lin_slaw.fit(
-            torch.tensor(train["PC-1 linear"].values, dtype=torch.float32),
-            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        lin_slaw = ScalingLaw(
+            floor=benchmark_floor_dict[excluded_benchmark],
+            capability_scores=torch.tensor(
+                train["PC-1 linear"].values, dtype=torch.float32
+            ),
+            benchmark_scores=torch.tensor(
+                train[excluded_benchmark].values, dtype=torch.float32
+            ),
         )
+        lin_slaw.fit()
 
         # compute error
         lin_slaw_err = F.mse_loss(
@@ -215,11 +231,16 @@ for i, (train, test) in enumerate(ewbs_splits):
         ).item()
 
         # predict the excluded benchmark
-        logit_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
-        logit_slaw.fit(
-            torch.tensor(train["PC-1 logit"].values, dtype=torch.float32),
-            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        logit_slaw = ScalingLaw(
+            floor=benchmark_floor_dict[excluded_benchmark],
+            capability_scores=torch.tensor(
+                train["PC-1 logit"].values, dtype=torch.float32
+            ),
+            benchmark_scores=torch.tensor(
+                train[excluded_benchmark].values, dtype=torch.float32
+            ),
         )
+        logit_slaw.fit()
 
         # compute error
         logit_slaw_err = F.mse_loss(
@@ -238,6 +259,45 @@ for i, (train, test) in enumerate(ewbs_splits):
         ewbs_logit_model_dict[(i, j)] = logit_model
         ewbs_logit_slaw_dict[(i, j)] = logit_slaw
         ewbs_logit_slaw_err_dict[(i, j)] = logit_slaw_err
+
+# %%
+
+# plot the distribution of betas
+fig, ax = plt.subplots(5, 1, figsize=(5, 14))
+logit_betas = []
+linear_betas = []
+logit_alphas = []
+linear_alphas = []
+logit_ceil_raws = []
+for i in range(len(ewbs_splits)):
+    for j, excluded_benchmark in enumerate(all_benchmarks):
+        logit_model = ewbs_logit_model_dict[(i, j)]
+        linear_model = ewbs_linear_model_dict[(i, j)]
+        logit_betas.extend(logit_model.beta.detach().numpy())
+        linear_betas.extend(linear_model.benchmark_weights.detach().numpy())
+        logit_alphas.extend(logit_model.alpha.detach().numpy())
+        linear_alphas.extend(linear_model.alpha.detach().numpy())
+        logit_ceil_raws.extend(logit_model.benchmark_ceil_raw.detach().numpy())
+
+ax[0].hist(logit_betas, bins=20, alpha=0.5, label="Logit Betas")
+ax[0].set_title("Logit Betas")
+ax[0].legend()
+
+ax[1].hist(linear_betas, bins=20, alpha=0.5, label="Linear Betas")
+ax[1].set_title("Linear Betas")
+ax[1].legend()
+
+ax[2].hist(logit_alphas, bins=20, alpha=0.5, label="Logit Alphas")
+ax[2].set_title("Logit Alphas")
+ax[2].legend()
+
+ax[3].hist(linear_alphas, bins=20, alpha=0.5, label="Linear Alphas")
+ax[3].set_title("Linear Alphas")
+ax[3].legend()
+
+ax[4].hist(logit_ceil_raws, bins=20, alpha=0.5, label="Logit Ceil Raw")
+ax[4].set_title("Logit Ceil Raw")
+ax[4].legend()
 
 # %%
 
@@ -327,18 +387,22 @@ for i in range(len(ewbs_splits)):
 
 
 # print the mean error
-err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+e_err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+e_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
 
 for i in range(len(ewbs_splits)):
     for j, excluded_benchmark in enumerate(all_benchmarks):
-        err_lin[i, j] = ewbs_lin_slaw_err_dict[(i, j)]
-        err_logit[i, j] = ewbs_logit_slaw_err_dict[(i, j)]
+        e_err_lin[i, j] = ewbs_lin_slaw_err_dict[(i, j)]
+        e_err_logit[i, j] = ewbs_logit_slaw_err_dict[(i, j)]
 
-print(f"Expanding Window Mean Linear Error: {err_lin.mean()}")
-print(f"Expanding Window Mean Logit Error: {err_logit.mean()}")
+print(f"Expanding Window Mean Linear Error: {e_err_lin.mean()}")
+print(f"Expanding Window Mean Logit Error: {e_err_logit.mean()}")
 
-print(f"Expanding Window Percent improvement: {100*(err_lin.mean() - err_logit.mean())/err_lin.mean()}")
+print(
+    f"Expanding Window Percent improvement: {100*(e_err_lin.mean() - e_err_logit.mean())/e_err_lin.mean()}"
+)
+
+# %%
 
 #####################################
 # Train and fit global linear and logit models of PC-1
@@ -346,8 +410,8 @@ print(f"Expanding Window Percent improvement: {100*(err_lin.mean() - err_logit.m
 #####################################
 
 rwbs_splits = list(
-    ExpandingWindowBacktestSplitter(
-        min_train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+    RollingWindowBacktestSplitter(
+        train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
     ).split(base_llm_benchmark_eval)
 )
 
@@ -367,12 +431,16 @@ for i, (train, test) in enumerate(rwbs_splits):
         linear_model = add_linear_model(train, test, benchmark_list, "PC-1 linear")
         logit_model = add_logit_model(train, test, benchmark_list, "PC-1 logit")
 
-        # predict the excluded benchmark
-        lin_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
-        lin_slaw.fit(
-            torch.tensor(train["PC-1 linear"].values, dtype=torch.float32),
-            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        lin_slaw = ScalingLaw(
+            floor=benchmark_floor_dict[excluded_benchmark],
+            capability_scores=torch.tensor(
+                train["PC-1 linear"].values, dtype=torch.float32
+            ),
+            benchmark_scores=torch.tensor(
+                train[excluded_benchmark].values, dtype=torch.float32
+            ),
         )
+        lin_slaw.fit()
 
         # compute error
         lin_slaw_err = F.mse_loss(
@@ -383,11 +451,16 @@ for i, (train, test) in enumerate(rwbs_splits):
         ).item()
 
         # predict the excluded benchmark
-        logit_slaw = ScalingLaw(floor=benchmark_floor_dict[excluded_benchmark])
-        logit_slaw.fit(
-            torch.tensor(train["PC-1 logit"].values, dtype=torch.float32),
-            torch.tensor(train[excluded_benchmark].values, dtype=torch.float32),
+        logit_slaw = ScalingLaw(
+            floor=benchmark_floor_dict[excluded_benchmark],
+            capability_scores=torch.tensor(
+                train["PC-1 logit"].values, dtype=torch.float32
+            ),
+            benchmark_scores=torch.tensor(
+                train[excluded_benchmark].values, dtype=torch.float32
+            ),
         )
+        logit_slaw.fit()
 
         # compute error
         logit_slaw_err = F.mse_loss(
@@ -496,18 +569,20 @@ for i in range(len(rwbs_splits)):
 
 
 # print the mean error
-err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+r_err_lin = np.zeros((len(rwbs_splits), len(all_benchmarks)))
+r_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
 
-for i in range(len(ewbs_splits)):
+for i in range(len(rwbs_splits)):
     for j, excluded_benchmark in enumerate(all_benchmarks):
-        err_lin[i, j] = ewbs_lin_slaw_err_dict[(i, j)]
-        err_logit[i, j] = ewbs_logit_slaw_err_dict[(i, j)]
+        r_err_lin[i, j] = rwbs_lin_slaw_err_dict[(i, j)]
+        r_err_logit[i, j] = rwbs_logit_slaw_err_dict[(i, j)]
 
-print(f"Rolling Window Mean Linear Error: {err_lin.mean()}")
-print(f"Rolling Window Mean Logit Error: {err_logit.mean()}")
+print(f"Rolling Window Mean Linear Error: {r_err_lin.mean()}")
+print(f"Rolling Window Mean Logit Error: {r_err_logit.mean()}")
 
-print(f"Rolling Window Percent improvement: {100*(err_lin.mean() - err_logit.mean())/err_lin.mean()}")
+print(
+    f"Rolling Window Percent improvement: {100*(r_err_lin.mean() - r_err_logit.mean())/r_err_lin.mean()}"
+)
 
 #####################################
 # Train and fit family-specific linear models of PC-1

@@ -1,3 +1,4 @@
+import time
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -22,10 +23,12 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         # in M x B
         self.register_buffer("train_model_scores", train_model_scores)
 
+        # Note: We initialize with values that are likely to be close to the true values, but the model will learn them in training
+
         # in B
-        self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
+        self.benchmark_weights = self.pca_benchmark_weights
         self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
-        self.beta = nn.Parameter(torch.ones(B, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
@@ -66,18 +69,16 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         return self.predict_benchmark_scores_from_capability_scores(capability_scores)
 
     # compute loss
+    @torch.compile(fullgraph=True)
     def train_loss(self) -> torch.Tensor:
         return F.mse_loss(
             self.train_model_scores, self.forward(self.train_model_scores)
         )
 
     def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
             l.backward()
             optimizer.step()
-            if i % 500 == 0:
-                print(l.item())
-        self.eval()
