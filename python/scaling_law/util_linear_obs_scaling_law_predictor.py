@@ -31,11 +31,6 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
 
     @property
-    def benchmark_ceil(self) -> torch.Tensor:
-        min_ceil = torch.max(self.train_model_scores, dim=0).values + PC1_EPS
-        return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
-
-    @property
     def pca_benchmark_weights(self) -> torch.Tensor:
         # perform PCA and get the first component, return it
         # logit_scores: M x B
@@ -76,7 +71,7 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         )
 
     def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=5e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()

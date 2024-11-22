@@ -28,7 +28,7 @@ class ObsScalingLawPredictor(nn.Module):
         """
         raise NotImplementedError
 
-
+PC1_EPS = 1e-4
 class ScalingLaw(nn.Module):
     def __init__(
         self,
@@ -37,15 +37,27 @@ class ScalingLaw(nn.Module):
         benchmark_scores: torch.Tensor,
     ):
         super().__init__()
-        self.register_buffer("floor", torch.tensor(floor, dtype=torch.float32))
+        self.register_buffer(
+            "benchmark_floor", torch.tensor(floor, dtype=torch.float32)
+        )
         self.register_buffer("capability_scores", capability_scores)
         self.register_buffer("benchmark_scores", benchmark_scores)
-        self.h = nn.Parameter(torch.tensor(1, dtype=torch.float32))
+        self.benchmark_ceil_raw = nn.Parameter(torch.tensor(1, dtype=torch.float32))
         self.alpha = nn.Parameter(torch.tensor(0, dtype=torch.float32))
         self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
 
+    @property
+    def benchmark_ceil(self) -> torch.Tensor:
+        min_ceil = torch.clamp(torch.max(self.benchmark_scores, dim=0).values, 0.8, 1)
+        return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
+
+    def predict_benchmark_logit_scores(self, x: torch.Tensor) -> torch.Tensor:
+        return self.beta * x + self.alpha
+
     def forward(self, x):
-        return self.h * torch.sigmoid(self.beta * x + self.alpha) + self.floor
+        return (
+            self.benchmark_ceil - self.benchmark_floor
+        ) * self.predict_benchmark_logit_scores(x) + self.benchmark_floor
 
     @torch.compile(fullgraph=True)
     def train_loss(self):
@@ -59,7 +71,7 @@ class ScalingLaw(nn.Module):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=5e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()

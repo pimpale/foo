@@ -41,7 +41,7 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
-        min_ceil = torch.max(self.train_model_scores, dim=0).values + PC1_EPS
+        min_ceil = torch.clamp(torch.max(self.train_model_scores, dim=0).values, 0.8, 1)
         return (1 - min_ceil) * torch.sigmoid(self.benchmark_ceil_raw) + min_ceil
 
     def predict_logit_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
@@ -110,7 +110,7 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         return F.mse_loss(self.train_model_scores, self(self.train_model_scores))
 
     def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=5e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()

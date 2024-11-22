@@ -121,7 +121,7 @@ logit_obs_model.fit()
 # %%
 
 fig, ax = plt.subplots(
-    len(benchmarks), 4, figsize=(4 * 3, len(benchmarks) * 3)
+    len(benchmarks), 4, figsize=(4 * 4, len(benchmarks) * 4)
 )  # 1 columns
 for i, benchmark in enumerate(benchmarks):
     train_model_scores = logit_obs_model.train_model_scores
