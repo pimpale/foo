@@ -17,13 +17,14 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         train_model_scores: torch.Tensor,
     ):
         super().__init__()
+        
+        self.train_losses = []
+        
         B = len(benchmarks)
         self.benchmarks = benchmarks
 
         # in B
-        self.register_buffer(
-            "benchmark_floor", torch.tensor(benchmark_floor, dtype=torch.float32)
-        )
+        self.benchmark_floor = nn.Buffer(torch.tensor(benchmark_floor, dtype=torch.float32))
 
         # note: We initialize with values that are likely to be close to the true values, but the model will learn them in training
 
@@ -32,7 +33,7 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         )
 
         # in M x B
-        self.register_buffer("train_model_scores", train_model_scores)
+        self.train_model_scores = nn.Buffer(train_model_scores)
 
         # in B
         self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
@@ -51,11 +52,20 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         score_norm_floored = torch.clamp(score_norm, PC1_EPS, 1 - PC1_EPS)
         return torch.log(score_norm_floored / (1 - score_norm_floored))
 
+    @property
+    def pca_benchmark_weights(self) -> torch.Tensor:
+        # perform PCA and get the first component, return it
+        # logit_scores: M x B
+        # benchmark_weights: B x 1
+        U, S, V = torch.pca_lowrank(self.predict_logit_scores(self.train_model_scores))
+        # gamma in B x 1
+        return -V[:, 0]
+
     def predict_capability_scores(self, logit_scores: torch.Tensor) -> torch.Tensor:
         # logit_scores: M x B
         # benchmark_weights: B x 1
-        # benchmark_weights = self.get_benchmark_weights(logit_scores).unsqueeze(1)
         benchmark_weights = self.benchmark_weights.unsqueeze(1)
+        # benchmark_weights = self.pca_benchmark_weights.unsqueeze(1)
         # M x 1
         capability_score = logit_scores @ benchmark_weights
         return capability_score.squeeze(1)
@@ -109,10 +119,11 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
     def train_loss(self) -> torch.Tensor:
         return F.mse_loss(self.train_model_scores, self(self.train_model_scores))
 
-    def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=5e-2, fused=True)
+    def fit(self, epochs=3000):
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
             l.backward()
             optimizer.step()
+            self.train_losses.append(l.item())

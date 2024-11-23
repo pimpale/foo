@@ -17,11 +17,13 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         train_model_scores: torch.Tensor,
     ):
         super().__init__()
+        
+        self.train_losses = []
+        
         B = len(benchmarks)
         self.benchmarks = benchmarks
-
         # in M x B
-        self.register_buffer("train_model_scores", train_model_scores)
+        self.train_model_scores = nn.Buffer(train_model_scores)
 
         # Note: We initialize with values that are likely to be close to the true values, but the model will learn them in training
 
@@ -70,10 +72,11 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
             self.train_model_scores, self.forward(self.train_model_scores)
         )
 
-    def fit(self, epochs=5000):
-        optimizer = optim.Adam(params=self.parameters(), lr=5e-2, fused=True)
+    def fit(self, epochs=500):
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-1, fused=True)
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
             l.backward()
             optimizer.step()
+            self.train_losses.append(l.item())

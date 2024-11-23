@@ -20,6 +20,8 @@ from util_timeseries_backtesting import (
 from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
 from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
 
+torch.set_num_threads(1)
+
 
 # Define the Chinchilla loss function parameter set
 @dataclass
@@ -117,8 +119,9 @@ benchmark_data = [
 benchmark_floor_dict = {b: f for b, f in benchmark_data}
 all_benchmarks = [b for b, _ in benchmark_data]
 
+
 def add_logit_model(
-   train_df: pd.DataFrame, benchmarks: list[str]
+    train_df: pd.DataFrame, benchmarks: list[str]
 ) -> LogitObsScalingLawPredictor:
     """
     Trains a logit model with the following benchmarks, and inserts a new column
@@ -153,16 +156,15 @@ def add_linear_model(
     return linear_obs_model
 
 
-
 def add_slaw(
     train: pd.DataFrame,
     model: ObsScalingLawPredictor,
     benchmark_key: str,
 ) -> ScalingLaw:
-    model_scores = torch.tensor(
-        train[model.benchmarks].values, dtype=torch.float32
-    )
-    capability_scores = model.predict_capability_scores_from_model_scores(model_scores).detach()
+    model_scores = torch.tensor(train[model.benchmarks].values, dtype=torch.float32)
+    capability_scores = model.predict_capability_scores_from_model_scores(
+        model_scores
+    ).detach()
     benchmark_scores = torch.tensor(train[benchmark_key].values, dtype=torch.float32)
     slaw = ScalingLaw(
         benchmark=benchmark_key,
@@ -177,12 +179,12 @@ def add_slaw(
     return slaw
 
 
-
 @dataclass
 class Spe:
     """
     Scatter Plot Entry
     """
+
     y_key: str
     color: str
 
@@ -239,7 +241,7 @@ def plot_linear_model(
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
             Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred (linear)", "C1"),
+            Spe(f"{benchmark} pred", "C1"),
         ],
         y_label=benchmark,
     )
@@ -247,10 +249,10 @@ def plot_linear_model(
         ax_arr[1],
         train,
         test,
-        "PC-1 linear",
+        "PC-1 (linear)",
         [
             Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred (linear)", "C1"),
+            Spe(f"{benchmark} pred", "C1"),
         ],
     )
 
@@ -270,7 +272,7 @@ def plot_logit_model(
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
             Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred (logit)", "C1"),
+            Spe(f"{benchmark} pred", "C1"),
         ],
         y_label=benchmark,
     )
@@ -291,10 +293,10 @@ def plot_logit_model(
         ax_arr[2],
         train,
         test,
-        "PC-1 logit",
+        "PC-1 (logit)",
         [
             Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred (logit)", "C1"),
+            Spe(f"{benchmark} pred", "C1"),
         ],
         y_label=benchmark,
     )
@@ -303,13 +305,103 @@ def plot_logit_model(
         ax_arr[3],
         train,
         test,
-        "PC-1 logit",
+        "PC-1 (logit)",
         [
             Spe(f"{benchmark} logit", "C0"),
             Spe(f"{benchmark} logit pred", "C1"),
         ],
         y_label=f"{benchmark} logit",
     )
+
+
+def augment_df_logit(
+    logit_obs_model: LogitObsScalingLawPredictor, df_to_augment: pd.DataFrame
+):
+    x = torch.tensor(
+        df_to_augment[logit_obs_model.benchmarks].values, dtype=torch.float32
+    )
+    x_logit = logit_obs_model.predict_logit_scores(x)
+    capability_score = logit_obs_model.predict_capability_scores(x_logit)
+    x_hat_logit = logit_obs_model.predict_benchmark_logit_scores(capability_score)
+    x_hat = logit_obs_model.predict_benchmark_scores(x_hat_logit)
+
+    df_to_augment["PC-1 (logit)"] = capability_score.detach().numpy()
+
+    for b_idx, benchmark in enumerate(logit_obs_model.benchmarks):
+        df_to_augment[f"{benchmark} logit"] = x_logit.T[b_idx].detach().numpy()
+        df_to_augment[f"{benchmark} logit pred"] = x_hat_logit.T[b_idx].detach().numpy()
+        df_to_augment[f"{benchmark} pred"] = x_hat.T[b_idx].detach().numpy()
+
+
+def augment_test_train_logit(
+    logit_obs_model: LogitObsScalingLawPredictor,
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+):
+    augment_df_logit(logit_obs_model, train)
+    augment_df_logit(logit_obs_model, test)
+
+
+def augment_df_linear(
+    linear_obs_model: LinearObsScalingLawPredictor, df_to_augment: pd.DataFrame
+):
+    x = torch.tensor(
+        df_to_augment[linear_obs_model.benchmarks].values, dtype=torch.float32
+    )
+    capability_score = linear_obs_model.predict_capability_scores_from_model_scores(x)
+    x_hat = linear_obs_model.predict_benchmark_scores_from_capability_scores(
+        capability_score
+    )
+
+    df_to_augment["PC-1 (linear)"] = capability_score.detach().numpy()
+
+    for b_idx, benchmark in enumerate(linear_obs_model.benchmarks):
+        df_to_augment[f"{benchmark} pred"] = x_hat.T[b_idx].detach().numpy()
+
+
+def augment_test_train_linear(
+    linear_obs_model: LinearObsScalingLawPredictor,
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+):
+    augment_df_linear(linear_obs_model, train)
+    augment_df_linear(linear_obs_model, test)
+
+
+def augment_df_slaw(
+    slaw: ScalingLaw, model: ObsScalingLawPredictor, df_to_augment: pd.DataFrame
+):
+    model_scores = torch.tensor(
+        df_to_augment[model.benchmarks].values, dtype=torch.float32
+    )
+    benchmark_scores = torch.tensor(
+        df_to_augment[slaw.benchmark].values, dtype=torch.float32
+    )
+    capability_scores = model.predict_capability_scores_from_model_scores(
+        model_scores
+    ).detach()
+
+    df_to_augment["PC-1"] = capability_scores.numpy()
+
+    df_to_augment[f"{slaw.benchmark} logit"] = (
+        slaw.predict_logit_scores(benchmark_scores).detach().numpy()
+    )
+    df_to_augment[f"{slaw.benchmark} logit pred"] = (
+        slaw.predict_benchmark_logit_scores(capability_scores).detach().numpy()
+    )
+    df_to_augment[f"{slaw.benchmark} pred"] = (
+        slaw.forward(capability_scores).detach().numpy()
+    )
+
+
+def augment_test_train_slaw(
+    slaw: ScalingLaw,
+    model: ObsScalingLawPredictor,
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+):
+    augment_df_slaw(slaw, model, train)
+    augment_df_slaw(slaw, model, test)
 
 
 # %%
@@ -321,16 +413,16 @@ def plot_logit_model(
 
 ewbs_splits = list(
     ExpandingWindowBacktestSplitter(
-        min_train_size=40, test_size=40, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+        min_train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
     ).split(base_llm_benchmark_eval)
 )
 
 ewbs_split_train_dict = {}
 ewbs_split_test_dict = {}
 ewbs_linear_model_dict = {}
-ewbs_lin_slaw_dict = {}
+ewbs_lin_slaw_dict: dict[tuple[int, int], ScalingLaw] = {}
 ewbs_logit_model_dict = {}
-ewbs_logit_slaw_dict = {}
+ewbs_logit_slaw_dict: dict[tuple[int, int], ScalingLaw] = {}
 
 n_trains = len(ewbs_splits) * len(all_benchmarks)
 
@@ -354,6 +446,468 @@ for split_idx, (train, test) in enumerate(ewbs_splits):
         ewbs_lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
         ewbs_logit_model_dict[(split_idx, bench_idx)] = logit_model
         ewbs_logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
+
+# %%
+
+# create plot
+fig, ax = plt.subplots(
+    len(ewbs_splits),
+    len(all_benchmarks),
+    figsize=(4 * len(all_benchmarks), 4 * len(ewbs_splits)),
+    squeeze=False,
+)
+
+
+# print the mean error
+e_err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+e_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+
+for split_idx in range(len(ewbs_splits)):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        train = ewbs_split_train_dict[(split_idx, bench_idx)].copy()
+        test = ewbs_split_test_dict[(split_idx, bench_idx)].copy()
+        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
+        logit_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
+        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
+        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
+
+        # augment the df with columns
+        augment_test_train_linear(linear_model, train, test)
+        augment_test_train_logit(logit_model, train, test)
+
+        # compute error
+        lin_slaw_err = F.mse_loss(
+            lin_slaw.forward(
+                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
+            ),
+            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
+        ).item()
+
+        # compute error
+        logit_slaw_err = F.mse_loss(
+            logit_slaw.forward(
+                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
+            ),
+            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
+        ).item()
+
+        e_err_lin[split_idx, bench_idx] = lin_slaw_err
+        e_err_logit[split_idx, bench_idx] = logit_slaw_err
+
+        # Plot Train ( x marker)
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            train[excluded_benchmark],
+            label="True",
+            color="black",
+            marker="x",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            lin_slaw.forward(
+                torch.tensor(train["PC-1 (linear)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Linear",
+            color="blue",
+            marker="x",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            logit_slaw.forward(
+                torch.tensor(train["PC-1 (logit)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Logit",
+            color="red",
+            marker="x",
+            alpha=0.5,
+        )
+
+        # Plot Test
+
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            test[excluded_benchmark],
+            label="True",
+            color="black",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            lin_slaw.forward(
+                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Linear, MSE: {lin_slaw_err:.3f}",
+            color="blue",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            logit_slaw.forward(
+                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Logit, MSE: {logit_slaw_err:.3f}",
+            color="red",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].set_title(
+            f"{excluded_benchmark} (train size: {len(train)})"
+        )
+        ax[split_idx, bench_idx].legend()
+
+print(f"Expanding Window Mean Linear Error: {e_err_lin.mean()}")
+print(f"Expanding Window Mean Logit Error: {e_err_logit.mean()}")
+
+print(
+    f"Expanding Window Percent improvement: {100*(e_err_lin.mean() - e_err_logit.mean())/e_err_lin.mean()}"
+)
+
+# %%
+split_idx = 2
+bench_idx = 0
+linear_obs_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
+train = ewbs_split_train_dict[(split_idx, bench_idx)]
+test = ewbs_split_test_dict[(split_idx, bench_idx)]
+excluded_benchmark = all_benchmarks[bench_idx]
+lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
+
+fig, ax = plt.subplots(
+    len(linear_obs_model.benchmarks),
+    2,
+    figsize=(10, len(linear_obs_model.benchmarks) * 5),
+    squeeze=False,
+)  # 1 columns
+
+# insert data from excluded benchmark
+
+for bench_idx, benchmark in enumerate(linear_obs_model.benchmarks):
+    train_copy, test_copy = train.copy(), test.copy()
+    augment_test_train_linear(linear_obs_model, train_copy, test_copy)
+    plot_linear_model(ax[bench_idx], bench_idx, train_copy, test_copy, linear_obs_model)
+
+# now plot the data for the actual fit curve on the excluded benchmark
+# 1 row, 4 columns
+# col 0: FLOPs vs benchmark (show both true and predicted)
+# col 1: FLOPs vs logit benchmark (show both true and predicted)
+# col 2: capability vs benchmark (show both true and predicted)
+# col 3: capability vs logit benchmark (show both true and predicted)
+
+
+train_copy, test_copy = train.copy(), test.copy()
+augment_test_train_slaw(lin_slaw, linear_obs_model, train_copy, test_copy)
+
+fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
+ax_arr = ax[0]
+# plot in flop x-space and benchmark y-space
+plot_train_test(
+    ax_arr[0],
+    train_copy,
+    test_copy,
+    "log10 FLOPs_opt_Besiroglu (1E21)",
+    [
+        Spe(f"{excluded_benchmark}", "C0"),
+        Spe(f"{excluded_benchmark} pred", "C1"),
+    ],
+    y_label=excluded_benchmark,
+)
+
+plot_train_test(
+    ax_arr[1],
+    train_copy,
+    test_copy,
+    "log10 FLOPs_opt_Besiroglu (1E21)",
+    [
+        Spe(f"{excluded_benchmark} logit", "C0"),
+        Spe(f"{excluded_benchmark} logit pred", "C1"),
+    ],
+    y_label=f"{excluded_benchmark} logit",
+)
+
+plot_train_test(
+    ax_arr[2],
+    train_copy,
+    test_copy,
+    "PC-1",
+    [
+        Spe(f"{excluded_benchmark}", "C0"),
+        Spe(f"{excluded_benchmark} pred", "C1"),
+    ],
+    y_label=excluded_benchmark,
+)
+
+plot_train_test(
+    ax_arr[3],
+    train_copy,
+    test_copy,
+    "PC-1",
+    [
+        Spe(f"{excluded_benchmark} logit", "C0"),
+        Spe(f"{excluded_benchmark} logit pred", "C1"),
+    ],
+    y_label=f"{excluded_benchmark} logit",
+)
+
+plt.show()
+# %%
+split_idx = 0
+bench_idx = 1
+logit_obs_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
+train = ewbs_split_train_dict[(split_idx, bench_idx)]
+test = ewbs_split_test_dict[(split_idx, bench_idx)]
+excluded_benchmark = all_benchmarks[bench_idx]
+logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
+
+fig, ax = plt.subplots(
+    len(logit_obs_model.benchmarks),
+    4,
+    figsize=(4 * 4, len(logit_obs_model.benchmarks) * 4),
+    squeeze=False,
+)  # 1 columns
+
+for bench_idx, benchmark in enumerate(logit_obs_model.benchmarks):
+    train_copy, test_copy = train.copy(), test.copy()
+    augment_test_train_logit(logit_obs_model, train_copy, test_copy)
+    plot_logit_model(ax[bench_idx], bench_idx, train_copy, test_copy, logit_obs_model)
+
+plt.tight_layout()
+
+plt.show()
+
+train_copy, test_copy = train.copy(), test.copy()
+augment_test_train_slaw(logit_slaw, logit_obs_model, train_copy, test_copy)
+
+fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
+ax_arr = ax[0]
+# plot in flop x-space and benchmark y-space
+plot_train_test(
+    ax_arr[0],
+    train_copy,
+    test_copy,
+    "log10 FLOPs_opt_Besiroglu (1E21)",
+    [
+        Spe(f"{excluded_benchmark}", "C0"),
+        Spe(f"{excluded_benchmark} pred", "C1"),
+    ],
+    y_label=excluded_benchmark,
+)
+
+plot_train_test(
+    ax_arr[1],
+    train_copy,
+    test_copy,
+    "log10 FLOPs_opt_Besiroglu (1E21)",
+    [
+        Spe(f"{excluded_benchmark} logit", "C0"),
+        Spe(f"{excluded_benchmark} logit pred", "C1"),
+    ],
+    y_label=f"{excluded_benchmark} logit",
+)
+
+plot_train_test(
+    ax_arr[2],
+    train_copy,
+    test_copy,
+    "PC-1",
+    [
+        Spe(f"{excluded_benchmark}", "C0"),
+        Spe(f"{excluded_benchmark} pred", "C1"),
+    ],
+    y_label=excluded_benchmark,
+)
+
+plot_train_test(
+    ax_arr[3],
+    train_copy,
+    test_copy,
+    "PC-1",
+    [
+        Spe(f"{excluded_benchmark} logit", "C0"),
+        Spe(f"{excluded_benchmark} logit pred", "C1"),
+    ],
+    y_label=f"{excluded_benchmark} logit",
+)
+
+plt.show()
+
+# %%
+
+#####################################
+# Train and fit global linear and logit models of PC-1
+# Rolling Window
+#####################################
+
+rwbs_splits = list(
+    RollingWindowBacktestSplitter(
+        train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+    ).split(base_llm_benchmark_eval)
+)
+
+rwbs_split_train_dict = {}
+rwbs_split_test_dict = {}
+rwbs_linear_model_dict = {}
+rwbs_lin_slaw_dict = {}
+rwbs_logit_model_dict = {}
+rwbs_logit_slaw_dict = {}
+
+n_trains = len(rwbs_splits) * len(all_benchmarks)
+
+for split_idx, (train, test) in enumerate(rwbs_splits):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        i_train = split_idx * len(all_benchmarks) + bench_idx
+        print(f"Training {i_train}/{n_trains}")
+
+        benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
+
+        linear_model = add_linear_model(train, benchmark_list)
+        logit_model = add_logit_model(train, benchmark_list)
+
+        # predict the excluded benchmark
+        lin_slaw = add_slaw(train, linear_model, excluded_benchmark)
+        logit_slaw = add_slaw(train, logit_model, excluded_benchmark)
+
+        # store the results
+        rwbs_split_train_dict[(split_idx, bench_idx)] = train
+        rwbs_split_test_dict[(split_idx, bench_idx)] = test
+        rwbs_linear_model_dict[(split_idx, bench_idx)] = linear_model
+        rwbs_lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
+        rwbs_logit_model_dict[(split_idx, bench_idx)] = logit_model
+        rwbs_logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
+
+# %%
+
+# create plot
+fig, ax = plt.subplots(
+    len(rwbs_splits),
+    len(all_benchmarks),
+    figsize=(4 * len(all_benchmarks), 4 * len(rwbs_splits)),
+)
+
+
+# print the mean error
+r_err_lin = np.zeros((len(rwbs_splits), len(all_benchmarks)))
+r_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
+
+
+for split_idx in range(len(rwbs_splits)):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        train = rwbs_split_train_dict[(split_idx, bench_idx)]
+        test = rwbs_split_test_dict[(split_idx, bench_idx)]
+        lin_slaw = rwbs_lin_slaw_dict[(split_idx, bench_idx)]
+        logit_slaw = rwbs_logit_slaw_dict[(split_idx, bench_idx)]
+        linear_model = rwbs_linear_model_dict[(split_idx, bench_idx)]
+        logit_model = rwbs_logit_model_dict[(split_idx, bench_idx)]
+
+        # augment the df with columns
+        augment_test_train_linear(linear_model, train, test)
+        augment_test_train_logit(logit_model, train, test)
+
+        # compute error
+        lin_slaw_err = F.mse_loss(
+            lin_slaw.forward(
+                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
+            ),
+            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
+        ).item()
+
+        # compute error
+        logit_slaw_err = F.mse_loss(
+            logit_slaw.forward(
+                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
+            ),
+            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
+        ).item()
+
+        r_err_lin[split_idx, bench_idx] = lin_slaw_err
+        r_err_logit[split_idx, bench_idx] = logit_slaw_err
+
+        # Plot Train ( x marker)
+
+        # Plot Train ( x marker)
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            train[excluded_benchmark],
+            label="True",
+            color="black",
+            marker="x",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            lin_slaw.forward(
+                torch.tensor(train["PC-1 (linear)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Linear",
+            color="blue",
+            marker="x",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            train["log10 FLOPs_opt_Besiroglu (1E21)"],
+            logit_slaw.forward(
+                torch.tensor(train["PC-1 (logit)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Logit",
+            color="red",
+            marker="x",
+            alpha=0.5,
+        )
+
+        # Plot Test
+
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            test[excluded_benchmark],
+            label="True",
+            color="black",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            lin_slaw.forward(
+                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Linear, MSE: {lin_slaw_err:.3f}",
+            color="blue",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].scatter(
+            test["log10 FLOPs_opt_Besiroglu (1E21)"],
+            logit_slaw.forward(
+                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
+            )
+            .detach()
+            .numpy(),
+            label=f"Logit, MSE: {logit_slaw_err:.3f}",
+            color="red",
+            alpha=0.5,
+        )
+        ax[split_idx, bench_idx].set_title(
+            f"{excluded_benchmark} (train size: {len(train)})"
+        )
+        ax[split_idx, bench_idx].legend()
+
+
+print(f"Rolling Window Mean Linear Error: {r_err_lin.mean()}")
+print(f"Rolling Window Mean Logit Error: {r_err_logit.mean()}")
+
+print(
+    f"Rolling Window Percent improvement: {100*(r_err_lin.mean() - r_err_logit.mean())/r_err_lin.mean()}"
+)
 
 # %%
 
@@ -396,74 +950,56 @@ ax[4].legend()
 
 # %%
 
-def augment_df_logit(logit_obs_model: LogitObsScalingLawPredictor, df_to_augment: pd.DataFrame):
-    x = torch.tensor(df_to_augment[logit_obs_model.benchmarks].values, dtype=torch.float32)
-    x_logit = logit_obs_model.predict_logit_scores(x)
-    capability_score = logit_obs_model.predict_capability_scores(
-        x_logit
-    )
-    x_hat_logit = logit_obs_model.predict_benchmark_logit_scores(
-        capability_score
-    )
-    x_hat = logit_obs_model.predict_benchmark_scores(
-        x_hat_logit
-    )
+# plot the distribution of scaling law parameters
+fig, ax = plt.subplots(6, 1, figsize=(5, 14))
 
-    missing_benchmark = list(set(all_benchmarks) - set(logit_obs_model.benchmarks))[0]
+lin_betas = []
+lin_alphas = []
+lin_ceil_raws = []
 
-    df_to_augment["PC-1 logit"] = capability_score.detach().numpy()
+logit_betas = []
+logit_alphas = []
+logit_ceil_raws = []
+for split_idx in range(len(ewbs_splits)):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
+        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
 
-    for b_idx, benchmark in enumerate(logit_obs_model.benchmarks):
-        df_to_augment[f"{benchmark} logit"] = x_logit.T[b_idx].detach().numpy()
-        df_to_augment[f"{benchmark} logit pred"] = (
-            x_hat_logit.T[b_idx].detach().numpy()
-        )
-        df_to_augment[f"{benchmark} pred (logit -{missing_benchmark})"] = (
-            x_hat.T[b_idx].detach().numpy()
-        )
+        lin_betas.append(lin_slaw.beta.detach().numpy())
+        lin_alphas.append(lin_slaw.alpha.detach().numpy())
+        lin_ceil_raws.append(lin_slaw.benchmark_ceil_raw.detach().numpy())
 
-def augment_test_train_logit(logit_obs_model: LogitObsScalingLawPredictor, train: pd.DataFrame, test: pd.DataFrame):
-    augment_df_logit(logit_obs_model, train)
-    augment_df_logit(logit_obs_model, test)
+        logit_betas.append(logit_slaw.beta.detach().numpy())
+        logit_alphas.append(logit_slaw.alpha.detach().numpy())
+        logit_ceil_raws.append(logit_slaw.benchmark_ceil_raw.detach().numpy())
 
-def augment_df_linear(linear_obs_model: LinearObsScalingLawPredictor, df_to_augment: pd.DataFrame):
-    x = torch.tensor(df_to_augment[linear_obs_model.benchmarks].values, dtype=torch.float32)
-    capability_score = (
-        linear_obs_model.predict_capability_scores_from_model_scores(x)
-    )
-    x_hat = (
-        linear_obs_model.predict_benchmark_scores_from_capability_scores(
-            capability_score
-        )
-    )
+ax[0].hist(lin_betas, bins=20, alpha=0.5, label="Linear Betas")
+ax[0].set_title("Linear Betas")
+ax[0].legend()
 
-    df_to_augment["PC-1 linear"] = capability_score.detach().numpy()
+ax[1].hist(logit_betas, bins=20, alpha=0.5, label="Logit Betas")
+ax[1].set_title("Logit Betas")
+ax[1].legend()
 
-    for b_idx, benchmark in enumerate(linear_obs_model.benchmarks):
-        df_to_augment[f"{benchmark} pred (linear)"] = (
-            x_hat.T[b_idx].detach().numpy()
-        )
+ax[2].hist(lin_alphas, bins=20, alpha=0.5, label="Linear Alphas")
+ax[2].set_title("Linear Alphas")
+ax[2].legend()
 
-def augment_test_train_linear(linear_obs_model: LinearObsScalingLawPredictor, train: pd.DataFrame, test: pd.DataFrame):
-    augment_df_linear(linear_obs_model, train)
-    augment_df_linear(linear_obs_model, test)
+ax[3].hist(logit_alphas, bins=20, alpha=0.5, label="Logit Alphas")
+ax[3].set_title("Logit Alphas")
+ax[3].legend()
 
-def augment_df_slaw(slaw: ScalingLaw, model: ObsScalingLawPredictor, df_to_augment: pd.DataFrame):
-    model_scores = torch.tensor(df_to_augment[model.benchmarks].values, dtype=torch.float32)
-    capability_scores = model.predict_capability_scores_from_model_scores(model_scores).detach()
+ax[4].hist(lin_ceil_raws, bins=20, alpha=0.5, label="Linear Ceil Raw")
+ax[4].set_title("Linear Ceil Raw")
+ax[4].legend()
 
-    train[f"{slaw.benchmark} logit pred"] = (
-        slaw.predict_benchmark_logit_scores(capability_scores).detach().numpy()
-    )
-    train[f"{slaw.benchmark} pred"] = (
-        slaw.forward(capability_scores).detach().numpy()
-    )
+ax[5].hist(logit_ceil_raws, bins=20, alpha=0.5, label="Logit Ceil Raw")
+ax[5].set_title("Logit Ceil Raw")
+ax[5].legend()
 
-def augment_test_train_slaw(slaw: ScalingLaw, model: ObsScalingLawPredictor, train: pd.DataFrame, test: pd.DataFrame):
-    augment_df_slaw(slaw, model, train)
-    augment_df_slaw(slaw, model, test)
 
-# create plot
+# %%
+
 fig, ax = plt.subplots(
     len(ewbs_splits),
     len(all_benchmarks),
@@ -471,471 +1007,46 @@ fig, ax = plt.subplots(
     squeeze=False,
 )
 
-
-# print the mean error
-e_err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-e_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-
+# Plot all loss curves for logit training
 for split_idx in range(len(ewbs_splits)):
     for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        train = ewbs_split_train_dict[(split_idx, bench_idx)].copy()
-        test = ewbs_split_test_dict[(split_idx, bench_idx)].copy()
-        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
         logit_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
-        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
-        
-        # augment the df with columns
-        augment_test_train_linear(linear_model, train, test)
-        augment_test_train_logit(logit_model, train, test)
-        
-        # compute error
-        lin_slaw_err = F.mse_loss(
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 linear"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        # compute error
-        logit_slaw_err = F.mse_loss(
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 logit"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        e_err_lin[split_idx, bench_idx] = lin_slaw_err
-        e_err_logit[split_idx, bench_idx] = logit_slaw_err
-
-        # Plot Train ( x marker)
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            train[excluded_benchmark],
-            label="True",
-            color="black",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(train["PC-1 linear"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear",
-            color="blue",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(train["PC-1 logit"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit",
-            color="red",
-            marker="x",
-            alpha=0.5,
+        ax[split_idx, bench_idx].plot(
+            np.log(logit_model.train_losses[100:]),
+            label=f"Split: {split_idx}, Bench: {bench_idx}",
         )
 
-        # Plot Test
-
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            test[excluded_benchmark],
-            label="True",
-            color="black",
-            alpha=0.5,
+        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
+        ax[split_idx, bench_idx].plot(
+            np.log(linear_model.train_losses[100:]),
+            label=f"Split: {split_idx}, Bench: {bench_idx}",
         )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 linear"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear, MSE: {lin_slaw_err:.3f}",
-            color="blue",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 logit"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit, MSE: {logit_slaw_err:.3f}",
-            color="red",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].set_title(
-            f"{excluded_benchmark} (train size: {len(train)})"
-        )
-        ax[split_idx, bench_idx].legend()
-
-print(f"Expanding Window Mean Linear Error: {e_err_lin.mean()}")
-print(f"Expanding Window Mean Logit Error: {e_err_logit.mean()}")
-
-print(
-    f"Expanding Window Percent improvement: {100*(e_err_lin.mean() - e_err_logit.mean())/e_err_lin.mean()}"
-)
-
 # %%
-split_idx = 0
-bench_idx = 0
-linear_obs_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
-train = ewbs_split_train_dict[(split_idx, bench_idx)]
-test = ewbs_split_test_dict[(split_idx, bench_idx)]
-excluded_benchmark = all_benchmarks[bench_idx]
-lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
 
 fig, ax = plt.subplots(
-    len(linear_obs_model.benchmarks),
-    2,
-    figsize=(10, len(linear_obs_model.benchmarks) * 5),
-    squeeze=False,
-)  # 1 columns
-
-# insert data from excluded benchmark
-
-for bench_idx, benchmark in enumerate(linear_obs_model.benchmarks):
-    train_copy, test_copy = train.copy(), test.copy()
-    augment_test_train_linear(linear_obs_model, train_copy, test_copy)
-    plot_linear_model(ax[bench_idx], bench_idx, train_copy, test_copy, linear_obs_model)
-
-# now plot the data for the actual fit curve on the excluded benchmark
-# 1 row, 4 columns
-# col 0: FLOPs vs benchmark (show both true and predicted)
-# col 1: FLOPs vs logit benchmark (show both true and predicted)
-# col 2: capability vs benchmark (show both true and predicted)
-# col 3: capability vs logit benchmark (show both true and predicted) 
-
-
-train_copy, test_copy = train.copy(), test.copy()
-augment_test_train_slaw(lin_slaw, linear_obs_model, train_copy, test_copy)
-
-fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
-ax_arr = ax[0]
-# plot in flop x-space and benchmark y-space
-plot_train_test(
-    ax_arr[0],
-    train_copy,
-    test_copy,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
-
-plot_train_test(
-    ax_arr[1],
-    train,
-    test,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
-
-plot_train_test(
-    ax_arr[2],
-    train,
-    test,
-    "PC-1 logit",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
-
-plot_train_test(
-    ax_arr[3],
-    train,
-    test,
-    "PC-1 logit",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
-
-plt.show()
-# %%
-
-
-split_idx = 0
-bench_idx = 0
-logit_obs_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-train = ewbs_split_train_dict[(split_idx, bench_idx)]
-test = ewbs_split_test_dict[(split_idx, bench_idx)]
-excluded_benchmark = all_benchmarks[bench_idx]
-logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
-
-fig, ax = plt.subplots(
-    len(logit_obs_model.benchmarks),
-    4,
-    figsize=(4 * 4, len(logit_obs_model.benchmarks) * 4),
-    squeeze=False,
-)  # 1 columns
-
-for bench_idx, benchmark in enumerate(logit_obs_model.benchmarks):
-    plot_logit_model(ax[bench_idx], bench_idx, train, test, logit_obs_model)
-
-plt.tight_layout()
-
-plt.show()
-
-# also plot the data for the actual fit curve on the excluded benchmark
-fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 2 columns
-ax_arr = ax[0]
-# plot in flop x-space and benchmark y-space
-
-plot_train_test(
-    ax_arr[0],
-    train,
-    test,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred (logit)", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
-
-plot_train_test(
-    ax_arr[1],
-    train,
-    test,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
-
-plot_train_test(
-    ax_arr[2],
-    train,
-    test,
-    "PC-1 logit",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred (logit)", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
-
-plot_train_test(
-    ax_arr[3],
-    train,
-    test,
-    "PC-1 logit",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
-
-
-# %%
-
-#####################################
-# Train and fit global linear and logit models of PC-1
-# Rolling Window
-#####################################
-
-rwbs_splits = list(
-    RollingWindowBacktestSplitter(
-        train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
-    ).split(base_llm_benchmark_eval)
-)
-
-rwbs_split_train_dict = {}
-rwbs_split_test_dict = {}
-rwbs_linear_model_dict = {}
-rwbs_lin_slaw_dict = {}
-rwbs_lin_slaw_err_dict = {}
-rwbs_logit_model_dict = {}
-rwbs_logit_slaw_dict = {}
-rwbs_logit_slaw_err_dict = {}
-
-for split_idx, (train, test) in enumerate(rwbs_splits):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
-
-        linear_model = add_linear_model(train, benchmark_list)
-        logit_model = add_logit_model(train, benchmark_list)
-
-        lin_slaw = ScalingLaw(
-            floor=benchmark_floor_dict[excluded_benchmark],
-            capability_scores=torch.tensor(
-                train["PC-1 linear"].values, dtype=torch.float32
-            ),
-            benchmark_scores=torch.tensor(
-                train[excluded_benchmark].values, dtype=torch.float32
-            ),
-        )
-        lin_slaw.fit()
-
-        # compute error
-        lin_slaw_err = F.mse_loss(
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 linear"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        # predict the excluded benchmark
-        logit_slaw = ScalingLaw(
-            floor=benchmark_floor_dict[excluded_benchmark],
-            capability_scores=torch.tensor(
-                train["PC-1 logit"].values, dtype=torch.float32
-            ),
-            benchmark_scores=torch.tensor(
-                train[excluded_benchmark].values, dtype=torch.float32
-            ),
-        )
-        logit_slaw.fit()
-
-        # compute error
-        logit_slaw_err = F.mse_loss(
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 logit"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        # store the results
-        rwbs_split_train_dict[(split_idx, bench_idx)] = train
-        rwbs_split_test_dict[(split_idx, bench_idx)] = test
-        rwbs_linear_model_dict[(split_idx, bench_idx)] = linear_model
-        rwbs_lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
-        rwbs_lin_slaw_err_dict[(split_idx, bench_idx)] = lin_slaw_err
-        rwbs_logit_model_dict[(split_idx, bench_idx)] = logit_model
-        rwbs_logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
-        rwbs_logit_slaw_err_dict[(split_idx, bench_idx)] = logit_slaw_err
-
-# %%
-
-# create plot
-fig, ax = plt.subplots(
-    len(rwbs_splits),
+    len(ewbs_splits),
     len(all_benchmarks),
-    figsize=(4 * len(all_benchmarks), 4 * len(rwbs_splits)),
+    figsize=(4 * len(all_benchmarks), 4 * len(ewbs_splits)),
+    squeeze=False,
 )
 
-
-for split_idx in range(len(rwbs_splits)):
+# Plot all loss curves for logit training
+for split_idx in range(len(ewbs_splits)):
     for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        train = rwbs_split_train_dict[(split_idx, bench_idx)]
-        test = rwbs_split_test_dict[(split_idx, bench_idx)]
-        lin_slaw = rwbs_lin_slaw_dict[(split_idx, bench_idx)]
-        lin_slaw_err = rwbs_lin_slaw_err_dict[(split_idx, bench_idx)]
-        logit_slaw = rwbs_logit_slaw_dict[(split_idx, bench_idx)]
-        logit_slaw_err = rwbs_logit_slaw_err_dict[(split_idx, bench_idx)]
-        # Plot Train ( x marker)
-
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            train[excluded_benchmark],
-            label="True",
-            color="black",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(train["PC-1 linear"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear",
-            color="blue",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(train["PC-1 logit"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit",
-            color="red",
-            marker="x",
-            alpha=0.5,
+        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
+        ax[split_idx, bench_idx].plot(
+            np.log(logit_slaw.train_losses[0:]),
+            label=f"Split: {split_idx}, Bench: {bench_idx}",
         )
 
-        # Plot Test
-
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            test[excluded_benchmark],
-            label="True",
-            color="black",
-            alpha=0.5,
+        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
+        ax[split_idx, bench_idx].plot(
+            np.log(lin_slaw.train_losses[0:]),
+            label=f"Split: {split_idx}, Bench: {bench_idx}",
         )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 linear"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear, MSE: {lin_slaw_err:.3f}",
-            color="blue",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 logit"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit, MSE: {logit_slaw_err:.3f}",
-            color="red",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].set_title(
-            f"{excluded_benchmark} (train size: {len(train)})"
-        )
-        ax[split_idx, bench_idx].legend()
 
 
-# print the mean error
-r_err_lin = np.zeros((len(rwbs_splits), len(all_benchmarks)))
-r_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-
-for split_idx in range(len(rwbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        r_err_lin[split_idx, bench_idx] = rwbs_lin_slaw_err_dict[(split_idx, bench_idx)]
-        r_err_logit[split_idx, bench_idx] = rwbs_logit_slaw_err_dict[
-            (split_idx, bench_idx)
-        ]
-
-print(f"Rolling Window Mean Linear Error: {r_err_lin.mean()}")
-print(f"Rolling Window Mean Logit Error: {r_err_logit.mean()}")
-
-print(
-    f"Rolling Window Percent improvement: {100*(r_err_lin.mean() - r_err_logit.mean())/r_err_lin.mean()}"
-)
-
+# %%
 #####################################
 # Train and fit family-specific linear models of PC-1
 #####################################
