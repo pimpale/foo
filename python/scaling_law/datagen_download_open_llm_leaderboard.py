@@ -13,4 +13,4 @@ df = pd.DataFrame(result["data"], columns=result["headers"])
 # drop column 'T' and 'Model'
 df.drop(columns=['T', 'Model'], inplace=True)
 
-df.to_csv(Path(__file__).parent / "../data_models/cache_new/open_llm_leaderboard.csv", index=False)
+df.to_csv(Path(__file__).parent / "./data_models/cache_new/open_llm_leaderboard.csv", index=False)

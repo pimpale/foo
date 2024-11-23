@@ -29,4 +29,4 @@ df["Huggingface Name"] = df["Model"].apply(extract_huggingface_name)
 df["Model"] = df["Model"].apply(extract_a_tag_content)
 
 
-df.to_csv(Path(__file__).parent / "../data_models/cache_new/chatbot_arena.csv", index=False)
+df.to_csv(Path(__file__).parent / "./data_models/cache_new/chatbot_arena.csv", index=False)
