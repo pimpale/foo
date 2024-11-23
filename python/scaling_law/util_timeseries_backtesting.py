@@ -23,7 +23,7 @@ class ExpandingWindowBacktestSplitter(BacktestSplitter):
         for i in range(self.min_train_size, len(df) - self.test_size, self.increment):
             train = df.iloc[:i]
             test = df.iloc[i:i + self.test_size]
-            yield train, test
+            yield train.copy(), test.copy()
         
 class RollingWindowBacktestSplitter(BacktestSplitter):
     def __init__(
@@ -43,5 +43,5 @@ class RollingWindowBacktestSplitter(BacktestSplitter):
         for i in range(0, len(df) - self.train_size - self.test_size, self.increment):
             train = df.iloc[i:i + self.train_size]
             test = df.iloc[i + self.train_size:i + self.train_size + self.test_size]
-            yield train, test
+            yield train.copy(), test.copy()
         

@@ -9,6 +9,7 @@ class ObsScalingLawPredictor(nn.Module):
     """
     Parent class for all observational scaling law predictors.
     """
+    benchmarks: list[str]
 
     def predict_capability_scores_from_model_scores(
         self,
@@ -32,11 +33,13 @@ PC1_EPS = 1e-4
 class ScalingLaw(nn.Module):
     def __init__(
         self,
+        benchmark: str,
         floor: float,
         capability_scores: torch.Tensor,
         benchmark_scores: torch.Tensor,
     ):
         super().__init__()
+        self.benchmark = benchmark
         self.register_buffer(
             "benchmark_floor", torch.tensor(floor, dtype=torch.float32)
         )
@@ -77,4 +80,3 @@ class ScalingLaw(nn.Module):
             l = self.train_loss()
             l.backward()
             optimizer.step()
-        self.eval()
