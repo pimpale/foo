@@ -166,8 +166,9 @@ def add_linear_model(
     Trains a linear model with the following benchmarks, and inserts a new column
     """
     train_model_scores = torch.tensor(train_df[benchmarks].values, dtype=torch.float32)
+    benchmark_floor = [benchmark_floor_dict[b] for b in benchmarks]
 
-    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, train_model_scores)
+    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, benchmark_floor, train_model_scores)
     t0 = time.time()
     linear_obs_model.fit()
     linear_obs_model.eval()

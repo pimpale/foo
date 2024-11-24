@@ -3,7 +3,8 @@ import numpy as np
 
 
 class BacktestSplitter:
-    pass
+    def split(self, df: pd.DataFrame):
+        raise NotImplementedError()
 
 class ExpandingWindowBacktestSplitter(BacktestSplitter):
     def __init__(

@@ -1,9 +1,11 @@
 # %%
+from abc import abstractmethod
 import time
-from typing import Type
+from typing import Any, Type, cast, override
 import duckdb
 import pandas as pd
 import numpy as np
+import numpy.typing as npt
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -15,6 +17,7 @@ from tqdm import tqdm
 
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
+    BacktestSplitter,
     ExpandingWindowBacktestSplitter,
     RollingWindowBacktestSplitter,
 )
@@ -119,30 +122,6 @@ benchmark_data = [
 ]
 benchmark_floor_dict = {b: f for b, f in benchmark_data}
 all_benchmarks = [b for b, _ in benchmark_data]
-
-
-def add_slaw(
-    train: pd.DataFrame,
-    model: ObsScalingLawPredictor,
-    benchmark_key: str,
-) -> ScalingLaw:
-    model_scores = torch.tensor(train[model.benchmarks].values, dtype=torch.float32)
-    capability_scores = model.predict_capability_scores_from_model_scores(
-        model_scores
-    ).detach()
-    benchmark_scores = torch.tensor(train[benchmark_key].values, dtype=torch.float32)
-    slaw = ScalingLaw(
-        benchmark=benchmark_key,
-        floor=benchmark_floor_dict[benchmark_key],
-        capability_scores=capability_scores,
-        benchmark_scores=benchmark_scores,
-    )
-    t0 = time.time()
-    slaw.fit()
-    slaw.eval()
-    print(f"Scaling Law Training Time: {time.time() - t0:.2f} seconds")
-    return slaw
-
 
 @dataclass
 class Spe:
@@ -298,7 +277,7 @@ def augment_df_logit(
         df_to_augment[f"{benchmark} pred"] = x_hat.T[b_idx].detach().numpy()
 
 
-def augment_test_train_logit(
+def augment_train_test_logit(
     logit_obs_model: LogitObsScalingLawPredictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
@@ -324,7 +303,7 @@ def augment_df_linear(
         df_to_augment[f"{benchmark} pred"] = x_hat.T[b_idx].detach().numpy()
 
 
-def augment_test_train_linear(
+def augment_train_test_linear(
     linear_obs_model: LinearObsScalingLawPredictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
@@ -359,7 +338,7 @@ def augment_df_slaw(
     )
 
 
-def augment_test_train_slaw(
+def augment_train_test_slaw(
     slaw: ScalingLaw,
     model: ObsScalingLawPredictor,
     train: pd.DataFrame,
@@ -370,52 +349,142 @@ def augment_test_train_slaw(
 
 
 @dataclass
+class BacktestDataPoint[T: ObsScalingLawPredictor]:
+    split_train: pd.DataFrame
+    split_test: pd.DataFrame
+    model: T
+    slaw: ScalingLaw
+
+    def copy(self):
+        """
+        Returns a copy of the data point.
+        The dataframes are deep copied, and the model and slaw are shallow copied.
+        """
+        return BacktestDataPoint(
+            self.split_train.copy(),
+            self.split_test.copy(),
+            self.model,
+            self.slaw,
+        )
+
+@dataclass
 class BacktestData:
-    split_train: dict[tuple[int, int], pd.DataFrame]
-    split_test: dict[tuple[int, int], pd.DataFrame]
-    model: dict[tuple[int, int], ObsScalingLawPredictor]
-    slaw: dict[tuple[int, int], ScalingLaw]
+    splitter_class: Type[BacktestSplitter]
+    model_class: Type[ObsScalingLawPredictor]
+    results: npt.NDArray[np.object_]
+
+
+def get_benchmark_list(
+    ModelCls: Type[ObsScalingLawPredictor],
+    predicted_benchmark: str,
+) -> list[str]:
+    maybe_fixed_benchmarks = ModelCls.fixed_benchmarks()
+    if maybe_fixed_benchmarks is not None:
+        benchmark_list = maybe_fixed_benchmarks
+    else:
+        benchmark_list = ModelCls.necessary_benchmarks() + [
+            b for b in all_benchmarks if b != predicted_benchmark
+        ]
+
+    return benchmark_list
 
 
 def backtest_models(
+    splitter: BacktestSplitter,
     ModelCls: Type[ObsScalingLawPredictor],
-    train_test_splits: list[tuple[pd.DataFrame, pd.DataFrame]],
+    dataframe: pd.DataFrame,
 ) -> BacktestData:
-    data = BacktestData({}, {}, {}, {})
+    # create object ndarray
+
+    train_test_splits = list(splitter.split(dataframe))
+
+    data = BacktestData(
+        splitter_class=type(splitter),
+        model_class=ModelCls,
+        results=np.empty(
+            (len(train_test_splits), len(all_benchmarks)), dtype=np.object_
+        ),
+    )
 
     n_trains = len(train_test_splits) * len(all_benchmarks)
 
     for split_idx, (train, test) in enumerate(train_test_splits):
-        for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        for bench_idx, predicted_benchmark in enumerate(all_benchmarks):
             i_train = split_idx * len(all_benchmarks) + bench_idx
             print(f"Training {i_train}/{n_trains}")
-            
-            benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
-            benchmark_floors = [benchmark_floor_dict[b] for b in benchmark_list]
 
-            input_tensor = torch.tensor(
-                train[benchmark_list].values, dtype=torch.float32
+            # construct the model inputs
+            benchmark_list = get_benchmark_list(ModelCls, predicted_benchmark)
+
+            model_scores = torch.tensor(train[benchmark_list].values, dtype=torch.float32)
+
+
+            # create model
+            model = ModelCls(
+                benchmark_list,
+                benchmark_floors=[benchmark_floor_dict[b] for b in benchmark_list],
+                train_model_scores=model_scores,
             )
 
-            model = ModelCls(benchmark_list, benchmark input_tensor)
+            # train
             t0 = time.time()
             model.fit()
             model.eval()
             print(f"Training Time: {time.time() - t0:.2f} seconds")
 
             # predict the excluded benchmark
-            lin_slaw = add_slaw(train, model, excluded_benchmark)
-            logit_slaw = add_slaw(train, logit_model, excluded_benchmark)
+            capability_scores = model.predict_capability_scores_from_model_scores(
+                model_scores
+            ).detach()
+            benchmark_scores = torch.tensor(train[predicted_benchmark].values, dtype=torch.float32)
+            slaw = ScalingLaw(
+                benchmark=predicted_benchmark,
+                floor=benchmark_floor_dict[predicted_benchmark],
+                capability_scores=capability_scores,
+                benchmark_scores=benchmark_scores,
+            )
+            t0 = time.time()
+            slaw.fit()
+            slaw.eval()
+            print(f"Scaling Law Training Time: {time.time() - t0:.2f} seconds")
+
 
             # store the results
-            data.split_train[(split_idx, bench_idx)] = train
-            data.split_test[(split_idx, bench_idx)] = test
-            data.linear_model_dict[(split_idx, bench_idx)] = model
-            data.lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
-            data.logit_model_dict[(split_idx, bench_idx)] = logit_model
-            data.logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
+            data.results[split_idx, bench_idx] = BacktestDataPoint(
+                split_train=train,
+                split_test=test,
+                model=model,
+                slaw=slaw,
+            )
 
     return data
+
+
+def compute_test_train_error(arr: npt.NDArray[np.object_]) -> tuple[
+    npt.NDArray[np.float32],
+    npt.NDArray[np.float32],
+]:
+    train_err = np.zeros_like(arr, dtype=np.float32)
+    test_err = np.zeros_like(arr, dtype=np.float32)
+    for i in range(arr.shape[0]):
+        for j in range(arr.shape[1]):
+            bdp: BacktestDataPoint = arr[i, j]
+            train = bdp.split_train
+            test = bdp.split_test
+            slaw = bdp.slaw
+            model = bdp.model
+
+            for dataset, dataset_err_arr in ((train, train_err), (test, test_err)):
+                x = torch.tensor(dataset[model.benchmarks].values, dtype=torch.float32)
+                y = torch.tensor(dataset[slaw.benchmark].values, dtype=torch.float32)
+                capability_scores = model.predict_capability_scores_from_model_scores(x)
+                y_hat = slaw.forward(capability_scores)
+                dataset_err_arr[i, j] = F.mse_loss(
+                    y,
+                    y_hat,
+                ).item()
+
+    return train_err, test_err
 
 
 # %%
@@ -425,304 +494,201 @@ def backtest_models(
 # Expanding Window
 #####################################
 
-ewbs_splits = list(
-    ExpandingWindowBacktestSplitter(
-        min_train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
-    ).split(base_llm_benchmark_eval)
+ewbs = ExpandingWindowBacktestSplitter(
+    min_train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+)
+
+ewbs_lin_data = backtest_models(
+    ewbs, LinearObsScalingLawPredictor, base_llm_benchmark_eval
+)
+ewbs_logit_data = backtest_models(
+    ewbs, LogitObsScalingLawPredictor, base_llm_benchmark_eval
 )
 
 # %%
-ewbs_lin_data = backtest_models(ewbs_splits)
-ewbs_logit_data = backtest_models(ewbs_splits)
 
-# create plot
-fig, ax = plt.subplots(
-    len(ewbs_splits),
-    len(all_benchmarks),
-    figsize=(4 * len(all_benchmarks), 4 * len(ewbs_splits)),
-    squeeze=False,
-)
+######
+# Compute the mean error of the linear and logit models
+######
 
+ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
+ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(ewbs_logit_data.results)
 
-# print the mean error
-e_err_lin = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-e_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-
-for split_idx in range(len(ewbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        train = ewbs_split_train_dict[(split_idx, bench_idx)].copy()
-        test = ewbs_split_test_dict[(split_idx, bench_idx)].copy()
-        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
-        logit_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
-        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
-
-        # augment the df with columns
-        augment_test_train_linear(linear_model, train, test)
-        augment_test_train_logit(logit_model, train, test)
-
-        # compute error
-        lin_slaw_err = F.mse_loss(
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        # compute error
-        logit_slaw_err = F.mse_loss(
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        e_err_lin[split_idx, bench_idx] = lin_slaw_err
-        e_err_logit[split_idx, bench_idx] = logit_slaw_err
-
-        # Plot Train ( x marker)
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            train[excluded_benchmark],
-            label="True",
-            color="black",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(train["PC-1 (linear)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear",
-            color="blue",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(train["PC-1 (logit)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit",
-            color="red",
-            marker="x",
-            alpha=0.5,
-        )
-
-        # Plot Test
-
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            test[excluded_benchmark],
-            label="True",
-            color="black",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear, MSE: {lin_slaw_err:.3f}",
-            color="blue",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit, MSE: {logit_slaw_err:.3f}",
-            color="red",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].set_title(
-            f"{excluded_benchmark} (train size: {len(train)})"
-        )
-        ax[split_idx, bench_idx].legend()
-
-print(f"Expanding Window Mean Linear Error: {e_err_lin.mean()}")
-print(f"Expanding Window Mean Logit Error: {e_err_logit.mean()}")
+print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
+print(f"Logit Train Error: {ewbs_logit_train_err.mean()}")
+print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
+print(f"Logit Test Error: {ewbs_logit_test_err.mean()}")
 
 print(
-    f"Expanding Window Percent improvement: {100*(e_err_lin.mean() - e_err_logit.mean())/e_err_lin.mean()}"
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_logit_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
 )
+print(
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+)
+
 
 # %%
-split_idx = 2
-bench_idx = 0
-linear_obs_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
-train = ewbs_split_train_dict[(split_idx, bench_idx)]
-test = ewbs_split_test_dict[(split_idx, bench_idx)]
-excluded_benchmark = all_benchmarks[bench_idx]
-lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
 
-fig, ax = plt.subplots(
-    len(linear_obs_model.benchmarks),
-    2,
-    figsize=(10, len(linear_obs_model.benchmarks) * 5),
-    squeeze=False,
-)  # 1 columns
+def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearObsScalingLawPredictor]):
+    fig, ax = plt.subplots(
+        len(lin_data_point.model.benchmarks),
+        2,
+        figsize=(10, len(lin_data_point.model.benchmarks) * 5),
+        squeeze=False,
+    )  # 1 columns
 
-# insert data from excluded benchmark
+    # insert data from excluded benchmark
 
-for bench_idx, benchmark in enumerate(linear_obs_model.benchmarks):
-    train_copy, test_copy = train.copy(), test.copy()
-    augment_test_train_linear(linear_obs_model, train_copy, test_copy)
-    plot_linear_model(ax[bench_idx], bench_idx, train_copy, test_copy, linear_obs_model)
+    for bench_idx, benchmark in enumerate(lin_data_point.model.benchmarks):
+        pt = lin_data_point.copy()
+        augment_train_test_linear(pt.model, pt.split_train, pt.split_test)
+        plot_linear_model(ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model)
 
-# now plot the data for the actual fit curve on the excluded benchmark
-# 1 row, 4 columns
-# col 0: FLOPs vs benchmark (show both true and predicted)
-# col 1: FLOPs vs logit benchmark (show both true and predicted)
-# col 2: capability vs benchmark (show both true and predicted)
-# col 3: capability vs logit benchmark (show both true and predicted)
+    # now plot the data for the actual fit curve on the excluded benchmark
+    # 1 row, 4 columns
+    # col 0: FLOPs vs benchmark (show both true and predicted)
+    # col 1: FLOPs vs logit benchmark (show both true and predicted)
+    # col 2: capability vs benchmark (show both true and predicted)
+    # col 3: capability vs logit benchmark (show both true and predicted)
 
+    pt = lin_data_point.copy()
+    augment_train_test_slaw(pt.slaw, pt.model, pt.split_train, pt.split_test)
+    excluded_benchmark = pt.slaw.benchmark
 
-train_copy, test_copy = train.copy(), test.copy()
-augment_test_train_slaw(lin_slaw, linear_obs_model, train_copy, test_copy)
+    fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
+    ax_arr = ax[0]
+    # plot in flop x-space and benchmark y-space
+    plot_train_test(
+        ax_arr[0],
+        pt.split_train,
+        pt.split_test,
+        "log10 FLOPs_opt_Besiroglu (1E21)",
+        [
+            Spe(f"{excluded_benchmark}", "C0"),
+            Spe(f"{excluded_benchmark} pred", "C1"),
+        ],
+        y_label=excluded_benchmark,
+    )
 
-fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
-ax_arr = ax[0]
-# plot in flop x-space and benchmark y-space
-plot_train_test(
-    ax_arr[0],
-    train_copy,
-    test_copy,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
+    plot_train_test(
+        ax_arr[1],
+        pt.split_train,
+        pt.split_test,
+        "log10 FLOPs_opt_Besiroglu (1E21)",
+        [
+            Spe(f"{excluded_benchmark} logit", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "C1"),
+        ],
+        y_label=f"{excluded_benchmark} logit",
+    )
 
-plot_train_test(
-    ax_arr[1],
-    train_copy,
-    test_copy,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
+    plot_train_test(
+        ax_arr[2],
+        pt.split_train,
+        pt.split_test,
+        "PC-1",
+        [
+            Spe(f"{excluded_benchmark}", "C0"),
+            Spe(f"{excluded_benchmark} pred", "C1"),
+        ],
+        y_label=excluded_benchmark,
+    )
 
-plot_train_test(
-    ax_arr[2],
-    train_copy,
-    test_copy,
-    "PC-1",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
+    plot_train_test(
+        ax_arr[3],
+        pt.split_train,
+        pt.split_test,
+        "PC-1",
+        [
+            Spe(f"{excluded_benchmark} logit", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "C1"),
+        ],
+        y_label=f"{excluded_benchmark} logit",
+    )
 
-plot_train_test(
-    ax_arr[3],
-    train_copy,
-    test_copy,
-    "PC-1",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
+    plt.show()
 
-plt.show()
-# %%
 split_idx = 0
 bench_idx = 1
-logit_obs_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-train = ewbs_split_train_dict[(split_idx, bench_idx)]
-test = ewbs_split_test_dict[(split_idx, bench_idx)]
-excluded_benchmark = all_benchmarks[bench_idx]
-logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
+plot_linear_scaling_law(ewbs_lin_data.results[split_idx, bench_idx])
+# %%
 
-fig, ax = plt.subplots(
-    len(logit_obs_model.benchmarks),
-    4,
-    figsize=(4 * 4, len(logit_obs_model.benchmarks) * 4),
-    squeeze=False,
-)  # 1 columns
+def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitObsScalingLawPredictor]):
+    fig, ax = plt.subplots(
+        len(logit_data_point.model.benchmarks),
+        4,
+        figsize=(4 * 4, len(logit_data_point.model.benchmarks) * 4),
+        squeeze=False,
+    )  # 1 columns
 
-for bench_idx, benchmark in enumerate(logit_obs_model.benchmarks):
-    train_copy, test_copy = train.copy(), test.copy()
-    augment_test_train_logit(logit_obs_model, train_copy, test_copy)
-    plot_logit_model(ax[bench_idx], bench_idx, train_copy, test_copy, logit_obs_model)
+    for bench_idx, benchmark in enumerate(logit_data_point.model.benchmarks):
+        pt = logit_data_point.copy()
+        augment_train_test_logit(pt.model, pt.split_train,pt.split_test)
+        plot_logit_model(ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model)
 
-plt.tight_layout()
+    plt.tight_layout()
 
-plt.show()
+    plt.show()
 
-train_copy, test_copy = train.copy(), test.copy()
-augment_test_train_slaw(logit_slaw, logit_obs_model, train_copy, test_copy)
+    pt = logit_data_point.copy()
+    augment_train_test_slaw(logit_slaw, pt.model, pt.split_train, pt.split_test)
 
-fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
-ax_arr = ax[0]
-# plot in flop x-space and benchmark y-space
-plot_train_test(
-    ax_arr[0],
-    train_copy,
-    test_copy,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
+    fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
+    ax_arr = ax[0]
+    # plot in flop x-space and benchmark y-space
+    plot_train_test(
+        ax_arr[0],
+        pt.split_train,
+        pt.split_test,
+        "log10 FLOPs_opt_Besiroglu (1E21)",
+        [
+            Spe(f"{excluded_benchmark}", "C0"),
+            Spe(f"{excluded_benchmark} pred", "C1"),
+        ],
+        y_label=excluded_benchmark,
+    )
 
-plot_train_test(
-    ax_arr[1],
-    train_copy,
-    test_copy,
-    "log10 FLOPs_opt_Besiroglu (1E21)",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
+    plot_train_test(
+        ax_arr[1],
+        pt.split_train,
+        pt.split_test,
+        "log10 FLOPs_opt_Besiroglu (1E21)",
+        [
+            Spe(f"{excluded_benchmark} logit", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "C1"),
+        ],
+        y_label=f"{excluded_benchmark} logit",
+    )
 
-plot_train_test(
-    ax_arr[2],
-    train_copy,
-    test_copy,
-    "PC-1",
-    [
-        Spe(f"{excluded_benchmark}", "C0"),
-        Spe(f"{excluded_benchmark} pred", "C1"),
-    ],
-    y_label=excluded_benchmark,
-)
+    plot_train_test(
+        ax_arr[2],
+        pt.split_train,
+        pt.split_test,
+        "PC-1",
+        [
+            Spe(f"{excluded_benchmark}", "C0"),
+            Spe(f"{excluded_benchmark} pred", "C1"),
+        ],
+        y_label=excluded_benchmark,
+    )
 
-plot_train_test(
-    ax_arr[3],
-    train_copy,
-    test_copy,
-    "PC-1",
-    [
-        Spe(f"{excluded_benchmark} logit", "C0"),
-        Spe(f"{excluded_benchmark} logit pred", "C1"),
-    ],
-    y_label=f"{excluded_benchmark} logit",
-)
+    plot_train_test(
+        ax_arr[3],
+        pt.split_train,
+        pt.split_test,
+        "PC-1",
+        [
+            Spe(f"{excluded_benchmark} logit", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "C1"),
+        ],
+        y_label=f"{excluded_benchmark} logit",
+    )
 
-plt.show()
+    plt.show()
+
+split_idx = 0
+bench_idx = 1
+plot_logit_scaling_law(ewbs_logit_data.results[split_idx, bench_idx])
 
 # %%
 
@@ -764,8 +730,8 @@ for split_idx in range(len(rwbs_splits)):
         logit_model = rwbs_logit_model_dict[(split_idx, bench_idx)]
 
         # augment the df with columns
-        augment_test_train_linear(linear_model, train, test)
-        augment_test_train_logit(logit_model, train, test)
+        augment_train_test_linear(linear_model, train, test)
+        augment_train_test_logit(logit_model, train, test)
 
         # compute error
         lin_slaw_err = F.mse_loss(
@@ -865,95 +831,6 @@ print(f"Rolling Window Mean Logit Error: {r_err_logit.mean()}")
 print(
     f"Rolling Window Percent improvement: {100*(r_err_lin.mean() - r_err_logit.mean())/r_err_lin.mean()}"
 )
-
-# %%
-
-# plot the distribution of betas
-fig, ax = plt.subplots(5, 1, figsize=(5, 14))
-logit_betas = []
-linear_betas = []
-logit_alphas = []
-linear_alphas = []
-logit_ceil_raws = []
-for split_idx in range(len(ewbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        logit_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
-        logit_betas.extend(logit_model.beta.detach().numpy())
-        linear_betas.extend(linear_model.benchmark_weights.detach().numpy())
-        logit_alphas.extend(logit_model.alpha.detach().numpy())
-        linear_alphas.extend(linear_model.alpha.detach().numpy())
-        logit_ceil_raws.extend(logit_model.benchmark_ceil_raw.detach().numpy())
-
-ax[0].hist(logit_betas, bins=20, alpha=0.5, label="Logit Betas")
-ax[0].set_title("Logit Betas")
-ax[0].legend()
-
-ax[1].hist(linear_betas, bins=20, alpha=0.5, label="Linear Betas")
-ax[1].set_title("Linear Betas")
-ax[1].legend()
-
-ax[2].hist(logit_alphas, bins=20, alpha=0.5, label="Logit Alphas")
-ax[2].set_title("Logit Alphas")
-ax[2].legend()
-
-ax[3].hist(linear_alphas, bins=20, alpha=0.5, label="Linear Alphas")
-ax[3].set_title("Linear Alphas")
-ax[3].legend()
-
-ax[4].hist(logit_ceil_raws, bins=20, alpha=0.5, label="Logit Ceil Raw")
-ax[4].set_title("Logit Ceil Raw")
-ax[4].legend()
-
-# %%
-
-# plot the distribution of scaling law parameters
-fig, ax = plt.subplots(6, 1, figsize=(5, 14))
-
-lin_betas = []
-lin_alphas = []
-lin_ceil_raws = []
-
-logit_betas = []
-logit_alphas = []
-logit_ceil_raws = []
-for split_idx in range(len(ewbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
-        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
-
-        lin_betas.append(lin_slaw.beta.detach().numpy())
-        lin_alphas.append(lin_slaw.alpha.detach().numpy())
-        lin_ceil_raws.append(lin_slaw.benchmark_ceil_raw.detach().numpy())
-
-        logit_betas.append(logit_slaw.beta.detach().numpy())
-        logit_alphas.append(logit_slaw.alpha.detach().numpy())
-        logit_ceil_raws.append(logit_slaw.benchmark_ceil_raw.detach().numpy())
-
-ax[0].hist(lin_betas, bins=20, alpha=0.5, label="Linear Betas")
-ax[0].set_title("Linear Betas")
-ax[0].legend()
-
-ax[1].hist(logit_betas, bins=20, alpha=0.5, label="Logit Betas")
-ax[1].set_title("Logit Betas")
-ax[1].legend()
-
-ax[2].hist(lin_alphas, bins=20, alpha=0.5, label="Linear Alphas")
-ax[2].set_title("Linear Alphas")
-ax[2].legend()
-
-ax[3].hist(logit_alphas, bins=20, alpha=0.5, label="Logit Alphas")
-ax[3].set_title("Logit Alphas")
-ax[3].legend()
-
-ax[4].hist(lin_ceil_raws, bins=20, alpha=0.5, label="Linear Ceil Raw")
-ax[4].set_title("Linear Ceil Raw")
-ax[4].legend()
-
-ax[5].hist(logit_ceil_raws, bins=20, alpha=0.5, label="Logit Ceil Raw")
-ax[5].set_title("Logit Ceil Raw")
-ax[5].legend()
-
 
 # %%
 

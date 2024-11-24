@@ -38,10 +38,6 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
         self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
 
-    @staticmethod
-    def necessary_benchmarks() -> list[str]:
-        return []
-
     @property
     def pca_benchmark_weights(self) -> torch.Tensor:
         # perform PCA and get the first component, return it

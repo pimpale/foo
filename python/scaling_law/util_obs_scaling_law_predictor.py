@@ -16,10 +16,20 @@ class ObsScalingLawPredictor(nn.Module):
         self,
         benchmarks: list[str],
         benchmark_floors: list[float],
-        benchmark_model_scores: torch.Tensor,
+        train_model_scores: torch.Tensor,
     ):
         super().__init__()
         pass
+
+    
+    @staticmethod
+    def fixed_benchmarks() -> list[str] | None:
+        """
+        Return the list of benchmarks that are fixed for this predictor.
+        These benchmarks must appear after the necessary benchmarks in the tensor that is passed into the constructor,
+        and the order of the benchmarks must be the same as the order of the benchmarks in this list.
+        """
+        return None
 
     @staticmethod
     def necessary_benchmarks() -> list[str]:
@@ -27,8 +37,9 @@ class ObsScalingLawPredictor(nn.Module):
         Return the list of benchmarks that are necessary for this predictor.
         These benchmarks must appear first in the tensor that is passed into the constructor,
         and the order of the benchmarks must be the same as the order of the benchmarks in this list.
+        Only one of necessary_benchmarks and fixed_benchmarks should be implemented.
         """
-        raise NotImplementedError
+        return []
 
 
     def predict_capability_scores_from_model_scores(
@@ -49,6 +60,8 @@ class ObsScalingLawPredictor(nn.Module):
         """
         raise NotImplementedError
 
+    def fit(self):
+        pass
 
 PC1_EPS = 1e-4
 

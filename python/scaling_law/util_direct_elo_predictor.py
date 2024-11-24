@@ -1,3 +1,4 @@
+from typing import override
 import torch
 import torch.nn as nn
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor
@@ -7,8 +8,10 @@ class DirectEloPredictor(ObsScalingLawPredictor):
     This class directly passes through Chatbot Arena Elo
     """
     
+    
+    @override
     @staticmethod
-    def necessary_benchmarks() -> list[str]:
+    def fixed_benchmarks() -> list[str]:
         return ["Elo"]
     
     def __init__(
@@ -33,6 +36,7 @@ class DirectEloPredictor(ObsScalingLawPredictor):
         
         self.train_losses = []
     
+    @override
     def predict_capability_scores_from_model_scores(
         self,
         model_scores: torch.Tensor,
@@ -42,6 +46,7 @@ class DirectEloPredictor(ObsScalingLawPredictor):
         """
         return model_scores[:, 0]
     
+    @override
     def predict_benchmark_scores_from_capability_scores(
         self,
         capability_scores: torch.Tensor,
