@@ -16,15 +16,21 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         benchmark_floor: list[float],
         train_model_scores: torch.Tensor,
     ):
-        super().__init__()
-        
+        super().__init__(
+            benchmarks,
+            benchmark_floor,
+            train_model_scores,
+        )
+
         self.train_losses = []
-        
+
         B = len(benchmarks)
         self.benchmarks = benchmarks
 
         # in B
-        self.benchmark_floor = nn.Buffer(torch.tensor(benchmark_floor, dtype=torch.float32))
+        self.benchmark_floor = nn.Buffer(
+            torch.tensor(benchmark_floor, dtype=torch.float32)
+        )
 
         # note: We initialize with values that are likely to be close to the true values, but the model will learn them in training
 
@@ -39,6 +45,10 @@ class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
         self.benchmark_weights = nn.Parameter(torch.ones(B, dtype=torch.float32))
         self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
         self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
+
+    @staticmethod
+    def necessary_benchmarks() -> list[str]:
+        return []
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:

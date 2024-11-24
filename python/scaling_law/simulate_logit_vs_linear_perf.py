@@ -1,6 +1,5 @@
 # %%
 import time
-from typing import Type
 import duckdb
 import pandas as pd
 import numpy as np
@@ -107,18 +106,74 @@ base_llm_benchmark_eval["log10 FLOPs_opt_Besiroglu (1E21)"] = np.log10(
     base_llm_benchmark_eval["FLOPs_opt_Besiroglu (1E21)"]
 )
 
+@dataclass
+class BenchmarkGroundTruth:
+    name: str
+    floor: float
+    ceiling: float
+    slope: float
+    shift: float
+
+# generate fake data for all of these models x benchmarks (to simulate the backtesting)
+model_underlying_capability = base_llm_benchmark_eval["FLOPs_opt_Besiroglu (1E21)"]
+
 benchmark_data = [
-    ("MMLU", 0.25),
-    ("ARC-C", 0.2),
-    ("HellaSwag", 0.25),
-    ("Winograd", 0.5),
-    # ("TruthfulQA", 0.4),
-    ("GSM8K", 0.0),
-    ("XWinograd", 0.5),
-    ("HumanEval", 0.0),
+    BenchmarkGroundTruth("MMLU", 0.25, 0.95, 0.1, 0.0),
+    BenchmarkGroundTruth("ARC-C", 0.2, 0.9, 0.3, 0.0),
+    BenchmarkGroundTruth("HellaSwag", 0.25, 0.8, 1.0, -3.0),
+    BenchmarkGroundTruth("Winograd", 0.5, 0.95, 0.1, -1.0),
+    BenchmarkGroundTruth("GSM8K", 0.0, 0.5, 0.05, 2.0),
+    BenchmarkGroundTruth("XWinograd", 0.5, 0.85, 0.5, 0.0),
+    BenchmarkGroundTruth("HumanEval", 0.0, 0.95, 0.3, -0.5),
 ]
-benchmark_floor_dict = {b: f for b, f in benchmark_data}
-all_benchmarks = [b for b, _ in benchmark_data]
+
+for benchmark in benchmark_data:
+    model_underlying_capability_tensor = torch.tensor(model_underlying_capability.values, dtype=torch.float32)
+    
+    benchmark_tensor = (benchmark.ceiling - benchmark.floor)*torch.sigmoid(benchmark.slope*model_underlying_capability_tensor + benchmark.shift) + benchmark.floor
+    
+    benchmark_tensor += 0.1*torch.rand(len(benchmark_tensor)) - 0.05
+    
+    base_llm_benchmark_eval[benchmark.name] = benchmark_tensor.detach().numpy()
+    
+benchmark_floor_dict = {b.name: b.floor for b in benchmark_data}
+all_benchmarks = [b.name for b in benchmark_data]
+
+
+def add_logit_model(
+    train_df: pd.DataFrame, benchmarks: list[str]
+) -> LogitObsScalingLawPredictor:
+    """
+    Trains a logit model with the following benchmarks, and inserts a new column
+    """
+    benchmark_floor = [benchmark_floor_dict[b] for b in benchmarks]
+    train_model_scores = torch.tensor(train_df[benchmarks].values, dtype=torch.float32)
+
+    logit_obs_model = LogitObsScalingLawPredictor(
+        benchmarks, benchmark_floor, train_model_scores
+    )
+    t0 = time.time()
+    logit_obs_model.fit()
+    logit_obs_model.eval()
+    print(f"Logit Training Time: {time.time() - t0:.2f} seconds")
+    return logit_obs_model
+
+
+def add_linear_model(
+    train_df: pd.DataFrame, benchmarks: list[str]
+) -> LinearObsScalingLawPredictor:
+    """
+    Trains a linear model with the following benchmarks, and inserts a new column
+    """
+    train_model_scores = torch.tensor(train_df[benchmarks].values, dtype=torch.float32)
+
+    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, train_model_scores)
+    t0 = time.time()
+    linear_obs_model.fit()
+    linear_obs_model.eval()
+    print(f"Linear Training Time: {time.time() - t0:.2f} seconds")
+
+    return linear_obs_model
 
 
 def add_slaw(
@@ -369,55 +424,6 @@ def augment_test_train_slaw(
     augment_df_slaw(slaw, model, test)
 
 
-@dataclass
-class BacktestData:
-    split_train: dict[tuple[int, int], pd.DataFrame]
-    split_test: dict[tuple[int, int], pd.DataFrame]
-    model: dict[tuple[int, int], ObsScalingLawPredictor]
-    slaw: dict[tuple[int, int], ScalingLaw]
-
-
-def backtest_models(
-    ModelCls: Type[ObsScalingLawPredictor],
-    train_test_splits: list[tuple[pd.DataFrame, pd.DataFrame]],
-) -> BacktestData:
-    data = BacktestData({}, {}, {}, {})
-
-    n_trains = len(train_test_splits) * len(all_benchmarks)
-
-    for split_idx, (train, test) in enumerate(train_test_splits):
-        for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-            i_train = split_idx * len(all_benchmarks) + bench_idx
-            print(f"Training {i_train}/{n_trains}")
-            
-            benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
-            benchmark_floors = [benchmark_floor_dict[b] for b in benchmark_list]
-
-            input_tensor = torch.tensor(
-                train[benchmark_list].values, dtype=torch.float32
-            )
-
-            model = ModelCls(benchmark_list, benchmark input_tensor)
-            t0 = time.time()
-            model.fit()
-            model.eval()
-            print(f"Training Time: {time.time() - t0:.2f} seconds")
-
-            # predict the excluded benchmark
-            lin_slaw = add_slaw(train, model, excluded_benchmark)
-            logit_slaw = add_slaw(train, logit_model, excluded_benchmark)
-
-            # store the results
-            data.split_train[(split_idx, bench_idx)] = train
-            data.split_test[(split_idx, bench_idx)] = test
-            data.linear_model_dict[(split_idx, bench_idx)] = model
-            data.lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
-            data.logit_model_dict[(split_idx, bench_idx)] = logit_model
-            data.logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
-
-    return data
-
-
 # %%
 
 #####################################
@@ -431,9 +437,37 @@ ewbs_splits = list(
     ).split(base_llm_benchmark_eval)
 )
 
+ewbs_split_train_dict = {}
+ewbs_split_test_dict = {}
+ewbs_linear_model_dict = {}
+ewbs_lin_slaw_dict: dict[tuple[int, int], ScalingLaw] = {}
+ewbs_logit_model_dict = {}
+ewbs_logit_slaw_dict: dict[tuple[int, int], ScalingLaw] = {}
+
+n_trains = len(ewbs_splits) * len(all_benchmarks)
+
+for split_idx, (train, test) in enumerate(ewbs_splits):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        i_train = split_idx * len(all_benchmarks) + bench_idx
+        print(f"Training {i_train}/{n_trains}")
+        benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
+
+        linear_model = add_linear_model(train, benchmark_list)
+        logit_model = add_logit_model(train, benchmark_list)
+
+        # predict the excluded benchmark
+        lin_slaw = add_slaw(train, linear_model, excluded_benchmark)
+        logit_slaw = add_slaw(train, logit_model, excluded_benchmark)
+
+        # store the results
+        ewbs_split_train_dict[(split_idx, bench_idx)] = train
+        ewbs_split_test_dict[(split_idx, bench_idx)] = test
+        ewbs_linear_model_dict[(split_idx, bench_idx)] = linear_model
+        ewbs_lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
+        ewbs_logit_model_dict[(split_idx, bench_idx)] = logit_model
+        ewbs_logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
+
 # %%
-ewbs_lin_data = backtest_models(ewbs_splits)
-ewbs_logit_data = backtest_models(ewbs_splits)
 
 # create plot
 fig, ax = plt.subplots(
@@ -558,7 +592,7 @@ print(
 )
 
 # %%
-split_idx = 2
+split_idx = 0
 bench_idx = 0
 linear_obs_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
 train = ewbs_split_train_dict[(split_idx, bench_idx)]
@@ -645,7 +679,7 @@ plot_train_test(
 plt.show()
 # %%
 split_idx = 0
-bench_idx = 1
+bench_idx = 0
 logit_obs_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
 train = ewbs_split_train_dict[(split_idx, bench_idx)]
 test = ewbs_split_test_dict[(split_idx, bench_idx)]
@@ -737,7 +771,36 @@ rwbs_splits = list(
     ).split(base_llm_benchmark_eval)
 )
 
-rwbs_data = backtest_models(rwbs_splits)
+rwbs_split_train_dict = {}
+rwbs_split_test_dict = {}
+rwbs_linear_model_dict = {}
+rwbs_lin_slaw_dict = {}
+rwbs_logit_model_dict = {}
+rwbs_logit_slaw_dict = {}
+
+n_trains = len(rwbs_splits) * len(all_benchmarks)
+
+for split_idx, (train, test) in enumerate(rwbs_splits):
+    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
+        i_train = split_idx * len(all_benchmarks) + bench_idx
+        print(f"Training {i_train}/{n_trains}")
+
+        benchmark_list = [b for b in all_benchmarks if b != excluded_benchmark]
+
+        linear_model = add_linear_model(train, benchmark_list)
+        logit_model = add_logit_model(train, benchmark_list)
+
+        # predict the excluded benchmark
+        lin_slaw = add_slaw(train, linear_model, excluded_benchmark)
+        logit_slaw = add_slaw(train, logit_model, excluded_benchmark)
+
+        # store the results
+        rwbs_split_train_dict[(split_idx, bench_idx)] = train
+        rwbs_split_test_dict[(split_idx, bench_idx)] = test
+        rwbs_linear_model_dict[(split_idx, bench_idx)] = linear_model
+        rwbs_lin_slaw_dict[(split_idx, bench_idx)] = lin_slaw
+        rwbs_logit_model_dict[(split_idx, bench_idx)] = logit_model
+        rwbs_logit_slaw_dict[(split_idx, bench_idx)] = logit_slaw
 
 # %%
 

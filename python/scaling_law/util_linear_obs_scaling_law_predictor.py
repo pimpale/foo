@@ -11,15 +11,21 @@ PC1_EPS = 1e-4
 
 
 class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
+    @override
     def __init__(
         self,
         benchmarks: list[str],
+        benchmark_floors: list[float],
         train_model_scores: torch.Tensor,
     ):
-        super().__init__()
-        
+        super().__init__(
+            benchmarks,
+            benchmark_floors,
+            train_model_scores,
+        )
+
         self.train_losses = []
-        
+
         B = len(benchmarks)
         self.benchmarks = benchmarks
         # in M x B
@@ -32,6 +38,10 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         self.alpha = nn.Parameter(torch.zeros(B, dtype=torch.float32))
         self.beta = nn.Parameter(torch.full((B,), fill_value=0.5, dtype=torch.float32))
 
+    @staticmethod
+    def necessary_benchmarks() -> list[str]:
+        return []
+
     @property
     def pca_benchmark_weights(self) -> torch.Tensor:
         # perform PCA and get the first component, return it
@@ -42,7 +52,9 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         return -V[:, 0]
 
     @override
-    def predict_capability_scores_from_model_scores(self, model_scores: torch.Tensor) -> torch.Tensor:
+    def predict_capability_scores_from_model_scores(
+        self, model_scores: torch.Tensor
+    ) -> torch.Tensor:
         # benchmark_weights: B x 1
         benchmark_weights = self.benchmark_weights.unsqueeze(1)
         # benchmark_weights = self.benchmark_weights.unsqueeze(1)
@@ -51,7 +63,9 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
         return capability_score.squeeze(1)
 
     @override
-    def predict_benchmark_scores_from_capability_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
+    def predict_benchmark_scores_from_capability_scores(
+        self, capability_scores: torch.Tensor
+    ) -> torch.Tensor:
         # capability_scores: M x 1
         capability_scores = capability_scores.unsqueeze(1)
         # beta = 1 x B
@@ -62,7 +76,9 @@ class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
 
     # compute loss
     def forward(self, model_scores: torch.Tensor) -> torch.Tensor:
-        capability_scores = self.predict_capability_scores_from_model_scores(model_scores)
+        capability_scores = self.predict_capability_scores_from_model_scores(
+            model_scores
+        )
         return self.predict_benchmark_scores_from_capability_scores(capability_scores)
 
     # compute loss

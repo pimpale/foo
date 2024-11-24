@@ -9,7 +9,27 @@ class ObsScalingLawPredictor(nn.Module):
     """
     Parent class for all observational scaling law predictors.
     """
+
     benchmarks: list[str]
+
+    def __init__(
+        self,
+        benchmarks: list[str],
+        benchmark_floors: list[float],
+        benchmark_model_scores: torch.Tensor,
+    ):
+        super().__init__()
+        pass
+
+    @staticmethod
+    def necessary_benchmarks() -> list[str]:
+        """
+        Return the list of benchmarks that are necessary for this predictor.
+        These benchmarks must appear first in the tensor that is passed into the constructor,
+        and the order of the benchmarks must be the same as the order of the benchmarks in this list.
+        """
+        raise NotImplementedError
+
 
     def predict_capability_scores_from_model_scores(
         self,
@@ -29,7 +49,10 @@ class ObsScalingLawPredictor(nn.Module):
         """
         raise NotImplementedError
 
+
 PC1_EPS = 1e-4
+
+
 class ScalingLaw(nn.Module):
     def __init__(
         self,
@@ -64,9 +87,9 @@ class ScalingLaw(nn.Module):
         return self.beta * x + self.alpha
 
     def forward(self, x):
-        return (
-            self.benchmark_ceil - self.benchmark_floor
-        ) * torch.sigmoid(self.predict_benchmark_logit_scores(x)) + self.benchmark_floor
+        return (self.benchmark_ceil - self.benchmark_floor) * torch.sigmoid(
+            self.predict_benchmark_logit_scores(x)
+        ) + self.benchmark_floor
 
     @torch.compile(fullgraph=True)
     def train_loss(self):
