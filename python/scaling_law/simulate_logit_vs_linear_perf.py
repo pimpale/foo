@@ -17,8 +17,8 @@ from util_timeseries_backtesting import (
     ExpandingWindowBacktestSplitter,
     RollingWindowBacktestSplitter,
 )
-from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
-from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
+from util_linear_obs_scaling_law_predictor import LinearPC1Predictor
+from util_logit_obs_scaling_law_predictor import LogitPC1Predictor
 
 torch.set_num_threads(1)
 
@@ -142,14 +142,14 @@ all_benchmarks = [b.name for b in benchmark_data]
 
 def add_logit_model(
     train_df: pd.DataFrame, benchmarks: list[str]
-) -> LogitObsScalingLawPredictor:
+) -> LogitPC1Predictor:
     """
     Trains a logit model with the following benchmarks, and inserts a new column
     """
     benchmark_floor = [benchmark_floor_dict[b] for b in benchmarks]
     train_model_scores = torch.tensor(train_df[benchmarks].values, dtype=torch.float32)
 
-    logit_obs_model = LogitObsScalingLawPredictor(
+    logit_obs_model = LogitPC1Predictor(
         benchmarks, benchmark_floor, train_model_scores
     )
     t0 = time.time()
@@ -161,14 +161,14 @@ def add_logit_model(
 
 def add_linear_model(
     train_df: pd.DataFrame, benchmarks: list[str]
-) -> LinearObsScalingLawPredictor:
+) -> LinearPC1Predictor:
     """
     Trains a linear model with the following benchmarks, and inserts a new column
     """
     train_model_scores = torch.tensor(train_df[benchmarks].values, dtype=torch.float32)
     benchmark_floor = [benchmark_floor_dict[b] for b in benchmarks]
 
-    linear_obs_model = LinearObsScalingLawPredictor(benchmarks, benchmark_floor, train_model_scores)
+    linear_obs_model = LinearPC1Predictor(benchmarks, benchmark_floor, train_model_scores)
     t0 = time.time()
     linear_obs_model.fit()
     linear_obs_model.eval()
@@ -252,7 +252,7 @@ def plot_linear_model(
     bench_idx: int,
     train: pd.DataFrame,
     test: pd.DataFrame,
-    linear_obs_model: LinearObsScalingLawPredictor,
+    linear_obs_model: LinearPC1Predictor,
 ):
     benchmark = linear_obs_model.benchmarks[bench_idx]
     plot_train_test(
@@ -283,7 +283,7 @@ def plot_logit_model(
     bench_idx: int,
     train: pd.DataFrame,
     test: pd.DataFrame,
-    logit_obs_model: LogitObsScalingLawPredictor,
+    logit_obs_model: LogitPC1Predictor,
 ):
     benchmark = logit_obs_model.benchmarks[bench_idx]
     plot_train_test(
@@ -336,7 +336,7 @@ def plot_logit_model(
 
 
 def augment_df_logit(
-    logit_obs_model: LogitObsScalingLawPredictor, df_to_augment: pd.DataFrame
+    logit_obs_model: LogitPC1Predictor, df_to_augment: pd.DataFrame
 ):
     x = torch.tensor(
         df_to_augment[logit_obs_model.benchmarks].values, dtype=torch.float32
@@ -355,7 +355,7 @@ def augment_df_logit(
 
 
 def augment_test_train_logit(
-    logit_obs_model: LogitObsScalingLawPredictor,
+    logit_obs_model: LogitPC1Predictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
 ):
@@ -364,7 +364,7 @@ def augment_test_train_logit(
 
 
 def augment_df_linear(
-    linear_obs_model: LinearObsScalingLawPredictor, df_to_augment: pd.DataFrame
+    linear_obs_model: LinearPC1Predictor, df_to_augment: pd.DataFrame
 ):
     x = torch.tensor(
         df_to_augment[linear_obs_model.benchmarks].values, dtype=torch.float32
@@ -381,7 +381,7 @@ def augment_df_linear(
 
 
 def augment_test_train_linear(
-    linear_obs_model: LinearObsScalingLawPredictor,
+    linear_obs_model: LinearPC1Predictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
 ):

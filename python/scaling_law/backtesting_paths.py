@@ -21,8 +21,8 @@ from util_timeseries_backtesting import (
     ExpandingWindowBacktestSplitter,
     RollingWindowBacktestSplitter,
 )
-from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
-from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
+from util_linear_obs_scaling_law_predictor import LinearPC1Predictor
+from util_logit_obs_scaling_law_predictor import LogitPC1Predictor
 
 torch.set_num_threads(1)
 
@@ -130,6 +130,7 @@ class Spe:
     """
 
     y_key: str
+    y_label: str
     color: str
 
 
@@ -146,7 +147,6 @@ def plot_train_test(
         ax.scatter(
             train_df[x_key],
             train_df[e.y_key],
-            label="Train",
             marker="x",
             alpha=0.5,
             color=e.color,
@@ -154,8 +154,8 @@ def plot_train_test(
         ax.scatter(
             test_df[x_key],
             test_df[e.y_key],
-            label="Test",
             marker="o",
+            label=e.y_label,
             alpha=0.5,
             color=e.color,
         )
@@ -175,7 +175,7 @@ def plot_linear_model(
     bench_idx: int,
     train: pd.DataFrame,
     test: pd.DataFrame,
-    linear_obs_model: LinearObsScalingLawPredictor,
+    linear_obs_model: LinearPC1Predictor,
 ):
     benchmark = linear_obs_model.benchmarks[bench_idx]
     plot_train_test(
@@ -184,8 +184,8 @@ def plot_linear_model(
         test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred", "C1"),
+            Spe(f"{benchmark}", "Ground Truth", "C0"),
+            Spe(f"{benchmark} pred", "Prediction", "C1"),
         ],
         y_label=benchmark,
     )
@@ -195,9 +195,10 @@ def plot_linear_model(
         test,
         "PC-1 (linear)",
         [
-            Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred", "C1"),
+            Spe(f"{benchmark}", "Ground Truth", "C0"),
+            Spe(f"{benchmark} pred", "Prediction", "C1"),
         ],
+        y_label=benchmark,
     )
 
 
@@ -206,7 +207,7 @@ def plot_logit_model(
     bench_idx: int,
     train: pd.DataFrame,
     test: pd.DataFrame,
-    logit_obs_model: LogitObsScalingLawPredictor,
+    logit_obs_model: LogitPC1Predictor,
 ):
     benchmark = logit_obs_model.benchmarks[bench_idx]
     plot_train_test(
@@ -215,8 +216,8 @@ def plot_logit_model(
         test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred", "C1"),
+            Spe(f"{benchmark}","Ground Truth", "C0"),
+            Spe(f"{benchmark} pred", "Prediction", "C1"),
         ],
         y_label=benchmark,
     )
@@ -227,8 +228,8 @@ def plot_logit_model(
         test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{benchmark} logit", "C0"),
-            Spe(f"{benchmark} logit pred", "C1"),
+            Spe(f"{benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{benchmark} logit pred", "Prediction", "C1"),
         ],
         y_label=f"{benchmark} logit",
     )
@@ -239,8 +240,8 @@ def plot_logit_model(
         test,
         "PC-1 (logit)",
         [
-            Spe(f"{benchmark}", "C0"),
-            Spe(f"{benchmark} pred", "C1"),
+            Spe(f"{benchmark}", "Ground Truth", "C0"),
+            Spe(f"{benchmark} pred", "Prediction", "C1"),
         ],
         y_label=benchmark,
     )
@@ -251,15 +252,14 @@ def plot_logit_model(
         test,
         "PC-1 (logit)",
         [
-            Spe(f"{benchmark} logit", "C0"),
-            Spe(f"{benchmark} logit pred", "C1"),
+            Spe(f"{benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{benchmark} logit pred", "Prediction", "C1"),
         ],
         y_label=f"{benchmark} logit",
     )
-
-
+    
 def augment_df_logit(
-    logit_obs_model: LogitObsScalingLawPredictor, df_to_augment: pd.DataFrame
+    logit_obs_model: LogitPC1Predictor, df_to_augment: pd.DataFrame
 ):
     x = torch.tensor(
         df_to_augment[logit_obs_model.benchmarks].values, dtype=torch.float32
@@ -278,7 +278,7 @@ def augment_df_logit(
 
 
 def augment_train_test_logit(
-    logit_obs_model: LogitObsScalingLawPredictor,
+    logit_obs_model: LogitPC1Predictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
 ):
@@ -287,7 +287,7 @@ def augment_train_test_logit(
 
 
 def augment_df_linear(
-    linear_obs_model: LinearObsScalingLawPredictor, df_to_augment: pd.DataFrame
+    linear_obs_model: LinearPC1Predictor, df_to_augment: pd.DataFrame
 ):
     x = torch.tensor(
         df_to_augment[linear_obs_model.benchmarks].values, dtype=torch.float32
@@ -304,7 +304,7 @@ def augment_df_linear(
 
 
 def augment_train_test_linear(
-    linear_obs_model: LinearObsScalingLawPredictor,
+    linear_obs_model: LinearPC1Predictor,
     train: pd.DataFrame,
     test: pd.DataFrame,
 ):
@@ -369,7 +369,7 @@ class BacktestDataPoint[T: ObsScalingLawPredictor]:
 
 @dataclass
 class BacktestData:
-    splitter_class: Type[BacktestSplitter]
+    splitter: BacktestSplitter
     model_class: Type[ObsScalingLawPredictor]
     results: npt.NDArray[np.object_]
 
@@ -399,7 +399,7 @@ def backtest_models(
     train_test_splits = list(splitter.split(dataframe))
 
     data = BacktestData(
-        splitter_class=type(splitter),
+        splitter=splitter,
         model_class=ModelCls,
         results=np.empty(
             (len(train_test_splits), len(all_benchmarks)), dtype=np.object_
@@ -430,7 +430,7 @@ def backtest_models(
             t0 = time.time()
             model.fit()
             model.eval()
-            print(f"Training Time: {time.time() - t0:.2f} seconds")
+            print(f"{ModelCls.__name__} Training Time: {time.time() - t0:.2f} seconds")
 
             # predict the excluded benchmark
             capability_scores = model.predict_capability_scores_from_model_scores(
@@ -487,6 +487,60 @@ def compute_test_train_error(arr: npt.NDArray[np.object_]) -> tuple[
     return train_err, test_err
 
 
+
+def plot_comparison(
+    backtests: list[BacktestData]
+):
+    assert len(backtests) > 0
+    b0 = backtests[0]
+    n_split, n_bench = b0.results.shape
+
+    # key on which we split
+    x_key = b0.splitter.key
+
+    fig, ax = plt.subplots(
+        n_split,
+        n_bench,
+        figsize=(4 * n_bench, 4 * n_split),
+        squeeze=False,
+    )
+    
+    for i, b in enumerate(backtests + [None]):
+        # plot ground truth data
+        for split_idx in range(n_split):
+            for bench_idx in range(n_bench):
+                if b is None:
+                    b0dp: BacktestDataPoint = b0.results[split_idx, bench_idx]
+                    # We plot the ground truth data
+                    plot_train_test(
+                        ax[split_idx, bench_idx],
+                        b0dp.split_train,
+                        b0dp.split_test,
+                        x_key,
+                        [Spe(b0dp.slaw.benchmark, "Ground Truth", "black")],
+                        y_label=b0dp.slaw.benchmark,
+                    )
+                    continue
+                
+                # otherwise plot the model data
+                bdp: BacktestDataPoint = b.results[split_idx, bench_idx]
+                bdp_copy = bdp.copy()
+                augment_train_test_slaw(bdp_copy.slaw, bdp_copy.model, bdp_copy.split_train, bdp_copy.split_test)
+                plot_train_test(
+                    ax[split_idx, bench_idx],
+                    bdp_copy.split_train,
+                    bdp_copy.split_test,
+                    x_key,
+                    [
+                        Spe(f"{bdp_copy.slaw.benchmark} pred", f"{type(bdp_copy.model).__name__} pred", f"C{i}"),
+                    ],
+                    y_label=bdp_copy.slaw.benchmark,
+                )
+            
+
+    fig.tight_layout()
+    plt.show()
+
 # %%
 
 #####################################
@@ -495,14 +549,14 @@ def compute_test_train_error(arr: npt.NDArray[np.object_]) -> tuple[
 #####################################
 
 ewbs = ExpandingWindowBacktestSplitter(
-    min_train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
+    min_train_size=40, test_size=20, increment=10, key="log10 FLOPs_opt_Besiroglu (1E21)"
 )
 
 ewbs_lin_data = backtest_models(
-    ewbs, LinearObsScalingLawPredictor, base_llm_benchmark_eval
+    ewbs, LinearPC1Predictor, base_llm_benchmark_eval
 )
 ewbs_logit_data = backtest_models(
-    ewbs, LogitObsScalingLawPredictor, base_llm_benchmark_eval
+    ewbs, LogitPC1Predictor, base_llm_benchmark_eval
 )
 
 # %%
@@ -510,6 +564,8 @@ ewbs_logit_data = backtest_models(
 ######
 # Compute the mean error of the linear and logit models
 ######
+
+plot_comparison([ewbs_lin_data, ewbs_logit_data])
 
 ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
 ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(ewbs_logit_data.results)
@@ -529,7 +585,7 @@ print(
 
 # %%
 
-def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearObsScalingLawPredictor]):
+def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor]):
     fig, ax = plt.subplots(
         len(lin_data_point.model.benchmarks),
         2,
@@ -613,7 +669,7 @@ bench_idx = 1
 plot_linear_scaling_law(ewbs_lin_data.results[split_idx, bench_idx])
 # %%
 
-def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitObsScalingLawPredictor]):
+def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor]):
     fig, ax = plt.subplots(
         len(logit_data_point.model.benchmarks),
         4,

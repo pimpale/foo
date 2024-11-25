@@ -3,6 +3,7 @@ import numpy as np
 
 
 class BacktestSplitter:
+    key: str
     def split(self, df: pd.DataFrame):
         raise NotImplementedError()
 

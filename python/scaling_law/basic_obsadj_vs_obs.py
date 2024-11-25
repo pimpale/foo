@@ -9,8 +9,8 @@ import torch.optim as optim
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
 
-from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
-from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
+from util_linear_obs_scaling_law_predictor import LinearPC1Predictor
+from util_logit_obs_scaling_law_predictor import LogitPC1Predictor
 
 
 # Define the Chinchilla loss function parameter set
@@ -114,7 +114,7 @@ model_scores = torch.tensor(
     dtype=torch.float32,
 )
 
-logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
+logit_obs_model = LogitPC1Predictor(benchmarks, benchmark_floor, model_scores)
 logit_obs_model.fit()
 
 
@@ -184,7 +184,7 @@ plt.tight_layout()
 
 
 # %%
-linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
+linear_obs_model = LinearPC1Predictor(benchmarks, model_scores)
 linear_obs_model.fit()
 
 # %%

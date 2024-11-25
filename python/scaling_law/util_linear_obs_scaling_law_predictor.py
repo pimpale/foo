@@ -10,7 +10,7 @@ from util_obs_scaling_law_predictor import ObsScalingLawPredictor
 PC1_EPS = 1e-4
 
 
-class LinearObsScalingLawPredictor(ObsScalingLawPredictor):
+class LinearPC1Predictor(ObsScalingLawPredictor):
     @override
     def __init__(
         self,

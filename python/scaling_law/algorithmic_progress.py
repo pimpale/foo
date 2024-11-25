@@ -8,8 +8,8 @@ import pandas as pd
 import torch
 import torch.optim as optim
 
-from util_linear_obs_scaling_law_predictor import LinearObsScalingLawPredictor
-from util_logit_obs_scaling_law_predictor import LogitObsScalingLawPredictor
+from util_linear_obs_scaling_law_predictor import LinearPC1Predictor
+from util_logit_obs_scaling_law_predictor import LogitPC1Predictor
 import util_plot_markers
 
 
@@ -138,7 +138,7 @@ model_scores = torch.tensor(
 # Calculate Logit Observational Capability Scores
 ############################################
 
-logit_obs_model = LogitObsScalingLawPredictor(benchmarks, benchmark_floor, model_scores)
+logit_obs_model = LogitPC1Predictor(benchmarks, benchmark_floor, model_scores)
 logit_obs_model.fit()
 
 base_llm_benchmark_eval["PC-1"] = (
@@ -152,7 +152,7 @@ base_llm_benchmark_eval["PC-1"] = (
 # Calculate Linear Observational Capability Scores
 ############################################
 
-linear_obs_model = LinearObsScalingLawPredictor(benchmarks, model_scores)
+linear_obs_model = LinearPC1Predictor(benchmarks, model_scores)
 linear_obs_model.fit()
 
 base_llm_benchmark_eval["Linear PC-1"] = (

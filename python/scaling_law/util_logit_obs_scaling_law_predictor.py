@@ -9,7 +9,7 @@ from util_obs_scaling_law_predictor import ObsScalingLawPredictor
 PC1_EPS = 1e-4
 
 
-class LogitObsScalingLawPredictor(ObsScalingLawPredictor):
+class LogitPC1Predictor(ObsScalingLawPredictor):
     def __init__(
         self,
         benchmarks: list[str],
