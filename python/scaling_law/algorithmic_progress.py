@@ -152,7 +152,7 @@ base_llm_benchmark_eval["PC-1"] = (
 # Calculate Linear Observational Capability Scores
 ############################################
 
-linear_obs_model = LinearPC1Predictor(benchmarks, model_scores)
+linear_obs_model = LinearPC1Predictor(benchmarks, benchmark_floor, model_scores)
 linear_obs_model.fit()
 
 base_llm_benchmark_eval["Linear PC-1"] = (

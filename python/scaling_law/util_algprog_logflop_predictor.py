@@ -8,7 +8,7 @@ from util_obs_scaling_law_predictor import ObsScalingLawPredictor
 
 class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
     """
-    This class directly passes through log FLOP
+    This class tries to predict PC1 capability scores using a linear approximation with both release date and amount of compute used.
     """
 
     @override
@@ -46,27 +46,16 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
             train_model_scores=train_model_scores[:, 3:],
         )
 
-        # family indexes of each model
-        # in M
-        self.F = nn.Buffer(train_model_scores[:, 2])
-
         # release dates of each model
         # in M
         self.D = nn.Buffer(train_model_scores[:, 0])
 
-        # release dates for each family
-        # we find by taking the average release date of each family
-        # not optimized
-        # in N_fam
-        self.D_fam = torch.tensor(
-            [
-                torch.mean(self.D[self.F == family]).item()
-                for family in torch.unique(self.F)
-            ],
-            dtype=torch.float32,
-        )
         # in M
         self.C = nn.Buffer(train_model_scores[:, 1])
+
+        # family indexes of each model
+        # in M
+        self.F = nn.Buffer(train_model_scores[:, 2])
 
         # linear approximation constants
         self.m_p = nn.Parameter(torch.tensor(0, dtype=torch.float32))
@@ -100,29 +89,41 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
         )
 
         # not vectorized because there are only a few families
-        flops_opt_vs_pc1_b_list = [] 
+        release_date_list = []
+        flops_opt_vs_pc1_b_list = []
         for family in torch.unique(self.F):
             family_mask = self.F == family
-            family_capability_scores = S_p[family_mask]
-            family_compute_scores = self.C[family_mask]
+            
+            # discard families with only one model
+            print(family)
+            if family_mask.sum() <= 1:
+                continue
+            
+            family_capability_scores = S_p[family_mask].detach().cpu().numpy()
+            family_compute_scores = self.C[family_mask].detach().cpu().numpy()
+            family_release_date = self.D[family_mask].detach().mean().item()
 
             # fit linear regression
             flops_opt_vs_pc1_m, flops_opt_vs_pc1_b = np.polyfit(
-                family_capability_scores, family_compute_scores, 1
+                family_compute_scores, family_capability_scores, 1
             )
             # store the y-intercept (which is the algorithmic progress offset)
             # we can think of it as an increase in performance from some epoch date
             flops_opt_vs_pc1_b_list.append(flops_opt_vs_pc1_b)
+            # store the release date
+            release_date_list.append(family_release_date)
         
         # fit a linear regression going from date to the algorithmic progress constant
-        m_p, b_p = np.polyfit(self.D_fam, flops_opt_vs_pc1_b_list, 1)
+        m_p, b_p = np.polyfit(release_date_list, flops_opt_vs_pc1_b_list, 1)
         self.m_p.data = torch.tensor(m_p, dtype=torch.float32)
         self.b_p.data = torch.tensor(b_p, dtype=torch.float32)
         
         # compute S_p at the epoch date 
-        S_noprog = S_p - self.m_p * self.D + self.b_p
+        S_noprog = S_p - (self.m_p * self.D + self.b_p)
         
         # fit a linear regression going from C to S_noprog
-        m_c, b_c = np.polyfit(self.C, S_noprog, 1)
+        compute = self.C.detach().cpu().numpy()
+        capability_at_epoch = S_noprog.detach().cpu().numpy()
+        m_c, b_c = np.polyfit(compute, capability_at_epoch, 1)
         self.m_c.data = torch.tensor(m_c, dtype=torch.float32)
         self.b_c.data = torch.tensor(b_c, dtype=torch.float32)

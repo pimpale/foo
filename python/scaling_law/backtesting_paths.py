@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import matplotlib.axes
 from tqdm import tqdm
 
+from util_algprog_logflop_predictor import AlgprogLogFlopPredictor
 from util_direct_flop_predictor import DirectLogFlopPredictor
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
@@ -75,7 +76,8 @@ base_llm_benchmark_eval = duckdb.sql(
         "HumanEval", 
         "Model Size (B)", 
         "Pretraining Data Size (T)", 
-        "FLOPs (1E21)"
+        "FLOPs (1E21)",
+        hash("Model Family") as "family_idx"
     FROM base_llm_benchmark_eval
     JOIN family_release_dates ON base_llm_benchmark_eval."Model Family" = family_release_dates.family
     """
@@ -724,7 +726,39 @@ ewbs = ExpandingWindowBacktestSplitter(
     key="log10 FLOPs_opt_Besiroglu (1E21)",
 )
 
+# %%
+
 ewbs_lin_data = backtest_models(ewbs, LinearPC1Predictor, base_llm_benchmark_eval)
+
+# %%
+ewbs_logit_data = backtest_models(ewbs, LogitPC1Predictor, base_llm_benchmark_eval)
+
+#%%
+
+######
+# Compute the mean error of the linear and logit models
+######
+
+plot_comparison([ewbs_lin_data, ewbs_logit_data])
+
+ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
+ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(
+    ewbs_logit_data.results
+)
+
+print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
+print(f"Logit Train Error: {ewbs_logit_train_err.mean()}")
+print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
+print(f"Logit Test Error: {ewbs_logit_test_err.mean()}")
+
+print(
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_logit_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
+)
+print(
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+)
+
+
 
 #%%
 ewbs_flop_data = backtest_models(ewbs, DirectLogFlopPredictor, base_llm_benchmark_eval)
@@ -755,32 +789,32 @@ print(
 )
 
 
-# %%
-ewbs_logit_data = backtest_models(ewbs, LogitPC1Predictor, base_llm_benchmark_eval)
+#%%
+ewbs_algprog_flop_data = backtest_models(ewbs, AlgprogLogFlopPredictor, base_llm_benchmark_eval)
 
 #%%
 
 ######
-# Compute the mean error of the linear and logit models
+# Compute the mean error of the linear and algprog flop models
 ######
 
-plot_comparison([ewbs_lin_data, ewbs_logit_data])
+plot_comparison([ewbs_lin_data, ewbs_algprog_flop_data])
 
 ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
-ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(
-    ewbs_logit_data.results
+ewbs_algprog_flop_train_err, ewbs_algprog_flop_test_err = compute_test_train_error(
+    ewbs_algprog_flop_data.results
 )
 
 print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
-print(f"Logit Train Error: {ewbs_logit_train_err.mean()}")
+print(f"Algprog Flop Train Error: {ewbs_algprog_flop_train_err.mean()}")
 print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
-print(f"Logit Test Error: {ewbs_logit_test_err.mean()}")
+print(f"Algprog Flop Test Error: {ewbs_algprog_flop_test_err.mean()}")
 
 print(
-    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_logit_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_algprog_flop_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
 )
 print(
-    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_algprog_flop_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
 )
 
 
