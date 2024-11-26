@@ -1,3 +1,4 @@
+from copy import deepcopy
 import time
 import torch
 import torch.nn as nn
@@ -81,8 +82,8 @@ class ScalingLaw(nn.Module):
         self.capability_scores = nn.Buffer(capability_scores)
         self.benchmark_scores = nn.Buffer(benchmark_scores)
         self.benchmark_ceil_raw = nn.Parameter(torch.tensor(1, dtype=torch.float32))
-        self.alpha = nn.Parameter(torch.tensor(0, dtype=torch.float32))
-        self.beta = nn.Parameter(torch.tensor(4, dtype=torch.float32))
+        self.alpha = nn.Parameter(torch.tensor(1, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
@@ -111,15 +112,24 @@ class ScalingLaw(nn.Module):
     def fit(
         self,
         # how many epochs to train for
-        epochs: int = 2000,
+        epochs: int = 5000,
     ):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-1, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=0.2, fused=True)
+        best_train_loss = float("inf")
+        best_state_dict = self.state_dict()
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
+            if i % 100 == 0 and l < best_train_loss:
+                best_train_loss = l
+                best_state_dict = deepcopy(self.state_dict())
             l.backward()
             optimizer.step()
             self.train_losses.append(l.item())
+        # load the best state dict
+        self.load_state_dict(best_state_dict)
+        # get last loss
+        self.train_losses.append(self.train_loss().item())

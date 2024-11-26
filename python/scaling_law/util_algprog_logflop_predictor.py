@@ -80,6 +80,23 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
         # and the amount of compute used
         return (self.m_c * C_test + self.b_c) + (self.m_p * D_test + self.b_p)
 
+
+
+    # @override
+    # def fit(self):
+    #     self.logit_pc1_predictor.fit()
+
+    #     S_p = self.logit_pc1_predictor.predict_capability_scores_from_model_scores(
+    #         self.logit_pc1_predictor.train_model_scores
+    #     )
+        
+    #     # fit a linear regression going from C to S_noprog
+    #     compute = self.C.detach().cpu().numpy()
+    #     capability_at_epoch = S_p.detach().cpu().numpy()
+    #     m_c, b_c = np.polyfit(compute, capability_at_epoch, 1)
+    #     self.m_c.data = torch.tensor(m_c, dtype=torch.float32)
+    #     self.b_c.data = torch.tensor(b_c, dtype=torch.float32)
+
     @override
     def fit(self):
         self.logit_pc1_predictor.fit()
