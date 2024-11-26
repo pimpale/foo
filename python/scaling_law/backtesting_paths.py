@@ -1,5 +1,6 @@
 # %%
 from abc import abstractmethod
+from collections import defaultdict
 import time
 from typing import Any, Type, cast, override
 import duckdb
@@ -15,6 +16,7 @@ import matplotlib.pyplot as plt
 import matplotlib.axes
 from tqdm import tqdm
 
+from util_direct_flop_predictor import DirectLogFlopPredictor
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
     BacktestSplitter,
@@ -120,8 +122,9 @@ benchmark_data = [
     ("XWinograd", 0.5),
     ("HumanEval", 0.0),
 ]
-benchmark_floor_dict = {b: f for b, f in benchmark_data}
+benchmark_floor_dict = defaultdict(lambda: 0.0, {b: f for b, f in benchmark_data})
 all_benchmarks = [b for b, _ in benchmark_data]
+
 
 @dataclass
 class Spe:
@@ -216,7 +219,7 @@ def plot_logit_model(
         test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{benchmark}","Ground Truth", "C0"),
+            Spe(f"{benchmark}", "Ground Truth", "C0"),
             Spe(f"{benchmark} pred", "Prediction", "C1"),
         ],
         y_label=benchmark,
@@ -257,10 +260,9 @@ def plot_logit_model(
         ],
         y_label=f"{benchmark} logit",
     )
-    
-def augment_df_logit(
-    logit_obs_model: LogitPC1Predictor, df_to_augment: pd.DataFrame
-):
+
+
+def augment_df_logit(logit_obs_model: LogitPC1Predictor, df_to_augment: pd.DataFrame):
     x = torch.tensor(
         df_to_augment[logit_obs_model.benchmarks].values, dtype=torch.float32
     )
@@ -367,6 +369,7 @@ class BacktestDataPoint[T: ObsScalingLawPredictor]:
             self.slaw,
         )
 
+
 @dataclass
 class BacktestData:
     splitter: BacktestSplitter
@@ -416,8 +419,9 @@ def backtest_models(
             # construct the model inputs
             benchmark_list = get_benchmark_list(ModelCls, predicted_benchmark)
 
-            model_scores = torch.tensor(train[benchmark_list].values, dtype=torch.float32)
-
+            model_scores = torch.tensor(
+                train[benchmark_list].values, dtype=torch.float32
+            )
 
             # create model
             model = ModelCls(
@@ -436,7 +440,9 @@ def backtest_models(
             capability_scores = model.predict_capability_scores_from_model_scores(
                 model_scores
             ).detach()
-            benchmark_scores = torch.tensor(train[predicted_benchmark].values, dtype=torch.float32)
+            benchmark_scores = torch.tensor(
+                train[predicted_benchmark].values, dtype=torch.float32
+            )
             slaw = ScalingLaw(
                 benchmark=predicted_benchmark,
                 floor=benchmark_floor_dict[predicted_benchmark],
@@ -447,7 +453,6 @@ def backtest_models(
             slaw.fit()
             slaw.eval()
             print(f"Scaling Law Training Time: {time.time() - t0:.2f} seconds")
-
 
             # store the results
             data.results[split_idx, bench_idx] = BacktestDataPoint(
@@ -487,10 +492,7 @@ def compute_test_train_error(arr: npt.NDArray[np.object_]) -> tuple[
     return train_err, test_err
 
 
-
-def plot_comparison(
-    backtests: list[BacktestData]
-):
+def plot_comparison(backtests: list[BacktestData]):
     assert len(backtests) > 0
     b0 = backtests[0]
     n_split, n_bench = b0.results.shape
@@ -504,7 +506,7 @@ def plot_comparison(
         figsize=(4 * n_bench, 4 * n_split),
         squeeze=False,
     )
-    
+
     for i, b in enumerate(backtests + [None]):
         # plot ground truth data
         for split_idx in range(n_split):
@@ -521,69 +523,34 @@ def plot_comparison(
                         y_label=b0dp.slaw.benchmark,
                     )
                     continue
-                
+
                 # otherwise plot the model data
                 bdp: BacktestDataPoint = b.results[split_idx, bench_idx]
                 bdp_copy = bdp.copy()
-                augment_train_test_slaw(bdp_copy.slaw, bdp_copy.model, bdp_copy.split_train, bdp_copy.split_test)
+                augment_train_test_slaw(
+                    bdp_copy.slaw,
+                    bdp_copy.model,
+                    bdp_copy.split_train,
+                    bdp_copy.split_test,
+                )
                 plot_train_test(
                     ax[split_idx, bench_idx],
                     bdp_copy.split_train,
                     bdp_copy.split_test,
                     x_key,
                     [
-                        Spe(f"{bdp_copy.slaw.benchmark} pred", f"{type(bdp_copy.model).__name__} pred", f"C{i}"),
+                        Spe(
+                            f"{bdp_copy.slaw.benchmark} pred",
+                            f"{type(bdp_copy.model).__name__} pred",
+                            f"C{i}",
+                        ),
                     ],
                     y_label=bdp_copy.slaw.benchmark,
                 )
-            
 
     fig.tight_layout()
     plt.show()
 
-# %%
-
-#####################################
-# Train and fit global linear and logit models of PC-1
-# Expanding Window
-#####################################
-
-ewbs = ExpandingWindowBacktestSplitter(
-    min_train_size=40, test_size=20, increment=10, key="log10 FLOPs_opt_Besiroglu (1E21)"
-)
-
-ewbs_lin_data = backtest_models(
-    ewbs, LinearPC1Predictor, base_llm_benchmark_eval
-)
-ewbs_logit_data = backtest_models(
-    ewbs, LogitPC1Predictor, base_llm_benchmark_eval
-)
-
-# %%
-
-######
-# Compute the mean error of the linear and logit models
-######
-
-plot_comparison([ewbs_lin_data, ewbs_logit_data])
-
-ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
-ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(ewbs_logit_data.results)
-
-print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
-print(f"Logit Train Error: {ewbs_logit_train_err.mean()}")
-print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
-print(f"Logit Test Error: {ewbs_logit_test_err.mean()}")
-
-print(
-    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_logit_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
-)
-print(
-    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
-)
-
-
-# %%
 
 def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor]):
     fig, ax = plt.subplots(
@@ -598,7 +565,9 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
     for bench_idx, benchmark in enumerate(lin_data_point.model.benchmarks):
         pt = lin_data_point.copy()
         augment_train_test_linear(pt.model, pt.split_train, pt.split_test)
-        plot_linear_model(ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model)
+        plot_linear_model(
+            ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model
+        )
 
     # now plot the data for the actual fit curve on the excluded benchmark
     # 1 row, 4 columns
@@ -620,8 +589,8 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
         pt.split_test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{excluded_benchmark}", "C0"),
-            Spe(f"{excluded_benchmark} pred", "C1"),
+            Spe(f"{excluded_benchmark}", "Ground Truth", "C0"),
+            Spe(f"{excluded_benchmark} pred", "Prediction", "C1"),
         ],
         y_label=excluded_benchmark,
     )
@@ -632,8 +601,8 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
         pt.split_test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{excluded_benchmark} logit", "C0"),
-            Spe(f"{excluded_benchmark} logit pred", "C1"),
+            Spe(f"{excluded_benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "Prediction", "C1"),
         ],
         y_label=f"{excluded_benchmark} logit",
     )
@@ -644,8 +613,8 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
         pt.split_test,
         "PC-1",
         [
-            Spe(f"{excluded_benchmark}", "C0"),
-            Spe(f"{excluded_benchmark} pred", "C1"),
+            Spe(f"{excluded_benchmark}", "Ground Truth", "C0"),
+            Spe(f"{excluded_benchmark} pred", "Prediction", "C1"),
         ],
         y_label=excluded_benchmark,
     )
@@ -656,18 +625,14 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
         pt.split_test,
         "PC-1",
         [
-            Spe(f"{excluded_benchmark} logit", "C0"),
-            Spe(f"{excluded_benchmark} logit pred", "C1"),
+            Spe(f"{excluded_benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{excluded_benchmark} logit pred", "Prediction", "C1"),
         ],
         y_label=f"{excluded_benchmark} logit",
     )
 
     plt.show()
 
-split_idx = 0
-bench_idx = 1
-plot_linear_scaling_law(ewbs_lin_data.results[split_idx, bench_idx])
-# %%
 
 def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor]):
     fig, ax = plt.subplots(
@@ -679,15 +644,17 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
 
     for bench_idx, benchmark in enumerate(logit_data_point.model.benchmarks):
         pt = logit_data_point.copy()
-        augment_train_test_logit(pt.model, pt.split_train,pt.split_test)
-        plot_logit_model(ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model)
+        augment_train_test_logit(pt.model, pt.split_train, pt.split_test)
+        plot_logit_model(
+            ax[bench_idx], bench_idx, pt.split_train, pt.split_test, pt.model
+        )
 
     plt.tight_layout()
 
     plt.show()
 
     pt = logit_data_point.copy()
-    augment_train_test_slaw(logit_slaw, pt.model, pt.split_train, pt.split_test)
+    augment_train_test_slaw(pt.slaw, pt.model, pt.split_train, pt.split_test)
 
     fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
     ax_arr = ax[0]
@@ -698,10 +665,10 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
         pt.split_test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{excluded_benchmark}", "C0"),
-            Spe(f"{excluded_benchmark} pred", "C1"),
+            Spe(f"{pt.slaw.benchmark}", "Ground Truth", "C0"),
+            Spe(f"{pt.slaw.benchmark} pred", "Prediction", "C1"),
         ],
-        y_label=excluded_benchmark,
+        y_label=pt.slaw.benchmark,
     )
 
     plot_train_test(
@@ -710,10 +677,10 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
         pt.split_test,
         "log10 FLOPs_opt_Besiroglu (1E21)",
         [
-            Spe(f"{excluded_benchmark} logit", "C0"),
-            Spe(f"{excluded_benchmark} logit pred", "C1"),
+            Spe(f"{pt.slaw.benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{pt.slaw.benchmark} logit pred", "Prediction", "C1"),
         ],
-        y_label=f"{excluded_benchmark} logit",
+        y_label=f"{pt.slaw.benchmark} logit",
     )
 
     plot_train_test(
@@ -722,10 +689,10 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
         pt.split_test,
         "PC-1",
         [
-            Spe(f"{excluded_benchmark}", "C0"),
-            Spe(f"{excluded_benchmark} pred", "C1"),
+            Spe(f"{pt.slaw.benchmark}", "Ground Truth", "C0"),
+            Spe(f"{pt.slaw.benchmark} pred", "Prediction", "C1"),
         ],
-        y_label=excluded_benchmark,
+        y_label=pt.slaw.benchmark,
     )
 
     plot_train_test(
@@ -734,206 +701,101 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
         pt.split_test,
         "PC-1",
         [
-            Spe(f"{excluded_benchmark} logit", "C0"),
-            Spe(f"{excluded_benchmark} logit pred", "C1"),
+            Spe(f"{pt.slaw.benchmark} logit", "Ground Truth", "C0"),
+            Spe(f"{pt.slaw.benchmark} logit pred", "Prediction", "C1"),
         ],
-        y_label=f"{excluded_benchmark} logit",
+        y_label=f"{pt.slaw.benchmark} logit",
     )
 
     plt.show()
+
+
+# %%
+
+#####################################
+# Train and fit global linear and logit models of PC-1
+# Expanding Window
+#####################################
+
+ewbs = ExpandingWindowBacktestSplitter(
+    min_train_size=40,
+    test_size=20,
+    increment=10,
+    key="log10 FLOPs_opt_Besiroglu (1E21)",
+)
+
+ewbs_lin_data = backtest_models(ewbs, LinearPC1Predictor, base_llm_benchmark_eval)
+
+#%%
+ewbs_flop_data = backtest_models(ewbs, DirectLogFlopPredictor, base_llm_benchmark_eval)
+
+#%%
+
+######
+# Compute the mean error of the linear and flop models
+######
+
+plot_comparison([ewbs_lin_data, ewbs_flop_data])
+
+ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
+ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
+    ewbs_flop_data.results
+)
+
+print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
+print(f"Flop Train Error: {ewbs_flop_train_err.mean()}")
+print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
+print(f"Flop Test Error: {ewbs_flop_test_err.mean()}")
+
+print(
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_flop_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
+)
+print(
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_flop_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+)
+
+
+# %%
+ewbs_logit_data = backtest_models(ewbs, LogitPC1Predictor, base_llm_benchmark_eval)
+
+#%%
+
+######
+# Compute the mean error of the linear and logit models
+######
+
+plot_comparison([ewbs_lin_data, ewbs_logit_data])
+
+ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
+ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(
+    ewbs_logit_data.results
+)
+
+print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
+print(f"Logit Train Error: {ewbs_logit_train_err.mean()}")
+print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
+print(f"Logit Test Error: {ewbs_logit_test_err.mean()}")
+
+print(
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_logit_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
+)
+print(
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+)
+
+
+# %%
+
+split_idx = 0
+bench_idx = 1
+plot_linear_scaling_law(ewbs_lin_data.results[split_idx, bench_idx])
+# %%
 
 split_idx = 0
 bench_idx = 1
 plot_logit_scaling_law(ewbs_logit_data.results[split_idx, bench_idx])
 
 # %%
-
-#####################################
-# Train and fit global linear and logit models of PC-1
-# Rolling Window
-#####################################
-
-rwbs_splits = list(
-    RollingWindowBacktestSplitter(
-        train_size=40, test_size=20, increment=10, key="FLOPs_opt_Besiroglu (1E21)"
-    ).split(base_llm_benchmark_eval)
-)
-
-rwbs_data = backtest_models(rwbs_splits)
-
-# %%
-
-# create plot
-fig, ax = plt.subplots(
-    len(rwbs_splits),
-    len(all_benchmarks),
-    figsize=(4 * len(all_benchmarks), 4 * len(rwbs_splits)),
-)
-
-
-# print the mean error
-r_err_lin = np.zeros((len(rwbs_splits), len(all_benchmarks)))
-r_err_logit = np.zeros((len(ewbs_splits), len(all_benchmarks)))
-
-
-for split_idx in range(len(rwbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        train = rwbs_split_train_dict[(split_idx, bench_idx)]
-        test = rwbs_split_test_dict[(split_idx, bench_idx)]
-        lin_slaw = rwbs_lin_slaw_dict[(split_idx, bench_idx)]
-        logit_slaw = rwbs_logit_slaw_dict[(split_idx, bench_idx)]
-        linear_model = rwbs_linear_model_dict[(split_idx, bench_idx)]
-        logit_model = rwbs_logit_model_dict[(split_idx, bench_idx)]
-
-        # augment the df with columns
-        augment_train_test_linear(linear_model, train, test)
-        augment_train_test_logit(logit_model, train, test)
-
-        # compute error
-        lin_slaw_err = F.mse_loss(
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        # compute error
-        logit_slaw_err = F.mse_loss(
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
-            ),
-            torch.tensor(test[excluded_benchmark].values, dtype=torch.float32),
-        ).item()
-
-        r_err_lin[split_idx, bench_idx] = lin_slaw_err
-        r_err_logit[split_idx, bench_idx] = logit_slaw_err
-
-        # Plot Train ( x marker)
-
-        # Plot Train ( x marker)
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            train[excluded_benchmark],
-            label="True",
-            color="black",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(train["PC-1 (linear)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear",
-            color="blue",
-            marker="x",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            train["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(train["PC-1 (logit)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit",
-            color="red",
-            marker="x",
-            alpha=0.5,
-        )
-
-        # Plot Test
-
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            test[excluded_benchmark],
-            label="True",
-            color="black",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            lin_slaw.forward(
-                torch.tensor(test["PC-1 (linear)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Linear, MSE: {lin_slaw_err:.3f}",
-            color="blue",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].scatter(
-            test["log10 FLOPs_opt_Besiroglu (1E21)"],
-            logit_slaw.forward(
-                torch.tensor(test["PC-1 (logit)"].values, dtype=torch.float32)
-            )
-            .detach()
-            .numpy(),
-            label=f"Logit, MSE: {logit_slaw_err:.3f}",
-            color="red",
-            alpha=0.5,
-        )
-        ax[split_idx, bench_idx].set_title(
-            f"{excluded_benchmark} (train size: {len(train)})"
-        )
-        ax[split_idx, bench_idx].legend()
-
-
-print(f"Rolling Window Mean Linear Error: {r_err_lin.mean()}")
-print(f"Rolling Window Mean Logit Error: {r_err_logit.mean()}")
-
-print(
-    f"Rolling Window Percent improvement: {100*(r_err_lin.mean() - r_err_logit.mean())/r_err_lin.mean()}"
-)
-
-# %%
-
-fig, ax = plt.subplots(
-    len(ewbs_splits),
-    len(all_benchmarks),
-    figsize=(4 * len(all_benchmarks), 4 * len(ewbs_splits)),
-    squeeze=False,
-)
-
-# Plot all loss curves for logit training
-for split_idx in range(len(ewbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        logit_model = ewbs_logit_model_dict[(split_idx, bench_idx)]
-        ax[split_idx, bench_idx].plot(
-            np.log(logit_model.train_losses[100:]),
-            label=f"Split: {split_idx}, Bench: {bench_idx}",
-        )
-
-        linear_model = ewbs_linear_model_dict[(split_idx, bench_idx)]
-        ax[split_idx, bench_idx].plot(
-            np.log(linear_model.train_losses[100:]),
-            label=f"Split: {split_idx}, Bench: {bench_idx}",
-        )
-# %%
-
-fig, ax = plt.subplots(
-    len(ewbs_splits),
-    len(all_benchmarks),
-    figsize=(4 * len(all_benchmarks), 4 * len(ewbs_splits)),
-    squeeze=False,
-)
-
-# Plot all loss curves for logit training
-for split_idx in range(len(ewbs_splits)):
-    for bench_idx, excluded_benchmark in enumerate(all_benchmarks):
-        logit_slaw = ewbs_logit_slaw_dict[(split_idx, bench_idx)]
-        ax[split_idx, bench_idx].plot(
-            np.log(logit_slaw.train_losses[0:]),
-            label=f"Split: {split_idx}, Bench: {bench_idx}",
-        )
-
-        lin_slaw = ewbs_lin_slaw_dict[(split_idx, bench_idx)]
-        ax[split_idx, bench_idx].plot(
-            np.log(lin_slaw.train_losses[0:]),
-            label=f"Split: {split_idx}, Bench: {bench_idx}",
-        )
 
 
 # %%
