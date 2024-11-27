@@ -483,13 +483,16 @@ def plot_all_loss_curves(data: BacktestData):
 
 def plot_slaw[
     T: ObsScalingLawPredictor
-](pt: BacktestDataPoint[T],):
+](point: BacktestDataPoint[T],):
     # now plot the data for the actual fit curve on the excluded benchmark
     # 1 row, 4 columns
     # col 0: FLOPs vs benchmark (show both true and predicted)
     # col 1: FLOPs vs logit benchmark (show both true and predicted)
     # col 2: capability vs benchmark (show both true and predicted)
     # col 3: capability vs logit benchmark (show both true and predicted)
+
+    pt = point.copy()
+    augment_train_test_slaw(pt.slaw, pt.model, pt.split_train, pt.split_test)
 
     fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
     ax_arr = ax[0]
@@ -715,6 +718,48 @@ def plot_algprog_flop_scaling_law(
     plot_slaw(algprog_flop_data_point)
 
 
+def plot_all_algprog_flop_fits(
+    algprog_flop_data: BacktestData,
+):
+    n_split, n_bench = algprog_flop_data.results.shape
+    fig, ax = plt.subplots(
+        n_split*3,
+        n_bench,
+        figsize=(4 * n_bench, 4 *3* n_split),
+        squeeze=False,
+    )
+    for split_idx in range(n_split):
+        for bench_idx in range(n_bench):
+            bdp: BacktestDataPoint[AlgprogLogFlopPredictor] = algprog_flop_data.results[
+                split_idx, bench_idx
+            ]
+            bdp = bdp.copy()
+            augment_train_test_slaw(bdp.slaw, bdp.model, bdp.split_train, bdp.split_test)
+            m_c = bdp.model.m_c.item()
+            b_c = bdp.model.b_c.item()
+            m_p = bdp.model.m_p.item()
+            b_p = bdp.model.b_p.item()
+            plot_train_test(
+                ax[split_idx*3+0, bench_idx],
+                bdp.split_train,
+                bdp.split_test,
+                "log10 FLOPs_opt_Besiroglu (1E21)",
+                [
+                    Spe(bdp.slaw.benchmark, "Ground Truth", "black"),
+                    Spe(f"{bdp.slaw.benchmark} pred", f"S={m_c:.2f}C+{b_c:.2f}+{m_p:.2f}D+{b_p:.2f}", "red"),
+                ],
+                y_label=bdp.slaw.benchmark,
+            )
+            ax[split_idx*3+1, bench_idx].scatter(bdp.model.release_dates, bdp.model.slopes, label="Slopes")
+            ax[split_idx*3+1, bench_idx].legend()
+            ax[split_idx*3+2, bench_idx].scatter(bdp.model.release_dates, bdp.model.y_intercepts, label="Intercepts")
+            xspace = np.linspace(min(bdp.model.release_dates, default=-1), max(bdp.model.release_dates, default=1), 100)
+            ax[split_idx*3+2, bench_idx].plot(xspace, m_p*xspace+b_p, label="Progress Fit")
+            ax[split_idx*3+2, bench_idx].legend()
+    fig.tight_layout()
+    plt.show()
+
+
 # %%
 
 #####################################
@@ -863,9 +908,9 @@ plot_algprog_flop_scaling_law(ewbs_algprog_flop_data.results[split_idx, bench_id
 # Train and fit family-specific linear models of PC-1
 #####################################
 
-plot_all_loss_curves(ewbs_logit_data)
+plot_all_loss_curves(ewbs_lin_data)
 
 
 # %%
 
-# plot_all_algprog_data(ewbs_algprog_flop_data)
+plot_all_algprog_flop_fits(ewbs_algprog_flop_data)

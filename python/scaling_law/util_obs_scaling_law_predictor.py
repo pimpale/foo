@@ -112,12 +112,12 @@ class ScalingLaw(nn.Module):
     def fit(
         self,
         # how many epochs to train for
-        epochs: int = 5000,
+        epochs: int = 3000,
     ):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=0.2, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=0.3, fused=True)
         best_train_loss = float("inf")
         best_state_dict = self.state_dict()
         for i in range(epochs):

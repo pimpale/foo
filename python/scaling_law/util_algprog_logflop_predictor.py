@@ -64,6 +64,9 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
         self.b_c = nn.Parameter(torch.tensor(0, dtype=torch.float32))
 
         self.train_losses = []
+        self.release_dates = []
+        self.slopes = []
+        self.y_intercepts = []
 
     @override
     def predict_capability_scores_from_model_scores(
@@ -97,6 +100,25 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
     #     self.m_c.data = torch.tensor(m_c, dtype=torch.float32)
     #     self.b_c.data = torch.tensor(b_c, dtype=torch.float32)
 
+
+    # @override
+    # def fit(self):
+    #     self.logit_pc1_predictor.fit()
+
+    #     S_p = self.logit_pc1_predictor.predict_capability_scores_from_model_scores(
+    #         self.logit_pc1_predictor.train_model_scores
+    #     )
+        
+    #     # fit a linear regression going from C to S_noprog
+    #     compute = self.C.detach().cpu().numpy()
+    #     date = self.D.detach().cpu().numpy()
+    #     capability_at_epoch = S_p.detach().cpu().numpy()
+    #     m_c, m_p, b_c = np.linalg.lstsq(np.vstack([compute, date, np.ones(len(S_p))]).T, capability_at_epoch)[0]
+    #     self.m_c.data = torch.tensor(m_c, dtype=torch.float32)
+    #     self.m_p.data = torch.tensor(m_p, dtype=torch.float32)
+    #     self.b_c.data = torch.tensor(b_c, dtype=torch.float32)
+
+
     @override
     def fit(self):
         self.logit_pc1_predictor.fit()
@@ -124,11 +146,21 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
             flops_opt_vs_pc1_m, flops_opt_vs_pc1_b = np.polyfit(
                 family_compute_scores, family_capability_scores, 1
             )
+            
+            if flops_opt_vs_pc1_m < 0:
+                # discard outlier families with negative slope
+                continue
+            
             # store the y-intercept (which is the algorithmic progress offset)
             # we can think of it as an increase in performance from some epoch date
             flops_opt_vs_pc1_b_list.append(flops_opt_vs_pc1_b)
             # store the release date
             release_date_list.append(family_release_date)
+            
+            # store tracking variables
+            self.release_dates.append(family_release_date)
+            self.slopes.append(flops_opt_vs_pc1_m)
+            self.y_intercepts.append(flops_opt_vs_pc1_b)
         
         # fit a linear regression going from date to the algorithmic progress constant
         m_p, b_p = np.polyfit(release_date_list, flops_opt_vs_pc1_b_list, 1)
