@@ -7,8 +7,7 @@ class DirectEloPredictor(ObsScalingLawPredictor):
     """
     This class directly passes through Chatbot Arena Elo
     """
-    
-    
+
     @override
     @staticmethod
     def fixed_benchmarks() -> list[str]:
@@ -30,10 +29,7 @@ class DirectEloPredictor(ObsScalingLawPredictor):
         
         self.benchmarks = benchmarks
         self.benchmark_floors = benchmark_floors
-        # we only store the elo scores because they're the only thing we use
-        # in M
-        self.elo_scores = nn.Buffer(train_model_scores[:, 0])
-        
+        self.train_model_scores = train_model_scores
         self.train_losses = []
     
     @override
@@ -44,7 +40,7 @@ class DirectEloPredictor(ObsScalingLawPredictor):
         """
         The capability score is just the Elo score.
         """
-        return model_scores[:, 0]
+        return (model_scores[:, 0] - 1000)/100
     
     @override
     def predict_benchmark_scores_from_capability_scores(
@@ -54,4 +50,4 @@ class DirectEloPredictor(ObsScalingLawPredictor):
         """
         The only benchmark is the Elo, which is the capability score.
         """
-        return capability_scores
+        return capability_scores*100 + 1000

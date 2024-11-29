@@ -45,7 +45,7 @@ class LinearPC1Predictor(ObsScalingLawPredictor):
         # benchmark_weights: B x 1
         U, S, V = torch.pca_lowrank(self.train_model_scores)
         # gamma in B x 1
-        return -V[:, 0]
+        return torch.abs(V[:, 0])
 
     @override
     def predict_capability_scores_from_model_scores(

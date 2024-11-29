@@ -14,7 +14,9 @@ import matplotlib.axes
 from tqdm import tqdm
 
 from util_algprog_logflop_predictor import AlgprogLogFlopPredictor
+from util_direct_elo_predictor import DirectEloPredictor
 from util_direct_flop_predictor import DirectLogFlopPredictor
+from util_flop_date_predictor import LogFlopDatePredictor
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
     BacktestSplitter,
@@ -54,8 +56,39 @@ def opt_params(L_budget: float, p: ChinchillaParams) -> tuple[float, float]:
     return N_opt, D_opt
 
 
+# add flops and optimal flops to the dataframe
+def augment_df_opt_flops(
+    df: pd.DataFrame,
+):
+    # insert flops
+    df["FLOPs (1E21)"] = 6 * df["N"] * df["D"]
+    # insert log flops
+    df["log10 FLOPs (1E21)"] = np.log10(df["FLOPs (1E21)"])
+
+    for param, label in [(EPOCH_PARAMS, "Besiroglu")]:
+        l_budgets = [
+            loss(n * 1e9, d * 1e12, param)
+            for n, d in zip(
+                df["N"],
+                df["D"],
+            )
+        ]
+        n_opt, d_opt = zip(*[opt_params(l_budget, param) for l_budget in l_budgets])
+        n_opt = np.array(n_opt)
+        d_opt = np.array(d_opt)
+        df[f"N_opt_{label}"] = n_opt / 1e9
+        df[f"D_opt_{label}"] = d_opt / 1e12
+        df[f"FLOPs_opt_{label} (1E21)"] = (
+            6 * df[f"N_opt_{label}"] * df[f"D_opt_{label}"]
+        )
+        df[f"log10 FLOPs_opt_{label} (1E21)"] = np.log10(
+            df[f"FLOPs_opt_{label} (1E21)"]
+        )
+
+
 base_llm_benchmark_eval = pd.read_csv("./data_models/meta/base_llm_benchmark_eval.csv")
 family_release_dates = duckdb.read_csv("./data_models/meta/family_release_dates.csv")
+
 
 base_llm_benchmark_eval = duckdb.sql(
     """
@@ -71,58 +104,71 @@ base_llm_benchmark_eval = duckdb.sql(
         "GSM8K", 
         "XWinograd", 
         "HumanEval", 
-        "Model Size (B)", 
-        "Pretraining Data Size (T)", 
+        "Model Size (B)" as N, 
+        "Pretraining Data Size (T)" as D, 
         "FLOPs (1E21)",
         hash("Model Family") as "family_idx"
     FROM base_llm_benchmark_eval
     JOIN family_release_dates ON base_llm_benchmark_eval."Model Family" = family_release_dates.family
     """
 ).df()
+base_llm_benchmarks = ["MMLU", "ARC-C", "HellaSwag", "Winograd", "GSM8K", "XWinograd"]
 
 
-# add optimal params to the dataframe
-for param, label in [(EPOCH_PARAMS, "Besiroglu")]:
-    l_budgets = [
-        loss(n * 1e9, d * 1e12, param)
-        for n, d in zip(
-            base_llm_benchmark_eval["Model Size (B)"],
-            base_llm_benchmark_eval["Pretraining Data Size (T)"],
-        )
-    ]
-    n_opt, d_opt = zip(*[opt_params(l_budget, param) for l_budget in l_budgets])
-    base_llm_benchmark_eval[f"N_opt_{label}"] = n_opt
-    base_llm_benchmark_eval[f"D_opt_{label}"] = d_opt
-    base_llm_benchmark_eval[f"FLOPs_opt_{label} (1E21)"] = (
-        6
-        * base_llm_benchmark_eval[f"N_opt_{label}"]
-        * base_llm_benchmark_eval[f"D_opt_{label}"]
-        / 1e21
-    )
+augment_df_opt_flops(
+    base_llm_benchmark_eval,
+)
+
+openllm_elo_merged = duckdb.read_csv("./data_models/meta/openllm_elo_merged.csv")
+openllm_elo_merged = duckdb.sql(
+    """
+    SELECT
+        "chatbot_arena_name",
+        "arena_score" as Elo,
+        "IFEval Raw",
+        "BBH Raw",
+        "MATH Lvl 5 Raw",
+        "GPQA Raw",
+        "MUSR Raw",
+        "MMLU-PRO Raw",
+        year(release_date) + (1/365)*dayofyear(release_date) as release_date,
+        "N",
+        "D",
+    FROM openllm_elo_merged
+    """
+).df()
+augment_df_opt_flops(openllm_elo_merged)
+openllm_elo_benchmarks = [
+    "IFEval Raw",
+    "BBH Raw",
+    "MATH Lvl 5 Raw",
+    "GPQA Raw",
+    "MUSR Raw",
+    "MMLU-PRO Raw",
+]
+
 
 # drop NaNs
 base_llm_benchmark_eval.dropna(inplace=True)
-
-# insert log flops
-base_llm_benchmark_eval["log10 FLOPs (1E21)"] = np.log10(
-    base_llm_benchmark_eval["FLOPs (1E21)"]
-)
-base_llm_benchmark_eval["log10 FLOPs_opt_Besiroglu (1E21)"] = np.log10(
-    base_llm_benchmark_eval["FLOPs_opt_Besiroglu (1E21)"]
-)
+openllm_elo_merged.dropna(inplace=True)
 
 benchmark_data = [
     ("MMLU", 0.25),
     ("ARC-C", 0.2),
     ("HellaSwag", 0.25),
     ("Winograd", 0.5),
-    # ("TruthfulQA", 0.4),
+    ("TruthfulQA", 0.5),
     ("GSM8K", 0.0),
     ("XWinograd", 0.5),
     ("HumanEval", 0.0),
+    ("IFEval Raw", 0.0),
+    ("BBH Raw", 0.25),
+    ("MATH Lvl 5 Raw", 0.0),
+    ("GPQA Raw", 0.25),
+    ("MUSR Raw", 0.3),
+    ("MMLU-PRO Raw", 0.1),
 ]
 benchmark_floor_dict = defaultdict(lambda: 0.0, {b: f for b, f in benchmark_data})
-all_benchmarks = [b for b, _ in benchmark_data]
 
 
 @dataclass
@@ -290,13 +336,14 @@ class BacktestData:
 def get_benchmark_list(
     ModelCls: Type[ObsScalingLawPredictor],
     predicted_benchmark: str,
+    dataframe_benchmarks: list[str],
 ) -> list[str]:
     maybe_fixed_benchmarks = ModelCls.fixed_benchmarks()
     if maybe_fixed_benchmarks is not None:
         benchmark_list = maybe_fixed_benchmarks
     else:
         benchmark_list = ModelCls.necessary_benchmarks() + [
-            b for b in all_benchmarks if b != predicted_benchmark
+            b for b in dataframe_benchmarks if b != predicted_benchmark
         ]
 
     return benchmark_list
@@ -306,6 +353,7 @@ def backtest_models(
     splitter: BacktestSplitter,
     ModelCls: Type[ObsScalingLawPredictor],
     dataframe: pd.DataFrame,
+    dataframe_benchmarks: list[str],
 ) -> BacktestData:
     # create object ndarray
 
@@ -315,19 +363,21 @@ def backtest_models(
         splitter=splitter,
         model_class=ModelCls,
         results=np.empty(
-            (len(train_test_splits), len(all_benchmarks)), dtype=np.object_
+            (len(train_test_splits), len(dataframe_benchmarks)), dtype=np.object_
         ),
     )
 
-    n_trains = len(train_test_splits) * len(all_benchmarks)
+    n_trains = len(train_test_splits) * len(dataframe_benchmarks)
 
     for split_idx, (train, test) in enumerate(train_test_splits):
-        for bench_idx, predicted_benchmark in enumerate(all_benchmarks):
-            i_train = split_idx * len(all_benchmarks) + bench_idx
+        for bench_idx, predicted_benchmark in enumerate(dataframe_benchmarks):
+            i_train = split_idx * len(dataframe_benchmarks) + bench_idx
             print(f"Training {i_train}/{n_trains}")
 
             # construct the model inputs
-            benchmark_list = get_benchmark_list(ModelCls, predicted_benchmark)
+            benchmark_list = get_benchmark_list(
+                ModelCls, predicted_benchmark, dataframe_benchmarks
+            )
 
             model_scores = torch.tensor(
                 train[benchmark_list].values, dtype=torch.float32
@@ -723,9 +773,9 @@ def plot_all_algprog_flop_fits(
 ):
     n_split, n_bench = algprog_flop_data.results.shape
     fig, ax = plt.subplots(
-        n_split*3,
+        n_split * 3,
         n_bench,
-        figsize=(4 * n_bench, 4 *3* n_split),
+        figsize=(4 * n_bench, 4 * 3 * n_split),
         squeeze=False,
     )
     for split_idx in range(n_split):
@@ -734,28 +784,44 @@ def plot_all_algprog_flop_fits(
                 split_idx, bench_idx
             ]
             bdp = bdp.copy()
-            augment_train_test_slaw(bdp.slaw, bdp.model, bdp.split_train, bdp.split_test)
+            augment_train_test_slaw(
+                bdp.slaw, bdp.model, bdp.split_train, bdp.split_test
+            )
             m_c = bdp.model.m_c.item()
             b_c = bdp.model.b_c.item()
             m_p = bdp.model.m_p.item()
             b_p = bdp.model.b_p.item()
             plot_train_test(
-                ax[split_idx*3+0, bench_idx],
+                ax[split_idx * 3 + 0, bench_idx],
                 bdp.split_train,
                 bdp.split_test,
                 "log10 FLOPs_opt_Besiroglu (1E21)",
                 [
                     Spe(bdp.slaw.benchmark, "Ground Truth", "black"),
-                    Spe(f"{bdp.slaw.benchmark} pred", f"S={m_c:.2f}C+{b_c:.2f}+{m_p:.2f}D+{b_p:.2f}", "red"),
+                    Spe(
+                        f"{bdp.slaw.benchmark} pred",
+                        f"S={m_c:.2f}C+{b_c:.2f}+{m_p:.2f}D+{b_p:.2f}",
+                        "red",
+                    ),
                 ],
                 y_label=bdp.slaw.benchmark,
             )
-            ax[split_idx*3+1, bench_idx].scatter(bdp.model.release_dates, bdp.model.slopes, label="Slopes")
-            ax[split_idx*3+1, bench_idx].legend()
-            ax[split_idx*3+2, bench_idx].scatter(bdp.model.release_dates, bdp.model.y_intercepts, label="Intercepts")
-            xspace = np.linspace(min(bdp.model.release_dates, default=-1), max(bdp.model.release_dates, default=1), 100)
-            ax[split_idx*3+2, bench_idx].plot(xspace, m_p*xspace+b_p, label="Progress Fit")
-            ax[split_idx*3+2, bench_idx].legend()
+            ax[split_idx * 3 + 1, bench_idx].scatter(
+                bdp.model.release_dates, bdp.model.slopes, label="Slopes"
+            )
+            ax[split_idx * 3 + 1, bench_idx].legend()
+            ax[split_idx * 3 + 2, bench_idx].scatter(
+                bdp.model.release_dates, bdp.model.y_intercepts, label="Intercepts"
+            )
+            xspace = np.linspace(
+                min(bdp.model.release_dates, default=-1),
+                max(bdp.model.release_dates, default=1),
+                100,
+            )
+            ax[split_idx * 3 + 2, bench_idx].plot(
+                xspace, m_p * xspace + b_p, label="Progress Fit"
+            )
+            ax[split_idx * 3 + 2, bench_idx].legend()
     fig.tight_layout()
     plt.show()
 
@@ -768,23 +834,88 @@ def plot_all_algprog_flop_fits(
 #####################################
 
 ewbs = ExpandingWindowBacktestSplitter(
-    min_train_size=40,
-    test_size=20,
-    increment=10,
+    min_train_size=10,
+    test_size=10,
+    increment=5,
     key="log10 FLOPs_opt_Besiroglu (1E21)",
 )
 
+
 # %%
 
-ewbs_lin_data = backtest_models(ewbs, LinearPC1Predictor, base_llm_benchmark_eval)
+ewbs_lin_data = backtest_models(
+    ewbs, LinearPC1Predictor, openllm_elo_merged, openllm_elo_benchmarks
+)
 ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
 
-
 # %%
-ewbs_logit_data = backtest_models(ewbs, LogitPC1Predictor, base_llm_benchmark_eval)
+ewbs_logit_data = backtest_models(
+    ewbs, LogitPC1Predictor, openllm_elo_merged, openllm_elo_benchmarks
+)
 ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(
     ewbs_logit_data.results
 )
+
+
+# %%
+ewbs_flop_data = backtest_models(
+    ewbs, DirectLogFlopPredictor, openllm_elo_merged, openllm_elo_benchmarks
+)
+ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
+    ewbs_flop_data.results
+)
+
+
+# %%
+ewbs_algprog_flop_data = backtest_models(
+    ewbs, LogFlopDatePredictor, openllm_elo_merged, openllm_elo_benchmarks
+)
+ewbs_algprog_flop_train_err, ewbs_algprog_flop_test_err = compute_test_train_error(
+    ewbs_algprog_flop_data.results
+)
+
+# %%
+ewbs_elo_data = backtest_models(
+    ewbs, DirectEloPredictor, openllm_elo_merged, openllm_elo_benchmarks
+)
+ewbs_elo_train_err, ewbs_elo_test_err = compute_test_train_error(
+    ewbs_elo_data.results
+)
+
+
+# %%
+
+# # %%
+# ewbs_lin_data = backtest_models(
+#     ewbs, LinearPC1Predictor, base_llm_benchmark_eval, base_llm_benchmarks
+# )
+# ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
+
+# # %%
+# ewbs_logit_data = backtest_models(
+#     ewbs, LogitPC1Predictor, base_llm_benchmark_eval, base_llm_benchmarks
+# )
+# ewbs_logit_train_err, ewbs_logit_test_err = compute_test_train_error(
+#     ewbs_logit_data.results
+# )
+
+# # %%
+# ewbs_flop_data = backtest_models(
+#     ewbs, DirectLogFlopPredictor, base_llm_benchmark_eval, base_llm_benchmarks
+# )
+# ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
+#     ewbs_flop_data.results
+# )
+
+# # %%
+# ewbs_algprog_flop_data = backtest_models(
+#     ewbs, AlgprogLogFlopPredictor, base_llm_benchmark_eval, base_llm_benchmarks
+# )
+# ewbs_algprog_flop_train_err, ewbs_algprog_flop_test_err = compute_test_train_error(
+#     ewbs_algprog_flop_data.results
+# )
+
+
 # %%
 
 ######
@@ -803,13 +934,6 @@ print(
 )
 print(
     f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_logit_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
-)
-
-
-# %%
-ewbs_flop_data = backtest_models(ewbs, DirectLogFlopPredictor, base_llm_benchmark_eval)
-ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
-    ewbs_flop_data.results
 )
 
 
@@ -833,14 +957,6 @@ print(
     f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_flop_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
 )
 
-
-# %%
-ewbs_algprog_flop_data = backtest_models(
-    ewbs, AlgprogLogFlopPredictor, base_llm_benchmark_eval
-)
-ewbs_algprog_flop_train_err, ewbs_algprog_flop_test_err = compute_test_train_error(
-    ewbs_algprog_flop_data.results
-)
 
 # %%
 
@@ -879,6 +995,38 @@ print(
     f"Test Percentage Improvement: {(ewbs_flop_test_err.mean() - ewbs_algprog_flop_test_err.mean()) / ewbs_flop_test_err.mean() * 100:.2f}%"
 )
 
+
+# %%
+# Compare flop and elo
+plot_comparison([ewbs_flop_data, ewbs_elo_data])
+
+print(f"Flop Train Error: {ewbs_flop_train_err.mean()}")
+print(f"Elo Train Error: {ewbs_elo_train_err.mean()}")
+print(f"Flop Test Error: {ewbs_flop_test_err.mean()}")
+print(f"Elo Test Error: {ewbs_elo_test_err.mean()}")
+
+print(
+    f"Train Percentage Improvement: {(ewbs_flop_train_err.mean() - ewbs_elo_train_err.mean()) / ewbs_flop_train_err.mean() * 100:.2f}%"
+)
+print(
+    f"Test Percentage Improvement: {(ewbs_flop_test_err.mean() - ewbs_elo_test_err.mean()) / ewbs_flop_test_err.mean() * 100:.2f}%"
+)
+
+# %%
+# Compare lin and elo
+plot_comparison([ewbs_lin_data, ewbs_elo_data])
+
+print(f"Linear Train Error: {ewbs_lin_train_err.mean()}")
+print(f"Elo Train Error: {ewbs_elo_train_err.mean()}")
+print(f"Linear Test Error: {ewbs_lin_test_err.mean()}")
+print(f"Elo Test Error: {ewbs_elo_test_err.mean()}")
+
+print(
+    f"Train Percentage Improvement: {(ewbs_lin_train_err.mean() - ewbs_elo_train_err.mean()) / ewbs_lin_train_err.mean() * 100:.2f}%"
+)
+print(
+    f"Test Percentage Improvement: {(ewbs_lin_test_err.mean() - ewbs_elo_test_err.mean()) / ewbs_lin_test_err.mean() * 100:.2f}%"
+)
 # %%
 
 split_idx = 0
@@ -908,7 +1056,7 @@ plot_algprog_flop_scaling_law(ewbs_algprog_flop_data.results[split_idx, bench_id
 # Train and fit family-specific linear models of PC-1
 #####################################
 
-plot_all_loss_curves(ewbs_lin_data)
+plot_all_loss_curves(ewbs_elo_data)
 
 
 # %%
