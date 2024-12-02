@@ -11,7 +11,7 @@ class DirectLogFlopPredictor(ObsScalingLawPredictor):
     @override
     @staticmethod
     def fixed_benchmarks() -> list[str]:
-        return ["log10 FLOPs_opt_Besiroglu (1E21)"]
+        return ["log10 FLOP_opt"]
     
     def __init__(
         self,
@@ -25,7 +25,7 @@ class DirectLogFlopPredictor(ObsScalingLawPredictor):
             train_model_scores,
         )
         
-        assert benchmarks == ["log10 FLOPs_opt_Besiroglu (1E21)"]
+        assert benchmarks == self.fixed_benchmarks()
         
         self.benchmarks = benchmarks
         self.benchmark_floors = benchmark_floors

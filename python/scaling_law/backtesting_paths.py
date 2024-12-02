@@ -61,29 +61,30 @@ def augment_df_opt_flops(
     df: pd.DataFrame,
 ):
     # insert flops
-    df["FLOPs (1E21)"] = 6 * df["N"] * df["D"]
+    df["FLOP (1E21)"] = 6 * df["N"] * df["D"]
     # insert log flops
-    df["log10 FLOPs (1E21)"] = np.log10(df["FLOPs (1E21)"])
+    df["log10 FLOP"] = np.log10(df["FLOP (1E21)"])
 
-    for param, label in [(EPOCH_PARAMS, "Besiroglu")]:
-        l_budgets = [
-            loss(n * 1e9, d * 1e12, param)
-            for n, d in zip(
-                df["N"],
-                df["D"],
-            )
-        ]
-        n_opt, d_opt = zip(*[opt_params(l_budget, param) for l_budget in l_budgets])
-        n_opt = np.array(n_opt)
-        d_opt = np.array(d_opt)
-        df[f"N_opt_{label}"] = n_opt / 1e9
-        df[f"D_opt_{label}"] = d_opt / 1e12
-        df[f"FLOPs_opt_{label} (1E21)"] = (
-            6 * df[f"N_opt_{label}"] * df[f"D_opt_{label}"]
+    param = EPOCH_PARAMS
+
+    l_budgets = [
+        loss(n * 1e9, d * 1e12, param)
+        for n, d in zip(
+            df["N"],
+            df["D"],
         )
-        df[f"log10 FLOPs_opt_{label} (1E21)"] = np.log10(
-            df[f"FLOPs_opt_{label} (1E21)"]
-        )
+    ]
+    n_opt, d_opt = zip(*[opt_params(l_budget, param) for l_budget in l_budgets])
+    n_opt = np.array(n_opt)
+    d_opt = np.array(d_opt)
+    df["N_opt"] = n_opt / 1e9
+    df["D_opt"] = d_opt / 1e12
+    df["FLOP_opt"] = (
+        6 * df["N_opt"] * df["D_opt"]
+    )
+    df["log10 FLOP_opt"] = np.log10(
+        df["FLOP_opt"]
+    )
 
 
 base_llm_benchmark_eval = pd.read_csv("./data_models/meta/base_llm_benchmark_eval.csv")
@@ -106,7 +107,6 @@ base_llm_benchmark_eval = duckdb.sql(
         "HumanEval", 
         "Model Size (B)" as N, 
         "Pretraining Data Size (T)" as D, 
-        "FLOPs (1E21)",
         hash("Model Family") as "family_idx"
     FROM base_llm_benchmark_eval
     JOIN family_release_dates ON base_llm_benchmark_eval."Model Family" = family_release_dates.family
@@ -452,7 +452,7 @@ def compute_test_train_error(arr: npt.NDArray[np.object_]) -> tuple[
     return train_err, test_err
 
 
-def plot_comparison(backtests: list[BacktestData]):
+def plot_comparison(backtests: list[BacktestData], expand=False):
     assert len(backtests) > 0
     b0 = backtests[0]
     n_split, n_bench = b0.results.shape
@@ -460,29 +460,45 @@ def plot_comparison(backtests: list[BacktestData]):
     # key on which we split
     x_key = b0.splitter.key
 
-    fig, ax = plt.subplots(
-        n_split,
-        n_bench,
-        figsize=(4 * n_bench, 4 * n_split),
-        squeeze=False,
-    )
+    if expand:
+        fig, ax = plt.subplots(
+            n_split * len(backtests),
+            n_bench,
+            figsize=(4 * n_bench, 4 * n_split * len(backtests)),
+            squeeze=False,
+        )
+    else:
+        fig, ax = plt.subplots(
+            n_split,
+            n_bench,
+            figsize=(4 * n_bench, 4 * n_split),
+            squeeze=False,
+        )
 
-    for i, b in enumerate(backtests + [None]):
+    for i, b in enumerate(backtests):
         # plot ground truth data
         for split_idx in range(n_split):
+            if expand:
+                y_idx = split_idx * len(backtests) + i
+            else:
+                y_idx = split_idx
             for bench_idx in range(n_bench):
-                if b is None:
+                if i == 0 or expand:
                     b0dp: BacktestDataPoint = b0.results[split_idx, bench_idx]
                     # We plot the ground truth data
                     plot_train_test(
-                        ax[split_idx, bench_idx],
+                        ax[y_idx, bench_idx],
                         b0dp.split_train,
                         b0dp.split_test,
                         x_key,
                         [Spe(b0dp.slaw.benchmark, "Ground Truth", "black")],
                         y_label=b0dp.slaw.benchmark,
                     )
-                    continue
+
+                if expand:
+                    color = "C0"
+                else:
+                    color = f"C{i}"
 
                 # otherwise plot the model data
                 bdp: BacktestDataPoint = b.results[split_idx, bench_idx]
@@ -494,7 +510,7 @@ def plot_comparison(backtests: list[BacktestData]):
                     bdp_copy.split_test,
                 )
                 plot_train_test(
-                    ax[split_idx, bench_idx],
+                    ax[y_idx, bench_idx],
                     bdp_copy.split_train,
                     bdp_copy.split_test,
                     x_key,
@@ -502,7 +518,7 @@ def plot_comparison(backtests: list[BacktestData]):
                         Spe(
                             f"{bdp_copy.slaw.benchmark} pred",
                             f"{type(bdp_copy.model).__name__} pred",
-                            f"C{i}",
+                            color,
                         ),
                     ],
                     y_label=bdp_copy.slaw.benchmark,
@@ -551,7 +567,7 @@ def plot_slaw[
         ax_arr[0],
         pt.split_train,
         pt.split_test,
-        "log10 FLOPs_opt_Besiroglu (1E21)",
+        "log10 FLOP_opt",
         [
             Spe(f"{pt.slaw.benchmark}", "Ground Truth", "C0"),
             Spe(f"{pt.slaw.benchmark} pred", "Prediction", "C1"),
@@ -563,7 +579,7 @@ def plot_slaw[
         ax_arr[1],
         pt.split_train,
         pt.split_test,
-        "log10 FLOPs_opt_Besiroglu (1E21)",
+        "log10 FLOP_opt",
         [
             Spe(f"{pt.slaw.benchmark} logit", "Ground Truth", "C0"),
             Spe(f"{pt.slaw.benchmark} logit pred", "Prediction", "C1"),
@@ -617,7 +633,7 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
             ax_arr[0],
             pt.split_train,
             pt.split_test,
-            "log10 FLOPs_opt_Besiroglu (1E21)",
+            "log10 FLOP_opt",
             [
                 Spe(f"{benchmark}", "Ground Truth", "C0"),
                 Spe(f"{benchmark} pred", "Prediction", "C1"),
@@ -656,7 +672,7 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
             ax_arr[0],
             pt.split_train,
             pt.split_test,
-            "log10 FLOPs_opt_Besiroglu (1E21)",
+            "log10 FLOP_opt",
             [
                 Spe(f"{benchmark}", "Ground Truth", "C0"),
                 Spe(f"{benchmark} pred", "Prediction", "C1"),
@@ -668,7 +684,7 @@ def plot_logit_scaling_law(logit_data_point: BacktestDataPoint[LogitPC1Predictor
             ax_arr[1],
             pt.split_train,
             pt.split_test,
-            "log10 FLOPs_opt_Besiroglu (1E21)",
+            "log10 FLOP_opt",
             [
                 Spe(f"{benchmark} logit", "Ground Truth", "C0"),
                 Spe(f"{benchmark} logit pred", "Prediction", "C1"),
@@ -795,7 +811,7 @@ def plot_all_algprog_flop_fits(
                 ax[split_idx * 3 + 0, bench_idx],
                 bdp.split_train,
                 bdp.split_test,
-                "log10 FLOPs_opt_Besiroglu (1E21)",
+                "log10 FLOP_opt",
                 [
                     Spe(bdp.slaw.benchmark, "Ground Truth", "black"),
                     Spe(
@@ -837,7 +853,7 @@ ewbs = ExpandingWindowBacktestSplitter(
     min_train_size=10,
     test_size=10,
     increment=5,
-    key="log10 FLOPs_opt_Besiroglu (1E21)",
+    key="log10 FLOP_opt",
 )
 
 
@@ -878,9 +894,7 @@ ewbs_algprog_flop_train_err, ewbs_algprog_flop_test_err = compute_test_train_err
 ewbs_elo_data = backtest_models(
     ewbs, DirectEloPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
-ewbs_elo_train_err, ewbs_elo_test_err = compute_test_train_error(
-    ewbs_elo_data.results
-)
+ewbs_elo_train_err, ewbs_elo_test_err = compute_test_train_error(ewbs_elo_data.results)
 
 
 # %%
@@ -1062,3 +1076,65 @@ plot_all_loss_curves(ewbs_elo_data)
 # %%
 
 plot_all_algprog_flop_fits(ewbs_algprog_flop_data)
+
+
+# %%
+
+
+# print ALL of the average errors:
+# Linear, Logit, Algprog, Flop, Elo
+
+print(
+    f"Benchmark -> Linear PC1 -> Downstream Train MSE: {ewbs_lin_train_err.mean():.3f}"
+)
+print(f"Benchmark -> Linear PC1 -> Downstream Test MSE: {ewbs_lin_test_err.mean():.3f}")
+print(
+    f"Benchmark -> Logit PC1 -> Downstream Train MSE: {ewbs_logit_train_err.mean():.3f}"
+)
+print(
+    f"Benchmark -> Logit PC1 -> Downstream Test MSE: {ewbs_logit_test_err.mean():.3f}"
+)
+print(f"(Flop, Date) -> Downstream Train MSE: {ewbs_algprog_flop_train_err.mean():.3f}")
+print(f"(Flop, Date) -> Downstream Test MSE: {ewbs_algprog_flop_test_err.mean():.3f}")
+print(f"Flop -> Downstream Train MSE: {ewbs_flop_train_err.mean():.3f}")
+print(f"Flop -> Downstream Test MSE: {ewbs_flop_test_err.mean():.3f}")
+print(f"Elo -> Downstream Train MSE: {ewbs_elo_train_err.mean():.3f}")
+print(f"Elo -> Downstream Test MSE: {ewbs_elo_test_err.mean():.3f}")
+
+print()
+print()
+
+print(
+    f"Benchmark -> Linear PC1 -> Downstream Train RMSE: {ewbs_lin_train_err.mean()**0.5:.3f}"
+)
+print(
+    f"Benchmark -> Linear PC1 -> Downstream Test RMSE: {ewbs_lin_test_err.mean()**0.5:.3f}"
+)
+print(
+    f"Benchmark -> Logit PC1 -> Downstream Train RMSE: {ewbs_logit_train_err.mean()**0.5:.3f}"
+)
+print(
+    f"Benchmark -> Logit PC1 -> Downstream Test RMSE: {ewbs_logit_test_err.mean()**0.5:.3f}"
+)
+print(
+    f"(Flop, Date) -> Downstream Train RMSE: {ewbs_algprog_flop_train_err.mean()**0.5:.3f}"
+)
+print(
+    f"(Flop, Date) -> Downstream Test RMSE: {ewbs_algprog_flop_test_err.mean()**0.5:.3f}"
+)
+print(f"Flop -> Downstream Train RMSE: {ewbs_flop_train_err.mean()**0.5:.3f}")
+print(f"Flop -> Downstream Test RMSE: {ewbs_flop_test_err.mean()**0.5:.3f}")
+print(f"Elo -> Downstream Train RMSE: {ewbs_elo_train_err.mean()**0.5:.3f}")
+print(f"Elo -> Downstream Test RMSE: {ewbs_elo_test_err.mean()**0.5:.3f}")
+
+
+plot_comparison(
+    [
+        ewbs_lin_data,
+        ewbs_logit_data,
+        ewbs_algprog_flop_data,
+        ewbs_flop_data,
+        ewbs_elo_data,
+    ],
+    expand=False,
+)
