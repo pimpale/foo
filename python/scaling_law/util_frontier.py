@@ -7,9 +7,9 @@ import torch.nn.functional as F
 def get_running_top_n(
     df: pd.DataFrame, x_column: str, y_column: str, n: int, id_column: str
 ) -> pd.DataFrame:
-    df = df.copy()
-    df = df.sort_values(x_column)
-
+    """
+    This function returns all models that are in the top n of y_column at any point in time, where time is given by x_column.
+    """
     top_ids = set()
     x_values = df[x_column].unique()
 
@@ -20,7 +20,21 @@ def get_running_top_n(
 
     return df[df[id_column].isin(top_ids)]
 
+def get_running_top_n_2d(
+    df: pd.DataFrame, x_column: str, y_column: str, z_column: str, n: int, id_column: str
+) -> pd.DataFrame:
+    """
+    This function returns all models that are in the top n of z_column for any x,y pair in xy_columns.
+    """
+    top_ids = set()
+    xy_values = df[x_column, y_column].unique()
 
+    for (x, y) in xy_values:
+        data_until_xy = df[(df[x_column] <= x) & (df[y_column] <= y)]
+        top_n_at_date = data_until_xy.nlargest(n, z_column)[id_column]
+        top_ids.update(top_n_at_date)
+
+    return df[df[id_column].isin(top_ids)]
 
 class Frontier(nn.Module):
     """
