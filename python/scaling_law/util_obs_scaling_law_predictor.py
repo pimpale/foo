@@ -1,5 +1,6 @@
 from copy import deepcopy
 import time
+from typing import Optional
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -105,7 +106,7 @@ class ScalingLaw(nn.Module):
             self.predict_benchmark_logit_scores(x)
         ) + self.benchmark_floor
 
-    @torch.compile(fullgraph=True)
+    @torch.compile(fullgraph=True, dynamic=True)
     def train_loss(self):
         return F.mse_loss(self(self.capability_scores), self.benchmark_scores)
 

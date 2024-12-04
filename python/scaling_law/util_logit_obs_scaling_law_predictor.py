@@ -121,7 +121,7 @@ class LogitPC1Predictor(ObsScalingLawPredictor):
         return self.predict_benchmark_scores(benchmark_logit_scores)
 
     # compute loss
-    @torch.compile(fullgraph=True)
+    @torch.compile(fullgraph=True, dynamic=True)
     def train_loss(self) -> torch.Tensor:
         return F.mse_loss(self.train_model_scores, self(self.train_model_scores))
 

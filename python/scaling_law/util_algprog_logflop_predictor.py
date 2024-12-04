@@ -16,7 +16,7 @@ class AlgprogLogFlopPredictor(ObsScalingLawPredictor):
     def necessary_benchmarks() -> list[str]:
         return [
             "release_date", 
-            "log10 FLOPs_opt_Besiroglu (1E21)",
+            "log10 FLOP_opt",
             "family_idx"
         ]
 

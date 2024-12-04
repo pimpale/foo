@@ -78,7 +78,7 @@ class LinearPC1Predictor(ObsScalingLawPredictor):
         return self.predict_benchmark_scores_from_capability_scores(capability_scores)
 
     # compute loss
-    @torch.compile(fullgraph=True)
+    @torch.compile(fullgraph=True, dynamic=True)
     def train_loss(self) -> torch.Tensor:
         return F.mse_loss(
             self.train_model_scores, self.forward(self.train_model_scores)
