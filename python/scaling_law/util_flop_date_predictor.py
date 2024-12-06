@@ -94,7 +94,9 @@ class LogFlopDatePredictor(ObsScalingLawPredictor):
         date = self.D.detach().cpu().numpy()
         capability_at_epoch = S_p.detach().cpu().numpy()
         m_c, m_p, b_c = np.linalg.lstsq(
-            np.vstack([compute, date, np.ones(len(S_p))]).T, capability_at_epoch
+            np.vstack([compute, date, np.ones(len(S_p))]).T,
+            capability_at_epoch,
+            rcond=None,
         )[0]
         self.m_c.data = torch.tensor(m_c, dtype=torch.float32)
         self.m_p.data = torch.tensor(m_p, dtype=torch.float32)

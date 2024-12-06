@@ -33,7 +33,7 @@ class FrontierFlopPredictor(Frontier):
             train_df,
         )
 
-        assert benchmarks == self.fixed_benchmarks()
+        assert benchmarks[:len(self.necessary_benchmarks())] == self.necessary_benchmarks()
 
         # train on top 3
         frontier_train_df = get_running_top_n(
@@ -44,7 +44,7 @@ class FrontierFlopPredictor(Frontier):
             "model",
         )
         
-        train_model_scores = torch.tensor(frontier_train_df[benchmarks].values.T, dtype=torch.float32)
+        train_model_scores = torch.tensor(frontier_train_df[benchmarks].values, dtype=torch.float32)
         
         self.target_benchmark = target_benchmark
         self.target_benchmark_floor = target_benchmark_floor

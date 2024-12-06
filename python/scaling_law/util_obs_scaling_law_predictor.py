@@ -83,8 +83,8 @@ class ScalingLaw(nn.Module):
         self.capability_scores = nn.Buffer(capability_scores)
         self.benchmark_scores = nn.Buffer(benchmark_scores)
         self.benchmark_ceil_raw = nn.Parameter(torch.tensor(1, dtype=torch.float32))
-        self.alpha = nn.Parameter(torch.tensor(1, dtype=torch.float32))
-        self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
+        self.alpha = nn.Parameter(-torch.mean(capability_scores)/torch.std(capability_scores))
+        self.beta = nn.Parameter(1/torch.std(capability_scores))
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
@@ -106,31 +106,32 @@ class ScalingLaw(nn.Module):
             self.predict_benchmark_logit_scores(x)
         ) + self.benchmark_floor
 
-    @torch.compile(fullgraph=True, dynamic=True)
+    # @torch.compile(fullgraph=True, dynamic=True)
     def train_loss(self):
         return F.mse_loss(self(self.capability_scores), self.benchmark_scores)
 
     def fit(
         self,
         # how many epochs to train for
-        epochs: int = 3000,
+        epochs: int = 5000,
     ):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=0.3, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-3, fused=True)
         best_train_loss = float("inf")
         best_state_dict = self.state_dict()
         for i in range(epochs):
             optimizer.zero_grad()
             l = self.train_loss()
-            if i % 100 == 0 and l < best_train_loss:
+            if l < best_train_loss:
                 best_train_loss = l
                 best_state_dict = deepcopy(self.state_dict())
             l.backward()
+            torch.nn.utils.clip_grad_value_(self.parameters(), 5)
             optimizer.step()
             self.train_losses.append(l.item())
-        # load the best state dict
+        # load best state dict
         self.load_state_dict(best_state_dict)
         # get last loss
         self.train_losses.append(self.train_loss().item())

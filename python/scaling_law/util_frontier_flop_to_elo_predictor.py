@@ -34,18 +34,18 @@ class FrontierFlopToEloPredictor(Frontier):
             train_df,
         )
 
-        assert benchmarks == self.fixed_benchmarks()
+        assert benchmarks[:len(self.necessary_benchmarks())] == self.necessary_benchmarks()
 
         # train linear fit between date and elo on top 3
-        frontier_date_vs_elo_df = get_running_top_n(
+        frontier_flop_vs_elo_df = get_running_top_n(
             train_df,
-            "release_date",
+            "log10 FLOP_opt",
             "Elo",
             3,
             "model",
         )
         
-        m, b = np.polyfit(frontier_date_vs_elo_df["release_date"], frontier_date_vs_elo_df["Elo"], 1)
+        m, b = np.polyfit(frontier_flop_vs_elo_df["log10 FLOP_opt"], frontier_flop_vs_elo_df["Elo"], 1)
         self.date2elo_m = m
         self.date2elo_b = b
         
@@ -58,7 +58,7 @@ class FrontierFlopToEloPredictor(Frontier):
             "model",
         )
         
-        train_model_scores = torch.tensor(frontier_elo_vs_downstream_df[benchmarks].values.T, dtype=torch.float32)
+        train_model_scores = torch.tensor(frontier_elo_vs_downstream_df[benchmarks].values, dtype=torch.float32)
         
         self.target_benchmark = target_benchmark
         self.target_benchmark_floor = target_benchmark_floor
@@ -71,7 +71,7 @@ class FrontierFlopToEloPredictor(Frontier):
         self.slaw = ScalingLaw(
             benchmark=target_benchmark,
             floor=target_benchmark_floor,
-            capability_scores=self.flop,
+            capability_scores=torch.tensor(frontier_elo_vs_downstream_df["Elo"].values, dtype=torch.float32),
             benchmark_scores=torch.tensor(frontier_elo_vs_downstream_df[target_benchmark].values, dtype=torch.float32),
         )
 

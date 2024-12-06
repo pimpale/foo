@@ -3,6 +3,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from util_obs_scaling_law_predictor import ScalingLaw
+
    
 def get_running_top_n(
     df: pd.DataFrame, x_column: str, y_column: str, n: int, id_column: str
@@ -27,9 +29,9 @@ def get_running_top_n_2d(
     This function returns all models that are in the top n of z_column for any x,y pair in xy_columns.
     """
     top_ids = set()
-    xy_values = df[x_column, y_column].unique()
+    xy_values = df[[x_column, y_column]].drop_duplicates().values
 
-    for (x, y) in xy_values:
+    for x, y in xy_values:
         data_until_xy = df[(df[x_column] <= x) & (df[y_column] <= y)]
         top_n_at_date = data_until_xy.nlargest(n, z_column)[id_column]
         top_ids.update(top_n_at_date)
@@ -42,6 +44,7 @@ class Frontier(nn.Module):
     """
     
     benchmarks: list[str]
+    slaw: ScalingLaw
 
     def __init__(
         self,
@@ -63,6 +66,15 @@ class Frontier(nn.Module):
         Only one of necessary_benchmarks and fixed_benchmarks should be implemented.
         """
         return []
+
+    def predict_frontier_capability_scores(
+        self,
+        test_scores: torch.Tensor,
+    ) -> torch.Tensor:
+        """
+        Predict benchmark scores from capability scores.
+        """
+        raise NotImplementedError
 
     def predict_benchmark_scores(
         self,

@@ -959,7 +959,7 @@ def plot_all_algprog_flop_fits(
 ewbs = ExpandingWindowBacktestSplitter(
     min_train_size=10,
     test_size=10,
-    increment=3,
+    increment=10,
     key="log10 FLOP_opt",
 )
 
@@ -1181,7 +1181,7 @@ plot_algprog_flop_scaling_law(ewbs_algprog_flop_data.results[split_idx, bench_id
 # Train and fit family-specific linear models of PC-1
 #####################################
 
-plot_all_loss_curves(ewbs_elo_data)
+plot_all_loss_curves(ewbs_logit_data)
 
 
 # %%
@@ -1247,7 +1247,7 @@ plot_comparison(
         ewbs_flop_data,
         ewbs_elo_data,
     ],
-    expand=False,
+    expand=True,
 )
 
 # %%

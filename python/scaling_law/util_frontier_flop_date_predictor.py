@@ -25,7 +25,7 @@ class FrontierFlopDatePredictor(Frontier):
         target_benchmark: str,
         target_benchmark_floor: float,
         train_df: pd.DataFrame,
-    ):  
+    ):
         super().__init__(
             benchmarks,
             benchmark_floors,
@@ -34,30 +34,42 @@ class FrontierFlopDatePredictor(Frontier):
             train_df,
         )
 
-        assert benchmarks == self.fixed_benchmarks()
+        assert (
+            benchmarks[: len(self.necessary_benchmarks())]
+            == self.necessary_benchmarks()
+        )
 
         # train on top 3
         frontier_train_df = get_running_top_n_2d(
             train_df,
-            "log10 FLOP_opt", 
+            "log10 FLOP_opt",
             "release_date",
             target_benchmark,
             3,
             "model",
-        )
-        
+        ).copy(deep=True)
+
         # fit a 2d linear scaling law to optimally convert FLOP and Date to a combined metric
         m1, m2, b = np.linalg.lstsq(
-            frontier_train_df[["log10 FLOP_opt", "release_date"]].values.T,
+            np.concatenate(
+                [
+                    frontier_train_df[["log10 FLOP_opt", "release_date"]].values,
+                    np.ones((len(frontier_train_df), 1)),
+                ],
+                axis=1,
+            ),
             frontier_train_df[target_benchmark].to_numpy(),
+            rcond=None,
         )[0]
         self.m_compute = m1
         self.m_date = m2
         self.b = b
 
         # add the combined metric to the df
-        train_df["combined_date_compute"] = m1 * train_df["log10 FLOP_opt"] + m2 * train_df["release_date"] + b        
-        
+        frontier_train_df["combined_date_compute"] = (
+            m1 * frontier_train_df["log10 FLOP_opt"] + m2 * frontier_train_df["release_date"] + b
+        )
+
         self.target_benchmark = target_benchmark
         self.target_benchmark_floor = target_benchmark_floor
         self.benchmarks = benchmarks
@@ -66,8 +78,12 @@ class FrontierFlopDatePredictor(Frontier):
         self.slaw = ScalingLaw(
             benchmark=target_benchmark,
             floor=target_benchmark_floor,
-            capability_scores=torch.tensor(train_df["combined_date_compute"].values, dtype=torch.float32),
-            benchmark_scores=torch.tensor(frontier_train_df[target_benchmark].values, dtype=torch.float32),
+            capability_scores=torch.tensor(
+                frontier_train_df["combined_date_compute"].values, dtype=torch.float32
+            ),
+            benchmark_scores=torch.tensor(
+                frontier_train_df[target_benchmark].values, dtype=torch.float32
+            ),
         )
 
         self.train_losses = []
@@ -80,7 +96,11 @@ class FrontierFlopDatePredictor(Frontier):
         """
         The only benchmark is the release_date, which is the capability score.
         """
-        return self.slaw(test_scores[:, 0] * self.m_compute + test_scores[:, 1] * self.m_date + self.b)
+        return self.slaw(
+            test_scores[:, 0] * self.m_compute
+            + test_scores[:, 1] * self.m_date
+            + self.b
+        )
 
     @override
     def fit(self):
