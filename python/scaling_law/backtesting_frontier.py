@@ -16,7 +16,7 @@ from tqdm import tqdm
 import seaborn as sns
 import ipyvolume as ipv
 
-from util_frontier import Frontier
+from util_frontier import Frontier, get_running_top_n
 from util_obs_scaling_law_predictor import ScalingLaw
 from util_timeseries_backtesting import (
     BacktestSplitter,
@@ -347,11 +347,15 @@ def compute_test_train_error_frontier(arr: npt.NDArray[np.object_]) -> tuple[
             model = bdp.model
 
             for dataset, dataset_err_arr in ((train, train_err), (test, test_err)):
-                dataset_frontier = dataset.copy()
-                
-                x = torch.tensor(dataset[model.benchmarks].values, dtype=torch.float32)
+                dataset_frontier = get_running_top_n(
+                    dataset, "release_date", model.slaw.benchmark, 3, "model"
+                )
+
+                x = torch.tensor(
+                    dataset_frontier[model.benchmarks].values, dtype=torch.float32
+                )
                 y = torch.tensor(
-                    dataset[model.slaw.benchmark].values, dtype=torch.float32
+                    dataset_frontier[model.slaw.benchmark].values, dtype=torch.float32
                 )
                 y_hat = model.predict_benchmark_scores(x)
                 dataset_err_arr[i, j] = F.mse_loss(
@@ -554,9 +558,7 @@ def plot_all_loss_curves(data: BacktestData):
         for bench_idx in range(n_bench):
             bdp: BacktestDataPoint = data.results[split_idx, bench_idx]
             slaw = bdp.model.slaw
-            ax[split_idx, bench_idx].plot(
-                np.log10(slaw.train_losses[:]), label="train"
-            )
+            ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
             ax[split_idx, bench_idx].legend()
 
@@ -639,7 +641,6 @@ def compare(
 
     print(
         f"Train Percentage Improvement: {(data1.results.mean() - data2.results.mean()) / data1.results.mean() * 100:.2f}%"
-
     )
     print(
         f"Test Percentage Improvement: {(data1.results.mean() - data2.results.mean()) / data1.results.mean() * 100:.2f}%"
@@ -665,15 +666,15 @@ ewbs = ExpandingWindowBacktestSplitter(
 ewbs_frontier_date_data = backtest_models(
     ewbs, FrontierDatePredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
-ewbs_frontier_date_train_err, ewbs_frontier_date_test_err = compute_test_train_error_frontier(
-    ewbs_frontier_date_data.results
+ewbs_frontier_date_train_err, ewbs_frontier_date_test_err = (
+    compute_test_train_error_frontier(ewbs_frontier_date_data.results)
 )
 # %%
 ewbs_frontier_flop_data = backtest_models(
     ewbs, FrontierFlopPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
-ewbs_frontier_flop_train_err, ewbs_frontier_flop_test_err = compute_test_train_error_frontier(
-    ewbs_frontier_flop_data.results
+ewbs_frontier_flop_train_err, ewbs_frontier_flop_test_err = (
+    compute_test_train_error_frontier(ewbs_frontier_flop_data.results)
 )
 
 # %%
@@ -722,33 +723,38 @@ ewbs_frontier_date_to_pc1_train_err, ewbs_frontier_date_to_pc1_test_err = (
 # Date, Flop, FlopDate, FlopToElo, DateToElo, FlopToPC1, DateToPC1
 
 print(f"Date -> Downstream Train MSE: {ewbs_frontier_date_train_err.mean():.3f}")
-print(f"Date -> Downstream Test MSE: {ewbs_frontier_date_test_err.mean():.3f}")
 print(f"Flop -> Downstream Train MSE: {ewbs_frontier_flop_train_err.mean():.3f}")
-print(f"Flop -> Downstream Test MSE: {ewbs_frontier_flop_test_err.mean():.3f}")
 print(
     f"FlopDate -> Downstream Train MSE: {ewbs_frontier_flop_date_train_err.mean():.3f}"
 )
-print(f"FlopDate -> Downstream Test MSE: {ewbs_frontier_flop_date_test_err.mean():.3f}")
 print(
     f"FlopToElo -> Downstream Train MSE: {ewbs_frontier_flop_to_elo_train_err.mean():.3f}"
-)
-print(
-    f"FlopToElo -> Downstream Test MSE: {ewbs_frontier_flop_to_elo_test_err.mean():.3f}"
 )
 print(
     f"DateToElo -> Downstream Train MSE: {ewbs_frontier_date_to_elo_train_err.mean():.3f}"
 )
 print(
-    f"DateToElo -> Downstream Test MSE: {ewbs_frontier_date_to_elo_test_err.mean():.3f}"
-)
-print(
     f"FlopToPC1 -> Downstream Train MSE: {ewbs_frontier_flop_to_pc1_train_err.mean():.3f}"
 )
 print(
-    f"FlopToPC1 -> Downstream Test MSE: {ewbs_frontier_flop_to_pc1_test_err.mean():.3f}"
+    f"DateToPC1 -> Downstream Train MSE: {ewbs_frontier_date_to_pc1_train_err.mean():.3f}"
+)
+
+print()
+
+print(f"Date -> Downstream Test MSE: {ewbs_frontier_date_test_err.mean():.3f}")
+print(f"Flop -> Downstream Test MSE: {ewbs_frontier_flop_test_err.mean():.3f}")
+
+print(f"FlopDate -> Downstream Test MSE: {ewbs_frontier_flop_date_test_err.mean():.3f}")
+
+print(
+    f"FlopToElo -> Downstream Test MSE: {ewbs_frontier_flop_to_elo_test_err.mean():.3f}"
 )
 print(
-    f"DateToPC1 -> Downstream Train MSE: {ewbs_frontier_date_to_pc1_train_err.mean():.3f}"
+    f"DateToElo -> Downstream Test MSE: {ewbs_frontier_date_to_elo_test_err.mean():.3f}"
+)
+print(
+    f"FlopToPC1 -> Downstream Test MSE: {ewbs_frontier_flop_to_pc1_test_err.mean():.3f}"
 )
 print(
     f"DateToPC1 -> Downstream Test MSE: {ewbs_frontier_date_to_pc1_test_err.mean():.3f}"
@@ -757,36 +763,42 @@ print(
 # print RMSE
 print()
 print()
+
 print(f"Date -> Downstream Train RMSE: {ewbs_frontier_date_train_err.mean()**0.5:.3f}")
-print(f"Date -> Downstream Test RMSE: {ewbs_frontier_date_test_err.mean()**0.5:.3f}")
 print(f"Flop -> Downstream Train RMSE: {ewbs_frontier_flop_train_err.mean()**0.5:.3f}")
-print(f"Flop -> Downstream Test RMSE: {ewbs_frontier_flop_test_err.mean()**0.5:.3f}")
 print(
     f"FlopDate -> Downstream Train RMSE: {ewbs_frontier_flop_date_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"FlopDate -> Downstream Test RMSE: {ewbs_frontier_flop_date_test_err.mean()**0.5:.3f}"
 )
 print(
     f"FlopToElo -> Downstream Train RMSE: {ewbs_frontier_flop_to_elo_train_err.mean()**0.5:.3f}"
 )
 print(
-    f"FlopToElo -> Downstream Test RMSE: {ewbs_frontier_flop_to_elo_test_err.mean()**0.5:.3f}"
-)
-print(
     f"DateToElo -> Downstream Train RMSE: {ewbs_frontier_date_to_elo_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"DateToElo -> Downstream Test RMSE: {ewbs_frontier_date_to_elo_test_err.mean()**0.5:.3f}"
 )
 print(
     f"FlopToPC1 -> Downstream Train RMSE: {ewbs_frontier_flop_to_pc1_train_err.mean()**0.5:.3f}"
 )
 print(
-    f"FlopToPC1 -> Downstream Test RMSE: {ewbs_frontier_flop_to_pc1_test_err.mean()**0.5:.3f}"
+    f"DateToPC1 -> Downstream Train RMSE: {ewbs_frontier_date_to_pc1_train_err.mean()**0.5:.3f}"
+)
+
+print()
+
+print(f"Date -> Downstream Test RMSE: {ewbs_frontier_date_test_err.mean()**0.5:.3f}")
+print(f"Flop -> Downstream Test RMSE: {ewbs_frontier_flop_test_err.mean()**0.5:.3f}")
+
+print(
+    f"FlopDate -> Downstream Test RMSE: {ewbs_frontier_flop_date_test_err.mean()**0.5:.3f}"
+)
+
+print(
+    f"FlopToElo -> Downstream Test RMSE: {ewbs_frontier_flop_to_elo_test_err.mean()**0.5:.3f}"
 )
 print(
-    f"DateToPC1 -> Downstream Train RMSE: {ewbs_frontier_date_to_pc1_train_err.mean()**0.5:.3f}"
+    f"DateToElo -> Downstream Test RMSE: {ewbs_frontier_date_to_elo_test_err.mean()**0.5:.3f}"
+)
+print(
+    f"FlopToPC1 -> Downstream Test RMSE: {ewbs_frontier_flop_to_pc1_test_err.mean()**0.5:.3f}"
 )
 print(
     f"DateToPC1 -> Downstream Test RMSE: {ewbs_frontier_date_to_pc1_test_err.mean()**0.5:.3f}"
@@ -817,7 +829,6 @@ plot_comparison(
 )
 
 
-
 # %%
 
 plot_errmatrix_comparison(
@@ -831,98 +842,3 @@ plot_errmatrix_comparison(
         ewbs_frontier_date_to_pc1_data,
     ]
 )
-
-#%%
-# print ALL of the average errors:
-# Linear, Logit, Algprog, Flop, Elo
-
-print(
-    f"Benchmark -> Linear PC1 -> Downstream Train MSE: {ewbs_lin_train_err.mean():.3f}"
-)
-print(f"Benchmark -> Linear PC1 -> Downstream Test MSE: {ewbs_lin_test_err.mean():.3f}")
-print(
-    f"Benchmark -> Logit PC1 -> Downstream Train MSE: {ewbs_logit_train_err.mean():.3f}"
-)
-print(
-    f"Benchmark -> Logit PC1 -> Downstream Test MSE: {ewbs_logit_test_err.mean():.3f}"
-)
-print(f"(Flop, Date) -> Downstream Train MSE: {ewbs_algprog_flop_train_err.mean():.3f}")
-print(f"(Flop, Date) -> Downstream Test MSE: {ewbs_algprog_flop_test_err.mean():.3f}")
-print(f"Flop -> Downstream Train MSE: {ewbs_flop_train_err.mean():.3f}")
-print(f"Flop -> Downstream Test MSE: {ewbs_flop_test_err.mean():.3f}")
-print(f"Elo -> Downstream Train MSE: {ewbs_elo_train_err.mean():.3f}")
-print(f"Elo -> Downstream Test MSE: {ewbs_elo_test_err.mean():.3f}")
-
-print()
-print()
-
-print(
-    f"Benchmark -> Linear PC1 -> Downstream Train RMSE: {ewbs_lin_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"Benchmark -> Linear PC1 -> Downstream Test RMSE: {ewbs_lin_test_err.mean()**0.5:.3f}"
-)
-print(
-    f"Benchmark -> Logit PC1 -> Downstream Train RMSE: {ewbs_logit_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"Benchmark -> Logit PC1 -> Downstream Test RMSE: {ewbs_logit_test_err.mean()**0.5:.3f}"
-)
-print(
-    f"(Flop, Date) -> Downstream Train RMSE: {ewbs_algprog_flop_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"(Flop, Date) -> Downstream Test RMSE: {ewbs_algprog_flop_test_err.mean()**0.5:.3f}"
-)
-print(f"Flop -> Downstream Train RMSE: {ewbs_flop_train_err.mean()**0.5:.3f}")
-print(f"Flop -> Downstream Test RMSE: {ewbs_flop_test_err.mean()**0.5:.3f}")
-print(f"Elo -> Downstream Train RMSE: {ewbs_elo_train_err.mean()**0.5:.3f}")
-print(f"Elo -> Downstream Test RMSE: {ewbs_elo_test_err.mean()**0.5:.3f}")
-
-
-plot_comparison(
-    [
-        ewbs_lin_data,
-        ewbs_logit_data,
-        ewbs_algprog_flop_data,
-        ewbs_flop_data,
-        ewbs_elo_data,
-    ],
-    expand=False,
-)
-
-# %%
-plot_errmatrix_comparison(
-    [
-        ewbs_lin_data,
-        ewbs_logit_data,
-        ewbs_algprog_flop_data,
-        ewbs_flop_data,
-        ewbs_elo_data,
-    ]
-)
-
-# # %%
-# x = np.array(openllm_elo_merged["release_date"])
-# y = np.array(openllm_elo_merged["Elo"])
-# z = np.array(openllm_elo_merged["log10 FLOP_opt"])
-# xmin, xmax = np.min(x), np.max(x)
-# ymin, ymax = np.min(y), np.max(y)
-# zmin, zmax = np.min(z), np.max(z)
-
-# fig = ipv.figure()
-
-
-# x_raw, y_raw, z_raw = np.random.random((3, 1000))
-# xm = xmin + (xmax - xmin) * x_raw
-# ym = ymin + (ymax - ymin) * y_raw
-# zm = zmin + (zmax - zmin) * z_raw
-# # xm, ym, zm = x_raw, y_raw, z_raw
-# ipv.scatter(xm, ym, zm, size=1, marker="sphere", color="blue")
-
-# ipv.scatter(x, y, z, size=5, marker="sphere", color="red")
-
-# ipv.xlim(xmin, xmax)
-# ipv.ylim(ymin, ymax)
-# ipv.zlim(zmin, zmax)
-# ipv.gcc()
