@@ -32,7 +32,10 @@ if __name__ == "__main__":
     # construct the output log
     if log is not None:
         print("Writing output log")
+        log.eval.dataset.samples = len(samples)
+        log.eval.dataset.sample_ids = list(samples.keys())
         log.samples = list(samples.values())
+        log.status = "success"
         write_eval_log(log, output)        
     else:
         print("No logs found")
