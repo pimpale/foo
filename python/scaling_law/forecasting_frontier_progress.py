@@ -148,10 +148,36 @@ openllm_elo_benchmarks = [
     "MMLU-PRO Raw",
 ]
 
+agentic_benchmark = duckdb.read_csv("./data_models/cache_new/agentic_benchmark.csv")
+agentic_benchmark = duckdb.sql(
+    """
+    SELECT
+        "Model" as model,
+        "Chatbot Arena Elo" as Elo,
+        "SWE-Bench Verified",
+        "Cybench",
+        "RE-Bench total",
+        year("Release Date") + (1/365)*dayofyear("Release Date") as release_date
+    FROM agentic_benchmark
+    UNION ALL VALUES
+        ('a', 0, 0, 0, 0, 2025.00),
+        ('b', 0, 0, 0, 0, 2025.25),
+        ('c', 0, 0, 0, 0, 2025.50),
+        ('d', 0, 0, 0, 0, 2025.75),
+        ('e', 0, 0, 0, 0, 2026.00)
+    """
+).df()
+agentic_benchmark_benchmarks = [
+    "SWE-Bench Verified",
+    "Cybench",
+    "RE-Bench total"
+]
+
 
 # drop NaNs
 base_llm_benchmark_eval.dropna(inplace=True)
 openllm_elo_merged.dropna(inplace=True)
+agentic_benchmark.dropna(inplace=True)
 
 benchmark_data = [
     ("MMLU", 0.25),
@@ -648,6 +674,30 @@ def compare(
         f"Test Percentage Improvement: {(data1.results.mean() - data2.results.mean()) / data1.results.mean() * 100:.2f}%"
     )
 
+#%%
+
+ewbs = ExpandingWindowBacktestSplitter(
+    min_train_size=7,
+    test_size=4,
+    increment=10,
+    key="release_date",
+)
+
+#%%
+ewbs_frontier_date_to_elo_data = backtest_models(
+    ewbs, FrontierDateToEloPredictor, agentic_benchmark, agentic_benchmark_benchmarks
+)
+
+ewbs_frontier_date_to_elo_train_err, ewbs_frontier_date_to_elo_test_err = (
+    compute_test_train_error_frontier(ewbs_frontier_date_to_elo_data.results)
+)
+
+#%%
+plot_comparison(
+    [
+        ewbs_frontier_date_to_elo_data,
+    ]
+)
 
 # %%
 
