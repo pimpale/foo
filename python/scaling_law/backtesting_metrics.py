@@ -215,6 +215,7 @@ def plot_train_test(
     if title is not None:
         ax.set_title(title)
 
+
 def augment_df_linear(
     linear_obs_model: LinearPC1Predictor, df_to_augment: pd.DataFrame
 ):
@@ -503,6 +504,53 @@ def plot_comparison(backtests: list[BacktestData], expand=False):
     plt.show()
 
 
+def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=False):
+    n_split, n_bench = backtest.results.shape
+    assert benchmark_id < n_bench
+
+    if expand:
+        fig, ax = plt.subplots(1, n_split, figsize=(5 * n_split, 5), squeeze=False)
+    else:
+        fig, ax = plt.subplots(1, 1, figsize=(5, 5), squeeze=False)
+
+    for split_idx in range(n_split):
+        bdp: BacktestDataPoint = backtest.results[split_idx, benchmark_id]
+        bdp_copy = bdp.copy()
+        augment_train_test_slaw(
+            bdp_copy.slaw,
+            bdp_copy.model,
+            bdp_copy.split_train,
+            bdp_copy.split_test,
+        )
+
+        # Use appropriate subplot index based on expand setting
+        curr_ax = ax[0, split_idx] if expand else ax[0, 0]
+        c = "C0" if expand else f"C{split_idx}"
+
+        plot_train_test(
+            curr_ax,
+            bdp_copy.split_train,
+            bdp_copy.split_test,
+            x_key,
+            (
+                [Spe(bdp_copy.slaw.benchmark, "Ground Truth", "black")]
+                if expand or split_idx == 0
+                else []
+            )
+            + [
+                Spe(
+                    f"{bdp_copy.slaw.benchmark} pred",
+                    f"{type(bdp_copy.model).__name__} pred",
+                    c,
+                ),
+            ],
+            y_label=bdp_copy.slaw.benchmark,
+        )
+
+    fig.tight_layout()
+    plt.show()
+
+
 def plot_errmatrix_comparison(
     backtests: list[BacktestData],
 ):
@@ -512,24 +560,25 @@ def plot_errmatrix_comparison(
     # 1. Aggregate over benchmarks
     # 2. Aggregate over splits
     # 3. Aggregate over both
-    fig, ax = plt.subplots(2, 3, figsize=(30*0.7, 20*0.7))
+    fig, ax = plt.subplots(2, 3, figsize=(30 * 0.7, 20 * 0.7))
 
     # create 3d matrix of errors
     train_errs = np.zeros(
         (
             # methods
-            len(backtests), 
+            len(backtests),
             # splits
-            len(backtests[0].splits), 
+            len(backtests[0].splits),
             # benchmarks
-            len(backtests[0].benchmarks))
+            len(backtests[0].benchmarks),
+        )
     )
-    test_errs = np.zeros_like(train_errs) # same shape as err_train
-    
+    test_errs = np.zeros_like(train_errs)  # same shape as err_train
+
     for i, b in enumerate(backtests):
         train_err, test_err = compute_test_train_error(b.results)
         train_errs[i] = train_err
-        test_errs[i] = test_err        
+        test_errs[i] = test_err
 
     train_vmax = np.max(np.sqrt(train_errs)).item()
     test_vmax = np.max(np.sqrt(test_errs)).item()
@@ -542,7 +591,7 @@ def plot_errmatrix_comparison(
         xticklabels=methods,
         annot=True,
         vmin=0,
-        vmax=train_vmax
+        vmax=train_vmax,
     )
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=1).T),
@@ -551,7 +600,7 @@ def plot_errmatrix_comparison(
         xticklabels=methods,
         annot=True,
         vmin=0,
-        vmax=test_vmax
+        vmax=test_vmax,
     )
 
     # aggregate over benchmarks
@@ -562,7 +611,7 @@ def plot_errmatrix_comparison(
         xticklabels=methods,
         annot=True,
         vmin=0,
-        vmax=train_vmax
+        vmax=train_vmax,
     )
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=2).T),
@@ -571,7 +620,7 @@ def plot_errmatrix_comparison(
         xticklabels=methods,
         annot=True,
         vmin=0,
-        vmax=test_vmax
+        vmax=test_vmax,
     )
 
     # aggregate over methods
@@ -582,7 +631,7 @@ def plot_errmatrix_comparison(
         xticklabels=backtests[0].splits,
         annot=True,
         vmin=0,
-        vmax=train_vmax
+        vmax=train_vmax,
     )
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=0).T),
@@ -591,21 +640,21 @@ def plot_errmatrix_comparison(
         xticklabels=backtests[0].splits,
         vmin=0,
         vmax=test_vmax,
-        annot=True
+        annot=True,
     )
-    
-    
+
     # set column titles
-    ax[0, 0].set_title("Predictor perf on Benchmark", size='xx-large')
-    ax[0, 1].set_title("Predictor perf on Split", size='xx-large')
-    ax[0, 2].set_title("Overall perf on (Split, Benchmark)", size='xx-large')
+    ax[0, 0].set_title("Predictor perf on Benchmark", size="xx-large")
+    ax[0, 1].set_title("Predictor perf on Split", size="xx-large")
+    ax[0, 2].set_title("Overall perf on (Split, Benchmark)", size="xx-large")
 
     # set row titles
-    ax[0, 0].set_ylabel("Train Set", size='xx-large')
-    ax[1, 0].set_ylabel("Test Set", size='xx-large')
+    ax[0, 0].set_ylabel("Train Set", size="xx-large")
+    ax[1, 0].set_ylabel("Test Set", size="xx-large")
 
     fig.tight_layout()
     plt.show()
+
 
 def plot_all_loss_curves(data: BacktestData):
     n_split, n_bench = data.results.shape
@@ -620,9 +669,7 @@ def plot_all_loss_curves(data: BacktestData):
             bdp: BacktestDataPoint = data.results[split_idx, bench_idx]
             slaw = bdp.slaw
             model = bdp.model
-            ax[split_idx, bench_idx].plot(
-                np.log10(slaw.train_losses[:]), label="train"
-            )
+            ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
             ax[split_idx, bench_idx].legend()
 
@@ -734,6 +781,7 @@ def plot_linear_scaling_law(lin_data_point: BacktestDataPoint[LinearPC1Predictor
 
     plot_slaw(lin_data_point)
 
+
 def plot_flop_scaling_law(flop_data_point: BacktestDataPoint[DirectLogFlopPredictor]):
     # fig, ax = plt.subplots(
     #     len(algprog_flop_data_point.model.benchmarks),
@@ -760,8 +808,6 @@ def plot_flop_scaling_law(flop_data_point: BacktestDataPoint[DirectLogFlopPredic
     plt.show()
 
     plot_slaw(flop_data_point)
-
-
 
 
 # %%
@@ -819,9 +865,7 @@ plot_flop_scaling_law(ewbs_flop_data.results[split_idx, bench_idx])
 # print ALL of the average errors:
 # Linear, Logit, Algprog, Flop, Elo
 
-print(
-    f"Linear PC1 -> Downstream Train MSE: {ewbs_lin_train_err.mean():.3f}"
-)
+print(f"Linear PC1 -> Downstream Train MSE: {ewbs_lin_train_err.mean():.3f}")
 print(f"Linear PC1 -> Downstream Test MSE: {ewbs_lin_test_err.mean():.3f}")
 print(f"Flop -> Downstream Train MSE: {ewbs_flop_train_err.mean():.3f}")
 print(f"Flop -> Downstream Test MSE: {ewbs_flop_test_err.mean():.3f}")
@@ -831,12 +875,8 @@ print(f"Elo -> Downstream Test MSE: {ewbs_elo_test_err.mean():.3f}")
 print()
 print()
 
-print(
-    f"Linear PC1 -> Downstream Train RMSE: {ewbs_lin_train_err.mean()**0.5:.3f}"
-)
-print(
-    f"Linear PC1 -> Downstream Test RMSE: {ewbs_lin_test_err.mean()**0.5:.3f}"
-)
+print(f"Linear PC1 -> Downstream Train RMSE: {ewbs_lin_train_err.mean()**0.5:.3f}")
+print(f"Linear PC1 -> Downstream Test RMSE: {ewbs_lin_test_err.mean()**0.5:.3f}")
 print(f"Flop -> Downstream Train RMSE: {ewbs_flop_train_err.mean()**0.5:.3f}")
 print(f"Flop -> Downstream Test RMSE: {ewbs_flop_test_err.mean()**0.5:.3f}")
 print(f"Elo -> Downstream Train RMSE: {ewbs_elo_train_err.mean()**0.5:.3f}")
@@ -861,6 +901,18 @@ plot_errmatrix_comparison(
     ]
 )
 
-#%%
+# %%
 
 plot_all_loss_curves(ewbs_lin_data)
+
+
+# %%
+
+plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=False)
+
+#%%
+plot_split(ewbs_elo_data, 0, "Elo", expand=False)
+
+
+#%%
+plot_split(ewbs_lin_data, 0, "PC-1", expand=False)
