@@ -118,7 +118,7 @@ class ScalingLaw(nn.Module):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-3, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
         best_train_loss = float("inf")
         best_state_dict = self.state_dict()
         for i in range(epochs):
