@@ -17,7 +17,7 @@ import seaborn as sns
 import ipyvolume as ipv
 
 from util_frontier import Frontier, get_running_top_n
-from util_obs_scaling_law_predictor import ScalingLaw
+from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
     BacktestSplitter,
     ExpandingWindowBacktestSplitter,
@@ -182,6 +182,35 @@ class Spe:
     y_key: str
     y_label: str
     color: str
+    alpha: float = 0.5
+
+
+def plot_spe(
+    ax: matplotlib.axes.Axes,
+    df: pd.DataFrame,
+    x_key: str,
+    entries: list[Spe],
+    title=None,
+    y_label=None,
+):
+    for e in entries:
+        ax.scatter(
+            df[x_key],
+            df[e.y_key],
+            label=e.y_label,
+            alpha=e.alpha,
+            color=e.color,
+        )
+    ax.legend()
+
+    ax.set_xlabel(x_key)
+    if y_label is not None:
+        ax.set_ylabel(y_label)
+    if title is None and (x_key is not None and y_label is not None):
+        title = f"{y_label} vs {x_key}"
+    if title is not None:
+        ax.set_title(title)
+
 
 
 def plot_train_test(
@@ -198,7 +227,7 @@ def plot_train_test(
             train_df[x_key],
             train_df[e.y_key],
             marker="x",
-            alpha=0.5,
+            alpha=e.alpha,
             color=e.color,
         )
         ax.scatter(
@@ -206,7 +235,7 @@ def plot_train_test(
             test_df[e.y_key],
             marker="o",
             label=e.y_label,
-            alpha=0.5,
+            alpha=e.alpha,
             color=e.color,
         )
     ax.legend()
@@ -257,12 +286,15 @@ class BacktestDataPoint[T: Frontier]:
 
 
 @dataclass
-class BacktestData:
+class BacktestFrontierData:
     splitter: BacktestSplitter
     model_class: Type[Frontier]
     benchmarks: list[str]
     splits: list[str]
+    # 2D array of BacktestDataPoint on the splits x benchmarks
     results: npt.NDArray[np.object_]
+    # 1D array of BacktestDataPoint on the benchmarks (using all points)
+    global_split_results: npt.NDArray[np.object_]
 
 
 def get_benchmark_list(
@@ -274,18 +306,17 @@ def get_benchmark_list(
         b for b in dataframe_benchmarks if b != predicted_benchmark
     ]
 
-
-def backtest_models(
+def backtest_models_frontier(
     splitter: BacktestSplitter,
     ModelCls: Type[Frontier],
     dataframe: pd.DataFrame,
     dataframe_benchmarks: list[str],
-) -> BacktestData:
+) -> BacktestFrontierData:
     # create object ndarray
 
     train_test_splits = list(splitter.split(dataframe))
 
-    data = BacktestData(
+    data = BacktestFrontierData(
         splitter=splitter,
         model_class=ModelCls,
         benchmarks=dataframe_benchmarks,
@@ -293,11 +324,16 @@ def backtest_models(
         results=np.empty(
             (len(train_test_splits), len(dataframe_benchmarks)), dtype=np.object_
         ),
+        global_split_results=np.empty(len(dataframe_benchmarks), dtype=np.object_),
+
     )
 
-    n_trains = len(train_test_splits) * len(dataframe_benchmarks)
+    n_trains = (len(train_test_splits)+1) * len(dataframe_benchmarks)
 
-    for split_idx, (train, test) in enumerate(train_test_splits):
+
+    for split_idx, (train, test) in enumerate(
+        [(dataframe, dataframe.head(0))] + train_test_splits
+    ):
         for bench_idx, predicted_benchmark in enumerate(dataframe_benchmarks):
             i_train = split_idx * len(dataframe_benchmarks) + bench_idx
             print(f"Training {i_train}/{n_trains}")
@@ -324,11 +360,18 @@ def backtest_models(
             print(f"{ModelCls.__name__} Training Time: {time.time() - t0:.2f} seconds")
 
             # store the results
-            data.results[split_idx, bench_idx] = BacktestDataPoint(
-                split_train=train,
-                split_test=test,
-                model=model,
-            )
+            if split_idx == 0:
+                data.global_split_results[bench_idx] = BacktestDataPoint(
+                    split_train=train,
+                    split_test=test,
+                    model=model,
+                )
+            else:
+                data.results[split_idx - 1, bench_idx] = BacktestDataPoint(
+                    split_train=train,
+                    split_test=test,
+                    model=model,
+                )
 
     return data
 
@@ -366,7 +409,7 @@ def compute_test_train_error_frontier(arr: npt.NDArray[np.object_]) -> tuple[
     return train_err, test_err
 
 
-def plot_comparison(backtests: list[BacktestData], expand=False):
+def plot_comparison(backtests: list[BacktestFrontierData], expand=False):
     assert len(backtests) > 0
     b0 = backtests[0]
     n_split, n_bench = b0.results.shape
@@ -442,7 +485,7 @@ def plot_comparison(backtests: list[BacktestData], expand=False):
 
 
 def plot_errmatrix_comparison(
-    backtests: list[BacktestData],
+    backtests: list[BacktestFrontierData],
 ):
     assert len(backtests) > 0
     methods = [b.model_class.__name__.replace("Predictor", "") for b in backtests]
@@ -546,7 +589,7 @@ def plot_errmatrix_comparison(
     plt.show()
 
 
-def plot_all_loss_curves(data: BacktestData):
+def plot_all_loss_curves(data: BacktestFrontierData):
     n_split, n_bench = data.results.shape
     fig, ax = plt.subplots(
         n_split,
@@ -563,76 +606,110 @@ def plot_all_loss_curves(data: BacktestData):
             ax[split_idx, bench_idx].legend()
 
 
-# def plot_slaw[
-#     T: Frontier
-# ](point: BacktestDataPoint[T],):
-#     # now plot the data for the actual fit curve on the excluded benchmark
-#     # 1 row, 4 columns
-#     # col 0: FLOPs vs benchmark (show both true and predicted)
-#     # col 1: FLOPs vs logit benchmark (show both true and predicted)
-#     # col 2: capability vs benchmark (show both true and predicted)
-#     # col 3: capability vs logit benchmark (show both true and predicted)
 
-#     pt = point.copy()
-#     augment_train_test_slaw(pt.slaw, pt.model, pt.split_train, pt.split_test)
+def plot_split(backtest: BacktestFrontierData, benchmark_id: int, x_key: str, expand=False):
+    
+    color_list = [
+        "tab:blue",
+        "tab:cyan",
+        "tab:green",
+        "tab:orange",
+    ]
+    
+    n_split, n_bench = backtest.results.shape
+    assert benchmark_id < n_bench
 
-#     fig, ax = plt.subplots(1, 4, figsize=(20, 5), squeeze=False)  # 4 columns
-#     ax_arr = ax[0]
-#     # plot in flop x-space and benchmark y-space
-#     plot_train_test(
-#         ax_arr[0],
-#         pt.split_train,
-#         pt.split_test,
-#         "log10 FLOP_opt",
-#         [
-#             Spe(f"{pt.slaw.benchmark}", "Ground Truth", "C0"),
-#             Spe(f"{pt.slaw.benchmark} pred", "Prediction", "C1"),
-#         ],
-#         y_label=pt.slaw.benchmark,
-#     )
+    if expand:
+        fig, ax = plt.subplots(1, n_split, figsize=(5 * n_split, 5), squeeze=False)
+    else:
+        fig, ax = plt.subplots(1, 1, figsize=(5, 5), squeeze=False)
 
-#     plot_train_test(
-#         ax_arr[1],
-#         pt.split_train,
-#         pt.split_test,
-#         "log10 FLOP_opt",
-#         [
-#             Spe(f"{pt.slaw.benchmark} logit", "Ground Truth", "C0"),
-#             Spe(f"{pt.slaw.benchmark} logit pred", "Prediction", "C1"),
-#         ],
-#         y_label=f"{pt.slaw.benchmark} logit",
-#     )
+    # first, plot the train points.
+    # We need to use the final dataframe to get the ground truth data, since it will have the best-trained PC-1 score (and doesn't matter for the other models)
+    bdp_g: BacktestDataPoint = backtest.global_split_results[benchmark_id]
+    bdp_g_copy = bdp_g.copy()
+    augment_df_slaw(
+        bdp_g_copy.model,
+        bdp_g_copy.split_train,
+    )
 
-#     plot_train_test(
-#         ax_arr[2],
-#         pt.split_train,
-#         pt.split_test,
-#         "PC-1",
-#         [
-#             Spe(f"{pt.slaw.benchmark}", "Ground Truth", "C0"),
-#             Spe(f"{pt.slaw.benchmark} pred", "Prediction", "C1"),
-#         ],
-#         y_label=pt.slaw.benchmark,
-#     )
+    bdp_g_splits = list(backtest.splitter.split(bdp_g_copy.split_train))
 
-#     plot_train_test(
-#         ax_arr[3],
-#         pt.split_train,
-#         pt.split_test,
-#         "PC-1",
-#         [
-#             Spe(f"{pt.slaw.benchmark} logit", "Ground Truth", "C0"),
-#             Spe(f"{pt.slaw.benchmark} logit pred", "Prediction", "C1"),
-#         ],
-#         y_label=f"{pt.slaw.benchmark} logit",
-#     )
+    for j in range(len(bdp_g_splits) if expand else 1):
+        curr_ax = ax[0, j]
 
-#     plt.show()
+        plotted_points = set()
+        for i, (train, test) in enumerate(bdp_g_splits):
+            min_v = train[backtest.splitter.key].min()
+            max_v = train[backtest.splitter.key].max()
+
+            plot_spe(
+                curr_ax,
+                train[~train[backtest.splitter.key].isin(plotted_points)],
+                x_key,
+                [Spe(bdp_g.model.slaw.benchmark, f"{min_v:.1f} - {max_v:.1f} {backtest.splitter.key}", color_list[i], alpha=1)],
+                y_label=bdp_g.model.slaw.benchmark,
+            )
+            plotted_points.update(train[backtest.splitter.key])
+            
+            if i == len(bdp_g_splits) - 1:
+                plot_spe(
+                    curr_ax,
+                    bdp_g_copy.split_train[~bdp_g_copy.split_train[backtest.splitter.key].isin(plotted_points)],
+                    x_key,
+                    [
+                        Spe(
+                            bdp_g.model.slaw.benchmark,
+                            f"{max_v:.1f} + {backtest.splitter.key}",
+                            color_list[len(bdp_g_splits)],
+                            alpha=1,
+                        )
+                    ],
+                    y_label=bdp_g.model.slaw.benchmark,
+                )
+
+    # now plot the predictions
+    # to do this, we use the model to make predictions for the entire space and plot it
+
+    for split_idx in range(n_split):
+        color =  color_list[split_idx]
+        bdp: BacktestDataPoint[Frontier] = backtest.results[
+            split_idx, benchmark_id
+        ]
+
+        # augment the global split with the model's predictions
+        bdp_g_copy2 = bdp_g.copy()
+        augment_df_slaw(bdp.model, bdp_g_copy2.split_train)
+
+        if expand:
+            curr_ax = ax[0, split_idx]
+        else:
+            curr_ax = ax[0, 0]
+
+        # plot the predictions
+        curr_ax.scatter(
+            bdp_g_copy.split_train[x_key],
+            bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"],
+            label=f"{type(bdp.model).__name__} pred",
+            alpha=1,
+            marker="x",
+            color=color,
+        )
+        
+        min_v = bdp_g_copy.split_train[backtest.splitter.key].min()
+        max_v = bdp_g_copy.split_train[backtest.splitter.key].max()
+        print("Plotting", min_v, max_v)
+        
+        curr_ax.legend()
+
+    fig.tight_layout()
+    plt.show()
+
 
 
 def compare(
-    data1: BacktestData,
-    data2: BacktestData,
+    data1: BacktestFrontierData,
+    data2: BacktestFrontierData,
 ):
     plot_errmatrix_comparison([data1, data2])
 
@@ -663,14 +740,14 @@ ewbs = ExpandingWindowBacktestSplitter(
 
 
 # %%
-ewbs_frontier_date_data = backtest_models(
+ewbs_frontier_date_data = backtest_models_frontier(
     ewbs, FrontierDatePredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_date_train_err, ewbs_frontier_date_test_err = (
     compute_test_train_error_frontier(ewbs_frontier_date_data.results)
 )
 # %%
-ewbs_frontier_flop_data = backtest_models(
+ewbs_frontier_flop_data = backtest_models_frontier(
     ewbs, FrontierFlopPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_flop_train_err, ewbs_frontier_flop_test_err = (
@@ -678,7 +755,7 @@ ewbs_frontier_flop_train_err, ewbs_frontier_flop_test_err = (
 )
 
 # %%
-ewbs_frontier_flop_date_data = backtest_models(
+ewbs_frontier_flop_date_data = backtest_models_frontier(
     ewbs, FrontierFlopDatePredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_flop_date_train_err, ewbs_frontier_flop_date_test_err = (
@@ -686,7 +763,7 @@ ewbs_frontier_flop_date_train_err, ewbs_frontier_flop_date_test_err = (
 )
 
 # %%
-ewbs_frontier_flop_to_elo_data = backtest_models(
+ewbs_frontier_flop_to_elo_data = backtest_models_frontier(
     ewbs, FrontierFlopToEloPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_flop_to_elo_train_err, ewbs_frontier_flop_to_elo_test_err = (
@@ -694,7 +771,7 @@ ewbs_frontier_flop_to_elo_train_err, ewbs_frontier_flop_to_elo_test_err = (
 )
 
 # %%
-ewbs_frontier_date_to_elo_data = backtest_models(
+ewbs_frontier_date_to_elo_data = backtest_models_frontier(
     ewbs, FrontierDateToEloPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_date_to_elo_train_err, ewbs_frontier_date_to_elo_test_err = (
@@ -702,7 +779,7 @@ ewbs_frontier_date_to_elo_train_err, ewbs_frontier_date_to_elo_test_err = (
 )
 
 # %%
-ewbs_frontier_flop_to_pc1_data = backtest_models(
+ewbs_frontier_flop_to_pc1_data = backtest_models_frontier(
     ewbs, FrontierFlopToPC1Predictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_flop_to_pc1_train_err, ewbs_frontier_flop_to_pc1_test_err = (
@@ -710,7 +787,7 @@ ewbs_frontier_flop_to_pc1_train_err, ewbs_frontier_flop_to_pc1_test_err = (
 )
 
 # %%
-ewbs_frontier_date_to_pc1_data = backtest_models(
+ewbs_frontier_date_to_pc1_data = backtest_models_frontier(
     ewbs, FrontierDateToPC1Predictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_frontier_date_to_pc1_train_err, ewbs_frontier_date_to_pc1_test_err = (
@@ -842,3 +919,15 @@ plot_errmatrix_comparison(
         ewbs_frontier_date_to_pc1_data,
     ]
 )
+
+
+
+# %%
+
+plot_split(ewbs_frontier_date_data, 2, "release_date", expand=True)
+
+
+
+# %%
+
+plot_split(ewbs_frontier_date_to_pc1_data, 3, "release_date", expand=False)

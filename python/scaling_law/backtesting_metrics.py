@@ -179,7 +179,6 @@ class Spe:
     y_label: str
     color: str
     alpha: float = 0.5
-    line: bool = False
 
 
 def plot_spe(
@@ -355,7 +354,7 @@ def get_benchmark_list(
     return benchmark_list
 
 
-def backtest_models(
+def backtest_models_metric(
     splitter: BacktestSplitter,
     ModelCls: Type[ObsScalingLawPredictor],
     dataframe: pd.DataFrame,
@@ -550,11 +549,10 @@ def plot_comparison(backtests: list[BacktestData], expand=False):
 def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=False):
     
     color_list = [
-        "tab:purple",
         "tab:blue",
         "tab:cyan",
         "tab:green",
-        "tab:olive",
+        "tab:orange",
     ]
     
     n_split, n_bench = backtest.results.shape
@@ -598,7 +596,7 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
             if i == len(bdp_g_splits) - 1:
                 plot_spe(
                     curr_ax,
-                    test,
+                    bdp_g_copy.split_train[~bdp_g_copy.split_train[backtest.splitter.key].isin(plotted_points)],
                     x_key,
                     [
                         Spe(
@@ -932,26 +930,26 @@ ewbs = ExpandingWindowBacktestSplitter(
     min_train_size=9,
     test_size=9,
     increment=9,
-    key="log10 FLOP_opt",
+    key="release_date",
 )
 
 
 # %%
 
-ewbs_lin_data = backtest_models(
+ewbs_lin_data = backtest_models_metric(
     ewbs, LinearPC1Predictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_lin_train_err, ewbs_lin_test_err = compute_test_train_error(ewbs_lin_data.results)
 
 # %%
-ewbs_elo_data = backtest_models(
+ewbs_elo_data = backtest_models_metric(
     ewbs, DirectEloPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_elo_train_err, ewbs_elo_test_err = compute_test_train_error(ewbs_elo_data.results)
 
 
 # %%
-ewbs_flop_data = backtest_models(
+ewbs_flop_data = backtest_models_metric(
     ewbs, DirectLogFlopPredictor, openllm_elo_merged, openllm_elo_benchmarks
 )
 ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
@@ -1024,23 +1022,12 @@ plot_all_loss_curves(ewbs_lin_data)
 
 # %%
 
-plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=False)
+plot_split(ewbs_flop_data, 2, "log10 FLOP_opt", expand=False)
 
 
 # %%
-
-plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=True)
-
-
-# %%
-plot_split(ewbs_elo_data, 0, "Elo", expand=False)
-
-# %%
-plot_split(ewbs_elo_data, 0, "log10 FLOP_opt", expand=True)
+plot_split(ewbs_elo_data, 2, "Elo", expand=False)
 
 
 # %%
-plot_split(ewbs_lin_data, 0, "PC-1", expand=False)
-
-# %%
-plot_split(ewbs_lin_data, 0, "log10 FLOP_opt", expand=True)
+plot_split(ewbs_lin_data, 2, "PC-1", expand=False)
