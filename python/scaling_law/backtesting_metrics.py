@@ -548,6 +548,15 @@ def plot_comparison(backtests: list[BacktestData], expand=False):
 
 
 def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=False):
+    
+    color_list = [
+        "tab:purple",
+        "tab:blue",
+        "tab:cyan",
+        "tab:green",
+        "tab:olive",
+    ]
+    
     n_split, n_bench = backtest.results.shape
     assert benchmark_id < n_bench
 
@@ -572,7 +581,20 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
     for j in range(len(bdp_g_splits) if expand else 1):
         curr_ax = ax[0, j]
 
-        for i, (train, test) in reversed(list(enumerate(bdp_g_splits))):
+        plotted_points = set()
+        for i, (train, test) in enumerate(bdp_g_splits):
+            min_v = train[backtest.splitter.key].min()
+            max_v = train[backtest.splitter.key].max()
+
+            plot_spe(
+                curr_ax,
+                train[~train[backtest.splitter.key].isin(plotted_points)],
+                x_key,
+                [Spe(bdp_g.slaw.benchmark, f"{min_v:.1f} - {max_v:.1f} {backtest.splitter.key}", color_list[i], alpha=1)],
+                y_label=bdp_g.slaw.benchmark,
+            )
+            plotted_points.update(train[backtest.splitter.key])
+            
             if i == len(bdp_g_splits) - 1:
                 plot_spe(
                     curr_ax,
@@ -581,27 +603,19 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
                     [
                         Spe(
                             bdp_g.slaw.benchmark,
-                            "Ground Truth",
-                            f"C{len(bdp_g_splits)}",
+                            f"{max_v:.1f} + {backtest.splitter.key}",
+                            color_list[len(bdp_g_splits)],
                             alpha=1,
                         )
                     ],
                     y_label=bdp_g.slaw.benchmark,
                 )
 
-            plot_spe(
-                curr_ax,
-                train,
-                x_key,
-                [Spe(bdp_g.slaw.benchmark, "Ground Truth", f"C{i}", alpha=1)],
-                y_label=bdp_g.slaw.benchmark,
-            )
-
     # now plot the predictions
     # to do this, we use the model to make predictions for the entire space and plot it
 
     for split_idx in range(n_split):
-        color = "C0" if expand else f"C{split_idx}"
+        color =  color_list[split_idx]
         bdp: BacktestDataPoint[ObsScalingLawPredictor] = backtest.results[
             split_idx, benchmark_id
         ]
@@ -620,7 +634,7 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
             bdp_g_copy.split_train[x_key],
             bdp_g_copy2.split_train[f"{bdp.slaw.benchmark} pred"],
             label=f"{type(bdp.model).__name__} pred",
-            alpha=0.5,
+            alpha=1,
             marker="x",
             color=color,
         )
@@ -1010,11 +1024,23 @@ plot_all_loss_curves(ewbs_lin_data)
 
 # %%
 
+plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=False)
+
+
+# %%
+
 plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=True)
 
+
 # %%
-plot_split(ewbs_elo_data, 0, "Elo", expand=True)
+plot_split(ewbs_elo_data, 0, "Elo", expand=False)
+
+# %%
+plot_split(ewbs_elo_data, 0, "log10 FLOP_opt", expand=True)
 
 
 # %%
-plot_split(ewbs_lin_data, 5, "PC-1", expand=True)
+plot_split(ewbs_lin_data, 0, "PC-1", expand=False)
+
+# %%
+plot_split(ewbs_lin_data, 0, "log10 FLOP_opt", expand=True)
