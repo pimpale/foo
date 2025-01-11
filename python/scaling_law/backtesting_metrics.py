@@ -178,6 +178,35 @@ class Spe:
     y_key: str
     y_label: str
     color: str
+    alpha: float = 0.5
+    line: bool = False
+
+
+def plot_spe(
+    ax: matplotlib.axes.Axes,
+    df: pd.DataFrame,
+    x_key: str,
+    entries: list[Spe],
+    title=None,
+    y_label=None,
+):
+    for e in entries:
+        ax.scatter(
+            df[x_key],
+            df[e.y_key],
+            label=e.y_label,
+            alpha=e.alpha,
+            color=e.color,
+        )
+    ax.legend()
+
+    ax.set_xlabel(x_key)
+    if y_label is not None:
+        ax.set_ylabel(y_label)
+    if title is None and (x_key is not None and y_label is not None):
+        title = f"{y_label} vs {x_key}"
+    if title is not None:
+        ax.set_title(title)
 
 
 def plot_train_test(
@@ -304,7 +333,10 @@ class BacktestData:
     model_class: Type[ObsScalingLawPredictor]
     benchmarks: list[str]
     splits: list[str]
+    # 2D array of BacktestDataPoint on the splits x benchmarks
     results: npt.NDArray[np.object_]
+    # 1D array of BacktestDataPoint on the benchmarks (using all points)
+    global_split_results: npt.NDArray[np.object_]
 
 
 def get_benchmark_list(
@@ -341,11 +373,14 @@ def backtest_models(
         results=np.empty(
             (len(train_test_splits), len(dataframe_benchmarks)), dtype=np.object_
         ),
+        global_split_results=np.empty(len(dataframe_benchmarks), dtype=np.object_),
     )
 
-    n_trains = len(train_test_splits) * len(dataframe_benchmarks)
+    n_trains = (len(train_test_splits) + 1) * len(dataframe_benchmarks)
 
-    for split_idx, (train, test) in enumerate(train_test_splits):
+    for split_idx, (train, test) in enumerate(
+        [(dataframe, dataframe.head(0))] + train_test_splits
+    ):
         for bench_idx, predicted_benchmark in enumerate(dataframe_benchmarks):
             i_train = split_idx * len(dataframe_benchmarks) + bench_idx
             print(f"Training {i_train}/{n_trains}")
@@ -391,12 +426,20 @@ def backtest_models(
             print(f"Scaling Law Training Time: {time.time() - t0:.2f} seconds")
 
             # store the results
-            data.results[split_idx, bench_idx] = BacktestDataPoint(
-                split_train=train,
-                split_test=test,
-                model=model,
-                slaw=slaw,
-            )
+            if split_idx == 0:
+                data.global_split_results[bench_idx] = BacktestDataPoint(
+                    split_train=train,
+                    split_test=test,
+                    model=model,
+                    slaw=slaw,
+                )
+            else:
+                data.results[split_idx - 1, bench_idx] = BacktestDataPoint(
+                    split_train=train,
+                    split_test=test,
+                    model=model,
+                    slaw=slaw,
+                )
 
     return data
 
@@ -513,39 +556,75 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
     else:
         fig, ax = plt.subplots(1, 1, figsize=(5, 5), squeeze=False)
 
-    for split_idx in range(n_split):
-        bdp: BacktestDataPoint = backtest.results[split_idx, benchmark_id]
-        bdp_copy = bdp.copy()
-        augment_train_test_slaw(
-            bdp_copy.slaw,
-            bdp_copy.model,
-            bdp_copy.split_train,
-            bdp_copy.split_test,
-        )
+    # first, plot the train points.
+    # We need to use the final dataframe to get the ground truth data, since it will have the best-trained PC-1 score (and doesn't matter for the other models)
+    bdp_g: BacktestDataPoint = backtest.global_split_results[benchmark_id]
+    bdp_g_copy = bdp_g.copy()
+    augment_train_test_slaw(
+        bdp_g_copy.slaw,
+        bdp_g_copy.model,
+        bdp_g_copy.split_train,
+        bdp_g_copy.split_test,
+    )
 
-        # Use appropriate subplot index based on expand setting
-        curr_ax = ax[0, split_idx] if expand else ax[0, 0]
-        c = "C0" if expand else f"C{split_idx}"
+    bdp_g_splits = list(backtest.splitter.split(bdp_g_copy.split_train))
 
-        plot_train_test(
-            curr_ax,
-            bdp_copy.split_train,
-            bdp_copy.split_test,
-            x_key,
-            (
-                [Spe(bdp_copy.slaw.benchmark, "Ground Truth", "black")]
-                if expand or split_idx == 0
-                else []
+    for j in range(len(bdp_g_splits) if expand else 1):
+        curr_ax = ax[0, j]
+
+        for i, (train, test) in reversed(list(enumerate(bdp_g_splits))):
+            if i == len(bdp_g_splits) - 1:
+                plot_spe(
+                    curr_ax,
+                    test,
+                    x_key,
+                    [
+                        Spe(
+                            bdp_g.slaw.benchmark,
+                            "Ground Truth",
+                            f"C{len(bdp_g_splits)}",
+                            alpha=1,
+                        )
+                    ],
+                    y_label=bdp_g.slaw.benchmark,
+                )
+
+            plot_spe(
+                curr_ax,
+                train,
+                x_key,
+                [Spe(bdp_g.slaw.benchmark, "Ground Truth", f"C{i}", alpha=1)],
+                y_label=bdp_g.slaw.benchmark,
             )
-            + [
-                Spe(
-                    f"{bdp_copy.slaw.benchmark} pred",
-                    f"{type(bdp_copy.model).__name__} pred",
-                    c,
-                ),
-            ],
-            y_label=bdp_copy.slaw.benchmark,
+
+    # now plot the predictions
+    # to do this, we use the model to make predictions for the entire space and plot it
+
+    for split_idx in range(n_split):
+        color = "C0" if expand else f"C{split_idx}"
+        bdp: BacktestDataPoint[ObsScalingLawPredictor] = backtest.results[
+            split_idx, benchmark_id
+        ]
+
+        # augment the global split with the model's predictions
+        bdp_g_copy2 = bdp_g.copy()
+        augment_df_slaw(bdp.slaw, bdp.model, bdp_g_copy2.split_train)
+
+        if expand:
+            curr_ax = ax[0, split_idx]
+        else:
+            curr_ax = ax[0, 0]
+
+        # plot the predictions
+        curr_ax.scatter(
+            bdp_g_copy.split_train[x_key],
+            bdp_g_copy2.split_train[f"{bdp.slaw.benchmark} pred"],
+            label=f"{type(bdp.model).__name__} pred",
+            alpha=0.5,
+            marker="x",
+            color=color,
         )
+        curr_ax.legend()
 
     fig.tight_layout()
     plt.show()
@@ -659,19 +738,37 @@ def plot_errmatrix_comparison(
 def plot_all_loss_curves(data: BacktestData):
     n_split, n_bench = data.results.shape
     fig, ax = plt.subplots(
-        n_split,
+        n_split+1,
         n_bench,
-        figsize=(4 * n_bench, 4 * n_split),
+        figsize=(4 * n_bench, 4 * (n_split+1)),
         squeeze=False,
     )
-    for split_idx in range(n_split):
+    for split_idx in range(n_split+1):
         for bench_idx in range(n_bench):
-            bdp: BacktestDataPoint = data.results[split_idx, bench_idx]
+            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
             slaw = bdp.slaw
-            model = bdp.model
             ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
+            ax[split_idx, bench_idx].legend()     
+    plt.show()   
+    
+    
+    fig, ax = plt.subplots(
+        n_split+1,
+        n_bench,
+        figsize=(4 * n_bench, 4 * (n_split+1)),
+        squeeze=False,
+    )
+    for split_idx in range(n_split+1):
+        for bench_idx in range(n_bench):
+            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
+            model = bdp.model
+            slaw = bdp.slaw
+            ax[split_idx, bench_idx].plot(np.log10(model.train_losses[:]), label="train")
+            ax[split_idx, bench_idx].set_title(slaw.benchmark)
             ax[split_idx, bench_idx].legend()
+    plt.show()
+
 
 
 def plot_slaw[
@@ -849,9 +946,14 @@ ewbs_flop_train_err, ewbs_flop_test_err = compute_test_train_error(
 
 # %%
 
-split_idx = 0
-bench_idx = 1
+split_idx = 2
+bench_idx = 3
 plot_linear_scaling_law(ewbs_lin_data.results[split_idx, bench_idx])
+
+#%%
+plot_linear_scaling_law(ewbs_lin_data.global_split_results[3])
+
+
 # %%
 
 
@@ -908,11 +1010,11 @@ plot_all_loss_curves(ewbs_lin_data)
 
 # %%
 
-plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=False)
+plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=True)
 
-#%%
-plot_split(ewbs_elo_data, 0, "Elo", expand=False)
+# %%
+plot_split(ewbs_elo_data, 0, "Elo", expand=True)
 
 
-#%%
-plot_split(ewbs_lin_data, 0, "PC-1", expand=False)
+# %%
+plot_split(ewbs_lin_data, 5, "PC-1", expand=True)
