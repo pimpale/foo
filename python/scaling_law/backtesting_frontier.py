@@ -212,7 +212,6 @@ def plot_spe(
         ax.set_title(title)
 
 
-
 def plot_train_test(
     ax: matplotlib.axes.Axes,
     train_df: pd.DataFrame,
@@ -306,6 +305,7 @@ def get_benchmark_list(
         b for b in dataframe_benchmarks if b != predicted_benchmark
     ]
 
+
 def backtest_models_frontier(
     splitter: BacktestSplitter,
     ModelCls: Type[Frontier],
@@ -325,11 +325,9 @@ def backtest_models_frontier(
             (len(train_test_splits), len(dataframe_benchmarks)), dtype=np.object_
         ),
         global_split_results=np.empty(len(dataframe_benchmarks), dtype=np.object_),
-
     )
 
-    n_trains = (len(train_test_splits)+1) * len(dataframe_benchmarks)
-
+    n_trains = (len(train_test_splits) + 1) * len(dataframe_benchmarks)
 
     for split_idx, (train, test) in enumerate(
         [(dataframe, dataframe.head(0))] + train_test_splits
@@ -592,30 +590,49 @@ def plot_errmatrix_comparison(
 def plot_all_loss_curves(data: BacktestFrontierData):
     n_split, n_bench = data.results.shape
     fig, ax = plt.subplots(
-        n_split,
+        n_split+1,
         n_bench,
-        figsize=(4 * n_bench, 4 * n_split),
+        figsize=(4 * n_bench, 4 * (n_split+1)),
         squeeze=False,
     )
-    for split_idx in range(n_split):
+    for split_idx in range(n_split+1):
         for bench_idx in range(n_bench):
-            bdp: BacktestDataPoint = data.results[split_idx, bench_idx]
+            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
             slaw = bdp.model.slaw
             ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
-            ax[split_idx, bench_idx].legend()
-
-
-
-def plot_split(backtest: BacktestFrontierData, benchmark_id: int, x_key: str, expand=False):
+            ax[split_idx, bench_idx].legend()     
+    plt.show()
     
+    
+    fig, ax = plt.subplots(
+        n_split+1,
+        n_bench,
+        figsize=(4 * n_bench, 4 * (n_split+1)),
+        squeeze=False,
+    )
+    for split_idx in range(n_split+1):
+        for bench_idx in range(n_bench):
+            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
+            model = bdp.model
+            ax[split_idx, bench_idx].plot(np.log10(model.train_losses[:]), label="train")
+            ax[split_idx, bench_idx].set_title(model.slaw.benchmark)
+            ax[split_idx, bench_idx].legend()
+    plt.show()
+
+
+
+def plot_split(
+    backtest: BacktestFrontierData, benchmark_id: int, x_key: str, expand=False
+):
+
     color_list = [
         "tab:blue",
         "tab:cyan",
         "tab:green",
         "tab:orange",
     ]
-    
+
     n_split, n_bench = backtest.results.shape
     assert benchmark_id < n_bench
 
@@ -635,47 +652,63 @@ def plot_split(backtest: BacktestFrontierData, benchmark_id: int, x_key: str, ex
 
     bdp_g_splits = list(backtest.splitter.split(bdp_g_copy.split_train))
 
+    frontier_set = set(
+        get_running_top_n(
+            bdp_g_copy.split_train,
+            backtest.splitter.key,
+            bdp_g.model.slaw.benchmark,
+            1,
+            "model",
+        )["model"]
+    )
+
     for j in range(len(bdp_g_splits) if expand else 1):
         curr_ax = ax[0, j]
 
         plotted_points = set()
+
         for i, (train, test) in enumerate(bdp_g_splits):
             min_v = train[backtest.splitter.key].min()
             max_v = train[backtest.splitter.key].max()
 
-            plot_spe(
-                curr_ax,
-                train[~train[backtest.splitter.key].isin(plotted_points)],
-                x_key,
-                [Spe(bdp_g.model.slaw.benchmark, f"{min_v:.1f} - {max_v:.1f} {backtest.splitter.key}", color_list[i], alpha=1)],
-                y_label=bdp_g.model.slaw.benchmark,
+            df = train[~train[backtest.splitter.key].isin(plotted_points)]
+
+            curr_ax.scatter(
+                df[x_key],
+                df[bdp_g.model.slaw.benchmark],
+                label=f"{min_v:.1f} - {max_v:.1f} {backtest.splitter.key}",
+                alpha=[1 if m in frontier_set else 0.75 for m in df["model"]],
+                s=[40 if m in frontier_set else 20 for m in df["model"]],
+                color=color_list[i],
             )
+            curr_ax.set_title(f"{x_key} vs {bdp_g.model.slaw.benchmark}")
+            curr_ax.set_xlabel(x_key)
+            curr_ax.set_ylabel(bdp_g.model.slaw.benchmark)
+
             plotted_points.update(train[backtest.splitter.key])
-            
+
             if i == len(bdp_g_splits) - 1:
-                plot_spe(
-                    curr_ax,
-                    bdp_g_copy.split_train[~bdp_g_copy.split_train[backtest.splitter.key].isin(plotted_points)],
-                    x_key,
-                    [
-                        Spe(
-                            bdp_g.model.slaw.benchmark,
-                            f"{max_v:.1f} + {backtest.splitter.key}",
-                            color_list[len(bdp_g_splits)],
-                            alpha=1,
-                        )
-                    ],
-                    y_label=bdp_g.model.slaw.benchmark,
+                df = bdp_g_copy.split_train[
+                    ~bdp_g_copy.split_train[backtest.splitter.key].isin(plotted_points)
+                ]
+                curr_ax.scatter(
+                    df[x_key],
+                    df[bdp_g.model.slaw.benchmark],
+                    label=f"{max_v:.1f} + {backtest.splitter.key}",
+                    alpha=[1 if m in frontier_set else 0.75 for m in df["model"]],
+                    s=[40 if m in frontier_set else 20 for m in df["model"]],
+                    color=color_list[len(bdp_g_splits)],
                 )
+                curr_ax.set_title(f"{x_key} vs {bdp_g.model.slaw.benchmark}")
+                curr_ax.set_xlabel(x_key)
+                curr_ax.set_ylabel(bdp_g.model.slaw.benchmark)
 
     # now plot the predictions
     # to do this, we use the model to make predictions for the entire space and plot it
 
     for split_idx in range(n_split):
-        color =  color_list[split_idx]
-        bdp: BacktestDataPoint[Frontier] = backtest.results[
-            split_idx, benchmark_id
-        ]
+        color = color_list[split_idx]
+        bdp: BacktestDataPoint[Frontier] = backtest.results[split_idx, benchmark_id]
 
         # augment the global split with the model's predictions
         bdp_g_copy2 = bdp_g.copy()
@@ -695,16 +728,14 @@ def plot_split(backtest: BacktestFrontierData, benchmark_id: int, x_key: str, ex
             marker="x",
             color=color,
         )
-        
+
         min_v = bdp_g_copy.split_train[backtest.splitter.key].min()
         max_v = bdp_g_copy.split_train[backtest.splitter.key].max()
-        print("Plotting", min_v, max_v)
-        
+
         curr_ax.legend()
 
     fig.tight_layout()
     plt.show()
-
 
 
 def compare(
@@ -732,9 +763,9 @@ def compare(
 #####################################
 
 ewbs = ExpandingWindowBacktestSplitter(
-    min_train_size=10,
-    test_size=10,
-    increment=10,
+    min_train_size=9,
+    test_size=9,
+    increment=9,
     key="release_date",
 )
 
@@ -884,7 +915,7 @@ print(
 # %%
 plot_comparison(
     [
-        ewbs_frontier_date_to_pc1_data,
+        ewbs_frontier_date_to_elo_data,
     ]
 )
 
@@ -921,13 +952,18 @@ plot_errmatrix_comparison(
 )
 
 
+# %%
+
+plot_split(ewbs_frontier_date_data, 4, "release_date", expand=True)
+
 
 # %%
 
-plot_split(ewbs_frontier_date_data, 2, "release_date", expand=True)
+plot_split(ewbs_frontier_date_to_elo_data, 5, "release_date", expand=False)
+
 
 
 
 # %%
 
-plot_split(ewbs_frontier_date_to_pc1_data, 3, "release_date", expand=False)
+plot_all_loss_curves(ewbs_frontier_date_to_elo_data)

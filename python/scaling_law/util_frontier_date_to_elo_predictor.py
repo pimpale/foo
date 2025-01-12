@@ -49,14 +49,15 @@ class FrontierDateToEloPredictor(Frontier):
         self.date2elo_m = m
         self.date2elo_b = b
         
-        # train sigmoid fit between elo and downstream on top 3
-        frontier_elo_vs_downstream_df = get_running_top_n(
-            train_df,
-            "Elo",
-            target_benchmark,
-            3,
-            "model",
-        )
+        # # train sigmoid fit between elo and downstream on top 3
+        # frontier_elo_vs_downstream_df = get_running_top_n(
+        #     train_df,
+        #     "Elo",
+        #     target_benchmark,
+        #     3,
+        #     "model",
+        # )
+        frontier_elo_vs_downstream_df = train_df
         
         train_model_scores = torch.tensor(frontier_elo_vs_downstream_df[benchmarks].values, dtype=torch.float32)
         
