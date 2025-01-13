@@ -1117,7 +1117,7 @@ plot_split(ewbs_frontier_date_data, 2, "release_date", expand=False, line=True)
 
 # %%
 
-plot_split(ewbs_frontier_date_to_elo_data, 5, "release_date", expand=False, line=True, capability=False)
+plot_split(ewbs_frontier_date_to_elo_data, 5, "release_date", expand=False, line=True, capability=True)
 
 
 # %%
