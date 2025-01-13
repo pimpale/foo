@@ -255,6 +255,12 @@ def augment_df_slaw(model: Frontier, df_to_augment: pd.DataFrame):
     df_to_augment[f"{model.slaw.benchmark} pred"] = (
         model.predict_benchmark_scores(model_scores).detach().numpy()
     )
+    df_to_augment[f"{model.slaw.benchmark} capability score"] = (
+        model.capability_scores(df_to_augment)
+    )
+    df_to_augment[f"{model.slaw.benchmark} pred capability score"] = (
+        model.predict_frontier_capability_scores(model_scores).detach().numpy()
+    )
 
 
 def augment_train_test_slaw(
@@ -740,6 +746,7 @@ def plot_split(
     x_key: str,
     expand=False,
     line=False,
+    capability=False,
 ):
 
     color_list = [
@@ -761,6 +768,8 @@ def plot_split(
     # We need to use the final dataframe to get the ground truth data, since it will have the best-trained PC-1 score (and doesn't matter for the other models)
     bdp_g: BacktestDataPoint = backtest.global_split_results[benchmark_id]
     bdp_g_copy = bdp_g.copy()
+    print(bdp_g_copy.model)
+    
     augment_df_slaw(
         bdp_g_copy.model,
         bdp_g_copy.split_train,
@@ -793,15 +802,20 @@ def plot_split(
 
             df = train[~train[backtest.splitter.key].isin(plotted_points)]
 
+            if capability:
+                y_key = f"{bdp_g.model.slaw.benchmark} capability score"
+            else:
+                y_key = f"{bdp_g.model.slaw.benchmark}"
+
             curr_ax.scatter(
                 df[x_key],
-                df[bdp_g.model.slaw.benchmark],
+                df[y_key],
                 label=f"{min_v:.1f} - {max_v:.1f} {backtest.splitter.key}",
                 alpha=[1 if m in frontier_set else 0.75 for m in df["model"]],
                 s=[40 if m in frontier_set else 20 for m in df["model"]],
                 color=color_list[i],
             )
-            curr_ax.set_title(f"{x_key} vs {bdp_g.model.slaw.benchmark}")
+            curr_ax.set_title(f"{x_key} vs {y_key}")
             curr_ax.set_xlabel(x_key)
             curr_ax.set_ylabel(bdp_g.model.slaw.benchmark)
 
@@ -813,15 +827,15 @@ def plot_split(
                 ]
                 curr_ax.scatter(
                     df[x_key],
-                    df[bdp_g.model.slaw.benchmark],
+                    df[y_key],
                     label=f"{max_v:.1f} + {backtest.splitter.key}",
                     alpha=[1 if m in frontier_set else 0.75 for m in df["model"]],
                     s=[40 if m in frontier_set else 20 for m in df["model"]],
                     color=color_list[len(bdp_g_splits)],
                 )
-                curr_ax.set_title(f"{x_key} vs {bdp_g.model.slaw.benchmark}")
+                curr_ax.set_title(f"{x_key} vs {y_key}")
                 curr_ax.set_xlabel(x_key)
-                curr_ax.set_ylabel(bdp_g.model.slaw.benchmark)
+                curr_ax.set_ylabel(y_key)
 
     # now plot the predictions
     # to do this, we use the model to make predictions for the entire space and plot it
@@ -839,10 +853,17 @@ def plot_split(
         else:
             curr_ax = ax[0, 0]
 
+        if capability:
+            label = f"{type(bdp.model).__name__} capability"
+            y_key = f"{bdp.model.slaw.benchmark} pred capability score"
+        else:
+            label = f"{type(bdp.model).__name__} pred"
+            y_key = f"{bdp.model.slaw.benchmark} pred"
+
         # plot the predictions
         if line:
             xs = np.array(bdp_g_copy.split_train[x_key])
-            ys = np.array(bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"])
+            ys = np.array(bdp_g_copy2.split_train[y_key])
 
             # Sort both arrays based on x values
             sort_idx = np.argsort(xs)
@@ -850,15 +871,15 @@ def plot_split(
             curr_ax.plot(
                 xs[sort_idx],
                 ys[sort_idx],
-                label=f"{type(bdp.model).__name__} pred",
+                label=label,
                 alpha=1,
                 color=color,
             )
         else:
             curr_ax.scatter(
                 bdp_g_copy.split_train[x_key],
-                bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"],
-                label=f"{type(bdp.model).__name__} pred",
+                bdp_g_copy2.split_train[y_key],
+                label=label,
                 alpha=1,
                 marker="x",
                 color=color,
@@ -1094,7 +1115,7 @@ plot_split(ewbs_frontier_date_data, 2, "release_date", expand=False, line=True)
 
 # %%
 
-plot_split(ewbs_frontier_date_to_elo_data, 1, "release_date", expand=True)
+plot_split(ewbs_frontier_date_to_elo_data, 2, "release_date", expand=False, line=True, capability=False)
 
 
 # %%

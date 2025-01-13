@@ -102,6 +102,15 @@ class FrontierDateToPC1Predictor(Frontier):
         """
         return self.slaw(test_scores[:, 0] * self.date2pc1_m + self.date2pc1_b)
 
+
+    @override
+    def predict_frontier_capability_scores(self, test_scores: torch.Tensor) -> torch.Tensor:
+        return test_scores[:, 0] * self.date2pc1_m + self.date2pc1_b
+
+    @override
+    def capability_scores(self, train_df: pd.DataFrame) -> torch.Tensor:
+        return torch.tensor(train_df["Elo"].values, dtype=torch.float32)
+
     @override
     def fit(self):        
         self.slaw.fit()

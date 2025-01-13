@@ -132,6 +132,16 @@ class Frontier(nn.Module):
         """
         raise NotImplementedError
 
+    def capability_scores(
+        self,
+        train_df: pd.DataFrame,
+    ):
+        """
+        Calculate capability scores from the training data.
+        """
+        raise NotImplementedError
+
+
     def predict_benchmark_scores(
         self,
         test_scores: torch.Tensor,

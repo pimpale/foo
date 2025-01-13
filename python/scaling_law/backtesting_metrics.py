@@ -666,7 +666,7 @@ def plot_errmatrix_comparison(
     # 1. Aggregate over benchmarks
     # 2. Aggregate over splits
     # 3. Aggregate over both
-    fig, ax = plt.subplots(2, 3, figsize=(30 * 0.7, 20 * 0.7))
+    fig, ax = plt.subplots(2, 3, figsize=(30 * 0.65, 20 * 0.65), squeeze=False)
 
     # create 3d matrix of errors
     train_errs = np.zeros(
@@ -689,11 +689,13 @@ def plot_errmatrix_comparison(
     train_vmax = np.max(np.sqrt(train_errs)).item()
     test_vmax = np.max(np.sqrt(test_errs)).item()
 
+    benchmarks = [b.replace(" Raw", "") for b in backtests[0].benchmarks]
+
     # aggregate over splits
     sns.heatmap(
         np.sqrt(train_errs.mean(axis=1).T),
         ax=ax[0, 0],
-        yticklabels=backtests[0].benchmarks,
+        yticklabels=benchmarks,
         xticklabels=methods,
         annot=True,
         vmin=0,
@@ -702,7 +704,7 @@ def plot_errmatrix_comparison(
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=1).T),
         ax=ax[1, 0],
-        yticklabels=backtests[0].benchmarks,
+        yticklabels=benchmarks,
         xticklabels=methods,
         annot=True,
         vmin=0,
@@ -739,7 +741,7 @@ def plot_errmatrix_comparison(
     sns.heatmap(
         np.sqrt(train_errs.mean(axis=0).T),
         ax=ax[0, 2],
-        yticklabels=backtests[0].benchmarks,
+        yticklabels=benchmarks,
         xticklabels=splits,
         annot=True,
         vmin=0,
@@ -748,7 +750,7 @@ def plot_errmatrix_comparison(
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=0).T),
         ax=ax[1, 2],
-        yticklabels=backtests[0].benchmarks,
+        yticklabels=benchmarks,
         xticklabels=splits,
         vmin=0,
         vmax=test_vmax,
@@ -799,7 +801,7 @@ def plot_test_errmatrix_single(
     benchmarks = [b.replace(" Raw", "") for b in backtest.benchmarks]
 
     # aggregate over splits
-    sns.heatmap(
+    g = sns.heatmap(
         np.sqrt(test_err),
         ax=ax[0, 0],
         xticklabels=benchmarks + ["MEAN"],
@@ -808,10 +810,11 @@ def plot_test_errmatrix_single(
         vmin=0,
         vmax=test_vmax,
     )
+    g.set_yticklabels(g.get_yticklabels(), rotation = 0,)
+        
     ax[0,0].hlines(len(backtest.splits), *ax[0, 0].get_xlim(), color="black", linewidth=4)
     ax[0,0].vlines(len(backtest.benchmarks), *ax[0, 0].get_ylim(), color="black", linewidth=4)
     ax[0,0].set_xlabel("Benchmarks", size="large")
-    ax[0,0].set_ylabel(f"Splits by {backtest.splitter.key}", size="large")
 
     # set column titles
     ax[0, 0].set_title(f"{method} perf on Benchmark", size="x-large")
@@ -1095,11 +1098,11 @@ plot_all_loss_curves(ewbs_lin_data)
 
 # %%
 
-plot_split(ewbs_flop_data, 2, "log10 FLOP_opt", expand=False, line=True)
+plot_split(ewbs_flop_data, 0, "log10 FLOP_opt", expand=False, line=True)
 
 
 # %%
-plot_split(ewbs_elo_data, 2, "Elo", expand=False, line=True)
+plot_split(ewbs_elo_data, 0, "Elo", expand=False, line=True)
 
 
 # %%
