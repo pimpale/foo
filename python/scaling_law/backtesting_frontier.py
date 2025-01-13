@@ -759,6 +759,8 @@ def plot_split(
     n_split, n_bench = backtest.results.shape
     assert benchmark_id < n_bench
 
+    assert not (line and x_key != backtest.splitter.key), "Cannot plot line without x_key being the split key"
+
     if expand:
         fig, ax = plt.subplots(1, n_split, figsize=(5 * n_split, 5), squeeze=False)
     else:
@@ -1115,7 +1117,7 @@ plot_split(ewbs_frontier_date_data, 2, "release_date", expand=False, line=True)
 
 # %%
 
-plot_split(ewbs_frontier_date_to_elo_data, 2, "release_date", expand=False, line=True, capability=False)
+plot_split(ewbs_frontier_date_to_elo_data, 5, "release_date", expand=False, line=True, capability=False)
 
 
 # %%
