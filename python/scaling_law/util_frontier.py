@@ -40,8 +40,6 @@ def get_running_top_n_2d(
     return df[df[id_column].isin(top_ids)]
 
 
-
-
 def vectorized_highest_score(df, x_column: str, x_column_thresholds: np.ndarray, key: str):
     """
     Vectorized function to return the highest `key` score for each threshold.

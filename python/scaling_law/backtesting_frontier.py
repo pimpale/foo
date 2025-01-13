@@ -16,7 +16,7 @@ from tqdm import tqdm
 import seaborn as sns
 import ipyvolume as ipv
 
-from util_frontier import Frontier, get_running_top_n
+from util_frontier import Frontier, get_running_top_n, vectorized_highest_score
 from util_obs_scaling_law_predictor import ObsScalingLawPredictor, ScalingLaw
 from util_timeseries_backtesting import (
     BacktestSplitter,
@@ -734,33 +734,6 @@ def plot_all_loss_curves(data: BacktestFrontierData):
             ax[split_idx, bench_idx].legend()
     plt.show()
 
-
-def vectorized_highest_score(df, x_column, x_column_thresholds, key):
-    """
-    Vectorized function to return the highest `key` score for each threshold.
-
-    Parameters:
-    df (pd.DataFrame): The dataframe to search.
-    x_column (str): The column to search for the highest score.
-    x_column_thresholds (np.ndarray): Array of thresholds.
-    key (str): The key to search for the highest score.
-
-    Returns:
-    np.ndarray: Array of highest `key` scores.
-    """
-    # Create an array to store the highest scores
-    highest_scores = np.zeros(len(x_column_thresholds))
-
-    for i, x in enumerate(x_column_thresholds):
-        mask = df[x_column] <= x
-        if mask.any():
-            highest_scores[i] = df.loc[mask, key].max()
-        else:
-            highest_scores[i] = np.nan  # or some other placeholder for no data
-
-    return highest_scores
-
-
 def plot_split(
     backtest: BacktestFrontierData,
     benchmark_id: int,
@@ -804,6 +777,9 @@ def plot_split(
             "model",
         )["model"]
     )
+    
+
+    last_max_v = bdp_g_copy.split_train[backtest.splitter.key].min()
 
     for j in range(len(bdp_g_splits) if expand else 1):
         curr_ax = ax[0, j]
@@ -811,24 +787,9 @@ def plot_split(
         plotted_points = set()
 
         for i, (train, test) in enumerate(bdp_g_splits):
-            min_v = train[backtest.splitter.key].min()
             max_v = train[backtest.splitter.key].max()
-
-            split_x_linspace = np.linspace(min_v, max_v, 100)
-            true_frontier = vectorized_highest_score(
-                train,
-                backtest.splitter.key,
-                split_x_linspace,
-                bdp_g.model.slaw.benchmark,
-            )
-
-            curr_ax.plot(
-                split_x_linspace,
-                true_frontier,
-                label="True Frontier",
-                color="black",
-                alpha=0.5,
-            )
+            min_v = last_max_v
+            last_max_v = max_v
 
             df = train[~train[backtest.splitter.key].isin(plotted_points)]
 

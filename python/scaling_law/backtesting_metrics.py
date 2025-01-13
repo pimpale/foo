@@ -331,7 +331,7 @@ class BacktestData:
     splitter: BacktestSplitter
     model_class: Type[ObsScalingLawPredictor]
     benchmarks: list[str]
-    splits: list[str]
+    splits: list[int]
     # 2D array of BacktestDataPoint on the splits x benchmarks
     results: npt.NDArray[np.object_]
     # 1D array of BacktestDataPoint on the benchmarks (using all points)
@@ -368,7 +368,7 @@ def backtest_models_metric(
         splitter=splitter,
         model_class=ModelCls,
         benchmarks=dataframe_benchmarks,
-        splits=[f"split_{i}" for i in range(len(train_test_splits))],
+        splits=[i for i in range(len(train_test_splits))],
         results=np.empty(
             (len(train_test_splits), len(dataframe_benchmarks)), dtype=np.object_
         ),
@@ -709,11 +709,17 @@ def plot_errmatrix_comparison(
         vmax=test_vmax,
     )
 
+    splits = []
+    for result in backtests[0].results.T[0]:
+        min_v = result.split_train[backtests[0].splitter.key].min()
+        max_v = result.split_train[backtests[0].splitter.key].max() 
+        splits.append(f"{min_v:.1f} - {max_v:.1f}")
+
     # aggregate over benchmarks
     sns.heatmap(
         np.sqrt(train_errs.mean(axis=2).T),
         ax=ax[0, 1],
-        yticklabels=backtests[0].splits,
+        yticklabels=splits,
         xticklabels=methods,
         annot=True,
         vmin=0,
@@ -722,7 +728,7 @@ def plot_errmatrix_comparison(
     sns.heatmap(
         np.sqrt(test_errs.mean(axis=2).T),
         ax=ax[1, 1],
-        yticklabels=backtests[0].splits,
+        yticklabels=splits,
         xticklabels=methods,
         annot=True,
         vmin=0,
@@ -734,7 +740,7 @@ def plot_errmatrix_comparison(
         np.sqrt(train_errs.mean(axis=0).T),
         ax=ax[0, 2],
         yticklabels=backtests[0].benchmarks,
-        xticklabels=backtests[0].splits,
+        xticklabels=splits,
         annot=True,
         vmin=0,
         vmax=train_vmax,
@@ -743,7 +749,7 @@ def plot_errmatrix_comparison(
         np.sqrt(test_errs.mean(axis=0).T),
         ax=ax[1, 2],
         yticklabels=backtests[0].benchmarks,
-        xticklabels=backtests[0].splits,
+        xticklabels=splits,
         vmin=0,
         vmax=test_vmax,
         annot=True,
@@ -757,6 +763,58 @@ def plot_errmatrix_comparison(
     # set row titles
     ax[0, 0].set_ylabel("Train Set", size="xx-large")
     ax[1, 0].set_ylabel("Test Set", size="xx-large")
+
+    fig.tight_layout()
+    plt.show()
+
+
+
+def plot_test_errmatrix_single(
+    backtest : BacktestData,
+):
+    method = backtest.model_class.__name__.replace("Predictor", "")
+
+    # Create a heatmap with the following rows
+
+    # create 3 graphs for each split in [test, train]:
+    # 1. Aggregate over benchmarks
+    # 2. Aggregate over splits
+    # 3. Aggregate over both
+    fig, ax = plt.subplots(1,  1, figsize=(8, 6), squeeze=False)
+
+    _, test_err = compute_test_train_error(backtest.results)
+    # make the last column of test_err a sum column
+    test_err = np.concatenate([test_err, test_err.mean(axis=1, keepdims=True)], axis=1)
+    # make the last row of test_err a sum row
+    test_err = np.concatenate([test_err, test_err.mean(axis=0, keepdims=True)], axis=0)
+
+    test_vmax = np.max(np.sqrt(test_err)).item()
+
+    splits = []
+    for result in backtest.results.T[0]:
+        min_v = result.split_train[backtest.splitter.key].min()
+        max_v = result.split_train[backtest.splitter.key].max() 
+        splits.append(f"{min_v:.1f} - {max_v:.1f}")
+
+    benchmarks = [b.replace(" Raw", "") for b in backtest.benchmarks]
+
+    # aggregate over splits
+    sns.heatmap(
+        np.sqrt(test_err),
+        ax=ax[0, 0],
+        xticklabels=benchmarks + ["MEAN"],
+        yticklabels=splits + ["MEAN"],
+        annot=True,
+        vmin=0,
+        vmax=test_vmax,
+    )
+    ax[0,0].hlines(len(backtest.splits), *ax[0, 0].get_xlim(), color="black", linewidth=4)
+    ax[0,0].vlines(len(backtest.benchmarks), *ax[0, 0].get_ylim(), color="black", linewidth=4)
+    ax[0,0].set_xlabel("Benchmarks", size="large")
+    ax[0,0].set_ylabel(f"Splits by {backtest.splitter.key}", size="large")
+
+    # set column titles
+    ax[0, 0].set_title(f"{method} perf on Benchmark", size="x-large")
 
     fig.tight_layout()
     plt.show()
@@ -1045,4 +1103,10 @@ plot_split(ewbs_elo_data, 2, "Elo", expand=False, line=True)
 
 
 # %%
-plot_split(ewbs_lin_data, 2, "PC-1", expand=False, line=True)
+plot_split(ewbs_lin_data, 0, "PC-1", expand=False, line=False)
+
+
+# %%
+plot_test_errmatrix_single(ewbs_flop_data)
+plot_test_errmatrix_single(ewbs_elo_data)
+plot_test_errmatrix_single(ewbs_lin_data)
