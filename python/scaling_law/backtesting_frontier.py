@@ -587,43 +587,186 @@ def plot_errmatrix_comparison(
     plt.show()
 
 
+def plot_test_errmatrix_comparison(
+    backtests: list[BacktestFrontierData],
+):
+    assert len(backtests) > 0
+    methods = [b.model_class.__name__.replace("Predictor", "") for b in backtests]
+    # create 3 graphs for each split in [test, train]:
+    # 1. Aggregate over benchmarks
+    # 2. Aggregate over splits
+    # 3. Aggregate over both
+    fig, ax = plt.subplots(2, 3, figsize=(30 * 0.7, 20 * 0.7))
+
+    # create 3d matrix of errors
+    train_errs = np.zeros(
+        (
+            # methods
+            len(backtests),
+            # splits
+            len(backtests[0].splits),
+            # benchmarks
+            len(backtests[0].benchmarks),
+        )
+    )
+    test_errs = np.zeros_like(train_errs)  # same shape as err_train
+
+    for i, b in enumerate(backtests):
+        train_err, test_err = compute_test_train_error_frontier(b.results)
+        train_errs[i] = train_err
+        test_errs[i] = test_err
+
+    train_vmax = np.max(np.sqrt(train_errs)).item()
+    test_vmax = np.max(np.sqrt(test_errs)).item()
+
+    # aggregate over splits
+    sns.heatmap(
+        np.sqrt(train_errs.mean(axis=1).T),
+        ax=ax[0, 0],
+        yticklabels=backtests[0].benchmarks,
+        xticklabels=methods,
+        annot=True,
+        vmin=0,
+        vmax=train_vmax,
+    )
+    sns.heatmap(
+        np.sqrt(test_errs.mean(axis=1).T),
+        ax=ax[1, 0],
+        yticklabels=backtests[0].benchmarks,
+        xticklabels=methods,
+        annot=True,
+        vmin=0,
+        vmax=test_vmax,
+    )
+
+    # aggregate over benchmarks
+    sns.heatmap(
+        np.sqrt(train_errs.mean(axis=2).T),
+        ax=ax[0, 1],
+        yticklabels=backtests[0].splits,
+        xticklabels=methods,
+        annot=True,
+        vmin=0,
+        vmax=train_vmax,
+    )
+    sns.heatmap(
+        np.sqrt(test_errs.mean(axis=2).T),
+        ax=ax[1, 1],
+        yticklabels=backtests[0].splits,
+        xticklabels=methods,
+        annot=True,
+        vmin=0,
+        vmax=test_vmax,
+    )
+
+    # aggregate over methods
+    sns.heatmap(
+        np.sqrt(train_errs.mean(axis=0).T),
+        ax=ax[0, 2],
+        yticklabels=backtests[0].benchmarks,
+        xticklabels=backtests[0].splits,
+        annot=True,
+        vmin=0,
+        vmax=train_vmax,
+    )
+    sns.heatmap(
+        np.sqrt(test_errs.mean(axis=0).T),
+        ax=ax[1, 2],
+        yticklabels=backtests[0].benchmarks,
+        xticklabels=backtests[0].splits,
+        vmin=0,
+        vmax=test_vmax,
+        annot=True,
+    )
+
+    # set column titles
+    ax[0, 0].set_title("Predictor perf on Benchmark", size="xx-large")
+    ax[0, 1].set_title("Predictor perf on Split", size="xx-large")
+    ax[0, 2].set_title("Overall perf on (Split, Benchmark)", size="xx-large")
+
+    # set row titles
+    ax[0, 0].set_ylabel("Train Set", size="xx-large")
+    ax[1, 0].set_ylabel("Test Set", size="xx-large")
+
+    fig.tight_layout()
+    plt.show()
+
+
 def plot_all_loss_curves(data: BacktestFrontierData):
     n_split, n_bench = data.results.shape
     fig, ax = plt.subplots(
-        n_split+1,
+        n_split + 1,
         n_bench,
-        figsize=(4 * n_bench, 4 * (n_split+1)),
+        figsize=(4 * n_bench, 4 * (n_split + 1)),
         squeeze=False,
     )
-    for split_idx in range(n_split+1):
+    for split_idx in range(n_split + 1):
         for bench_idx in range(n_bench):
-            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
+            bdp: BacktestDataPoint = (
+                data.results[split_idx, bench_idx]
+                if split_idx < n_split
+                else data.global_split_results[bench_idx]
+            )
             slaw = bdp.model.slaw
             ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
-            ax[split_idx, bench_idx].legend()     
+            ax[split_idx, bench_idx].legend()
     plt.show()
-    
-    
+
     fig, ax = plt.subplots(
-        n_split+1,
+        n_split + 1,
         n_bench,
-        figsize=(4 * n_bench, 4 * (n_split+1)),
+        figsize=(4 * n_bench, 4 * (n_split + 1)),
         squeeze=False,
     )
-    for split_idx in range(n_split+1):
+    for split_idx in range(n_split + 1):
         for bench_idx in range(n_bench):
-            bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
+            bdp: BacktestDataPoint = (
+                data.results[split_idx, bench_idx]
+                if split_idx < n_split
+                else data.global_split_results[bench_idx]
+            )
             model = bdp.model
-            ax[split_idx, bench_idx].plot(np.log10(model.train_losses[:]), label="train")
+            ax[split_idx, bench_idx].plot(
+                np.log10(model.train_losses[:]), label="train"
+            )
             ax[split_idx, bench_idx].set_title(model.slaw.benchmark)
             ax[split_idx, bench_idx].legend()
     plt.show()
 
 
+def vectorized_highest_score(df, x_column, x_column_thresholds, key):
+    """
+    Vectorized function to return the highest `key` score for each threshold.
+
+    Parameters:
+    df (pd.DataFrame): The dataframe to search.
+    x_column (str): The column to search for the highest score.
+    x_column_thresholds (np.ndarray): Array of thresholds.
+    key (str): The key to search for the highest score.
+
+    Returns:
+    np.ndarray: Array of highest `key` scores.
+    """
+    # Create an array to store the highest scores
+    highest_scores = np.zeros(len(x_column_thresholds))
+
+    for i, x in enumerate(x_column_thresholds):
+        mask = df[x_column] <= x
+        if mask.any():
+            highest_scores[i] = df.loc[mask, key].max()
+        else:
+            highest_scores[i] = np.nan  # or some other placeholder for no data
+
+    return highest_scores
+
 
 def plot_split(
-    backtest: BacktestFrontierData, benchmark_id: int, x_key: str, expand=False
+    backtest: BacktestFrontierData,
+    benchmark_id: int,
+    x_key: str,
+    expand=False,
+    line=False,
 ):
 
     color_list = [
@@ -670,6 +813,22 @@ def plot_split(
         for i, (train, test) in enumerate(bdp_g_splits):
             min_v = train[backtest.splitter.key].min()
             max_v = train[backtest.splitter.key].max()
+
+            split_x_linspace = np.linspace(min_v, max_v, 100)
+            true_frontier = vectorized_highest_score(
+                train,
+                backtest.splitter.key,
+                split_x_linspace,
+                bdp_g.model.slaw.benchmark,
+            )
+
+            curr_ax.plot(
+                split_x_linspace,
+                true_frontier,
+                label="True Frontier",
+                color="black",
+                alpha=0.5,
+            )
 
             df = train[~train[backtest.splitter.key].isin(plotted_points)]
 
@@ -720,14 +879,29 @@ def plot_split(
             curr_ax = ax[0, 0]
 
         # plot the predictions
-        curr_ax.scatter(
-            bdp_g_copy.split_train[x_key],
-            bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"],
-            label=f"{type(bdp.model).__name__} pred",
-            alpha=1,
-            marker="x",
-            color=color,
-        )
+        if line:
+            xs = np.array(bdp_g_copy.split_train[x_key])
+            ys = np.array(bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"])
+
+            # Sort both arrays based on x values
+            sort_idx = np.argsort(xs)
+
+            curr_ax.plot(
+                xs[sort_idx],
+                ys[sort_idx],
+                label=f"{type(bdp.model).__name__} pred",
+                alpha=1,
+                color=color,
+            )
+        else:
+            curr_ax.scatter(
+                bdp_g_copy.split_train[x_key],
+                bdp_g_copy2.split_train[f"{bdp.model.slaw.benchmark} pred"],
+                label=f"{type(bdp.model).__name__} pred",
+                alpha=1,
+                marker="x",
+                color=color,
+            )
 
         min_v = bdp_g_copy.split_train[backtest.splitter.key].min()
         max_v = bdp_g_copy.split_train[backtest.splitter.key].max()
@@ -954,14 +1128,12 @@ plot_errmatrix_comparison(
 
 # %%
 
-plot_split(ewbs_frontier_date_data, 4, "release_date", expand=True)
+plot_split(ewbs_frontier_date_data, 2, "release_date", expand=False, line=True)
 
 
 # %%
 
-plot_split(ewbs_frontier_date_to_elo_data, 5, "release_date", expand=False)
-
-
+plot_split(ewbs_frontier_date_to_elo_data, 1, "release_date", expand=True)
 
 
 # %%

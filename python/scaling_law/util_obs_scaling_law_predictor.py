@@ -77,14 +77,21 @@ class ScalingLaw(nn.Module):
         benchmark_scores: torch.Tensor,
     ):
         super().__init__()
+        
+        # standardize capability scores to have mean 0 and std 1
+        self.capability_scores_mean = torch.mean(capability_scores).item()
+        self.capability_scores_std = torch.std(capability_scores).item()
+
         self.train_losses = []
         self.benchmark = benchmark
         self.benchmark_floor = nn.Buffer(torch.tensor(floor, dtype=torch.float32))
         self.capability_scores = nn.Buffer(capability_scores)
         self.benchmark_scores = nn.Buffer(benchmark_scores)
         self.benchmark_ceil_raw = nn.Parameter(torch.tensor(1, dtype=torch.float32))
-        self.alpha = nn.Parameter(-torch.mean(capability_scores)/torch.std(capability_scores))
-        self.beta = nn.Parameter(1/torch.std(capability_scores))
+        # self.alpha = nn.Parameter(-torch.mean(capability_scores)/torch.std(capability_scores))
+        # self.beta = nn.Parameter(1/torch.std(capability_scores))
+        self.alpha = nn.Parameter(torch.tensor(0, dtype=torch.float32))
+        self.beta = nn.Parameter(torch.tensor(1, dtype=torch.float32))
 
     @property
     def benchmark_ceil(self) -> torch.Tensor:
@@ -98,12 +105,13 @@ class ScalingLaw(nn.Module):
         score_norm_floored = torch.clamp(score_norm, PC1_EPS, 1 - PC1_EPS)
         return torch.log(score_norm_floored / (1 - score_norm_floored))
 
-    def predict_benchmark_logit_scores(self, x: torch.Tensor) -> torch.Tensor:
+    def predict_benchmark_logit_scores(self, capability_scores: torch.Tensor) -> torch.Tensor:
+        x = (capability_scores - self.capability_scores_mean) / self.capability_scores_std
         return self.beta * x + self.alpha
 
-    def forward(self, x):
+    def forward(self, capability_scores):
         return (self.benchmark_ceil - self.benchmark_floor) * torch.sigmoid(
-            self.predict_benchmark_logit_scores(x)
+            self.predict_benchmark_logit_scores(capability_scores)
         ) + self.benchmark_floor
 
     # @torch.compile(fullgraph=True, dynamic=True)
@@ -113,12 +121,12 @@ class ScalingLaw(nn.Module):
     def fit(
         self,
         # how many epochs to train for
-        epochs: int = 5000,
+        epochs: int = 3000,
     ):
         """
         Fit the scaling law to the provided model and benchmark scores.
         """
-        optimizer = optim.Adam(params=self.parameters(), lr=1e-2, fused=True)
+        optimizer = optim.Adam(params=self.parameters(), lr=1e-1, fused=True)
         best_train_loss = float("inf")
         best_state_dict = self.state_dict()
         for i in range(epochs):
@@ -128,7 +136,6 @@ class ScalingLaw(nn.Module):
                 best_train_loss = l
                 best_state_dict = deepcopy(self.state_dict())
             l.backward()
-            torch.nn.utils.clip_grad_value_(self.parameters(), 5)
             optimizer.step()
             self.train_losses.append(l.item())
         # load best state dict

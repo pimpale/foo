@@ -546,7 +546,7 @@ def plot_comparison(backtests: list[BacktestData], expand=False):
     plt.show()
 
 
-def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=False):
+def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=False, line=False):
     
     color_list = [
         "tab:blue",
@@ -628,14 +628,29 @@ def plot_split(backtest: BacktestData, benchmark_id: int, x_key: str, expand=Fal
             curr_ax = ax[0, 0]
 
         # plot the predictions
-        curr_ax.scatter(
-            bdp_g_copy.split_train[x_key],
-            bdp_g_copy2.split_train[f"{bdp.slaw.benchmark} pred"],
-            label=f"{type(bdp.model).__name__} pred",
-            alpha=1,
-            marker="x",
-            color=color,
-        )
+        if line: 
+            xs = np.array(bdp_g_copy.split_train[x_key])
+            ys = np.array(bdp_g_copy2.split_train[f"{bdp.slaw.benchmark} pred"])
+            
+            # Sort both arrays based on x values
+            sort_idx = np.argsort(xs)
+                        
+            curr_ax.plot(
+                xs[sort_idx],
+                ys[sort_idx],
+                label=f"{type(bdp.model).__name__} pred",
+                alpha=1,
+                color=color,
+            )
+        else:
+            curr_ax.scatter(
+                bdp_g_copy.split_train[x_key],
+                bdp_g_copy2.split_train[f"{bdp.slaw.benchmark} pred"],
+                label=f"{type(bdp.model).__name__} pred",
+                alpha=1,
+                marker="x",
+                color=color,
+            )
         curr_ax.legend()
 
     fig.tight_layout()
@@ -759,7 +774,7 @@ def plot_all_loss_curves(data: BacktestData):
         for bench_idx in range(n_bench):
             bdp: BacktestDataPoint = data.results[split_idx, bench_idx] if split_idx < n_split else data.global_split_results[bench_idx]
             slaw = bdp.slaw
-            ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[:]), label="train")
+            ax[split_idx, bench_idx].plot(np.log10(slaw.train_losses[500:]), label="train")
             ax[split_idx, bench_idx].set_title(slaw.benchmark)
             ax[split_idx, bench_idx].legend()     
     plt.show()   
@@ -1022,12 +1037,12 @@ plot_all_loss_curves(ewbs_lin_data)
 
 # %%
 
-plot_split(ewbs_flop_data, 2, "log10 FLOP_opt", expand=False)
+plot_split(ewbs_flop_data, 2, "log10 FLOP_opt", expand=False, line=True)
 
 
 # %%
-plot_split(ewbs_elo_data, 2, "Elo", expand=False)
+plot_split(ewbs_elo_data, 2, "Elo", expand=False, line=True)
 
 
 # %%
-plot_split(ewbs_lin_data, 2, "PC-1", expand=False)
+plot_split(ewbs_lin_data, 2, "PC-1", expand=False, line=True)

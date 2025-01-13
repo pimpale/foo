@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -37,6 +38,63 @@ def get_running_top_n_2d(
         top_ids.update(top_n_at_date)
 
     return df[df[id_column].isin(top_ids)]
+
+
+
+
+def vectorized_highest_score(df, x_column: str, x_column_thresholds: np.ndarray, key: str):
+    """
+    Vectorized function to return the highest `key` score for each threshold.
+
+    Parameters:
+    df (pd.DataFrame): The dataframe to search.
+    x_column (str): The column to threshold using x_column_thresholds.
+    x_column_thresholds (np.ndarray): Array of thresholds.
+    key (str): The key to search for the highest score.
+
+    Returns:
+    np.ndarray: Array of highest `key` scores.
+    """
+    # Create an array to store the highest scores
+    highest_scores = np.zeros(len(x_column_thresholds))
+
+    for i, x in enumerate(x_column_thresholds):
+        mask = df[x_column] <= x
+        if mask.any():
+            highest_scores[i] = df.loc[mask, key].max()
+        else:
+            highest_scores[i] = np.nan  # or some other placeholder for no data
+
+    return highest_scores
+
+def vectorized_highest_score_2d(df, x_column, x_column_thresholds,  y_column, y_column_thresholds,  key):
+    """
+    Vectorized function to return the highest `key` score for each combination of x_column and y_column.
+
+    Parameters:
+    df (pd.DataFrame): The dataframe to search.
+    x_column (str): The column to threshold using x_column_thresholds.
+    x_column_thresholds (np.ndarray): Array of thresholds
+    y_column (str): The column to threshold using y_column_thresholds.
+    y_column_thresholds (np.ndarray): Array of thresholds.
+    key (str): The key to search for the highest score.
+
+    Returns:
+    np.ndarray: 2D array of highest `key` scores.
+    """
+    # Create a 2D array to store the highest scores
+    highest_scores = np.zeros((len(x_column_thresholds), len(y_column_thresholds)))
+
+    for i, x_threshold in enumerate(x_column_thresholds):
+        mask = (df[x_column] <= x_threshold)
+        for j, y_threshold in enumerate(y_column_thresholds):
+            combined_mask = mask & (df[y_column] <= y_threshold)
+            if combined_mask.any():
+                highest_scores[i, j] = df.loc[combined_mask, key].max()
+            else:
+                highest_scores[i, j] = np.nan  # or some other placeholder for no data
+
+    return highest_scores
 
 class Frontier(nn.Module):
     """
