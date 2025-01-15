@@ -36,6 +36,9 @@ class FrontierDateToEloPredictor(Frontier):
 
         assert benchmarks[:len(self.necessary_benchmarks())] == self.necessary_benchmarks()
 
+        # drop all rows that have nans in Elo or release_date
+        train_df = train_df.dropna(subset=["Elo", "release_date", target_benchmark])
+
         # train linear fit between date and elo on top 3
         frontier_date_vs_elo_df = get_running_top_n(
             train_df,

@@ -180,34 +180,6 @@ class Spe:
     color: str
     alpha: float = 0.5
 
-
-def plot_spe(
-    ax: matplotlib.axes.Axes,
-    df: pd.DataFrame,
-    x_key: str,
-    entries: list[Spe],
-    title=None,
-    y_label=None,
-):
-    for e in entries:
-        ax.scatter(
-            df[x_key],
-            df[e.y_key],
-            label=e.y_label,
-            alpha=e.alpha,
-            color=e.color,
-        )
-    ax.legend()
-
-    ax.set_xlabel(x_key)
-    if y_label is not None:
-        ax.set_ylabel(y_label)
-    if title is None and (x_key is not None and y_label is not None):
-        title = f"{y_label} vs {x_key}"
-    if title is not None:
-        ax.set_title(title)
-
-
 def plot_train_test(
     ax: matplotlib.axes.Axes,
     train_df: pd.DataFrame,
@@ -1106,7 +1078,7 @@ plot_split(ewbs_elo_data, 0, "Elo", expand=False, line=True)
 
 
 # %%
-plot_split(ewbs_lin_data, 0, "PC-1", expand=False, line=False)
+plot_split(ewbs_lin_data, 0, "PC-1", expand=False, line=True)
 
 
 # %%
