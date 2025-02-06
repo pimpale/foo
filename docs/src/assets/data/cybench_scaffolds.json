@@ -1,0 +1,1 @@
+[{"model":"openai\/gpt-4o-2024-08-06","Cybench":0.3,"release_date":2024.8876712329},{"model":"openai\/o1-2024-12-17","Cybench":0.35,"release_date":2024.8876712329},{"model":"anthropic\/claude-3-5-sonnet-20241022","Cybench":0.325,"release_date":2024.8876712329},{"model":"anthropic\/claude-3-5-sonnet-20240620","Cybench":0.35,"release_date":2024.8876712329}]

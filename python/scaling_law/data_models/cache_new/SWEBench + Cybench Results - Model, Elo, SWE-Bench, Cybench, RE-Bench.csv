@@ -1,0 +1,18 @@
+Model,Release Date,Chatbot Arena Elo,SWE-Bench Verified,SWE-Bench Verified Elicited,SWE-Bench High Elicitation,Cybench,Cybench Elicited,RE-Bench,RE-Bench Elicited
+openai/gpt-4o-2024-08-06,2024-08-06,1285,0.206,0.3833,0.3833,0.125,0.3,0.35501,
+openai/gpt-4o-mini-2024-07-18,2024-07-18,1274,0.078,,,0.05,,0.19294,
+openai/gpt-4-turbo-2024-04-09,2023-11-06,1256,0.1706827309,,,0.05,,0.27517,
+openai/gpt-3.5-turbo-0125,2022-03-15,1106,0.05,,,0.025,,,
+openai/o1-mini-2024-09-12,2024-09-12,1306,0.182,,,0.15,,,
+openai/o1-2024-12-17  ,2024-12-17,1335,0.342,0.646,0.646,,0.35,0.47043,
+anthropic/claude-3-5-sonnet-20241022,2024-10-22,1284,0.3306613226,0.622,0.622,0.2,0.325,0.50988,0.53732
+anthropic/claude-3-5-sonnet-20240620,2024-06-20,1268,0.2685370741,,,0.15,0.35,0.46139,
+anthropic/claude-3-sonnet-20240229,2024-02-29,1201,0.082,,,0.025,,0.15334,
+anthropic/claude-3-opus-20240229,2024-02-29,1247,0.148,0.182,0.182,0.05,,0.28037,
+anthropic/claude-2.1,2024-11-23,,0.038,,,0,,,
+together/meta-llama--Meta-Llama-3.1-8B-Instruct-Turbo,2024-07-23,1176,0.0120240481,,,0.025,,,
+together/meta-llama--Meta-Llama-3.1-70B-Instruct-Turbo,2024-07-23,1248,0.116,,,0.05,,,
+together/meta-llama--Meta-Llama-3.1-405B-Instruct-Turbo,2024-07-23,1268,0.164,,,0.075,,,
+together/Qwen--Qwen2.5-7B-Instruct-Turbo,2024-09-19,,0,,,0,,,
+together/Qwen--Qwen2.5-Coder-32B-Instruct,2024-09-19,,0,,,0.05,,,
+together/Qwen--Qwen2.5-72B-Instruct-Turbo,2024-09-19,1258,0.124,0.406,0.406,0.1,,,
