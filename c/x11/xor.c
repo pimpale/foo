@@ -142,9 +142,9 @@ uint32_t torgb(double val) {
   uint32_t red = rint(127+255*sin(val));
   uint32_t green = rint(127+255*sin(val + 2*M_PI/3));
   uint32_t blue = rint(127+255*sin(val + 4*M_PI/3));
-  // return red << 16 + green << 8 + blue;
+  return red << 16 + green << 8 + blue;
   // actually should be the below but it looks cooler with the above
-  return (red << 16) + (green << 8) + blue;
+  // return (red << 16) + (green << 8) + blue;
 }
 
 double mytime = 1.0f;
