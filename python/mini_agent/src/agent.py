@@ -1,12 +1,11 @@
 import openai
 import subprocess
-import re
-import io
 import os
 import sys
 import tempfile
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Dict, Union
+from openai.types.chat import ChatCompletionMessage
 
 class AgentTool(ABC):
     """Abstract base class for agent tools."""
@@ -30,7 +29,7 @@ class AgentTool(ABC):
         pass
     
     @abstractmethod
-    def execute(self, **kwargs) -> str:
+    def execute(self, **params: Any) -> str:
         """Execute the tool with the provided parameters."""
         pass
     
@@ -55,7 +54,7 @@ class PythonTool(AgentTool):
     
     @property
     def description(self) -> str:
-        return "Execute Python code. Returns the output or error message."
+        return "Execute Python code. You need to print variables to see their values."
     
     @property
     def parameters(self) -> dict[str, Any]:
@@ -70,8 +69,10 @@ class PythonTool(AgentTool):
             "required": ["code"]
         }
     
-    def execute(self, code: str) -> str:
+    def execute(self, **params: Any) -> str:
         """Execute Python code using subprocess and return the result."""
+        code = params.get('code', '')
+        temp_filename = None
         try:
             # Create a temporary file to hold the Python code
             with tempfile.NamedTemporaryFile(suffix='.py', mode='w', delete=False) as temp_file:
@@ -86,29 +87,20 @@ class PythonTool(AgentTool):
                 timeout=30  # Timeout after 30 seconds
             )
             
-            # Clean up the temporary file
-            os.unlink(temp_filename)
-            
             # Process the results
             if result.returncode != 0:
                 return f"Error (exit code {result.returncode}):\n{result.stderr}"
             if result.stdout:
                 return f"Output:\n{result.stdout}"
             return "Code executed successfully with no output."
-        except subprocess.TimeoutExpired:
-            # Clean up temp file if timeout occurs
-            try:
-                os.unlink(temp_filename)
-            except:
-                pass
-            return "Error: Execution timed out after 30 seconds"
-        except Exception as e:
-            # Clean up temp file if any other exception occurs
-            try:
-                os.unlink(temp_filename)
-            except:
-                pass
-            return f"Error: {str(e)}"
+            
+        finally:
+            # Clean up the temporary file
+            if temp_filename and os.path.exists(temp_filename):
+                try:
+                    os.unlink(temp_filename)
+                except Exception:
+                    pass
 
 
 class BashTool(AgentTool):
@@ -135,8 +127,9 @@ class BashTool(AgentTool):
             "required": ["command"]
         }
     
-    def execute(self, command: str) -> str:
+    def execute(self, **params: Any) -> str:
         """Execute bash command and return the result."""
+        command = params.get('command', '')
         try:
             result = subprocess.run(command, shell=True, text=True, capture_output=True)
             if result.returncode != 0:
@@ -175,8 +168,9 @@ class SubmitTool(AgentTool):
             "required": ["content"]
         }
     
-    def execute(self, content: str) -> str:
+    def execute(self, **params: Any) -> str:
         """Process a submission and store it in the agent."""
+        content = params.get('content', '')
         self.agent.submission = content.strip()
         return "Submission recorded successfully."
 
@@ -197,7 +191,7 @@ class Agent:
         self.prompt = config.get('prompt', "You are a helpful AI assistant.")
         self.max_iterations = config.get('max_iterations', 10)
         self.token_limit = config.get('token_limit', 4000)
-        self.messages = []
+        self.messages: list[Union[Dict[str, Any], ChatCompletionMessage]] = []
         self.submission = None
         
         # Initialize OpenAI client
@@ -248,11 +242,10 @@ class Agent:
             
             # Get response from model with tool calling capability
             response = self.client.chat.completions.create(
-                model="gpt-4o",
+                model="o3-mini",
                 messages=self.messages,
                 tools=self.tools,
                 tool_choice="auto",
-                max_tokens=self.token_limit
             )
             
             response_message = response.choices[0].message
