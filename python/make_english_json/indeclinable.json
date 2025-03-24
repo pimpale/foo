@@ -12,7 +12,11 @@
         "she": null,
         "it": null,
         "we": null,
-        "they": null
+        "they": null,
+        "this": null,
+        "that": null,
+        "these": null,
+        "those": null
     },
     "pronoun_pos": {
         "mine": null,

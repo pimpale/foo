@@ -1,5 +1,12 @@
 {
-    "spatial": {
+    "instrumental_preposition": {
+        "with": null,
+        "using": null
+    },
+    "comitative_preposition": {
+        "with": null
+    },
+    "spatial_preposition": {
         "in": null,
         "on": null,
         "at": null,
@@ -13,12 +20,12 @@
         "below": null,
         "beside": null
     },
-    "source": {
+    "source_preposition": {
         "from": null,
         "off": null,
         "out": null
     },
-    "goal": {
+    "goal_preposition": {
         "to": null,
         "toward": null,
         "towards": null,
@@ -35,12 +42,12 @@
         "across": null,
         "along": null
     },
-    "temporal_point": {
+    "temporal_point_preposition": {
         "at": null,
         "on": null,
         "in": null
     },
-    "temporal_duration": {
+    "temporal_duration_preposition": {
         "for": null,
         "since": null,
         "until": null,

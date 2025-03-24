@@ -1,10 +1,15 @@
+#%%
 import json
 import pathlib
 from copy import deepcopy
 
 indeclinable = json.loads(pathlib.Path('indeclinable.json').read_text())
+nouns = json.loads(pathlib.Path('nouns.json').read_text())
 irregular_nouns = json.loads(pathlib.Path('irregular_nouns.json').read_text())
+verbs = json.loads(pathlib.Path('verbs.json').read_text())
 irregular_verbs = json.loads(pathlib.Path('irregular_verbs.json').read_text())
+prepositions = json.loads(pathlib.Path('prepositions.json').read_text())
+
 
 def noun_to_noun_pl(singular: str) -> str:
     if singular in irregular_nouns:
@@ -103,10 +108,9 @@ def vb_to_vbp(verb: str) -> str:
 
 english_json = {}
 
-for cls in indeclinable:
-    english_json[cls] = deepcopy(indeclinable[cls])
+for kind in indeclinable:
+    english_json[kind] = deepcopy(indeclinable[kind])
     
-nouns = json.loads(pathlib.Path('nouns.json').read_text())
 
 # add uncountable nouns
 english_json['uncountable_noun'] = deepcopy(nouns['uncountable_noun'])
@@ -117,26 +121,33 @@ english_json['noun'] = deepcopy(nouns['noun'])
 for noun in nouns['noun']:
     english_json['noun'][noun_to_noun_pl(noun)] = None
     
-verbs = json.loads(pathlib.Path('verbs.json').read_text())
-
-for cls in verbs:   
+for kind in verbs:   
     # add vb form
-    english_json[cls] = deepcopy(verbs[cls])
+    english_json[kind] = deepcopy(verbs[kind])
    
     # add vbd form
-    cls_vbd = cls.replace('vb', 'vbd', 1)
-    english_json[cls_vbd] = {vb_to_vbd(verb): None for verb in verbs[cls]}
+    kind_vbd = kind.replace('vb', 'vbd', 1)
+    english_json[kind_vbd] = {vb_to_vbd(verb): None for verb in verbs[kind]}
     # add vbn form
-    cls_vbn = cls.replace('vb', 'vbn', 1)
-    english_json[cls_vbn] = {vb_to_vbn(verb): None for verb in verbs[cls]}
+    kind_vbn = kind.replace('vb', 'vbn', 1)
+    english_json[kind_vbn] = {vb_to_vbn(verb): None for verb in verbs[kind]}
     # add vbg form
-    cls_vbg = cls.replace('vb', 'vbg', 1)
-    english_json[cls_vbg] = {vb_to_vbg(verb): None for verb in verbs[cls]}
+    kind_vbg = kind.replace('vb', 'vbg', 1)
+    english_json[kind_vbg] = {vb_to_vbg(verb): None for verb in verbs[kind]}
     # add vbz form
-    cls_vbz = cls.replace('vb', 'vbz', 1)
-    english_json[cls_vbz] = {vb_to_vbz(verb): None for verb in verbs[cls]}
+    kind_vbz = kind.replace('vb', 'vbz', 1)
+    english_json[kind_vbz] = {vb_to_vbz(verb): None for verb in verbs[kind]}
     # add vbp form
-    cls_vbp = cls.replace('vb', 'vbp', 1)
-    english_json[cls_vbp] = {vb_to_vbp(verb): None for verb in verbs[cls]}
+    kind_vbp = kind.replace('vb', 'vbp', 1)
+    english_json[kind_vbp] = {vb_to_vbp(verb): None for verb in verbs[kind]}
+    
+# add prepositions
+for kind in prepositions:
+    english_json[kind] = deepcopy(prepositions[kind])
+# join all classes of preposition together (not including duplicates) and store this too
+english_json['preposition'] = {}
+for kind in prepositions:
+    for prep in prepositions[kind]:
+        english_json['preposition'][prep] = None
     
 pathlib.Path('english.json').write_text(json.dumps(english_json, indent=4))

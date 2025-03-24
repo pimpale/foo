@@ -11,7 +11,6 @@
         "behave": null,
         "belch": null,
         "bellow": null,
-        "go": null,
         "sing": null,
         "speak": null,
         "slip": null,
@@ -72,6 +71,7 @@
         "glisten": null,
         "glimmer": null,
         "glow": null,
+        "go": null,
         "growl": null,
         "gurgle": null,
         "gush": null,
@@ -97,7 +97,9 @@
         "kneel": null,
         "leak": null,
         "lighten": null,
+        "listen":null,
         "load": null,
+        "look": null,
         "limp": null,
         "lose": null,
         "lurk": null,
@@ -112,14 +114,6 @@
         "mumble": null,
         "murmur": null,
         "mutter": null
-    },
-    "vb_pp": {
-        "look": null,
-        "speak": null,
-        "listen": null,
-        "talk": null,
-        "think": null,
-        "go": null
     },
     "vb_ap": {
         "be": null,
@@ -145,6 +139,7 @@
         "have": null
     },
     "vb_bare_inf_cl": {
+        "do": null,
         "help": null
     },
     "vb_declarative_cl": {
@@ -194,6 +189,7 @@
     },
     "vb_np": {
         "be": null,
+        "do": null,
         "eat": null,
         "drink": null,
         "read": null,
@@ -274,11 +270,8 @@
         "recall": null,
         "receive": null,
         "recite": null,
-        "prune": null
-    },
-    "vb_np_pp": {
+        "prune": null,
         "put": null,
-        "keep": null,
         "leave": null
     },
     "vb_np_ap": {

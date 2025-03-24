@@ -82,6 +82,21 @@
         "hall": null,
         "room": null,
         "kitchen": null,
+        "stove": null,
+        "spatula": null,
+        "spoon": null,
+        "knife": null,
+        "fork": null,
+        "bowl": null,
+        "plate": null,
+        "cup": null,
+        "glass": null,
+        "mug": null,
+        "platter": null,
+        "dish": null,
+        "vegetable": null,
+        "meat": null,
+        "grain": null,
         "bathroom": null,
         "bedroom": null,
         "bed": null,
@@ -133,6 +148,10 @@
         "city": null,
         "town": null,
         "village": null,
+        "store": null,
+        "supermarket": null,
+        "bakery": null,
+        "restaurant": null,
         "neighborhood": null,
         "household": null,
         "family": null,
@@ -172,4 +191,4 @@
         "nurse": null,
         "patient": null
     }
-}   
+}
