@@ -270,5 +270,13 @@
         "VBG": "letting",
         "VBZ": "lets",
         "VBP": "let"
+    },
+    "meet": {
+        "VB": "meet",
+        "VBD": "met",
+        "VBN": "met",
+        "VBG": "meeting",
+        "VBZ": "meets",
+        "VBP": "meet"
     }
 }

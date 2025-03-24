@@ -130,7 +130,8 @@
         "need": null,
         "like": null,
         "love": null,
-        "prefer": null
+        "prefer": null,
+        "know": null
     },
     "vb_vbg_cl": {
         "be": null
@@ -272,7 +273,8 @@
         "recite": null,
         "prune": null,
         "put": null,
-        "leave": null
+        "leave": null,
+        "meet": null
     },
     "vb_np_ap": {
         "make": null
