@@ -1,5 +1,6 @@
 {
     "vb": {
+        "be": null,
         "smoke": null,
         "exist": null,
         "ache": null,
@@ -113,7 +114,9 @@
         "moo": null,
         "mumble": null,
         "murmur": null,
-        "mutter": null
+        "mutter": null,
+        "walk": null,
+        "play": null
     },
     "vb_ap": {
         "be": null,
@@ -274,7 +277,10 @@
         "prune": null,
         "put": null,
         "leave": null,
-        "meet": null
+        "meet": null,
+        "explain": null,
+        "describe": null,
+        "play": null
     },
     "vb_np_ap": {
         "make": null

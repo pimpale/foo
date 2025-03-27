@@ -19,13 +19,16 @@
         "those": null
     },
     "pronoun_pos": {
+        "my": null,
         "mine": null,
+        "your": null,
         "yours": null,
         "his": null,
         "hers": null,
         "its": null,
         "ours": null,
-        "theirs": null
+        "theirs": null,
+        "TODO: disambiguate possessive pronouns from adjectival pronouns": null
     },
     "proper_noun": {
         "London": null,
@@ -99,7 +102,13 @@
         "thoughtful": null,
         "careful": null,
         "lonely": null,
-        "kind": null
+        "kind": null,
+        "quick": null,
+        "interesting": null,
+        "mysterious": null,
+        "free": null,
+        "young": null,
+        "old": null
     },
     "adj_pp": {
         "interested": null,
@@ -123,7 +132,11 @@
         "quickly": null,
         "slowly": null,
         "happily": null,
-        "now": null
+        "now": null,
+        "very": null,
+        "clearly": null,
+        "sadly": null,
+        "suddenly": null
     },
     "precorenp_modifier": {
         "even": null,
@@ -174,5 +187,8 @@
     },
     "did": {
         "did": null
+    },
+    "which": {
+        "which": null
     }
 }

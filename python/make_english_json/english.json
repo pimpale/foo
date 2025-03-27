@@ -19,13 +19,16 @@
         "those": null
     },
     "pronoun_pos": {
+        "my": null,
         "mine": null,
+        "your": null,
         "yours": null,
         "his": null,
         "hers": null,
         "its": null,
         "ours": null,
-        "theirs": null
+        "theirs": null,
+        "TODO: disambiguate possessive pronouns from adjectival pronouns": null
     },
     "proper_noun": {
         "London": null,
@@ -102,16 +105,22 @@
         "stuff": null,
         "yogurt": null,
         "honey": null,
-        "soccer": null,
         "smoke": null,
         "cream": null,
+        "cheese": null,
         "advice": null,
         "jewelry": null,
         "blood": null,
         "biology": null,
         "astronomy": null,
         "chemistry": null,
-        "research": null
+        "research": null,
+        "football": null,
+        "tennis": null,
+        "baseball": null,
+        "jenga": null,
+        "soccer": null,
+        "badminton": null
     },
     "not": {
         "not": null
@@ -139,7 +148,13 @@
         "thoughtful": null,
         "careful": null,
         "lonely": null,
-        "kind": null
+        "kind": null,
+        "quick": null,
+        "interesting": null,
+        "mysterious": null,
+        "free": null,
+        "young": null,
+        "old": null
     },
     "adj_pp": {
         "interested": null,
@@ -163,7 +178,11 @@
         "quickly": null,
         "slowly": null,
         "happily": null,
-        "now": null
+        "now": null,
+        "very": null,
+        "clearly": null,
+        "sadly": null,
+        "suddenly": null
     },
     "precorenp_modifier": {
         "even": null,
@@ -214,6 +233,9 @@
     },
     "did": {
         "did": null
+    },
+    "which": {
+        "which": null
     },
     "noun": {
         "apple": null,
@@ -497,6 +519,15 @@
         "bottle": null,
         "brush": null,
         "budget": null,
+        "concept": null,
+        "sun": null,
+        "moon": null,
+        "earth": null,
+        "rain": null,
+        "snow": null,
+        "hail": null,
+        "favorite": null,
+        "home": null,
         "apples": null,
         "bananas": null,
         "cars": null,
@@ -776,9 +807,19 @@
         "brains": null,
         "bottles": null,
         "brushes": null,
-        "budgets": null
+        "budgets": null,
+        "concepts": null,
+        "suns": null,
+        "moons": null,
+        "earths": null,
+        "rains": null,
+        "snows": null,
+        "hails": null,
+        "favorites": null,
+        "homes": null
     },
     "vb": {
+        "be": null,
         "smoke": null,
         "exist": null,
         "ache": null,
@@ -892,9 +933,12 @@
         "moo": null,
         "mumble": null,
         "murmur": null,
-        "mutter": null
+        "mutter": null,
+        "walk": null,
+        "play": null
     },
     "vbd": {
+        "were": null,
         "smoked": null,
         "existed": null,
         "ached": null,
@@ -1008,9 +1052,12 @@
         "mooed": null,
         "mumbled": null,
         "murmured": null,
-        "muttered": null
+        "muttered": null,
+        "walked": null,
+        "played": null
     },
     "vbn": {
+        "been": null,
         "smoked": null,
         "existed": null,
         "ached": null,
@@ -1124,9 +1171,12 @@
         "mooed": null,
         "mumbled": null,
         "murmured": null,
-        "muttered": null
+        "muttered": null,
+        "walked": null,
+        "played": null
     },
     "vbg": {
+        "being": null,
         "smoking": null,
         "existing": null,
         "aching": null,
@@ -1240,9 +1290,12 @@
         "mooing": null,
         "mumbling": null,
         "murmuring": null,
-        "muttering": null
+        "muttering": null,
+        "walking": null,
+        "playing": null
     },
     "vbz": {
+        "is": null,
         "smokes": null,
         "exists": null,
         "aches": null,
@@ -1356,9 +1409,12 @@
         "moos": null,
         "mumbles": null,
         "murmurs": null,
-        "mutters": null
+        "mutters": null,
+        "walks": null,
+        "plays": null
     },
     "vbp": {
+        "are": null,
         "smoke": null,
         "exist": null,
         "ache": null,
@@ -1472,7 +1528,9 @@
         "moo": null,
         "mumble": null,
         "murmur": null,
-        "mutter": null
+        "mutter": null,
+        "walk": null,
+        "play": null
     },
     "vb_ap": {
         "be": null,
@@ -1998,7 +2056,10 @@
         "prune": null,
         "put": null,
         "leave": null,
-        "meet": null
+        "meet": null,
+        "explain": null,
+        "describe": null,
+        "play": null
     },
     "vbd_np": {
         "were": null,
@@ -2086,7 +2147,10 @@
         "pruned": null,
         "put": null,
         "leaved": null,
-        "met": null
+        "met": null,
+        "explained": null,
+        "described": null,
+        "played": null
     },
     "vbn_np": {
         "been": null,
@@ -2174,7 +2238,10 @@
         "pruned": null,
         "put": null,
         "leaved": null,
-        "met": null
+        "met": null,
+        "explained": null,
+        "described": null,
+        "played": null
     },
     "vbg_np": {
         "being": null,
@@ -2262,7 +2329,10 @@
         "pruning": null,
         "putting": null,
         "leaving": null,
-        "meeting": null
+        "meeting": null,
+        "explaining": null,
+        "describing": null,
+        "playing": null
     },
     "vbz_np": {
         "is": null,
@@ -2350,7 +2420,10 @@
         "prunes": null,
         "puts": null,
         "leaves": null,
-        "meets": null
+        "meets": null,
+        "explains": null,
+        "describes": null,
+        "plays": null
     },
     "vbp_np": {
         "are": null,
@@ -2438,7 +2511,10 @@
         "prune": null,
         "put": null,
         "leave": null,
-        "meet": null
+        "meet": null,
+        "explain": null,
+        "describe": null,
+        "play": null
     },
     "vb_np_ap": {
         "make": null

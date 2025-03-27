@@ -36,16 +36,22 @@
         "stuff": null,
         "yogurt": null,
         "honey": null,
-        "soccer": null,
         "smoke": null,
         "cream": null,
+        "cheese": null,
         "advice": null,
         "jewelry": null,
         "blood": null,
         "biology": null,
         "astronomy": null,
         "chemistry": null,
-        "research": null
+        "research": null,
+        "football": null,
+        "tennis": null,
+        "baseball": null,
+        "jenga": null,
+        "soccer": null,
+        "badminton": null
     },
     "plural_uncountable_noun": {
         "pants": null,
@@ -342,6 +348,15 @@
         "brain": null,
         "bottle": null,
         "brush": null,
-        "budget": null
+        "budget": null,
+        "concept": null,
+        "sun": null,
+        "moon": null,
+        "earth": null,
+        "rain": null,
+        "snow": null,
+        "hail": null,
+        "favorite": null,
+        "home": null
     }
 }
