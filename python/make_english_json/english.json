@@ -18,17 +18,23 @@
         "these": null,
         "those": null
     },
-    "pronoun_pos": {
+    "possessive_adjective": {
         "my": null,
-        "mine": null,
         "your": null,
+        "his": null,
+        "her": null,
+        "its": null,
+        "our": null,
+        "their": null
+    },
+    "possessive_pronoun": {
+        "mine": null,
         "yours": null,
         "his": null,
         "hers": null,
         "its": null,
         "ours": null,
-        "theirs": null,
-        "TODO: disambiguate possessive pronouns from adjectival pronouns": null
+        "theirs": null
     },
     "proper_noun": {
         "London": null,
