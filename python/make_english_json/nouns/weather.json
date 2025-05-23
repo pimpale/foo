@@ -1,0 +1,12 @@
+{
+    "commentary": "Words that can be used both to describe the weather, and the result of the weather.",
+    "words": {
+        "rain": null,
+        "snow": null,
+        "hail": null,
+        "thunder": null,
+        "wind": null,
+        "fog": null,
+        "sun": null
+    }
+}

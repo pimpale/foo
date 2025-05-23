@@ -138,11 +138,34 @@
         "quickly": null,
         "slowly": null,
         "happily": null,
-        "now": null,
         "very": null,
         "clearly": null,
         "sadly": null,
         "suddenly": null
+    },
+    "temporal_adverb": {
+        "now": null,
+        "then": null,
+        "today": null,
+        "yesterday": null,
+        "tomorrow": null,
+        "soon": null,
+        "late": null,
+        "early": null
+    },
+    "spatial_adverb": {
+        "here": null,
+        "there": null,
+        "everywhere": null,
+        "somewhere": null,
+        "anywhere": null,
+        "nowhere": null,
+        "up": null,
+        "down": null,
+        "in": null,
+        "out": null,
+        "on": null,
+        "off": null
     },
     "precorenp_modifier": {
         "even": null,

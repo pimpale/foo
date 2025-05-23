@@ -150,4 +150,11 @@ for kind in prepositions:
     for prep in prepositions[kind]:
         english_json['preposition'][prep] = None
     
+# transpose english_json to map each word to its classes
+transposed = {}
+for kind, words in english_json.items():
+    for word in words:
+        transposed.setdefault(word, []).append(kind)
+english_json = transposed
+
 pathlib.Path('english.json').write_text(json.dumps(english_json, indent=4))

@@ -20,7 +20,7 @@ class TestMCPClient:
         )
 
       
-        server_params = StdioServerParameters(command="docker",  args=['run', '-i', 'appflowy_taiga', 'uv', '--directory', '/mcp_server', 'run', 'taiga', 'mcp'], env=None)
+        server_params = StdioServerParameters(command="bash",  args=['-c', 'docker run --network none -i appflowy_taiga uv --directory /mcp_server run taiga mcp | tee yeet.txt'], env=None)
 
         stdio_transport = await self.exit_stack.enter_async_context(
             stdio_client(server_params),
@@ -37,7 +37,7 @@ async def main():
     await client.connect_to_server()
 
 
-    result0 = await client.session.call_tool("setup_problem", {"problem_id": "hello-world"})
+    result0 = await client.session.call_tool("setup_problem", {"problem_id": "write-hello-world"})
     print(result0)
     result = await client.session.call_tool("computer_use", {"action": "screenshot", 'kwargs': ''})
     print(result)

@@ -24,7 +24,9 @@ class MCPClient:
 @app.get("/testendpoint")
 async def main():
     # server_params = StdioServerParameters(command="bash", args=["-c", "cd mcp_server && uv run minexample"], env=None)
-    server_params = StdioServerParameters(command="docker",  args=['run', '-i', 'minexample', 'uv', '--directory', '/mcp_server', 'run', 'minexample'], env=None)
+    # server_params = StdioServerParameters(command="docker",  args=['run', '-i', 'minexample', 'uv', '--directory', '/mcp_server', 'run', 'minexample'], env=None)
+    server_params = StdioServerParameters(command="bash",  args=['-c', 'docker run -i minexample uv --directory /mcp_server run minexample | tee test.txt'], env=None)
+
 
     # server_params = StdioServerParameters(command="docker",  args=['run', '-i', 'appflowy_taiga', 'uv', '--directory', '/mcp_server', 'run', 'taiga', 'mcp'], env=None)
 
