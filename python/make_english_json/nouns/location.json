@@ -1,0 +1,10 @@
+{
+    "commentary": "This is a location. Linguistic test: 'I am going to the <word>.'",
+    "words": {
+    },
+    "classes": [
+        "in_location.json",
+        "on_location.json",
+        "at_location.json"
+    ]
+}
