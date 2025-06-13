@@ -1,0 +1,23 @@
+{
+  "members": [
+    "back_out",
+    "chicken_out",
+    "get_out",
+    "wriggle_out",
+    "bow_out",
+    "pull_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.source",
+      "S_ING"
+    ]
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "members": [
+    "dig",
+    "feel",
+    "fish",
+    "hunt",
+    "mine",
+    "pan",
+    "poach",
+    "scrounge",
+    "seek"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

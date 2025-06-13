@@ -1,0 +1,37 @@
+{
+  "members": [
+    "canvass",
+    "explore",
+    "examine",
+    "frisk",
+    "inspect",
+    "investigate",
+    "monitor",
+    "observe",
+    "picket",
+    "quiz",
+    "raid",
+    "ransack",
+    "riffle",
+    "scan",
+    "scrutinize",
+    "surveil",
+    "survey",
+    "tap",
+    "test",
+    "tour"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.location",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.location"
+    ]
+  ]
+}

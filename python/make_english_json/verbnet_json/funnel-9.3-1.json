@@ -1,0 +1,23 @@
+{
+  "members": [
+    "channel",
+    "fit",
+    "rake",
+    "scrape",
+    "shovel",
+    "spoon",
+    "squash",
+    "squish",
+    "tuck",
+    "wipe",
+    "wring"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "members": [
+    "back_down",
+    "back_off",
+    "get_away",
+    "pull_away",
+    "retire",
+    "retreat",
+    "withdraw"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.source",
+      "S_ING"
+    ]
+  ]
+}

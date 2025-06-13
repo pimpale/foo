@@ -1,0 +1,26 @@
+{
+  "members": [
+    "change",
+    "convert",
+    "turn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.material",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.result",
+      "PP.material"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "members": [
+    "book",
+    "bust",
+    "collar",
+    "impeach",
+    "nab",
+    "penalize",
+    "report",
+    "sanction"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

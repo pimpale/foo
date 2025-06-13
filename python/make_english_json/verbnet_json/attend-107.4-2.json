@@ -1,0 +1,13 @@
+{
+  "members": [
+    "go",
+    "belong"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

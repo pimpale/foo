@@ -1,0 +1,19 @@
+{
+  "members": [
+    "request",
+    "importune"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

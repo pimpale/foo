@@ -1,0 +1,39 @@
+{
+  "members": [
+    "barf",
+    "bleed",
+    "dribble",
+    "drool",
+    "pee",
+    "piss",
+    "puke",
+    "shit",
+    "spit",
+    "sweat",
+    "throw_up",
+    "vomit",
+    "weep"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.destination"
+    ]
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "members": [
+    "initiate",
+    "establish",
+    "fake",
+    "feign",
+    "format",
+    "found",
+    "plant",
+    "implement",
+    "instigate",
+    "institute",
+    "organize",
+    "originate",
+    "prepare",
+    "premise",
+    "devise",
+    "mount",
+    "bring_about",
+    "arrange",
+    "introduce",
+    "set",
+    "simulate",
+    "strike_up",
+    "synthesise",
+    "launch",
+    "open",
+    "open_up"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

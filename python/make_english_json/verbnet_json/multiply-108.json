@@ -1,0 +1,15 @@
+{
+  "members": [
+    "sum",
+    "add",
+    "tally",
+    "count"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "members": [
+    "close",
+    "cut_off",
+    "cut_out",
+    "deactivate",
+    "halt",
+    "stall",
+    "terminate"
+  ],
+  "primary_frames": [
+    [
+      "NP.eventuality",
+      "V"
+    ]
+  ]
+}

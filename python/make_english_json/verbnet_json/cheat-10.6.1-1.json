@@ -1,0 +1,17 @@
+{
+  "members": [
+    "con",
+    "cozen",
+    "fleece",
+    "defraud",
+    "swindle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

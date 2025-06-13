@@ -1,0 +1,22 @@
+{
+  "members": [
+    "bet",
+    "gamble",
+    "punt",
+    "venture",
+    "wager"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

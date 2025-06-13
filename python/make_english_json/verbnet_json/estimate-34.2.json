@@ -1,0 +1,13 @@
+{
+  "members": [
+    "put"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.value"
+    ]
+  ]
+}

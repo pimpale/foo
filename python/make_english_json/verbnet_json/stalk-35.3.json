@@ -1,0 +1,29 @@
+{
+  "members": [
+    "scent",
+    "smell",
+    "stalk",
+    "taste",
+    "track",
+    "whiff"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

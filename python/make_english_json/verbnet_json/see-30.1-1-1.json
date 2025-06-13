@@ -1,0 +1,12 @@
+{
+  "members": [
+    "hear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ]
+  ]
+}

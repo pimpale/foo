@@ -1,0 +1,24 @@
+{
+  "members": [
+    "admonish",
+    "ask",
+    "encourage",
+    "exhort",
+    "entreat",
+    "implore",
+    "lobby",
+    "press",
+    "pressure",
+    "prod",
+    "urge"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "that",
+      "S"
+    ]
+  ]
+}

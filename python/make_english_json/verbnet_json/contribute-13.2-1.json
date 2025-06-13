@@ -1,0 +1,19 @@
+{
+  "members": [
+    "disseminate",
+    "distribute"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ]
+  ]
+}

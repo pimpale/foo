@@ -1,0 +1,23 @@
+{
+  "members": [
+    "jostle",
+    "nudge",
+    "press",
+    "push",
+    "shove",
+    "squeeze",
+    "thrust"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.trajectory"
+    ]
+  ]
+}

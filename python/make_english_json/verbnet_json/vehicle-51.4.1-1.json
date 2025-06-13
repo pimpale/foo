@@ -1,0 +1,24 @@
+{
+  "members": [
+    "bicycle",
+    "bike",
+    "canoe",
+    "cycle",
+    "kayak",
+    "motorbike",
+    "motorcycle",
+    "raft",
+    "skate",
+    "skateboard",
+    "ski",
+    "sled",
+    "toboggan"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

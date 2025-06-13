@@ -1,0 +1,16 @@
+{
+  "members": [
+    "involve",
+    "concern",
+    "touch",
+    "bear_on",
+    "touch_on"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

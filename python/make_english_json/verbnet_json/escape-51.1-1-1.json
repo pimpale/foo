@@ -1,0 +1,18 @@
+{
+  "members": [
+    "depart",
+    "disembark",
+    "escape",
+    "exit",
+    "flee",
+    "leave",
+    "vacate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

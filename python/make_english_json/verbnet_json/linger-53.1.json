@@ -1,0 +1,28 @@
+{
+  "members": [
+    "dally",
+    "dawdle",
+    "dither",
+    "equivocate",
+    "hesitate",
+    "linger",
+    "loaf",
+    "loiter",
+    "pause",
+    "potter",
+    "putter",
+    "tarry"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.eventuality"
+    ]
+  ]
+}

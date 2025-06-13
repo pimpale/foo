@@ -1,0 +1,21 @@
+{
+  "members": [
+    "December",
+    "holiday",
+    "honeymoon",
+    "junket",
+    "overnight",
+    "sojourn",
+    "summer",
+    "vacation",
+    "weekend",
+    "winter"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

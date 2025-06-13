@@ -1,0 +1,14 @@
+{
+  "members": [
+    "allow",
+    "let",
+    "hail"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

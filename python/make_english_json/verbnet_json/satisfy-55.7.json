@@ -1,0 +1,23 @@
+{
+  "members": [
+    "exceed",
+    "fulfill",
+    "meet",
+    "sate",
+    "satiate",
+    "satisfy"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "members": [
+    "save",
+    "spare"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP.asset"
+    ]
+  ]
+}

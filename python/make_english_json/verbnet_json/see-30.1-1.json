@@ -1,0 +1,28 @@
+{
+  "members": [
+    "detect",
+    "discern",
+    "feel",
+    "sense",
+    "perceive",
+    "notice",
+    "see"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

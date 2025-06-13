@@ -1,0 +1,12 @@
+{
+  "members": [
+    "delay",
+    "defer"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "members": [
+    "endure",
+    "live",
+    "survive"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

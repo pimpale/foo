@@ -1,0 +1,15 @@
+{
+  "members": [
+    "have",
+    "hold",
+    "own",
+    "possess"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

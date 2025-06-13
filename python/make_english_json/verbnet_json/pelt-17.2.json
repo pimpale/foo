@@ -1,0 +1,24 @@
+{
+  "members": [
+    "bombard",
+    "buffet",
+    "pelt",
+    "pepperspray",
+    "shell",
+    "shower",
+    "stone"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

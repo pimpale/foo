@@ -1,0 +1,42 @@
+{
+  "members": [
+    "commission",
+    "contract",
+    "draft",
+    "employ",
+    "engage",
+    "enlist",
+    "groom",
+    "hire",
+    "prepare",
+    "recruit",
+    "reinstate",
+    "sign",
+    "sign_on",
+    "sign_up",
+    "subcontract",
+    "take_on",
+    "train"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ]
+  ]
+}

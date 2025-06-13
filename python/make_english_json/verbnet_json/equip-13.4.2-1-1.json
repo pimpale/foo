@@ -1,0 +1,18 @@
+{
+  "members": [
+    "armor",
+    "encumber",
+    "fortify",
+    "overburden",
+    "weight",
+    "burden",
+    "compensate"
+  ],
+  "primary_frames": [
+    [
+      "NP.theme",
+      "V",
+      "NP"
+    ]
+  ]
+}

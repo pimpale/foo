@@ -1,0 +1,52 @@
+{
+  "members": [
+    "annotate",
+    "applique",
+    "emboss",
+    "embroider",
+    "engrave",
+    "etch",
+    "handpaint",
+    "imprint",
+    "incise",
+    "ingrain",
+    "inscribe",
+    "mark",
+    "paint",
+    "reinscribe",
+    "scar",
+    "sign",
+    "stamp",
+    "stipple",
+    "tattoo",
+    "tool"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.destination",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

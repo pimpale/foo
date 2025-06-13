@@ -1,0 +1,13 @@
+{
+  "members": [
+    "act",
+    "behave"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

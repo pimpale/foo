@@ -1,0 +1,13 @@
+{
+  "members": [
+    "fall",
+    "fall_off",
+    "fall_by_the_wayside"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

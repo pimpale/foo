@@ -1,0 +1,52 @@
+{
+  "members": [
+    "billow",
+    "bloom",
+    "blossom",
+    "bristle",
+    "bulge",
+    "burn",
+    "effervesce",
+    "fester",
+    "fizz",
+    "flow",
+    "flower",
+    "flux",
+    "foam",
+    "froth",
+    "moil",
+    "propagate",
+    "rage",
+    "ripple",
+    "roil",
+    "seethe",
+    "smolder",
+    "sprout"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "There",
+      "V",
+      "NP"
+    ],
+    [
+      "NP.location",
+      "V",
+      "NP"
+    ],
+    [
+      "NP.location",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

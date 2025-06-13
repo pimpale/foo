@@ -1,0 +1,12 @@
+{
+  "members": [
+    "smoke"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.source"
+    ]
+  ]
+}

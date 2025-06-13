@@ -1,0 +1,27 @@
+{
+  "members": [
+    "feel",
+    "look",
+    "smell",
+    "sound",
+    "taste"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "ADJ",
+      "PP.experiencer"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

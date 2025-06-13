@@ -1,0 +1,14 @@
+{
+  "members": [
+    "fail",
+    "neglect",
+    "omit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

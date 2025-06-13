@@ -1,0 +1,27 @@
+{
+  "members": [
+    "cross-examine",
+    "question",
+    "interview",
+    "interrogate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.topic"
+    ]
+  ]
+}

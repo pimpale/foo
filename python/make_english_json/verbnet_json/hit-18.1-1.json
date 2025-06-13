@@ -1,0 +1,37 @@
+{
+  "members": [
+    "batter",
+    "beat",
+    "bump",
+    "butt",
+    "drum",
+    "hammer",
+    "hit",
+    "jab",
+    "kick",
+    "knock",
+    "lash",
+    "pound",
+    "rap",
+    "slap",
+    "smack",
+    "smash",
+    "strike",
+    "stomp",
+    "whang",
+    "tap"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP",
+      "PP"
+    ]
+  ]
+}

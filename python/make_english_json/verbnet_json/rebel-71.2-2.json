@@ -1,0 +1,18 @@
+{
+  "members": [
+    "legislate",
+    "protest"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

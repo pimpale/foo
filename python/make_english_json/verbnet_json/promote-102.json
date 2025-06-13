@@ -1,0 +1,29 @@
+{
+  "members": [
+    "promote",
+    "advance",
+    "boost",
+    "further",
+    "encourage",
+    "invite",
+    "emphasize",
+    "underscore"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

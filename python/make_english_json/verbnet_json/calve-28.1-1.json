@@ -1,0 +1,15 @@
+{
+  "members": [
+    "foal",
+    "litter",
+    "spawn",
+    "whelp"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

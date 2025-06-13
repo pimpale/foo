@@ -1,0 +1,26 @@
+{
+  "members": [
+    "hold"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADV"
+    ],
+    [
+      "NP",
+      "V",
+      "ADV",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADV",
+      "PP.goal"
+    ]
+  ]
+}

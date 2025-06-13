@@ -1,0 +1,22 @@
+{
+  "members": [
+    "involve",
+    "engage",
+    "relate",
+    "include",
+    "enroll"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ]
+  ]
+}

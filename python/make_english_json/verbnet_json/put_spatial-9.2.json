@@ -1,0 +1,44 @@
+{
+  "members": [
+    "balance",
+    "bend",
+    "dangle",
+    "droop",
+    "flop",
+    "fly",
+    "hang",
+    "lay",
+    "lean",
+    "nestle",
+    "open",
+    "perch",
+    "plop",
+    "prop",
+    "project",
+    "recline",
+    "rest",
+    "sit",
+    "slope",
+    "sprawl",
+    "stand",
+    "straddle",
+    "suspend",
+    "swing",
+    "tilt",
+    "underlay"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADVP"
+    ]
+  ]
+}

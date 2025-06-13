@@ -1,0 +1,19 @@
+{
+  "members": [
+    "administer",
+    "circularize",
+    "contribute",
+    "donate",
+    "forfeit",
+    "resubmit",
+    "sacrifice",
+    "submit",
+    "surrender"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

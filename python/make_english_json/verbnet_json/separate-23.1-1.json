@@ -1,0 +1,18 @@
+{
+  "members": [
+    "decouple",
+    "differentiate",
+    "disentangle",
+    "dissimilate",
+    "divide",
+    "divorce",
+    "segregate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-patient"
+    ]
+  ]
+}

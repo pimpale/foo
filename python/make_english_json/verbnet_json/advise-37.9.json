@@ -1,0 +1,49 @@
+{
+  "members": [
+    "alert",
+    "assure",
+    "brief",
+    "educate",
+    "encourage",
+    "notify"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.recipient",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S-Quote"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.topic"
+    ]
+  ]
+}

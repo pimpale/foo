@@ -1,0 +1,13 @@
+{
+  "members": [
+    "wield",
+    "handle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "members": [
+    "chart",
+    "chronicle",
+    "copy",
+    "document",
+    "duplicate",
+    "film",
+    "forge",
+    "microfilm",
+    "photocopy",
+    "photograph",
+    "record",
+    "tally",
+    "tally_up",
+    "tape",
+    "televise",
+    "transcribe",
+    "type",
+    "videotape",
+    "write_up",
+    "write_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

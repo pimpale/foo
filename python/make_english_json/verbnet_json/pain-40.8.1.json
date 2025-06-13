@@ -1,0 +1,27 @@
+{
+  "members": [
+    "ail",
+    "bother",
+    "burn",
+    "hurt",
+    "itch",
+    "kill",
+    "pain"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.experiencer"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ]
+  ]
+}

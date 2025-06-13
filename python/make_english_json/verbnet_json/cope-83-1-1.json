@@ -1,0 +1,15 @@
+{
+  "members": [
+    "manage",
+    "grapple",
+    "get_by",
+    "get_through"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

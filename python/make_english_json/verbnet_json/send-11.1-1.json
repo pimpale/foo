@@ -1,0 +1,27 @@
+{
+  "members": [
+    "airmail",
+    "express",
+    "FedEx",
+    "forward",
+    "hand",
+    "mail",
+    "pass",
+    "send",
+    "ship",
+    "slip",
+    "smuggle",
+    "sneak",
+    "transmit",
+    "UPS",
+    "wire"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ]
+  ]
+}

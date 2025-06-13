@@ -1,0 +1,33 @@
+{
+  "members": [
+    "ally",
+    "collaborate",
+    "collude",
+    "conspire",
+    "machinate",
+    "partner",
+    "scheme",
+    "team_up"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.maleficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "members": [
+    "addict",
+    "bias",
+    "dispose",
+    "incline",
+    "predispose",
+    "slant"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.Theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ]
+  ]
+}

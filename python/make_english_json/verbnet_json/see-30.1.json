@@ -1,0 +1,37 @@
+{
+  "members": [
+    "can_tell",
+    "smell",
+    "taste"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP-ATTR-POS"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "members": [
+    "credit",
+    "entrust",
+    "furnish",
+    "resupply",
+    "serve",
+    "supply"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

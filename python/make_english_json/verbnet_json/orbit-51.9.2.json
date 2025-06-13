@@ -1,0 +1,15 @@
+{
+  "members": [
+    "orbit",
+    "revolve",
+    "rotate",
+    "twirl"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

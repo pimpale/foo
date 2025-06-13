@@ -1,0 +1,26 @@
+{
+  "members": [
+    "dwell",
+    "guest",
+    "live",
+    "reside",
+    "shack_up",
+    "sleep_over",
+    "squat",
+    "stay_over",
+    "stop",
+    "stay"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "ADV"
+    ]
+  ]
+}

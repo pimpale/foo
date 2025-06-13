@@ -1,0 +1,36 @@
+{
+  "members": [
+    "conjoin",
+    "entangle",
+    "muddle",
+    "pair",
+    "team",
+    "affiliate",
+    "associate",
+    "compare",
+    "confederate",
+    "confuse",
+    "incorporate",
+    "integrate",
+    "total",
+    "identity"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "members": [
+    "ascend",
+    "bend",
+    "climb",
+    "converge",
+    "crisscross",
+    "descend",
+    "dip",
+    "drop",
+    "meander",
+    "plummit",
+    "plunge",
+    "rise",
+    "run",
+    "slant",
+    "snake",
+    "turn",
+    "twist",
+    "undulate",
+    "swerve",
+    "zigzag"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

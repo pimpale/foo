@@ -1,0 +1,13 @@
+{
+  "members": [
+    "leave_office",
+    "step_down",
+    "walk_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

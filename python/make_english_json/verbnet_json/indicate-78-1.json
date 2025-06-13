@@ -1,0 +1,37 @@
+{
+  "members": [
+    "explain",
+    "indicate",
+    "say"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "whether/if",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "how",
+      "S"
+    ]
+  ]
+}

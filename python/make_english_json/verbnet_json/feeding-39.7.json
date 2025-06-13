@@ -1,0 +1,31 @@
+{
+  "members": [
+    "bottlefeed",
+    "breastfeed",
+    "feed",
+    "force-feed",
+    "handfeed",
+    "nurse",
+    "spoonfeed",
+    "suckle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ]
+  ]
+}

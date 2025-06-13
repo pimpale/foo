@@ -1,0 +1,16 @@
+{
+  "members": [
+    "be",
+    "feel",
+    "look",
+    "remain",
+    "stay"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

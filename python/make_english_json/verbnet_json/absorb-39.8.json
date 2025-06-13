@@ -1,0 +1,20 @@
+{
+  "members": [
+    "absorb",
+    "ingest",
+    "take"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ]
+  ]
+}

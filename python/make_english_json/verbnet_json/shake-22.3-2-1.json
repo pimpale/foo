@@ -1,0 +1,29 @@
+{
+  "members": [
+    "attach",
+    "bind",
+    "bond",
+    "bundle",
+    "concatenate",
+    "fasten",
+    "graft",
+    "jumble",
+    "ligate",
+    "moor",
+    "package",
+    "secure",
+    "splice",
+    "toggle",
+    "weld",
+    "fixate",
+    "affix",
+    "agglutinate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

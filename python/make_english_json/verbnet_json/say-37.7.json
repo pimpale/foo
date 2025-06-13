@@ -1,0 +1,16 @@
+{
+  "members": [
+    "be_like",
+    "continue",
+    "go",
+    "go_like",
+    "go_on"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S-Quote"
+    ]
+  ]
+}

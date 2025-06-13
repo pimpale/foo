@@ -1,0 +1,14 @@
+{
+  "members": [
+    "call",
+    "phone",
+    "ring",
+    "telephone"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

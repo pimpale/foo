@@ -1,0 +1,37 @@
+{
+  "members": [
+    "chafe",
+    "grope",
+    "knead",
+    "osculate",
+    "squeeze",
+    "tug",
+    "tweak",
+    "twinge",
+    "wring"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

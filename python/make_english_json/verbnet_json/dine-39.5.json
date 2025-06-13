@@ -1,0 +1,28 @@
+{
+  "members": [
+    "banquet",
+    "breakfast",
+    "brunch",
+    "dine",
+    "feast",
+    "graze",
+    "junket",
+    "lunch",
+    "luncheon",
+    "nosh",
+    "picnic",
+    "snack",
+    "sup"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.patient"
+    ]
+  ]
+}

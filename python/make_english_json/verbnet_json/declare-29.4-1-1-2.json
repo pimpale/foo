@@ -1,0 +1,22 @@
+{
+  "members": [
+    "profess"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "members": [
+    "die",
+    "go_out",
+    "go_down",
+    "go_off"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "members": [
+    "heave",
+    "kick",
+    "push",
+    "shove",
+    "thrust"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ]
+  ]
+}

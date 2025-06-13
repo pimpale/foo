@@ -1,0 +1,26 @@
+{
+  "members": [
+    "refrain",
+    "abstain",
+    "desist",
+    "forbear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "members": [
+    "command",
+    "direct",
+    "lead",
+    "manage",
+    "micromanage",
+    "oversee",
+    "preside_over",
+    "supervise"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.predicate"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.predicate"
+    ]
+  ]
+}

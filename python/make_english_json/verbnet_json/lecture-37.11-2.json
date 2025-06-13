@@ -1,0 +1,18 @@
+{
+  "members": [
+    "dwell"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "S_ING"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "members": [
+    "charge",
+    "institutionalize",
+    "incarcerate",
+    "hospitalize",
+    "detain",
+    "jail",
+    "imprison",
+    "jug",
+    "immure"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

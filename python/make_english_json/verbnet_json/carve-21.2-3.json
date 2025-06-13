@@ -1,0 +1,40 @@
+{
+  "members": [
+    "drill",
+    "file",
+    "lance",
+    "mangle",
+    "mill",
+    "sand",
+    "spear",
+    "tool"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle"
+    ],
+    [
+      "NP.instrument",
+      "V",
+      "NP"
+    ],
+    [
+      "NP.instrument",
+      "V",
+      "ADVP"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "members": [
+    "begin",
+    "end",
+    "lead",
+    "start",
+    "stop",
+    "terminate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ]
+  ]
+}

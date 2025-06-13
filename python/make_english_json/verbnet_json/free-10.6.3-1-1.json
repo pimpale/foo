@@ -1,0 +1,16 @@
+{
+  "members": [
+    "cure",
+    "relieve",
+    "purge",
+    "purify"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

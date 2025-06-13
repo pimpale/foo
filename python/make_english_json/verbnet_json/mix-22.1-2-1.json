@@ -1,0 +1,28 @@
+{
+  "members": [
+    "connect",
+    "join",
+    "link",
+    "pair",
+    "pool",
+    "network",
+    "rejoin",
+    "unite"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.patient"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "together"
+    ]
+  ]
+}

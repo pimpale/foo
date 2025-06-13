@@ -1,0 +1,36 @@
+{
+  "members": [
+    "chew",
+    "chomp",
+    "crunch",
+    "gnaw",
+    "gum",
+    "masticate",
+    "munch",
+    "nibble",
+    "pick",
+    "peck",
+    "lick",
+    "teethe",
+    "lap",
+    "sip",
+    "slurp",
+    "suck"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

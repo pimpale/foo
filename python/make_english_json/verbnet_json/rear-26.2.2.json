@@ -1,0 +1,15 @@
+{
+  "members": [
+    "grow",
+    "nurture",
+    "raise",
+    "rear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "members": [
+    "carry",
+    "contain",
+    "fit",
+    "feed",
+    "hibernate",
+    "hold",
+    "house",
+    "reseat",
+    "seat",
+    "serve",
+    "sleep",
+    "store",
+    "take"
+  ],
+  "primary_frames": [
+    [
+      "NP.location",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ]
+  ]
+}

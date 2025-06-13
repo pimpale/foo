@@ -1,0 +1,22 @@
+{
+  "members": [
+    "win"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.eventuality",
+      "S_ING"
+    ]
+  ]
+}

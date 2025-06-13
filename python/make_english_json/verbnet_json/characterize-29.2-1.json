@@ -1,0 +1,22 @@
+{
+  "members": [
+    "characterize",
+    "conceive",
+    "underestimate",
+    "view"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S_INF"
+    ]
+  ]
+}

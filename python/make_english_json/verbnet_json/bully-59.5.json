@@ -1,0 +1,40 @@
+{
+  "members": [
+    "annoy",
+    "badger",
+    "bait",
+    "bullock",
+    "bully",
+    "frighten",
+    "goad",
+    "harass",
+    "harry",
+    "hustle",
+    "nag",
+    "panic",
+    "shame",
+    "shock",
+    "taunt",
+    "tease",
+    "terrify"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

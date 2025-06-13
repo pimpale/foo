@@ -1,0 +1,32 @@
+{
+  "members": [
+    "argue",
+    "debate",
+    "discuss"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-agent"
+    ]
+  ]
+}

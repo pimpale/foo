@@ -1,0 +1,17 @@
+{
+  "members": [
+    "bounce",
+    "dart",
+    "float",
+    "roll",
+    "slide"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-dative",
+      "NP"
+    ]
+  ]
+}

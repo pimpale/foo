@@ -1,0 +1,28 @@
+{
+  "members": [
+    "appraise",
+    "assess",
+    "auction",
+    "calibrate",
+    "fix",
+    "gauge",
+    "peg",
+    "price",
+    "rate",
+    "reappraise",
+    "value"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.value"
+    ]
+  ]
+}

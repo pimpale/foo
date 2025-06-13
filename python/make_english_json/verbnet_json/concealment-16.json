@@ -1,0 +1,36 @@
+{
+  "members": [
+    "block",
+    "cloister",
+    "conceal",
+    "curtain",
+    "impound",
+    "isolate",
+    "quarantine",
+    "repress",
+    "screen",
+    "seclude",
+    "sequester",
+    "shelter",
+    "suppress"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

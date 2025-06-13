@@ -1,0 +1,28 @@
+{
+  "members": [
+    "cease",
+    "conclude",
+    "end",
+    "finish",
+    "stop",
+    "quit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.eventuality",
+      "PP.subeventuality"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.eventuality"
+    ]
+  ]
+}

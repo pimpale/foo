@@ -1,0 +1,55 @@
+{
+  "members": [
+    "check",
+    "comb",
+    "dive",
+    "drag",
+    "dredge",
+    "excavate",
+    "nose",
+    "patrol",
+    "plumb",
+    "probe",
+    "prospect",
+    "prowl",
+    "quarry",
+    "rake",
+    "rifle",
+    "scavenge",
+    "scour",
+    "scout",
+    "search",
+    "shop",
+    "sift",
+    "sweep",
+    "trawl",
+    "troll",
+    "watch",
+    "quest"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "NP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "members": [
+    "babysit",
+    "look_after",
+    "manage",
+    "mind",
+    "wait_on"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

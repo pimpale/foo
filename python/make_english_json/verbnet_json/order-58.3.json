@@ -1,0 +1,14 @@
+{
+  "members": [
+    "announce",
+    "demand",
+    "mandate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S"
+    ]
+  ]
+}

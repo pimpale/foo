@@ -1,0 +1,25 @@
+{
+  "members": [
+    "clean",
+    "hollow"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.source",
+      "PP.theme"
+    ]
+  ]
+}

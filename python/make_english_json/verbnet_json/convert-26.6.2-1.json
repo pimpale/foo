@@ -1,0 +1,16 @@
+{
+  "members": [
+    "return",
+    "revert",
+    "shift",
+    "turn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.source",
+      "PP.goal"
+    ]
+  ]
+}

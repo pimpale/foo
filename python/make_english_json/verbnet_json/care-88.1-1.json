@@ -1,0 +1,29 @@
+{
+  "members": [
+    "care",
+    "worry",
+    "wonder"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.stimulus",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus",
+      "how/whether",
+      "S"
+    ]
+  ]
+}

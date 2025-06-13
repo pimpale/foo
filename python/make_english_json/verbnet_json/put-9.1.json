@@ -1,0 +1,31 @@
+{
+  "members": [
+    "arrange",
+    "emplace",
+    "immerse",
+    "implant",
+    "lodge",
+    "mount",
+    "position",
+    "situate",
+    "sling",
+    "station",
+    "superimpose",
+    "tack_on",
+    "wharf"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADVP"
+    ]
+  ]
+}

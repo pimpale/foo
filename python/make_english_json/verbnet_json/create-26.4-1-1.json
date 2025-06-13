@@ -1,0 +1,19 @@
+{
+  "members": [
+    "conjure",
+    "craft",
+    "design",
+    "dig",
+    "draw",
+    "paint",
+    "spin"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.beneficiary",
+      "NP"
+    ]
+  ]
+}

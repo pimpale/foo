@@ -1,0 +1,18 @@
+{
+  "members": [
+    "bear",
+    "beget",
+    "birth",
+    "deliver",
+    "father",
+    "sire"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "members": [
+    "hit",
+    "run"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

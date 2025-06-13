@@ -1,0 +1,17 @@
+{
+  "members": [
+    "authorize",
+    "command",
+    "commission",
+    "order",
+    "require"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "members": [
+    "react",
+    "rebel",
+    "reply",
+    "respond",
+    "retaliate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.predicate"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "PP.predicate"
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "members": [
+    "call_on",
+    "dare",
+    "egg_on",
+    "force",
+    "invite",
+    "lean_on",
+    "push",
+    "summon",
+    "tempt"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ]
+  ]
+}

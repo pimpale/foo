@@ -1,0 +1,28 @@
+{
+  "members": [
+    "berth",
+    "dock",
+    "drydock",
+    "land",
+    "moor",
+    "ground",
+    "lodge",
+    "stable"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP"
+    ]
+  ]
+}

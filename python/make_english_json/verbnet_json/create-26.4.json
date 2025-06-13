@@ -1,0 +1,55 @@
+{
+  "members": [
+    "author",
+    "coin",
+    "compute",
+    "concoct",
+    "construct",
+    "contrive",
+    "cowrite",
+    "create",
+    "derive",
+    "fabricate",
+    "form",
+    "formulate",
+    "lay",
+    "manufacture",
+    "mass-produce",
+    "model",
+    "organize",
+    "produce",
+    "publish",
+    "rearrange",
+    "rebuild",
+    "reconstitute",
+    "reorganize",
+    "style",
+    "synthesize",
+    "turn-out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.material"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ]
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "members": [
+    "arrest",
+    "charge",
+    "indict",
+    "persecute",
+    "prosecute",
+    "punish",
+    "try"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute",
+      "PP.theme"
+    ]
+  ]
+}

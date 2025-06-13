@@ -1,0 +1,18 @@
+{
+  "members": [
+    "disregard",
+    "forgo",
+    "forego",
+    "ignore",
+    "leave_out",
+    "overleap",
+    "overlook"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

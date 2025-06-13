@@ -1,0 +1,21 @@
+{
+  "members": [],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

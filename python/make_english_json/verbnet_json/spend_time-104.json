@@ -1,0 +1,38 @@
+{
+  "members": [
+    "kill",
+    "lead",
+    "pass",
+    "serve",
+    "misspend",
+    "spend",
+    "use",
+    "waste"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "VP.predicate"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute",
+      "VP.predicate"
+    ]
+  ]
+}

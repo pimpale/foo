@@ -1,0 +1,47 @@
+{
+  "members": [
+    "alter",
+    "deform",
+    "metamorphose",
+    "morph",
+    "mutate",
+    "transform",
+    "translate",
+    "transmute"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.patient",
+      "PP.material",
+      "PP.result"
+    ],
+    [
+      "NP.patient",
+      "V",
+      "PP.material",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.patient",
+      "PP.result"
+    ],
+    [
+      "NP.patient",
+      "V",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

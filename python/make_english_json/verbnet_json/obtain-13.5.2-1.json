@@ -1,0 +1,20 @@
+{
+  "members": [
+    "acquire",
+    "obtain",
+    "purchase"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.asset"
+    ],
+    [
+      "NP.asset",
+      "V",
+      "NP"
+    ]
+  ]
+}

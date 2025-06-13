@@ -1,0 +1,12 @@
+{
+  "members": [
+    "deal"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

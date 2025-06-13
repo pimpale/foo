@@ -1,0 +1,23 @@
+{
+  "members": [
+    "mind"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "whether/if",
+      "S"
+    ]
+  ]
+}

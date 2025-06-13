@@ -1,0 +1,15 @@
+{
+  "members": [
+    "rule",
+    "govern",
+    "reign_over",
+    "superintend"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ]
+  ]
+}

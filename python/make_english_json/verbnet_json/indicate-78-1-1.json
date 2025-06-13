@@ -1,0 +1,25 @@
+{
+  "members": [
+    "affirm",
+    "reaffirm",
+    "disclose",
+    "verify",
+    "confirm",
+    "demonstrate",
+    "establish",
+    "prove",
+    "reveal",
+    "show",
+    "suggest"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ]
+  ]
+}

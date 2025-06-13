@@ -1,0 +1,39 @@
+{
+  "members": [
+    "cast",
+    "discard",
+    "drive"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destinations"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADVP"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    "annihilate",
+    "assassinate",
+    "bushwhack",
+    "butcher",
+    "dispatch",
+    "eliminate",
+    "euthanize",
+    "execute",
+    "exterminate",
+    "immolate",
+    "liquidate",
+    "lynch",
+    "massacre",
+    "murder",
+    "off",
+    "slaughter",
+    "slay"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "members": [],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.extent"
+    ],
+    [
+      "NP",
+      "V",
+      "ADV-Middle"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.extent",
+      "PP.trajectory"
+    ]
+  ]
+}

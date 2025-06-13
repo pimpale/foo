@@ -1,0 +1,24 @@
+{
+  "members": [
+    "discourage",
+    "dismiss",
+    "disparage",
+    "disprefer",
+    "pooh_pooh",
+    "reject"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ]
+  ]
+}

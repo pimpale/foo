@@ -1,0 +1,37 @@
+{
+  "members": [
+    "allure",
+    "attract",
+    "bewitch",
+    "cajole",
+    "coax",
+    "draw",
+    "entice",
+    "flatter",
+    "inveigle",
+    "lure",
+    "seduce",
+    "soothe",
+    "sweet-talk",
+    "win_over"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

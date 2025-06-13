@@ -1,0 +1,26 @@
+{
+  "members": [
+    "dig",
+    "jab",
+    "poke",
+    "stick"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.instsrument"
+    ],
+    [
+      "NP.instrument",
+      "V",
+      "NP.theme"
+    ]
+  ]
+}

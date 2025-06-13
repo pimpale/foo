@@ -1,0 +1,22 @@
+{
+  "members": [
+    "carry",
+    "cost",
+    "last",
+    "net",
+    "take"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.value"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "members": [
+    "drink",
+    "eat",
+    "huff"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "members": [
+    "extend"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP",
+      "PP"
+    ]
+  ]
+}

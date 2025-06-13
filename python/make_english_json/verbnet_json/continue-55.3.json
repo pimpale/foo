@@ -1,0 +1,25 @@
+{
+  "members": [
+    "continue"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ],
+    [
+      "NP.eventuality",
+      "V"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP.eventuality",
+      "V",
+      "PP.subeventuality"
+    ]
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "members": [
+    "bob",
+    "bow",
+    "curtsey",
+    "genuflect",
+    "kneel",
+    "salaam",
+    "salute"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ]
+  ]
+}

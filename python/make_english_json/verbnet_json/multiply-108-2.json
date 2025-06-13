@@ -1,0 +1,17 @@
+{
+  "members": [
+    "deduct",
+    "factor_out",
+    "interpolate",
+    "extrapolate",
+    "subtract"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-theme"
+    ]
+  ]
+}

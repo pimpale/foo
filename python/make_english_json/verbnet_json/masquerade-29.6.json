@@ -1,0 +1,18 @@
+{
+  "members": [
+    "behave",
+    "count",
+    "function",
+    "masquerade",
+    "officiate",
+    "qualify",
+    "rank"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

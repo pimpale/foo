@@ -1,0 +1,41 @@
+{
+  "members": [
+    "be",
+    "coexist",
+    "dwell",
+    "exist",
+    "extend",
+    "flourish",
+    "hold",
+    "languish",
+    "linger",
+    "live",
+    "loom",
+    "lurk",
+    "persist",
+    "predominate",
+    "prevail",
+    "prosper",
+    "remain",
+    "reside",
+    "shelter",
+    "stand",
+    "stay",
+    "thrive",
+    "tower",
+    "vegetate",
+    "wait",
+    "persevere"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

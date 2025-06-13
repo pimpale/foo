@@ -1,0 +1,29 @@
+{
+  "members": [
+    "convulse",
+    "cower",
+    "quake",
+    "quiver",
+    "shake",
+    "shiver",
+    "shudder",
+    "tremble",
+    "writhe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ]
+  ]
+}

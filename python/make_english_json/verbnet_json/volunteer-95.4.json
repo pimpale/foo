@@ -1,0 +1,24 @@
+{
+  "members": [
+    "offer"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

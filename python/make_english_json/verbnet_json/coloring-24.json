@@ -1,0 +1,38 @@
+{
+  "members": [
+    "color",
+    "distemper",
+    "dye",
+    "enamel",
+    "glaze",
+    "japan",
+    "lacquer",
+    "paint",
+    "repaint",
+    "shellac",
+    "spraypaint",
+    "stain",
+    "starch",
+    "tint",
+    "varnish"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

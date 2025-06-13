@@ -1,0 +1,31 @@
+{
+  "members": [
+    "loop",
+    "roll",
+    "rotate",
+    "spin",
+    "swirl",
+    "twine",
+    "whirl",
+    "wind"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "ADV-Middle",
+      "PP.location"
+    ]
+  ]
+}

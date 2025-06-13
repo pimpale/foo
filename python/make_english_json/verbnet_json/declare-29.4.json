@@ -1,0 +1,40 @@
+{
+  "members": [
+    "avow",
+    "confess"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

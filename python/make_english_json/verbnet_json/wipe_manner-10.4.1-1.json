@@ -1,0 +1,33 @@
+{
+  "members": [
+    "bail",
+    "dab",
+    "dust",
+    "erase",
+    "lick",
+    "pluck",
+    "prune",
+    "rinse",
+    "rub",
+    "scour",
+    "scrape",
+    "scratch",
+    "scrub",
+    "squeeze",
+    "strip",
+    "suck",
+    "suction",
+    "swab",
+    "sweep",
+    "wash",
+    "wear",
+    "wipe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP-Conative"
+    ]
+  ]
+}

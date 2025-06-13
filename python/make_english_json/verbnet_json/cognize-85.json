@@ -1,0 +1,26 @@
+{
+  "members": [
+    "cognize",
+    "daydream",
+    "dream",
+    "visualize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "members": [
+    "support",
+    "succor"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

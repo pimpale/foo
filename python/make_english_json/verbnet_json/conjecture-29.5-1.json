@@ -1,0 +1,23 @@
+{
+  "members": [
+    "anticipate",
+    "believe",
+    "expect",
+    "foreknow",
+    "foresee",
+    "foretell",
+    "guess",
+    "infer",
+    "presume",
+    "prophesy",
+    "trust",
+    "vaticinate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

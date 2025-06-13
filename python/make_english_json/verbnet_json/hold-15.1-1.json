@@ -1,0 +1,17 @@
+{
+  "members": [
+    "clasp",
+    "clutch",
+    "grab",
+    "grasp",
+    "grip",
+    "hold"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

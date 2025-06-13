@@ -1,0 +1,30 @@
+{
+  "members": [
+    "cadge",
+    "capture",
+    "cop",
+    "flog",
+    "grab",
+    "hook",
+    "nab",
+    "nick",
+    "pilfer",
+    "pirate",
+    "salvage",
+    "shoplift",
+    "smuggle",
+    "snatch",
+    "sneak",
+    "steal",
+    "swipe",
+    "wangle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ]
+  ]
+}

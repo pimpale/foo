@@ -1,0 +1,34 @@
+{
+  "members": [
+    "admonish",
+    "advise",
+    "caution",
+    "counsel",
+    "instruct",
+    "warn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "S-Quote"
+    ]
+  ]
+}

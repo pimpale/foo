@@ -1,0 +1,18 @@
+{
+  "members": [
+    "disdain",
+    "dislike",
+    "fear",
+    "hate",
+    "like",
+    "love",
+    "regret"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

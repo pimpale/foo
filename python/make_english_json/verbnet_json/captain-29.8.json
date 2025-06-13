@@ -1,0 +1,20 @@
+{
+  "members": [
+    "butcher",
+    "judge",
+    "lawyer",
+    "midwife",
+    "model",
+    "prostitute",
+    "soldier",
+    "volunteer",
+    "whore"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ]
+  ]
+}

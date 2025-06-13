@@ -1,0 +1,21 @@
+{
+  "members": [
+    "dedicate",
+    "devote",
+    "commit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ]
+  ]
+}

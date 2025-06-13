@@ -1,0 +1,14 @@
+{
+  "members": [
+    "elaborate",
+    "comment"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "S_ING"
+    ]
+  ]
+}

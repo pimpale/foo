@@ -1,0 +1,15 @@
+{
+  "members": [
+    "comprise",
+    "consist_of",
+    "encompass",
+    "contain"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

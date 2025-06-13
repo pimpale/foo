@@ -1,0 +1,39 @@
+{
+  "members": [
+    "use",
+    "utilize",
+    "apply",
+    "employ",
+    "exert",
+    "exploit",
+    "play",
+    "reuse",
+    "run",
+    "work"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADV"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.predicate"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ]
+  ]
+}

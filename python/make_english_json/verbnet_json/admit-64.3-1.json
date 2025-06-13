@@ -1,0 +1,23 @@
+{
+  "members": [
+    "admit",
+    "include",
+    "permit",
+    "receive",
+    "welcome"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADV"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ]
+  ]
+}

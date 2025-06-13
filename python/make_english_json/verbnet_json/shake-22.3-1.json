@@ -1,0 +1,20 @@
+{
+  "members": [
+    "lump",
+    "mass"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "together"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "members": [
+    "smell",
+    "sound",
+    "taste",
+    "keep"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADJ"
+    ]
+  ]
+}

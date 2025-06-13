@@ -1,0 +1,17 @@
+{
+  "members": [
+    "annul",
+    "quash",
+    "void",
+    "avoid",
+    "invalidate",
+    "nullify"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

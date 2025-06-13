@@ -1,0 +1,15 @@
+{
+  "members": [
+    "cram",
+    "read",
+    "relearn",
+    "study",
+    "learn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

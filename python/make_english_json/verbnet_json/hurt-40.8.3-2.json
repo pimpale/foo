@@ -1,0 +1,33 @@
+{
+  "members": [
+    "bark",
+    "bite",
+    "bruise",
+    "bump",
+    "burn",
+    "contuse",
+    "cut",
+    "hurt",
+    "injury",
+    "nick",
+    "prick",
+    "scald",
+    "scratch",
+    "skin",
+    "strain",
+    "sunburn",
+    "wrench"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

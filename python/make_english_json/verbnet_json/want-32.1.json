@@ -1,0 +1,16 @@
+{
+  "members": [
+    "covet",
+    "crave",
+    "desire",
+    "fancy",
+    "love"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

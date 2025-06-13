@@ -1,0 +1,35 @@
+{
+  "members": [
+    "matter",
+    "count"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.experiencer"
+    ],
+    [
+      "It",
+      "V",
+      "PP.experiencer",
+      "that",
+      "S"
+    ],
+    [
+      "It",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "That",
+      "S.stimulus",
+      "V"
+    ]
+  ]
+}

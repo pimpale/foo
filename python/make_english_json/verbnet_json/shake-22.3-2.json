@@ -1,0 +1,34 @@
+{
+  "members": [
+    "band",
+    "baste",
+    "cluster",
+    "collate",
+    "collect",
+    "fix",
+    "gather",
+    "glom",
+    "group",
+    "herd",
+    "pair",
+    "roll",
+    "sew",
+    "shake",
+    "shuffle",
+    "stick"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "together"
+    ]
+  ]
+}

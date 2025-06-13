@@ -1,0 +1,19 @@
+{
+  "members": [
+    "adhere",
+    "cleave",
+    "cling"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-theme"
+    ],
+    [
+      "NP",
+      "V",
+      "together"
+    ]
+  ]
+}

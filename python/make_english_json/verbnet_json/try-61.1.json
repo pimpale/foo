@@ -1,0 +1,23 @@
+{
+  "members": [
+    "try",
+    "attempt"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

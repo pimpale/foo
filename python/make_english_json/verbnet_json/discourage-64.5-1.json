@@ -1,0 +1,29 @@
+{
+  "members": [
+    "deter",
+    "discourage",
+    "hamper",
+    "hinder",
+    "impede",
+    "inhibit",
+    "obstruct",
+    "restrain"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

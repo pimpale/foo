@@ -1,0 +1,18 @@
+{
+  "members": [
+    "abandon"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.initial_location",
+      "PP.destination"
+    ]
+  ]
+}

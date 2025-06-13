@@ -1,0 +1,14 @@
+{
+  "members": [
+    "go_on",
+    "proceed",
+    "set_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

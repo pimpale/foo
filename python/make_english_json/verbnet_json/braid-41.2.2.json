@@ -1,0 +1,53 @@
+{
+  "members": [
+    "bob",
+    "braid",
+    "brush",
+    "clip",
+    "coldcream",
+    "comb",
+    "condition",
+    "crimp",
+    "crop",
+    "curl",
+    "cut",
+    "dye",
+    "file",
+    "gel",
+    "henna",
+    "highlight",
+    "lather",
+    "manicure",
+    "part",
+    "perm",
+    "paint",
+    "plait",
+    "pluck",
+    "powder",
+    "rinse",
+    "rouge",
+    "set",
+    "shampoo",
+    "soap",
+    "style",
+    "talc",
+    "tease",
+    "towel",
+    "trim",
+    "tweeze",
+    "wave",
+    "wax"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

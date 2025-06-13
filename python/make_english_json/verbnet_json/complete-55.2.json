@@ -1,0 +1,21 @@
+{
+  "members": [
+    "accomplish",
+    "achieve",
+    "bring-off",
+    "complete",
+    "pull-off"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

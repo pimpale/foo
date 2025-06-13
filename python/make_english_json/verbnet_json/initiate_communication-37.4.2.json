@@ -1,0 +1,17 @@
+{
+  "members": [
+    "buzz",
+    "get",
+    "get_ahold_of",
+    "get_hold_of",
+    "ping",
+    "reach"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ]
+  ]
+}

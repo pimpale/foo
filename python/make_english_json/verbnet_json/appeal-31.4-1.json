@@ -1,0 +1,18 @@
+{
+  "members": [
+    "grate",
+    "niggle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.experiencer"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.experiencer"
+    ]
+  ]
+}

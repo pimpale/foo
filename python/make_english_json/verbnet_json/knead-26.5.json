@@ -1,0 +1,46 @@
+{
+  "members": [
+    "ball",
+    "beat",
+    "bend",
+    "coil",
+    "collect",
+    "compress",
+    "contort",
+    "curve",
+    "distort",
+    "fold",
+    "flex",
+    "flux",
+    "knead",
+    "melt",
+    "shake",
+    "squash",
+    "squeeze",
+    "squish",
+    "twirl",
+    "twist",
+    "wad",
+    "whip",
+    "wind",
+    "work"
+  ],
+  "primary_frames": [
+    [
+      "NP.material",
+      "V",
+      "PP.product"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.material",
+      "PP.product"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.material"
+    ]
+  ]
+}

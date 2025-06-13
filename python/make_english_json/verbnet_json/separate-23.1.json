@@ -1,0 +1,35 @@
+{
+  "members": [
+    "disassociate",
+    "sever",
+    "uncoil"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle"
+    ]
+  ]
+}

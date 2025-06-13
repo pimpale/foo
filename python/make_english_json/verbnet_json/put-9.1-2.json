@@ -1,0 +1,16 @@
+{
+  "members": [
+    "place",
+    "put",
+    "set",
+    "stick"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.destination",
+      "NP"
+    ]
+  ]
+}

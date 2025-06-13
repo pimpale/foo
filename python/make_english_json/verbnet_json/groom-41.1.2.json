@@ -1,0 +1,15 @@
+{
+  "members": [
+    "cleanse",
+    "curry",
+    "groom",
+    "neaten"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "members": [
+    "advert",
+    "come_around",
+    "fall",
+    "get",
+    "get_around",
+    "get_down",
+    "go_back",
+    "resort",
+    "return",
+    "revert",
+    "settle_down",
+    "take",
+    "turn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.goal"
+    ]
+  ]
+}

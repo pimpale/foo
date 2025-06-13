@@ -1,0 +1,39 @@
+{
+  "members": [
+    "banish",
+    "deport",
+    "discharge",
+    "dismiss",
+    "evacuate",
+    "exile",
+    "expel",
+    "extradite",
+    "recall",
+    "recuse",
+    "remove",
+    "shanghai",
+    "turn-away",
+    "turn-back",
+    "turn-out",
+    "boot"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

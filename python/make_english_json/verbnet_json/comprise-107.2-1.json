@@ -1,0 +1,17 @@
+{
+  "members": [
+    "comprise",
+    "compose",
+    "make",
+    "make_up",
+    "constitute",
+    "form"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

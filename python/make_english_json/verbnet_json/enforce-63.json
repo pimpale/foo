@@ -1,0 +1,20 @@
+{
+  "members": [
+    "control",
+    "enforce",
+    "impose"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

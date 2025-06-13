@@ -1,0 +1,13 @@
+{
+  "members": [
+    "average"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-theme"
+    ]
+  ]
+}

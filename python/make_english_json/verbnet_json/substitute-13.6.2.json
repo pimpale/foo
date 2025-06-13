@@ -1,0 +1,26 @@
+{
+  "members": [
+    "substitute",
+    "swap",
+    "swap_out",
+    "switch"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-theme"
+    ]
+  ]
+}

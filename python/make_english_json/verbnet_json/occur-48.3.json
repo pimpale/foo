@@ -1,0 +1,24 @@
+{
+  "members": [
+    "go_on",
+    "fall",
+    "recur",
+    "take_place"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "There",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

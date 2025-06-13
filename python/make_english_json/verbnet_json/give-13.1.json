@@ -1,0 +1,36 @@
+{
+  "members": [
+    "deal",
+    "give-back",
+    "lend",
+    "loan",
+    "pass",
+    "peddle",
+    "refund",
+    "render"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient"
+    ]
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "members": [
+    "bang_away",
+    "labor",
+    "labour",
+    "plug_away",
+    "slog_away",
+    "work"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent",
+      "PP.theme",
+      "S_ING"
+    ]
+  ]
+}

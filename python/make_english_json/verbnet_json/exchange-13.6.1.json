@@ -1,0 +1,33 @@
+{
+  "members": [
+    "barter",
+    "change",
+    "exchange",
+    "swap",
+    "trade"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

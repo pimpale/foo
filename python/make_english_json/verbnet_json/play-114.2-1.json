@@ -1,0 +1,33 @@
+{
+  "members": [
+    "play"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

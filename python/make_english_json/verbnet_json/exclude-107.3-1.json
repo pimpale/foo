@@ -1,0 +1,15 @@
+{
+  "members": [
+    "exclude",
+    "preclude"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal",
+      "S_ING"
+    ]
+  ]
+}

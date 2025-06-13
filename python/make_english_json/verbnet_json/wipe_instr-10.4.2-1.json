@@ -1,0 +1,22 @@
+{
+  "members": [
+    "brush",
+    "comb",
+    "hose",
+    "mop",
+    "plow",
+    "rake",
+    "shear",
+    "shovel",
+    "siphon",
+    "vacuum"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

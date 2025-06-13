@@ -1,0 +1,21 @@
+{
+  "members": [
+    "build",
+    "die"
+  ],
+  "primary_frames": [
+    [
+      "NP.attribute",
+      "V"
+    ],
+    [
+      "NP.patient",
+      "V",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

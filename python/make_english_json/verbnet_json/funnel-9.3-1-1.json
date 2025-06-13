@@ -1,0 +1,22 @@
+{
+  "members": [
+    "bang",
+    "dump",
+    "funnel",
+    "hammer",
+    "pound",
+    "push",
+    "ram",
+    "shake",
+    "squeeze",
+    "sweep",
+    "wedge"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.destination"
+    ]
+  ]
+}

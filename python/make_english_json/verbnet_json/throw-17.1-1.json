@@ -1,0 +1,37 @@
+{
+  "members": [
+    "bash",
+    "bat",
+    "bunt",
+    "chuck",
+    "fire",
+    "flick",
+    "fling",
+    "flip",
+    "hit",
+    "hurl",
+    "knock",
+    "lob",
+    "loft",
+    "nudge",
+    "pass",
+    "pitch",
+    "punt",
+    "shoot",
+    "shove",
+    "slam",
+    "slap",
+    "sling",
+    "smash",
+    "tap",
+    "boot"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ]
+  ]
+}

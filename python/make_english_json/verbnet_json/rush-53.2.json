@@ -1,0 +1,19 @@
+{
+  "members": [
+    "hasten",
+    "hurry",
+    "rush"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.eventuality"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ]
+  ]
+}

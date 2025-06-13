@@ -1,0 +1,35 @@
+{
+  "members": [
+    "bang",
+    "bash",
+    "brush",
+    "bump",
+    "butt",
+    "clang",
+    "clash",
+    "clatter",
+    "collide",
+    "crack",
+    "crash",
+    "crunch",
+    "hammer",
+    "knock",
+    "ram",
+    "rap",
+    "slam",
+    "slap",
+    "smack",
+    "smash",
+    "squash",
+    "strike",
+    "thud",
+    "thump"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "together"
+    ]
+  ]
+}

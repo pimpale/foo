@@ -1,0 +1,36 @@
+{
+  "members": [
+    "develop",
+    "evolve",
+    "generate",
+    "grow",
+    "hatch",
+    "maturate",
+    "mature",
+    "redevelop"
+  ],
+  "primary_frames": [
+    [
+      "NP.patient",
+      "V",
+      "PP.product"
+    ],
+    [
+      "NP.product",
+      "V",
+      "PP.patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.product",
+      "PP.patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.patient",
+      "PP.product"
+    ]
+  ]
+}

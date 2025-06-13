@@ -1,0 +1,55 @@
+{
+  "members": [
+    "angle",
+    "cascade",
+    "crawl",
+    "crest",
+    "cross",
+    "cut",
+    "dive",
+    "edge",
+    "emerge",
+    "fall",
+    "go",
+    "lance",
+    "mount",
+    "pass",
+    "round",
+    "skirt",
+    "straggle",
+    "stretch",
+    "sweep",
+    "tumble",
+    "wander",
+    "weave",
+    "wind",
+    "range",
+    "veer",
+    "zag",
+    "zig"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "PP.location",
+      "V",
+      "NP"
+    ],
+    [
+      "There",
+      "V",
+      "PP",
+      "NP"
+    ],
+    [
+      "There",
+      "V",
+      "NP",
+      "PP"
+    ]
+  ]
+}

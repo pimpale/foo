@@ -1,0 +1,39 @@
+{
+  "members": [
+    "focus",
+    "focalize",
+    "center",
+    "concentrate",
+    "contemplate",
+    "converge",
+    "dwell",
+    "fixate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

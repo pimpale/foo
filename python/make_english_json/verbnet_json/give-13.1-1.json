@@ -1,0 +1,34 @@
+{
+  "members": [
+    "give",
+    "hock",
+    "hawk",
+    "let",
+    "rent",
+    "sell",
+    "lease",
+    "pawn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.asset"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient",
+      "PP.asset"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP",
+      "PP.asset"
+    ]
+  ]
+}

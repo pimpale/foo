@@ -1,0 +1,18 @@
+{
+  "members": [
+    "aim"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ]
+  ]
+}

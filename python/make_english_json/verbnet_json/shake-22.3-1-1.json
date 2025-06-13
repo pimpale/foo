@@ -1,0 +1,24 @@
+{
+  "members": [
+    "beat",
+    "fuse",
+    "scramble",
+    "stir",
+    "swirl",
+    "whip",
+    "whisk"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP",
+      "ADV-Middle"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "suspect",
+    "think",
+    "suppose",
+    "posit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ]
+  ]
+}

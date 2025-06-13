@@ -1,0 +1,25 @@
+{
+  "members": [
+    "clear",
+    "drain",
+    "empty"
+  ],
+  "primary_frames": [
+    [
+      "NP.Source",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source",
+      "PP.destination"
+    ]
+  ]
+}

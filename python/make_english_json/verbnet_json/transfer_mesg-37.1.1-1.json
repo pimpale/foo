@@ -1,0 +1,15 @@
+{
+  "members": [
+    "dictate",
+    "quote",
+    "read"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-Dative",
+      "NP"
+    ]
+  ]
+}

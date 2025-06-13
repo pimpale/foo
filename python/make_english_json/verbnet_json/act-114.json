@@ -1,0 +1,20 @@
+{
+  "members": [
+    "action",
+    "carry_out",
+    "carry_through",
+    "conduct",
+    "execute",
+    "fulfill",
+    "make",
+    "cause",
+    "engage_in"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

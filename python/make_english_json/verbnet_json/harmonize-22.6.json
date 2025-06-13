@@ -1,0 +1,37 @@
+{
+  "members": [
+    "alternate",
+    "cohere",
+    "couple",
+    "dovetail",
+    "go",
+    "pair",
+    "harmonize",
+    "jibe",
+    "match",
+    "rhyme",
+    "square"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADV"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "ADV",
+      "PP"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

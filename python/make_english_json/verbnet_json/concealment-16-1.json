@@ -1,0 +1,21 @@
+{
+  "members": [
+    "hide"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ]
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "members": [
+    "ban",
+    "bar",
+    "block",
+    "exclude",
+    "forbid",
+    "preclude",
+    "prevent",
+    "prohibit",
+    "stop"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

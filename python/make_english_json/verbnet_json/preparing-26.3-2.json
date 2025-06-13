@@ -1,0 +1,43 @@
+{
+  "members": [
+    "barbeque",
+    "barbecue",
+    "boil",
+    "broil",
+    "clean",
+    "fry",
+    "grill",
+    "hardboil",
+    "iron",
+    "microwave",
+    "overbake",
+    "poach",
+    "pour",
+    "roast",
+    "scramble",
+    "set",
+    "softboil",
+    "toast",
+    "wash",
+    "weld"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.beneficiary",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ]
+  ]
+}

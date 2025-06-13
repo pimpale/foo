@@ -1,0 +1,18 @@
+{
+  "members": [
+    "intermarry"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADVP-Middle",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle"
+    ]
+  ]
+}

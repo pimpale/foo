@@ -1,0 +1,13 @@
+{
+  "members": [
+    "attend",
+    "patronize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

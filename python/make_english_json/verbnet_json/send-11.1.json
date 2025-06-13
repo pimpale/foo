@@ -1,0 +1,53 @@
+{
+  "members": [
+    "convey",
+    "deliver",
+    "dispatch",
+    "drive",
+    "handdeliver",
+    "pass_on",
+    "port",
+    "post",
+    "return",
+    "shift",
+    "shunt",
+    "transfer",
+    "transport",
+    "export",
+    "import",
+    "transship"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination",
+      "PP.initial_location"
+    ]
+  ]
+}

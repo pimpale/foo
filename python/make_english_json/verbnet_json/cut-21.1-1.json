@@ -1,0 +1,31 @@
+{
+  "members": [
+    "chip",
+    "chop",
+    "clip",
+    "cut",
+    "hack",
+    "hew",
+    "rip",
+    "saw",
+    "scarify",
+    "scrape",
+    "scratch",
+    "slash",
+    "slice",
+    "snip",
+    "ream"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

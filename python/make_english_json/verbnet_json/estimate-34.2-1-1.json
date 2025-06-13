@@ -1,0 +1,24 @@
+{
+  "members": [
+    "approximate",
+    "assess",
+    "gauge",
+    "guess",
+    "judge",
+    "project"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "whether/if",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "whether/if",
+      "S_INF"
+    ]
+  ]
+}

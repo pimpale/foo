@@ -1,0 +1,19 @@
+{
+  "members": [
+    "talk"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

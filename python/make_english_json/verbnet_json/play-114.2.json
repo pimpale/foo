@@ -1,0 +1,21 @@
+{
+  "members": [
+    "frolic",
+    "recreate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

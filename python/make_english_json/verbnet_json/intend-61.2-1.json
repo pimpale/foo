@@ -1,0 +1,17 @@
+{
+  "members": [
+    "mean"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "S"
+    ]
+  ]
+}

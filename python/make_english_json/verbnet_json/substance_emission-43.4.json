@@ -1,0 +1,16 @@
+{
+  "members": [
+    "give",
+    "give_off",
+    "give_out",
+    "give_forth",
+    "emit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

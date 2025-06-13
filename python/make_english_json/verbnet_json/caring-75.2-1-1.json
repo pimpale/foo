@@ -1,0 +1,13 @@
+{
+  "members": [
+    "attend",
+    "tend"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

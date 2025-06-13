@@ -1,0 +1,25 @@
+{
+  "members": [
+    "break_down",
+    "croak",
+    "die",
+    "expire",
+    "fall_apart",
+    "go_out",
+    "go_down",
+    "go_off",
+    "give_out",
+    "give_way",
+    "give",
+    "kick_the_bucket",
+    "perish",
+    "poop_out",
+    "fizzle_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "members": [
+    "branch",
+    "deviate",
+    "differ",
+    "diverge",
+    "vary"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-theme"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

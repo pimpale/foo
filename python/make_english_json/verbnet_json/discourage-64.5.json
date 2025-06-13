@@ -1,0 +1,13 @@
+{
+  "members": [
+    "dissuade"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.eventuality"
+    ]
+  ]
+}

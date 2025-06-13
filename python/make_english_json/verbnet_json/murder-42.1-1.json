@@ -1,0 +1,13 @@
+{
+  "members": [
+    "kill",
+    "kill-off"
+  ],
+  "primary_frames": [
+    [
+      "NP.instrument",
+      "V",
+      "NP"
+    ]
+  ]
+}

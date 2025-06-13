@@ -1,0 +1,33 @@
+{
+  "members": [
+    "coincide",
+    "correlate",
+    "alternate",
+    "flip-flop",
+    "co-occur"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ]
+  ]
+}

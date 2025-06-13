@@ -1,0 +1,35 @@
+{
+  "members": [
+    "grasp",
+    "comprehend",
+    "apprehend",
+    "follow",
+    "fathom",
+    "get",
+    "read",
+    "realize",
+    "recognise",
+    "recognize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ]
+  ]
+}

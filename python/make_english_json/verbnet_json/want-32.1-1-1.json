@@ -1,0 +1,25 @@
+{
+  "members": [
+    "want",
+    "need",
+    "like",
+    "prefer",
+    "desire"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "ADJ"
+    ]
+  ]
+}

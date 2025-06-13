@@ -1,0 +1,13 @@
+{
+  "members": [
+    "seem",
+    "appear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "members": [
+    "apprentice",
+    "beggar",
+    "cripple",
+    "cuckold",
+    "knight",
+    "martyr",
+    "orphan",
+    "outlaw",
+    "pauper",
+    "recruit",
+    "whore",
+    "widow"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

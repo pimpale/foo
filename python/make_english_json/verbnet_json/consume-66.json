@@ -1,0 +1,19 @@
+{
+  "members": [
+    "use",
+    "consume"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ]
+  ]
+}

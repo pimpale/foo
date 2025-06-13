@@ -1,0 +1,34 @@
+{
+  "members": [
+    "approach",
+    "brave",
+    "breast",
+    "combat",
+    "confront",
+    "counter",
+    "face",
+    "go_about",
+    "handle",
+    "head_on",
+    "intercept",
+    "move_in_on",
+    "pre-empt",
+    "tackle",
+    "take_on",
+    "target",
+    "undertake"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

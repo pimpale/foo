@@ -1,0 +1,37 @@
+{
+  "members": [
+    "ensure",
+    "assure",
+    "guarantee",
+    "insure",
+    "secure",
+    "ascertain",
+    "reinsure",
+    "provide"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

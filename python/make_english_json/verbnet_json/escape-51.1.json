@@ -1,0 +1,25 @@
+{
+  "members": [
+    "cut",
+    "get",
+    "make_it"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.trajectory"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.initial_location",
+      "PP.destination"
+    ]
+  ]
+}

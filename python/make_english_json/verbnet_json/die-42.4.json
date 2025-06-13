@@ -1,0 +1,18 @@
+{
+  "members": [
+    "buy_the_farm",
+    "decease",
+    "fall",
+    "give_up_the_ghost",
+    "kick_the_bucket",
+    "pass",
+    "pop_off",
+    "snuff_it"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

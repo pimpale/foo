@@ -1,0 +1,49 @@
+{
+  "members": [
+    "antique",
+    "berry",
+    "birdnest",
+    "blackberry",
+    "clam",
+    "crab",
+    "fish",
+    "fowl",
+    "grouse",
+    "hog",
+    "hay",
+    "log",
+    "mushroom",
+    "nest",
+    "nut",
+    "oyster",
+    "pearl",
+    "prawn",
+    "rabbit",
+    "scollop",
+    "seal",
+    "shark",
+    "shrimp",
+    "snail",
+    "snipe",
+    "sponge",
+    "whale",
+    "whelk",
+    "whore",
+    "hawk"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

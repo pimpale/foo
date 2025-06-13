@@ -1,0 +1,19 @@
+{
+  "members": [
+    "consume",
+    "devour",
+    "down",
+    "have",
+    "imbibe",
+    "ingest",
+    "swill",
+    "take"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

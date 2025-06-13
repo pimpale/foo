@@ -1,0 +1,22 @@
+{
+  "members": [
+    "pay",
+    "repay",
+    "tithe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ]
+  ]
+}

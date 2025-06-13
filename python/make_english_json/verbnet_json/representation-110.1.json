@@ -1,0 +1,23 @@
+{
+  "members": [
+    "be",
+    "denote",
+    "mean",
+    "represent",
+    "signify",
+    "symbolize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ]
+  ]
+}

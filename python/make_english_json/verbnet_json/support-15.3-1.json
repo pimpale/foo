@@ -1,0 +1,20 @@
+{
+  "members": [
+    "bolster",
+    "boost",
+    "buttress",
+    "buoy",
+    "hold_up",
+    "reinforce",
+    "strengthen",
+    "support"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

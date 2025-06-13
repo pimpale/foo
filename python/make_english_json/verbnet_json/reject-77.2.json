@@ -1,0 +1,20 @@
+{
+  "members": [
+    "decline",
+    "rebuff",
+    "refuse",
+    "turn-down"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

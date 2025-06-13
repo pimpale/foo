@@ -1,0 +1,57 @@
+{
+  "members": [
+    "beckon",
+    "blink",
+    "clap",
+    "gesture",
+    "nod",
+    "point",
+    "shrug",
+    "squint",
+    "wave",
+    "wink"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "members": [
+    "appreciate",
+    "misconstrue",
+    "misinterpret",
+    "misunderstand",
+    "misapprehend"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "why",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

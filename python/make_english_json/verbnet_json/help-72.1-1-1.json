@@ -1,0 +1,15 @@
+{
+  "members": [
+    "aid",
+    "abet",
+    "assist",
+    "help"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "members": [
+    "apply",
+    "bury",
+    "build-in",
+    "deposit",
+    "embed",
+    "insert",
+    "install",
+    "park",
+    "plant",
+    "reinstall",
+    "stash",
+    "stow"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

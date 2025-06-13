@@ -1,0 +1,31 @@
+{
+  "members": [
+    "tell_apart"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.co-theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme",
+      "PP.co-theme",
+      "PP.instrument"
+    ]
+  ]
+}

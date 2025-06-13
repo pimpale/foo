@@ -1,0 +1,32 @@
+{
+  "members": [
+    "burgle",
+    "despoil",
+    "disabuse",
+    "plunder",
+    "rid",
+    "depopulate",
+    "bereave",
+    "denude",
+    "disarm",
+    "drain",
+    "dispossess",
+    "deplete",
+    "divest",
+    "deprive",
+    "sap"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

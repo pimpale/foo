@@ -1,0 +1,17 @@
+{
+  "members": [
+    "answer",
+    "reciprocate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

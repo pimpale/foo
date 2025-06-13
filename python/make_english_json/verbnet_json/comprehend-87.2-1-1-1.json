@@ -1,0 +1,39 @@
+{
+  "members": [
+    "know",
+    "understand"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ]
+  ]
+}

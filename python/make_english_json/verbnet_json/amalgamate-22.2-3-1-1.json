@@ -1,0 +1,13 @@
+{
+  "members": [
+    "marry",
+    "remarry",
+    "wed"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

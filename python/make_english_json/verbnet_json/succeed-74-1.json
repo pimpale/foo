@@ -1,0 +1,23 @@
+{
+  "members": [
+    "succeed",
+    "excel"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.eventuality",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.eventuality"
+    ]
+  ]
+}

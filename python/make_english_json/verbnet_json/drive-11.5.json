@@ -1,0 +1,46 @@
+{
+  "members": [
+    "bike",
+    "drive",
+    "row",
+    "motor",
+    "paddle",
+    "tool",
+    "tool_around",
+    "trundle",
+    "wheel"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination",
+      "PP.initial_location"
+    ]
+  ]
+}

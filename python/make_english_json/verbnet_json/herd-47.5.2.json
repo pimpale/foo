@@ -1,0 +1,36 @@
+{
+  "members": [
+    "accumulate",
+    "aggregate",
+    "amass",
+    "assemble",
+    "cluster",
+    "collect",
+    "congregate",
+    "convene",
+    "flock",
+    "gather",
+    "group",
+    "herd",
+    "huddle",
+    "mass",
+    "reconvene"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "together"
+    ]
+  ]
+}

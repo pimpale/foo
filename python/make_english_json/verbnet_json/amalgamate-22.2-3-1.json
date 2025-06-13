@@ -1,0 +1,14 @@
+{
+  "members": [
+    "introduce",
+    "figure"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-patient"
+    ]
+  ]
+}

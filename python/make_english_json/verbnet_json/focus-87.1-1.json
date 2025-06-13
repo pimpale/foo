@@ -1,0 +1,44 @@
+{
+  "members": [
+    "brood",
+    "deliberate",
+    "meditate",
+    "muse",
+    "ponder",
+    "reflect",
+    "ruminate",
+    "think",
+    "wonder"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

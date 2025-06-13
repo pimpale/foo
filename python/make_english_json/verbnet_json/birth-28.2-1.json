@@ -1,0 +1,17 @@
+{
+  "members": [
+    "bring_forth",
+    "generate",
+    "get",
+    "have",
+    "mother",
+    "spawn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

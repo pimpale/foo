@@ -1,0 +1,51 @@
+{
+  "members": [
+    "bow",
+    "crouch",
+    "hover",
+    "huddle",
+    "hunch",
+    "jut",
+    "kneel",
+    "lean",
+    "lie",
+    "loll",
+    "loom",
+    "lounge",
+    "protrude",
+    "repose",
+    "rise",
+    "roost",
+    "sag",
+    "slouch",
+    "slump",
+    "suspend",
+    "squat",
+    "stoop",
+    "swag",
+    "tower",
+    "yaw"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "There",
+      "V",
+      "PP",
+      "NP"
+    ],
+    [
+      "PP.location",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "members": [
+    "consult",
+    "deliberate",
+    "meet",
+    "play",
+    "remonstrate",
+    "reunite",
+    "visit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

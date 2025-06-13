@@ -1,0 +1,44 @@
+{
+  "members": [
+    "bake",
+    "blend",
+    "brew",
+    "clear",
+    "cook",
+    "cook_up",
+    "fix",
+    "kindle",
+    "light",
+    "mix",
+    "prepare",
+    "ready",
+    "roll",
+    "run",
+    "toss",
+    "cultivate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.beneficiary",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ]
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "members": [
+    "boogie",
+    "bop",
+    "cancan",
+    "clog",
+    "conga",
+    "dance",
+    "foxtrot",
+    "jig",
+    "jitterbug",
+    "jive",
+    "pirouette",
+    "polka",
+    "quickstep",
+    "rumba",
+    "samba",
+    "shuffle",
+    "squaredance",
+    "tango",
+    "tapdance",
+    "waltz"
+  ],
+  "primary_frames": [
+    [
+      "NP.theme",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.trajectory",
+      "PP.goal"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.trajectory"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ]
+  ]
+}

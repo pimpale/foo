@@ -1,0 +1,37 @@
+{
+  "members": [
+    "avoid",
+    "boycott",
+    "circumvent",
+    "dodge",
+    "duck",
+    "elude",
+    "eschew",
+    "evade",
+    "forgo",
+    "shun",
+    "sidestep"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

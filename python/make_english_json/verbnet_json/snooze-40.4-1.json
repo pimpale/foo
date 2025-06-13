@@ -1,0 +1,13 @@
+{
+  "members": [
+    "nap",
+    "sleep"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

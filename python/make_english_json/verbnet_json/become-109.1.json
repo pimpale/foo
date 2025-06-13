@@ -1,0 +1,15 @@
+{
+  "members": [
+    "come_out",
+    "get",
+    "turn",
+    "turn_up"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADJ"
+    ]
+  ]
+}

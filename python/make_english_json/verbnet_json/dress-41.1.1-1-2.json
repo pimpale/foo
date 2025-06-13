@@ -1,0 +1,14 @@
+{
+  "members": [
+    "attire",
+    "clothe",
+    "garb",
+    "outfit",
+    "robe"
+  ],
+  "primary_frames": [
+    [
+      "Passive"
+    ]
+  ]
+}

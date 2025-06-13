@@ -1,0 +1,15 @@
+{
+  "members": [
+    "disconnect",
+    "dissociate",
+    "part",
+    "separate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-patient"
+    ]
+  ]
+}

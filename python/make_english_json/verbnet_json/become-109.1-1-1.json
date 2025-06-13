@@ -1,0 +1,14 @@
+{
+  "members": [
+    "become",
+    "end_up",
+    "leave"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

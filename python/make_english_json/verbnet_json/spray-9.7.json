@@ -1,0 +1,29 @@
+{
+  "members": [
+    "overload"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.destination",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.destination"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "members": [
+    "hold",
+    "maintain",
+    "sustain",
+    "prolong",
+    "protract",
+    "keep_up",
+    "continue",
+    "carry_on"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ]
+  ]
+}

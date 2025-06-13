@@ -1,0 +1,16 @@
+{
+  "members": [
+    "commit",
+    "recommit",
+    "send",
+    "confine"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

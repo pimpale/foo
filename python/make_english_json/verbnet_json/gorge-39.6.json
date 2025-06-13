@@ -1,0 +1,19 @@
+{
+  "members": [
+    "exist",
+    "feed",
+    "flourish",
+    "gorge",
+    "prosper",
+    "subsist",
+    "survive",
+    "thrive"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.patient"
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "members": [
+    "gush",
+    "lecture",
+    "moralize",
+    "preach",
+    "rant",
+    "rave",
+    "remark",
+    "rhapsodize",
+    "speak",
+    "speak_out",
+    "speak_up",
+    "talk",
+    "testify",
+    "theorize",
+    "write",
+    "pontificate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "PP.topic"
+    ]
+  ]
+}

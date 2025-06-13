@@ -1,0 +1,17 @@
+{
+  "members": [
+    "curl",
+    "coil",
+    "hook",
+    "swing",
+    "twirl",
+    "twist"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "ADV-Middle"
+    ]
+  ]
+}

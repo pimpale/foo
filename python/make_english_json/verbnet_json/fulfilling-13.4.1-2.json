@@ -1,0 +1,12 @@
+{
+  "members": [
+    "provide"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.recipient"
+    ]
+  ]
+}

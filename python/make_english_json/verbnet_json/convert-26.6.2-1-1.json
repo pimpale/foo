@@ -1,0 +1,32 @@
+{
+  "members": [
+    "change_over",
+    "convert",
+    "move_over",
+    "switch",
+    "switch_over"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ]
+  ]
+}

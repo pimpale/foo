@@ -1,0 +1,22 @@
+{
+  "members": [
+    "benefit",
+    "profit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

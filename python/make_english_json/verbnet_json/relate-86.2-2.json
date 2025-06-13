@@ -1,0 +1,14 @@
+{
+  "members": [
+    "refer",
+    "pertain",
+    "relate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-theme"
+    ]
+  ]
+}

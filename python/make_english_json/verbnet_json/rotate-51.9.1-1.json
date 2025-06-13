@@ -1,0 +1,29 @@
+{
+  "members": [
+    "curl",
+    "coil",
+    "hook",
+    "rotate",
+    "spin",
+    "swing",
+    "turn",
+    "twirl",
+    "twist",
+    "wind"
+  ],
+  "primary_frames": [
+    [
+      "NP.agent",
+      "V",
+      "NP.theme",
+      "NP.extent"
+    ],
+    [
+      "NP.agent",
+      "V",
+      "NP.theme",
+      "NP.extent",
+      "PP.trajectory"
+    ]
+  ]
+}

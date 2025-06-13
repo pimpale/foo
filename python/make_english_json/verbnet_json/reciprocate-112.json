@@ -1,0 +1,18 @@
+{
+  "members": [
+    "return"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP"
+    ]
+  ]
+}

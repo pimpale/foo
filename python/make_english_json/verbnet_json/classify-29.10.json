@@ -1,0 +1,43 @@
+{
+  "members": [
+    "bracket",
+    "categorize",
+    "catalogue",
+    "chunk",
+    "classify",
+    "class",
+    "code",
+    "constellate",
+    "grade",
+    "group",
+    "isolate",
+    "lump",
+    "number",
+    "reclassify",
+    "recode",
+    "regroup",
+    "seed",
+    "separate",
+    "sort",
+    "sort_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ]
+  ]
+}

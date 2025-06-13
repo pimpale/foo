@@ -1,0 +1,15 @@
+{
+  "members": [
+    "charge",
+    "invest",
+    "ply"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP-Fulfilling",
+      "PP"
+    ]
+  ]
+}

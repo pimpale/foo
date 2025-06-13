@@ -1,0 +1,19 @@
+{
+  "members": [
+    "lose",
+    "flub"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.eventuality",
+      "S_ING"
+    ]
+  ]
+}

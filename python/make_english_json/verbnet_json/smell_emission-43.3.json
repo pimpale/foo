@@ -1,0 +1,22 @@
+{
+  "members": [
+    "reek",
+    "smell",
+    "stink"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP.location",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

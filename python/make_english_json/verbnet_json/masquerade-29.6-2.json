@@ -1,0 +1,18 @@
+{
+  "members": [
+    "serve",
+    "pose"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

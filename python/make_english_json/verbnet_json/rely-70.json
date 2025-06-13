@@ -1,0 +1,47 @@
+{
+  "members": [
+    "rely",
+    "depend",
+    "bank",
+    "bargain",
+    "count",
+    "figure",
+    "reckon",
+    "bet",
+    "gamble",
+    "take_a_chance",
+    "wager"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

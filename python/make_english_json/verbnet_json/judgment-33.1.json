@@ -1,0 +1,33 @@
+{
+  "members": [
+    "abuse",
+    "assault",
+    "backbite",
+    "badmouth",
+    "blame",
+    "blaspheme",
+    "condone",
+    "find_fault_with",
+    "gibe",
+    "imprecate",
+    "slang"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.attribute"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "members": [
+    "rob",
+    "bleed",
+    "strip",
+    "milk",
+    "cull"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source",
+      "PP.beneficiary"
+    ]
+  ]
+}

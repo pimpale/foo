@@ -1,0 +1,28 @@
+{
+  "members": [
+    "copy",
+    "forge",
+    "jot",
+    "jot_down",
+    "misspell",
+    "spell",
+    "take",
+    "take_down",
+    "trace",
+    "underscore",
+    "underline"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ]
+  ]
+}

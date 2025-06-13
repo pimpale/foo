@@ -1,0 +1,40 @@
+{
+  "members": [
+    "base",
+    "establish",
+    "ground",
+    "found",
+    "build",
+    "construe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source",
+      "whether",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source",
+      "S"
+    ]
+  ]
+}

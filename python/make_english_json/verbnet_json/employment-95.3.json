@@ -1,0 +1,44 @@
+{
+  "members": [
+    "clerk",
+    "freelance",
+    "subcontract",
+    "temp",
+    "work"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "PP.beneficary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.attribute",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.attribute",
+      "PP.theme",
+      "PP.beneficiary"
+    ]
+  ]
+}

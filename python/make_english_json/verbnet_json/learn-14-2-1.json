@@ -1,0 +1,35 @@
+{
+  "members": [
+    "find_out",
+    "hear",
+    "learn",
+    "read",
+    "study"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "PP.source"
+    ]
+  ]
+}

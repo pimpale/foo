@@ -1,0 +1,13 @@
+{
+  "members": [
+    "buy",
+    "speculate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "members": [
+    "clock",
+    "measure",
+    "read",
+    "register",
+    "total",
+    "weigh"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.value"
+    ]
+  ]
+}

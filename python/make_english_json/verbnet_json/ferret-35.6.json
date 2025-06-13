@@ -1,0 +1,20 @@
+{
+  "members": [
+    "ferret_out",
+    "nose",
+    "tease"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

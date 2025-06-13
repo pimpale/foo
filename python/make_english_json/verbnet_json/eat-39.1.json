@@ -1,0 +1,21 @@
+{
+  "members": [
+    "inject",
+    "mainline",
+    "shoot_up",
+    "snort",
+    "use",
+    "vape"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

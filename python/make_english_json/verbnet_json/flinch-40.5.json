@@ -1,0 +1,23 @@
+{
+  "members": [
+    "balk",
+    "cower",
+    "cringe",
+    "flinch",
+    "quail",
+    "recoil",
+    "shrink",
+    "wince"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ]
+  ]
+}

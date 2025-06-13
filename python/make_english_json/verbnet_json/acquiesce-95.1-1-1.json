@@ -1,0 +1,14 @@
+{
+  "members": [
+    "acquiesce",
+    "consent",
+    "submit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

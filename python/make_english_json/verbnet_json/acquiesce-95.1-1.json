@@ -1,0 +1,19 @@
+{
+  "members": [
+    "accede",
+    "bow",
+    "capitulate",
+    "fall",
+    "give_way",
+    "give_in",
+    "succumb",
+    "yield"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

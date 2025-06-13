@@ -1,0 +1,39 @@
+{
+  "members": [
+    "dip",
+    "dunk",
+    "ladle",
+    "hoe",
+    "scoop",
+    "siphon",
+    "sop",
+    "channelize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADVP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.trajectory"
+    ]
+  ]
+}

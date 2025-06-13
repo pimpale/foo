@@ -1,0 +1,57 @@
+{
+  "members": [
+    "ascertain",
+    "deduce",
+    "determine",
+    "find",
+    "guess",
+    "realize",
+    "ascertain",
+    "rationalize",
+    "relearn",
+    "see",
+    "scent_out",
+    "solve",
+    "chance_across",
+    "chance_on",
+    "chance_upon",
+    "work_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

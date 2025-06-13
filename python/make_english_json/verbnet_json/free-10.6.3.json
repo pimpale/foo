@@ -1,0 +1,22 @@
+{
+  "members": [
+    "alleviate",
+    "liberate",
+    "discharge",
+    "exonerate",
+    "unburden",
+    "cleanse",
+    "disencumber",
+    "wean",
+    "ease",
+    "break"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

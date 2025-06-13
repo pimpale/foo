@@ -1,0 +1,26 @@
+{
+  "members": [
+    "follow-up",
+    "follow-through",
+    "go-steady",
+    "go-out",
+    "interact",
+    "hook-up",
+    "split-up"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ]
+  ]
+}

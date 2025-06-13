@@ -1,0 +1,29 @@
+{
+  "members": [
+    "blanch",
+    "blench",
+    "faint",
+    "pale",
+    "sicken",
+    "black_out",
+    "swoon",
+    "doze_off",
+    "drowse_off",
+    "drift_off",
+    "konk_out",
+    "nod_off",
+    "pass_out",
+    "zonk_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.stimulus"
+    ]
+  ]
+}

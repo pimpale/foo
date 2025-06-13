@@ -1,0 +1,24 @@
+{
+  "members": [
+    "hoard",
+    "hold",
+    "keep",
+    "leave",
+    "store",
+    "stock",
+    "stockpile"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

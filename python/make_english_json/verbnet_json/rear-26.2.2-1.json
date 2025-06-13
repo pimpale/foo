@@ -1,0 +1,14 @@
+{
+  "members": [
+    "cultivate",
+    "farm"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.material",
+      "PP.product"
+    ]
+  ]
+}

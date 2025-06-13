@@ -1,0 +1,34 @@
+{
+  "members": [
+    "admit",
+    "affirm",
+    "assert",
+    "assume",
+    "conjecture",
+    "deny",
+    "determine",
+    "doubt",
+    "hold",
+    "prognosticate",
+    "repute",
+    "spectulate",
+    "surmise",
+    "swear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

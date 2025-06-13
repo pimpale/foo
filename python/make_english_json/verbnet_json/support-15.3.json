@@ -1,0 +1,13 @@
+{
+  "members": [
+    "hold",
+    "bear"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

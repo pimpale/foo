@@ -1,0 +1,25 @@
+{
+  "members": [
+    "fly",
+    "jog",
+    "jump",
+    "march",
+    "parade",
+    "promenade",
+    "run",
+    "rush",
+    "walk"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.result"
+    ]
+  ]
+}

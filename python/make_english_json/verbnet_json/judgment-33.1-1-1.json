@@ -1,0 +1,17 @@
+{
+  "members": [
+    "doubt",
+    "herald",
+    "judge"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "members": [
+    "spend",
+    "squander",
+    "waste",
+    "serve",
+    "tip"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "members": [
+    "keep",
+    "leave"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ]
+  ]
+}

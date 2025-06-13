@@ -1,0 +1,29 @@
+{
+  "members": [
+    "acquaint",
+    "inform",
+    "apprise",
+    "notify",
+    "update",
+    "remind"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.recipient",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.recipient",
+      "S"
+    ]
+  ]
+}

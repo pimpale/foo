@@ -1,0 +1,22 @@
+{
+  "members": [
+    "resign",
+    "retire",
+    "walk",
+    "walk_away",
+    "walk_out",
+    "withdraw"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

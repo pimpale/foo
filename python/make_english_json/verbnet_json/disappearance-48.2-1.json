@@ -1,0 +1,17 @@
+{
+  "members": [
+    "disappear",
+    "expire",
+    "go",
+    "lapse",
+    "perish",
+    "vanish"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

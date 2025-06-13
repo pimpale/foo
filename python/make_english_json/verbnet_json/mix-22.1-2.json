@@ -1,0 +1,41 @@
+{
+  "members": [
+    "add",
+    "tie"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "together"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle",
+      "PP"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle"
+    ],
+    [
+      "NP",
+      "V",
+      "ADVP-Middle"
+    ]
+  ]
+}

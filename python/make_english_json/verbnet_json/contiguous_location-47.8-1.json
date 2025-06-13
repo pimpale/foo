@@ -1,0 +1,17 @@
+{
+  "members": [
+    "abut",
+    "adjoin",
+    "cross",
+    "hit",
+    "intersect",
+    "meet",
+    "touch"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

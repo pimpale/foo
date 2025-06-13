@@ -1,0 +1,18 @@
+{
+  "members": [
+    "omit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "members": [
+    "pierce",
+    "prick"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.patient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.patient"
+    ]
+  ]
+}

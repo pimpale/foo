@@ -1,0 +1,13 @@
+{
+  "members": [
+    "go",
+    "go_on",
+    "run"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

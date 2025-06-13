@@ -1,0 +1,18 @@
+{
+  "members": [
+    "choreograph",
+    "compose",
+    "draft",
+    "improvise",
+    "invent",
+    "scriptwrite",
+    "silkscreen",
+    "write"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

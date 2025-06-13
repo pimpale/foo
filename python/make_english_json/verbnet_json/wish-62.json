@@ -1,0 +1,53 @@
+{
+  "members": [
+    "expect",
+    "wish",
+    "intend",
+    "plan",
+    "propose",
+    "think",
+    "aim",
+    "dream",
+    "imagine",
+    "yen"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "for",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

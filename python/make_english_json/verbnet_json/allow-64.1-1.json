@@ -1,0 +1,14 @@
+{
+  "members": [
+    "allow",
+    "permit"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S"
+    ]
+  ]
+}

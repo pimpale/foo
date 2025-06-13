@@ -1,0 +1,27 @@
+{
+  "members": [
+    "necessitate",
+    "require",
+    "involve",
+    "demand"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.source"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

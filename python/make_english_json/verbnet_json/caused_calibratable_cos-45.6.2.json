@@ -1,0 +1,26 @@
+{
+  "members": [
+    "commute",
+    "cut",
+    "raise",
+    "reduce"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.patient",
+      "PP.extent",
+      "PP.initial_state",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.patient",
+      "NP.extent",
+      "PP.initial_state",
+      "PP.result"
+    ]
+  ]
+}

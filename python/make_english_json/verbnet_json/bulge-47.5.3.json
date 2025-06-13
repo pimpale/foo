@@ -1,0 +1,21 @@
+{
+  "members": [
+    "bristle",
+    "bulge",
+    "buzz",
+    "hum",
+    "hyperventilate",
+    "seethe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

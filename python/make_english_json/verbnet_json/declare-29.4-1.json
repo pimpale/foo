@@ -1,0 +1,20 @@
+{
+  "members": [
+    "adjudge",
+    "maintain"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ]
+  ]
+}

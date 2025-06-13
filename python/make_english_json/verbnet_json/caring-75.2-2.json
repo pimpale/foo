@@ -1,0 +1,13 @@
+{
+  "members": [
+    "care",
+    "look_out"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

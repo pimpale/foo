@@ -1,0 +1,16 @@
+{
+  "members": [
+    "ascend",
+    "climb",
+    "cross",
+    "descend",
+    "pass"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

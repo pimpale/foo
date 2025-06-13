@@ -1,0 +1,43 @@
+{
+  "members": [
+    "file",
+    "filter",
+    "hoover",
+    "iron",
+    "plough",
+    "sandpaper",
+    "sponge",
+    "squeegee",
+    "towel"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.initial_location"
+    ],
+    [
+      "NP.agent",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJP-Result"
+    ]
+  ]
+}

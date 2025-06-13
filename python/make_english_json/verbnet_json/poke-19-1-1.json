@@ -1,0 +1,24 @@
+{
+  "members": [
+    "stab"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "PP.instrument"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.instrument",
+      "PP.theme"
+    ]
+  ]
+}

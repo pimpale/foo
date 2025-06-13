@@ -1,0 +1,17 @@
+{
+  "members": [
+    "dally",
+    "diddle",
+    "fiddle",
+    "play",
+    "toy",
+    "trifle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "members": [
+    "disburse",
+    "extend",
+    "proffer",
+    "transfer"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

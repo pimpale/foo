@@ -1,0 +1,33 @@
+{
+  "members": [
+    "caress",
+    "fondle",
+    "grasp",
+    "graze",
+    "grip",
+    "kiss",
+    "lick",
+    "massage",
+    "nudge",
+    "pat",
+    "paw",
+    "peck",
+    "pet",
+    "pinch",
+    "prod",
+    "rub",
+    "sting",
+    "stroke",
+    "tickle",
+    "touch"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "PP.instrument"
+    ]
+  ]
+}

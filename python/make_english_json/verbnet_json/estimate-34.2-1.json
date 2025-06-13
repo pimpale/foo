@@ -1,0 +1,46 @@
+{
+  "members": [
+    "estimate",
+    "guesstimate",
+    "overestimate",
+    "quantize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "to",
+      "be",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.value"
+    ]
+  ]
+}

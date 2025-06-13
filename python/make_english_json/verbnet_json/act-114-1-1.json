@@ -1,0 +1,18 @@
+{
+  "members": [
+    "act",
+    "move"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.predicate"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "members": [
+    "chance",
+    "risk",
+    "hazard"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ]
+  ]
+}

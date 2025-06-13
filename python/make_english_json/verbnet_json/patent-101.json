@@ -1,0 +1,29 @@
+{
+  "members": [
+    "copyright",
+    "patent",
+    "trademark",
+    "license",
+    "register",
+    "certify",
+    "credential",
+    "accredit",
+    "verify",
+    "evidence",
+    "imitate",
+    "impersonate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

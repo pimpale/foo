@@ -1,0 +1,19 @@
+{
+  "members": [
+    "go",
+    "pull"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.beneficiary",
+      "PP.theme"
+    ]
+  ]
+}

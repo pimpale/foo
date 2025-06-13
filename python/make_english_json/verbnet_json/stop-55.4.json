@@ -1,0 +1,14 @@
+{
+  "members": [
+    "cut",
+    "discontinue",
+    "kill"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.eventuality"
+    ]
+  ]
+}

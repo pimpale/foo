@@ -1,0 +1,31 @@
+{
+  "members": [
+    "report",
+    "reveal"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "whether/if",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

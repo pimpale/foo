@@ -1,0 +1,18 @@
+{
+  "members": [
+    "abide_by",
+    "follow",
+    "heed",
+    "keep_to",
+    "adhere_to",
+    "observe",
+    "obey"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

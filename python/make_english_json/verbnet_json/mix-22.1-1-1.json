@@ -1,0 +1,27 @@
+{
+  "members": [
+    "blend",
+    "combine",
+    "compound",
+    "commingle",
+    "decoct",
+    "fuse",
+    "meld",
+    "merge",
+    "mingle",
+    "mix",
+    "recombine"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "NP",
+      "V",
+      "together"
+    ]
+  ]
+}

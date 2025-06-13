@@ -1,0 +1,46 @@
+{
+  "members": [
+    "baste",
+    "brush",
+    "drizzle",
+    "hang",
+    "plaster",
+    "pump",
+    "rub",
+    "scatter",
+    "seed",
+    "sew",
+    "shower",
+    "smear",
+    "smudge",
+    "sow",
+    "spatter",
+    "splash",
+    "splatter",
+    "spray",
+    "spread",
+    "sprinkle",
+    "spritz",
+    "squirt",
+    "stick",
+    "strew",
+    "string",
+    "swab",
+    "swash",
+    "spurt",
+    "wrap"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination-Conative"
+    ]
+  ]
+}

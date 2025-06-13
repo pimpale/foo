@@ -1,0 +1,39 @@
+{
+  "members": [
+    "begin",
+    "start",
+    "start_off",
+    "commence",
+    "recommence",
+    "repeat",
+    "resume",
+    "undertake"
+  ],
+  "primary_frames": [
+    [
+      "NP.eventuality",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.subeventuality"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.subeventuality"
+    ],
+    [
+      "NP.subeventuality",
+      "V",
+      "NP"
+    ]
+  ]
+}

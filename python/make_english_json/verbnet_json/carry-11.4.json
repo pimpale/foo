@@ -1,0 +1,52 @@
+{
+  "members": [
+    "carry",
+    "drag",
+    "draw",
+    "haul",
+    "heft",
+    "hoist",
+    "lug",
+    "nudge",
+    "pull",
+    "run",
+    "schlep",
+    "tote",
+    "tow",
+    "tug",
+    "yank"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination",
+      "PP.initial_location"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "members": [
+    "come",
+    "fall",
+    "go",
+    "grow"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ]
+  ]
+}

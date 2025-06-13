@@ -1,0 +1,19 @@
+{
+  "members": [
+    "choke",
+    "conk",
+    "croak",
+    "die",
+    "drop_dead",
+    "expire",
+    "pass_away",
+    "perish"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.cause"
+    ]
+  ]
+}

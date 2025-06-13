@@ -1,0 +1,15 @@
+{
+  "members": [
+    "catnap",
+    "doze",
+    "drowse",
+    "slumber",
+    "snooze"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

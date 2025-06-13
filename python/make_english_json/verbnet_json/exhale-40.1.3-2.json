@@ -1,0 +1,16 @@
+{
+  "members": [
+    "inhale"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

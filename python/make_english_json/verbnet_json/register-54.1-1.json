@@ -1,0 +1,13 @@
+{
+  "members": [
+    "come",
+    "amount"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.value"
+    ]
+  ]
+}

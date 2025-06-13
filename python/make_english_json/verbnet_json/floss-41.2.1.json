@@ -1,0 +1,30 @@
+{
+  "members": [
+    "brush",
+    "floss",
+    "shave",
+    "wash"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.instrument"
+    ]
+  ]
+}

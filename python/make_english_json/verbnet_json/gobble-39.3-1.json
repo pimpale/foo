@@ -1,0 +1,15 @@
+{
+  "members": [
+    "bolt",
+    "gobble",
+    "wolf"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "up"
+    ]
+  ]
+}

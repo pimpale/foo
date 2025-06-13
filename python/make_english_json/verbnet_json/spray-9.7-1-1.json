@@ -1,0 +1,16 @@
+{
+  "members": [
+    "cram",
+    "crowd",
+    "jam",
+    "pack",
+    "pile"
+  ],
+  "primary_frames": [
+    [
+      "NP.theme",
+      "V",
+      "NP"
+    ]
+  ]
+}

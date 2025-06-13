@@ -1,0 +1,26 @@
+{
+  "members": [
+    "meter",
+    "time",
+    "mistime"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.value"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.value"
+    ]
+  ]
+}

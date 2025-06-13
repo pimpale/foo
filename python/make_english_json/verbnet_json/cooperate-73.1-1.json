@@ -1,0 +1,37 @@
+{
+  "members": [
+    "collaborate",
+    "cooperate",
+    "join"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme",
+      "S_ING"
+    ]
+  ]
+}

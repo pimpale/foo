@@ -1,0 +1,13 @@
+{
+  "members": [
+    "beg"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.Topic"
+    ]
+  ]
+}

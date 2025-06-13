@@ -1,0 +1,21 @@
+{
+  "members": [
+    "overstate",
+    "overdraw",
+    "hyperbolize",
+    "magnify",
+    "amplify",
+    "overemphasize",
+    "overrate",
+    "overstress",
+    "tout",
+    "glorify"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

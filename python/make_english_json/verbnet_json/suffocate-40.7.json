@@ -1,0 +1,30 @@
+{
+  "members": [
+    "asphyxiate",
+    "choke",
+    "stifle",
+    "suffocate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.theme"
+    ],
+    [
+      "NP.theme",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ]
+  ]
+}

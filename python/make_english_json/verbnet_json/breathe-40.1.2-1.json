@@ -1,0 +1,20 @@
+{
+  "members": [
+    "breathe",
+    "cough",
+    "cry",
+    "defecate",
+    "expectorate",
+    "retch",
+    "slobber",
+    "urinate",
+    "hawk"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

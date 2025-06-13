@@ -1,0 +1,23 @@
+{
+  "members": [
+    "arm",
+    "equip",
+    "outfit",
+    "rearm",
+    "recompense",
+    "redress",
+    "regale",
+    "remunerate",
+    "repay",
+    "reward",
+    "saddle",
+    "treat"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ]
+  ]
+}

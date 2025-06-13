@@ -1,0 +1,21 @@
+{
+  "members": [
+    "jerk",
+    "pull",
+    "tug",
+    "yank"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJP-Result"
+    ],
+    [
+      "NP",
+      "V",
+      "PP-Conative"
+    ]
+  ]
+}

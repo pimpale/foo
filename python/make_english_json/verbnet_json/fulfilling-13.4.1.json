@@ -1,0 +1,27 @@
+{
+  "members": [
+    "issue",
+    "leave",
+    "present",
+    "trust"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP-Fulfilling",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

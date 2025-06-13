@@ -1,0 +1,14 @@
+{
+  "members": [
+    "multiply",
+    "divide"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.co-theme"
+    ]
+  ]
+}

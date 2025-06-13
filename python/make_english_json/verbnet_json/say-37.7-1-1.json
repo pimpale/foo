@@ -1,0 +1,45 @@
+{
+  "members": [
+    "advise",
+    "announce",
+    "articulate",
+    "blab",
+    "blurt",
+    "claim",
+    "confess",
+    "confide",
+    "convey",
+    "declare",
+    "interject",
+    "interpose",
+    "mention",
+    "observe",
+    "proclaim",
+    "propose",
+    "recount",
+    "reiterate",
+    "relate",
+    "reveal",
+    "say",
+    "state",
+    "volunteer",
+    "repeat",
+    "remark",
+    "note",
+    "report"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "that",
+      "S"
+    ]
+  ]
+}

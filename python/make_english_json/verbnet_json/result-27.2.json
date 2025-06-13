@@ -1,0 +1,15 @@
+{
+  "members": [
+    "cause",
+    "lead",
+    "lead_up",
+    "result"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

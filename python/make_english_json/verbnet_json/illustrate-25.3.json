@@ -1,0 +1,37 @@
+{
+  "members": [
+    "address",
+    "adorn",
+    "autograph",
+    "bead",
+    "brand",
+    "date",
+    "decorate",
+    "embellish",
+    "endorse",
+    "gild",
+    "ice",
+    "illuminate",
+    "illustrate",
+    "initial",
+    "label",
+    "letter",
+    "monogram",
+    "ornament",
+    "redecorate",
+    "tag"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

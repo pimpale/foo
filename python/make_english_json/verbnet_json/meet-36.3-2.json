@@ -1,0 +1,28 @@
+{
+  "members": [
+    "battle",
+    "box",
+    "debate",
+    "fight"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

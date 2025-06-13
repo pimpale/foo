@@ -1,0 +1,24 @@
+{
+  "members": [
+    "catapult",
+    "kick",
+    "launch",
+    "throw",
+    "tip",
+    "toss"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.result"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.result",
+      "NP"
+    ]
+  ]
+}

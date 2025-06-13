@@ -1,0 +1,17 @@
+{
+  "members": [
+    "attract",
+    "bring",
+    "bring_in",
+    "earn",
+    "fetch",
+    "raise"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "members": [
+    "drive",
+    "render",
+    "take",
+    "leave"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJP"
+    ],
+    [
+      "NP",
+      "V",
+      "ADJP",
+      "NP"
+    ]
+  ]
+}

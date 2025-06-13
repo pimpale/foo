@@ -1,0 +1,15 @@
+{
+  "members": [
+    "hanker",
+    "lust",
+    "thirst",
+    "yearn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

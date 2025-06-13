@@ -1,0 +1,26 @@
+{
+  "members": [
+    "impale",
+    "penetrate",
+    "perforate",
+    "puncture"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.instrument"
+    ],
+    [
+      "NP.instrument",
+      "V",
+      "NP"
+    ]
+  ]
+}

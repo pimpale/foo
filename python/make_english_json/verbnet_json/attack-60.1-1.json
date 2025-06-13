@@ -1,0 +1,14 @@
+{
+  "members": [
+    "attack",
+    "charge",
+    "raid",
+    "strike"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "members": [
+    "gulp",
+    "guzzle",
+    "quaff",
+    "slug",
+    "swallow",
+    "swig"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "down"
+    ]
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "members": [
+    "battle",
+    "box",
+    "combat",
+    "debate",
+    "duel",
+    "fight",
+    "refight",
+    "wrestle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "whether",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "whether",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

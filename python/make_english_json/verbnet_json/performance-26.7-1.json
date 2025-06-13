@@ -1,0 +1,20 @@
+{
+  "members": [
+    "dance",
+    "hum",
+    "play",
+    "recite",
+    "replay",
+    "stage",
+    "sing",
+    "whistle"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.beneficiary",
+      "NP"
+    ]
+  ]
+}

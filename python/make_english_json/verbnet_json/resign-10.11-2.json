@@ -1,0 +1,20 @@
+{
+  "members": [
+    "abdicate",
+    "depart",
+    "give_up",
+    "leave",
+    "renounce",
+    "resign",
+    "quit",
+    "vacate",
+    "walk_off"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

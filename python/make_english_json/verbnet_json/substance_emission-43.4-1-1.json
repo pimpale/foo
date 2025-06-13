@@ -1,0 +1,12 @@
+{
+  "members": [
+    "bleed"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.source"
+    ]
+  ]
+}

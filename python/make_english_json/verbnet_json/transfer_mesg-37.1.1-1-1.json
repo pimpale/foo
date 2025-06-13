@@ -1,0 +1,54 @@
+{
+  "members": [
+    "show",
+    "teach",
+    "tell",
+    "write"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "what",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "how",
+      "S"
+    ]
+  ]
+}

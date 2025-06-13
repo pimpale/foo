@@ -1,0 +1,22 @@
+{
+  "members": [
+    "invest",
+    "put",
+    "commit",
+    "allocate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.goal"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.theme"
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "members": [
+    "oar",
+    "paddle",
+    "pedal",
+    "ride",
+    "row"
+  ],
+  "primary_frames": [
+    [
+      "NP.agent",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP.location"
+    ]
+  ]
+}

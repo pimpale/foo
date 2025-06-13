@@ -1,0 +1,19 @@
+{
+  "members": [
+    "awake",
+    "awaken",
+    "dry",
+    "freeze",
+    "melt",
+    "set",
+    "thaw"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ]
+  ]
+}

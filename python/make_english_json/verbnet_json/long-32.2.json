@@ -1,0 +1,27 @@
+{
+  "members": [
+    "ache",
+    "crave",
+    "die",
+    "fall",
+    "hope",
+    "hunger",
+    "itch",
+    "long",
+    "pine",
+    "pray",
+    "wish"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ]
+  ]
+}

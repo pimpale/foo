@@ -1,0 +1,18 @@
+{
+  "members": [
+    "fail"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.eventuality",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "S_INF"
+    ]
+  ]
+}

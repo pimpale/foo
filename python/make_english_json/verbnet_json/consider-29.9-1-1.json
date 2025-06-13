@@ -1,0 +1,54 @@
+{
+  "members": [
+    "consider"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "whether/if",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADJ"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "whether",
+      "S_INF"
+    ]
+  ]
+}

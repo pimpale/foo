@@ -1,0 +1,31 @@
+{
+  "members": [
+    "enlist",
+    "hire_on",
+    "sign_on",
+    "sign_up",
+    "volunteer"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.attribute"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.theme"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.beneficiary"
+    ]
+  ]
+}

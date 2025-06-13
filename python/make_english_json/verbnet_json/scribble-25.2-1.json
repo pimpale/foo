@@ -1,0 +1,31 @@
+{
+  "members": [
+    "carve",
+    "chalk",
+    "charcoal",
+    "crayon",
+    "doodle",
+    "draw",
+    "ink",
+    "pencil",
+    "plot",
+    "print",
+    "record",
+    "scratch",
+    "scrawl",
+    "scribble",
+    "sketch",
+    "spraypaint",
+    "stencil",
+    "type",
+    "write",
+    "print_out",
+    "print_up"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ]
+  ]
+}

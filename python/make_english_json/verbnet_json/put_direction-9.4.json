@@ -1,0 +1,39 @@
+{
+  "members": [
+    "drop",
+    "drive",
+    "elevate",
+    "heel",
+    "hoist",
+    "lift",
+    "lower",
+    "raise",
+    "back"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.initial_location",
+      "PP.destination"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "ADVP"
+    ]
+  ]
+}

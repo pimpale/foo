@@ -1,0 +1,38 @@
+{
+  "members": [
+    "advance",
+    "approach",
+    "come",
+    "continue",
+    "decamp",
+    "fall",
+    "file",
+    "go",
+    "plunge",
+    "recede",
+    "return",
+    "rise",
+    "tumble",
+    "arrive",
+    "set_off",
+    "set_out",
+    "bolt",
+    "emerge",
+    "emigrate",
+    "retreat",
+    "skedaddle",
+    "vamoose",
+    "withdraw"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.initial_location"
+    ]
+  ]
+}

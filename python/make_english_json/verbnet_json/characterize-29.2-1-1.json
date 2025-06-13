@@ -1,0 +1,34 @@
+{
+  "members": [
+    "accept",
+    "define",
+    "describe",
+    "envisage",
+    "identify",
+    "imagine",
+    "portray",
+    "recollect",
+    "remember",
+    "represent",
+    "visualize"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S_ING"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

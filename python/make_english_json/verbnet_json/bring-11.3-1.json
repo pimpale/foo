@@ -1,0 +1,19 @@
+{
+  "members": [
+    "bring"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP",
+      "V",
+      "NP",
+      "together"
+    ]
+  ]
+}

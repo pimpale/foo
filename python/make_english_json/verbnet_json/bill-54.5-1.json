@@ -1,0 +1,22 @@
+{
+  "members": [
+    "amerce",
+    "bet",
+    "bill",
+    "charge",
+    "fine",
+    "invoice",
+    "mulct",
+    "overcharge",
+    "tax",
+    "undercharge",
+    "wager"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP.recipient"
+    ]
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "members": [
+    "purpose",
+    "suggest",
+    "recommend"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.recipient"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "how",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "how",
+      "S_INF"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "that",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "what",
+      "S"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.recipient",
+      "what",
+      "S_INF"
+    ]
+  ]
+}

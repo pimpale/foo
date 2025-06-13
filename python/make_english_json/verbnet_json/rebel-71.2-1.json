@@ -1,0 +1,14 @@
+{
+  "members": [
+    "discriminate",
+    "rebel",
+    "retaliate"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.maleficiary"
+    ]
+  ]
+}

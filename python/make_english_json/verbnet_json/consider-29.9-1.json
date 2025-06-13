@@ -1,0 +1,17 @@
+{
+  "members": [
+    "acknowledge",
+    "deem",
+    "esteem",
+    "rate",
+    "reckon"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "PP.attribute"
+    ]
+  ]
+}

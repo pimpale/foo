@@ -1,0 +1,15 @@
+{
+  "members": [
+    "reach",
+    "hit",
+    "make",
+    "breast"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

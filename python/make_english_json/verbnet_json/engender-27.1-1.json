@@ -1,0 +1,25 @@
+{
+  "members": [
+    "actuate",
+    "arouse",
+    "call_forth",
+    "cause",
+    "elicit",
+    "incite",
+    "inspire",
+    "instigate",
+    "prompt",
+    "provoke",
+    "spark",
+    "stimulate",
+    "stir_up",
+    "trigger"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "S"
+    ]
+  ]
+}

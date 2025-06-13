@@ -1,0 +1,13 @@
+{
+  "members": [
+    "clothe",
+    "unclothe"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

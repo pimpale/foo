@@ -1,0 +1,26 @@
+{
+  "members": [
+    "beget",
+    "bring",
+    "bring_about",
+    "create",
+    "engender",
+    "generate",
+    "kindle",
+    "produce",
+    "raise",
+    "return",
+    "set_in_motion",
+    "set_off",
+    "shape",
+    "sire",
+    "spawn"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

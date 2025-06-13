@@ -1,0 +1,32 @@
+{
+  "members": [
+    "behold",
+    "descry",
+    "espy",
+    "experience",
+    "eye",
+    "glimpse",
+    "make_out",
+    "note",
+    "observe",
+    "overhear",
+    "perceive",
+    "recognize",
+    "savor",
+    "scent",
+    "scent_out",
+    "sight",
+    "spot",
+    "spy",
+    "view",
+    "witness",
+    "sniff"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}

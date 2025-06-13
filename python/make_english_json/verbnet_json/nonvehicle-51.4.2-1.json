@@ -1,0 +1,18 @@
+{
+  "members": [
+    "cruise",
+    "drive",
+    "fly",
+    "navigate",
+    "sail",
+    "tack",
+    "wing"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP"
+    ]
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "members": [
+    "chat",
+    "chatter",
+    "chitchat",
+    "confer",
+    "converse",
+    "flirt",
+    "gab",
+    "gossip",
+    "jest",
+    "joke",
+    "palaver",
+    "rap",
+    "schmooze",
+    "yak"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.co-agent",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic",
+      "PP.co-agent"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.topic"
+    ]
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "members": [
+    "absolve",
+    "acquit",
+    "clear",
+    "free",
+    "emancipate",
+    "release",
+    "rerelease"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "S_ING"
+    ]
+  ]
+}

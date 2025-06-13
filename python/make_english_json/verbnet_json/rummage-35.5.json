@@ -1,0 +1,28 @@
+{
+  "members": [
+    "bore",
+    "burrow",
+    "fumble",
+    "go",
+    "leaf",
+    "listen",
+    "look",
+    "page",
+    "poke",
+    "scrabble",
+    "scratch"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "PP.location"
+    ],
+    [
+      "NP",
+      "V",
+      "PP.location",
+      "PP.theme"
+    ]
+  ]
+}

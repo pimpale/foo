@@ -1,0 +1,41 @@
+{
+  "members": [
+    "build",
+    "carve",
+    "cut",
+    "make",
+    "remake",
+    "sculpt",
+    "shape"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V",
+      "NP",
+      "P.asset"
+    ],
+    [
+      "NP.asset",
+      "V",
+      "NP"
+    ],
+    [
+      "NP.asset",
+      "V",
+      "NP",
+      "NP"
+    ],
+    [
+      "NP.asset",
+      "V",
+      "PP"
+    ],
+    [
+      "NP.asset",
+      "V",
+      "NP",
+      "PP"
+    ]
+  ]
+}

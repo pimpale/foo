@@ -1,0 +1,26 @@
+{
+  "members": [
+    "court",
+    "cuddle",
+    "date",
+    "divorce",
+    "embrace",
+    "hug",
+    "kiss",
+    "marry",
+    "neck",
+    "nuzzle",
+    "pet"
+  ],
+  "primary_frames": [
+    [
+      "NP",
+      "V"
+    ],
+    [
+      "NP",
+      "V",
+      "NP"
+    ]
+  ]
+}
