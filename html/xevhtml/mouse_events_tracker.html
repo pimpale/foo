@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Events Tracker</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            height: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .event-display {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 20px;
+            pointer-events: none; /* Prevent display from interfering with events */
+        }
+        
+        .event-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #00ff00;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        #mouseCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Absolutely no interaction */
+            z-index: 9999;
+        }
+        
+        .event-type {
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .event-details {
+            font-size: 12px;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
+        .property {
+            display: inline-block;
+            margin-right: 15px;
+            white-space: nowrap;
+        }
+        
+        .property-name {
+            color: #00ffff;
+            font-weight: bold;
+        }
+        
+        .property-value {
+            color: #ffffff;
+        }
+        
+        .clear-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .clear-btn:hover {
+            background: #ff6666;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🖱️ Mouse Events Tracker</h1>
+        <p>Move your mouse, click, scroll, and interact to see all mouse event properties!</p>
+    </div>
+    
+    <div class="instructions">
+        <strong>Instructions:</strong> The entire screen is now your test area! All mouse events are being captured and displayed below. 
+        Check the browser console (F12) for detailed logs. Move your mouse anywhere, click, scroll, drag, etc.
+    </div>
+    
+    <button class="clear-btn" onclick="clearEvents()">Clear Events</button>
+    
+    <div class="event-display" id="eventDisplay">
+        <div style="color: #888; text-align: center;">Mouse events will appear here...</div>
+    </div>
+    
+    <canvas id="mouseCanvas"></canvas>
+
+    <script>
+        let eventCount = 0;
+        const maxEvents = 50; // Limit displayed events to prevent memory issues
+        
+        // Variables for smooth dot animation
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        
+        // All mouse event types to track
+        const mouseEvents = [
+            'click',
+            'dblclick',
+            'mousedown',
+            'mouseup',
+            'mousemove',
+            'mouseover',
+            'mouseout',
+            'mouseenter',
+            'mouseleave',
+            'contextmenu',
+            'wheel',
+            'drag',
+            'dragstart',
+            'dragend',
+            'dragover',
+            'dragenter',
+            'dragleave',
+            'drop'
+        ];
+        
+        // Function to extract all properties from mouse event
+        function extractEventProperties(event) {
+            const properties = {};
+            
+            // Core mouse event properties
+            const coreProps = [
+                'type', 'timeStamp', 'bubbles', 'cancelable', 'composed',
+                'clientX', 'clientY', 'screenX', 'screenY', 'pageX', 'pageY',
+                'offsetX', 'offsetY', 'layerX', 'layerY', 'movementX', 'movementY',
+                'button', 'buttons', 'which', 'detail',
+                'altKey', 'ctrlKey', 'metaKey', 'shiftKey',
+                'relatedTarget', 'fromElement', 'toElement',
+                'region', 'pointerId', 'pointerType'
+            ];
+            
+            // Extract standard properties
+            coreProps.forEach(prop => {
+                if (prop in event) {
+                    let value = event[prop];
+                    if (value && typeof value === 'object') {
+                        if (value.tagName) {
+                            value = `<${value.tagName.toLowerCase()}>`;
+                        } else {
+                            value = value.toString();
+                        }
+                    }
+                    properties[prop] = value;
+                }
+            });
+            
+            // Special handling for wheel events
+            if (event.type === 'wheel') {
+                ['deltaX', 'deltaY', 'deltaZ', 'deltaMode'].forEach(prop => {
+                    if (prop in event) {
+                        properties[prop] = event[prop];
+                    }
+                });
+            }
+            
+            // Add target information
+            if (event.target) {
+                properties.targetTag = event.target.tagName ? event.target.tagName.toLowerCase() : 'unknown';
+                properties.targetId = event.target.id || 'none';
+                properties.targetClass = event.target.className || 'none';
+            }
+            
+            return properties;
+        }
+        
+        // Function to format properties as JSON
+        function formatPropertiesAsJson(properties) {
+            return `<pre style="color: #ffffff; font-family: 'Courier New', monospace; font-size: 11px; line-height: 1.3; margin: 0; white-space: pre-wrap;">${JSON.stringify(properties, null, 2)}</pre>`;
+        }
+        
+        // Function to handle mouse events
+        function handleMouseEvent(event) {
+            eventCount++;
+            
+            // Store the last known mouse position for the animation frame
+            if (typeof event.clientX === 'number' && typeof event.clientY === 'number') {
+                lastMouseX = event.clientX;
+                lastMouseY = event.clientY;
+            }
+            
+            // Extract all properties
+            const properties = extractEventProperties(event);
+            
+            // Log to console with full detail
+            console.group(`🖱️ Mouse Event #${eventCount}: ${event.type}`);
+            console.log('Raw Event Object:', event);
+            console.table(properties);
+            console.groupEnd();
+            
+            // Display on screen
+            displayEvent(event.type, properties);
+            
+            // Don't prevent default for most events, but prevent context menu
+            if (event.type === 'contextmenu') {
+                event.preventDefault();
+            }
+        }
+        
+        // Function to display event on screen
+        function displayEvent(eventType, properties) {
+            const eventDisplay = document.getElementById('eventDisplay');
+            
+            // Remove oldest events if we have too many
+            const eventItems = eventDisplay.querySelectorAll('.event-item');
+            if (eventItems.length >= maxEvents) {
+                eventItems[0].remove();
+            }
+            
+            // Create new event item
+            const eventItem = document.createElement('div');
+            eventItem.className = 'event-item';
+            
+            // Format properties as JSON
+            const propertiesHtml = formatPropertiesAsJson(properties);
+            
+            eventItem.innerHTML = `
+                <div class="event-type">#${eventCount} ${eventType.toUpperCase()}</div>
+                <div class="event-details">${propertiesHtml}</div>
+            `;
+            
+            // Add to display (newest at top)
+            if (eventDisplay.firstChild && eventDisplay.firstChild.style) {
+                eventDisplay.removeChild(eventDisplay.firstChild);
+            }
+            eventDisplay.insertBefore(eventItem, eventDisplay.firstChild);
+            
+            // Scroll to top to show latest event
+            eventDisplay.scrollTop = 0;
+        }
+        
+        // Function to clear events
+        function clearEvents() {
+            const eventDisplay = document.getElementById('eventDisplay');
+            eventDisplay.innerHTML = '<div style="color: #888; text-align: center;">Mouse events will appear here...</div>';
+            eventCount = 0;
+            console.clear();
+            console.log('🧹 Event display cleared');
+        }
+        
+        // Register all mouse event listeners
+        mouseEvents.forEach(eventType => {
+            document.addEventListener(eventType, handleMouseEvent, {
+                passive: eventType !== 'contextmenu' // Allow preventDefault for contextmenu
+            });
+        });
+        
+        // Initial console message
+        console.log('🖱️ Mouse Events Tracker initialized!');
+        console.log('📝 All mouse events will be logged here with full details.');
+        console.log('🎯 Tracked events:', mouseEvents);
+
+        // Make the entire body draggable to see drag events
+        document.body.draggable = true;
+        
+        // Add some additional context information
+        window.addEventListener('load', function() {
+            console.log('🌐 Page loaded. Mouse tracking active!');
+            console.log('💡 Try these interactions:');
+            console.log('  • Move mouse around');
+            console.log('  • Click and drag');
+            console.log('  • Right-click (context menu)');
+            console.log('  • Double-click');
+            console.log('  • Scroll wheel');
+            console.log('  • Hold modifier keys (Ctrl, Alt, Shift) while clicking');
+        });
+
+        // Animation loop for smooth dot movement
+        const canvas = document.getElementById('mouseCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function animationLoop() {
+            // Clear the canvas on each frame
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw the dot
+            ctx.beginPath();
+            ctx.arc(lastMouseX, lastMouseY, 5, 0, 2 * Math.PI, false);
+            ctx.fillStyle = '#ff0066';
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#ffffff';
+            ctx.stroke();
+
+            requestAnimationFrame(animationLoop);
+        }
+        
+        // Initial setup
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animationLoop();
+    </script>
+</body>
+</html> 

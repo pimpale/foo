@@ -83,7 +83,7 @@ def load_raw_noun_files() -> Dict[str, dict]:
     return raw
 
 
-def resolve_words(raw: Dict[str, dict]) -> Dict[str, Set[str]]:
+def resolve_nouns(raw: Dict[str, dict]) -> Dict[str, Set[str]]:
     """Resolve transitive inclusion of classes to produce full word sets."""
 
     cache: Dict[str, Set[str]] = {}
@@ -128,7 +128,7 @@ for kind in indeclinable:
 
 # 2. Noun classes (from nouns/ folder)
 raw_noun_data = load_raw_noun_files()
-resolved_nouns = resolve_words(raw_noun_data)
+resolved_nouns = resolve_nouns(raw_noun_data)
 
 for fname, words in resolved_nouns.items():
     class_name = Path(fname).stem  # e.g., tools_countable
