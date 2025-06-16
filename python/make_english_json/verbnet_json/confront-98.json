@@ -18,17 +18,27 @@
     "target",
     "undertake"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John confronted the disaster."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "John confronted it with emergency measures."
+      ]
+    }
   ]
 }

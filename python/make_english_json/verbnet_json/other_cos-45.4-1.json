@@ -8,12 +8,17 @@
     "set",
     "thaw"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The clothes dried wrinkled."
+      ]
+    }
   ]
 }

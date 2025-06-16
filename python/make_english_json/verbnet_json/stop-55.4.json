@@ -4,11 +4,16 @@
     "discontinue",
     "kill"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.eventuality"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.eventuality"
+      ],
+      "examples": [
+        "John cut the engine."
+      ]
+    }
   ]
 }

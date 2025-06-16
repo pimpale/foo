@@ -12,17 +12,27 @@
     "underscore",
     "underline"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Roberto took notes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Saul jotted down readings on a notepad."
+      ]
+    }
   ]
 }

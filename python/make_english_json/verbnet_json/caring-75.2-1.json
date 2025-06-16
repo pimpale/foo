@@ -6,11 +6,16 @@
     "mind",
     "wait_on"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jared looked after the children."
+      ]
+    }
   ]
 }

@@ -9,11 +9,16 @@
     "swill",
     "take"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Cynthia devoured the pizza."
+      ]
+    }
   ]
 }

@@ -19,11 +19,16 @@
     "affix",
     "agglutinate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman spliced ropes."
+      ]
+    }
   ]
 }

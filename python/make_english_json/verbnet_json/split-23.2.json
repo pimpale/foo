@@ -23,40 +23,70 @@
     "tug",
     "yank"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "apart"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.co-patient"
-    ],
-    [
-      "NP",
-      "V",
-      "apart"
-    ],
-    [
-      "NP",
-      "V",
-      "PP",
-      "ADV-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "apart",
-      "ADV-Middle"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "I broke the twig off the branch."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "apart"
+      ],
+      "examples": [
+        "I broke the twig and the branch apart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The twig broke off the branch."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "apart"
+      ],
+      "examples": [
+        "The twig and the branch broke apart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The twigs broke off of those branches easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "apart",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "Those twigs and branches broke apart easily."
+      ]
+    }
   ]
 }

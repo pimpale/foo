@@ -2,12 +2,17 @@
   "members": [
     "average"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "I averaged x over n."
+      ]
+    }
   ]
 }

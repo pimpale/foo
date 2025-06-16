@@ -12,15 +12,25 @@
     "nuzzle",
     "pet"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Bill and Kathy married."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Bill married Kathy."
+      ]
+    }
   ]
 }

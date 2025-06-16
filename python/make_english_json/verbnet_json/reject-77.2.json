@@ -5,16 +5,26 @@
     "refuse",
     "turn-down"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I turned down the offer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I discouraged their writing novels."
+      ]
+    }
   ]
 }

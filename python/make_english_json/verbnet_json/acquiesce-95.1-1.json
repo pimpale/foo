@@ -9,11 +9,16 @@
     "succumb",
     "yield"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The enemy soldiers submitted to demands."
+      ]
+    }
   ]
 }

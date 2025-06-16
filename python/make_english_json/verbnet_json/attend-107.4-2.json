@@ -3,11 +3,16 @@
     "go",
     "belong"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "I go to the University of Colorado."
+      ]
+    }
   ]
 }

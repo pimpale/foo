@@ -7,11 +7,16 @@
     "constitute",
     "form"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Textiles make up the majority of exports."
+      ]
+    }
   ]
 }

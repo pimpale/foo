@@ -2,24 +2,39 @@
   "members": [
     "take"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "for",
-      "NP",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Success requires hard work."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "for",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "Success requires for us to work hard."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Success requires that we work hard."
+      ]
+    }
   ]
 }

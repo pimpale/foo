@@ -3,18 +3,28 @@
     "pierce",
     "prick"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.patient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.patient"
+      ],
+      "examples": [
+        "Allison poked the needle through the cloth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.patient"
+      ],
+      "examples": [
+        "Allison poked the needle into the cloth."
+      ]
+    }
   ]
 }

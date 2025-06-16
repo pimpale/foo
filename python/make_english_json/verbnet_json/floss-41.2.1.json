@@ -5,26 +5,46 @@
     "shave",
     "wash"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The hygienist flossed my teeth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I flossed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "She flossed her teeth with floss."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.instrument"
+      ],
+      "examples": [
+        "She brushed with a toothbrush."
+      ]
+    }
   ]
 }

@@ -5,11 +5,16 @@
     "groom",
     "neaten"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Sheila groomed the horse."
+      ]
+    }
   ]
 }

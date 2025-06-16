@@ -4,11 +4,16 @@
     "consent",
     "submit"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "The king acquiesced to be in the same room with the paupers"
+      ]
+    }
   ]
 }

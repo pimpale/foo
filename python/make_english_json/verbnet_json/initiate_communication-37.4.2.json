@@ -7,11 +7,16 @@
     "ping",
     "reach"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.recipient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Heather pinged me."
+      ]
+    }
   ]
 }

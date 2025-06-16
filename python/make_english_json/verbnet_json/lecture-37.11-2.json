@@ -2,17 +2,27 @@
   "members": [
     "dwell"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.topic"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "She dwelled on her travels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "She dwelled on her traveling."
+      ]
+    }
   ]
 }

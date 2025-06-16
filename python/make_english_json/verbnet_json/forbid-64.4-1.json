@@ -10,21 +10,36 @@
     "prohibit",
     "stop"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The rules forbade our smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The rules forbade smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The rules forbade it."
+      ]
+    }
   ]
 }

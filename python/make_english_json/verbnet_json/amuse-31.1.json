@@ -247,32 +247,57 @@
     "roil",
     "smite"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "NP-PRO-ARB"
-    ],
-    [
-      "NP.cause",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The clown amused the children."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The little children amused easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-PRO-ARB"
+      ],
+      "examples": [
+        "The clown amused."
+      ]
+    },
+    {
+      "primary": [
+        "NP.cause",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The clown's antics amused the children."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "That movie bored me silly."
+      ]
+    }
   ]
 }

@@ -21,23 +21,38 @@
     "wash",
     "weld"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.beneficiary",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.beneficiary"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Donna grilled steaks."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "Donna grilled me steaks."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Donna grilled steaks for me."
+      ]
+    }
   ]
 }

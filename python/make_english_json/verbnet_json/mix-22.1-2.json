@@ -3,39 +3,69 @@
     "add",
     "tie"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "together"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP-Middle",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP-Middle"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Herman added a computer to the network."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman connected the computers."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman connected the computers together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The computer connected well to the network."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "These computers connected well."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "These computers connected well together."
+      ]
+    }
   ]
 }

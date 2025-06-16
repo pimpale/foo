@@ -7,11 +7,16 @@
     "toy",
     "trifle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "She trifled with him."
+      ]
+    }
   ]
 }

@@ -23,47 +23,82 @@
     "take",
     "win"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.beneficiary",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.asset"
-    ],
-    [
-      "NP.asset",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "NP.asset"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carmen bought a dress."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Carmen bought a dress from Diana."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Carmen bought a dress for Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "Carmen bought Mary a dress."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.asset"
+      ],
+      "examples": [
+        "Carmen bought a dress for $50."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "$5 bought a ticket."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "NP.asset"
+      ],
+      "examples": [
+        "FMC has bought 565,000 shares from Nortek Inc. at $23.50 a share."
+      ]
+    }
   ]
 }

@@ -7,11 +7,16 @@
     "pioneer",
     "stage"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Zellig Harris established Penn's linguistics department."
+      ]
+    }
   ]
 }

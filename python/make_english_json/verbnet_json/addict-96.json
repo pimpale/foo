@@ -7,18 +7,28 @@
     "predispose",
     "slant"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.Theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.Theme"
+      ],
+      "examples": [
+        "I addicted him to Douglas Adams."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "Mary addicted him to going on long journeys."
+      ]
+    }
   ]
 }

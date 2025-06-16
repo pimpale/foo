@@ -10,11 +10,16 @@
     "volunteer",
     "whore"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.beneficiary"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Her cousin clerked for Judge Davis."
+      ]
+    }
   ]
 }

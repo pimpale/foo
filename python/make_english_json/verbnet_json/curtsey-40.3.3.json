@@ -8,26 +8,46 @@
     "salaam",
     "salute"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The princess curtseyed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The princess curtseyed to the queen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The princess curtseyed her assent."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The princess curtsied her assent to the queen."
+      ]
+    }
   ]
 }

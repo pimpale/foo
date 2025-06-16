@@ -4,10 +4,15 @@
     "fall_off",
     "fall_by_the_wayside"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I lost."
+      ]
+    }
   ]
 }

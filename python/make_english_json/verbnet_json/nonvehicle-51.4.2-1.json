@@ -8,11 +8,16 @@
     "tack",
     "wing"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The boat sailed across the lake."
+      ]
+    }
   ]
 }

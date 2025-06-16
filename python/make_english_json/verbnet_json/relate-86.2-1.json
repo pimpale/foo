@@ -6,11 +6,16 @@
     "bear_on",
     "touch_on"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This concerns both of us."
+      ]
+    }
   ]
 }

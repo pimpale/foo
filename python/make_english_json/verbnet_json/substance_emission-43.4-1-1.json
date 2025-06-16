@@ -2,11 +2,16 @@
   "members": [
     "bleed"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.source"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "I bled him."
+      ]
+    }
   ]
 }

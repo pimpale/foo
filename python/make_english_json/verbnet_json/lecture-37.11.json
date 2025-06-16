@@ -1,10 +1,15 @@
 {
   "members": [],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "She lectured about traveling."
+      ]
+    }
   ]
 }

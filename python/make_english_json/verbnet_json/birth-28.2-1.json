@@ -7,11 +7,16 @@
     "mother",
     "spawn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "My wife had twins."
+      ]
+    }
   ]
 }

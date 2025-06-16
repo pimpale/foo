@@ -9,12 +9,17 @@
     "score",
     "secure"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "John earned $10 million on proceeds from the sale."
+      ]
+    }
   ]
 }

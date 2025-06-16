@@ -22,10 +22,15 @@
     "print_out",
     "print_up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Smith was scribbling."
+      ]
+    }
   ]
 }

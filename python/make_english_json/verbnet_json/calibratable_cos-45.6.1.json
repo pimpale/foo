@@ -3,19 +3,34 @@
     "build",
     "die"
   ],
-  "primary_frames": [
-    [
-      "NP.attribute",
-      "V"
-    ],
-    [
-      "NP.patient",
-      "V",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.attribute",
+        "V"
+      ],
+      "examples": [
+        "The price of oil soared."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Oil soared in price."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Imports declined."
+      ]
+    }
   ]
 }

@@ -5,10 +5,15 @@
     "go_down",
     "go_off"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The crowd vanished."
+      ]
+    }
   ]
 }

@@ -5,11 +5,16 @@
     "encompass",
     "contain"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The Milky Way comprises more than 100 billion stars."
+      ]
+    }
   ]
 }

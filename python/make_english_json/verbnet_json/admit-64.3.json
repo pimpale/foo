@@ -4,11 +4,16 @@
     "let",
     "hail"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She admitted us."
+      ]
+    }
   ]
 }

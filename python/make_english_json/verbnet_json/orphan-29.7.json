@@ -13,11 +13,16 @@
     "whore",
     "widow"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The king knighted the brave soldier."
+      ]
+    }
   ]
 }

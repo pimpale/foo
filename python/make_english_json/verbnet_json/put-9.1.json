@@ -14,18 +14,28 @@
     "tack_on",
     "wharf"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "I put the book on/under/near the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I put the book here/there."
+      ]
+    }
   ]
 }

@@ -9,10 +9,15 @@
     "pop_off",
     "snuff_it"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He died."
+      ]
+    }
   ]
 }

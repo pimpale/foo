@@ -14,15 +14,25 @@
     "snack",
     "sup"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.patient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Cynthia breakfasted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "Cynthia breakfasted on peaches."
+      ]
+    }
   ]
 }

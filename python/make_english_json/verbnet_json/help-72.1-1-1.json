@@ -5,11 +5,16 @@
     "assist",
     "help"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "I helped with the homework."
+      ]
+    }
   ]
 }

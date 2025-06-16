@@ -8,21 +8,36 @@
     "notice",
     "see"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "I saw her bake the cake."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I saw him laughing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I saw their laughing and joking."
+      ]
+    }
   ]
 }

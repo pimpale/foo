@@ -6,9 +6,14 @@
     "outfit",
     "robe"
   ],
-  "primary_frames": [
-    [
-      "Passive"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "Passive"
+      ],
+      "examples": [
+        "She was clad in black."
+      ]
+    }
   ]
 }

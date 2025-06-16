@@ -41,11 +41,16 @@
     "worm",
     "zest"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The cook boned the fish."
+      ]
+    }
   ]
 }

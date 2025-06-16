@@ -5,11 +5,16 @@
     "tally",
     "count"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I summed the numbers."
+      ]
+    }
   ]
 }

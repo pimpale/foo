@@ -36,50 +36,80 @@
     "tumble",
     "swell"
   ],
-  "primary_frames": [
-    [
-      "NP.patient",
-      "V",
-      "NP.extent",
-      "PP.source",
-      "PP.goal"
-    ],
-    [
-      "NP.patient",
-      "V",
-      "PP.extent",
-      "PP.source",
-      "PP.goal"
-    ],
-    [
-      "NP.attribute",
-      "V",
-      "NP.extent",
-      "PP.source",
-      "PP.goal"
-    ],
-    [
-      "NP.attribute",
-      "V",
-      "PP.extent",
-      "PP.source",
-      "PP.goal"
-    ],
-    [
-      "NP.patient",
-      "V",
-      "PP.attribute",
-      "NP.extent",
-      "PP.source",
-      "PP.goal"
-    ],
-    [
-      "NP.patient",
-      "V",
-      "PP.attribute",
-      "PP.extent",
-      "PP.source",
-      "PP.goal"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "NP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "Oil rose 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "Oil rose by 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.attribute",
+        "V",
+        "NP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "The price of oil rose 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.attribute",
+        "V",
+        "PP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "The price of oil rose by 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute",
+        "NP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "Oil rose in price 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute",
+        "PP.extent",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "Oil rose in price by 565% from $26 to $147."
+      ]
+    }
   ]
 }

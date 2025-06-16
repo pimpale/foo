@@ -10,35 +10,60 @@
     "think",
     "wonder"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic",
-      "what",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic",
-      "what",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "We brooded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "We brooded about it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "We brooded about reading the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "We brooded about what we wanted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "We brooded about what to do."
+      ]
+    }
   ]
 }

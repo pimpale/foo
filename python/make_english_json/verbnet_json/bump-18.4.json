@@ -3,11 +3,16 @@
     "hit",
     "run"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The grocery cart hit against the wall."
+      ]
+    }
   ]
 }

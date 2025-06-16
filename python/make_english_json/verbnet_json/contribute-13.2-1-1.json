@@ -10,10 +10,15 @@
     "submit",
     "surrender"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Some of the members may donate privately."
+      ]
+    }
   ]
 }

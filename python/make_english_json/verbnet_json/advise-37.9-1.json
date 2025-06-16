@@ -7,28 +7,48 @@
     "instruct",
     "warn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.topic"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "S-Quote"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Ellen warned against skating on thin ice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Ellen warned that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "Ellen warned how to avoid the crowd."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S-Quote"
+      ],
+      "examples": [
+        "Ellen warned, 'Avoid that hole in the sidewalk.'"
+      ]
+    }
   ]
 }

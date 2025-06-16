@@ -5,18 +5,28 @@
     "take",
     "leave"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADJP",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "John took the radio apart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJP",
+        "NP"
+      ],
+      "examples": [
+        "The judicial decision rendered void the previous authorization."
+      ]
+    }
   ]
 }

@@ -4,11 +4,16 @@
     "proceed",
     "set_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "He began to pack."
+      ]
+    }
   ]
 }

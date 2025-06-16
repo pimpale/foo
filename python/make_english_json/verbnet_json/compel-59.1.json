@@ -2,18 +2,28 @@
   "members": [
     "talk"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.result"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I forced him into coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "I forced John into the chairmanship."
+      ]
+    }
   ]
 }

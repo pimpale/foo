@@ -9,26 +9,41 @@
     "lease",
     "pawn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.asset"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient",
-      "PP.asset"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP",
-      "PP.asset"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.asset"
+      ],
+      "examples": [
+        "He sold the car for $200."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient",
+        "PP.asset"
+      ],
+      "examples": [
+        "I leased the car to my friend for $5 a month."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP",
+        "PP.asset"
+      ],
+      "examples": [
+        "I leased him the car for $250 a month."
+      ]
+    }
   ]
 }

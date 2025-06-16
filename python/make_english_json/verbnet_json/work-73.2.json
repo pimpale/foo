@@ -7,34 +7,59 @@
     "slog_away",
     "work"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.co-agent",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.co-agent",
-      "PP.theme",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Amanda worked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Amanda worked on her essay."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "Amanda worked with Paul on her essay."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "Amanda worked at finishing the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "Amanda worked with Paul at finishing the task."
+      ]
+    }
   ]
 }

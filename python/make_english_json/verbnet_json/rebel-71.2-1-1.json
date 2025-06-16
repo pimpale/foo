@@ -2,11 +2,16 @@
   "members": [
     "sin"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John sinned a venial sin."
+      ]
+    }
   ]
 }

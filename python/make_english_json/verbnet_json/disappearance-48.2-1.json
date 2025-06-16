@@ -7,11 +7,16 @@
     "perish",
     "vanish"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "A valuable manuscript vanished from the library."
+      ]
+    }
   ]
 }

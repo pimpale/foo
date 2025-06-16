@@ -5,11 +5,16 @@
     "thirst",
     "yearn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Danny yearns after sunny days."
+      ]
+    }
   ]
 }

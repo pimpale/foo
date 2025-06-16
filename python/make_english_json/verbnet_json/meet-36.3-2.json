@@ -5,24 +5,44 @@
     "debate",
     "fight"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.co-agent"
-    ],
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Brenda fought with Molly."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Brenda and Molly fought."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Anne fought Cathy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The populace fought."
+      ]
+    }
   ]
 }

@@ -8,11 +8,16 @@
     "leave",
     "vacate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The convict escaped the prison."
+      ]
+    }
   ]
 }

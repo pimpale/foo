@@ -7,15 +7,25 @@
     "hyperventilate",
     "seethe"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The bag bulged with groceries."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The bag bulged."
+      ]
+    }
   ]
 }

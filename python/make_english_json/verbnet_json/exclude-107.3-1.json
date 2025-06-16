@@ -3,13 +3,18 @@
     "exclude",
     "preclude"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.goal",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal",
+        "S_ING"
+      ],
+      "examples": [
+        "They excluded us from going to the party."
+      ]
+    }
   ]
 }

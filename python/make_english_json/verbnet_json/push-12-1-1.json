@@ -8,16 +8,26 @@
     "squeeze",
     "thrust"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.trajectory"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "She squeezed the toothpaste out."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Nora pushed through the crowd."
+      ]
+    }
   ]
 }

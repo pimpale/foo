@@ -6,11 +6,16 @@
     "fancy",
     "love"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Dorothy needed new shoes."
+      ]
+    }
   ]
 }

@@ -4,11 +4,16 @@
     "rebel",
     "retaliate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.maleficiary"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.maleficiary"
+      ],
+      "examples": [
+        "John rebelled against her."
+      ]
+    }
   ]
 }

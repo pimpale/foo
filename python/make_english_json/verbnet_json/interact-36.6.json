@@ -8,19 +8,34 @@
     "hook-up",
     "split-up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.co-agent"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Kathy hooked up."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Brenda and Molly split up."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Fred is going steady with Amanda."
+      ]
+    }
   ]
 }

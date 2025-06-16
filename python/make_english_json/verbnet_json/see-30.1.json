@@ -4,34 +4,59 @@
     "smell",
     "taste"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP-ATTR-POS"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I saw that you were excited."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I saw the play."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-ATTR-POS"
+      ],
+      "examples": [
+        "I sensed the eagerness in him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I saw how he arrived."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I saw what they did."
+      ]
+    }
   ]
 }

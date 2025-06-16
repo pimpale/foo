@@ -22,12 +22,17 @@
     "swing",
     "tilt"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP"
+      ],
+      "examples": [
+        "They stood the statue on the pedestal."
+      ]
+    }
   ]
 }

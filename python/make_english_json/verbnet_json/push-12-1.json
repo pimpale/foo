@@ -5,17 +5,27 @@
     "tug",
     "yank"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJP-Result"
-    ],
-    [
-      "NP",
-      "V",
-      "PP-Conative"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP-Result"
+      ],
+      "examples": [
+        "Nora yanked the button loose."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP-Conative"
+      ],
+      "examples": [
+        "Nora pushed at the wall."
+      ]
+    }
   ]
 }

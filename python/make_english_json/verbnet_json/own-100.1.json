@@ -5,11 +5,16 @@
     "own",
     "possess"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I own twelve oxen."
+      ]
+    }
   ]
 }

@@ -4,12 +4,17 @@
     "gobble",
     "wolf"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "up"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "up"
+      ],
+      "examples": [
+        "Cynthia gobbled the pizza up."
+      ]
+    }
   ]
 }

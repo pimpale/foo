@@ -3,17 +3,27 @@
     "request",
     "importune"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I begged him to be civilized with my friends."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I begged to be dismissed."
+      ]
+    }
   ]
 }

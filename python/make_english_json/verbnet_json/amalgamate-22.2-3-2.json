@@ -2,10 +2,15 @@
   "members": [
     "engage"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John and Mary are engaged."
+      ]
+    }
   ]
 }

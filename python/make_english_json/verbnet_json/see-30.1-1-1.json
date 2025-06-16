@@ -2,11 +2,16 @@
   "members": [
     "hear"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "The entire class heard about/of the sermon."
+      ]
+    }
   ]
 }

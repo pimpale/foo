@@ -6,11 +6,16 @@
     "go_like",
     "go_on"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S-Quote"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S-Quote"
+      ],
+      "examples": [
+        "He was like, 'It has to go.'"
+      ]
+    }
   ]
 }

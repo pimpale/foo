@@ -5,34 +5,59 @@
     "understand",
     "encourage"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I accepted how you did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I accepted it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I accepted their writing novels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I accepted that they wrote novels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I accepted what they were doing."
+      ]
+    }
   ]
 }

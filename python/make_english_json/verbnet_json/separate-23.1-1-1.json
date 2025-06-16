@@ -5,11 +5,16 @@
     "part",
     "separate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.co-patient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The yolk parted with the white."
+      ]
+    }
   ]
 }

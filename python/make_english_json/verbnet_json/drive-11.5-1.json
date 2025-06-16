@@ -8,37 +8,62 @@
     "shuttle",
     "truck"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination",
-      "PP.initial_location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Amanda shuttled her children."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda shuttled her children from Philadelphia."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda shuttled the children to school."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda trucked the package from Philadelphia to her mother's house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda trucked the package to her mother's house from Philadelphia."
+      ]
+    }
   ]
 }

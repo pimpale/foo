@@ -24,59 +24,104 @@
     "snitch",
     "write_in"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.recipient",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.recipient",
-      "how",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I explained how it can be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I explained to her how it can be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained to her how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I explained what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I explained the matter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "I explained the matter to them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I explained."
+      ]
+    }
   ]
 }

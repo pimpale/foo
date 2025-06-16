@@ -8,17 +8,27 @@
     "whip",
     "whisk"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP",
-      "ADV-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The sugar whipped into cream easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman whipped cream."
+      ]
+    }
   ]
 }

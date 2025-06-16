@@ -11,11 +11,16 @@
     "tout",
     "glorify"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He overstated the position."
+      ]
+    }
   ]
 }

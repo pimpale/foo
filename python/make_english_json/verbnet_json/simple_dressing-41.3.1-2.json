@@ -3,11 +3,16 @@
     "don",
     "doff"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She donned the red hat."
+      ]
+    }
   ]
 }

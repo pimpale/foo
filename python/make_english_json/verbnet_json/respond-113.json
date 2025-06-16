@@ -6,26 +6,46 @@
     "respond",
     "retaliate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.predicate"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme",
-      "PP.predicate"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He responded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "He responded to my call."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.predicate"
+      ],
+      "examples": [
+        "He responded with a question."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "PP.predicate"
+      ],
+      "examples": [
+        "He responded to my call with a question."
+      ]
+    }
   ]
 }

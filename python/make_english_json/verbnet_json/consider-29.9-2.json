@@ -5,24 +5,39 @@
     "suppose",
     "posit"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They thought him smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "They thought him a bore."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They thought the children found."
+      ]
+    }
   ]
 }

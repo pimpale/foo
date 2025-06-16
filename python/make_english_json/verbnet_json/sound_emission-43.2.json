@@ -130,36 +130,66 @@
     "whump",
     "zing"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP.location",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "PP.location",
-      "V",
-      "NP"
-    ],
-    [
-      "There",
-      "V",
-      "NP",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The door hinges squeaked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Horns beeped in the street."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The street sang with horns."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "In the hallway ticked a grandfather clock."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There ticked a grandfather clock in the hallway."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "I buzzed the bell."
+      ]
+    }
   ]
 }

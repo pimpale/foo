@@ -2,20 +2,35 @@
   "members": [
     "hide"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The children hid."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The children hid from Sally."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The children hid in the chimney."
+      ]
+    }
   ]
 }

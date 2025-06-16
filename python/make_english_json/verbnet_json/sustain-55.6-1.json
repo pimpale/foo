@@ -3,12 +3,17 @@
     "keep",
     "leave"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They kept the government strong."
+      ]
+    }
   ]
 }

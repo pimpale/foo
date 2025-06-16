@@ -12,12 +12,17 @@
     "result",
     "transpire"
   ],
-  "primary_frames": [
-    [
-      "It",
-      "V",
-      "that",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "It",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "It occurred that they left."
+      ]
+    }
   ]
 }

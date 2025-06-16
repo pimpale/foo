@@ -7,18 +7,28 @@
     "pooh_pooh",
     "reject"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I reject how you explain it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I rejected what they were doing."
+      ]
+    }
   ]
 }

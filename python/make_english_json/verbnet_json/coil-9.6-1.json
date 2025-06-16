@@ -7,11 +7,16 @@
     "twirl",
     "twist"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADV-Middle"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The rope curled upward."
+      ]
+    }
   ]
 }

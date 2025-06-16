@@ -9,20 +9,35 @@
     "lodge",
     "stable"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "I landed in Russia."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The plane landed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "I landed there."
+      ]
+    }
   ]
 }

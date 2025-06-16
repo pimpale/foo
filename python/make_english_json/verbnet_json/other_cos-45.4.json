@@ -296,31 +296,56 @@
     "worsen",
     "yellow"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ],
-    [
-      "NP.patient",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV-Middle"
-    ],
-    [
-      "NP.instrument",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient"
+      ],
+      "examples": [
+        "Bill dried the clothes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Bill dried the clothes with a hairdryer."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V"
+      ],
+      "examples": [
+        "The clothes dried."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The cotton clothes dried easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The hairdryer dried the clothes."
+      ]
+    }
   ]
 }

@@ -14,16 +14,26 @@
     "take",
     "turn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.goal"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He converted to believing in Buddha."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.goal"
+      ],
+      "examples": [
+        "He converted to Buddhism."
+      ]
+    }
   ]
 }

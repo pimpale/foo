@@ -3,12 +3,17 @@
     "allow",
     "permit"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S"
+      ],
+      "examples": [
+        "They allowed us to smoke."
+      ]
+    }
   ]
 }

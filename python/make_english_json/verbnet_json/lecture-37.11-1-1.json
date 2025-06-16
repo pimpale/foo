@@ -3,12 +3,17 @@
     "elaborate",
     "comment"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.topic",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "She lectured about her traveling."
+      ]
+    }
   ]
 }

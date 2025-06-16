@@ -9,11 +9,16 @@
     "pass_away",
     "perish"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.cause"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.cause"
+      ],
+      "examples": [
+        "He died of illness."
+      ]
+    }
   ]
 }

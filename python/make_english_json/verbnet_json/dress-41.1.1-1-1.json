@@ -23,11 +23,16 @@
     "undress",
     "wash"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Marlene dressed herself."
+      ]
+    }
   ]
 }

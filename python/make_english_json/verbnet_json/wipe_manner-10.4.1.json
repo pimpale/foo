@@ -23,22 +23,37 @@
     "winnow",
     "wring"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Brian wiped the fingerprints from the counter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "Brian wiped the counter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Barry Cryer erased the writing."
+      ]
+    }
   ]
 }

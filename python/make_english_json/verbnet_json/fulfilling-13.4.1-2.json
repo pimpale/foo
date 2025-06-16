@@ -2,11 +2,16 @@
   "members": [
     "provide"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.recipient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Hess provides for its customers."
+      ]
+    }
   ]
 }

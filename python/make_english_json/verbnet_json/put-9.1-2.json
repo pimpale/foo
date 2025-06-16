@@ -5,12 +5,17 @@
     "set",
     "stick"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.destination",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination",
+        "NP"
+      ],
+      "examples": [
+        "They put upon me a brilliant, red helm."
+      ]
+    }
   ]
 }

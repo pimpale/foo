@@ -2,11 +2,16 @@
   "members": [
     "appeal"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.experiencer"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.experiencer"
+      ],
+      "examples": [
+        "This painting appeals to Malinda."
+      ]
+    }
   ]
 }

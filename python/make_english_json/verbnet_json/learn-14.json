@@ -1,21 +1,36 @@
 {
   "members": [],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Rhoda learned French from an old book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "Rhoda learned from an old book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Kissinger learned his lesson."
+      ]
+    }
   ]
 }

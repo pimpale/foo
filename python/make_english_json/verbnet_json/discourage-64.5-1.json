@@ -9,21 +9,36 @@
     "obstruct",
     "restrain"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The sign discouraged our smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The sign discouraged smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The warning sign discouraged it."
+      ]
+    }
   ]
 }

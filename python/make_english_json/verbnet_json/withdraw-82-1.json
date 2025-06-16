@@ -7,17 +7,27 @@
     "bow_out",
     "pull_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.source",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He backed out of the trip."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "S_ING"
+      ],
+      "examples": [
+        "He backed out of going on the trip."
+      ]
+    }
   ]
 }

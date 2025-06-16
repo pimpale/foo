@@ -36,11 +36,16 @@
     "valet",
     "witness"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Miriam tutored her brother."
+      ]
+    }
   ]
 }

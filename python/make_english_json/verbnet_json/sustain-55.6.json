@@ -9,12 +9,17 @@
     "continue",
     "carry_on"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "I maintained a strong government through ruthless domination."
+      ]
+    }
   ]
 }

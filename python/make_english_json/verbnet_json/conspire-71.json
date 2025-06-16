@@ -9,25 +9,45 @@
     "scheme",
     "team_up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.co-agent"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.maleficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John and Sarah conspired."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "John conspired with Sarah."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.maleficiary"
+      ],
+      "examples": [
+        "John conspired against her."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "The US conspired to overthrow the UN."
+      ]
+    }
   ]
 }

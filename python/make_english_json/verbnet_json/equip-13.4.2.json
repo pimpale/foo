@@ -4,12 +4,17 @@
     "invest",
     "ply"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP-Fulfilling",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Fulfilling",
+        "PP"
+      ],
+      "examples": [
+        "Brown equipped Jones with a camera."
+      ]
+    }
   ]
 }

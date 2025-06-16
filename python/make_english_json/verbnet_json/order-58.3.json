@@ -4,11 +4,16 @@
     "demand",
     "mandate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "He ordered that she should come immediately."
+      ]
+    }
   ]
 }

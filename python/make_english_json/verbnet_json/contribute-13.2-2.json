@@ -5,12 +5,17 @@
     "proffer",
     "transfer"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "They will reimburse them up to $500."
+      ]
+    }
   ]
 }

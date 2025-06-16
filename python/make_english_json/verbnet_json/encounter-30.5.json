@@ -13,11 +13,16 @@
     "stumble_on",
     "stumble_upon"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I stumbled across the silver chalice."
+      ]
+    }
   ]
 }

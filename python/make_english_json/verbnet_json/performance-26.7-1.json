@@ -9,12 +9,17 @@
     "sing",
     "whistle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.beneficiary",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "Claire drew me a picture."
+      ]
+    }
   ]
 }

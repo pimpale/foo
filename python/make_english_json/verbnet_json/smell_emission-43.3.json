@@ -4,19 +4,34 @@
     "smell",
     "stink"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP.location",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The onions reeked."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V"
+      ],
+      "examples": [
+        "The room reeked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The room reeked of onions."
+      ]
+    }
   ]
 }

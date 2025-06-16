@@ -5,11 +5,16 @@
     "turn",
     "turn_up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ"
+      ],
+      "examples": [
+        "The belt came undone."
+      ]
+    }
   ]
 }

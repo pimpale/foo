@@ -8,11 +8,16 @@
     "qualify",
     "rank"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Dina masqueraded as a lawyer."
+      ]
+    }
   ]
 }

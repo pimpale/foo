@@ -3,18 +3,28 @@
     "adjudge",
     "maintain"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "The president declared what we should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The president declared John as stupid."
+      ]
+    }
   ]
 }

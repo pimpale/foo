@@ -27,18 +27,28 @@
     "tilt",
     "underlay"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Cheryl stood the books on the shelf."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "Cheryl stood the books there."
+      ]
+    }
   ]
 }

@@ -4,11 +4,16 @@
     "neglect",
     "omit"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I neglected to do the job."
+      ]
+    }
   ]
 }

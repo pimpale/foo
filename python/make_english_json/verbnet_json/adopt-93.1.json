@@ -5,11 +5,16 @@
     "take",
     "take_on"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He assumed the position that dogs are people."
+      ]
+    }
   ]
 }

@@ -3,12 +3,17 @@
     "introduce",
     "figure"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "John introduced Mary to me."
+      ]
+    }
   ]
 }

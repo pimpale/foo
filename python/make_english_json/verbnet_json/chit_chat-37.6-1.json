@@ -4,29 +4,49 @@
     "debate",
     "discuss"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-agent"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I debated how it can be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I discussed how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I debated the matter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "I debated the matter with Susan."
+      ]
+    }
   ]
 }

@@ -7,12 +7,17 @@
     "father",
     "sire"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "She bore him a child."
+      ]
+    }
   ]
 }

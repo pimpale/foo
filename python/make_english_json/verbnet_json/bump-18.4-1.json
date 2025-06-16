@@ -25,11 +25,16 @@
     "thud",
     "thump"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The grocery carts thudded together."
+      ]
+    }
   ]
 }

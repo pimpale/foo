@@ -2,10 +2,15 @@
   "members": [
     "cope"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He managed."
+      ]
+    }
   ]
 }

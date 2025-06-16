@@ -10,11 +10,16 @@
     "cause",
     "engage_in"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They carried out the deed."
+      ]
+    }
   ]
 }

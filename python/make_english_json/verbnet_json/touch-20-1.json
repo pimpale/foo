@@ -21,13 +21,18 @@
     "tickle",
     "touch"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carrie touched him on the shoulder with the stick."
+      ]
+    }
   ]
 }

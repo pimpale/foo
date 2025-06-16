@@ -5,28 +5,48 @@
     "identify",
     "commiserate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus",
-      "what",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I empathized."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "I empathized with them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "S_ING"
+      ],
+      "examples": [
+        "I empathized with their feeling that way."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I empathized with what they wanted."
+      ]
+    }
   ]
 }

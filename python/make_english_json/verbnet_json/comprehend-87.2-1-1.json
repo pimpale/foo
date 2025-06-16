@@ -2,10 +2,15 @@
   "members": [
     "see"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I understand."
+      ]
+    }
   ]
 }

@@ -6,15 +6,25 @@
     "diverge",
     "vary"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.co-theme"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "The winter schedule differed from the spring schedule."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The U.S. version and the U.K. version differed."
+      ]
+    }
   ]
 }

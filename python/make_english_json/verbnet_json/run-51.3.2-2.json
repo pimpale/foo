@@ -31,42 +31,72 @@
     "trip",
     "trot"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.trajectory"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "PP.destination",
-      "PP.trajectory"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.result"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Tom jumped the horse over the fence."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "The lion tamer jumped the lions through the loop."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tom jumped the horse."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The lion tamer jumped the lions."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.destination",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Tom ran the horse from the stable to the pasture through an open gate."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Tom walked the dog to exhaustion."
+      ]
+    }
   ]
 }

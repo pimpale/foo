@@ -2,12 +2,17 @@
   "members": [
     "beg"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.Topic"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.Topic"
+      ],
+      "examples": [
+        "I begged her for release."
+      ]
+    }
   ]
 }

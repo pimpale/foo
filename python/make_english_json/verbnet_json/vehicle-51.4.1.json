@@ -27,38 +27,68 @@
     "trolley",
     "yacht"
   ],
-  "primary_frames": [
-    [
-      "NP.theme",
-      "V"
-    ],
-    [
-      "NP.theme",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.result"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V"
+      ],
+      "examples": [
+        "Claire rickshawed."
+      ]
+    },
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Claire rickshawed along the creek path."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "James rickshawed Penny around the block."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "James rickshawed Penny."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "James rickshawed his legs off."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "James rickshawed his legs to exhaustion."
+      ]
+    }
   ]
 }

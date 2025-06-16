@@ -10,20 +10,35 @@
     "tremble",
     "writhe"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sharon shivered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon shivered from fear."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon shivered at the thought of the cold sea."
+      ]
+    }
   ]
 }

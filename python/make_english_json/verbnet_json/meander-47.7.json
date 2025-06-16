@@ -28,28 +28,48 @@
     "zag",
     "zig"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "PP.location",
-      "V",
-      "NP"
-    ],
-    [
-      "There",
-      "V",
-      "PP",
-      "NP"
-    ],
-    [
-      "There",
-      "V",
-      "NP",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The river ran through the valley."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Through the valley meandered the river."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "PP",
+        "NP"
+      ],
+      "examples": [
+        "There meandered through the valley a river."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There meandered a river through the valley."
+      ]
+    }
   ]
 }

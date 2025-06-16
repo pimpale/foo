@@ -26,10 +26,15 @@
     "rhyme",
     "unify"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Plays and ballets alternate."
+      ]
+    }
   ]
 }

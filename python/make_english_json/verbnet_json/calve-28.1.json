@@ -7,10 +7,15 @@
     "lamb",
     "pup"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The cat kittened."
+      ]
+    }
   ]
 }

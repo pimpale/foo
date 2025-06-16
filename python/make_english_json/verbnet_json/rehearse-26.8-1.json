@@ -4,10 +4,15 @@
     "practice",
     "rehearse"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He rehearsed."
+      ]
+    }
   ]
 }

@@ -5,18 +5,28 @@
     "commit",
     "allocate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.goal"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "She invested $50,000 in Wal-Mart"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Lionsgate invested $21 million in stock\n                                                                                                                                                                                                                                                                                                                                                                                                for a 42% stake in Break.com"
+      ]
+    }
   ]
 }

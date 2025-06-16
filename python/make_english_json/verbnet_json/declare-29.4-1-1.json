@@ -4,24 +4,39 @@
     "proclaim",
     "prove"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "what",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "how",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "The president declared what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "John declared how he did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "John declared how to do it."
+      ]
+    }
   ]
 }

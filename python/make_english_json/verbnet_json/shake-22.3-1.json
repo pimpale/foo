@@ -3,18 +3,28 @@
     "lump",
     "mass"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Herman whipped sugar with the cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman whipped sugar and the cream together."
+      ]
+    }
   ]
 }

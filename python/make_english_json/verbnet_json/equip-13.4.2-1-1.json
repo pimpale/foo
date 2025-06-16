@@ -8,11 +8,16 @@
     "burden",
     "compensate"
   ],
-  "primary_frames": [
-    [
-      "NP.theme",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The huge load burdened the mule."
+      ]
+    }
   ]
 }

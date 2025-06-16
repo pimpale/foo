@@ -2,11 +2,16 @@
   "members": [
     "smoke"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.source"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "He smoked the pipe."
+      ]
+    }
   ]
 }

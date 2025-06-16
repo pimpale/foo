@@ -3,11 +3,16 @@
     "hold",
     "bear"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This rock bears the weight of the fallen tree."
+      ]
+    }
   ]
 }

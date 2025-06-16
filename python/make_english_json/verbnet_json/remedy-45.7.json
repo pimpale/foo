@@ -151,17 +151,27 @@
     "ventilate",
     "vulgarize"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient"
+      ],
+      "examples": [
+        "Bill repaired the tractor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Bill repaired the tractor with duct tape."
+      ]
+    }
   ]
 }

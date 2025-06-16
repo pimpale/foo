@@ -3,10 +3,15 @@
     "sail",
     "coast"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Jill sailed."
+      ]
+    }
   ]
 }

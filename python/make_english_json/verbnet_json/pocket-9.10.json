@@ -51,17 +51,27 @@
     "warehouse",
     "wharf"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Lydia pocketed the change."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "We bottled the cider in 1 gallon jugs."
+      ]
+    }
   ]
 }

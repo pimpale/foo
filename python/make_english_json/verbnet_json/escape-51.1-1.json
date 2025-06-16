@@ -24,15 +24,25 @@
     "vamoose",
     "withdraw"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.initial_location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The prisoners advanced."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "He came from France."
+      ]
+    }
   ]
 }

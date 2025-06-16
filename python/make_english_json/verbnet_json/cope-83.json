@@ -2,11 +2,16 @@
   "members": [
     "deal"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "He managed with climbing the slope."
+      ]
+    }
   ]
 }

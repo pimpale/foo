@@ -9,10 +9,15 @@
     "silkscreen",
     "write"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Claire drew."
+      ]
+    }
   ]
 }

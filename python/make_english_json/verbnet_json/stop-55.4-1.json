@@ -8,10 +8,15 @@
     "stall",
     "terminate"
   ],
-  "primary_frames": [
-    [
-      "NP.eventuality",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.eventuality",
+        "V"
+      ],
+      "examples": [
+        "The storm ended."
+      ]
+    }
   ]
 }

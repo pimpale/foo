@@ -9,11 +9,16 @@
     "survive",
     "thrive"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.patient"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "Cynthia gorged on peaches."
+      ]
+    }
   ]
 }

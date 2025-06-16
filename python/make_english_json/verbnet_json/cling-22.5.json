@@ -4,16 +4,26 @@
     "cleave",
     "cling"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.co-theme"
-    ],
-    [
-      "NP",
-      "V",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "The plastic wrap clung to the bowl."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The child and her mother clung together."
+      ]
+    }
   ]
 }

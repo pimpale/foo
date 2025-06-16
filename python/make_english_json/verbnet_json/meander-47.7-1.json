@@ -21,10 +21,15 @@
     "swerve",
     "zigzag"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The river was twisting."
+      ]
+    }
   ]
 }

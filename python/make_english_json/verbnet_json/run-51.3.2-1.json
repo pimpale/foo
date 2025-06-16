@@ -24,11 +24,16 @@
     "wander",
     "wing"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The horse hopped the fence."
+      ]
+    }
   ]
 }

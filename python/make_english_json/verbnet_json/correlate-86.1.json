@@ -6,28 +6,48 @@
     "flip-flop",
     "co-occur"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "His birthday coincided with him running the Boston Marathon."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "His birthday coincided with Labor Day."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "He alternated gardening with walking his dog."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "He alternated polka dots with stripes."
+      ]
+    }
   ]
 }

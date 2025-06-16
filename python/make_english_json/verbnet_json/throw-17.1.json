@@ -4,36 +4,61 @@
     "discard",
     "drive"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destinations"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Steve tossed the ball."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destinations"
+      ],
+      "examples": [
+        "Steve tossed the ball to the garden."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Steve tossed the ball from the corner."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Steve tossed the ball from the corner to the garden."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I threw the package away."
+      ]
+    }
   ]
 }

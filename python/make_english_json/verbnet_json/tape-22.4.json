@@ -72,53 +72,93 @@
     "yoke",
     "zip"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-patient",
-      "PP.instrument"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "together"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV-Middle",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "together",
-      "ADV-Middle"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Linda taped the picture."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Linda taped the picture to the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Linda taped the picture to the wall with masking tape."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Linda taped the label and the cover together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The labels taped easily to that kind of cover."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The labels taped easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The labels and covers taped together easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Linda taped the box shut."
+      ]
+    }
   ]
 }

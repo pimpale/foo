@@ -17,18 +17,28 @@
     "shuffle",
     "stick"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Herman gathered the students into a group."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman gathered the students together."
+      ]
+    }
   ]
 }

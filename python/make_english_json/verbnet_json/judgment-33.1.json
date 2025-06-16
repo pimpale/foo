@@ -12,22 +12,37 @@
     "imprecate",
     "slang"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They praised the volunteers."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They praised the volunteers for their dedication."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.attribute"
+      ],
+      "examples": [
+        "They praised the volunteer's dedication."
+      ]
+    }
   ]
 }

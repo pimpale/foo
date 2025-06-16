@@ -3,16 +3,26 @@
     "serve",
     "pose"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They serve a restricted role on the bench."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "He had served in financial planning positions."
+      ]
+    }
   ]
 }

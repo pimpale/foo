@@ -6,12 +6,17 @@
     "roll",
     "slide"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP-dative",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-dative",
+        "NP"
+      ],
+      "examples": [
+        "Carla slid John the books."
+      ]
+    }
   ]
 }

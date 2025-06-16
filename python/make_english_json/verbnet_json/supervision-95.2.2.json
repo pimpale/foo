@@ -5,11 +5,16 @@
     "reign_over",
     "superintend"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Martha supervised Kevin."
+      ]
+    }
   ]
 }

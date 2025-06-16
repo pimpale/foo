@@ -12,16 +12,26 @@
     "mix",
     "recombine"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "NP",
-      "V",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The eggs and the cream mixed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The eggs and the cream mixed together."
+      ]
+    }
   ]
 }

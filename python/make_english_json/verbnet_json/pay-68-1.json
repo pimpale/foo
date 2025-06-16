@@ -4,19 +4,29 @@
     "repay",
     "tithe"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "He paid me 500 pounds for the car."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "He paid me 500 pounds."
+      ]
+    }
   ]
 }

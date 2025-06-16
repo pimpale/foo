@@ -5,11 +5,16 @@
     "go",
     "grow"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "The matter fell into dispute."
+      ]
+    }
   ]
 }

@@ -5,11 +5,16 @@
     "spawn",
     "whelp"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The dog whelped a litter of puppies."
+      ]
+    }
   ]
 }

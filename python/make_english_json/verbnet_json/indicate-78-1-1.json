@@ -12,14 +12,19 @@
     "show",
     "suggest"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "to",
-      "be",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "This indicates him to be the thief."
+      ]
+    }
   ]
 }

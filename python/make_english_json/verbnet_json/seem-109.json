@@ -5,11 +5,16 @@
     "taste",
     "keep"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ"
+      ],
+      "examples": [
+        "He appeared crazy."
+      ]
+    }
   ]
 }

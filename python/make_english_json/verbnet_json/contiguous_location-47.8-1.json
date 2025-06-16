@@ -8,10 +8,15 @@
     "meet",
     "touch"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Italy and France touch."
+      ]
+    }
   ]
 }

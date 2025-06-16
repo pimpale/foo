@@ -6,11 +6,16 @@
     "go_down",
     "come_off"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADV"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "The discussion went well."
+      ]
+    }
   ]
 }

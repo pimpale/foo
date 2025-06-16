@@ -9,11 +9,16 @@
     "sting",
     "stub"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tessa sprained her ankle."
+      ]
+    }
   ]
 }

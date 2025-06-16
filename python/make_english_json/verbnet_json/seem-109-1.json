@@ -2,11 +2,16 @@
   "members": [
     "act"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He seemed a fool."
+      ]
+    }
   ]
 }

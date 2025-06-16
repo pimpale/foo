@@ -4,10 +4,15 @@
     "multiply",
     "procreate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "They multiplied."
+      ]
+    }
   ]
 }

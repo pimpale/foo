@@ -3,11 +3,16 @@
     "attend",
     "tend"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The vet attended to the sick ram."
+      ]
+    }
   ]
 }

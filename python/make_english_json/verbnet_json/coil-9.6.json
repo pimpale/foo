@@ -9,23 +9,38 @@
     "whirl",
     "wind"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV-Middle",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Cora coiled the rope around the post."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The rope coiled around the post."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle",
+        "PP.location"
+      ],
+      "examples": [
+        "That type of rope coiled easily around the post."
+      ]
+    }
   ]
 }

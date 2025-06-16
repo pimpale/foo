@@ -4,11 +4,16 @@
     "pertain",
     "relate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.co-theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "This pertains to both of us."
+      ]
+    }
   ]
 }

@@ -12,17 +12,27 @@
     "reappraise",
     "value"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.value"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The dealer appraised the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "The dealer appraised the book at $200."
+      ]
+    }
   ]
 }

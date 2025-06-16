@@ -10,11 +10,16 @@
     "urinate",
     "hawk"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paul breathed a deep breath."
+      ]
+    }
   ]
 }

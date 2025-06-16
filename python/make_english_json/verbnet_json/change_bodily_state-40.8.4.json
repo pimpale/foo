@@ -15,15 +15,26 @@
     "pass_out",
     "zonk_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sharon fainted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon fainted from hunger.",
+        "Sharon fainted at the sight of the accident."
+      ]
+    }
   ]
 }

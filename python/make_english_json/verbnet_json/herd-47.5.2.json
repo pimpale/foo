@@ -16,21 +16,36 @@
     "mass",
     "reconvene"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "together"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The kids are assembling."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The teacher gathered the kids."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "The teacher gathered the kids together."
+      ]
+    }
   ]
 }

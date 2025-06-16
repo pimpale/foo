@@ -10,30 +10,50 @@
     "raise",
     "back"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I lifted the books."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "I lifted the books onto the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "I lifted the books from the floor onto the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I dropped the books here."
+      ]
+    }
   ]
 }

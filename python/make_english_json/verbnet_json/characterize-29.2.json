@@ -34,26 +34,41 @@
     "treat",
     "typecast"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "to",
-      "be",
-      "ADJ"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "He characterized him as being smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "ADJ"
+      ],
+      "examples": [
+        "He characterized him to be smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "He characterized him as smart."
+      ]
+    }
   ]
 }

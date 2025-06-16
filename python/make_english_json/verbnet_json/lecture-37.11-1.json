@@ -17,21 +17,36 @@
     "write",
     "pontificate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.topic"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.recipient",
-      "PP.topic"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "She lectured."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "She lectured about her travels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic"
+      ],
+      "examples": [
+        "She lectured to the class about her travels."
+      ]
+    }
   ]
 }

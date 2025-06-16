@@ -3,17 +3,27 @@
     "lose",
     "flub"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.eventuality",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I lost the game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality",
+        "S_ING"
+      ],
+      "examples": [
+        "I lost at poker."
+      ]
+    }
   ]
 }

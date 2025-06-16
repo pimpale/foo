@@ -7,12 +7,17 @@
     "stop",
     "terminate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJ"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "His property begins at the fence."
+      ]
+    }
   ]
 }

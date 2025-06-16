@@ -75,38 +75,68 @@
     "wheeze",
     "whine"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP.recipient",
-      "PP.stimulus"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The dog barked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The dog barked at the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The dog barked a warning."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The dog barked a warning at the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "The dog barked at the sight of the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.recipient",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "The dog whimpered a moan to his owner at the sight of the cat."
+      ]
+    }
   ]
 }

@@ -2,11 +2,16 @@
   "members": [
     "set_about"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "John began going to the area."
+      ]
+    }
   ]
 }

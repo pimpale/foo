@@ -72,22 +72,37 @@
     "tinge",
     "inject"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The employees staffed the store."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Leslie staffed the store with employees."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination"
+      ],
+      "examples": [
+        "Leslie staffed the store."
+      ]
+    }
   ]
 }

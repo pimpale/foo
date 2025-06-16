@@ -2,12 +2,17 @@
   "members": [
     "put"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.value"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "He put the probability at 0.9."
+      ]
+    }
   ]
 }

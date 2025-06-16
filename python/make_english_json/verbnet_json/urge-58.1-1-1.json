@@ -12,13 +12,18 @@
     "prod",
     "urge"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "that",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I urged him that he should come."
+      ]
+    }
   ]
 }

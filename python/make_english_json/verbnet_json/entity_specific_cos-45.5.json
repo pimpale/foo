@@ -42,10 +42,15 @@
     "wither",
     "pullulate"
   ],
-  "primary_frames": [
-    [
-      "NP.patient",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.patient",
+        "V"
+      ],
+      "examples": [
+        "The roses bloomed."
+      ]
+    }
   ]
 }

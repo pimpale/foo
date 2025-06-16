@@ -4,22 +4,37 @@
     "get",
     "make_it"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.trajectory"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.initial_location",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "He came to Colorado."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "He came through the door."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "He came from France to Colorado."
+      ]
+    }
   ]
 }

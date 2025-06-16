@@ -15,20 +15,30 @@
     "surmise",
     "swear"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "to",
-      "be",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "He knew the choice to be a bad one."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The populace felt that the RIAA had too much power."
+      ]
+    }
   ]
 }

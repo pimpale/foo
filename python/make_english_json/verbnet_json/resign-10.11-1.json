@@ -7,16 +7,26 @@
     "walk_out",
     "withdraw"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He resigned from the military."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He resigned as head of the lab."
+      ]
+    }
   ]
 }

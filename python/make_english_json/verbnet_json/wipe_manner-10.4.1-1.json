@@ -23,11 +23,16 @@
     "wear",
     "wipe"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP-Conative"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP-Conative"
+      ],
+      "examples": [
+        "Brian wiped at the counter."
+      ]
+    }
   ]
 }

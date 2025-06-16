@@ -14,11 +14,16 @@
     "sled",
     "toboggan"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Claire rickshawed the streets."
+      ]
+    }
   ]
 }

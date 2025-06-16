@@ -5,11 +5,16 @@
     "get_by",
     "get_through"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He managed the climb."
+      ]
+    }
   ]
 }

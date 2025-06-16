@@ -8,17 +8,27 @@
     "retreat",
     "withdraw"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.source",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He withdrew from the trip."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "S_ING"
+      ],
+      "examples": [
+        "He withdrew from going on the trip."
+      ]
+    }
   ]
 }

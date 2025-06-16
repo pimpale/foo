@@ -3,11 +3,16 @@
     "kill",
     "kill-off"
   ],
-  "primary_frames": [
-    [
-      "NP.instrument",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The DDT killed the insects."
+      ]
+    }
   ]
 }

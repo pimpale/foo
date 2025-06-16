@@ -10,34 +10,59 @@
     "squeegee",
     "towel"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.initial_location"
-    ],
-    [
-      "NP.agent",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADJP-Result"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Carla shoveled the snow from the walk."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Carla shoveled the snow from the sidewalk into the street."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.initial_location"
+      ],
+      "examples": [
+        "Carla shoveled the walk."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V"
+      ],
+      "examples": [
+        "Carla vacuumed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP-Result"
+      ],
+      "examples": [
+        "Carla shoveled the walk clean."
+      ]
+    }
   ]
 }

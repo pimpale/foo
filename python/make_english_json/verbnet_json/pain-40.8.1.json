@@ -8,20 +8,35 @@
     "kill",
     "pain"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.experiencer"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.stimulus"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My eyes were itching."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.experiencer"
+      ],
+      "examples": [
+        "My eyes were itching me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "My eyes were itching from the smoke."
+      ]
+    }
   ]
 }

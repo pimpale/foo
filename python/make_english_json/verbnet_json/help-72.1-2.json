@@ -3,17 +3,27 @@
     "go",
     "pull"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.beneficiary",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I went for the first candidate."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary",
+        "PP.theme"
+      ],
+      "examples": [
+        "I went for the first candidate in the gubernatorial race."
+      ]
+    }
   ]
 }

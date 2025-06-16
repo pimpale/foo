@@ -8,12 +8,17 @@
     "paint",
     "spin"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.beneficiary",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "David dug me a hole."
+      ]
+    }
   ]
 }

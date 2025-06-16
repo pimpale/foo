@@ -1,9 +1,14 @@
 {
   "members": [],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John rebelled."
+      ]
+    }
   ]
 }

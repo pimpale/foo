@@ -27,29 +27,49 @@
     "synthesize",
     "turn-out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.material"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "David constructed a house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.material"
+      ],
+      "examples": [
+        "David constructed a house out of sticks."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "David dug a hole for me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They designed the Westinghouse-Mitsubishi venture as a non-equity transaction."
+      ]
+    }
   ]
 }

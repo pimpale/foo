@@ -98,37 +98,67 @@
     "zigzag",
     "zoom"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "There",
-      "V",
-      "PP",
-      "NP"
-    ],
-    [
-      "There",
-      "V",
-      "NP",
-      "PP"
-    ],
-    [
-      "PP.location",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The horse ran."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The horse ran to the barn."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The horse jumped over the fence."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "PP",
+        "NP"
+      ],
+      "examples": [
+        "There jumped out of the box a little white rabbit."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There jumped a little white rabbit out of the box."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Out of the box jumped a little white rabbit."
+      ]
+    }
   ]
 }

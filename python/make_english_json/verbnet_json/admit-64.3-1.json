@@ -6,18 +6,28 @@
     "receive",
     "welcome"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "ADV"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV"
+      ],
+      "examples": [
+        "She admitted us here."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "She allowed us near the house."
+      ]
+    }
   ]
 }

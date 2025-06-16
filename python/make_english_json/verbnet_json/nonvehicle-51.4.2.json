@@ -6,31 +6,56 @@
     "ride",
     "row"
   ],
-  "primary_frames": [
-    [
-      "NP.agent",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.agent",
+        "V"
+      ],
+      "examples": [
+        "They rowed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "They rowed along the canal."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "He rowed the boat across the lake."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He drove the car."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.location"
+      ],
+      "examples": [
+        "They rowed the canals of Venice."
+      ]
+    }
   ]
 }

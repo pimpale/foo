@@ -4,11 +4,16 @@
     "eat",
     "huff"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.source"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He ate off of the table."
+      ]
+    }
   ]
 }

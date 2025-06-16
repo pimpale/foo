@@ -9,17 +9,27 @@
     "preside_over",
     "supervise"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP.predicate"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.predicate"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.predicate"
+      ],
+      "examples": [
+        "Martha led the students in a task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.predicate"
+      ],
+      "examples": [
+        "Martha led the project."
+      ]
+    }
   ]
 }

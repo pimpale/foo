@@ -12,11 +12,16 @@
     "transplant",
     "upload"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADV-Middle"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The new tractors repaired easily."
+      ]
+    }
   ]
 }

@@ -7,11 +7,16 @@
     "total",
     "weigh"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.value"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.value"
+      ],
+      "examples": [
+        "The package weighed ten pounds."
+      ]
+    }
   ]
 }

@@ -11,19 +11,29 @@
     "twist",
     "wind"
   ],
-  "primary_frames": [
-    [
-      "NP.agent",
-      "V",
-      "NP.theme",
-      "NP.extent"
-    ],
-    [
-      "NP.agent",
-      "V",
-      "NP.theme",
-      "NP.extent",
-      "PP.trajectory"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP.theme",
+        "NP.extent"
+      ],
+      "examples": [
+        "Cynthia rotated the image 90 degrees."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP.theme",
+        "NP.extent",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Cynthia rotated the image 90 degrees to the right."
+      ]
+    }
   ]
 }

@@ -2,12 +2,17 @@
   "members": [
     "keep"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The rules forbade us from smoking."
+      ]
+    }
   ]
 }

@@ -15,11 +15,16 @@
     "stir_up",
     "trigger"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "The bug caused the chip to give wrong answers for some mathematical calculations."
+      ]
+    }
   ]
 }

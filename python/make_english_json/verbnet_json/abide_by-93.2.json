@@ -8,11 +8,16 @@
     "observe",
     "obey"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He followed the tenets of Buddhism."
+      ]
+    }
   ]
 }

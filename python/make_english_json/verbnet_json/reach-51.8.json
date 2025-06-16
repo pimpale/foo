@@ -5,11 +5,16 @@
     "make",
     "breast"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They reached the hill."
+      ]
+    }
   ]
 }

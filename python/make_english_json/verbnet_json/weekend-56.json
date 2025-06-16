@@ -11,11 +11,16 @@
     "weekend",
     "winter"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "My family always summered at the seashore."
+      ]
+    }
   ]
 }

@@ -2,11 +2,16 @@
   "members": [
     "oppose"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John opposed the two ideas."
+      ]
+    }
   ]
 }

@@ -16,10 +16,15 @@
     "poop_out",
     "fizzle_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The bridge gave way."
+      ]
+    }
   ]
 }

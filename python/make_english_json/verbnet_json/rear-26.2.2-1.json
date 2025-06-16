@@ -3,12 +3,17 @@
     "cultivate",
     "farm"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.material",
-      "PP.product"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.material",
+        "PP.product"
+      ],
+      "examples": [
+        "The farmer cultivates the land for crops."
+      ]
+    }
   ]
 }

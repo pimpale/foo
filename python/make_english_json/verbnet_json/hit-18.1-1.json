@@ -21,17 +21,27 @@
     "whang",
     "tap"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Paul hit at the window."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "PP"
+      ],
+      "examples": [
+        "Paul hit at the window with an open hand."
+      ]
+    }
   ]
 }

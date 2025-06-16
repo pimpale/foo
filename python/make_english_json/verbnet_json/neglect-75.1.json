@@ -8,11 +8,16 @@
     "overleap",
     "overlook"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I disregarded the message."
+      ]
+    }
   ]
 }

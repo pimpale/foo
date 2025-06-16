@@ -48,24 +48,39 @@
     "wring",
     "wrinkle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jennifer craned her neck."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Jennifer wagged her finger at the naughty child."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient",
+        "PP.theme"
+      ],
+      "examples": [
+        "Jennifer wagged her finger at the naughty child in disapproval."
+      ]
+    }
   ]
 }

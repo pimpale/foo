@@ -17,10 +17,15 @@
     "wobble",
     "wriggle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sylvia fidgeted."
+      ]
+    }
   ]
 }

@@ -6,11 +6,16 @@
     "pack",
     "pile"
   ],
-  "primary_frames": [
-    [
-      "NP.theme",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Crowds packed the stands."
+      ]
+    }
   ]
 }

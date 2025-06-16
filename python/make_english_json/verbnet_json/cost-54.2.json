@@ -6,17 +6,27 @@
     "net",
     "take"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.value"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.value"
+      ],
+      "examples": [
+        "The book cost $10."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "The bill cost them 500 million dollars."
+      ]
+    }
   ]
 }

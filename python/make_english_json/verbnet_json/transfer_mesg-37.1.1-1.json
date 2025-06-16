@@ -4,12 +4,17 @@
     "quote",
     "read"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP-Dative",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Wanda taught the students French."
+      ]
+    }
   ]
 }

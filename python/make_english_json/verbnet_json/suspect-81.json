@@ -4,24 +4,39 @@
     "accuse",
     "condemn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.attribute",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I suspected him of infidelity."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute",
+        "S_ING"
+      ],
+      "examples": [
+        "I suspected him of lying."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "I suspected his philandering."
+      ]
+    }
   ]
 }

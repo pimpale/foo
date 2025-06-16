@@ -2,10 +2,15 @@
   "members": [
     "dominate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "DEC has often dominated."
+      ]
+    }
   ]
 }

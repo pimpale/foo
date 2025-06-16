@@ -26,26 +26,46 @@
     "tower",
     "yaw"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "There",
-      "V",
-      "PP",
-      "NP"
-    ],
-    [
-      "PP.location",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John slouched."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The statue stood on the corner."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "PP",
+        "NP"
+      ],
+      "examples": [
+        "There stood on the corner a statue."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "On the pedestal stood a statue."
+      ]
+    }
   ]
 }

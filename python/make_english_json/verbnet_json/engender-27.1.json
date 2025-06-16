@@ -16,11 +16,16 @@
     "sire",
     "spawn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Racial inequality engendered conflict."
+      ]
+    }
   ]
 }

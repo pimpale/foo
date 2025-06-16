@@ -12,16 +12,26 @@
     "pray",
     "wish"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "John hankered to move up the corporate ladder."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Danny longs for a sunny day."
+      ]
+    }
   ]
 }

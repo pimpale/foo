@@ -6,26 +6,46 @@
     "sign_up",
     "volunteer"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.beneficiary"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "John volunteered as a workshop coordinator."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "I volunteered for the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I volunteered with the Red Cross."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I volunteered my sister with the Red Cross."
+      ]
+    }
   ]
 }

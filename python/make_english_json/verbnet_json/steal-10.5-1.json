@@ -19,12 +19,17 @@
     "swipe",
     "wangle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "The thief stole Mary some paint."
+      ]
+    }
   ]
 }

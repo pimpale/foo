@@ -40,30 +40,50 @@
     "thieve",
     "wrest"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.beneficiary"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "PP.beneficiary"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The thief stole the painting."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "The thief stole the painting from the museum."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief stole the painting for Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief stole the painting from John for Mary."
+      ]
+    }
   ]
 }

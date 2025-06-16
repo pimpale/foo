@@ -3,11 +3,16 @@
     "come",
     "amount"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.value"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.value"
+      ],
+      "examples": [
+        "The total amounted to $100"
+      ]
+    }
   ]
 }

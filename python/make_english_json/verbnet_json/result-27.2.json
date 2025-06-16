@@ -5,11 +5,16 @@
     "lead_up",
     "result"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "This remark led to further arguments amongst guests."
+      ]
+    }
   ]
 }

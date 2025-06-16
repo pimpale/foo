@@ -13,30 +13,50 @@
     "prove",
     "rationalize"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He deduced the truth about the story."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "He deduced the truth from the facts."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S",
+        "PP.theme"
+      ],
+      "examples": [
+        "He deduced that she was a spy from the miniature camera she had in her pen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He deduced that this factor must have influenced the system."
+      ]
+    }
   ]
 }

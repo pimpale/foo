@@ -13,16 +13,26 @@
     "putter",
     "tarry"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.eventuality"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Sasha dawdled in the museum."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "Sasha dawdled over lunch."
+      ]
+    }
   ]
 }

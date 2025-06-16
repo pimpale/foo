@@ -14,17 +14,27 @@
     "store",
     "take"
   ],
-  "primary_frames": [
-    [
-      "NP.location",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Each room sleeps five people."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "We sleep five people in each room."
+      ]
+    }
   ]
 }

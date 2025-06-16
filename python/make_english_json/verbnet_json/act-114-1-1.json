@@ -3,16 +3,26 @@
     "act",
     "move"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.predicate"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "We moved (quickly) on the buyer's offer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.predicate"
+      ],
+      "examples": [
+        "We must act to end hunger."
+      ]
+    }
   ]
 }

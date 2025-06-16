@@ -73,12 +73,17 @@
     "welcome",
     "write_up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I judged him as a good man."
+      ]
+    }
   ]
 }

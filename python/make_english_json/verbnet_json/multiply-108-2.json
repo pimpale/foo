@@ -6,12 +6,17 @@
     "extrapolate",
     "subtract"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.co-theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "I subtracted x from y."
+      ]
+    }
   ]
 }

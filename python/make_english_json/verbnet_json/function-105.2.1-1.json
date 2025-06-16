@@ -5,12 +5,17 @@
     "operate",
     "work"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "The nail functioned as a coat hook."
+      ]
+    }
   ]
 }

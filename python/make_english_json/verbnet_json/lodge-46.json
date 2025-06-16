@@ -11,16 +11,26 @@
     "stop",
     "stay"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Cornelia lodged with the Stevensons."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "We camped there."
+      ]
+    }
   ]
 }

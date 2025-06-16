@@ -21,23 +21,38 @@
     "sort",
     "sort_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.goal"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.goal"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The curator classified the artifacts."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "She classified the works as 'dangerous'."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "She classified the articles into different genres."
+      ]
+    }
   ]
 }

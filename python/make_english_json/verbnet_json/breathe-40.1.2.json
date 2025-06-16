@@ -14,26 +14,46 @@
     "vomit",
     "weep"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Paul breathed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "Paul breathed on Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The dragon breathed fire."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.destination"
+      ],
+      "examples": [
+        "The dragon breathed fire on Mary."
+      ]
+    }
   ]
 }

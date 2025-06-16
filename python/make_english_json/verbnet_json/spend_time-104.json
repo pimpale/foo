@@ -9,30 +9,50 @@
     "use",
     "waste"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "VP.predicate"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute",
-      "VP.predicate"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I misspent 5 hours."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Sam served five years as a prisoner."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "VP.predicate"
+      ],
+      "examples": [
+        "She spent five years waiting tables."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute",
+        "VP.predicate"
+      ],
+      "examples": [
+        "She spent five years as a cornhusker shucking corn."
+      ]
+    }
   ]
 }

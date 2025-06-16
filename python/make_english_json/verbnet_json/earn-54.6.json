@@ -7,11 +7,16 @@
     "fetch",
     "raise"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The auction raised $2 million."
+      ]
+    }
   ]
 }

@@ -17,37 +17,62 @@
     "import",
     "transship"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.initial_location",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination",
-      "PP.initial_location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Nora sent the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Nora sent the book from Paris."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora sent the book to London."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora sent the book from Paris to London."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "TransCanada is shifting its HQ to Calgary from Toronto."
+      ]
+    }
   ]
 }

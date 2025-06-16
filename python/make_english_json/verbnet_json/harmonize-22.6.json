@@ -12,26 +12,46 @@
     "rhyme",
     "square"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADV"
-    ],
-    [
-      "NP",
-      "V",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADV",
-      "PP"
-    ],
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "Peaches and cream pair well (together)."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Peaches pair with cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV",
+        "PP"
+      ],
+      "examples": [
+        "Peaches pair well with cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Blue and grey match."
+      ]
+    }
   ]
 }

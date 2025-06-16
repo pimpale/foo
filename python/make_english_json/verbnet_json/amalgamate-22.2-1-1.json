@@ -5,10 +5,15 @@
     "consolidate",
     "intermingle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The yolks and the whites intermingled."
+      ]
+    }
   ]
 }

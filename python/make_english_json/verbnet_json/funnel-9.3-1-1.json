@@ -12,11 +12,16 @@
     "sweep",
     "wedge"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "The company is wedging into new markets."
+      ]
+    }
   ]
 }

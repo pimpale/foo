@@ -137,17 +137,27 @@
     "insulate",
     "sauce"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination"
+      ],
+      "examples": [
+        "Lora buttered the toast."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Lora buttered the toast with unsalted butter."
+      ]
+    }
   ]
 }

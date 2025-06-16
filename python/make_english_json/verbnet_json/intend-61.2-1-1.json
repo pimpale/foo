@@ -3,11 +3,16 @@
     "intend",
     "plan"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I intended exercising."
+      ]
+    }
   ]
 }

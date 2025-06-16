@@ -2,15 +2,25 @@
   "members": [
     "defer"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.pivot"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The enemy soldiers yielded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.pivot"
+      ],
+      "examples": [
+        "The enemy soldiers yielded to us."
+      ]
+    }
   ]
 }

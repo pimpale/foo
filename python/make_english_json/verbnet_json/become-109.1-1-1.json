@@ -4,11 +4,16 @@
     "end_up",
     "leave"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He became a banker."
+      ]
+    }
   ]
 }

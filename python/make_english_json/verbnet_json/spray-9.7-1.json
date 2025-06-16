@@ -30,17 +30,27 @@
     "spurt",
     "wrap"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination-Conative"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "Paint sprayed onto the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination-Conative"
+      ],
+      "examples": [
+        "Jessica squirted water at me."
+      ]
+    }
   ]
 }

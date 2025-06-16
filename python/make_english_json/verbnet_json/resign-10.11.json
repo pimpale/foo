@@ -4,10 +4,15 @@
     "step_down",
     "walk_out"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He resigned."
+      ]
+    }
   ]
 }

@@ -5,23 +5,38 @@
     "present",
     "trust"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.recipient"
-    ],
-    [
-      "NP",
-      "V",
-      "NP-Fulfilling",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Brown presented a plaque to Jones."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Fulfilling",
+        "PP.theme"
+      ],
+      "examples": [
+        "Brown presented Jones with a plaque."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Brown presented the plaque."
+      ]
+    }
   ]
 }

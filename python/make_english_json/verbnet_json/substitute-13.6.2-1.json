@@ -3,11 +3,16 @@
     "replace",
     "supplant"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Video replaced radio."
+      ]
+    }
   ]
 }

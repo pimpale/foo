@@ -6,11 +6,16 @@
     "descend",
     "pass"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He climbed the mountain."
+      ]
+    }
   ]
 }

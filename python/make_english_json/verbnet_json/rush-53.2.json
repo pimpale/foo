@@ -4,16 +4,26 @@
     "hurry",
     "rush"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.eventuality"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "Maggie hurried with her lunch."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Maggie hurried her sister."
+      ]
+    }
   ]
 }

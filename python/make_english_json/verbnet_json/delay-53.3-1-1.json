@@ -3,10 +3,15 @@
     "delay",
     "defer"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He deferred."
+      ]
+    }
   ]
 }

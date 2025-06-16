@@ -11,12 +11,17 @@
     "settle",
     "shelter"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "They quartered the guests in the well house."
+      ]
+    }
   ]
 }

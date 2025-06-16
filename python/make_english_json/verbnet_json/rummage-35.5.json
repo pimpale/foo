@@ -12,17 +12,27 @@
     "scrabble",
     "scratch"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.location",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "He pawed over the documents."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location",
+        "PP.theme"
+      ],
+      "examples": [
+        "He rummaged through the drawer for the ball."
+      ]
+    }
   ]
 }

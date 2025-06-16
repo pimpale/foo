@@ -2,17 +2,27 @@
   "members": [
     "intermarry"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "ADVP-Middle",
-      "PP"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP-Middle"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The folk songs alternated well with pop songs."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The pieces interconnected easily."
+      ]
+    }
   ]
 }

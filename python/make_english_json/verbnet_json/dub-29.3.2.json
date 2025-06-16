@@ -20,17 +20,27 @@
     "nickname",
     "style"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "The captain named the ship Seafarer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The captain baptized the ship."
+      ]
+    }
   ]
 }

@@ -12,12 +12,17 @@
     "wipe",
     "wring"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "He wedged the diamond between shifting dunes."
+      ]
+    }
   ]
 }

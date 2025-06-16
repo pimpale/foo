@@ -6,12 +6,17 @@
     "defraud",
     "swindle"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The swindler conned Pat for her fortune."
+      ]
+    }
   ]
 }

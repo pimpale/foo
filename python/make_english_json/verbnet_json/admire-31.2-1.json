@@ -8,11 +8,16 @@
     "love",
     "regret"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I loved to write."
+      ]
+    }
   ]
 }

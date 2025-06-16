@@ -20,10 +20,15 @@
     "wheeze",
     "yawn"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Paul hiccuped."
+      ]
+    }
   ]
 }

@@ -6,12 +6,17 @@
     "shove",
     "thrust"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP-Dative",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Amanda shoved John the box."
+      ]
+    }
   ]
 }

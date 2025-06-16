@@ -10,16 +10,26 @@
     "rush",
     "walk"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.result"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The horse ran the track."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "The horse ran to exhaustion."
+      ]
+    }
   ]
 }

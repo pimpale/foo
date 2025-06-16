@@ -3,11 +3,16 @@
     "attend",
     "patronize"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I attend the University of Colorado."
+      ]
+    }
   ]
 }

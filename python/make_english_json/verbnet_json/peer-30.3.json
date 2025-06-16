@@ -21,11 +21,16 @@
     "squint",
     "stare"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "We peered at the baby."
+      ]
+    }
   ]
 }

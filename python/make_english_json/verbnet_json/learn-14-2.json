@@ -5,31 +5,51 @@
     "glean",
     "memorize"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "that",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "what",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.source",
-      "how",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "PP.source",
-      "wh-S_INF"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The defense also learned that college-educated people were uncharacteristically conservative."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I read what you wrote."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I gleaned from the evidence how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "wh-S_INF"
+      ],
+      "examples": [
+        "I absorbed from the manual what to do."
+      ]
+    }
   ]
 }

@@ -5,22 +5,37 @@
     "poke",
     "stick"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme",
-      "PP.instsrument"
-    ],
-    [
-      "NP.instrument",
-      "V",
-      "NP.theme"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Allison poked the bundle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.instsrument"
+      ],
+      "examples": [
+        "Allison poked the bundle with the stick."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The stick poked the bundle"
+      ]
+    }
   ]
 }

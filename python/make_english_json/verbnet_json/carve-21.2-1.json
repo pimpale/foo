@@ -36,32 +36,57 @@
     "squish",
     "trench"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ],
-    [
-      "NP",
-      "V",
-      "ADVP-Middle"
-    ],
-    [
-      "NP.instrument",
-      "V",
-      "NP"
-    ],
-    [
-      "NP.instrument",
-      "V",
-      "ADVP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol crushed the ice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol crushed the ice with a hammer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The ice crushed easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The hammer crushed the marble."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "That hammer crushes well."
+      ]
+    }
   ]
 }

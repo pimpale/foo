@@ -11,12 +11,17 @@
     "siphon",
     "vacuum"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "He plowed the snow back into the ditch."
+      ]
+    }
   ]
 }

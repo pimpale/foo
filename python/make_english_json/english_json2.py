@@ -4,6 +4,7 @@ import pathlib
 from copy import deepcopy
 from pathlib import Path
 from typing import Dict, Set
+from collections import defaultdict
 
 # Load irregular noun/verb maps early so helper functions can reference them
 irregular_nouns = json.loads(Path("irregular_noun_forms.json").read_text())
@@ -67,6 +68,104 @@ def vb_to_vbz(verb: str) -> str:  # 3rd-person-singular
         return verb[:-1] + "ies"
     return verb + "s"
 
+def vb_to_vbp(verb: str) -> str:  # 3rd-person-plural (eg "they go")
+    if verb in irregular_verbs:
+        return irregular_verbs[verb]["VBP"]
+    # usually just the same as VB
+    return verb
+
+
+# ---------------------------------------------------------------------------
+# Extract verb categories from local VerbNet JSON dump
+# ---------------------------------------------------------------------------
+
+VERBNET_DIR = Path("verbnet_json")  # folder with downloaded/converted VerbNet class files
+
+
+def _normalize_primary(primary):
+    """Simplify a VerbNet primary frame to the slot sequence we care about.
+
+    This follows the approach in reference_files/verbs_cover_grammar.py:
+    1. Remove any role/feature annotations (keep part before '.')
+    2. Merge the sequence ['that', 'S'] into a single token 'that_S'.
+    3. Keep only slots we can currently cover.
+    """
+    raw = [p.split(".")[0] for p in primary]
+    slots = []
+    i = 0
+    while i < len(raw):
+        if raw[i] == "that" and i + 1 < len(raw) and raw[i + 1] == "S":
+            slots.append("that_S")
+            i += 2
+        elif raw[i] in ("NP", "V", "ADJ", "ADV", "S", "S_INF", "S_ING", "S-Quote"):
+            slots.append(raw[i])
+            i += 1
+        else:
+            # Something we don't currently model → stop here
+            break
+    return slots
+
+
+# ---------------------------------------------------------------------------
+# Determine verb category from a simplified primary frame
+# ---------------------------------------------------------------------------
+
+
+def cat_from_primary(slots):
+    """Return one of our verb category names given *slots* sequence, or None.
+    """
+    # Must start with NP V and be of length 2–4
+    if not (2 <= len(slots) <= 4 and slots[0] == "NP" and slots[1] == "V"):
+        return None
+
+    if slots == ["NP", "V"]:
+        return "vb"
+    if slots == ["NP", "V", "ADJ"]:
+        return "vb_ap"
+    if slots == ["NP", "V", "S_INF"]:
+        return "vb_to_inf_cl"
+    if slots == ["NP", "V", "S_ING"]:
+        return "vb_vbg_cl"
+    if slots == ["NP", "V", "S"]:
+        return "vb_np_bare_declarative_cl"
+    if slots == ["NP", "V", "that_S"]:
+        return "vb_np_that_declarative_cl"
+    if slots == ["NP", "V", "NP"]:
+        return "vb_np"
+    if slots == ["NP", "V", "NP", "NP"]:
+        return "vb_np_np"
+    if slots == ["NP", "V", "NP", "ADJ"]:
+        return "vb_np_ap"
+    if slots == ["NP", "V", "NP", "S_INF"]:
+        return "vb_np_to_inf_cl"
+    if slots == ["NP", "V", "NP", "S_ING"]:
+        return "vb_np_vbg_cl"
+    return None
+
+
+def extract_verb_categories() -> Dict[str, Dict[str, None]]:
+    """Parse all VerbNet JSON files under *VERBNET_DIR* and build verb sets per
+    coarse syntactic category compatible with our grammar.
+    """
+    # Use defaultdict so categories appear lazily when first encountered
+    categories: Dict[str, Set[str]] = defaultdict(set)
+
+    for fp in VERBNET_DIR.glob("*.json"):
+        data = json.loads(fp.read_text())
+        members = [m.lower() for m in data.get("members", [])]
+        for frame in data.get("frames", []):
+            slots = _normalize_primary(frame["primary"])
+            cat = cat_from_primary(slots)
+            if cat is None:
+                continue
+
+            for verb in members:
+                categories[cat].add(verb)
+
+    # Convert to regular dict[cat] -> {verb: None, ...}
+    # Any category that never received members simply won't appear.
+    return {cat: {v: None for v in sorted(vset)} for cat, vset in categories.items()}
+
 
 # ---------------------------------------------------------------------------
 # Resolve noun classes via graph reachability
@@ -117,7 +216,8 @@ def resolve_nouns(raw: Dict[str, dict]) -> Dict[str, Set[str]]:
 # ---------------------------------------------------------------------------
 
 indeclinable = json.loads(Path("indeclinable.json").read_text())
-verbs = json.loads(Path("verbs.json").read_text())
+# Derive verb categories from VerbNet
+verbs = extract_verb_categories()
 prepositions = json.loads(Path("prepositions.json").read_text())
 
 english_json: Dict[str, Dict[str, None]] = {}
@@ -149,7 +249,7 @@ for kind in verbs:
     english_json[kind.replace("vb", "vbn", 1)] = {vb_to_vbn(v): None for v in verbs[kind]}
     english_json[kind.replace("vb", "vbg", 1)] = {vb_to_vbg(v): None for v in verbs[kind]}
     english_json[kind.replace("vb", "vbz", 1)] = {vb_to_vbz(v): None for v in verbs[kind]}
-    english_json[kind.replace("vb", "vbp", 1)] = {v: None for v in verbs[kind]}  # plural present is the base verb
+    english_json[kind.replace("vb", "vbp", 1)] = {vb_to_vbp(v): None for v in verbs[kind]}
 
 # 4. Prepositions (retain original structure + collapsed set)
 for kind in prepositions:

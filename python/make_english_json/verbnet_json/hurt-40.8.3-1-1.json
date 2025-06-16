@@ -12,10 +12,15 @@
     "turn",
     "twist"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My ankle twisted."
+      ]
+    }
   ]
 }

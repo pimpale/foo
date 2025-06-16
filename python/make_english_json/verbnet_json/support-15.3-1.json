@@ -9,12 +9,18 @@
     "strengthen",
     "support"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "She supported her argument with facts.",
+        "I reinforced the tarp with rivets."
+      ]
+    }
   ]
 }

@@ -34,28 +34,48 @@
     "try_out",
     "watch"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.attribute"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.value"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The inspector analyzed the building."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "The inspector analyzed the building for its soundness."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.attribute"
+      ],
+      "examples": [
+        "The inspector analyzed the building's soundness."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "The inspector analyzed the building as sound."
+      ]
+    }
   ]
 }

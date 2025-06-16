@@ -3,11 +3,16 @@
     "nap",
     "sleep"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Gloria slept the sleep of the dead."
+      ]
+    }
   ]
 }

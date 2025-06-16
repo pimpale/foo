@@ -13,11 +13,16 @@
     "trust",
     "vaticinate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He trusted the woman's statement."
+      ]
+    }
   ]
 }

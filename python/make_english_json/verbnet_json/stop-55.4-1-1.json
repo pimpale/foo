@@ -7,22 +7,37 @@
     "stop",
     "quit"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.eventuality",
-      "PP.subeventuality"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.eventuality"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He stopped eating the popsicle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.eventuality",
+        "PP.subeventuality"
+      ],
+      "examples": [
+        "He ended the party with fireworks."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.eventuality"
+      ],
+      "examples": [
+        "A wedding ended the book."
+      ]
+    }
   ]
 }

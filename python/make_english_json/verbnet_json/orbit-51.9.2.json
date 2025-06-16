@@ -5,11 +5,16 @@
     "rotate",
     "twirl"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP.location"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The Earth revolved around the Sun."
+      ]
+    }
   ]
 }

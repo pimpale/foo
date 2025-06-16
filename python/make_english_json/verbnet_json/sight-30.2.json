@@ -22,11 +22,16 @@
     "witness",
     "sniff"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The crew spotted the island."
+      ]
+    }
   ]
 }

@@ -2,28 +2,48 @@
   "members": [
     "overload"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.destination"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.destination",
-      "PP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.theme"
-    ],
-    [
-      "NP",
-      "V",
-      "NP.destination"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Jessica loaded boxes into the wagon."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination",
+        "PP.theme"
+      ],
+      "examples": [
+        "Jessica loaded the wagon with boxes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Jessica squirted water."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination"
+      ],
+      "examples": [
+        "Jessica sprayed the wall."
+      ]
+    }
   ]
 }

@@ -16,12 +16,17 @@
     "UPS",
     "wire"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP-Dative",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Nora sent me the book."
+      ]
+    }
   ]
 }

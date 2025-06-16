@@ -27,12 +27,17 @@
     "open",
     "open_up"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.instrument"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "The family established the trust through a transfer of funds."
+      ]
+    }
   ]
 }

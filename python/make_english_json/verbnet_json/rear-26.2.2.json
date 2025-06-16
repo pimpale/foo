@@ -5,11 +5,16 @@
     "raise",
     "rear"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "My neighbor raised fruit trees."
+      ]
+    }
   ]
 }

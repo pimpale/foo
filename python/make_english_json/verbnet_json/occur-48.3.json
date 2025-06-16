@@ -5,20 +5,35 @@
     "recur",
     "take_place"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V"
-    ],
-    [
-      "There",
-      "V",
-      "NP"
-    ],
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "A serious accident happened."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "There happened a serious accident."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "A serious accident happened in front of them."
+      ]
+    }
   ]
 }

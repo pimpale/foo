@@ -3,11 +3,16 @@
     "buy",
     "speculate"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "PP"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "They bought into an NLP startup."
+      ]
+    }
   ]
 }

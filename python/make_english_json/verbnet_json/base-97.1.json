@@ -7,34 +7,54 @@
     "build",
     "construe"
   ],
-  "primary_frames": [
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "whether",
-      "S"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "S_ING"
-    ],
-    [
-      "NP",
-      "V",
-      "NP",
-      "PP.source",
-      "S"
-    ]
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "We based our plans on his information."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "They based their decision on whether he happened to come or not."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "S_ING"
+      ],
+      "examples": [
+        "They based their plan on his seizing the base."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "S"
+      ],
+      "examples": [
+        "They based their plans on him getting in on time."
+      ]
+    }
   ]
 }
