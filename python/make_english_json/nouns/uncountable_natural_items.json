@@ -1,5 +1,6 @@
 {
     "commentary": "These are uncountable natural items that cannot be used with 'a/an'. Linguistic test: 'I found <word>.' or 'There is <word> everywhere.'",
+    "countable": false,
     "words": {
         "sand": null,
         "dirt": null,

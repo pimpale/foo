@@ -1,5 +1,6 @@
 {
     "commentary": "These are countable tools that can be used with 'a/an'. Linguistic test: 'I need a <word>.' or 'He bought a <word>.'",
+    "countable": true,
     "words": {
         "hammer": null,
         "screwdriver": null,

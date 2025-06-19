@@ -1,5 +1,6 @@
 {
     "commentary": "This is a <substance> house. That's right. It's made of <substance>.",
+    "countable": false,
     "words": {
         "water": null,
         "money": null,

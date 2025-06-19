@@ -1,5 +1,6 @@
 {
     "commentary": "These are emotion nouns that can be felt. Linguistic test: 'He felt <word>.'",
+    "countable": false,
     "words": {
         "love": null,
         "happiness": null,

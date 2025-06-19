@@ -1,5 +1,6 @@
 {
     "commentary": "These are countable toys that require an article. Linguistic test: 'I played with the <word>.'",
+    "countable": true,
     "words": {
         "ball": null,
         "doll": null,

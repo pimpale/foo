@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Events Tracker</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            height: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        
+        .event-display {
+            background: transparent;
+            padding: 0;
+            margin-top: 20px;
+            pointer-events: none; /* Prevent display from interfering with events */
+        }
+        
+        .event-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #00ff00;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .event-type {
+            color: #ffff00;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .event-details {
+            font-size: 12px;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
+        .clear-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .clear-btn:hover {
+            background: #ff6666;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        #textBox, #plainDiv {
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            border: 2px dashed #00ffff;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            color: #ffffff;
+            font-size: 16px;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+
+        #textBox {
+            resize: vertical;
+        }
+
+        #plainDiv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⌨️ Keyboard Events Tracker</h1>
+        <p>Type in the text box or focus the plain div below to see keyboard event properties!</p>
+    </div>
+
+    <div class="instructions">
+        <strong>Instructions:</strong>
+        <ol>
+            <li>Section 1: Click inside the text box and start typing. This will fire <code>beforeinput</code> and <code>input</code> events along with key events.</li>
+            <li>Section 2: Click inside the plain div (it will gain focus) and press keys. Only <code>keydown</code> and <code>keyup</code> events will be tracked here.</li>
+        </ol>
+        All events are logged in the console as well as displayed on screen. Use the "Clear Events" button to reset the display.
+    </div>
+
+    <div class="section">
+        <h3 style="color:#00ffff">Section 1 — Text Box</h3>
+        <textarea id="textBox" rows="4" placeholder="Start typing here..."></textarea>
+    </div>
+
+    <div class="section">
+        <h3 style="color:#00ffff">Section 2 — Plain Div (Focusable)</h3>
+        <div id="plainDiv" tabindex="0">Click here, then press keys…</div>
+    </div>
+
+    <button class="clear-btn" onclick="clearEvents()">Clear Events</button>
+
+    <div class="event-display" id="eventDisplay">
+        <div style="color: #888; text-align: center;">Keyboard events will appear here...</div>
+    </div>
+
+<script>
+    let eventCount = 0;
+    const maxEvents = 50; // Limit displayed events
+
+    // Keyboard events to track for each section
+    const textBoxEvents = ['beforeinput', 'input', 'keydown', 'keyup', 'keypress'];
+    const divEvents = ['keydown', 'keyup'];
+
+    // Function to extract keyboard event properties
+    function extractEventProperties(event) {
+        const properties = {};
+        const coreProps = [
+            'type', 'timeStamp', 'bubbles', 'cancelable', 'composed',
+            'key', 'code', 'keyCode', 'charCode', 'which',
+            'altKey', 'ctrlKey', 'metaKey', 'shiftKey',
+            'repeat', 'isComposing'
+        ];
+
+        // Properties specific to InputEvent
+        const inputProps = ['inputType', 'data', 'dataTransfer'];
+
+        coreProps.forEach(prop => {
+            if (prop in event) {
+                properties[prop] = event[prop];
+            }
+        });
+
+        if (event instanceof InputEvent) {
+            inputProps.forEach(prop => {
+                if (prop in event) {
+                    properties[prop] = event[prop];
+                }
+            });
+        }
+
+        // Target info
+        if (event.target) {
+            properties.targetTag = event.target.tagName ? event.target.tagName.toLowerCase() : 'unknown';
+            properties.targetId = event.target.id || 'none';
+            properties.targetClass = event.target.className || 'none';
+        }
+
+        return properties;
+    }
+
+    // Format properties as JSON for display
+    function formatPropertiesAsJson(props) {
+        return `<pre style="color: #ffffff; font-family: 'Courier New', monospace; font-size: 11px; line-height: 1.3; margin: 0; white-space: pre-wrap;">${JSON.stringify(props, null, 2)}</pre>`;
+    }
+
+    // Display event on screen
+    function displayEvent(eventType, properties) {
+        const eventDisplay = document.getElementById('eventDisplay');
+
+        // Remove oldest if exceeding max
+        const eventItems = eventDisplay.querySelectorAll('.event-item');
+        if (eventItems.length >= maxEvents) {
+            eventItems[eventItems.length - 1].remove();
+        }
+
+        const eventItem = document.createElement('div');
+        eventItem.className = 'event-item';
+        const propsHtml = formatPropertiesAsJson(properties);
+
+        eventItem.innerHTML = `
+            <div class="event-type">#${eventCount} ${eventType.toUpperCase()}</div>
+            <div class="event-details">${propsHtml}</div>
+        `;
+
+        eventDisplay.prepend(eventItem);
+        eventDisplay.scrollTop = 0;
+    }
+
+    // Handle keyboard event
+    function handleKeyboardEvent(event) {
+        eventCount++;
+        const props = extractEventProperties(event);
+
+        console.group(`⌨️ Keyboard Event #${eventCount}: ${event.type}`);
+        console.log('Raw Event Object:', event);
+        console.table(props);
+        console.groupEnd();
+
+        displayEvent(event.type, props);
+    }
+
+    // Clear events function
+    function clearEvents() {
+        const eventDisplay = document.getElementById('eventDisplay');
+        eventDisplay.innerHTML = '<div style="color: #888; text-align: center;">Keyboard events will appear here...</div>';
+        eventCount = 0;
+        console.clear();
+        console.log('🧹 Event display cleared');
+    }
+
+    // Register listeners for text box
+    const textBox = document.getElementById('textBox');
+    textBoxEvents.forEach(evt => {
+        textBox.addEventListener(evt, handleKeyboardEvent);
+    });
+
+    // Register listeners for plain div
+    const plainDiv = document.getElementById('plainDiv');
+    divEvents.forEach(evt => {
+        plainDiv.addEventListener(evt, handleKeyboardEvent);
+    });
+
+    // Initial console messages
+    console.log('⌨️ Keyboard Events Tracker initialized!');
+    console.log('🎯 Tracked events (Text Box):', textBoxEvents);
+    console.log('🎯 Tracked events (Plain Div):', divEvents);
+
+</script>
+</body>
+</html> 

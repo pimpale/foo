@@ -1,5 +1,6 @@
 {
     "commentary": "These are locations that work with the preposition 'on'. Linguistic test: 'I am on a <word>.' or 'I am on the <word>.'",
+    "countable": true,
     "words": {
         "street": null,
         "road": null,
@@ -44,7 +45,6 @@
         "track": null,
         "course": null,
         "runway": null,
-        "tarmac": null,
         "dock": null,
         "pier": null,
         "wharf": null,

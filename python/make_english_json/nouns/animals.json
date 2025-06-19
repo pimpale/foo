@@ -1,5 +1,6 @@
 {
     "commentary": "This is an animal.",
+    "countable": true,
     "words": {
         "dog": null,
         "cat": null,

@@ -1,5 +1,6 @@
 {
     "commentary": "These are vehicles and modes of transportation. Linguistic test: 'I went there by ___'",
+    "countable": true,
     "words": {
         "car": null,
         "truck": null,

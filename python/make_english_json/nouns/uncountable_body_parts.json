@@ -1,5 +1,6 @@
 {
     "commentary": "These are uncountable body parts/substances that cannot be used with 'a/an'. Linguistic test: 'I have <word> on my shirt.' or 'There is <word> everywhere.'",
+    "countable": false,
     "words": {
         "hair": null,
         "blood": null,

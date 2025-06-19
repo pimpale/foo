@@ -1,5 +1,6 @@
 {
     "commentary": "These are things you can ride. Linguistic test: 'I rode a ___ to the show'",
+    "countable": true,
     "words": {
         "bike": null,
         "bicycle": null,

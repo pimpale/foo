@@ -1,5 +1,6 @@
 {
     "commentary": "These are musical instruments that can be played. Linguistic test: 'Yes, I know how to play ___'",
+    "countable": true,
     "words": {
         "piano": null,
         "keyboard": null,

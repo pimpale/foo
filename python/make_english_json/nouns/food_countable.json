@@ -1,5 +1,6 @@
 {
     "commentary": "Countable foods where it makes sense to say 'I have one <food>'",
+    "countable": true,
     "words": {
         "apple": null,
         "banana": null,

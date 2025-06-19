@@ -1,5 +1,6 @@
 {
     "commentary": "These are household items that cannot be counted as individual units (mass nouns).",
+    "countable": false,
     "words": {
         "furniture": null,
         "luggage": null,

@@ -1,5 +1,6 @@
 {
     "commentary": "This is a season of the year.",
+    "countable": true,
     "words": {
         "spring": null,
         "summer": null,

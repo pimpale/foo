@@ -1,5 +1,6 @@
 {
     "commentary": "I have some <food_substance>. NOT I have a <food_substance>.",
+    "countable": false,
     "words": {
         "food": null,
         "bread": null,
