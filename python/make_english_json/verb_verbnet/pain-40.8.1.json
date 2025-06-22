@@ -1,0 +1,42 @@
+{
+  "members": [
+    "ail",
+    "bother",
+    "burn",
+    "hurt",
+    "itch",
+    "kill",
+    "pain"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My eyes were itching."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.experiencer"
+      ],
+      "examples": [
+        "My eyes were itching me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "My eyes were itching from the smoke."
+      ]
+    }
+  ]
+}

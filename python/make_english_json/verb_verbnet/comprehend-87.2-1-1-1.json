@@ -1,0 +1,64 @@
+{
+  "members": [
+    "know",
+    "understand"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "She understood about life."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "S_ING"
+      ],
+      "examples": [
+        "I knew about his drinking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I knew about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I knew about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I understood this about her.\""
+      ]
+    }
+  ]
+}

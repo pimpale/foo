@@ -1,0 +1,47 @@
+{
+  "members": [
+    "canvass",
+    "examine",
+    "explore",
+    "frisk",
+    "inspect",
+    "investigate",
+    "monitor",
+    "observe",
+    "picket",
+    "quiz",
+    "raid",
+    "ransack",
+    "riffle",
+    "scan",
+    "scrutinize",
+    "surveil",
+    "survey",
+    "tap",
+    "test",
+    "tour"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.location",
+        "PP.theme"
+      ],
+      "examples": [
+        "We investigated the area for bombs."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.location"
+      ],
+      "examples": [
+        "We inspected the area."
+      ]
+    }
+  ]
+}

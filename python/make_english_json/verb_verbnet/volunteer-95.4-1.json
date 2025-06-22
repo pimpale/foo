@@ -1,0 +1,51 @@
+{
+  "members": [
+    "enlist",
+    "hire_on",
+    "sign_on",
+    "sign_up",
+    "volunteer"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "John volunteered as a workshop coordinator."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "I volunteered for the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I volunteered with the Red Cross."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I volunteered my sister with the Red Cross."
+      ]
+    }
+  ]
+}

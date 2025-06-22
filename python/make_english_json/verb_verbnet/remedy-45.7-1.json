@@ -1,0 +1,27 @@
+{
+  "members": [
+    "categorize",
+    "conflate",
+    "domesticate",
+    "extinguish",
+    "halve",
+    "homogenize",
+    "lighten",
+    "magnetize",
+    "magnify",
+    "transplant",
+    "upload"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The new tractors repaired easily."
+      ]
+    }
+  ]
+}

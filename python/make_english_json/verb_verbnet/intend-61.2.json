@@ -1,0 +1,31 @@
+{
+  "members": [
+    "aim",
+    "intend",
+    "mean",
+    "plan"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I meant to say 'green'."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I meant it as a joke."
+      ]
+    }
+  ]
+}

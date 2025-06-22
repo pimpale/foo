@@ -1,0 +1,77 @@
+{
+  "members": [
+    "caress",
+    "chafe",
+    "fondle",
+    "grasp",
+    "graze",
+    "grip",
+    "grope",
+    "kiss",
+    "knead",
+    "lick",
+    "massage",
+    "nudge",
+    "osculate",
+    "pat",
+    "paw",
+    "peck",
+    "pet",
+    "pinch",
+    "prod",
+    "rub",
+    "squeeze",
+    "sting",
+    "stroke",
+    "tickle",
+    "touch",
+    "tug",
+    "tweak",
+    "twinge",
+    "wring"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carrie touched the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carrie touched the cat with the stick."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carrie touched his shoulder."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carrie touched his shoulder with the stick."
+      ]
+    }
+  ]
+}

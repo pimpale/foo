@@ -1,0 +1,44 @@
+{
+  "members": [
+    "incite",
+    "jolt",
+    "prompt",
+    "rouse",
+    "spur",
+    "stimulate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I roused him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I spurred the community into taking environmental issues more seriously."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "I spurred the community into action."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "members": [
+    "dictate",
+    "quote",
+    "read",
+    "show",
+    "teach",
+    "tell",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Wanda taught the students French."
+      ]
+    }
+  ]
+}

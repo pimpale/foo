@@ -1,0 +1,28 @@
+{
+  "members": [
+    "cease",
+    "close",
+    "conclude",
+    "cut_off",
+    "cut_out",
+    "deactivate",
+    "end",
+    "finish",
+    "halt",
+    "quit",
+    "stall",
+    "stop",
+    "terminate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.eventuality",
+        "V"
+      ],
+      "examples": [
+        "The storm ended."
+      ]
+    }
+  ]
+}

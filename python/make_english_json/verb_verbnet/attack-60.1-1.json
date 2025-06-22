@@ -1,0 +1,19 @@
+{
+  "members": [
+    "attack",
+    "charge",
+    "raid",
+    "strike"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John attacked."
+      ]
+    }
+  ]
+}

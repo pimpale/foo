@@ -1,0 +1,24 @@
+{
+  "members": [
+    "awake",
+    "awaken",
+    "dry",
+    "freeze",
+    "melt",
+    "set",
+    "thaw"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The clothes dried wrinkled."
+      ]
+    }
+  ]
+}

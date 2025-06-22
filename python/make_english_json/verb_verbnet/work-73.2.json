@@ -1,0 +1,65 @@
+{
+  "members": [
+    "bang_away",
+    "labor",
+    "labour",
+    "plug_away",
+    "slog_away",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Amanda worked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Amanda worked on her essay."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "Amanda worked with Paul on her essay."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "Amanda worked at finishing the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "Amanda worked with Paul at finishing the task."
+      ]
+    }
+  ]
+}

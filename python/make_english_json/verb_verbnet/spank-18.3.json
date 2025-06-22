@@ -1,0 +1,137 @@
+{
+  "members": [
+    "belt",
+    "biff",
+    "birch",
+    "bludgeon",
+    "bonk",
+    "brain",
+    "cane",
+    "clobber",
+    "clout",
+    "club",
+    "conk",
+    "cosh",
+    "cudgel",
+    "cuff",
+    "elbow",
+    "flagellate",
+    "flail",
+    "flog",
+    "fustigate",
+    "horsewhip",
+    "k.o.",
+    "knee",
+    "knife",
+    "lam",
+    "larrup",
+    "lather",
+    "paddle",
+    "pommel",
+    "pummel",
+    "slam",
+    "sock",
+    "spank",
+    "strap",
+    "thrash",
+    "thump",
+    "truncheon",
+    "wallop",
+    "wham",
+    "whap",
+    "whip",
+    "whisk",
+    "whomp",
+    "whop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paula socked the mugger."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paula socked the mugger with her right hand."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "They knifed him dead."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "They knifed him to death."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "They knifed him to death with a shiv."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Paula socked the mugger in the nose."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paula socked the mugger in the nose with her fist."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paula socked the mugger's nose."
+      ]
+    }
+  ]
+}

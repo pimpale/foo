@@ -1,0 +1,17 @@
+{
+  "members": [
+    "provide"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Hess provides for its customers."
+      ]
+    }
+  ]
+}

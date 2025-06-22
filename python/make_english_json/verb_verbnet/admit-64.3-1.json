@@ -1,0 +1,33 @@
+{
+  "members": [
+    "admit",
+    "include",
+    "permit",
+    "receive",
+    "welcome"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV"
+      ],
+      "examples": [
+        "She admitted us here."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "She allowed us near the house."
+      ]
+    }
+  ]
+}

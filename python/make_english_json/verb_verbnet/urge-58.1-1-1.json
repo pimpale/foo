@@ -1,0 +1,29 @@
+{
+  "members": [
+    "admonish",
+    "ask",
+    "encourage",
+    "entreat",
+    "exhort",
+    "implore",
+    "lobby",
+    "press",
+    "pressure",
+    "prod",
+    "urge"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I urged him that he should come."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    "beat",
+    "fuse",
+    "scramble",
+    "stir",
+    "swirl",
+    "whip",
+    "whisk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The sugar whipped into cream easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman whipped cream."
+      ]
+    }
+  ]
+}

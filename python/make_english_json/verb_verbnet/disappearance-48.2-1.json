@@ -1,0 +1,22 @@
+{
+  "members": [
+    "disappear",
+    "expire",
+    "go",
+    "lapse",
+    "perish",
+    "vanish"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "A valuable manuscript vanished from the library."
+      ]
+    }
+  ]
+}

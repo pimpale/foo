@@ -1,0 +1,46 @@
+{
+  "members": [
+    "barrack",
+    "bivouac",
+    "board",
+    "bunk",
+    "camp",
+    "dwell",
+    "guest",
+    "live",
+    "lodge",
+    "quarter",
+    "reside",
+    "room",
+    "settle",
+    "shack_up",
+    "shelter",
+    "sleep_over",
+    "squat",
+    "stay",
+    "stay_over",
+    "stop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Cornelia lodged with the Stevensons."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "We camped there."
+      ]
+    }
+  ]
+}

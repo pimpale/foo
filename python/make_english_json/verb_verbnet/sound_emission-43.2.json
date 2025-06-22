@@ -1,0 +1,195 @@
+{
+  "members": [
+    "babble",
+    "bang",
+    "beat",
+    "beep",
+    "bellow",
+    "blare",
+    "blast",
+    "blat",
+    "boom",
+    "bubble",
+    "burble",
+    "burr",
+    "buzz",
+    "caterwaul",
+    "chatter",
+    "chime",
+    "chink",
+    "chir",
+    "chitter",
+    "chug",
+    "clack",
+    "clang",
+    "clank",
+    "clap",
+    "clash",
+    "clatter",
+    "click",
+    "cling",
+    "clink",
+    "clomp",
+    "clump",
+    "clunk",
+    "crack",
+    "crackle",
+    "crash",
+    "creak",
+    "crepitate",
+    "crunch",
+    "cry",
+    "ding",
+    "dong",
+    "drone",
+    "explode",
+    "fizz",
+    "fizzle",
+    "groan",
+    "growl",
+    "gurgle",
+    "hiss",
+    "honk",
+    "hoot",
+    "howl",
+    "hum",
+    "jangle",
+    "jingle",
+    "keen",
+    "knell",
+    "knock",
+    "lilt",
+    "mewl",
+    "moan",
+    "murmur",
+    "patter",
+    "peal",
+    "ping",
+    "pink",
+    "pipe",
+    "plash",
+    "plink",
+    "plonk",
+    "plop",
+    "plunk",
+    "pop",
+    "purr",
+    "putter",
+    "rap",
+    "rasp",
+    "rattle",
+    "ring",
+    "roar",
+    "roll",
+    "rumble",
+    "rustle",
+    "scream",
+    "screech",
+    "shriek",
+    "shrill",
+    "sing",
+    "sizzle",
+    "snap",
+    "sough",
+    "sound",
+    "splash",
+    "sploosh",
+    "splutter",
+    "sputter",
+    "squawk",
+    "squeak",
+    "squeal",
+    "squelch",
+    "strike",
+    "swish",
+    "swoosh",
+    "thrum",
+    "thud",
+    "thump",
+    "thunder",
+    "thunk",
+    "tick",
+    "ting",
+    "tinkle",
+    "toll",
+    "toot",
+    "tootle",
+    "trill",
+    "trumpet",
+    "twang",
+    "ululate",
+    "vroom",
+    "wail",
+    "wheeze",
+    "whine",
+    "whir",
+    "whish",
+    "whisper",
+    "whistle",
+    "whoosh",
+    "whump",
+    "zing"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The door hinges squeaked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Horns beeped in the street."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The street sang with horns."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "In the hallway ticked a grandfather clock."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There ticked a grandfather clock in the hallway."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "I buzzed the bell."
+      ]
+    }
+  ]
+}

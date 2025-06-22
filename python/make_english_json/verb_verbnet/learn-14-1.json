@@ -1,0 +1,20 @@
+{
+  "members": [
+    "cram",
+    "learn",
+    "read",
+    "relearn",
+    "study"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "She studied."
+      ]
+    }
+  ]
+}

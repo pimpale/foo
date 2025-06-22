@@ -1,0 +1,61 @@
+{
+  "members": [
+    "advance",
+    "approach",
+    "arrive",
+    "ascend",
+    "bolt",
+    "climb",
+    "come",
+    "continue",
+    "cross",
+    "decamp",
+    "depart",
+    "descend",
+    "disembark",
+    "emerge",
+    "emigrate",
+    "enter",
+    "escape",
+    "exit",
+    "fall",
+    "file",
+    "flee",
+    "go",
+    "leave",
+    "pass",
+    "plunge",
+    "recede",
+    "retreat",
+    "return",
+    "rise",
+    "set_off",
+    "set_out",
+    "skedaddle",
+    "tumble",
+    "vacate",
+    "vamoose",
+    "withdraw"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The prisoners advanced."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "He came from France."
+      ]
+    }
+  ]
+}

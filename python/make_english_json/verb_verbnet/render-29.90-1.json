@@ -1,0 +1,18 @@
+{
+  "members": [
+    "make"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S"
+      ],
+      "examples": [
+        "John made the radio work."
+      ]
+    }
+  ]
+}

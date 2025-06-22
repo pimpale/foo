@@ -1,0 +1,25 @@
+{
+  "members": [
+    "abdicate",
+    "depart",
+    "give_up",
+    "leave",
+    "quit",
+    "renounce",
+    "resign",
+    "vacate",
+    "walk_off"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I resigned my position."
+      ]
+    }
+  ]
+}

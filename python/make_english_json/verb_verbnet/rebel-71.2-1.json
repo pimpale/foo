@@ -1,0 +1,20 @@
+{
+  "members": [
+    "discriminate",
+    "rebel",
+    "retaliate",
+    "sin"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.maleficiary"
+      ],
+      "examples": [
+        "John rebelled against her."
+      ]
+    }
+  ]
+}

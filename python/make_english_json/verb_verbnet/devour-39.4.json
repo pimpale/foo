@@ -1,0 +1,24 @@
+{
+  "members": [
+    "consume",
+    "devour",
+    "down",
+    "have",
+    "imbibe",
+    "ingest",
+    "swill",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Cynthia devoured the pizza."
+      ]
+    }
+  ]
+}

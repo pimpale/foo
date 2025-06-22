@@ -1,0 +1,31 @@
+{
+  "members": [
+    "buy_the_farm",
+    "choke",
+    "conk",
+    "croak",
+    "decease",
+    "die",
+    "drop_dead",
+    "expire",
+    "fall",
+    "give_up_the_ghost",
+    "kick_the_bucket",
+    "pass",
+    "pass_away",
+    "perish",
+    "pop_off",
+    "snuff_it"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He died."
+      ]
+    }
+  ]
+}

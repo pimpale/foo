@@ -1,0 +1,65 @@
+{
+  "members": [
+    "abet",
+    "aid",
+    "assist",
+    "help",
+    "succor",
+    "support"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I helped him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "I helped him with homework."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I helped him with finishing the homework."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I helped him to finish the homework."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I helped with finishing the homework."
+      ]
+    }
+  ]
+}

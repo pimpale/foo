@@ -1,0 +1,132 @@
+{
+  "members": [
+    "add",
+    "advise",
+    "allege",
+    "announce",
+    "articulate",
+    "blab",
+    "blabber",
+    "blurt",
+    "claim",
+    "confess",
+    "confide",
+    "convey",
+    "declare",
+    "disclose",
+    "divulge",
+    "exclaim",
+    "hint",
+    "insinuate",
+    "insist",
+    "interject",
+    "interpose",
+    "intimate",
+    "leak",
+    "mention",
+    "note",
+    "observe",
+    "proclaim",
+    "promulgate",
+    "propose",
+    "purpose",
+    "recommend",
+    "recount",
+    "reiterate",
+    "relate",
+    "remark",
+    "repeat",
+    "reply",
+    "report",
+    "respond",
+    "retort",
+    "reveal",
+    "say",
+    "state",
+    "suggest",
+    "utter",
+    "venture",
+    "vocalize",
+    "voice",
+    "volunteer",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.topic"
+      ],
+      "examples": [
+        "Ellen said a few words."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Ellen said a few words to Helen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S-Quote"
+      ],
+      "examples": [
+        "Mr. Jacobson announced to the trading mob: 'We're going to trade on the bell.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "John suggested how she could do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "John suggested how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "John suggested what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "John suggested what we should eat."
+      ]
+    }
+  ]
+}

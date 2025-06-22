@@ -1,0 +1,29 @@
+{
+  "members": [
+    "charge",
+    "commit",
+    "confine",
+    "detain",
+    "hospitalize",
+    "immure",
+    "imprison",
+    "incarcerate",
+    "institutionalize",
+    "jail",
+    "jug",
+    "recommit",
+    "send"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "We committed John."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "members": [
+    "billow",
+    "bloom",
+    "blossom",
+    "bristle",
+    "bulge",
+    "burn",
+    "effervesce",
+    "fester",
+    "fizz",
+    "flow",
+    "flower",
+    "flux",
+    "foam",
+    "froth",
+    "moil",
+    "propagate",
+    "rage",
+    "ripple",
+    "roil",
+    "seethe",
+    "smolder",
+    "sprout"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The beer foamed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "A fire raged in the mountains."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "There raged a fire."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "All through the mountains raged a fire."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The garden flowered with roses."
+      ]
+    }
+  ]
+}

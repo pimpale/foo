@@ -1,0 +1,19 @@
+{
+  "members": [
+    "amalgamate",
+    "coalesce",
+    "consolidate",
+    "intermingle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The yolks and the whites intermingled."
+      ]
+    }
+  ]
+}

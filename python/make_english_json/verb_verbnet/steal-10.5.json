@@ -1,0 +1,107 @@
+{
+  "members": [
+    "abduct",
+    "annex",
+    "bleed",
+    "cabbage",
+    "cadge",
+    "capture",
+    "carjack",
+    "commandeer",
+    "confiscate",
+    "cop",
+    "cull",
+    "emancipate",
+    "embezzle",
+    "extort",
+    "filch",
+    "flog",
+    "grab",
+    "highjack",
+    "hook",
+    "kidnap",
+    "knock_off",
+    "liberate",
+    "lift",
+    "milk",
+    "misappropriate",
+    "nab",
+    "nick",
+    "nobble",
+    "pickpocket",
+    "pilfer",
+    "pinch",
+    "pirate",
+    "plagiarize",
+    "plunder",
+    "purloin",
+    "recapture",
+    "reclaim",
+    "recoup",
+    "redeem",
+    "repossess",
+    "rescue",
+    "rob",
+    "rustle",
+    "salvage",
+    "seize",
+    "sequester",
+    "shoplift",
+    "smuggle",
+    "snatch",
+    "snatch_away",
+    "sneak",
+    "steal",
+    "swipe",
+    "take",
+    "thieve",
+    "wangle",
+    "wrest"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The thief stole the painting."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "The thief stole the painting from the museum."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief stole the painting for Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief stole the painting from John for Mary."
+      ]
+    }
+  ]
+}

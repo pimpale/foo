@@ -1,0 +1,18 @@
+{
+  "members": [
+    "kill",
+    "kill-off"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The DDT killed the insects."
+      ]
+    }
+  ]
+}

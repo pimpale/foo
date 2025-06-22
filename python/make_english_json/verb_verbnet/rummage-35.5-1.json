@@ -1,0 +1,27 @@
+{
+  "members": [
+    "delve",
+    "forage",
+    "grope",
+    "paw",
+    "rifle",
+    "root",
+    "rummage",
+    "snoop",
+    "thumb",
+    "tunnel"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "We rummaged the drawer for important documents."
+      ]
+    }
+  ]
+}

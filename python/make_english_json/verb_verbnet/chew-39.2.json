@@ -1,0 +1,51 @@
+{
+  "members": [
+    "chew",
+    "chomp",
+    "crunch",
+    "gnaw",
+    "gum",
+    "lap",
+    "lick",
+    "masticate",
+    "munch",
+    "nibble",
+    "peck",
+    "pick",
+    "sip",
+    "slurp",
+    "suck",
+    "teethe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Cynthia nibbled."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Cynthia nibbled the carrot."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Cynthia nibbled at the carrot."
+      ]
+    }
+  ]
+}

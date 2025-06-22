@@ -1,0 +1,55 @@
+{
+  "members": [
+    "accept",
+    "accrue",
+    "accumulate",
+    "acquire",
+    "appropriate",
+    "arrogate",
+    "borrow",
+    "cadge",
+    "collect",
+    "commandeer",
+    "exact",
+    "grab",
+    "hijack",
+    "inherit",
+    "make",
+    "obtain",
+    "purchase",
+    "receive",
+    "recoup",
+    "recover",
+    "regain",
+    "retrieve",
+    "seize",
+    "select",
+    "snatch",
+    "source",
+    "subselect",
+    "take_over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carmen obtained the spare part."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Carmen obtained the spare part from Diana."
+      ]
+    }
+  ]
+}

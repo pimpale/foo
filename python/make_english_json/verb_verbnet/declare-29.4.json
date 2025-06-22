@@ -1,0 +1,72 @@
+{
+  "members": [
+    "adjudge",
+    "avow",
+    "confess",
+    "declare",
+    "find",
+    "maintain",
+    "proclaim",
+    "profess",
+    "prove"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The president declared Smith foolish."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "The president declared Smith professor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "The president maintained Smith to be a good man."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The president declared the matter closed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The president maintained that the matter was closed."
+      ]
+    }
+  ]
+}

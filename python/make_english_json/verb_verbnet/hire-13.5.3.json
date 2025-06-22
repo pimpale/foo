@@ -1,0 +1,57 @@
+{
+  "members": [
+    "commission",
+    "contract",
+    "draft",
+    "employ",
+    "engage",
+    "enlist",
+    "groom",
+    "hire",
+    "prepare",
+    "recruit",
+    "reinstate",
+    "sign",
+    "sign_on",
+    "sign_up",
+    "subcontract",
+    "take_on",
+    "train"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I hired two secretaries."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I hired two secretaries as helpers."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "He trained them to be blacksmiths."
+      ]
+    }
+  ]
+}

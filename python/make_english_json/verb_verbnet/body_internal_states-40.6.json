@@ -1,0 +1,44 @@
+{
+  "members": [
+    "convulse",
+    "cower",
+    "quake",
+    "quiver",
+    "shake",
+    "shiver",
+    "shudder",
+    "tremble",
+    "writhe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sharon shivered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon shivered from fear."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon shivered at the thought of the cold sea."
+      ]
+    }
+  ]
+}

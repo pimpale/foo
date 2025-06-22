@@ -1,0 +1,17 @@
+{
+  "members": [
+    "smoke"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "He smoked the pipe."
+      ]
+    }
+  ]
+}

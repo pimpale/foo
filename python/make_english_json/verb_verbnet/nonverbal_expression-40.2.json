@@ -1,0 +1,110 @@
+{
+  "members": [
+    "beam",
+    "blubber",
+    "cackle",
+    "chortle",
+    "chuckle",
+    "cough",
+    "cry",
+    "frown",
+    "gape",
+    "gasp",
+    "gawk",
+    "giggle",
+    "glare",
+    "glower",
+    "goggle",
+    "grimace",
+    "grin",
+    "groan",
+    "growl",
+    "guffaw",
+    "hem",
+    "howl",
+    "jeer",
+    "laugh",
+    "lour",
+    "moan",
+    "pout",
+    "scoff",
+    "scowl",
+    "sigh",
+    "simper",
+    "smile",
+    "smirk",
+    "sneer",
+    "snicker",
+    "sniff",
+    "snigger",
+    "snivel",
+    "snore",
+    "snort",
+    "sob",
+    "titter",
+    "weep",
+    "whistle",
+    "yawn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Paul laughed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paul laughed a cheerful laugh."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She laughed her excitement."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "She laughed in embarrassment."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Paul laughed at Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Paul laughed at the sight of Mary slipping on a banana peel."
+      ]
+    }
+  ]
+}

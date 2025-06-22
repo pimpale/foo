@@ -1,0 +1,52 @@
+{
+  "members": [
+    "commiserate",
+    "empathize",
+    "identify",
+    "sympathize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I empathized."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "I empathized with them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "S_ING"
+      ],
+      "examples": [
+        "I empathized with their feeling that way."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I empathized with what they wanted."
+      ]
+    }
+  ]
+}

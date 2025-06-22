@@ -1,0 +1,55 @@
+{
+  "members": [
+    "belt",
+    "chant",
+    "dance",
+    "direct",
+    "enact",
+    "heel",
+    "hum",
+    "improvise",
+    "intone",
+    "model",
+    "perform",
+    "play",
+    "rap",
+    "recite",
+    "replay",
+    "sing",
+    "stage",
+    "vocalize",
+    "whistle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Sandy sang a song."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sandy sang."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Sandy sang a song for me."
+      ]
+    }
+  ]
+}

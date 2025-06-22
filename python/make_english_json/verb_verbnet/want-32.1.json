@@ -1,0 +1,26 @@
+{
+  "members": [
+    "covet",
+    "crave",
+    "desire",
+    "enjoy",
+    "fancy",
+    "like",
+    "love",
+    "need",
+    "prefer",
+    "want"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Dorothy needed new shoes."
+      ]
+    }
+  ]
+}

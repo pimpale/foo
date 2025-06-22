@@ -1,0 +1,18 @@
+{
+  "members": [
+    "approach",
+    "enter"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He entered the room."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "members": [
+    "buck",
+    "fidget",
+    "flap",
+    "gyrate",
+    "jiggle",
+    "kick",
+    "rock",
+    "squirm",
+    "sway",
+    "teeter",
+    "totter",
+    "twitch",
+    "waggle",
+    "wiggle",
+    "wobble",
+    "wriggle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sylvia fidgeted."
+      ]
+    }
+  ]
+}

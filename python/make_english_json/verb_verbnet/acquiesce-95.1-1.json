@@ -1,0 +1,27 @@
+{
+  "members": [
+    "accede",
+    "acquiesce",
+    "bow",
+    "capitulate",
+    "consent",
+    "fall",
+    "give_in",
+    "give_way",
+    "submit",
+    "succumb",
+    "yield"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The enemy soldiers submitted to demands."
+      ]
+    }
+  ]
+}

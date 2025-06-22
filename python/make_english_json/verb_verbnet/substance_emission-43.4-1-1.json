@@ -1,0 +1,17 @@
+{
+  "members": [
+    "bleed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "I bled him."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "members": [
+    "adjudge",
+    "declare",
+    "find",
+    "maintain",
+    "proclaim",
+    "profess",
+    "prove"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "The president declared what we should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The president declared John as stupid."
+      ]
+    }
+  ]
+}

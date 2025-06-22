@@ -1,0 +1,57 @@
+{
+  "members": [
+    "admit",
+    "affirm",
+    "anticipate",
+    "assert",
+    "assume",
+    "believe",
+    "conjecture",
+    "deny",
+    "determine",
+    "doubt",
+    "expect",
+    "feel",
+    "foreknow",
+    "foresee",
+    "foretell",
+    "guess",
+    "hold",
+    "infer",
+    "presume",
+    "prognosticate",
+    "prophesy",
+    "repute",
+    "spectulate",
+    "surmise",
+    "swear",
+    "trust",
+    "vaticinate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "He knew the choice to be a bad one."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The populace felt that the RIAA had too much power."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "members": [
+    "acknowledge",
+    "consider",
+    "deem",
+    "esteem",
+    "rate",
+    "reckon"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They considered him as being smart."
+      ]
+    }
+  ]
+}

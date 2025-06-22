@@ -1,0 +1,29 @@
+{
+  "members": [
+    "mine",
+    "quarry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The men mined the gold."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "The men mined the gold from the abandoned mine."
+      ]
+    }
+  ]
+}

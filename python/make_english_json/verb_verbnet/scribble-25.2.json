@@ -1,0 +1,59 @@
+{
+  "members": [
+    "carve",
+    "chalk",
+    "charcoal",
+    "copy",
+    "crayon",
+    "doodle",
+    "draw",
+    "forge",
+    "ink",
+    "jot",
+    "jot_down",
+    "misspell",
+    "pencil",
+    "plot",
+    "print",
+    "print_out",
+    "print_up",
+    "record",
+    "scratch",
+    "scrawl",
+    "scribble",
+    "sketch",
+    "spell",
+    "spraypaint",
+    "stencil",
+    "take",
+    "take_down",
+    "trace",
+    "type",
+    "underline",
+    "underscore",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Roberto took notes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Saul jotted down readings on a notepad."
+      ]
+    }
+  ]
+}

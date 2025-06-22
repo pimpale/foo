@@ -1,0 +1,24 @@
+{
+  "members": [
+    "conjure",
+    "craft",
+    "design",
+    "dig",
+    "draw",
+    "paint",
+    "spin"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "David dug me a hole."
+      ]
+    }
+  ]
+}

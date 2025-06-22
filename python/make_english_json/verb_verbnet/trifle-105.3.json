@@ -1,0 +1,22 @@
+{
+  "members": [
+    "dally",
+    "diddle",
+    "fiddle",
+    "play",
+    "toy",
+    "trifle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "She trifled with him."
+      ]
+    }
+  ]
+}

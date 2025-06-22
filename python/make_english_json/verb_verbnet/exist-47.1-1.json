@@ -1,0 +1,39 @@
+{
+  "members": [
+    "endure",
+    "live",
+    "survive"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I endured the routine heavy traffic."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "I lived through the horrible weekend."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "We lived on $10 a day."
+      ]
+    }
+  ]
+}

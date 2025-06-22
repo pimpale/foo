@@ -1,0 +1,42 @@
+{
+  "members": [
+    "ache",
+    "burn",
+    "hum",
+    "palpitate",
+    "pound",
+    "prickle",
+    "pucker",
+    "reel",
+    "smart",
+    "spin",
+    "split",
+    "sting",
+    "swim",
+    "throb",
+    "tickle",
+    "tingle",
+    "twinge"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My heart pounded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "My heart pounded from fear."
+      ]
+    }
+  ]
+}

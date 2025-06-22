@@ -1,0 +1,80 @@
+{
+  "members": [
+    "alter",
+    "change",
+    "convert",
+    "deform",
+    "metamorphose",
+    "morph",
+    "mutate",
+    "transform",
+    "translate",
+    "transmute",
+    "turn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient",
+        "PP.material",
+        "PP.result"
+      ],
+      "examples": [
+        "The witch turned him from a prince into a frog."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.material",
+        "PP.result"
+      ],
+      "examples": [
+        "He turned from a prince into a frog."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient",
+        "PP.result"
+      ],
+      "examples": [
+        "The witch turned him into a frog."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "He turned into a frog."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The man converted again."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The 1980s bull market transformed the U.S. securities business."
+      ]
+    }
+  ]
+}

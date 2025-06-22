@@ -1,0 +1,67 @@
+{
+  "members": [
+    "accommodate",
+    "adapt",
+    "adjust",
+    "assimilate",
+    "conform",
+    "fit",
+    "gear",
+    "readapt",
+    "readjust"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He adapted himself."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "He adapted himself to the situation."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "He adapted himself to waking up early."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He adapted to waking up early."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "He adapted to the situation."
+      ]
+    }
+  ]
+}

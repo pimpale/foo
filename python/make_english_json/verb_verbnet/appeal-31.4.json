@@ -1,0 +1,18 @@
+{
+  "members": [
+    "appeal",
+    "grate",
+    "niggle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The music grated."
+      ]
+    }
+  ]
+}

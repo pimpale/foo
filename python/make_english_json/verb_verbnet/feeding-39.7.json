@@ -1,0 +1,46 @@
+{
+  "members": [
+    "bottlefeed",
+    "breastfeed",
+    "feed",
+    "force-feed",
+    "handfeed",
+    "nurse",
+    "spoonfeed",
+    "suckle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Teresa bottlefed the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Teresa bottlefed soy milk to the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Teresa bottlefed the baby soy milk."
+      ]
+    }
+  ]
+}

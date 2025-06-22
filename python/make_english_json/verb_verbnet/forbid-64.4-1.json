@@ -1,0 +1,45 @@
+{
+  "members": [
+    "ban",
+    "bar",
+    "block",
+    "exclude",
+    "forbid",
+    "preclude",
+    "prevent",
+    "prohibit",
+    "stop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The rules forbade our smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The rules forbade smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The rules forbade it."
+      ]
+    }
+  ]
+}

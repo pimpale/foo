@@ -1,0 +1,27 @@
+{
+  "members": [
+    "brush",
+    "comb",
+    "hose",
+    "mop",
+    "plow",
+    "rake",
+    "shear",
+    "shovel",
+    "siphon",
+    "vacuum"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "He plowed the snow back into the ditch."
+      ]
+    }
+  ]
+}

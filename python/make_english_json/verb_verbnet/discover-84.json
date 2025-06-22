@@ -1,0 +1,89 @@
+{
+  "members": [
+    "ascertain",
+    "chance_across",
+    "chance_on",
+    "chance_upon",
+    "deduce",
+    "determine",
+    "discover",
+    "figure_out",
+    "find",
+    "guess",
+    "pick_up",
+    "rationalize",
+    "realize",
+    "relearn",
+    "scent_out",
+    "see",
+    "solve",
+    "work_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I discovered how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I discovered how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I discovered the solution."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I discovered that it didn't make sense."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I discovered what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I discovered what to do."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "members": [
+    "bail",
+    "dab",
+    "dust",
+    "erase",
+    "lick",
+    "pluck",
+    "prune",
+    "rinse",
+    "rub",
+    "scour",
+    "scrape",
+    "scratch",
+    "scrub",
+    "squeeze",
+    "strip",
+    "suck",
+    "suction",
+    "swab",
+    "sweep",
+    "wash",
+    "wear",
+    "wipe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP-Conative"
+      ],
+      "examples": [
+        "Brian wiped at the counter."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "members": [
+    "appreciate",
+    "build",
+    "climb",
+    "decline",
+    "depreciate",
+    "die",
+    "dip",
+    "dive",
+    "drop",
+    "dwindle",
+    "explode",
+    "fall",
+    "fall-off",
+    "fall_away",
+    "fluctuate",
+    "gain",
+    "go_down",
+    "go_up",
+    "grow",
+    "jump",
+    "multiply",
+    "mushroom",
+    "plummet",
+    "plump",
+    "plunge",
+    "retreat",
+    "rise",
+    "rocket",
+    "seesaw",
+    "skyrocket",
+    "slide",
+    "slip",
+    "soar",
+    "surge",
+    "swell",
+    "swing",
+    "tumble"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.attribute",
+        "V"
+      ],
+      "examples": [
+        "The price of oil soared."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Oil soared in price."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Imports declined."
+      ]
+    }
+  ]
+}

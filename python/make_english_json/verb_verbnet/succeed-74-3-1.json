@@ -1,0 +1,30 @@
+{
+  "members": [
+    "fail",
+    "flub",
+    "lose"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I lost the game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality",
+        "S_ING"
+      ],
+      "examples": [
+        "I lost at poker."
+      ]
+    }
+  ]
+}

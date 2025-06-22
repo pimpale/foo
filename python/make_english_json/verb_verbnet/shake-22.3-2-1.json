@@ -1,0 +1,34 @@
+{
+  "members": [
+    "affix",
+    "agglutinate",
+    "attach",
+    "bind",
+    "bond",
+    "bundle",
+    "concatenate",
+    "fasten",
+    "fixate",
+    "graft",
+    "jumble",
+    "ligate",
+    "moor",
+    "package",
+    "secure",
+    "splice",
+    "toggle",
+    "weld"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman spliced ropes."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "members": [
+    "bleed",
+    "cull",
+    "milk",
+    "rob",
+    "strip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "The swindler swindled 20 dollars from his boss."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "members": [
+    "ache",
+    "agonize",
+    "anger",
+    "anguish",
+    "approve",
+    "bask",
+    "beware",
+    "bleed",
+    "bother",
+    "care",
+    "chafe",
+    "cheer",
+    "cringe",
+    "cry",
+    "delight",
+    "despair",
+    "die",
+    "disapprove",
+    "enthuse",
+    "exult",
+    "fear",
+    "feel",
+    "flip_out",
+    "freak_out",
+    "fret",
+    "fume",
+    "gladden",
+    "gloat",
+    "glory",
+    "go_apeshit",
+    "go_ballistic",
+    "grieve",
+    "groove",
+    "hallucinate",
+    "hunger",
+    "hurt",
+    "lose_it",
+    "luxuriate",
+    "madden",
+    "marvel",
+    "mind",
+    "moon",
+    "mope",
+    "mourn",
+    "muse",
+    "obsess",
+    "puzzle",
+    "rage",
+    "react",
+    "reflect",
+    "rejoice",
+    "revel",
+    "ruminate",
+    "sadden",
+    "salivate",
+    "seethe",
+    "sicken",
+    "sorrow",
+    "start",
+    "stew",
+    "stress",
+    "suffer",
+    "sulk",
+    "swoon",
+    "thrill",
+    "tire",
+    "triumph",
+    "wallow",
+    "weary",
+    "weep",
+    "wonder",
+    "worry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I suffered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Megan marveled at the Grand Canyon."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "members": [
+    "attend",
+    "tend"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The vet attended to the sick ram."
+      ]
+    }
+  ]
+}

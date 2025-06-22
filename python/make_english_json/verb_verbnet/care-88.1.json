@@ -1,0 +1,41 @@
+{
+  "members": [
+    "care",
+    "mind",
+    "wonder",
+    "worry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He didn't care."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He didn't care that she came."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "He didn't care whether she came."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "members": [
+    "abstain",
+    "desist",
+    "forbear",
+    "refrain"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He refrained."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "He refrained from eating."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S"
+      ],
+      "examples": [
+        "He refrained from the lurid activity while in the lady's company."
+      ]
+    }
+  ]
+}

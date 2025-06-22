@@ -1,0 +1,61 @@
+{
+  "members": [
+    "babysit",
+    "boss",
+    "bully",
+    "butcher",
+    "butler",
+    "caddy",
+    "captain",
+    "champion",
+    "chaperone",
+    "chauffeur",
+    "clerk",
+    "coach",
+    "cox",
+    "crew",
+    "doctor",
+    "emcee",
+    "escort",
+    "guard",
+    "host",
+    "judge",
+    "lawyer",
+    "midwife",
+    "model",
+    "mother",
+    "nurse",
+    "partner",
+    "pilot",
+    "pioneer",
+    "police",
+    "prostitute",
+    "referee",
+    "shepherd",
+    "skipper",
+    "soldier",
+    "sponsor",
+    "star",
+    "tailor",
+    "tutor",
+    "umpire",
+    "understudy",
+    "usher",
+    "valet",
+    "volunteer",
+    "whore",
+    "witness"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Her cousin clerked for Judge Davis."
+      ]
+    }
+  ]
+}

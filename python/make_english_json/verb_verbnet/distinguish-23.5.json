@@ -1,0 +1,53 @@
+{
+  "members": [
+    "differentiate",
+    "distinguish",
+    "tell_apart"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "We told them apart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.attribute"
+      ],
+      "examples": [
+        "We told them apart by their spots."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "They distinguished her from her twin sister."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.co-theme",
+        "PP.instrument"
+      ],
+      "examples": [
+        "They distinguished her from her twin sister by her birthmark."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "members": [
+    "enlist",
+    "hire_on",
+    "offer",
+    "sign_on",
+    "sign_up",
+    "volunteer"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "John volunteered my sister for the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "John volunteered my sister as treasurer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I volunteered to run the workshop."
+      ]
+    }
+  ]
+}

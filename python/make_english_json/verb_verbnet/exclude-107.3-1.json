@@ -1,0 +1,20 @@
+{
+  "members": [
+    "exclude",
+    "preclude"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal",
+        "S_ING"
+      ],
+      "examples": [
+        "They excluded us from going to the party."
+      ]
+    }
+  ]
+}

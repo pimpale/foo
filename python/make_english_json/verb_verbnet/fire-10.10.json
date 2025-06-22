@@ -1,0 +1,55 @@
+{
+  "members": [
+    "can",
+    "dismiss",
+    "drop",
+    "expel",
+    "fire",
+    "force_out",
+    "give_the_boot",
+    "lay_off",
+    "let_go",
+    "oust",
+    "remove",
+    "sack",
+    "send_away",
+    "shitcan",
+    "suspend",
+    "terminate",
+    "unseat"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I fired two secretaries."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "I fired two secretaries from the company."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I fired him as my chief of staff."
+      ]
+    }
+  ]
+}

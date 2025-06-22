@@ -1,0 +1,110 @@
+{
+  "members": [
+    "speak",
+    "talk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan talked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan talked to Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan talked with Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan talked to Rachel about the problem."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan talked with Rachel about the problem."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan and Rachel talked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "Susan and Rachel talked together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan talked about the problem to Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan talked about the problem with Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan talked about the problems of modern America."
+      ]
+    }
+  ]
+}

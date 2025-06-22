@@ -1,0 +1,71 @@
+{
+  "members": [
+    "add",
+    "advise",
+    "allege",
+    "announce",
+    "articulate",
+    "be_like",
+    "blab",
+    "blabber",
+    "blurt",
+    "claim",
+    "confess",
+    "confide",
+    "continue",
+    "convey",
+    "declare",
+    "disclose",
+    "divulge",
+    "exclaim",
+    "go",
+    "go_like",
+    "go_on",
+    "hint",
+    "insinuate",
+    "insist",
+    "interject",
+    "interpose",
+    "intimate",
+    "leak",
+    "mention",
+    "note",
+    "observe",
+    "proclaim",
+    "promulgate",
+    "propose",
+    "purpose",
+    "recommend",
+    "recount",
+    "reiterate",
+    "relate",
+    "remark",
+    "repeat",
+    "reply",
+    "report",
+    "respond",
+    "retort",
+    "reveal",
+    "say",
+    "state",
+    "suggest",
+    "utter",
+    "venture",
+    "vocalize",
+    "voice",
+    "volunteer",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S-Quote"
+      ],
+      "examples": [
+        "He was like, 'It has to go.'"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "participate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They participated in the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "They participated in working on the task."
+      ]
+    }
+  ]
+}

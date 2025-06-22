@@ -1,0 +1,56 @@
+{
+  "members": [
+    "develop",
+    "evolve",
+    "generate",
+    "grow",
+    "hatch",
+    "maturate",
+    "mature",
+    "redevelop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.product"
+      ],
+      "examples": [
+        "That acorn will grow into an oak tree."
+      ]
+    },
+    {
+      "primary": [
+        "NP.product",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "An oak tree will grow from that acorn."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.product",
+        "PP.patient"
+      ],
+      "examples": [
+        "The gardener grew an oak tree from that acorn."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient",
+        "PP.product"
+      ],
+      "examples": [
+        "The gardener grew that acorn into an oak tree."
+      ]
+    }
+  ]
+}

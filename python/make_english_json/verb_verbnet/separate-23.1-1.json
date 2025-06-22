@@ -1,0 +1,23 @@
+{
+  "members": [
+    "decouple",
+    "differentiate",
+    "disentangle",
+    "dissimilate",
+    "divide",
+    "divorce",
+    "segregate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The yolk divided from the white."
+      ]
+    }
+  ]
+}

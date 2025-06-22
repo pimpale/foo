@@ -1,0 +1,81 @@
+{
+  "members": [
+    "bail",
+    "buff",
+    "dab",
+    "distil",
+    "distill",
+    "dust",
+    "erase",
+    "exorcise",
+    "expunge",
+    "expurgate",
+    "flush",
+    "leach",
+    "lick",
+    "offload",
+    "pluck",
+    "polish",
+    "prune",
+    "purge",
+    "rinse",
+    "rub",
+    "scour",
+    "scrape",
+    "scratch",
+    "scrub",
+    "shave",
+    "skim",
+    "smooth",
+    "soak",
+    "squeeze",
+    "strain",
+    "strip",
+    "suck",
+    "suction",
+    "swab",
+    "sweep",
+    "trim",
+    "unload",
+    "wash",
+    "wear",
+    "weed",
+    "whisk",
+    "winnow",
+    "wipe",
+    "wring"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Brian wiped the fingerprints from the counter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "Brian wiped the counter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Barry Cryer erased the writing."
+      ]
+    }
+  ]
+}

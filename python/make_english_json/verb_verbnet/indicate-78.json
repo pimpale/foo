@@ -1,0 +1,83 @@
+{
+  "members": [
+    "advertise",
+    "affirm",
+    "anticipate",
+    "confirm",
+    "corroborate",
+    "demonstrate",
+    "denote",
+    "disclose",
+    "establish",
+    "explain",
+    "expose",
+    "forebode",
+    "imply",
+    "indicate",
+    "predict",
+    "prognosticate",
+    "prove",
+    "reaffirm",
+    "reveal",
+    "say",
+    "show",
+    "suggest",
+    "verify"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "This indicates how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "This indicates how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This indicates it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "This indicates whether he is the thief."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "This indicates what he should do."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "members": [
+    "actuate",
+    "arouse",
+    "call_forth",
+    "cause",
+    "elicit",
+    "incite",
+    "inspire",
+    "instigate",
+    "prompt",
+    "provoke",
+    "spark",
+    "stimulate",
+    "stir_up",
+    "trigger"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "The bug caused the chip to give wrong answers for some mathematical calculations."
+      ]
+    }
+  ]
+}

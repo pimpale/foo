@@ -1,0 +1,70 @@
+{
+  "members": [
+    "affix",
+    "agglutinate",
+    "attach",
+    "band",
+    "baste",
+    "beat",
+    "bind",
+    "bond",
+    "bundle",
+    "cluster",
+    "collate",
+    "collect",
+    "concatenate",
+    "fasten",
+    "fix",
+    "fixate",
+    "fuse",
+    "gather",
+    "glom",
+    "graft",
+    "group",
+    "herd",
+    "jumble",
+    "ligate",
+    "lump",
+    "mass",
+    "moor",
+    "package",
+    "pair",
+    "roll",
+    "scramble",
+    "secure",
+    "sew",
+    "shake",
+    "shuffle",
+    "splice",
+    "stick",
+    "stir",
+    "swirl",
+    "toggle",
+    "weld",
+    "whip",
+    "whisk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The sticks bundled easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The sticks bundled together easily."
+      ]
+    }
+  ]
+}

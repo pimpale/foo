@@ -1,0 +1,35 @@
+{
+  "members": [
+    "command",
+    "direct",
+    "lead",
+    "manage",
+    "micromanage",
+    "oversee",
+    "preside_over",
+    "supervise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.predicate"
+      ],
+      "examples": [
+        "Martha led the students in a task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.predicate"
+      ],
+      "examples": [
+        "Martha led the project."
+      ]
+    }
+  ]
+}

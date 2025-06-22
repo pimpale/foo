@@ -1,0 +1,53 @@
+{
+  "members": [
+    "color",
+    "distemper",
+    "dye",
+    "enamel",
+    "glaze",
+    "japan",
+    "lacquer",
+    "paint",
+    "repaint",
+    "shellac",
+    "spraypaint",
+    "stain",
+    "starch",
+    "tint",
+    "varnish"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Claire painted the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Claire painted the wall red."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Claire painted the wall into a splotchy mess."
+      ]
+    }
+  ]
+}

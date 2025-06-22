@@ -1,0 +1,68 @@
+{
+  "members": [
+    "brood",
+    "center",
+    "concentrate",
+    "contemplate",
+    "converge",
+    "deliberate",
+    "dwell",
+    "fixate",
+    "focalize",
+    "focus",
+    "meditate",
+    "muse",
+    "ponder",
+    "reflect",
+    "ruminate",
+    "think",
+    "wonder"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "We focused on it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "We focused on reading the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "We focused on what he wanted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "We focused on what to do."
+      ]
+    }
+  ]
+}

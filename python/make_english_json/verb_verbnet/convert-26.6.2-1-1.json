@@ -1,0 +1,52 @@
+{
+  "members": [
+    "change_over",
+    "convert",
+    "move_over",
+    "switch",
+    "switch_over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He converted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I converted him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I converted him to believing in Buddha."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "I converted him to Buddhism."
+      ]
+    }
+  ]
+}

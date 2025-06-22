@@ -1,0 +1,17 @@
+{
+  "members": [
+    "defer",
+    "delay"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He deferred."
+      ]
+    }
+  ]
+}

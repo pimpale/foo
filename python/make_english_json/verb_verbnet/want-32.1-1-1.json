@@ -1,0 +1,35 @@
+{
+  "members": [
+    "desire",
+    "like",
+    "need",
+    "prefer",
+    "want"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I needed him to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "ADJ"
+      ],
+      "examples": [
+        "I need him to be nice."
+      ]
+    }
+  ]
+}

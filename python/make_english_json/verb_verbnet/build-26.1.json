@@ -1,0 +1,171 @@
+{
+  "members": [
+    "arrange",
+    "assemble",
+    "bake",
+    "bead",
+    "blow",
+    "build",
+    "carve",
+    "cast",
+    "chisel",
+    "churn",
+    "compile",
+    "cook",
+    "crochet",
+    "cut",
+    "develop",
+    "embroider",
+    "erect",
+    "fashion",
+    "fold",
+    "forge",
+    "formulate",
+    "grind",
+    "grow",
+    "hack",
+    "hammer",
+    "knit",
+    "make",
+    "mold",
+    "pound",
+    "reassemble",
+    "refashion",
+    "remake",
+    "roll",
+    "sculpt",
+    "sculpture",
+    "sew",
+    "shape",
+    "spin",
+    "stitch",
+    "weave",
+    "whittle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Martha carved a toy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.product",
+        "PP.material"
+      ],
+      "examples": [
+        "Martha carved a toy out of a piece of wood."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.material",
+        "PP.product"
+      ],
+      "examples": [
+        "Martha carved the piece of wood into a toy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Martha carved a toy for the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Martha carved the baby a toy out of a piece of wood."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.material",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Martha carved a toy out of a piece of wood for the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Martha carved a piece of wood for the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.product",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Martha carved a piece of wood into a toy for the baby."
+      ]
+    },
+    {
+      "primary": [
+        "NP.material",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This wood carved beautiful toys."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP",
+        "PP.asset"
+      ],
+      "examples": [
+        "The contractor will build you a house for $100,000."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.material",
+        "PP.asset"
+      ],
+      "examples": [
+        "Martha will carve a toy out of a piece of wood for $50."
+      ]
+    }
+  ]
+}

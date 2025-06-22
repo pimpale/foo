@@ -1,0 +1,29 @@
+{
+  "members": [
+    "hasten",
+    "hurry",
+    "rush"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "Maggie hurried with her lunch."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Maggie hurried her sister."
+      ]
+    }
+  ]
+}

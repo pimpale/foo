@@ -1,0 +1,52 @@
+{
+  "members": [
+    "allure",
+    "attract",
+    "bewitch",
+    "cajole",
+    "coax",
+    "draw",
+    "entice",
+    "flatter",
+    "inveigle",
+    "lure",
+    "seduce",
+    "soothe",
+    "sweet-talk",
+    "win_over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I lured him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I lured him into coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "I lured John to the dark side."
+      ]
+    }
+  ]
+}

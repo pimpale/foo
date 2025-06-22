@@ -1,0 +1,30 @@
+{
+  "members": [
+    "amerce",
+    "bet",
+    "bill",
+    "charge",
+    "fine",
+    "invoice",
+    "mulct",
+    "overcharge",
+    "save",
+    "spare",
+    "tax",
+    "undercharge",
+    "wager"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP.asset"
+      ],
+      "examples": [
+        "The phone company billed me $10."
+      ]
+    }
+  ]
+}

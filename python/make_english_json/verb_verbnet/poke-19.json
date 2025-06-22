@@ -1,0 +1,48 @@
+{
+  "members": [
+    "dig",
+    "impale",
+    "jab",
+    "penetrate",
+    "perforate",
+    "pierce",
+    "poke",
+    "prick",
+    "puncture",
+    "stab",
+    "stick"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Allison poked the cloth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Allison poked the cloth with the needle."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The needle poked the cloth."
+      ]
+    }
+  ]
+}

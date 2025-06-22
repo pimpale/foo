@@ -1,0 +1,107 @@
+{
+  "members": [
+    "balloon",
+    "bicycle",
+    "bike",
+    "boat",
+    "bobsled",
+    "bus",
+    "cab",
+    "canoe",
+    "caravan",
+    "chariot",
+    "coach",
+    "cycle",
+    "dogsled",
+    "ferry",
+    "gondola",
+    "helicopter",
+    "jeep",
+    "jet",
+    "kayak",
+    "moped",
+    "motor",
+    "motorbike",
+    "motorcycle",
+    "parachute",
+    "punt",
+    "raft",
+    "rickshaw",
+    "rocket",
+    "skate",
+    "skateboard",
+    "ski",
+    "sled",
+    "sledge",
+    "sleigh",
+    "taxi",
+    "toboggan",
+    "tram",
+    "trolley",
+    "yacht"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V"
+      ],
+      "examples": [
+        "Claire rickshawed."
+      ]
+    },
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Claire rickshawed along the creek path."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "James rickshawed Penny around the block."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "James rickshawed Penny."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "James rickshawed his legs off."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "James rickshawed his legs to exhaustion."
+      ]
+    }
+  ]
+}

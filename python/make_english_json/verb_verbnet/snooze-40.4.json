@@ -1,0 +1,22 @@
+{
+  "members": [
+    "catnap",
+    "doze",
+    "drowse",
+    "nap",
+    "sleep",
+    "slumber",
+    "snooze"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Gloria snoozed."
+      ]
+    }
+  ]
+}

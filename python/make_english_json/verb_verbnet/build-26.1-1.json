@@ -1,0 +1,66 @@
+{
+  "members": [
+    "build",
+    "carve",
+    "cut",
+    "make",
+    "remake",
+    "sculpt",
+    "shape"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "P.asset"
+      ],
+      "examples": [
+        "The contractor builds houses for $100,000."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "$100,000 builds a house."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "$100,000 will build you a house."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "$100,000 builds a house out of sticks."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "$100,000 builds you a house out of sticks."
+      ]
+    }
+  ]
+}

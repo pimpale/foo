@@ -1,0 +1,73 @@
+{
+  "members": [
+    "coast",
+    "sail",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jill sailed a boat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Jack sailed a boat to New Zealand."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Claire sailed a boat from Greece."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Kevin sailed through the ocean strait."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Martha sailed through the channel to the shore."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Columbus sailed an unknown route from Europe."
+      ]
+    }
+  ]
+}

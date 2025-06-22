@@ -1,0 +1,38 @@
+{
+  "members": [
+    "attempt",
+    "try"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I tried apologizing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I tried the puzzle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I tried to exercise."
+      ]
+    }
+  ]
+}

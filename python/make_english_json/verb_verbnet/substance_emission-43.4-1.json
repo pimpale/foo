@@ -1,0 +1,108 @@
+{
+  "members": [
+    "bead",
+    "belch",
+    "bleed",
+    "bubble",
+    "dribble",
+    "drip",
+    "drool",
+    "emanate",
+    "exrete",
+    "exude",
+    "foam",
+    "gush",
+    "jet",
+    "leak",
+    "ooze",
+    "percolate",
+    "pour",
+    "puff",
+    "radiate",
+    "seep",
+    "shed",
+    "slop",
+    "spew",
+    "spill",
+    "spout",
+    "sprout",
+    "spurt",
+    "squirt",
+    "steam",
+    "stream",
+    "sweat",
+    "trickle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The fountain gushed."
+      ]
+    },
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "Oil gushed from the well."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Water gushed through the streets."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The streets gushed with water."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Over the fire bubbled a fragrant stew."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There bubbled a fragant stew over the fire."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "out"
+      ],
+      "examples": [
+        "The water seeped out."
+      ]
+    }
+  ]
+}

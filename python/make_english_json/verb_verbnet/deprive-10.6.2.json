@@ -1,0 +1,42 @@
+{
+  "members": [
+    "bereave",
+    "burgle",
+    "denude",
+    "deplete",
+    "depopulate",
+    "deprive",
+    "despoil",
+    "disabuse",
+    "disarm",
+    "dispossess",
+    "divest",
+    "drain",
+    "plunder",
+    "rid",
+    "sap"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They plundered Rome."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "They deprived Pat of his lunch money."
+      ]
+    }
+  ]
+}

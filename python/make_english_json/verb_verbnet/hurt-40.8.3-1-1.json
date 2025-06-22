@@ -1,0 +1,26 @@
+{
+  "members": [
+    "break",
+    "chip",
+    "fracture",
+    "pull",
+    "rupture",
+    "splinter",
+    "split",
+    "sprain",
+    "tear",
+    "turn",
+    "twist"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My ankle twisted."
+      ]
+    }
+  ]
+}

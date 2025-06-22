@@ -1,0 +1,38 @@
+{
+  "members": [
+    "administer",
+    "circularize",
+    "contribute",
+    "disseminate",
+    "distribute",
+    "donate",
+    "forfeit",
+    "resubmit",
+    "sacrifice",
+    "submit",
+    "surrender"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "He donated directly to JSP members."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "She distributed the money among oversea units."
+      ]
+    }
+  ]
+}

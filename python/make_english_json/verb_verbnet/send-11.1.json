@@ -1,0 +1,93 @@
+{
+  "members": [
+    "FedEx",
+    "UPS",
+    "airmail",
+    "convey",
+    "deliver",
+    "dispatch",
+    "drive",
+    "export",
+    "express",
+    "forward",
+    "hand",
+    "handdeliver",
+    "import",
+    "mail",
+    "pass",
+    "pass_on",
+    "port",
+    "post",
+    "return",
+    "send",
+    "shift",
+    "ship",
+    "shunt",
+    "slip",
+    "smuggle",
+    "sneak",
+    "transfer",
+    "transmit",
+    "transport",
+    "transship",
+    "wire"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Nora sent the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Nora sent the book from Paris."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora sent the book to London."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora sent the book from Paris to London."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "TransCanada is shifting its HQ to Calgary from Toronto."
+      ]
+    }
+  ]
+}

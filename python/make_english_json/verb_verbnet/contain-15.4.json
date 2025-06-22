@@ -1,0 +1,18 @@
+{
+  "members": [
+    "contain",
+    "hold"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The canteen contained fresh water."
+      ]
+    }
+  ]
+}

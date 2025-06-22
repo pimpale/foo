@@ -1,0 +1,52 @@
+{
+  "members": [
+    "block",
+    "cloister",
+    "conceal",
+    "curtain",
+    "hide",
+    "impound",
+    "isolate",
+    "quarantine",
+    "repress",
+    "screen",
+    "seclude",
+    "sequester",
+    "shelter",
+    "suppress"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Frances hid the presents from Sally."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Frances hid the presents behind the books in the drawer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Frances hid the presents."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "members": [
+    "control",
+    "enforce",
+    "impose"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They enforced the rules."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "They enforced that girls could only work until 9:30 pm."
+      ]
+    }
+  ]
+}

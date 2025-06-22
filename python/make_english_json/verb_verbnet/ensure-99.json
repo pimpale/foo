@@ -1,0 +1,57 @@
+{
+  "members": [
+    "ascertain",
+    "assure",
+    "ensure",
+    "guarantee",
+    "insure",
+    "provide",
+    "reinsure",
+    "secure"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "His mistakes guaranteed his failure."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "Our exertions ensured us a good outcome."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The circumstances ensured a good outcome for him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The circumstances ensured that he would arrive in time."
+      ]
+    }
+  ]
+}

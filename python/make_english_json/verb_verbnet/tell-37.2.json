@@ -1,0 +1,44 @@
+{
+  "members": [
+    "acquaint",
+    "apprise",
+    "inform",
+    "notify",
+    "remind",
+    "update"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "John informed me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "PP.topic"
+      ],
+      "examples": [
+        "John informed me of the situation."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "S"
+      ],
+      "examples": [
+        "John informed me that his situation had changed."
+      ]
+    }
+  ]
+}

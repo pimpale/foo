@@ -1,0 +1,66 @@
+{
+  "members": [
+    "adopt",
+    "appoint",
+    "coronate",
+    "crown",
+    "designate",
+    "elect",
+    "install",
+    "mark",
+    "name",
+    "nominate",
+    "ordain",
+    "proclaim",
+    "reelect",
+    "upgrade",
+    "want"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "We elected him governor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "We elected him as governor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "We elected Alan to be our new governor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They elected John."
+      ]
+    }
+  ]
+}

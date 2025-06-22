@@ -1,0 +1,23 @@
+{
+  "members": [
+    "engage",
+    "figure",
+    "introduce",
+    "marry",
+    "oppose",
+    "remarry",
+    "wed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John opposed the two ideas."
+      ]
+    }
+  ]
+}

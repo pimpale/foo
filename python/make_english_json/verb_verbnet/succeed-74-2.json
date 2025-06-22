@@ -1,0 +1,37 @@
+{
+  "members": [
+    "win"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I won."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I won the game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality",
+        "S_ING"
+      ],
+      "examples": [
+        "I won at dice."
+      ]
+    }
+  ]
+}

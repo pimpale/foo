@@ -1,0 +1,28 @@
+{
+  "members": [
+    "heave",
+    "jerk",
+    "jostle",
+    "nudge",
+    "press",
+    "pull",
+    "push",
+    "shove",
+    "squeeze",
+    "thrust",
+    "tug",
+    "yank"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Nora heaved the chair."
+      ]
+    }
+  ]
+}

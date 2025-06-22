@@ -1,0 +1,25 @@
+{
+  "members": [
+    "calve",
+    "cub",
+    "fawn",
+    "foal",
+    "kitten",
+    "lamb",
+    "litter",
+    "pup",
+    "spawn",
+    "whelp"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The cat kittened."
+      ]
+    }
+  ]
+}

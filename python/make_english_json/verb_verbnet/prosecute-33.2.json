@@ -1,0 +1,42 @@
+{
+  "members": [
+    "arrest",
+    "book",
+    "bust",
+    "charge",
+    "collar",
+    "impeach",
+    "indict",
+    "nab",
+    "penalize",
+    "persecute",
+    "prosecute",
+    "punish",
+    "report",
+    "sanction",
+    "try"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They collared the suspect."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "They booked her for drunk driving."
+      ]
+    }
+  ]
+}

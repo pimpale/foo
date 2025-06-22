@@ -1,0 +1,311 @@
+{
+  "members": [
+    "ask",
+    "consult",
+    "enquire",
+    "inquire",
+    "pry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I asked how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I asked how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I asked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "I asked him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.topic"
+      ],
+      "examples": [
+        "I asked a question."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic"
+      ],
+      "examples": [
+        "I asked him about it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "I asked him whether he was going."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I asked him what he was doing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "I asked him whether to clean the house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked him what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "He asked about whether he wanted to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He asked him about what he wanted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "I asked about it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "He asked of her how it works."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked of her how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "He asked of her about whether he should visit the peasants."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He asked of her about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked of her about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "I asked of him about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "He asked whether he should come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He asked what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked whether to clean the house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "He asked what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "He asked him how he came."
+      ]
+    }
+  ]
+}

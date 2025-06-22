@@ -1,0 +1,58 @@
+{
+  "members": [
+    "kill",
+    "lead",
+    "misspend",
+    "pass",
+    "serve",
+    "spend",
+    "use",
+    "waste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I misspent 5 hours."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Sam served five years as a prisoner."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "VP.predicate"
+      ],
+      "examples": [
+        "She spent five years waiting tables."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute",
+        "VP.predicate"
+      ],
+      "examples": [
+        "She spent five years as a cornhusker shucking corn."
+      ]
+    }
+  ]
+}

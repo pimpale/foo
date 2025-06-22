@@ -1,0 +1,41 @@
+{
+  "members": [
+    "dig",
+    "jab",
+    "poke",
+    "stick"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Allison poked the bundle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.instsrument"
+      ],
+      "examples": [
+        "Allison poked the bundle with the stick."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The stick poked the bundle"
+      ]
+    }
+  ]
+}

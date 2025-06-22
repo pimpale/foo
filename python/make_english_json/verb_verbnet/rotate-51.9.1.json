@@ -1,0 +1,47 @@
+{
+  "members": [
+    "coil",
+    "curl",
+    "hook",
+    "rotate",
+    "spin",
+    "swing",
+    "turn",
+    "twirl",
+    "twist",
+    "wind"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.extent"
+      ],
+      "examples": [
+        "The camera rotated 90 degrees."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The camera rotated clockwise."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.extent",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "The camera rotated 90 degrees to the right."
+      ]
+    }
+  ]
+}

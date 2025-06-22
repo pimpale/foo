@@ -1,0 +1,19 @@
+{
+  "members": [
+    "acquiesce",
+    "consent",
+    "submit"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "The king acquiesced to be in the same room with the paupers"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "members": [
+    "bash",
+    "bat",
+    "boot",
+    "bunt",
+    "cast",
+    "catapult",
+    "chuck",
+    "discard",
+    "drive",
+    "fire",
+    "flick",
+    "fling",
+    "flip",
+    "hit",
+    "hurl",
+    "kick",
+    "knock",
+    "launch",
+    "lob",
+    "loft",
+    "nudge",
+    "pass",
+    "pitch",
+    "punt",
+    "shoot",
+    "shove",
+    "slam",
+    "slap",
+    "sling",
+    "smash",
+    "tap",
+    "throw",
+    "tip",
+    "toss"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Steve tossed the ball."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destinations"
+      ],
+      "examples": [
+        "Steve tossed the ball to the garden."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Steve tossed the ball from the corner."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Steve tossed the ball from the corner to the garden."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I threw the package away."
+      ]
+    }
+  ]
+}

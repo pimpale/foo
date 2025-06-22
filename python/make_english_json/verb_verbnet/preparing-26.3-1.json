@@ -1,0 +1,64 @@
+{
+  "members": [
+    "bake",
+    "blend",
+    "brew",
+    "clear",
+    "cook",
+    "cook_up",
+    "cultivate",
+    "fix",
+    "kindle",
+    "light",
+    "mix",
+    "prepare",
+    "ready",
+    "roll",
+    "run",
+    "toss"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Donna fixed a sandwich."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Donna mixed a drink with the gin and grapefruit juice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "Donna fixed me a sandwich."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "Donna fixed a sandwich for me."
+      ]
+    }
+  ]
+}

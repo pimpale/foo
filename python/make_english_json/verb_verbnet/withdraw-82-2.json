@@ -1,0 +1,34 @@
+{
+  "members": [
+    "back_down",
+    "back_off",
+    "get_away",
+    "pull_away",
+    "retire",
+    "retreat",
+    "withdraw"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He withdrew from the trip."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "S_ING"
+      ],
+      "examples": [
+        "He withdrew from going on the trip."
+      ]
+    }
+  ]
+}

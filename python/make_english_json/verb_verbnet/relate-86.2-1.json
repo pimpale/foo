@@ -1,0 +1,21 @@
+{
+  "members": [
+    "bear_on",
+    "concern",
+    "involve",
+    "touch",
+    "touch_on"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This concerns both of us."
+      ]
+    }
+  ]
+}

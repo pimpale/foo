@@ -1,0 +1,45 @@
+{
+  "members": [
+    "assure",
+    "guarantee",
+    "pledge",
+    "promise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I promised him that he would arrive in time."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I promised to him that he would arrive in time."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I promised that I would come."
+      ]
+    }
+  ]
+}

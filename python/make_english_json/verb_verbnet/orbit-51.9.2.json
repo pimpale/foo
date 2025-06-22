@@ -1,0 +1,20 @@
+{
+  "members": [
+    "orbit",
+    "revolve",
+    "rotate",
+    "twirl"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The Earth revolved around the Sun."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "members": [
+    "excel",
+    "manage",
+    "succeed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I succeeded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality",
+        "S_ING"
+      ],
+      "examples": [
+        "I succeeded in climbing the mountain."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "I succeeded in the endeavour."
+      ]
+    }
+  ]
+}

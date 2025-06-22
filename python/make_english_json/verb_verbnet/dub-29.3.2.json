@@ -1,0 +1,46 @@
+{
+  "members": [
+    "anoint",
+    "baptize",
+    "brand",
+    "call",
+    "christen",
+    "consecrate",
+    "crown",
+    "decree",
+    "dub",
+    "label",
+    "name",
+    "nickname",
+    "pronounce",
+    "rename",
+    "rule",
+    "stamp",
+    "style",
+    "term",
+    "vote"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "The captain named the ship Seafarer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The captain baptized the ship."
+      ]
+    }
+  ]
+}

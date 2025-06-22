@@ -1,0 +1,18 @@
+{
+  "members": [
+    "multiply",
+    "procreate",
+    "reproduce"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "They multiplied."
+      ]
+    }
+  ]
+}

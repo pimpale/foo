@@ -1,0 +1,39 @@
+{
+  "members": [
+    "bleed",
+    "cheat",
+    "con",
+    "cozen",
+    "cull",
+    "defraud",
+    "fleece",
+    "gull",
+    "milk",
+    "rob",
+    "strip",
+    "swindle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The swindler cheated Pat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The swindler cheated Pat out of her fortune."
+      ]
+    }
+  ]
+}

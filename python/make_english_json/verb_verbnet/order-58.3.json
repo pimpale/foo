@@ -1,0 +1,24 @@
+{
+  "members": [
+    "announce",
+    "authorize",
+    "command",
+    "commission",
+    "demand",
+    "mandate",
+    "order",
+    "require"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "He ordered that she should come immediately."
+      ]
+    }
+  ]
+}

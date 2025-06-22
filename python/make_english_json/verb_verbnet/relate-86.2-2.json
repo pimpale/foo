@@ -1,0 +1,19 @@
+{
+  "members": [
+    "pertain",
+    "refer",
+    "relate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "This pertains to both of us."
+      ]
+    }
+  ]
+}

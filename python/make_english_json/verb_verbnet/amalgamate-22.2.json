@@ -1,0 +1,78 @@
+{
+  "members": [
+    "affiliate",
+    "alternate",
+    "amalgamate",
+    "associate",
+    "coalesce",
+    "coincide",
+    "compare",
+    "confederate",
+    "conflate",
+    "confuse",
+    "conjoin",
+    "consolidate",
+    "contrast",
+    "correlate",
+    "couple",
+    "crisscross",
+    "engage",
+    "entangle",
+    "entwine",
+    "figure",
+    "harmonize",
+    "identity",
+    "incorporate",
+    "integrate",
+    "interchange",
+    "interconnect",
+    "interlace",
+    "interlink",
+    "interlock",
+    "intermarry",
+    "intermingle",
+    "interrelate",
+    "intersperse",
+    "intertwine",
+    "interweave",
+    "introduce",
+    "marry",
+    "match",
+    "mate",
+    "muddle",
+    "oppose",
+    "overlap",
+    "pair",
+    "remarry",
+    "repackage",
+    "rhyme",
+    "team",
+    "total",
+    "unify",
+    "unite",
+    "wed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The folk songs alternated well with pop songs."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The pieces interconnected easily."
+      ]
+    }
+  ]
+}

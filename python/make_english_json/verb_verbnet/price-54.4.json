@@ -1,0 +1,38 @@
+{
+  "members": [
+    "appraise",
+    "assess",
+    "auction",
+    "calibrate",
+    "fix",
+    "gauge",
+    "peg",
+    "price",
+    "rate",
+    "reappraise",
+    "value"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The dealer appraised the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "The dealer appraised the book at $200."
+      ]
+    }
+  ]
+}

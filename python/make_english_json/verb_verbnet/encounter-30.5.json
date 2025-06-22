@@ -1,0 +1,28 @@
+{
+  "members": [
+    "chance_across",
+    "chance_upon",
+    "come_across",
+    "discover",
+    "encounter",
+    "find",
+    "happen_on",
+    "happen_upon",
+    "meet",
+    "meet_with",
+    "stumble_on",
+    "stumble_upon"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I stumbled across the silver chalice."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "members": [
+    "bang",
+    "bash",
+    "batter",
+    "beat",
+    "blast",
+    "bop",
+    "bump",
+    "butt",
+    "click",
+    "dash",
+    "drum",
+    "hammer",
+    "hit",
+    "jab",
+    "kick",
+    "knap",
+    "knock",
+    "lash",
+    "pink",
+    "pound",
+    "rap",
+    "slap",
+    "smack",
+    "smash",
+    "smite",
+    "squash",
+    "squelch",
+    "stomp",
+    "strike",
+    "tamp",
+    "tap",
+    "thump",
+    "thwack",
+    "trounce",
+    "whack",
+    "wham",
+    "whang",
+    "whap",
+    "whop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paula hit the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paula hit the wall with a stick."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Paula hit the sticks together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Paul kicked the door open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paul hit the door open with his foot."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Paul hit the window to pieces."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paul hit the window to pieces with a hammer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Paula hit the stick against/on the fence."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The stick hit the fence."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "The stick hit the door open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP",
+        "PP.result"
+      ],
+      "examples": [
+        "The hammer hit the window to pieces."
+      ]
+    }
+  ]
+}

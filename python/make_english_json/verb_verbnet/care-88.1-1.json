@@ -1,0 +1,44 @@
+{
+  "members": [
+    "care",
+    "wonder",
+    "worry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He didn't care about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I didn't care what he did."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus",
+        "how/whether",
+        "S"
+      ],
+      "examples": [
+        "He didn't care about how/whether she came."
+      ]
+    }
+  ]
+}

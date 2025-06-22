@@ -1,0 +1,38 @@
+{
+  "members": [
+    "banquet",
+    "breakfast",
+    "brunch",
+    "dine",
+    "feast",
+    "graze",
+    "junket",
+    "lunch",
+    "luncheon",
+    "nosh",
+    "picnic",
+    "snack",
+    "sup"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Cynthia breakfasted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "Cynthia breakfasted on peaches."
+      ]
+    }
+  ]
+}

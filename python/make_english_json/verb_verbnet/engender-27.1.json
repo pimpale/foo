@@ -1,0 +1,45 @@
+{
+  "members": [
+    "actuate",
+    "arouse",
+    "beget",
+    "bring",
+    "bring_about",
+    "call_forth",
+    "cause",
+    "create",
+    "elicit",
+    "engender",
+    "generate",
+    "incite",
+    "inspire",
+    "instigate",
+    "kindle",
+    "produce",
+    "prompt",
+    "provoke",
+    "raise",
+    "return",
+    "set_in_motion",
+    "set_off",
+    "shape",
+    "sire",
+    "spark",
+    "spawn",
+    "stimulate",
+    "stir_up",
+    "trigger"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Racial inequality engendered conflict."
+      ]
+    }
+  ]
+}

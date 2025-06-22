@@ -1,0 +1,20 @@
+{
+  "members": [
+    "hanker",
+    "lust",
+    "thirst",
+    "yearn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Danny yearns after sunny days."
+      ]
+    }
+  ]
+}

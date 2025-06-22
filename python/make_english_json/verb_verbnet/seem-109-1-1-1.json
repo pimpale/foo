@@ -1,0 +1,18 @@
+{
+  "members": [
+    "appear",
+    "seem"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "He seemed to come."
+      ]
+    }
+  ]
+}

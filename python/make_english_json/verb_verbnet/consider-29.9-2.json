@@ -1,0 +1,43 @@
+{
+  "members": [
+    "posit",
+    "suppose",
+    "suspect",
+    "think"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They thought him smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "They thought him a bore."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They thought the children found."
+      ]
+    }
+  ]
+}

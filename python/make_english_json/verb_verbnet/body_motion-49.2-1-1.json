@@ -1,0 +1,17 @@
+{
+  "members": [
+    "reach",
+    "stretch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "She reached."
+      ]
+    }
+  ]
+}

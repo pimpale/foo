@@ -1,0 +1,55 @@
+{
+  "members": [
+    "defend",
+    "guard",
+    "insure",
+    "preserve",
+    "protect",
+    "safeguard",
+    "shade",
+    "speak_for"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I defended them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "I defended them against the warriors."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I defended building the house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I defended their building the house."
+      ]
+    }
+  ]
+}

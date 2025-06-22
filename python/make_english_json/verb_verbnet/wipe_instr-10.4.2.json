@@ -1,0 +1,78 @@
+{
+  "members": [
+    "brush",
+    "comb",
+    "file",
+    "filter",
+    "hoover",
+    "hose",
+    "iron",
+    "mop",
+    "plough",
+    "plow",
+    "rake",
+    "sandpaper",
+    "shear",
+    "shovel",
+    "siphon",
+    "sponge",
+    "squeegee",
+    "towel",
+    "vacuum"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Carla shoveled the snow from the walk."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Carla shoveled the snow from the sidewalk into the street."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.initial_location"
+      ],
+      "examples": [
+        "Carla shoveled the walk."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V"
+      ],
+      "examples": [
+        "Carla vacuumed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP-Result"
+      ],
+      "examples": [
+        "Carla shoveled the walk clean."
+      ]
+    }
+  ]
+}

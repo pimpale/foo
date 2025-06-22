@@ -1,0 +1,54 @@
+{
+  "members": [
+    "balance",
+    "bend",
+    "dangle",
+    "droop",
+    "flop",
+    "fly",
+    "hang",
+    "lay",
+    "lean",
+    "nestle",
+    "open",
+    "perch",
+    "plop",
+    "project",
+    "prop",
+    "recline",
+    "rest",
+    "sit",
+    "slope",
+    "sprawl",
+    "stand",
+    "straddle",
+    "suspend",
+    "swing",
+    "tilt",
+    "underlay"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Cheryl stood the books on the shelf."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "Cheryl stood the books there."
+      ]
+    }
+  ]
+}

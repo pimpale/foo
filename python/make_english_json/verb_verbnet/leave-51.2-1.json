@@ -1,0 +1,17 @@
+{
+  "members": [
+    "desert",
+    "leave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He deserted."
+      ]
+    }
+  ]
+}

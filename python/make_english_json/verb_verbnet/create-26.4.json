@@ -1,0 +1,90 @@
+{
+  "members": [
+    "author",
+    "choreograph",
+    "coin",
+    "compose",
+    "compute",
+    "concoct",
+    "conjure",
+    "construct",
+    "contrive",
+    "cowrite",
+    "craft",
+    "create",
+    "derive",
+    "design",
+    "dig",
+    "draft",
+    "draw",
+    "fabricate",
+    "form",
+    "formulate",
+    "improvise",
+    "invent",
+    "lay",
+    "manufacture",
+    "mass-produce",
+    "model",
+    "organize",
+    "paint",
+    "produce",
+    "publish",
+    "rearrange",
+    "rebuild",
+    "reconstitute",
+    "reorganize",
+    "scriptwrite",
+    "silkscreen",
+    "spin",
+    "style",
+    "synthesize",
+    "turn-out",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "David constructed a house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.material"
+      ],
+      "examples": [
+        "David constructed a house out of sticks."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "David dug a hole for me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They designed the Westinghouse-Mitsubishi venture as a non-equity transaction."
+      ]
+    }
+  ]
+}

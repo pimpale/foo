@@ -1,0 +1,52 @@
+{
+  "members": [
+    "babysit",
+    "boss",
+    "bully",
+    "butler",
+    "caddy",
+    "captain",
+    "champion",
+    "chaperone",
+    "chauffeur",
+    "clerk",
+    "coach",
+    "cox",
+    "crew",
+    "doctor",
+    "emcee",
+    "escort",
+    "guard",
+    "host",
+    "mother",
+    "nurse",
+    "partner",
+    "pilot",
+    "pioneer",
+    "police",
+    "referee",
+    "shepherd",
+    "skipper",
+    "sponsor",
+    "star",
+    "tailor",
+    "tutor",
+    "umpire",
+    "understudy",
+    "usher",
+    "valet",
+    "witness"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Miriam tutored her brother."
+      ]
+    }
+  ]
+}

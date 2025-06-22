@@ -1,0 +1,27 @@
+{
+  "members": [
+    "amerce",
+    "bet",
+    "bill",
+    "charge",
+    "fine",
+    "invoice",
+    "mulct",
+    "overcharge",
+    "tax",
+    "undercharge",
+    "wager"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "The phone company billed me."
+      ]
+    }
+  ]
+}

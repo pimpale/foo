@@ -1,0 +1,54 @@
+{
+  "members": [
+    "comment",
+    "elaborate",
+    "gush",
+    "lecture",
+    "moralize",
+    "pontificate",
+    "preach",
+    "rant",
+    "rave",
+    "remark",
+    "rhapsodize",
+    "speak",
+    "speak_out",
+    "speak_up",
+    "talk",
+    "testify",
+    "theorize",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "She lectured."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "She lectured about her travels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic"
+      ],
+      "examples": [
+        "She lectured to the class about her travels."
+      ]
+    }
+  ]
+}

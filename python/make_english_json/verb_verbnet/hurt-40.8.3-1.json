@@ -1,0 +1,35 @@
+{
+  "members": [
+    "break",
+    "chafe",
+    "chip",
+    "fracture",
+    "graze",
+    "hit",
+    "jam",
+    "overstretch",
+    "pull",
+    "rick",
+    "rupture",
+    "splinter",
+    "split",
+    "sprain",
+    "sting",
+    "stub",
+    "tear",
+    "turn",
+    "twist"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tessa sprained her ankle."
+      ]
+    }
+  ]
+}

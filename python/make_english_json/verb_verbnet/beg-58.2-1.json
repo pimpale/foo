@@ -1,0 +1,18 @@
+{
+  "members": [
+    "beg",
+    "supplicate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.Topic"
+      ],
+      "examples": [
+        "I begged for release."
+      ]
+    }
+  ]
+}

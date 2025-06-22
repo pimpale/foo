@@ -1,0 +1,43 @@
+{
+  "members": [
+    "arrange",
+    "bring_about",
+    "devise",
+    "establish",
+    "fake",
+    "feign",
+    "format",
+    "found",
+    "implement",
+    "initiate",
+    "instigate",
+    "institute",
+    "introduce",
+    "launch",
+    "mount",
+    "open",
+    "open_up",
+    "organize",
+    "originate",
+    "plant",
+    "premise",
+    "prepare",
+    "set",
+    "simulate",
+    "strike_up",
+    "synthesise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "The family established the trust through a transfer of funds."
+      ]
+    }
+  ]
+}

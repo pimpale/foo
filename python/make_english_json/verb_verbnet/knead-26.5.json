@@ -1,0 +1,61 @@
+{
+  "members": [
+    "ball",
+    "beat",
+    "bend",
+    "coil",
+    "collect",
+    "compress",
+    "contort",
+    "curve",
+    "distort",
+    "flex",
+    "flux",
+    "fold",
+    "knead",
+    "melt",
+    "shake",
+    "squash",
+    "squeeze",
+    "squish",
+    "twirl",
+    "twist",
+    "wad",
+    "whip",
+    "wind",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.material",
+        "V",
+        "PP.product"
+      ],
+      "examples": [
+        "The dough twirled into a pretzel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.material",
+        "PP.product"
+      ],
+      "examples": [
+        "I kneaded the dough into a loaf."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.material"
+      ],
+      "examples": [
+        "I kneaded the dough."
+      ]
+    }
+  ]
+}

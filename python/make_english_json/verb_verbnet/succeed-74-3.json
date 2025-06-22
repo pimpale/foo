@@ -1,0 +1,21 @@
+{
+  "members": [
+    "fail",
+    "fall",
+    "fall_by_the_wayside",
+    "fall_off",
+    "flub",
+    "lose"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I lost."
+      ]
+    }
+  ]
+}

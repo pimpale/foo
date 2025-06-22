@@ -1,0 +1,18 @@
+{
+  "members": [
+    "nap",
+    "sleep"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Gloria slept the sleep of the dead."
+      ]
+    }
+  ]
+}

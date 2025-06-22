@@ -1,0 +1,50 @@
+{
+  "members": [
+    "asphyxiate",
+    "choke",
+    "stifle",
+    "suffocate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The pirates drowned the sailor."
+      ]
+    },
+    {
+      "primary": [
+        "NP.theme",
+        "V"
+      ],
+      "examples": [
+        "The sailor drowned."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "He choked/suffocated to death."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The pirate choked the sailor to death."
+      ]
+    }
+  ]
+}

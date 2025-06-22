@@ -1,0 +1,75 @@
+{
+  "members": [
+    "check",
+    "comb",
+    "dive",
+    "drag",
+    "dredge",
+    "excavate",
+    "nose",
+    "patrol",
+    "plumb",
+    "probe",
+    "prospect",
+    "prowl",
+    "quarry",
+    "quest",
+    "rake",
+    "rifle",
+    "scavenge",
+    "scour",
+    "scout",
+    "search",
+    "shop",
+    "sift",
+    "sweep",
+    "trawl",
+    "troll",
+    "watch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "I searched the cave for treasure."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "NP.location"
+      ],
+      "examples": [
+        "I searched for treasure in the cave."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location",
+        "PP.theme"
+      ],
+      "examples": [
+        "I searched in the cave for treasure."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "I searched through America."
+      ]
+    }
+  ]
+}

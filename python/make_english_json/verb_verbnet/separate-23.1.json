@@ -1,0 +1,71 @@
+{
+  "members": [
+    "decouple",
+    "differentiate",
+    "disassociate",
+    "disconnect",
+    "disentangle",
+    "dissimilate",
+    "dissociate",
+    "divide",
+    "divorce",
+    "part",
+    "segregate",
+    "separate",
+    "sever",
+    "uncoil"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "I separated the yolk from the white."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I separated the yolk and the white."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The yolk and the white separated."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The cream separated easily from the milk."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The egg yolks and egg whites separated easily."
+      ]
+    }
+  ]
+}

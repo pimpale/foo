@@ -1,0 +1,40 @@
+{
+  "members": [
+    "alternate",
+    "coalesce",
+    "coincide",
+    "conflate",
+    "consolidate",
+    "contrast",
+    "correlate",
+    "crisscross",
+    "entwine",
+    "harmonize",
+    "interchange",
+    "interconnect",
+    "interlace",
+    "interlink",
+    "interlock",
+    "intermingle",
+    "interrelate",
+    "intersperse",
+    "intertwine",
+    "interweave",
+    "mate",
+    "repackage",
+    "rhyme",
+    "unify",
+    "unite"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Plays and ballets alternate."
+      ]
+    }
+  ]
+}

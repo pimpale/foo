@@ -1,0 +1,33 @@
+{
+  "members": [
+    "jostle",
+    "nudge",
+    "press",
+    "push",
+    "shove",
+    "squeeze",
+    "thrust"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "She squeezed the toothpaste out."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Nora pushed through the crowd."
+      ]
+    }
+  ]
+}

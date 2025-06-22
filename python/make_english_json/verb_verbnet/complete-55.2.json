@@ -1,0 +1,31 @@
+{
+  "members": [
+    "accomplish",
+    "achieve",
+    "bring-off",
+    "complete",
+    "pull-off"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Wilma completed the assignment."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "She completed running the race."
+      ]
+    }
+  ]
+}

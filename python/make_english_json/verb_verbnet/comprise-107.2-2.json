@@ -1,0 +1,20 @@
+{
+  "members": [
+    "comprise",
+    "consist_of",
+    "contain",
+    "encompass"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The Milky Way comprises more than 100 billion stars."
+      ]
+    }
+  ]
+}

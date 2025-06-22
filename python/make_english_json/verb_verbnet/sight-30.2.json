@@ -1,0 +1,37 @@
+{
+  "members": [
+    "behold",
+    "descry",
+    "espy",
+    "experience",
+    "eye",
+    "glimpse",
+    "make_out",
+    "note",
+    "observe",
+    "overhear",
+    "perceive",
+    "recognize",
+    "savor",
+    "scent",
+    "scent_out",
+    "sight",
+    "sniff",
+    "spot",
+    "spy",
+    "view",
+    "witness"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The crew spotted the island."
+      ]
+    }
+  ]
+}

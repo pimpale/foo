@@ -1,0 +1,20 @@
+{
+  "members": [
+    "cause",
+    "lead",
+    "lead_up",
+    "result"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "This remark led to further arguments amongst guests."
+      ]
+    }
+  ]
+}

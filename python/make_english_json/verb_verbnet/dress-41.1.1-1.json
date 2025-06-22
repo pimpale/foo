@@ -1,0 +1,42 @@
+{
+  "members": [
+    "attire",
+    "bathe",
+    "change",
+    "clothe",
+    "disrobe",
+    "doll_up",
+    "dress",
+    "dress_up",
+    "exercise",
+    "frock",
+    "garb",
+    "gussy_up",
+    "lave",
+    "moisturize",
+    "outfit",
+    "preen",
+    "primp",
+    "robe",
+    "shave",
+    "shower",
+    "spruce_up",
+    "strip",
+    "sunbathe",
+    "tan",
+    "tog_up",
+    "undress",
+    "wash"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Marlene dressed."
+      ]
+    }
+  ]
+}

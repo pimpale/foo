@@ -1,0 +1,22 @@
+{
+  "members": [
+    "cope",
+    "deal",
+    "get_by",
+    "get_through",
+    "grapple",
+    "manage"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "He managed with climbing the slope."
+      ]
+    }
+  ]
+}

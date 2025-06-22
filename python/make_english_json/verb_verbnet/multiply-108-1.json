@@ -1,0 +1,19 @@
+{
+  "members": [
+    "divide",
+    "multiply"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "I multiplied x by y."
+      ]
+    }
+  ]
+}

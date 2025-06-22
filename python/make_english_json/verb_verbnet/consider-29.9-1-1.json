@@ -1,0 +1,94 @@
+{
+  "members": [
+    "consider"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "I considered the matter closed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "He considered whether he should come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He considered what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "He considered what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He considered smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They considered him smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "They considered him a mentor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "He considered whether to clean the house."
+      ]
+    }
+  ]
+}

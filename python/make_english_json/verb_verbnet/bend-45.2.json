@@ -1,0 +1,125 @@
+{
+  "members": [
+    "bend",
+    "compact",
+    "compress",
+    "constrict",
+    "contract",
+    "crease",
+    "crinkle",
+    "crumple",
+    "decompress",
+    "deflate",
+    "distend",
+    "flex",
+    "fold",
+    "furrow",
+    "hyperextend",
+    "inflate",
+    "roll",
+    "round",
+    "rumple",
+    "scrunch",
+    "shrink",
+    "shrivel",
+    "slack",
+    "slacken",
+    "splay",
+    "straighten",
+    "stretch",
+    "tauten",
+    "unbend",
+    "unfold",
+    "unfurl",
+    "unroll",
+    "unwind",
+    "warp",
+    "wrinkle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient"
+      ],
+      "examples": [
+        "Tony bent the rod."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Tony bent the rod with pliers."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V"
+      ],
+      "examples": [
+        "The rod bent."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The copper rods bent easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The pliers bent the rod."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "Tony folded the flaps open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Tony bent the rod into a U."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Tony bent the rod into a U with pliers."
+      ]
+    }
+  ]
+}

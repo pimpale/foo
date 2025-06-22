@@ -1,0 +1,27 @@
+{
+  "members": [
+    "become",
+    "come",
+    "come_out",
+    "end_up",
+    "fall",
+    "get",
+    "go",
+    "grow",
+    "leave",
+    "turn",
+    "turn_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ"
+      ],
+      "examples": [
+        "The belt came undone."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "back_down",
+    "back_off",
+    "back_out",
+    "bow_out",
+    "chicken_out",
+    "get_away",
+    "get_out",
+    "pull_away",
+    "pull_out",
+    "retire",
+    "retreat",
+    "withdraw",
+    "wriggle_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He withdrew."
+      ]
+    }
+  ]
+}

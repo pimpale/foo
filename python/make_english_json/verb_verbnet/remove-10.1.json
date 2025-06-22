@@ -1,0 +1,83 @@
+{
+  "members": [
+    "abolish",
+    "abstract",
+    "cull",
+    "cut_off",
+    "deburr",
+    "deduct",
+    "delete",
+    "depose",
+    "discharge",
+    "disengage",
+    "disgorge",
+    "dislodge",
+    "dismiss",
+    "draw",
+    "eject",
+    "eliminate",
+    "eradicate",
+    "evict",
+    "excise",
+    "excommunicate",
+    "expel",
+    "extinguish",
+    "extirpate",
+    "extract",
+    "extrude",
+    "kill",
+    "lift",
+    "lop",
+    "lose",
+    "omit",
+    "ostracize",
+    "oust",
+    "partition",
+    "prise",
+    "pry",
+    "pull",
+    "raise",
+    "ream",
+    "reap",
+    "remove",
+    "render",
+    "retract",
+    "roust",
+    "separate",
+    "sever",
+    "shoo",
+    "strip",
+    "subtract",
+    "take",
+    "take_away",
+    "take_off",
+    "take_out",
+    "uproot",
+    "winkle",
+    "withdraw",
+    "wrench"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Doug removed the smudges."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Doug removed the smudges from the tabletop."
+      ]
+    }
+  ]
+}

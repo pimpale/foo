@@ -1,0 +1,43 @@
+{
+  "members": [
+    "connect",
+    "join",
+    "link",
+    "network",
+    "pair",
+    "pool",
+    "rejoin",
+    "unite"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "My computer connected to his computer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Our computers connected."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "Our computers connected together."
+      ]
+    }
+  ]
+}

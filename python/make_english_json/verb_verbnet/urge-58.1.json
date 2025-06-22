@@ -1,0 +1,36 @@
+{
+  "members": [
+    "admonish",
+    "ask",
+    "call_on",
+    "dare",
+    "egg_on",
+    "encourage",
+    "entreat",
+    "exhort",
+    "force",
+    "implore",
+    "invite",
+    "lean_on",
+    "lobby",
+    "press",
+    "pressure",
+    "prod",
+    "push",
+    "summon",
+    "tempt",
+    "urge"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I urged him."
+      ]
+    }
+  ]
+}

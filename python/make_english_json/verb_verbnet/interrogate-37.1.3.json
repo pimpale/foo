@@ -1,0 +1,42 @@
+{
+  "members": [
+    "cross-examine",
+    "interrogate",
+    "interview",
+    "question"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I interrogated him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I interrogated him as a suspect."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic"
+      ],
+      "examples": [
+        "I interrogated him about the incident."
+      ]
+    }
+  ]
+}

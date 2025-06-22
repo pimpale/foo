@@ -1,0 +1,19 @@
+{
+  "members": [
+    "become",
+    "end_up",
+    "leave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He became a banker."
+      ]
+    }
+  ]
+}

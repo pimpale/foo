@@ -1,0 +1,18 @@
+{
+  "members": [
+    "answer",
+    "report"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Kevin reported to Martha."
+      ]
+    }
+  ]
+}

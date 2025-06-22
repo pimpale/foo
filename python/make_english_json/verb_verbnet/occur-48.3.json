@@ -1,0 +1,55 @@
+{
+  "members": [
+    "befall",
+    "chance",
+    "come_off",
+    "develop",
+    "ensue",
+    "eventuate",
+    "fall",
+    "follow",
+    "go",
+    "go_down",
+    "go_off",
+    "go_on",
+    "go_over",
+    "happen",
+    "occur",
+    "pass",
+    "recur",
+    "result",
+    "take_place",
+    "transpire"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "A serious accident happened."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "There happened a serious accident."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "A serious accident happened in front of them."
+      ]
+    }
+  ]
+}

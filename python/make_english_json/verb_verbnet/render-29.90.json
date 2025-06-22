@@ -1,0 +1,34 @@
+{
+  "members": [
+    "drive",
+    "get",
+    "leave",
+    "make",
+    "render",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "John took the radio apart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJP",
+        "NP"
+      ],
+      "examples": [
+        "The judicial decision rendered void the previous authorization."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "befall",
+    "chance",
+    "develop",
+    "ensue",
+    "eventuate",
+    "follow",
+    "happen",
+    "occur",
+    "pass",
+    "result",
+    "transpire"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "It",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "It occurred that they left."
+      ]
+    }
+  ]
+}

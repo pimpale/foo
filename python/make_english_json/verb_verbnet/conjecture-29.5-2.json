@@ -1,0 +1,17 @@
+{
+  "members": [
+    "feel"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "I felt like the RIAA had too much power."
+      ]
+    }
+  ]
+}

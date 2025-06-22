@@ -1,0 +1,56 @@
+{
+  "members": [
+    "bark",
+    "beard",
+    "bone",
+    "burl",
+    "core",
+    "gill",
+    "gut",
+    "head",
+    "hull",
+    "husk",
+    "lint",
+    "louse",
+    "milk",
+    "peel",
+    "pinion",
+    "pip",
+    "pit",
+    "pith",
+    "pod",
+    "poll",
+    "pulp",
+    "rind",
+    "scale",
+    "scalp",
+    "seed",
+    "shell",
+    "shuck",
+    "skin",
+    "snail",
+    "stalk",
+    "stem",
+    "stone",
+    "string",
+    "tail",
+    "tassel",
+    "vein",
+    "weed",
+    "wind",
+    "worm",
+    "zest"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The cook boned the fish."
+      ]
+    }
+  ]
+}

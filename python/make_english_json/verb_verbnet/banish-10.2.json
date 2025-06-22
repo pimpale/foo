@@ -1,0 +1,54 @@
+{
+  "members": [
+    "banish",
+    "boot",
+    "deport",
+    "discharge",
+    "dismiss",
+    "evacuate",
+    "exile",
+    "expel",
+    "extradite",
+    "recall",
+    "recuse",
+    "remove",
+    "shanghai",
+    "turn-away",
+    "turn-back",
+    "turn-out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The king banished the general."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "The king banished the general from the army."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "The king deported the general to the isle."
+      ]
+    }
+  ]
+}

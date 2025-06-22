@@ -1,0 +1,19 @@
+{
+  "members": [
+    "act",
+    "do",
+    "move",
+    "perform"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "No one acted."
+      ]
+    }
+  ]
+}

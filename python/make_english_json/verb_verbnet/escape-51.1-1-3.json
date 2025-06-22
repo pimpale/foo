@@ -1,0 +1,21 @@
+{
+  "members": [
+    "ascend",
+    "climb",
+    "cross",
+    "descend",
+    "pass"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He climbed the mountain."
+      ]
+    }
+  ]
+}

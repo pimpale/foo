@@ -1,0 +1,121 @@
+{
+  "members": [
+    "acknowledge",
+    "admit",
+    "confess",
+    "fess_up",
+    "proclaim",
+    "reveal"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "He confessed how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "I admitted him to be a great smoker."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "He confessed himself flummoxed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "They confessed stealing the money."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They confessed it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "They confessed it to us."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "They confessed their stealing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "They confessed to us."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "They confessed to us how it happened."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "They confessed that they had stolen."
+      ]
+    }
+  ]
+}

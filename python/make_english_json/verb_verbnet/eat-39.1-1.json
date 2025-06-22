@@ -1,0 +1,20 @@
+{
+  "members": [
+    "drink",
+    "eat",
+    "huff",
+    "smoke"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He ate off of the table."
+      ]
+    }
+  ]
+}

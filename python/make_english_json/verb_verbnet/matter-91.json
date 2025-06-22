@@ -1,0 +1,60 @@
+{
+  "members": [
+    "count",
+    "matter"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "It matters."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.experiencer"
+      ],
+      "examples": [
+        "It matters to me."
+      ]
+    },
+    {
+      "primary": [
+        "It",
+        "V",
+        "PP.experiencer",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "It matters to me that they were wrong."
+      ]
+    },
+    {
+      "primary": [
+        "It",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "It matters that they left."
+      ]
+    },
+    {
+      "primary": [
+        "That",
+        "S.stimulus",
+        "V"
+      ],
+      "examples": [
+        "That he came matters."
+      ]
+    }
+  ]
+}

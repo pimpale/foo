@@ -1,0 +1,76 @@
+{
+  "members": [
+    "carve",
+    "detach",
+    "disassemble",
+    "disconnect",
+    "dismantle",
+    "dismount",
+    "pare",
+    "partition",
+    "segregate",
+    "sieve",
+    "sift",
+    "slice",
+    "sunder",
+    "unbolt",
+    "unbuckle",
+    "unbutton",
+    "unchain",
+    "unclamp",
+    "unclasp",
+    "unclip",
+    "unfasten",
+    "unfix",
+    "unglue",
+    "unhinge",
+    "unhitch",
+    "unhook",
+    "unlace",
+    "unlatch",
+    "unleash",
+    "unlock",
+    "unpeg",
+    "unpin",
+    "unscrew",
+    "unseal",
+    "unshackle",
+    "unstaple",
+    "unstitch",
+    "untie",
+    "unzip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I unscrewed the handle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "I unscrewed the handle from the box."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "That new handle unscrewed easily."
+      ]
+    }
+  ]
+}

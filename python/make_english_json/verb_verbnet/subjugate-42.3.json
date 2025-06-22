@@ -1,0 +1,64 @@
+{
+  "members": [
+    "calm_down",
+    "choke",
+    "conquer",
+    "crush",
+    "curb",
+    "dampen",
+    "disenfranchise",
+    "enslave",
+    "gag",
+    "hush",
+    "hush_up",
+    "keep_down",
+    "kill",
+    "lull",
+    "mob",
+    "muffle",
+    "muzzle",
+    "nourish",
+    "quash",
+    "quell",
+    "quench",
+    "reduce",
+    "repress",
+    "shut_up",
+    "silence",
+    "slake",
+    "smother",
+    "squelch",
+    "stamp_down",
+    "stifle",
+    "still",
+    "strangle",
+    "subdue",
+    "subjugate",
+    "suffocate",
+    "suppress",
+    "walk_over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Winnie the Pooh subjugated the unfortunate Pixies."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Russia subjugated Mongolia with overwhelming force."
+      ]
+    }
+  ]
+}

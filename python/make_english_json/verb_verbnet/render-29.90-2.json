@@ -1,0 +1,18 @@
+{
+  "members": [
+    "get"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S-INF"
+      ],
+      "examples": [
+        "John got the radio to work."
+      ]
+    }
+  ]
+}

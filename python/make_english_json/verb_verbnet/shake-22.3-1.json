@@ -1,0 +1,37 @@
+{
+  "members": [
+    "beat",
+    "fuse",
+    "lump",
+    "mass",
+    "scramble",
+    "stir",
+    "swirl",
+    "whip",
+    "whisk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Herman whipped sugar with the cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman whipped sugar and the cream together."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "members": [
+    "chance",
+    "hazard",
+    "risk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I risk smoking."
+      ]
+    }
+  ]
+}

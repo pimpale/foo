@@ -1,0 +1,29 @@
+{
+  "members": [
+    "intend",
+    "mean",
+    "plan"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I meant no harm."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "I meant the criticisms for John."
+      ]
+    }
+  ]
+}

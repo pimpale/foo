@@ -1,0 +1,68 @@
+{
+  "members": [
+    "abut",
+    "adjoin",
+    "bestride",
+    "blanket",
+    "border",
+    "bound",
+    "bracket",
+    "bridge",
+    "cap",
+    "circle",
+    "cloak",
+    "cover",
+    "cross",
+    "dominate",
+    "edge",
+    "encircle",
+    "enclose",
+    "encompass",
+    "engulf",
+    "enshroud",
+    "envelop",
+    "fence",
+    "fill",
+    "flank",
+    "follow",
+    "forgo",
+    "frame",
+    "head",
+    "hit",
+    "hug",
+    "intersect",
+    "line",
+    "meet",
+    "neighbor",
+    "overcast",
+    "overhang",
+    "precede",
+    "predate",
+    "rim",
+    "ring",
+    "skirt",
+    "span",
+    "straddle",
+    "support",
+    "surmount",
+    "surround",
+    "top",
+    "touch",
+    "traverse",
+    "underlie",
+    "veil",
+    "wreathe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Italy borders France."
+      ]
+    }
+  ]
+}

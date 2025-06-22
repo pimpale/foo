@@ -1,0 +1,30 @@
+{
+  "members": [
+    "acquire",
+    "obtain",
+    "purchase"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.asset"
+      ],
+      "examples": [
+        "Carmen purchased a dress for $50."
+      ]
+    },
+    {
+      "primary": [
+        "NP.asset",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "$5 bought a ticket."
+      ]
+    }
+  ]
+}

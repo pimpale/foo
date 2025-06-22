@@ -1,0 +1,47 @@
+{
+  "members": [
+    "address",
+    "adorn",
+    "autograph",
+    "bead",
+    "brand",
+    "date",
+    "decorate",
+    "embellish",
+    "endorse",
+    "gild",
+    "ice",
+    "illuminate",
+    "illustrate",
+    "initial",
+    "label",
+    "letter",
+    "monogram",
+    "ornament",
+    "redecorate",
+    "tag"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The jeweler decorated the ring."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The jeweler decorated the ring with the name."
+      ]
+    }
+  ]
+}

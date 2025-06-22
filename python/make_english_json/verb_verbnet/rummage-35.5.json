@@ -1,0 +1,48 @@
+{
+  "members": [
+    "bore",
+    "burrow",
+    "delve",
+    "forage",
+    "fumble",
+    "go",
+    "grope",
+    "leaf",
+    "listen",
+    "look",
+    "page",
+    "paw",
+    "poke",
+    "rifle",
+    "root",
+    "rummage",
+    "scrabble",
+    "scratch",
+    "snoop",
+    "thumb",
+    "tunnel"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "He pawed over the documents."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location",
+        "PP.theme"
+      ],
+      "examples": [
+        "He rummaged through the drawer for the ball."
+      ]
+    }
+  ]
+}

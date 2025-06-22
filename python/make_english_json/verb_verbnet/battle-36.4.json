@@ -1,0 +1,193 @@
+{
+  "members": [
+    "argue",
+    "bargain",
+    "battle",
+    "bicker",
+    "box",
+    "brawl",
+    "clash",
+    "collide",
+    "combat",
+    "compete",
+    "contend",
+    "debate",
+    "dicker",
+    "dispute",
+    "duel",
+    "fence",
+    "feud",
+    "fight",
+    "joust",
+    "quarrel",
+    "quibble",
+    "refight",
+    "scrap",
+    "scuffle",
+    "skirmish",
+    "spar",
+    "spat",
+    "squabble",
+    "struggle",
+    "tilt",
+    "tussle",
+    "vie",
+    "war",
+    "wrangle",
+    "wrestle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Sparta battled with Athens."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sparta and Athens battled."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "Sparta battled with Athens about whether Athens should rule the island."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I battled with him about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I battled with him about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "I battled with him about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "I battled with him about it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "They battled about his coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "They battled about whether he should go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "They battled about what was the right thing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "They battled about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "They battled about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They battled about it."
+      ]
+    }
+  ]
+}

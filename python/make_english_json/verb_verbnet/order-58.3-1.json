@@ -1,0 +1,22 @@
+{
+  "members": [
+    "authorize",
+    "command",
+    "commission",
+    "order",
+    "require"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "The Senate ordered him to disband his army."
+      ]
+    }
+  ]
+}

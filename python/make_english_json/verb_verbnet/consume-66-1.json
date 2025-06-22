@@ -1,0 +1,33 @@
+{
+  "members": [
+    "misspend",
+    "reuse",
+    "spend",
+    "squander",
+    "waste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I spent the resources on buying books."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "I spent the resources on this trip."
+      ]
+    }
+  ]
+}

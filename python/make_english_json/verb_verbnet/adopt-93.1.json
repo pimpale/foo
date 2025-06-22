@@ -1,0 +1,20 @@
+{
+  "members": [
+    "adopt",
+    "assume",
+    "take",
+    "take_on"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He assumed the position that dogs are people."
+      ]
+    }
+  ]
+}

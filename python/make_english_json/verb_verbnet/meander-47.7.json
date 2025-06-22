@@ -1,0 +1,95 @@
+{
+  "members": [
+    "angle",
+    "ascend",
+    "bend",
+    "cascade",
+    "climb",
+    "converge",
+    "crawl",
+    "crest",
+    "crisscross",
+    "cross",
+    "cut",
+    "descend",
+    "dip",
+    "dive",
+    "drop",
+    "edge",
+    "emerge",
+    "fall",
+    "go",
+    "lance",
+    "meander",
+    "mount",
+    "pass",
+    "plummit",
+    "plunge",
+    "range",
+    "rise",
+    "round",
+    "run",
+    "skirt",
+    "slant",
+    "snake",
+    "straggle",
+    "stretch",
+    "sweep",
+    "swerve",
+    "tumble",
+    "turn",
+    "twist",
+    "undulate",
+    "veer",
+    "wander",
+    "weave",
+    "wind",
+    "zag",
+    "zig",
+    "zigzag"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The river ran through the valley."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Through the valley meandered the river."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "PP",
+        "NP"
+      ],
+      "examples": [
+        "There meandered through the valley a river."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There meandered a river through the valley."
+      ]
+    }
+  ]
+}

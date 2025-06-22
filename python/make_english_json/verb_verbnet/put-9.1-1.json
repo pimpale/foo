@@ -1,0 +1,28 @@
+{
+  "members": [
+    "apply",
+    "build-in",
+    "bury",
+    "deposit",
+    "embed",
+    "insert",
+    "install",
+    "park",
+    "plant",
+    "reinstall",
+    "stash",
+    "stow"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I stashed the book."
+      ]
+    }
+  ]
+}

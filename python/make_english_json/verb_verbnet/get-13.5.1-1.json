@@ -1,0 +1,25 @@
+{
+  "members": [
+    "cash",
+    "earn",
+    "fetch",
+    "gain",
+    "get",
+    "save",
+    "score",
+    "secure"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "John earned $10 million on proceeds from the sale."
+      ]
+    }
+  ]
+}

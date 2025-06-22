@@ -1,0 +1,72 @@
+{
+  "members": [
+    "abnegate",
+    "administer",
+    "betroth",
+    "circularize",
+    "contribute",
+    "disburse",
+    "disseminate",
+    "distribute",
+    "donate",
+    "extend",
+    "forfeit",
+    "forgo",
+    "gift",
+    "give-away",
+    "give-out",
+    "give-up",
+    "hand_out",
+    "pass_out",
+    "proffer",
+    "refer",
+    "reimburse",
+    "relinquish",
+    "remit",
+    "resign",
+    "restore",
+    "resubmit",
+    "sacrifice",
+    "shell_out",
+    "submit",
+    "surrender",
+    "transfer",
+    "turn-in",
+    "turn-over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "We contributed our paycheck to her."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "(PP)"
+      ],
+      "examples": [
+        "I donated my house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "NP"
+      ],
+      "examples": [
+        "He is willing to sacrifice to the arbitrage trader some small profit."
+      ]
+    }
+  ]
+}

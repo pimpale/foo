@@ -1,0 +1,22 @@
+{
+  "members": [
+    "compose",
+    "comprise",
+    "constitute",
+    "form",
+    "make",
+    "make_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Textiles make up the majority of exports."
+      ]
+    }
+  ]
+}

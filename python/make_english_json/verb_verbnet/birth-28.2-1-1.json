@@ -1,0 +1,23 @@
+{
+  "members": [
+    "bear",
+    "beget",
+    "birth",
+    "deliver",
+    "father",
+    "sire"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "She bore him a child."
+      ]
+    }
+  ]
+}

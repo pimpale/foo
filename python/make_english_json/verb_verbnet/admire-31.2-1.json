@@ -1,0 +1,23 @@
+{
+  "members": [
+    "disdain",
+    "dislike",
+    "fear",
+    "hate",
+    "like",
+    "love",
+    "regret"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I loved to write."
+      ]
+    }
+  ]
+}

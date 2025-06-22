@@ -1,0 +1,39 @@
+{
+  "members": [
+    "abound",
+    "throng"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Flowers abounded in the garden."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There abounded flowers in the garden."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The garden abounded with flowers."
+      ]
+    }
+  ]
+}

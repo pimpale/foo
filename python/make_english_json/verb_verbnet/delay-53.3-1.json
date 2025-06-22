@@ -1,0 +1,29 @@
+{
+  "members": [
+    "defer",
+    "delay",
+    "postpone"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He delayed the watering."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He delayed watering the lawn."
+      ]
+    }
+  ]
+}

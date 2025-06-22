@@ -1,0 +1,32 @@
+{
+  "members": [
+    "FedEx",
+    "UPS",
+    "airmail",
+    "express",
+    "forward",
+    "hand",
+    "mail",
+    "pass",
+    "send",
+    "ship",
+    "slip",
+    "smuggle",
+    "sneak",
+    "transmit",
+    "wire"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Nora sent me the book."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "members": [
+    "bet",
+    "chance",
+    "gamble",
+    "hazard",
+    "punt",
+    "risk",
+    "venture",
+    "wager"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I risked my job."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I risked that I would get into trouble."
+      ]
+    }
+  ]
+}

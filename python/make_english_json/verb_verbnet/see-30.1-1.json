@@ -1,0 +1,44 @@
+{
+  "members": [
+    "detect",
+    "discern",
+    "feel",
+    "hear",
+    "notice",
+    "perceive",
+    "see",
+    "sense"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "I saw her bake the cake."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I saw him laughing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I saw their laughing and joking."
+      ]
+    }
+  ]
+}

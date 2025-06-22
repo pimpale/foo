@@ -1,0 +1,47 @@
+{
+  "members": [
+    "chart",
+    "chronicle",
+    "copy",
+    "document",
+    "duplicate",
+    "film",
+    "forge",
+    "microfilm",
+    "photocopy",
+    "photograph",
+    "record",
+    "tally",
+    "tally_up",
+    "tape",
+    "televise",
+    "transcribe",
+    "type",
+    "videotape",
+    "write_out",
+    "write_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The secretary transcribed the speech."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "The secretary transcribed the speech into the record."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "members": [
+    "exercise",
+    "practice",
+    "rehearse",
+    "repeat",
+    "walk_through"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He rehearsed the song."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He rehearsed singing the song."
+      ]
+    }
+  ]
+}

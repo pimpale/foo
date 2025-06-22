@@ -1,0 +1,29 @@
+{
+  "members": [
+    "die",
+    "go_down",
+    "go_off",
+    "go_out",
+    "poop_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "My phone died."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The lights went out."
+      ]
+    }
+  ]
+}

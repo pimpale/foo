@@ -1,0 +1,23 @@
+{
+  "members": [
+    "armor",
+    "burden",
+    "compensate",
+    "encumber",
+    "fortify",
+    "overburden",
+    "weight"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The huge load burdened the mule."
+      ]
+    }
+  ]
+}

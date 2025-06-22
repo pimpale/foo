@@ -1,0 +1,36 @@
+{
+  "members": [
+    "carve",
+    "chalk",
+    "charcoal",
+    "crayon",
+    "doodle",
+    "draw",
+    "ink",
+    "pencil",
+    "plot",
+    "print",
+    "print_out",
+    "print_up",
+    "record",
+    "scratch",
+    "scrawl",
+    "scribble",
+    "sketch",
+    "spraypaint",
+    "stencil",
+    "type",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Smith was scribbling."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "begin",
+    "commence",
+    "go_on",
+    "proceed",
+    "recommence",
+    "repeat",
+    "resume",
+    "set_about",
+    "set_out",
+    "start",
+    "start_off",
+    "undertake"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "He began to pack."
+      ]
+    }
+  ]
+}

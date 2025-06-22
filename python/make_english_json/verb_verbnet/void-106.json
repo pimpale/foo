@@ -1,0 +1,22 @@
+{
+  "members": [
+    "annul",
+    "avoid",
+    "invalidate",
+    "nullify",
+    "quash",
+    "void"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I nullified their advantage."
+      ]
+    }
+  ]
+}

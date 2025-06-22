@@ -1,0 +1,21 @@
+{
+  "members": [
+    "cure",
+    "purge",
+    "purify",
+    "relieve"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "It relieved pressure from China."
+      ]
+    }
+  ]
+}

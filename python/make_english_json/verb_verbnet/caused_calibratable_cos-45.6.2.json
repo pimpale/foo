@@ -1,0 +1,46 @@
+{
+  "members": [
+    "advance",
+    "balloon",
+    "build-up",
+    "commute",
+    "cut",
+    "decrease",
+    "diminish",
+    "increase",
+    "lower",
+    "move",
+    "raise",
+    "reduce",
+    "shift",
+    "vary"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient",
+        "PP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "Lawmakers cut the budget by 10% from $1.46 million to $1.3 million."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient",
+        "NP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "Lawmakers cut the budget 10% from $1.46 million to $1.3 million."
+      ]
+    }
+  ]
+}

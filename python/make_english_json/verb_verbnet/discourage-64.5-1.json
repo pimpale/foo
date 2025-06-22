@@ -1,0 +1,44 @@
+{
+  "members": [
+    "deter",
+    "discourage",
+    "hamper",
+    "hinder",
+    "impede",
+    "inhibit",
+    "obstruct",
+    "restrain"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The sign discouraged our smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "The sign discouraged smoking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The warning sign discouraged it."
+      ]
+    }
+  ]
+}

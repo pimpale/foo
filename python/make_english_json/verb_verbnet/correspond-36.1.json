@@ -1,0 +1,172 @@
+{
+  "members": [
+    "agree",
+    "argue",
+    "banter",
+    "bargain",
+    "collaborate",
+    "collide",
+    "commiserate",
+    "communicate",
+    "compromise",
+    "concur",
+    "confer",
+    "cooperate",
+    "correspond",
+    "debate",
+    "decide",
+    "deliberate",
+    "differ",
+    "disagree",
+    "haggle",
+    "interact",
+    "negotiate",
+    "plot",
+    "renegotiate",
+    "settle",
+    "square"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "They agreed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S"
+      ],
+      "examples": [
+        "They agreed about his coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "They agreed about whether he should go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "They agreed about what should be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "They agreed about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "They agreed about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They agreed about it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "They agreed with him about whether he should go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "They agreed with him about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "They agreed with him about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "They agreed with him about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "They agreed with him about it."
+      ]
+    }
+  ]
+}

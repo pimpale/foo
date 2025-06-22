@@ -1,0 +1,87 @@
+{
+  "members": [
+    "battle",
+    "box",
+    "combat",
+    "debate",
+    "duel",
+    "fight",
+    "refight",
+    "wrestle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Sparta fought Athens."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Sparta fought Athens over land rights."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "whether",
+        "S"
+      ],
+      "examples": [
+        "Sparta fought Athens about whether Athens should rule the island."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "John fought Simon about what they should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "John fought Simon about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "John fought Simon over what to do."
+      ]
+    }
+  ]
+}

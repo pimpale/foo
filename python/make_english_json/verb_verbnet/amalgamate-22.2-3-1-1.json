@@ -1,0 +1,18 @@
+{
+  "members": [
+    "marry",
+    "remarry",
+    "wed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John and Mary married."
+      ]
+    }
+  ]
+}

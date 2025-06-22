@@ -1,0 +1,34 @@
+{
+  "members": [
+    "approximate",
+    "assess",
+    "gauge",
+    "guess",
+    "judge",
+    "project"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "John judged whether he should come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S_INF"
+      ],
+      "examples": [
+        "John judged whether to clean the house."
+      ]
+    }
+  ]
+}

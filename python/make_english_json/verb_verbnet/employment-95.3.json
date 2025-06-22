@@ -1,0 +1,74 @@
+{
+  "members": [
+    "clerk",
+    "freelance",
+    "subcontract",
+    "temp",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "She worked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "She worked for IBM."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "She worked on secret government projects."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "PP.beneficary"
+      ],
+      "examples": [
+        "She worked on secret government projects at IBM."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "She worked as an engineer for IBM."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute",
+        "PP.theme",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "She worked as a code breaker on secret projects for the British government."
+      ]
+    }
+  ]
+}

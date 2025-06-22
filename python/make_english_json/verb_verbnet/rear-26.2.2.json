@@ -1,0 +1,22 @@
+{
+  "members": [
+    "cultivate",
+    "farm",
+    "grow",
+    "nurture",
+    "raise",
+    "rear"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "My neighbor raised fruit trees."
+      ]
+    }
+  ]
+}

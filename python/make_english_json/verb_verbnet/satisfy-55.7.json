@@ -1,0 +1,33 @@
+{
+  "members": [
+    "exceed",
+    "fulfill",
+    "meet",
+    "sate",
+    "satiate",
+    "satisfy"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "That course satisfied the foreign language requirement."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "I satisfied the foreign language requirement with German."
+      ]
+    }
+  ]
+}

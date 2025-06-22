@@ -1,0 +1,51 @@
+{
+  "members": [
+    "extend",
+    "reach",
+    "stretch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "She reached her hand into the cookie jar."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "She reached into the cookie jar."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "She reached for the shelf."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "PP"
+      ],
+      "examples": [
+        "She reached for the shelf with her right hand."
+      ]
+    }
+  ]
+}

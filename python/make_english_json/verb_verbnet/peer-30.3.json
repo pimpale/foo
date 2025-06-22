@@ -1,0 +1,36 @@
+{
+  "members": [
+    "attend",
+    "check",
+    "eavesdrop",
+    "gape",
+    "gawk",
+    "gaze",
+    "glance",
+    "glare",
+    "goggle",
+    "leer",
+    "listen",
+    "look",
+    "ogle",
+    "peek",
+    "peep",
+    "peer",
+    "sniff",
+    "snoop",
+    "squint",
+    "stare"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "We peered at the baby."
+      ]
+    }
+  ]
+}

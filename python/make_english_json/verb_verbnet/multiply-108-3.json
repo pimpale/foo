@@ -1,0 +1,18 @@
+{
+  "members": [
+    "average"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "I averaged x over n."
+      ]
+    }
+  ]
+}

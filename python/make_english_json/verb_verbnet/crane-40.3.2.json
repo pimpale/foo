@@ -1,0 +1,86 @@
+{
+  "members": [
+    "arch",
+    "bare",
+    "bat",
+    "beat",
+    "blow",
+    "clench",
+    "click",
+    "close",
+    "cock",
+    "crane",
+    "crook",
+    "cross",
+    "drum",
+    "flap",
+    "flash",
+    "flex",
+    "flick",
+    "flutter",
+    "fold",
+    "gnash",
+    "grind",
+    "hang",
+    "hunch",
+    "kick",
+    "knit",
+    "open",
+    "pucker",
+    "purse",
+    "raise",
+    "roll",
+    "rub",
+    "shake",
+    "show",
+    "shuffle",
+    "smack",
+    "snap",
+    "stamp",
+    "stretch",
+    "toss",
+    "turn",
+    "twiddle",
+    "twitch",
+    "wag",
+    "waggle",
+    "wiggle",
+    "wring",
+    "wrinkle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jennifer craned her neck."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Jennifer wagged her finger at the naughty child."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient",
+        "PP.theme"
+      ],
+      "examples": [
+        "Jennifer wagged her finger at the naughty child in disapproval."
+      ]
+    }
+  ]
+}

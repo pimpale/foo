@@ -1,0 +1,48 @@
+{
+  "members": [
+    "arrange",
+    "bring",
+    "bring_about",
+    "constitute",
+    "constitutionalize",
+    "devise",
+    "establish",
+    "fake",
+    "feign",
+    "format",
+    "found",
+    "implement",
+    "initiate",
+    "innovate",
+    "instigate",
+    "institute",
+    "introduce",
+    "launch",
+    "mount",
+    "open",
+    "open_up",
+    "organize",
+    "originate",
+    "pioneer",
+    "plant",
+    "premise",
+    "prepare",
+    "set",
+    "simulate",
+    "stage",
+    "strike_up",
+    "synthesise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Zellig Harris established Penn's linguistics department."
+      ]
+    }
+  ]
+}

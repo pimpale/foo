@@ -1,0 +1,91 @@
+{
+  "members": [
+    "accept",
+    "adopt",
+    "bill",
+    "cast",
+    "certify",
+    "characterize",
+    "class",
+    "classify",
+    "conceive",
+    "count",
+    "define",
+    "depict",
+    "describe",
+    "detail",
+    "diagnose",
+    "envisage",
+    "envision",
+    "fancy",
+    "hail",
+    "identify",
+    "imagine",
+    "interpret",
+    "moot",
+    "paint",
+    "peg",
+    "perceive",
+    "picture",
+    "pigeonhole",
+    "portray",
+    "praise",
+    "rank",
+    "recast",
+    "recollect",
+    "redraw",
+    "regard",
+    "remember",
+    "report",
+    "represent",
+    "reveal",
+    "select",
+    "specify",
+    "stamp",
+    "stereotype",
+    "subselect",
+    "take",
+    "treat",
+    "typecast",
+    "underestimate",
+    "view",
+    "visualize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "He characterized him as being smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "ADJ"
+      ],
+      "examples": [
+        "He characterized him to be smart."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "He characterized him as smart."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    "catapult",
+    "kick",
+    "launch",
+    "throw",
+    "tip",
+    "toss"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The proposal throws the House's work into chaos."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result",
+        "NP"
+      ],
+      "examples": [
+        "The proposal throws into chaos the House's proposal."
+      ]
+    }
+  ]
+}

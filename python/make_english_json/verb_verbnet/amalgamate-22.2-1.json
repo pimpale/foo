@@ -1,0 +1,46 @@
+{
+  "members": [
+    "amalgamate",
+    "coalesce",
+    "consolidate",
+    "couple",
+    "incorporate",
+    "integrate",
+    "intermingle",
+    "match",
+    "overlap"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "We incorporated cranberries into our salad."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "A new firm will integrate their ice cream production lines."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Ice cream integrates with desserts."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "members": [
+    "admonish",
+    "advise",
+    "alert",
+    "assure",
+    "brief",
+    "caution",
+    "counsel",
+    "educate",
+    "encourage",
+    "instruct",
+    "notify",
+    "warn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Earl alerted Helen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic"
+      ],
+      "examples": [
+        "Earl warned Helen against skating on thin ice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Earl warned Helen that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "Earl warned Helen how to avoid the crowd."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S-Quote"
+      ],
+      "examples": [
+        "Earl warned Helen, 'Avoid that hole in the sidewalk.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic"
+      ],
+      "examples": [
+        "My accountant warned me of the new loopholes in the tax code."
+      ]
+    }
+  ]
+}

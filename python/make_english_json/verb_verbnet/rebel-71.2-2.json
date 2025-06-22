@@ -1,0 +1,28 @@
+{
+  "members": [
+    "legislate",
+    "protest"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "They protested against discrimination in the workplace."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They protested discrimination in the workplace."
+      ]
+    }
+  ]
+}

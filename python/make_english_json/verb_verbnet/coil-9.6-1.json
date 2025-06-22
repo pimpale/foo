@@ -1,0 +1,22 @@
+{
+  "members": [
+    "coil",
+    "curl",
+    "hook",
+    "swing",
+    "twirl",
+    "twist"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The rope curled upward."
+      ]
+    }
+  ]
+}

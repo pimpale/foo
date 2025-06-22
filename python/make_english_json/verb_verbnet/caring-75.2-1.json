@@ -1,0 +1,23 @@
+{
+  "members": [
+    "attend",
+    "babysit",
+    "look_after",
+    "manage",
+    "mind",
+    "tend",
+    "wait_on"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jared looked after the children."
+      ]
+    }
+  ]
+}

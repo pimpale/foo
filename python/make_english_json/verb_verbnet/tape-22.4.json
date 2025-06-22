@@ -1,0 +1,163 @@
+{
+  "members": [
+    "affix",
+    "anchor",
+    "band",
+    "belt",
+    "bolt",
+    "bond",
+    "bracket",
+    "buckle",
+    "button",
+    "cable",
+    "cement",
+    "chain",
+    "cinch",
+    "clamp",
+    "clasp",
+    "clip",
+    "connect",
+    "epoxy",
+    "fasten",
+    "fetter",
+    "glue",
+    "gum",
+    "handcuff",
+    "harness",
+    "hinge",
+    "hitch",
+    "hook",
+    "knot",
+    "lace",
+    "lash",
+    "lasso",
+    "latch",
+    "leash",
+    "link",
+    "lock",
+    "loop",
+    "manacle",
+    "moor",
+    "muzzle",
+    "nail",
+    "padlock",
+    "paste",
+    "peg",
+    "pin",
+    "plaster",
+    "reeve",
+    "rivet",
+    "rope",
+    "screw",
+    "seal",
+    "shackle",
+    "skewer",
+    "solder",
+    "staple",
+    "stitch",
+    "strap",
+    "string",
+    "suture",
+    "tack",
+    "tape",
+    "tether",
+    "thread",
+    "thumbtack",
+    "tie",
+    "trammel",
+    "truss",
+    "weld",
+    "wire",
+    "yoke",
+    "zip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Linda taped the picture."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Linda taped the picture to the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Linda taped the picture to the wall with masking tape."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Linda taped the label and the cover together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The labels taped easily to that kind of cover."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The labels taped easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The labels and covers taped together easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Linda taped the box shut."
+      ]
+    }
+  ]
+}

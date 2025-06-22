@@ -1,0 +1,28 @@
+{
+  "members": [
+    "absolve",
+    "acquit",
+    "clear",
+    "cure",
+    "emancipate",
+    "free",
+    "purge",
+    "purify",
+    "release",
+    "relieve",
+    "rerelease"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "It freed him of feeling guilt."
+      ]
+    }
+  ]
+}

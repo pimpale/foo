@@ -1,0 +1,41 @@
+{
+  "members": [
+    "follow-through",
+    "follow-up",
+    "go-out",
+    "go-steady",
+    "hook-up",
+    "interact",
+    "split-up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Kathy hooked up."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Brenda and Molly split up."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Fred is going steady with Amanda."
+      ]
+    }
+  ]
+}

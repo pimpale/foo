@@ -1,0 +1,154 @@
+{
+  "members": [
+    "bake",
+    "barbecue",
+    "barbeque",
+    "blanch",
+    "boil",
+    "braise",
+    "broil",
+    "brown",
+    "caramelize",
+    "char",
+    "charbroil",
+    "charcoal-broil",
+    "coddle",
+    "cook",
+    "crisp",
+    "deep-fry",
+    "french-fry",
+    "fry",
+    "grill",
+    "hardboil",
+    "heat",
+    "microwave",
+    "oven-fry",
+    "oven-poach",
+    "overbake",
+    "overcook",
+    "overheat",
+    "pan-broil",
+    "pan-fry",
+    "parboil",
+    "parch",
+    "percolate",
+    "perk",
+    "pickle",
+    "plank",
+    "poach",
+    "pot-roast",
+    "reheat",
+    "rissole",
+    "roast",
+    "saute",
+    "scald",
+    "scallop",
+    "sear",
+    "shirr",
+    "simmer",
+    "softboil",
+    "steam",
+    "steam-bake",
+    "steep",
+    "stew",
+    "stir-fry",
+    "toast",
+    "warm_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient"
+      ],
+      "examples": [
+        "Jennifer baked the potatoes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Jennifer baked the potatoes in the oven."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V"
+      ],
+      "examples": [
+        "The potatoes baked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "The Idaho potatoes baked beautifully."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The oven baked the potatoes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Jennifer baked the potatoes to a crisp."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Jennifer baked the potatoes to a crisp in the oven."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "The potatoes baked to a crisp."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Potatoes bake to a crisp in the oven."
+      ]
+    }
+  ]
+}

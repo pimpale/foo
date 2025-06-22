@@ -1,0 +1,17 @@
+{
+  "members": [
+    "reimburse"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He reimbursed members."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "members": [
+    "know",
+    "see",
+    "understand"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I understand."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "members": [
+    "benefit",
+    "profit"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Sunlight benefited plants."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Everyone benefited."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Minorities benefited from the program."
+      ]
+    }
+  ]
+}

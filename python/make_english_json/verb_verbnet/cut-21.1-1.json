@@ -1,0 +1,41 @@
+{
+  "members": [
+    "chip",
+    "chop",
+    "clip",
+    "cut",
+    "hack",
+    "hew",
+    "ream",
+    "rip",
+    "saw",
+    "scarify",
+    "scrape",
+    "scratch",
+    "slash",
+    "slice",
+    "snip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol cut her finger."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol cut her finger on the sharp edge."
+      ]
+    }
+  ]
+}

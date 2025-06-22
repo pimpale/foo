@@ -1,0 +1,38 @@
+{
+  "members": [
+    "jerk",
+    "jostle",
+    "nudge",
+    "press",
+    "pull",
+    "push",
+    "shove",
+    "squeeze",
+    "thrust",
+    "tug",
+    "yank"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP-Result"
+      ],
+      "examples": [
+        "Nora yanked the button loose."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP-Conative"
+      ],
+      "examples": [
+        "Nora pushed at the wall."
+      ]
+    }
+  ]
+}

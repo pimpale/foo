@@ -1,0 +1,61 @@
+{
+  "members": [
+    "baste",
+    "brush",
+    "cram",
+    "crowd",
+    "drizzle",
+    "hang",
+    "jam",
+    "pack",
+    "pile",
+    "plaster",
+    "pump",
+    "rub",
+    "scatter",
+    "seed",
+    "sew",
+    "shower",
+    "smear",
+    "smudge",
+    "sow",
+    "spatter",
+    "splash",
+    "splatter",
+    "spray",
+    "spread",
+    "sprinkle",
+    "spritz",
+    "spurt",
+    "squirt",
+    "stick",
+    "strew",
+    "string",
+    "swab",
+    "swash",
+    "wrap"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "Paint sprayed onto the wall."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination-Conative"
+      ],
+      "examples": [
+        "Jessica squirted water at me."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "members": [
+    "bracket",
+    "catalogue",
+    "categorize",
+    "chunk",
+    "class",
+    "classify",
+    "code",
+    "constellate",
+    "grade",
+    "group",
+    "isolate",
+    "lump",
+    "number",
+    "reclassify",
+    "recode",
+    "regroup",
+    "seed",
+    "separate",
+    "sort",
+    "sort_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The curator classified the artifacts."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "She classified the works as 'dangerous'."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "She classified the articles into different genres."
+      ]
+    }
+  ]
+}

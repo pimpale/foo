@@ -1,0 +1,83 @@
+{
+  "members": [
+    "aim",
+    "dream",
+    "expect",
+    "imagine",
+    "intend",
+    "plan",
+    "propose",
+    "think",
+    "wish",
+    "yen"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "for",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I wished for her to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I wished it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "ADJ"
+      ],
+      "examples": [
+        "I wished him to be nice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "I wished the children found."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He wished that she would come immediately."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "He wished to come."
+      ]
+    }
+  ]
+}

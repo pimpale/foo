@@ -1,0 +1,26 @@
+{
+  "members": [
+    "amplify",
+    "glorify",
+    "hyperbolize",
+    "magnify",
+    "overdraw",
+    "overemphasize",
+    "overrate",
+    "overstate",
+    "overstress",
+    "tout"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He overstated the position."
+      ]
+    }
+  ]
+}

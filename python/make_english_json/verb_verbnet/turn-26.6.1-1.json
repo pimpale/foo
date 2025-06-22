@@ -1,0 +1,41 @@
+{
+  "members": [
+    "change",
+    "convert",
+    "turn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "He converted to a world without CFCs."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.material",
+        "PP.result"
+      ],
+      "examples": [
+        "The thrift converted from a mutual form in April 1986 to a stock form of ownership."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result",
+        "PP.material"
+      ],
+      "examples": [
+        "The thrift converted to a stock form of ownership from a mutual form in April 1986."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    "belch",
+    "blink",
+    "blush",
+    "burp",
+    "eruct",
+    "fart",
+    "flush",
+    "hiccup",
+    "pant",
+    "salivate",
+    "shiver",
+    "sneeze",
+    "sniffle",
+    "snore",
+    "snuff",
+    "snuffle",
+    "swallow",
+    "wheeze",
+    "yawn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Paul hiccuped."
+      ]
+    }
+  ]
+}

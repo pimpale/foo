@@ -1,0 +1,89 @@
+{
+  "members": [
+    "show",
+    "teach",
+    "tell",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Wanda taught the students."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "Wanda told me to present a new proposal."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "Wanda told me about climbing the mountain."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S"
+      ],
+      "examples": [
+        "She told him that he should not go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "She told him what she was doing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "She told him what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "She told him how he did it."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "members": [
+    "bang",
+    "bash",
+    "brush",
+    "bump",
+    "butt",
+    "clang",
+    "clash",
+    "clatter",
+    "collide",
+    "crack",
+    "crash",
+    "crunch",
+    "hammer",
+    "hit",
+    "knock",
+    "ram",
+    "rap",
+    "run",
+    "slam",
+    "slap",
+    "smack",
+    "smash",
+    "squash",
+    "strike",
+    "thud",
+    "thump"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The grocery cart hit against the wall."
+      ]
+    }
+  ]
+}

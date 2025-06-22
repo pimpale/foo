@@ -1,0 +1,57 @@
+{
+  "members": [
+    "avoid",
+    "boycott",
+    "circumvent",
+    "dodge",
+    "duck",
+    "elude",
+    "eschew",
+    "evade",
+    "forgo",
+    "shun",
+    "sidestep"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.location"
+      ],
+      "examples": [
+        "We avoided the area."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "We avoided the ball."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He avoided going to the area."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He avoided his nagging."
+      ]
+    }
+  ]
+}

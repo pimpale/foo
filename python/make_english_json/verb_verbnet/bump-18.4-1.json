@@ -1,0 +1,40 @@
+{
+  "members": [
+    "bang",
+    "bash",
+    "brush",
+    "bump",
+    "butt",
+    "clang",
+    "clash",
+    "clatter",
+    "collide",
+    "crack",
+    "crash",
+    "crunch",
+    "hammer",
+    "knock",
+    "ram",
+    "rap",
+    "slam",
+    "slap",
+    "smack",
+    "smash",
+    "squash",
+    "strike",
+    "thud",
+    "thump"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The grocery carts thudded together."
+      ]
+    }
+  ]
+}

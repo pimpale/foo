@@ -1,0 +1,19 @@
+{
+  "members": [
+    "comment",
+    "elaborate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "She lectured about her traveling."
+      ]
+    }
+  ]
+}

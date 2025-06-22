@@ -1,0 +1,33 @@
+{
+  "members": [
+    "balk",
+    "cower",
+    "cringe",
+    "flinch",
+    "quail",
+    "recoil",
+    "shrink",
+    "wince"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sharon flinched."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon flinched at the sight of the accident."
+      ]
+    }
+  ]
+}

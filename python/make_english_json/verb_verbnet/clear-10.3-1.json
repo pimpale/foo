@@ -1,0 +1,40 @@
+{
+  "members": [
+    "clear",
+    "drain",
+    "empty"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.Source",
+        "V"
+      ],
+      "examples": [
+        "The sky cleared."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "Clouds cleared from the sky."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.destination"
+      ],
+      "examples": [
+        "Doug emptied the trash from the trash can into the dumpster."
+      ]
+    }
+  ]
+}

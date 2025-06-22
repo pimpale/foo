@@ -1,0 +1,27 @@
+{
+  "members": [
+    "carry_on",
+    "continue",
+    "hold",
+    "keep",
+    "keep_up",
+    "leave",
+    "maintain",
+    "prolong",
+    "protract",
+    "sustain"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "I maintained a strong government through ruthless domination."
+      ]
+    }
+  ]
+}

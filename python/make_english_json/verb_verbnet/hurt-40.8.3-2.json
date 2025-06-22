@@ -1,0 +1,43 @@
+{
+  "members": [
+    "bark",
+    "bite",
+    "bruise",
+    "bump",
+    "burn",
+    "contuse",
+    "cut",
+    "hurt",
+    "injury",
+    "nick",
+    "prick",
+    "scald",
+    "scratch",
+    "skin",
+    "strain",
+    "sunburn",
+    "wrench"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tessa hurt/sprained her ankle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tessa hurt herself."
+      ]
+    }
+  ]
+}

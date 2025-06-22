@@ -1,0 +1,22 @@
+{
+  "members": [
+    "allocate",
+    "buy",
+    "commit",
+    "invest",
+    "put",
+    "speculate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "They bought into an NLP startup."
+      ]
+    }
+  ]
+}

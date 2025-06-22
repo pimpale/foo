@@ -1,0 +1,37 @@
+{
+  "members": [
+    "blend",
+    "combine",
+    "commingle",
+    "compound",
+    "decoct",
+    "fuse",
+    "meld",
+    "merge",
+    "mingle",
+    "mix",
+    "recombine"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The eggs and the cream mixed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The eggs and the cream mixed together."
+      ]
+    }
+  ]
+}

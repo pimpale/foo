@@ -1,0 +1,22 @@
+{
+  "members": [
+    "function",
+    "go",
+    "go_on",
+    "operate",
+    "perform",
+    "run",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The old dishwasher still functioned."
+      ]
+    }
+  ]
+}

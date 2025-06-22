@@ -1,0 +1,18 @@
+{
+  "members": [
+    "amount",
+    "come"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.value"
+      ],
+      "examples": [
+        "The total amounted to $100"
+      ]
+    }
+  ]
+}

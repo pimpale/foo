@@ -1,0 +1,43 @@
+{
+  "members": [
+    "replace",
+    "substitute",
+    "supplant",
+    "swap",
+    "swap_out",
+    "switch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "Milk and lemon juice may substitute for buttermilk."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.location"
+      ],
+      "examples": [
+        "The bells ringers switched places."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "One bell ringer swapped places with another."
+      ]
+    }
+  ]
+}

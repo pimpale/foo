@@ -1,0 +1,215 @@
+{
+  "members": [
+    "broadcast",
+    "cable",
+    "e-mail",
+    "fax",
+    "modem",
+    "netmail",
+    "phone",
+    "radio",
+    "relay",
+    "satellite",
+    "semaphore",
+    "sign",
+    "signal",
+    "telecast",
+    "telegraph",
+    "telephone",
+    "telex",
+    "wire",
+    "wireless"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Heather cabled the news.",
+        "Heather cabled, 'Come immediately.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Heather cabled Sara."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Heather cabled the news to Sara."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Heather cabled Sara the news."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "S-Quote"
+      ],
+      "examples": [
+        "Heather cabled Sara, 'Come immediately.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S-Quote"
+      ],
+      "examples": [
+        "Heather cabled to Sara, 'Come immediately.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.topic"
+      ],
+      "examples": [
+        "Heather cabled Sara about the situation."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Heather cabled that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "when",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled when to send the package."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Heather cabled Sara that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "when",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled Sara when to send the package."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled Sara to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Heather cabled to Sara that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "when",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled to Sara when to send the package."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled to Sara to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "for",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "Heather cabled for Sara to come."
+      ]
+    }
+  ]
+}

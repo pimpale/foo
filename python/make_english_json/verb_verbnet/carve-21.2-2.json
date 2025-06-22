@@ -1,0 +1,65 @@
+{
+  "members": [
+    "carve",
+    "chop",
+    "crop",
+    "mow",
+    "pink",
+    "prune",
+    "punch",
+    "tread"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol carved the stone."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol carved the stone with a chisel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The marble carved easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The chisel carved the statue."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "The chisel carves well."
+      ]
+    }
+  ]
+}

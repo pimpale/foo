@@ -1,0 +1,125 @@
+{
+  "members": [
+    "abhor",
+    "admire",
+    "adore",
+    "affirm",
+    "applaud",
+    "appreciate",
+    "bear",
+    "believe",
+    "bewail",
+    "cherish",
+    "deify",
+    "deplore",
+    "despise",
+    "detest",
+    "disdain",
+    "dislike",
+    "distrust",
+    "dread",
+    "enjoy",
+    "envy",
+    "esteem",
+    "exalt",
+    "execrate",
+    "fancy",
+    "favor",
+    "fear",
+    "grudge",
+    "hate",
+    "idolize",
+    "lament",
+    "like",
+    "loathe",
+    "love",
+    "miss",
+    "mistrust",
+    "mourn",
+    "pity",
+    "prefer",
+    "prize",
+    "reaffirm",
+    "regret",
+    "relish",
+    "resent",
+    "respect",
+    "revere",
+    "rue",
+    "savor",
+    "stand",
+    "suffer",
+    "support",
+    "tolerate",
+    "treasure",
+    "trust",
+    "value",
+    "venerate",
+    "worship"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The tourists admired the paintings."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I admired him for his honesty."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.stimulus"
+      ],
+      "examples": [
+        "I admired the honesty in him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "The children liked that the clown had a red nose."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I loved writing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I loved his writing novels."
+      ]
+    }
+  ]
+}

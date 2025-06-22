@@ -1,0 +1,25 @@
+{
+  "members": [
+    "breathe",
+    "cough",
+    "cry",
+    "defecate",
+    "expectorate",
+    "hawk",
+    "retch",
+    "slobber",
+    "urinate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paul breathed a deep breath."
+      ]
+    }
+  ]
+}

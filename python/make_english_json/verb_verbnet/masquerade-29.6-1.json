@@ -1,0 +1,18 @@
+{
+  "members": [
+    "act",
+    "behave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Dina acted like a cretin."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "members": [
+        "have"
+    ],
+    "frames": [
+        {
+            "primary": ["NP", "V", "VP_VBN"],
+            "examples": ["The vase has broken."]
+        }
+    ]
+}

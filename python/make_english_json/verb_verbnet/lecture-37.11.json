@@ -1,0 +1,35 @@
+{
+  "members": [
+    "comment",
+    "dwell",
+    "elaborate",
+    "gush",
+    "lecture",
+    "moralize",
+    "pontificate",
+    "preach",
+    "rant",
+    "rave",
+    "remark",
+    "rhapsodize",
+    "speak",
+    "speak_out",
+    "speak_up",
+    "talk",
+    "testify",
+    "theorize",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "She lectured about traveling."
+      ]
+    }
+  ]
+}

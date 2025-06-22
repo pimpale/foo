@@ -1,0 +1,17 @@
+{
+  "members": [
+    "coast",
+    "sail"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Jill sailed."
+      ]
+    }
+  ]
+}

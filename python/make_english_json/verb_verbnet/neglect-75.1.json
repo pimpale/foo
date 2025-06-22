@@ -1,0 +1,26 @@
+{
+  "members": [
+    "disregard",
+    "fail",
+    "forego",
+    "forgo",
+    "ignore",
+    "leave_out",
+    "neglect",
+    "omit",
+    "overleap",
+    "overlook"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I disregarded the message."
+      ]
+    }
+  ]
+}

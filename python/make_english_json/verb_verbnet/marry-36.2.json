@@ -1,0 +1,36 @@
+{
+  "members": [
+    "court",
+    "cuddle",
+    "date",
+    "divorce",
+    "embrace",
+    "hug",
+    "kiss",
+    "marry",
+    "neck",
+    "nuzzle",
+    "pet"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Bill and Kathy married."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Bill married Kathy."
+      ]
+    }
+  ]
+}

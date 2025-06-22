@@ -1,0 +1,23 @@
+{
+  "members": [
+    "abide_by",
+    "adhere_to",
+    "follow",
+    "heed",
+    "keep_to",
+    "obey",
+    "observe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He followed the tenets of Buddhism."
+      ]
+    }
+  ]
+}

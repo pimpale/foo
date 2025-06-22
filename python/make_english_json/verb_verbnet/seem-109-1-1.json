@@ -1,0 +1,23 @@
+{
+  "members": [
+    "appear",
+    "be",
+    "feel",
+    "look",
+    "remain",
+    "seem",
+    "stay"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "The matter seems in dispute."
+      ]
+    }
+  ]
+}

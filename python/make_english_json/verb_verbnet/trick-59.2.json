@@ -1,0 +1,58 @@
+{
+  "members": [
+    "bamboozle",
+    "blackmail",
+    "bluff",
+    "bullshit",
+    "cheat",
+    "con",
+    "cozen",
+    "deceive",
+    "delude",
+    "dupe",
+    "ensnare",
+    "entrap",
+    "extort",
+    "fool",
+    "fox",
+    "hoodwink",
+    "manipulate",
+    "mislead",
+    "trap",
+    "trick"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I tricked him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I tricked him into coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "I tricked John into the chairmanship."
+      ]
+    }
+  ]
+}

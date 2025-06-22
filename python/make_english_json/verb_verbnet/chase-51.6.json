@@ -1,0 +1,44 @@
+{
+  "members": [
+    "chase",
+    "follow",
+    "pursue",
+    "shadow",
+    "tail",
+    "track",
+    "trail"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jackie chased the thief."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Jackie chased the thief down the street."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Jackie chased after the thief."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "members": [
+    "bore",
+    "bruise",
+    "chip",
+    "cleave",
+    "crumb",
+    "crumble",
+    "crumple",
+    "crunch",
+    "crush",
+    "cube",
+    "dent",
+    "dice",
+    "fillet",
+    "flake",
+    "flatten",
+    "gash",
+    "gouge",
+    "grate",
+    "grind",
+    "mash",
+    "mince",
+    "nick",
+    "notch",
+    "perforate",
+    "pulverize",
+    "quarter",
+    "scollop",
+    "scrunch",
+    "shred",
+    "slice",
+    "slit",
+    "smash",
+    "squash",
+    "squish",
+    "trench"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol crushed the ice."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol crushed the ice with a hammer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The ice crushed easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The hammer crushed the marble."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "That hammer crushes well."
+      ]
+    }
+  ]
+}

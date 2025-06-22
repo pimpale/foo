@@ -1,0 +1,22 @@
+{
+  "members": [
+    "credit",
+    "entrust",
+    "furnish",
+    "resupply",
+    "serve",
+    "supply"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Hess supplied its customers."
+      ]
+    }
+  ]
+}

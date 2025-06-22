@@ -1,0 +1,53 @@
+{
+  "members": [
+    "be",
+    "coexist",
+    "dwell",
+    "endure",
+    "exist",
+    "extend",
+    "flourish",
+    "hold",
+    "languish",
+    "linger",
+    "live",
+    "loom",
+    "lurk",
+    "persevere",
+    "persist",
+    "predominate",
+    "prevail",
+    "prosper",
+    "remain",
+    "reside",
+    "shelter",
+    "stand",
+    "stay",
+    "survive",
+    "thrive",
+    "tower",
+    "vegetate",
+    "wait"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Elvis lives."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Herbicides persist in the soil."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "apprentice",
+    "beggar",
+    "cripple",
+    "cuckold",
+    "knight",
+    "martyr",
+    "orphan",
+    "outlaw",
+    "pauper",
+    "recruit",
+    "whore",
+    "widow"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The king knighted the brave soldier."
+      ]
+    }
+  ]
+}

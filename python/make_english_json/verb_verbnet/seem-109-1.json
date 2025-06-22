@@ -1,0 +1,24 @@
+{
+  "members": [
+    "act",
+    "appear",
+    "be",
+    "feel",
+    "look",
+    "remain",
+    "seem",
+    "stay"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He seemed a fool."
+      ]
+    }
+  ]
+}

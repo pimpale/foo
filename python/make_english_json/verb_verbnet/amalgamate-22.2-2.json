@@ -1,0 +1,76 @@
+{
+  "members": [
+    "affiliate",
+    "alternate",
+    "associate",
+    "coalesce",
+    "coincide",
+    "compare",
+    "confederate",
+    "conflate",
+    "confuse",
+    "conjoin",
+    "consolidate",
+    "contrast",
+    "correlate",
+    "crisscross",
+    "entangle",
+    "entwine",
+    "harmonize",
+    "identity",
+    "incorporate",
+    "integrate",
+    "interchange",
+    "interconnect",
+    "interlace",
+    "interlink",
+    "interlock",
+    "intermingle",
+    "interrelate",
+    "intersperse",
+    "intertwine",
+    "interweave",
+    "mate",
+    "muddle",
+    "pair",
+    "repackage",
+    "rhyme",
+    "team",
+    "total",
+    "unify",
+    "unite"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The merger associated company A with company B."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The merger associated the two companies."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Company A associated with Company B."
+      ]
+    }
+  ]
+}

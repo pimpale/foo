@@ -1,0 +1,99 @@
+{
+  "members": [
+    "appear",
+    "arise",
+    "awake",
+    "awaken",
+    "break",
+    "burst",
+    "coalesce",
+    "come",
+    "dawn",
+    "derive",
+    "develop",
+    "emanate",
+    "emerge",
+    "erupt",
+    "evolve",
+    "exude",
+    "flow",
+    "form",
+    "grow",
+    "gush",
+    "irrupt",
+    "issue",
+    "materialize",
+    "open",
+    "plop",
+    "pop_up",
+    "re-emerge",
+    "reappear",
+    "result",
+    "rise",
+    "show_up",
+    "spill",
+    "spread",
+    "spring",
+    "steal",
+    "stem",
+    "stream",
+    "supervene",
+    "surge",
+    "take_shape",
+    "turn_out",
+    "turn_up",
+    "wax"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "A ship appeared."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "A ship appeared on the horizon."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There appeared a ship on the horizon."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "On the horizon appeared a large ship."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "It appeared there."
+      ]
+    }
+  ]
+}

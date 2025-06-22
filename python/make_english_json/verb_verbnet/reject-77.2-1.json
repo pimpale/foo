@@ -1,0 +1,34 @@
+{
+  "members": [
+    "discourage",
+    "dismiss",
+    "disparage",
+    "disprefer",
+    "pooh_pooh",
+    "reject"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I reject how you explain it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I rejected what they were doing."
+      ]
+    }
+  ]
+}

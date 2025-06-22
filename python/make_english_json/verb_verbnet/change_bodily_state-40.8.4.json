@@ -1,0 +1,40 @@
+{
+  "members": [
+    "black_out",
+    "blanch",
+    "blench",
+    "doze_off",
+    "drift_off",
+    "drowse_off",
+    "faint",
+    "konk_out",
+    "nod_off",
+    "pale",
+    "pass_out",
+    "sicken",
+    "swoon",
+    "zonk_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Sharon fainted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "Sharon fainted from hunger.",
+        "Sharon fainted at the sight of the accident."
+      ]
+    }
+  ]
+}

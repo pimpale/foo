@@ -1,0 +1,119 @@
+{
+  "members": [
+    "advance",
+    "balloon",
+    "build-up",
+    "decrease",
+    "diminish",
+    "increase",
+    "lower",
+    "move",
+    "shift",
+    "vary"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.patient"
+      ],
+      "examples": [
+        "Productivity increased GDP."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle"
+      ],
+      "examples": [
+        "GDP increased easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V"
+      ],
+      "examples": [
+        "GDP increased."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "NP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "GDP increased 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "GDP increased by 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.attribute",
+        "V",
+        "NP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "The price of oil increased 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.attribute",
+        "V",
+        "PP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "The price of oil increased by 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute",
+        "NP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "Oil increased in price 565% from $26 to $147."
+      ]
+    },
+    {
+      "primary": [
+        "NP.patient",
+        "V",
+        "PP.attribute",
+        "PP.extent",
+        "PP.initial_state",
+        "PP.result"
+      ],
+      "examples": [
+        "Oil increased in price by 565% from $26 to $147."
+      ]
+    }
+  ]
+}

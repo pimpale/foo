@@ -1,0 +1,25 @@
+{
+  "members": [
+    "begin",
+    "commence",
+    "recommence",
+    "repeat",
+    "resume",
+    "set_about",
+    "start",
+    "start_off",
+    "undertake"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "John began going to the area."
+      ]
+    }
+  ]
+}

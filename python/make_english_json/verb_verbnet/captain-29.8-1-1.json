@@ -1,0 +1,17 @@
+{
+  "members": [
+    "star"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The show starred Miriam."
+      ]
+    }
+  ]
+}

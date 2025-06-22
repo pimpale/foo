@@ -1,0 +1,57 @@
+{
+  "members": [
+    "apply",
+    "arrange",
+    "build-in",
+    "bury",
+    "deposit",
+    "embed",
+    "emplace",
+    "immerse",
+    "implant",
+    "insert",
+    "install",
+    "lodge",
+    "mount",
+    "park",
+    "place",
+    "plant",
+    "position",
+    "put",
+    "reinstall",
+    "set",
+    "situate",
+    "sling",
+    "stash",
+    "station",
+    "stick",
+    "stow",
+    "superimpose",
+    "tack_on",
+    "wharf"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "I put the book on/under/near the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I put the book here/there."
+      ]
+    }
+  ]
+}

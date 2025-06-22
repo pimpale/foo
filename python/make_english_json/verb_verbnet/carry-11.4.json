@@ -1,0 +1,82 @@
+{
+  "members": [
+    "carry",
+    "drag",
+    "draw",
+    "haul",
+    "heave",
+    "heft",
+    "hoist",
+    "kick",
+    "lug",
+    "nudge",
+    "pull",
+    "push",
+    "run",
+    "schlep",
+    "shove",
+    "thrust",
+    "tote",
+    "tow",
+    "tug",
+    "yank"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Amanda carried the package."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda carried the package to New York."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda carried the package from home."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda carried the package from home to New York."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda carried the package to New York from home."
+      ]
+    }
+  ]
+}

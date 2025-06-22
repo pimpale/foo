@@ -1,0 +1,107 @@
+{
+  "members": [
+    "discover",
+    "figure_out",
+    "pick_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "S_ING"
+      ],
+      "examples": [
+        "I discovered about him drinking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I discovered from them how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I discovered from them how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "PP.topic",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "I discovered from him about whether he should kill the peasants."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "PP.topic",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I discovered from him about what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "PP.topic",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I learned from him about what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "PP.topic",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "I discovered from him about whether to go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I discovered what to do."
+      ]
+    }
+  ]
+}

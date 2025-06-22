@@ -1,0 +1,28 @@
+{
+  "members": [
+    "command",
+    "direct",
+    "govern",
+    "lead",
+    "manage",
+    "micromanage",
+    "oversee",
+    "preside_over",
+    "reign_over",
+    "rule",
+    "superintend",
+    "supervise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Martha supervised Kevin."
+      ]
+    }
+  ]
+}

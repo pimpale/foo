@@ -1,0 +1,55 @@
+{
+  "members": [
+    "arm-twist",
+    "bribe",
+    "coerce",
+    "commandeer",
+    "compel",
+    "convince",
+    "dragoon",
+    "drive",
+    "hound",
+    "impel",
+    "induce",
+    "influence",
+    "lead",
+    "motivate",
+    "obligate",
+    "oblige",
+    "palaver",
+    "persuade",
+    "railroad",
+    "rush",
+    "sandbag",
+    "steamroller",
+    "suborn",
+    "sway",
+    "talk",
+    "wheedle",
+    "woo"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I forced him into coming."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "I forced John into the chairmanship."
+      ]
+    }
+  ]
+}

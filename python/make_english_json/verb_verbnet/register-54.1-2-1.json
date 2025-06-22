@@ -1,0 +1,22 @@
+{
+  "members": [
+    "clock",
+    "measure",
+    "read",
+    "register",
+    "total",
+    "weigh"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.value"
+      ],
+      "examples": [
+        "The package weighed ten pounds."
+      ]
+    }
+  ]
+}

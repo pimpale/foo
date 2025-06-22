@@ -1,0 +1,20 @@
+{
+  "members": [
+    "cope",
+    "get_by",
+    "get_through",
+    "grapple",
+    "manage"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He managed."
+      ]
+    }
+  ]
+}

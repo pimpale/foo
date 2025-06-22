@@ -1,0 +1,39 @@
+{
+  "members": [
+    "coil",
+    "curl",
+    "hook",
+    "rotate",
+    "spin",
+    "swing",
+    "turn",
+    "twirl",
+    "twist",
+    "wind"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP.theme",
+        "NP.extent"
+      ],
+      "examples": [
+        "Cynthia rotated the image 90 degrees."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP.theme",
+        "NP.extent",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Cynthia rotated the image 90 degrees to the right."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "members": [
+    "accede",
+    "acquiesce",
+    "bow",
+    "capitulate",
+    "consent",
+    "defer",
+    "fall",
+    "give_in",
+    "give_way",
+    "submit",
+    "succumb",
+    "yield"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The enemy soldiers yielded."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.pivot"
+      ],
+      "examples": [
+        "The enemy soldiers yielded to us."
+      ]
+    }
+  ]
+}

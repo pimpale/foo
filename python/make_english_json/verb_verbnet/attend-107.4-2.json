@@ -1,0 +1,18 @@
+{
+  "members": [
+    "belong",
+    "go"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "I go to the University of Colorado."
+      ]
+    }
+  ]
+}

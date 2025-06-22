@@ -1,0 +1,51 @@
+{
+  "members": [
+    "consult",
+    "deliberate",
+    "meet",
+    "play",
+    "remonstrate",
+    "reunite",
+    "visit"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Brenda met with Molly."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Brenda and Molly met."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Anne met Cathy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The committee met."
+      ]
+    }
+  ]
+}

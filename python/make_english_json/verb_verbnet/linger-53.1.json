@@ -1,0 +1,38 @@
+{
+  "members": [
+    "dally",
+    "dawdle",
+    "dither",
+    "equivocate",
+    "hesitate",
+    "linger",
+    "loaf",
+    "loiter",
+    "pause",
+    "potter",
+    "putter",
+    "tarry"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Sasha dawdled in the museum."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "Sasha dawdled over lunch."
+      ]
+    }
+  ]
+}

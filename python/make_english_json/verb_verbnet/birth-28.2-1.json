@@ -1,0 +1,28 @@
+{
+  "members": [
+    "bear",
+    "beget",
+    "birth",
+    "bring_forth",
+    "deliver",
+    "father",
+    "generate",
+    "get",
+    "have",
+    "mother",
+    "sire",
+    "spawn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "My wife had twins."
+      ]
+    }
+  ]
+}

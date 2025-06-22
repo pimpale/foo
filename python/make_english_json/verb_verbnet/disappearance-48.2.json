@@ -1,0 +1,25 @@
+{
+  "members": [
+    "die",
+    "disappear",
+    "expire",
+    "go",
+    "go_down",
+    "go_off",
+    "go_out",
+    "lapse",
+    "perish",
+    "vanish"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The crowd vanished."
+      ]
+    }
+  ]
+}

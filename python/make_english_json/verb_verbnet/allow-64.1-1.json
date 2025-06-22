@@ -1,0 +1,19 @@
+{
+  "members": [
+    "allow",
+    "permit"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S"
+      ],
+      "examples": [
+        "They allowed us to smoke."
+      ]
+    }
+  ]
+}

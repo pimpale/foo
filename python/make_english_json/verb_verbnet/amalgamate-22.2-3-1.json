@@ -1,0 +1,22 @@
+{
+  "members": [
+    "figure",
+    "introduce",
+    "marry",
+    "remarry",
+    "wed"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "John introduced Mary to me."
+      ]
+    }
+  ]
+}

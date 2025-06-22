@@ -1,0 +1,18 @@
+{
+  "members": [
+    "let"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S"
+      ],
+      "examples": [
+        "They let us smoke."
+      ]
+    }
+  ]
+}

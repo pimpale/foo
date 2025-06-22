@@ -1,0 +1,63 @@
+{
+  "members": [
+    "bob",
+    "braid",
+    "brush",
+    "clip",
+    "coldcream",
+    "comb",
+    "condition",
+    "crimp",
+    "crop",
+    "curl",
+    "cut",
+    "dye",
+    "file",
+    "gel",
+    "henna",
+    "highlight",
+    "lather",
+    "manicure",
+    "paint",
+    "part",
+    "perm",
+    "plait",
+    "pluck",
+    "powder",
+    "rinse",
+    "rouge",
+    "set",
+    "shampoo",
+    "soap",
+    "style",
+    "talc",
+    "tease",
+    "towel",
+    "trim",
+    "tweeze",
+    "wave",
+    "wax"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Celia brushed the baby's hair."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Celia brushed her hair."
+      ]
+    }
+  ]
+}

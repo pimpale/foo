@@ -1,0 +1,111 @@
+{
+  "members": [
+    "agree",
+    "argue",
+    "debate",
+    "decide"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "They agreed with her how it should be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "They agreed with her how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "We agreed what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "We agreed what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "We debated whether he should come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "whether",
+        "S_INF"
+      ],
+      "examples": [
+        "We debated whether to clean the house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "They agreed that they should go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "They agreed with him that we should go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S"
+      ],
+      "examples": [
+        "They agreed to go."
+      ]
+    }
+  ]
+}

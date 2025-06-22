@@ -1,0 +1,18 @@
+{
+  "members": [
+    "intend",
+    "plan"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I intended exercising."
+      ]
+    }
+  ]
+}

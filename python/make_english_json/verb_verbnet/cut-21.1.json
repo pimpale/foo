@@ -1,0 +1,194 @@
+{
+  "members": [
+    "chip",
+    "chop",
+    "clip",
+    "cut",
+    "hack",
+    "hew",
+    "ream",
+    "rip",
+    "saw",
+    "scarify",
+    "scrape",
+    "scratch",
+    "slash",
+    "slice",
+    "snip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol cut the bread."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol cut the bread with a knife."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Carol cut at the bread."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Carol cut through the bread."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "PP"
+      ],
+      "examples": [
+        "Carol cut at the bread with a knife."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The bread cut easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The knife cut the bread."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "This knife cuts well."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Carol cut the envelop open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol cut the envelope open with the knife."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Carol cut the envelope into pieces."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol cut the envelope into pieces with a knife."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "The knife cut the envelope open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The knife cut the envelope into pieces."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Sympathetic fans clipped copies of Ms. Shere's recipes from magazines."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Susan cut the recipes from the magazine with a sharp knife."
+      ]
+    }
+  ]
+}

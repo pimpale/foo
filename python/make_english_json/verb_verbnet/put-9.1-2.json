@@ -1,0 +1,21 @@
+{
+  "members": [
+    "place",
+    "put",
+    "set",
+    "stick"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination",
+        "NP"
+      ],
+      "examples": [
+        "They put upon me a brilliant, red helm."
+      ]
+    }
+  ]
+}

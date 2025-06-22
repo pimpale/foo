@@ -1,0 +1,34 @@
+{
+  "members": [
+    "hoard",
+    "hold",
+    "keep",
+    "leave",
+    "stock",
+    "stockpile",
+    "store"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Michelle kept the papers in the desk."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Many small investors kept Belgium store securities."
+      ]
+    }
+  ]
+}

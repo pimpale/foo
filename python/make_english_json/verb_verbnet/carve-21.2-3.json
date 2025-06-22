@@ -1,0 +1,65 @@
+{
+  "members": [
+    "drill",
+    "file",
+    "lance",
+    "mangle",
+    "mill",
+    "sand",
+    "spear",
+    "tool"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carol drilled the stone."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Carol drilled the stone with a hammer drill."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The marble drilled easily."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The antique hand drill drilled the stone."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "ADVP"
+      ],
+      "examples": [
+        "The antique hand drill drilled well."
+      ]
+    }
+  ]
+}

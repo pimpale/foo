@@ -1,0 +1,30 @@
+{
+  "members": [
+    "choreograph",
+    "compose",
+    "conjure",
+    "craft",
+    "design",
+    "dig",
+    "draft",
+    "draw",
+    "improvise",
+    "invent",
+    "paint",
+    "scriptwrite",
+    "silkscreen",
+    "spin",
+    "write"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Claire drew."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "members": [
+    "engage",
+    "enroll",
+    "include",
+    "involve",
+    "relate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They thoughtlessly involved me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "They thoughtlessly involved me in their affairs."
+      ]
+    }
+  ]
+}

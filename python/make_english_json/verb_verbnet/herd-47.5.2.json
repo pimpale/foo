@@ -1,0 +1,51 @@
+{
+  "members": [
+    "accumulate",
+    "aggregate",
+    "amass",
+    "assemble",
+    "cluster",
+    "collect",
+    "congregate",
+    "convene",
+    "flock",
+    "gather",
+    "group",
+    "herd",
+    "huddle",
+    "mass",
+    "reconvene"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The kids are assembling."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The teacher gathered the kids."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "The teacher gathered the kids together."
+      ]
+    }
+  ]
+}

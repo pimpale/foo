@@ -1,0 +1,27 @@
+{
+  "members": [
+    "bleed",
+    "con",
+    "cozen",
+    "cull",
+    "defraud",
+    "fleece",
+    "milk",
+    "rob",
+    "strip",
+    "swindle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The swindler conned Pat for her fortune."
+      ]
+    }
+  ]
+}

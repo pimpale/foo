@@ -1,0 +1,95 @@
+{
+  "members": [
+    "baste",
+    "brush",
+    "cram",
+    "crowd",
+    "dab",
+    "daub",
+    "drape",
+    "drizzle",
+    "dust",
+    "hang",
+    "heap",
+    "jam",
+    "load",
+    "mound",
+    "overload",
+    "pack",
+    "pile",
+    "plant",
+    "plaster",
+    "pump",
+    "rub",
+    "scatter",
+    "seed",
+    "sew",
+    "shower",
+    "slather",
+    "smear",
+    "smudge",
+    "sow",
+    "spatter",
+    "splash",
+    "splatter",
+    "spray",
+    "spread",
+    "sprinkle",
+    "spritz",
+    "spurt",
+    "squirt",
+    "stack",
+    "stick",
+    "stock",
+    "strew",
+    "string",
+    "stuff",
+    "swab",
+    "swash",
+    "wrap"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Jessica loaded boxes into the wagon."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination",
+        "PP.theme"
+      ],
+      "examples": [
+        "Jessica loaded the wagon with boxes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Jessica squirted water."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination"
+      ],
+      "examples": [
+        "Jessica sprayed the wall."
+      ]
+    }
+  ]
+}

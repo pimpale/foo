@@ -1,0 +1,72 @@
+{
+  "members": [
+    "bank",
+    "bargain",
+    "bet",
+    "count",
+    "depend",
+    "figure",
+    "gamble",
+    "reckon",
+    "rely",
+    "take_a_chance",
+    "wager"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "She relies on coming back in time."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "She relies on him coming back in time."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_INF"
+      ],
+      "examples": [
+        "She relies on him to help."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "She relies on his helping."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "She relies on it."
+      ]
+    }
+  ]
+}

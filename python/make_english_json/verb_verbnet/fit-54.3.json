@@ -1,0 +1,40 @@
+{
+  "members": [
+    "carry",
+    "contain",
+    "feed",
+    "fit",
+    "hibernate",
+    "hold",
+    "house",
+    "reseat",
+    "seat",
+    "serve",
+    "sleep",
+    "store",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Each room sleeps five people."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "We sleep five people in each room."
+      ]
+    }
+  ]
+}

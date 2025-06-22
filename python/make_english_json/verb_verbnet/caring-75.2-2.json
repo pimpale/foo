@@ -1,0 +1,18 @@
+{
+  "members": [
+    "care",
+    "look_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The vet cared for the sick ram."
+      ]
+    }
+  ]
+}

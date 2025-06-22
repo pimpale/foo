@@ -1,0 +1,29 @@
+{
+  "members": [
+    "bring"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "Nora brought Pamela the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Nora brought us together."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "members": [
+    "asphyxiate",
+    "behead",
+    "bullet",
+    "crucify",
+    "dart",
+    "decapitate",
+    "disembowel",
+    "drown",
+    "electrocute",
+    "evicerate",
+    "fry",
+    "garrotte",
+    "gas",
+    "hang",
+    "knife",
+    "pip",
+    "poison",
+    "shoot",
+    "smother",
+    "stab",
+    "stake",
+    "stone",
+    "strangle",
+    "strangulate",
+    "suffocate",
+    "throttle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The witch poisoned Snow White."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "The Boston Strangler strangled his victims dead."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The Boston Strangler strangled his victims to death."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "The queen poisoned Snow White with an apple."
+      ]
+    }
+  ]
+}

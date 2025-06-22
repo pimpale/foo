@@ -1,0 +1,22 @@
+{
+  "members": [
+    "deduct",
+    "extrapolate",
+    "factor_out",
+    "interpolate",
+    "subtract"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "I subtracted x from y."
+      ]
+    }
+  ]
+}

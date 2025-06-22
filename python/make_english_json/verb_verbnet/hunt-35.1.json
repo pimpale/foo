@@ -1,0 +1,78 @@
+{
+  "members": [
+    "dig",
+    "feel",
+    "fish",
+    "hunt",
+    "mine",
+    "pan",
+    "poach",
+    "scrounge",
+    "seek"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "I hunted the woods for game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "PP.location"
+      ],
+      "examples": [
+        "I hunted for game in the woods."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location",
+        "PP.theme"
+      ],
+      "examples": [
+        "I hunted in the woods for game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "I hunted game in the woods."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I hunted game."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I hunted."
+      ]
+    }
+  ]
+}

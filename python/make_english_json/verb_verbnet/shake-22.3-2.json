@@ -1,0 +1,62 @@
+{
+  "members": [
+    "affix",
+    "agglutinate",
+    "attach",
+    "band",
+    "baste",
+    "bind",
+    "bond",
+    "bundle",
+    "cluster",
+    "collate",
+    "collect",
+    "concatenate",
+    "fasten",
+    "fix",
+    "fixate",
+    "gather",
+    "glom",
+    "graft",
+    "group",
+    "herd",
+    "jumble",
+    "ligate",
+    "moor",
+    "package",
+    "pair",
+    "roll",
+    "secure",
+    "sew",
+    "shake",
+    "shuffle",
+    "splice",
+    "stick",
+    "toggle",
+    "weld"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Herman gathered the students into a group."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman gathered the students together."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "members": [
+    "dominate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "DEC has often dominated."
+      ]
+    }
+  ]
+}

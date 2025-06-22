@@ -1,0 +1,22 @@
+{
+  "members": [
+    "attract",
+    "bring",
+    "bring_in",
+    "earn",
+    "fetch",
+    "raise"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The auction raised $2 million."
+      ]
+    }
+  ]
+}

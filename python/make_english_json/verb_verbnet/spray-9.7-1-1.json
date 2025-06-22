@@ -1,0 +1,21 @@
+{
+  "members": [
+    "cram",
+    "crowd",
+    "jam",
+    "pack",
+    "pile"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Crowds packed the stands."
+      ]
+    }
+  ]
+}

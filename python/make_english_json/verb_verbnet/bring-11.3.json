@@ -1,0 +1,74 @@
+{
+  "members": [
+    "bring",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Nora brought the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora brought the book to the meeting."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination",
+        "NP"
+      ],
+      "examples": [
+        "Nora brought to lunch the book."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Nora brought the book from home."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Nora brought the book from home to the meeting."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "The train brought us here."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "members": [
+    "annotate",
+    "applique",
+    "emboss",
+    "embroider",
+    "engrave",
+    "etch",
+    "handpaint",
+    "imprint",
+    "incise",
+    "ingrain",
+    "inscribe",
+    "mark",
+    "paint",
+    "reinscribe",
+    "scar",
+    "sign",
+    "stamp",
+    "stipple",
+    "tattoo",
+    "tool"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.destination"
+      ],
+      "examples": [
+        "Smith inscribed his name on the ring."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination",
+        "PP.theme"
+      ],
+      "examples": [
+        "Smith inscribed the ring with his name."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination"
+      ],
+      "examples": [
+        "Smith was inscribing the rings."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Smith inscribed his name."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Smith was inscribing."
+      ]
+    }
+  ]
+}

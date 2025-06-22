@@ -1,0 +1,41 @@
+{
+  "members": [
+    "ache",
+    "crave",
+    "die",
+    "fall",
+    "hanker",
+    "hope",
+    "hunger",
+    "itch",
+    "long",
+    "lust",
+    "pine",
+    "pray",
+    "thirst",
+    "wish",
+    "yearn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "John hankered to move up the corporate ladder."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Danny longs for a sunny day."
+      ]
+    }
+  ]
+}

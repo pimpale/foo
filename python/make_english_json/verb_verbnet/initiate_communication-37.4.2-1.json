@@ -1,0 +1,19 @@
+{
+  "members": [
+    "call",
+    "phone",
+    "ring",
+    "telephone"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Your lawyer called."
+      ]
+    }
+  ]
+}

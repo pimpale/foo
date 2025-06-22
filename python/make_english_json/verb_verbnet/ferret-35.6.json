@@ -1,0 +1,30 @@
+{
+  "members": [
+    "ferret_out",
+    "nose",
+    "tease"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "I ferreted the secret out of him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I ferreted out his secret."
+      ]
+    }
+  ]
+}

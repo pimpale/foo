@@ -1,0 +1,18 @@
+{
+  "members": [
+    "exercise",
+    "practice",
+    "rehearse"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He rehearsed."
+      ]
+    }
+  ]
+}

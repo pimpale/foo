@@ -1,0 +1,34 @@
+{
+  "members": [
+    "addict",
+    "bias",
+    "dispose",
+    "incline",
+    "predispose",
+    "slant"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.Theme"
+      ],
+      "examples": [
+        "I addicted him to Douglas Adams."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "Mary addicted him to going on long journeys."
+      ]
+    }
+  ]
+}

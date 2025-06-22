@@ -1,0 +1,20 @@
+{
+  "members": [
+    "cleanse",
+    "curry",
+    "groom",
+    "neaten"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Sheila groomed the horse."
+      ]
+    }
+  ]
+}

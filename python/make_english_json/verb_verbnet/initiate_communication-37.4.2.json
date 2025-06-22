@@ -1,0 +1,26 @@
+{
+  "members": [
+    "buzz",
+    "call",
+    "get",
+    "get_ahold_of",
+    "get_hold_of",
+    "phone",
+    "ping",
+    "reach",
+    "ring",
+    "telephone"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Heather pinged me."
+      ]
+    }
+  ]
+}

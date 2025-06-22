@@ -1,0 +1,30 @@
+{
+  "members": [
+    "answer",
+    "reciprocate",
+    "return"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He returned my call."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "He reciprocated my glare with an annoyed one of his own."
+      ]
+    }
+  ]
+}

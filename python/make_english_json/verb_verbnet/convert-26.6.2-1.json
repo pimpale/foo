@@ -1,0 +1,26 @@
+{
+  "members": [
+    "change_over",
+    "convert",
+    "move_over",
+    "return",
+    "revert",
+    "shift",
+    "switch",
+    "switch_over",
+    "turn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "PP.goal"
+      ],
+      "examples": [
+        "He converted from Christianity to Buddhism."
+      ]
+    }
+  ]
+}

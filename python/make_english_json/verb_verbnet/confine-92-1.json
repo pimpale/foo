@@ -1,0 +1,21 @@
+{
+  "members": [
+    "commit",
+    "confine",
+    "recommit",
+    "send"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "We committed John to prison."
+      ]
+    }
+  ]
+}

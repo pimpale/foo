@@ -1,0 +1,116 @@
+{
+  "members": [
+    "bellyache",
+    "bitch",
+    "boast",
+    "brag",
+    "caterwaul",
+    "complain",
+    "crab",
+    "gripe",
+    "grouch",
+    "grouse",
+    "grumble",
+    "kvetch",
+    "moan",
+    "object",
+    "whine"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan complained."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Susan complained to Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Susan complained that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Susan complained to Rachel that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Ellen complained about the situation."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Earl complained about the situation to Helen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S-Quote"
+      ],
+      "examples": [
+        "Ellen complained, 'The mail didn't come today.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S-Quote"
+      ],
+      "examples": [
+        "Earl complained to Helen, 'The mail didn't come today.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "PP.topic"
+      ],
+      "examples": [
+        "The prime minister complained to the former president about U.S. interference in his country's affairs."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "members": [
+    "affirm",
+    "confirm",
+    "demonstrate",
+    "disclose",
+    "establish",
+    "explain",
+    "indicate",
+    "prove",
+    "reaffirm",
+    "reveal",
+    "say",
+    "show",
+    "suggest",
+    "verify"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "This indicates to us that they had stolen money."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "whether/if",
+        "S"
+      ],
+      "examples": [
+        "This indicates to me whether they did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "This indicates to me what he is."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "This indicates to us how it happened."
+      ]
+    }
+  ]
+}

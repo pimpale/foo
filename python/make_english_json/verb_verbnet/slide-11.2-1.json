@@ -1,0 +1,22 @@
+{
+  "members": [
+    "bounce",
+    "dart",
+    "float",
+    "roll",
+    "slide"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-dative",
+        "NP"
+      ],
+      "examples": [
+        "Carla slid John the books."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "members": [
+    "function",
+    "operate",
+    "perform",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "The nail functioned as a coat hook."
+      ]
+    }
+  ]
+}

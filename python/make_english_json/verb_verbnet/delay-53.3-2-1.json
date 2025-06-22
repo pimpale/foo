@@ -1,0 +1,17 @@
+{
+  "members": [
+    "procrastinate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He procrastinated doing his homework."
+      ]
+    }
+  ]
+}

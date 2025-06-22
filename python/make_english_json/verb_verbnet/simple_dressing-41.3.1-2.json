@@ -1,0 +1,18 @@
+{
+  "members": [
+    "doff",
+    "don"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She donned the red hat."
+      ]
+    }
+  ]
+}

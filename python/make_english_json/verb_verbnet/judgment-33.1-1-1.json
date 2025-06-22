@@ -1,0 +1,22 @@
+{
+  "members": [
+    "doubt",
+    "herald",
+    "judge"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "I judged him to be a good man."
+      ]
+    }
+  ]
+}

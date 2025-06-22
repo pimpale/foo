@@ -1,0 +1,52 @@
+{
+  "members": [
+    "coil",
+    "curl",
+    "hook",
+    "loop",
+    "roll",
+    "rotate",
+    "spin",
+    "swing",
+    "swirl",
+    "twine",
+    "twirl",
+    "twist",
+    "whirl",
+    "wind"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Cora coiled the rope around the post."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The rope coiled around the post."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV-Middle",
+        "PP.location"
+      ],
+      "examples": [
+        "That type of rope coiled easily around the post."
+      ]
+    }
+  ]
+}

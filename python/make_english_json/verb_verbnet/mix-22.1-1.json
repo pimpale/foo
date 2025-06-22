@@ -1,0 +1,99 @@
+{
+  "members": [
+    "admix",
+    "blend",
+    "combine",
+    "commingle",
+    "compound",
+    "consolidate",
+    "cream",
+    "decoct",
+    "fuse",
+    "intermix",
+    "meld",
+    "merge",
+    "mingle",
+    "mix",
+    "recombine",
+    "scramble",
+    "tumble"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "Herman mixed the eggs with the cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Herman mixed the eggs."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP",
+        "together"
+      ],
+      "examples": [
+        "Herman mixed the eggs and the cream together."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The eggs mixed with the cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "PP"
+      ],
+      "examples": [
+        "The eggs mixed well with cream."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADVP-Middle"
+      ],
+      "examples": [
+        "The eggs mixed well."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "NP",
+        "V",
+        "ADVP-Middle",
+        "together"
+      ],
+      "examples": [
+        "The eggs and cream mixed well together."
+      ]
+    }
+  ]
+}

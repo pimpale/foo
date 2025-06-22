@@ -1,0 +1,64 @@
+{
+  "members": [
+    "begin",
+    "commence",
+    "recommence",
+    "repeat",
+    "resume",
+    "start",
+    "start_off",
+    "undertake"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.eventuality",
+        "V"
+      ],
+      "examples": [
+        "The party began."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John started the party."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.subeventuality"
+      ],
+      "examples": [
+        "The party began with a bang."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.subeventuality"
+      ],
+      "examples": [
+        "I began the party with a speech."
+      ]
+    },
+    {
+      "primary": [
+        "NP.subeventuality",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "A murder began the book."
+      ]
+    }
+  ]
+}

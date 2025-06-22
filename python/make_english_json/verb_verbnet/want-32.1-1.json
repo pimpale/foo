@@ -1,0 +1,98 @@
+{
+  "members": [
+    "desire",
+    "enjoy",
+    "like",
+    "need",
+    "prefer",
+    "want"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "for",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I needed for her to be happy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I needed exercising."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "She wanted the meat red."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV"
+      ],
+      "examples": [
+        "I needed him here."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I needed him cooking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "I needed the children found."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I needed his cooking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I needed to come."
+      ]
+    }
+  ]
+}

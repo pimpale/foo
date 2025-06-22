@@ -1,0 +1,21 @@
+{
+  "members": [
+    "come_off",
+    "go",
+    "go_down",
+    "go_off",
+    "go_over"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV"
+      ],
+      "examples": [
+        "The discussion went well."
+      ]
+    }
+  ]
+}

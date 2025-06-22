@@ -1,0 +1,14 @@
+{
+  "members": [
+    "attend",
+    "babysit",
+    "care",
+    "look_after",
+    "look_out",
+    "manage",
+    "mind",
+    "tend",
+    "wait_on"
+  ],
+  "frames": []
+}

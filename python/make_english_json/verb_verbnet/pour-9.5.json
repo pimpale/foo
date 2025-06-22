@@ -1,0 +1,69 @@
+{
+  "members": [
+    "dribble",
+    "drip",
+    "pour",
+    "slop",
+    "slosh",
+    "spew",
+    "spill",
+    "trickle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Tamara poured water into the bowl."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "Tamara poured water here."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "Water poured onto the plants."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Maria poured water from the bowl into the cup."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Water poured from the bowl into the cup."
+      ]
+    }
+  ]
+}

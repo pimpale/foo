@@ -1,0 +1,29 @@
+{
+  "members": [
+    "act",
+    "action",
+    "carry_out",
+    "carry_through",
+    "cause",
+    "conduct",
+    "do",
+    "engage_in",
+    "execute",
+    "fulfill",
+    "make",
+    "move",
+    "perform"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They carried out the deed."
+      ]
+    }
+  ]
+}

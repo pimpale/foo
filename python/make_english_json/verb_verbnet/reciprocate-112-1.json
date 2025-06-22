@@ -1,0 +1,27 @@
+{
+  "members": [
+    "answer",
+    "reciprocate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He answered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "He reciprocated with a smile of his own."
+      ]
+    }
+  ]
+}

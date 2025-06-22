@@ -1,0 +1,22 @@
+{
+  "members": [
+    "abut",
+    "adjoin",
+    "cross",
+    "hit",
+    "intersect",
+    "meet",
+    "touch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Italy and France touch."
+      ]
+    }
+  ]
+}

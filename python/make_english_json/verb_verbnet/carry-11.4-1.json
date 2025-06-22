@@ -1,0 +1,67 @@
+{
+  "members": [
+    "heave",
+    "kick",
+    "push",
+    "shove",
+    "thrust"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Amanda shoved the box."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda shoved the box from the corner."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda shoved the box to John."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Amanda shoved the box from the corner to John."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "Amanda shoved the box to John from the corner."
+      ]
+    }
+  ]
+}

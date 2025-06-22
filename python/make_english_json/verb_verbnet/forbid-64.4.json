@@ -1,0 +1,27 @@
+{
+  "members": [
+    "ban",
+    "bar",
+    "block",
+    "exclude",
+    "forbid",
+    "keep",
+    "preclude",
+    "prevent",
+    "prohibit",
+    "stop"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "The rules forbade us from smoking."
+      ]
+    }
+  ]
+}

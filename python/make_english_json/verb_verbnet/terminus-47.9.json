@@ -1,0 +1,23 @@
+{
+  "members": [
+    "begin",
+    "end",
+    "lead",
+    "start",
+    "stop",
+    "terminate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "His property begins at the fence."
+      ]
+    }
+  ]
+}

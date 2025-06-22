@@ -1,0 +1,118 @@
+{
+  "members": [
+    "bite",
+    "chop",
+    "claw",
+    "kick",
+    "paw",
+    "peck",
+    "punch",
+    "scratch",
+    "slice",
+    "slug",
+    "stab",
+    "swat",
+    "swipe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paula swatted the fly."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paula swatted the fly with a dishcloth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Paula swatted at the fly."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "PP"
+      ],
+      "examples": [
+        "Paula swatted at the fly with a dishcloth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "Paula sliced the bag open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Paula swatted the fly dead with a dishcloth."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The cat clawed the couch to pieces."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result",
+        "PP.instrument"
+      ],
+      "examples": [
+        "The cat clawed the counch to pieces with her sharp nails."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "Paula swatted Deirdre on the back."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "members": [
+    "bang",
+    "channel",
+    "channelize",
+    "dip",
+    "dump",
+    "dunk",
+    "fit",
+    "funnel",
+    "hammer",
+    "hoe",
+    "ladle",
+    "pound",
+    "push",
+    "rake",
+    "ram",
+    "scoop",
+    "scrape",
+    "shake",
+    "shovel",
+    "siphon",
+    "sop",
+    "spoon",
+    "squash",
+    "squeeze",
+    "squish",
+    "sweep",
+    "tuck",
+    "wedge",
+    "wipe",
+    "wring"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "I funneled the mixture into the bottle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "I funneled the mixture from the measuring cup into the bottle."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "I spooned the sauce there."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "I funneled the mixture through the pipe."
+      ]
+    }
+  ]
+}

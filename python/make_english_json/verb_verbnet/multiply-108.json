@@ -1,0 +1,28 @@
+{
+  "members": [
+    "add",
+    "average",
+    "count",
+    "deduct",
+    "divide",
+    "extrapolate",
+    "factor_out",
+    "interpolate",
+    "multiply",
+    "subtract",
+    "sum",
+    "tally"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I summed the numbers."
+      ]
+    }
+  ]
+}

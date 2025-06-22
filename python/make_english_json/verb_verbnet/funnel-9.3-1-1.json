@@ -1,0 +1,27 @@
+{
+  "members": [
+    "bang",
+    "dump",
+    "funnel",
+    "hammer",
+    "pound",
+    "push",
+    "ram",
+    "shake",
+    "squeeze",
+    "sweep",
+    "wedge"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "The company is wedging into new markets."
+      ]
+    }
+  ]
+}

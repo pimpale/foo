@@ -1,0 +1,53 @@
+{
+  "members": [
+    "bead",
+    "belch",
+    "bleed",
+    "bubble",
+    "dribble",
+    "drip",
+    "drool",
+    "emanate",
+    "emit",
+    "exrete",
+    "exude",
+    "foam",
+    "give",
+    "give_forth",
+    "give_off",
+    "give_out",
+    "gush",
+    "jet",
+    "leak",
+    "ooze",
+    "percolate",
+    "pour",
+    "puff",
+    "radiate",
+    "seep",
+    "shed",
+    "slop",
+    "spew",
+    "spill",
+    "spout",
+    "sprout",
+    "spurt",
+    "squirt",
+    "steam",
+    "stream",
+    "sweat",
+    "trickle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The well gushed oil."
+      ]
+    }
+  ]
+}

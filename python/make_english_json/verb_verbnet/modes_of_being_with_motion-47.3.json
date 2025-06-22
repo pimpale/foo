@@ -1,0 +1,98 @@
+{
+  "members": [
+    "bob",
+    "bow",
+    "circulate",
+    "creep",
+    "dance",
+    "drift",
+    "eddy",
+    "falter",
+    "flap",
+    "float",
+    "flutter",
+    "hover",
+    "jiggle",
+    "joggle",
+    "oscillate",
+    "pulsate",
+    "pulse",
+    "quake",
+    "quiver",
+    "recirculate",
+    "revolve",
+    "rock",
+    "roil",
+    "rotate",
+    "shake",
+    "stir",
+    "swag",
+    "sway",
+    "swirl",
+    "teeter",
+    "throb",
+    "totter",
+    "tremble",
+    "undulate",
+    "vacillate",
+    "vibrate",
+    "waft",
+    "wave",
+    "waver",
+    "wiggle",
+    "wobble",
+    "worm",
+    "writhe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "A flag fluttered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "A flag fluttered over the fort."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "There fluttered a flag over the fort."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Over the fort fluttered a flag."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The patriots waved the flag."
+      ]
+    }
+  ]
+}

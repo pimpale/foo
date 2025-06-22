@@ -1,0 +1,53 @@
+{
+  "members": [
+    "apprehend",
+    "comprehend",
+    "fathom",
+    "follow",
+    "get",
+    "grasp",
+    "know",
+    "read",
+    "realize",
+    "recognise",
+    "recognize",
+    "see",
+    "understand"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I understood wanting more."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I understood how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "I understood him to be a good doctor."
+      ]
+    }
+  ]
+}

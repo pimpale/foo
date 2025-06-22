@@ -1,0 +1,32 @@
+{
+  "members": [
+    "cease",
+    "close",
+    "conclude",
+    "cut",
+    "cut_off",
+    "cut_out",
+    "deactivate",
+    "discontinue",
+    "end",
+    "finish",
+    "halt",
+    "kill",
+    "quit",
+    "stall",
+    "stop",
+    "terminate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.eventuality"
+      ],
+      "examples": [
+        "John cut the engine."
+      ]
+    }
+  ]
+}

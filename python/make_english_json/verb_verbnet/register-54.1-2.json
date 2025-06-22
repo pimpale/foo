@@ -1,0 +1,47 @@
+{
+  "members": [
+    "clock",
+    "measure",
+    "meter",
+    "mistime",
+    "read",
+    "register",
+    "time",
+    "total",
+    "weigh"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He clocked the runners."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "He clocked the runners at 16 mph."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "He clocked his speed at 76 mph."
+      ]
+    }
+  ]
+}

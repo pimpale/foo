@@ -1,0 +1,38 @@
+{
+  "members": [
+    "absolve",
+    "acquit",
+    "alleviate",
+    "break",
+    "cleanse",
+    "clear",
+    "cure",
+    "discharge",
+    "disencumber",
+    "ease",
+    "emancipate",
+    "exonerate",
+    "free",
+    "liberate",
+    "purge",
+    "purify",
+    "release",
+    "relieve",
+    "rerelease",
+    "unburden",
+    "wean"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "It freed him of guilt."
+      ]
+    }
+  ]
+}

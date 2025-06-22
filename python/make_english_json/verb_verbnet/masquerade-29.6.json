@@ -1,0 +1,26 @@
+{
+  "members": [
+    "act",
+    "behave",
+    "count",
+    "function",
+    "masquerade",
+    "officiate",
+    "pose",
+    "qualify",
+    "rank",
+    "serve"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Dina masqueraded as a lawyer."
+      ]
+    }
+  ]
+}

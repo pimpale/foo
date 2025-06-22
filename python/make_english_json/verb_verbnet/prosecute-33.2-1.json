@@ -1,0 +1,48 @@
+{
+  "members": [
+    "arrest",
+    "charge",
+    "indict",
+    "persecute",
+    "prosecute",
+    "punish",
+    "try"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They tried him as a war criminal."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They tried her for shoplifting as a juvenile."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute",
+        "PP.theme"
+      ],
+      "examples": [
+        "They tried her as a juvenile for shoplifting."
+      ]
+    }
+  ]
+}

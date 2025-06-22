@@ -1,0 +1,29 @@
+{
+  "members": [
+    "go",
+    "pull"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "I went for the first candidate."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.beneficiary",
+        "PP.theme"
+      ],
+      "examples": [
+        "I went for the first candidate in the gubernatorial race."
+      ]
+    }
+  ]
+}

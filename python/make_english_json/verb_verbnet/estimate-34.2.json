@@ -1,0 +1,28 @@
+{
+  "members": [
+    "approximate",
+    "assess",
+    "estimate",
+    "gauge",
+    "guess",
+    "guesstimate",
+    "judge",
+    "overestimate",
+    "project",
+    "put",
+    "quantize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "He put the probability at 0.9."
+      ]
+    }
+  ]
+}

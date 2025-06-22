@@ -1,0 +1,99 @@
+{
+  "members": [
+    "appreciate",
+    "apprehend",
+    "comprehend",
+    "fathom",
+    "follow",
+    "get",
+    "grasp",
+    "know",
+    "misapprehend",
+    "misconstrue",
+    "misinterpret",
+    "misunderstand",
+    "read",
+    "realize",
+    "recognise",
+    "recognize",
+    "see",
+    "understand"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I understood how she did it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I understood the problem."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "I understood it as a joke."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "I understood their wanting more minutes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "why",
+        "S"
+      ],
+      "examples": [
+        "I understood why we should help them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I understood what we should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I understood that he is a good doctor."
+      ]
+    }
+  ]
+}

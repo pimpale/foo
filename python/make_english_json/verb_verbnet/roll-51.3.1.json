@@ -1,0 +1,136 @@
+{
+  "members": [
+    "bounce",
+    "coil",
+    "drift",
+    "drop",
+    "float",
+    "glide",
+    "move",
+    "nose",
+    "revolve",
+    "roll",
+    "rotate",
+    "slide",
+    "snake",
+    "soar",
+    "spin",
+    "spiral",
+    "swing",
+    "turn",
+    "twirl",
+    "twist",
+    "undulate",
+    "whirl",
+    "wind"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V"
+      ],
+      "examples": [
+        "The ball rolled."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "The ball rolled down the hill."
+      ]
+    },
+    {
+      "primary": [
+        "NP.theme",
+        "V",
+        "PP.source",
+        "PP.trajectory",
+        "PP.destination"
+      ],
+      "examples": [
+        "The ball rolled off the table, down the hall, and into the kitchen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Bill rolled the ball."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Bill rolled the ball down the hill."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP.theme",
+        "PP.source",
+        "PP.trajectory",
+        "PP.destination"
+      ],
+      "examples": [
+        "Bill rolled the ball off the ramp, through the tunnel, and into the hole."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ.result"
+      ],
+      "examples": [
+        "The drawer rolled open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.result"
+      ],
+      "examples": [
+        "The drawer rolled to an open position."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ.result"
+      ],
+      "examples": [
+        "Bill rolled the drawer open."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Bill rolled the drawer to an open position."
+      ]
+    }
+  ]
+}

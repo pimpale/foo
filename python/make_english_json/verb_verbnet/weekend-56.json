@@ -1,0 +1,26 @@
+{
+  "members": [
+    "December",
+    "holiday",
+    "honeymoon",
+    "junket",
+    "overnight",
+    "sojourn",
+    "summer",
+    "vacation",
+    "weekend",
+    "winter"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "My family always summered at the seashore."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "members": [
+    "bounce",
+    "dart",
+    "float",
+    "move",
+    "pull",
+    "roll",
+    "scoot",
+    "slide"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The books slid."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "The books slid from the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "The books slid to the floor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "The books slid from the table to the floor."
+      ]
+    },
+    {
+      "primary": [
+        "NP.agent",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Carla slid the books."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Carla slid the books across the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Carla slid the books to the floor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "Carla slid the books from one end of the table to the other."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.destination",
+        "PP.initial_location"
+      ],
+      "examples": [
+        "John slid Carla the book from across the table."
+      ]
+    }
+  ]
+}

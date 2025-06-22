@@ -1,0 +1,26 @@
+{
+  "members": [
+    "deter",
+    "discourage",
+    "dissuade",
+    "hamper",
+    "hinder",
+    "impede",
+    "inhibit",
+    "obstruct",
+    "restrain"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.eventuality"
+      ],
+      "examples": [
+        "The sign discouraged us from smoking."
+      ]
+    }
+  ]
+}

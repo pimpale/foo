@@ -1,0 +1,62 @@
+{
+  "members": [
+    "collaborate",
+    "cooperate",
+    "join"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They collaborated on the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "John collaborated with Paul on the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They collaborated in the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "John collaborated with Paul in the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "They collaborated in working on the task."
+      ]
+    }
+  ]
+}

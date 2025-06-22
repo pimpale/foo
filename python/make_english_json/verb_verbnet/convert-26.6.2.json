@@ -1,0 +1,45 @@
+{
+  "members": [
+    "advert",
+    "change_over",
+    "come_around",
+    "convert",
+    "fall",
+    "get",
+    "get_around",
+    "get_down",
+    "go_back",
+    "move_over",
+    "resort",
+    "return",
+    "revert",
+    "settle_down",
+    "shift",
+    "switch",
+    "switch_over",
+    "take",
+    "turn"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "He converted to believing in Buddha."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.goal"
+      ],
+      "examples": [
+        "He converted to Buddhism."
+      ]
+    }
+  ]
+}

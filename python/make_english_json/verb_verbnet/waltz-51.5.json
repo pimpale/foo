@@ -1,0 +1,79 @@
+{
+  "members": [
+    "boogie",
+    "bop",
+    "cancan",
+    "clog",
+    "conga",
+    "dance",
+    "foxtrot",
+    "jig",
+    "jitterbug",
+    "jive",
+    "pirouette",
+    "polka",
+    "quickstep",
+    "rumba",
+    "samba",
+    "shuffle",
+    "squaredance",
+    "tango",
+    "tapdance",
+    "waltz"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP.theme",
+        "V"
+      ],
+      "examples": [
+        "They waltzed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory",
+        "PP.goal"
+      ],
+      "examples": [
+        "They waltzed across the room and into the hallway."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "He waltzed her across the floor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJP"
+      ],
+      "examples": [
+        "He waltzed her dizzy."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "He waltzed her to exhaustion."
+      ]
+    }
+  ]
+}

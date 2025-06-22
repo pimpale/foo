@@ -1,0 +1,20 @@
+{
+  "members": [
+    "breast",
+    "hit",
+    "make",
+    "reach"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They reached the hill."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "members": [
+    "keep",
+    "leave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADJ"
+      ],
+      "examples": [
+        "They kept the government strong."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "members": [
+    "bash",
+    "bat",
+    "boot",
+    "bunt",
+    "catapult",
+    "chuck",
+    "fire",
+    "flick",
+    "fling",
+    "flip",
+    "hit",
+    "hurl",
+    "kick",
+    "knock",
+    "launch",
+    "lob",
+    "loft",
+    "nudge",
+    "pass",
+    "pitch",
+    "punt",
+    "shoot",
+    "shove",
+    "slam",
+    "slap",
+    "sling",
+    "smash",
+    "tap",
+    "throw",
+    "tip",
+    "toss"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Steve tossed John the ball."
+      ]
+    }
+  ]
+}

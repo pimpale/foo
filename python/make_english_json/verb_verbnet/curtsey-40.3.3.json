@@ -1,0 +1,53 @@
+{
+  "members": [
+    "bob",
+    "bow",
+    "curtsey",
+    "genuflect",
+    "kneel",
+    "salaam",
+    "salute"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The princess curtseyed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The princess curtseyed to the queen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The princess curtseyed her assent."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The princess curtsied her assent to the queen."
+      ]
+    }
+  ]
+}

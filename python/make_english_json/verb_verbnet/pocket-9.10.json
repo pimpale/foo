@@ -1,0 +1,85 @@
+{
+  "members": [
+    "archive",
+    "bag",
+    "bank",
+    "barrack",
+    "beach",
+    "bed",
+    "bench",
+    "berth",
+    "billet",
+    "bin",
+    "bottle",
+    "box",
+    "cage",
+    "can",
+    "case",
+    "cellar",
+    "cloister",
+    "coop",
+    "corral",
+    "crate",
+    "cup",
+    "dock",
+    "drydock",
+    "file",
+    "fork",
+    "garage",
+    "ground",
+    "hangar",
+    "house",
+    "imprison",
+    "jail",
+    "jar",
+    "jug",
+    "kennel",
+    "land",
+    "lodge",
+    "moor",
+    "pasture",
+    "pen",
+    "pillory",
+    "pocket",
+    "pot",
+    "sheathe",
+    "shelve",
+    "shoulder",
+    "skewer",
+    "snare",
+    "spindle",
+    "spit",
+    "spool",
+    "stable",
+    "string",
+    "tassel",
+    "tin",
+    "trap",
+    "tree",
+    "warehouse",
+    "wharf"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "Lydia pocketed the change."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "We bottled the cider in 1 gallon jugs."
+      ]
+    }
+  ]
+}

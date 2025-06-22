@@ -1,0 +1,33 @@
+{
+  "members": [
+    "defecate",
+    "exhale",
+    "expectorate",
+    "hemorrhage",
+    "perspire",
+    "regurgitate",
+    "urinate",
+    "whiff"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Paul exhaled."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Paul exhaled a breath."
+      ]
+    }
+  ]
+}

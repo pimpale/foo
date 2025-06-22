@@ -1,0 +1,64 @@
+{
+  "members": [
+    "antique",
+    "berry",
+    "birdnest",
+    "blackberry",
+    "clam",
+    "crab",
+    "fish",
+    "fowl",
+    "grouse",
+    "hawk",
+    "hay",
+    "hog",
+    "log",
+    "mushroom",
+    "nest",
+    "nut",
+    "oyster",
+    "pearl",
+    "prawn",
+    "rabbit",
+    "scollop",
+    "seal",
+    "shark",
+    "shrimp",
+    "snail",
+    "snipe",
+    "sponge",
+    "whale",
+    "whelk",
+    "whore"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The children berried in the summer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The children went fishing."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The children fished the pond."
+      ]
+    }
+  ]
+}

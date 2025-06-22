@@ -1,0 +1,17 @@
+{
+  "members": [
+    "need"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "Success needs to happen quickly."
+      ]
+    }
+  ]
+}

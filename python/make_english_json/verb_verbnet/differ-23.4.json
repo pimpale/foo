@@ -1,0 +1,30 @@
+{
+  "members": [
+    "branch",
+    "deviate",
+    "differ",
+    "diverge",
+    "vary"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "The winter schedule differed from the spring schedule."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The U.S. version and the U.K. version differed."
+      ]
+    }
+  ]
+}

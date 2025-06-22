@@ -1,0 +1,17 @@
+{
+  "members": [
+    "manage"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I managed to pass the test."
+      ]
+    }
+  ]
+}

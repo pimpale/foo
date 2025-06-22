@@ -1,0 +1,76 @@
+{
+  "members": [
+    "advance",
+    "approach",
+    "arrive",
+    "ascend",
+    "bolt",
+    "climb",
+    "come",
+    "continue",
+    "cross",
+    "cut",
+    "decamp",
+    "depart",
+    "descend",
+    "disembark",
+    "emerge",
+    "emigrate",
+    "enter",
+    "escape",
+    "exit",
+    "fall",
+    "file",
+    "flee",
+    "get",
+    "go",
+    "leave",
+    "make_it",
+    "pass",
+    "plunge",
+    "recede",
+    "retreat",
+    "return",
+    "rise",
+    "set_off",
+    "set_out",
+    "skedaddle",
+    "tumble",
+    "vacate",
+    "vamoose",
+    "withdraw"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.destination"
+      ],
+      "examples": [
+        "He came to Colorado."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "He came through the door."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "He came from France to Colorado."
+      ]
+    }
+  ]
+}

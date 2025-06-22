@@ -1,0 +1,42 @@
+{
+  "members": [
+    "pronounce",
+    "say",
+    "spell"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "NP"
+      ],
+      "examples": [
+        "She pronounces it 'con-TROV-er-sy'."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.manner"
+      ],
+      "examples": [
+        "She says 'enchilada' with a proper Mexican accent."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADVP"
+      ],
+      "examples": [
+        "You spelled 'Kalamazoo' incorrectly."
+      ]
+    }
+  ]
+}

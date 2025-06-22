@@ -1,0 +1,59 @@
+{
+  "members": [
+    "adorn",
+    "bathe",
+    "bind",
+    "blanket",
+    "block",
+    "carpet",
+    "cloak",
+    "coat",
+    "cover",
+    "dapple",
+    "deck",
+    "decorate",
+    "disguise",
+    "douse",
+    "drench",
+    "edge",
+    "encrust",
+    "entangle",
+    "face",
+    "festoon",
+    "frame",
+    "line",
+    "marinate",
+    "panel",
+    "pave",
+    "redecorate",
+    "robe",
+    "saturate",
+    "shroud",
+    "smother",
+    "soak",
+    "speckle",
+    "spot",
+    "stain",
+    "surround",
+    "swaddle",
+    "swathe",
+    "tile",
+    "tool",
+    "trim",
+    "veil",
+    "vein"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Leigh swaddled the baby in blankets."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "members": [
+    "advise",
+    "announce",
+    "articulate",
+    "blab",
+    "blurt",
+    "claim",
+    "confess",
+    "confide",
+    "convey",
+    "declare",
+    "interject",
+    "interpose",
+    "mention",
+    "note",
+    "observe",
+    "proclaim",
+    "propose",
+    "purpose",
+    "recommend",
+    "recount",
+    "reiterate",
+    "relate",
+    "remark",
+    "repeat",
+    "report",
+    "reveal",
+    "say",
+    "state",
+    "suggest",
+    "volunteer"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He ordered that he go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "John suggested that he should go."
+      ]
+    }
+  ]
+}

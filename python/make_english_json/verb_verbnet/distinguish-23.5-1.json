@@ -1,0 +1,29 @@
+{
+  "members": [
+    "differentiate",
+    "distinguish"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "Cultural differences distinguished Babylon."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The Chinese differentiate between two types.                                                                                                                                                                                                                                                                                                                                                                                                of faces."
+      ]
+    }
+  ]
+}

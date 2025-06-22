@@ -1,0 +1,33 @@
+{
+  "members": [
+    "back_out",
+    "bow_out",
+    "chicken_out",
+    "get_out",
+    "pull_out",
+    "wriggle_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source"
+      ],
+      "examples": [
+        "He backed out of the trip."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.source",
+        "S_ING"
+      ],
+      "examples": [
+        "He backed out of going on the trip."
+      ]
+    }
+  ]
+}

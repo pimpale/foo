@@ -1,0 +1,43 @@
+{
+  "members": [
+    "dig",
+    "jab",
+    "poke",
+    "stab",
+    "stick"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "Allison stabbed at him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "PP.instrument"
+      ],
+      "examples": [
+        "Allison stabbed at him with a knife."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.instrument",
+        "PP.theme"
+      ],
+      "examples": [
+        "Allison jabbed her finger at him."
+      ]
+    }
+  ]
+}

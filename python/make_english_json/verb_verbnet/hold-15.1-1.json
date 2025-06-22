@@ -1,0 +1,22 @@
+{
+  "members": [
+    "clasp",
+    "clutch",
+    "grab",
+    "grasp",
+    "grip",
+    "hold"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She held his arm."
+      ]
+    }
+  ]
+}

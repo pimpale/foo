@@ -1,0 +1,79 @@
+{
+  "members": [
+    "accord",
+    "advance",
+    "allocate",
+    "allot",
+    "allow",
+    "apportion",
+    "assign",
+    "award",
+    "bequeath",
+    "cede",
+    "concede",
+    "devolve",
+    "extend",
+    "grant",
+    "guarantee",
+    "issue",
+    "leave",
+    "offer",
+    "owe",
+    "pledge",
+    "portion-out",
+    "proffer",
+    "promise",
+    "ration",
+    "reallocate",
+    "reassign",
+    "vote",
+    "will",
+    "yield"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "We offered our paycheck to her."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "(PP)"
+      ],
+      "examples": [
+        "I bequeathed my house."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.goal",
+        "NP"
+      ],
+      "examples": [
+        "I promised somebody my time."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.goal"
+      ],
+      "examples": [
+        "The House allocated more than $1.8 million to the pensions and expenses of former presidents."
+      ]
+    }
+  ]
+}

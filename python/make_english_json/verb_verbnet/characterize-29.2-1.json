@@ -1,0 +1,45 @@
+{
+  "members": [
+    "accept",
+    "characterize",
+    "conceive",
+    "define",
+    "describe",
+    "envisage",
+    "identify",
+    "imagine",
+    "portray",
+    "recollect",
+    "remember",
+    "report",
+    "represent",
+    "reveal",
+    "underestimate",
+    "view",
+    "visualize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "He imagined how he could rise to high office."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "He imagined how to do it."
+      ]
+    }
+  ]
+}

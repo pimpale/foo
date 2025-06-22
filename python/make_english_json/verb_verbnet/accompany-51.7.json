@@ -1,0 +1,35 @@
+{
+  "members": [
+    "accompany",
+    "conduct",
+    "escort",
+    "guide",
+    "lead",
+    "misdirect",
+    "shepherd",
+    "steer"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Jackie accompanied Rose."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "Jackie accompanied Rose to the store."
+      ]
+    }
+  ]
+}

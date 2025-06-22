@@ -1,0 +1,81 @@
+{
+  "members": [
+    "analyse",
+    "analyze",
+    "appraise",
+    "assay",
+    "assess",
+    "audit",
+    "check",
+    "consult",
+    "evaluate",
+    "examine",
+    "feel_out",
+    "follow",
+    "go_over",
+    "inspect",
+    "investigate",
+    "monitor",
+    "peruse",
+    "proofread",
+    "regard",
+    "research",
+    "review",
+    "sample",
+    "scan",
+    "scrutinize",
+    "study",
+    "surveil",
+    "survey",
+    "taste",
+    "test",
+    "try",
+    "try_on",
+    "try_out",
+    "watch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The inspector analyzed the building."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "The inspector analyzed the building for its soundness."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.attribute"
+      ],
+      "examples": [
+        "The inspector analyzed the building's soundness."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.value"
+      ],
+      "examples": [
+        "The inspector analyzed the building as sound."
+      ]
+    }
+  ]
+}

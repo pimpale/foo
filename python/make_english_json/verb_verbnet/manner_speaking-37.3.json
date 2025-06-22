@@ -1,0 +1,258 @@
+{
+  "members": [
+    "babble",
+    "bark",
+    "bawl",
+    "bellow",
+    "blare",
+    "bleat",
+    "blubber",
+    "bluster",
+    "boom",
+    "bray",
+    "burble",
+    "cackle",
+    "call",
+    "carol",
+    "chant",
+    "chatter",
+    "chirp",
+    "chortle",
+    "chuckle",
+    "cluck",
+    "coo",
+    "croak",
+    "croon",
+    "crow",
+    "cry",
+    "drawl",
+    "drone",
+    "gabble",
+    "gasp",
+    "gibber",
+    "groan",
+    "growl",
+    "grumble",
+    "grunt",
+    "gurgle",
+    "hiss",
+    "holler",
+    "hoot",
+    "howl",
+    "hum",
+    "jabber",
+    "keen",
+    "lilt",
+    "lisp",
+    "mewl",
+    "moan",
+    "mumble",
+    "murmur",
+    "mutter",
+    "nasal",
+    "natter",
+    "pant",
+    "prattle",
+    "purr",
+    "quaver",
+    "rage",
+    "rant",
+    "rasp",
+    "roar",
+    "rumble",
+    "scream",
+    "screech",
+    "shout",
+    "shriek",
+    "sibilate",
+    "sigh",
+    "simper",
+    "sing",
+    "smatter",
+    "smile",
+    "snap",
+    "snarl",
+    "snivel",
+    "snuffle",
+    "splutter",
+    "squall",
+    "squawk",
+    "squeak",
+    "squeal",
+    "stammer",
+    "stemmer",
+    "stutter",
+    "thunder",
+    "tisk",
+    "trill",
+    "trumpet",
+    "twang",
+    "twitter",
+    "vociferate",
+    "wail",
+    "warble",
+    "wheeze",
+    "whimper",
+    "whine",
+    "whisper",
+    "whistle",
+    "whoop",
+    "witter",
+    "yammer",
+    "yap",
+    "yell",
+    "yelp",
+    "yodel"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan whispered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Susan whispered to/at Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan whispered about the party."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Susan whispered the news/a few words."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S-Quote"
+      ],
+      "examples": [
+        "Susan whispered, 'Leave the room.'"
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "Susan whispered the news/a few words to/at Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Susan whispered that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "Susan whispered how to avoid the crowd."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "Susan whispered to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Susan whispered to Rachel that the party would be tonight."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "Susan whispered to Rachel how to avoid the crowd."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S_INF"
+      ],
+      "examples": [
+        "Susan whispered to Rachel to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S_INF"
+      ],
+      "examples": [
+        "Susan whispered for me to come."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "S-Quote"
+      ],
+      "examples": [
+        "Susan whispered to Rachel, 'Leave the room.'"
+      ]
+    }
+  ]
+}

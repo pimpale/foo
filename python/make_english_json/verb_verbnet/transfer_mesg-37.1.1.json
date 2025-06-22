@@ -1,0 +1,134 @@
+{
+  "members": [
+    "boil_down",
+    "communicate",
+    "corroborate",
+    "demonstrate",
+    "dictate",
+    "elucidate",
+    "explain",
+    "explicate",
+    "expound",
+    "illustrate",
+    "justify",
+    "narrate",
+    "outline",
+    "pose",
+    "preach",
+    "quote",
+    "read",
+    "recap",
+    "recite",
+    "relay",
+    "show",
+    "sniff",
+    "snitch",
+    "sum_up",
+    "summarize",
+    "teach",
+    "tell",
+    "verify",
+    "write",
+    "write_in"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I explained how it can be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I explained to her how it can be done."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained to her how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I explained what he should do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "I explained what to do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I explained the matter."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "I explained the matter to them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "I explained."
+      ]
+    }
+  ]
+}

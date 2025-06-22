@@ -1,0 +1,65 @@
+{
+  "members": [
+    "blow",
+    "bucket",
+    "clear",
+    "drizzle",
+    "fog",
+    "freeze",
+    "frost",
+    "graupel",
+    "gust",
+    "hail",
+    "howl",
+    "lightning",
+    "mist",
+    "mizzle",
+    "pelt",
+    "pour",
+    "precipitate",
+    "rain",
+    "roar",
+    "shower",
+    "sleet",
+    "snow",
+    "spit",
+    "spot",
+    "sprinkle",
+    "storm",
+    "swelter",
+    "teem",
+    "thaw",
+    "thunder"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "It",
+        "V"
+      ],
+      "examples": [
+        "It's raining."
+      ]
+    },
+    {
+      "primary": [
+        "It",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "It's raining cats and dogs."
+      ]
+    },
+    {
+      "primary": [
+        "It",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "It was pelting with rain."
+      ]
+    }
+  ]
+}

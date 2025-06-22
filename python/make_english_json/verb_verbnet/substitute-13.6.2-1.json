@@ -1,0 +1,18 @@
+{
+  "members": [
+    "replace",
+    "supplant"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Video replaced radio."
+      ]
+    }
+  ]
+}

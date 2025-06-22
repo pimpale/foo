@@ -1,0 +1,24 @@
+{
+  "members": [
+    "admit",
+    "allow",
+    "hail",
+    "include",
+    "let",
+    "permit",
+    "receive",
+    "welcome"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She admitted us."
+      ]
+    }
+  ]
+}

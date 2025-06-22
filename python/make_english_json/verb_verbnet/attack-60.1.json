@@ -1,0 +1,30 @@
+{
+  "members": [
+    "ambush",
+    "assail",
+    "assault",
+    "attack",
+    "bomb",
+    "bombard",
+    "charge",
+    "fall_upon",
+    "jump",
+    "lay_into",
+    "raid",
+    "round_on",
+    "set_upon",
+    "strike"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John attacked Simon."
+      ]
+    }
+  ]
+}

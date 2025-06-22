@@ -1,0 +1,42 @@
+{
+  "members": [
+    "demand",
+    "involve",
+    "necessitate",
+    "require"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Success requires hard work from us."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "Success requires everyone to work hard."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "Success requires working long hours."
+      ]
+    }
+  ]
+}

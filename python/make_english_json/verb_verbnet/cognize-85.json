@@ -1,0 +1,41 @@
+{
+  "members": [
+    "cognize",
+    "daydream",
+    "dream",
+    "visualize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "We consciously cognized our environment."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "She cognized about what mattered."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "We cognized that we ran the risk of allowing subsidized farm imports."
+      ]
+    }
+  ]
+}

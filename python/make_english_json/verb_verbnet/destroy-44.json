@@ -1,0 +1,68 @@
+{
+  "members": [
+    "annihilate",
+    "blight",
+    "blitz",
+    "damage",
+    "decimate",
+    "demolish",
+    "desecrate",
+    "destroy",
+    "devastate",
+    "disfigure",
+    "efface",
+    "exterminate",
+    "extirpate",
+    "level",
+    "louse_up",
+    "maim",
+    "mutilate",
+    "obliterate",
+    "rack",
+    "ravage",
+    "raze",
+    "ruin",
+    "shatter",
+    "shipwreck",
+    "smoke",
+    "undo",
+    "unmake",
+    "vaporize",
+    "waste",
+    "wrack",
+    "wreck"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The Romans destroyed the city."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "The builders destroyed the warehouse with explosives."
+      ]
+    },
+    {
+      "primary": [
+        "NP.instrument",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The explosives destroyed the warehouse."
+      ]
+    }
+  ]
+}

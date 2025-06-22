@@ -1,0 +1,17 @@
+{
+  "members": [
+    "wear"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "She wore the purple dress."
+      ]
+    }
+  ]
+}

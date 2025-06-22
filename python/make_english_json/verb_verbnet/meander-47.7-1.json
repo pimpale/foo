@@ -1,0 +1,35 @@
+{
+  "members": [
+    "ascend",
+    "bend",
+    "climb",
+    "converge",
+    "crisscross",
+    "descend",
+    "dip",
+    "drop",
+    "meander",
+    "plummit",
+    "plunge",
+    "rise",
+    "run",
+    "slant",
+    "snake",
+    "swerve",
+    "turn",
+    "twist",
+    "undulate",
+    "zigzag"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The river was twisting."
+      ]
+    }
+  ]
+}

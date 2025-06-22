@@ -1,0 +1,45 @@
+{
+  "members": [
+    "demand",
+    "involve",
+    "necessitate",
+    "need",
+    "require",
+    "take"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Success requires hard work."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "for",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "Success requires for us to work hard."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "Success requires that we work hard."
+      ]
+    }
+  ]
+}

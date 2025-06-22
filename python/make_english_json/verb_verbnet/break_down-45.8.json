@@ -1,0 +1,30 @@
+{
+  "members": [
+    "break_down",
+    "croak",
+    "die",
+    "expire",
+    "fall_apart",
+    "fizzle_out",
+    "give",
+    "give_out",
+    "give_way",
+    "go_down",
+    "go_off",
+    "go_out",
+    "kick_the_bucket",
+    "perish",
+    "poop_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The bridge gave way."
+      ]
+    }
+  ]
+}

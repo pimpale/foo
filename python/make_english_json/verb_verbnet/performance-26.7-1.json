@@ -1,0 +1,25 @@
+{
+  "members": [
+    "dance",
+    "hum",
+    "play",
+    "recite",
+    "replay",
+    "sing",
+    "stage",
+    "whistle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.beneficiary",
+        "NP"
+      ],
+      "examples": [
+        "Claire drew me a picture."
+      ]
+    }
+  ]
+}

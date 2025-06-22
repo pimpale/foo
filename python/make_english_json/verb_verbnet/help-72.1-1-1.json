@@ -1,0 +1,20 @@
+{
+  "members": [
+    "abet",
+    "aid",
+    "assist",
+    "help"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "I helped with the homework."
+      ]
+    }
+  ]
+}

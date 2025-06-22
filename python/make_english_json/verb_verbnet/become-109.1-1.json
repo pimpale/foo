@@ -1,0 +1,23 @@
+{
+  "members": [
+    "become",
+    "come",
+    "end_up",
+    "fall",
+    "go",
+    "grow",
+    "leave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "The matter fell into dispute."
+      ]
+    }
+  ]
+}

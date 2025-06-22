@@ -1,0 +1,26 @@
+{
+  "members": [
+    "bear",
+    "bolster",
+    "boost",
+    "buoy",
+    "buttress",
+    "hold",
+    "hold_up",
+    "reinforce",
+    "strengthen",
+    "support"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "This rock bears the weight of the fallen tree."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "members": [
+    "back",
+    "bounce",
+    "bowl",
+    "canter",
+    "coast",
+    "dart",
+    "dash",
+    "drift",
+    "float",
+    "fly",
+    "gallop",
+    "glide",
+    "hasten",
+    "hobble",
+    "hurry",
+    "hurtle",
+    "inch",
+    "jog",
+    "jump",
+    "lope",
+    "march",
+    "parade",
+    "prance",
+    "promenade",
+    "race",
+    "roll",
+    "run",
+    "rush",
+    "scoot",
+    "skip",
+    "skitter",
+    "slide",
+    "sneak",
+    "speed",
+    "strut",
+    "tack",
+    "trip",
+    "trot",
+    "walk"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Tom jumped the horse over the fence."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "The lion tamer jumped the lions through the loop."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Tom jumped the horse."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The lion tamer jumped the lions."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.destination",
+        "PP.trajectory"
+      ],
+      "examples": [
+        "Tom ran the horse from the stable to the pasture through an open gate."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "Tom walked the dog to exhaustion."
+      ]
+    }
+  ]
+}

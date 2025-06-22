@@ -1,0 +1,22 @@
+{
+  "members": [
+    "heave",
+    "kick",
+    "push",
+    "shove",
+    "thrust"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Dative",
+        "NP"
+      ],
+      "examples": [
+        "Amanda shoved John the box."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "members": [
+    "disburse",
+    "extend",
+    "proffer",
+    "reimburse",
+    "transfer"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "They will reimburse them up to $500."
+      ]
+    }
+  ]
+}

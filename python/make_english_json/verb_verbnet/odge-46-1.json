@@ -1,0 +1,27 @@
+{
+  "members": [
+    "barrack",
+    "bivouac",
+    "board",
+    "bunk",
+    "camp",
+    "lodge",
+    "quarter",
+    "room",
+    "settle",
+    "shelter"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.location"
+      ],
+      "examples": [
+        "They quartered the guests in the well house."
+      ]
+    }
+  ]
+}

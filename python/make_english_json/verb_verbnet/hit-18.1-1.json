@@ -1,0 +1,47 @@
+{
+  "members": [
+    "batter",
+    "beat",
+    "bump",
+    "butt",
+    "drum",
+    "hammer",
+    "hit",
+    "jab",
+    "kick",
+    "knock",
+    "lash",
+    "pound",
+    "rap",
+    "slap",
+    "smack",
+    "smash",
+    "stomp",
+    "strike",
+    "tap",
+    "whang"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "Paul hit at the window."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP",
+        "PP"
+      ],
+      "examples": [
+        "Paul hit at the window with an open hand."
+      ]
+    }
+  ]
+}

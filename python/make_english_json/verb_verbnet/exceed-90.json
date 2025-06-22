@@ -1,0 +1,47 @@
+{
+  "members": [
+    "better",
+    "exceed",
+    "lap",
+    "outbid",
+    "outdo",
+    "outmatch",
+    "outnumber",
+    "outrace",
+    "outshine",
+    "outsmart",
+    "outstrip",
+    "outweigh",
+    "outwit",
+    "overcome",
+    "overleap",
+    "overreach",
+    "overstep",
+    "surpass",
+    "top",
+    "transcend"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Her performance exceeded our expectations."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "Her performance exceeded ours in brilliance."
+      ]
+    }
+  ]
+}

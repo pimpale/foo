@@ -1,0 +1,142 @@
+{
+  "members": [
+    "baa",
+    "bark",
+    "bay",
+    "bellow",
+    "blat",
+    "bleat",
+    "boom",
+    "bray",
+    "buzz",
+    "cackle",
+    "call",
+    "caw",
+    "chatter",
+    "cheep",
+    "chirp",
+    "chirrup",
+    "chitter",
+    "cluck",
+    "coo",
+    "croak",
+    "crow",
+    "cuckoo",
+    "drone",
+    "gobble",
+    "groan",
+    "growl",
+    "grunt",
+    "hee-haw",
+    "hiss",
+    "honk",
+    "hoot",
+    "howl",
+    "ki-yi",
+    "low",
+    "meow",
+    "mew",
+    "moan",
+    "moo",
+    "neigh",
+    "oink",
+    "peep",
+    "pipe",
+    "purr",
+    "quack",
+    "rattle",
+    "roar",
+    "rooroo",
+    "rumble",
+    "scrawk",
+    "screech",
+    "snarl",
+    "squawk",
+    "squeak",
+    "squeal",
+    "stridulate",
+    "thunder",
+    "trill",
+    "trumpet",
+    "tweet",
+    "twitter",
+    "ululate",
+    "wail",
+    "warble",
+    "wheeze",
+    "whimper",
+    "whine",
+    "whinny",
+    "whistle",
+    "woof",
+    "yap",
+    "yell",
+    "yelp",
+    "yip",
+    "yowl"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The dog barked."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The dog barked at the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The dog barked a warning."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.recipient"
+      ],
+      "examples": [
+        "The dog barked a warning at the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "The dog barked at the sight of the cat."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.theme",
+        "PP.recipient",
+        "PP.stimulus"
+      ],
+      "examples": [
+        "The dog whimpered a moan to his owner at the sight of the cat."
+      ]
+    }
+  ]
+}

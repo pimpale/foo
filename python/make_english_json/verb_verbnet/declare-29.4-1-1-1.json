@@ -1,0 +1,17 @@
+{
+  "members": [
+    "declare"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The country declared war."
+      ]
+    }
+  ]
+}

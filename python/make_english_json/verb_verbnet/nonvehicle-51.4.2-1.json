@@ -1,0 +1,23 @@
+{
+  "members": [
+    "cruise",
+    "drive",
+    "fly",
+    "navigate",
+    "sail",
+    "tack",
+    "wing"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP"
+      ],
+      "examples": [
+        "The boat sailed across the lake."
+      ]
+    }
+  ]
+}

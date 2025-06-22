@@ -1,0 +1,30 @@
+{
+  "members": [
+    "affirm",
+    "confirm",
+    "demonstrate",
+    "disclose",
+    "establish",
+    "prove",
+    "reaffirm",
+    "reveal",
+    "show",
+    "suggest",
+    "verify"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "This indicates him to be the thief."
+      ]
+    }
+  ]
+}

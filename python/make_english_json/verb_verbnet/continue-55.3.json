@@ -1,0 +1,45 @@
+{
+  "members": [
+    "continue"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "He continued to pack."
+      ]
+    },
+    {
+      "primary": [
+        "NP.eventuality",
+        "V"
+      ],
+      "examples": [
+        "The storm continued."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He continued."
+      ]
+    },
+    {
+      "primary": [
+        "NP.eventuality",
+        "V",
+        "PP.subeventuality"
+      ],
+      "examples": [
+        "The meeting continued with a discussion."
+      ]
+    }
+  ]
+}

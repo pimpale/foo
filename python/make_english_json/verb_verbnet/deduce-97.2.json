@@ -1,0 +1,62 @@
+{
+  "members": [
+    "conceive",
+    "conclude",
+    "deduce",
+    "deduct",
+    "derive",
+    "disprove",
+    "gather",
+    "infer",
+    "prove",
+    "rationalize",
+    "reason",
+    "reason_out"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He deduced the truth about the story."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "He deduced the truth from the facts."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S",
+        "PP.theme"
+      ],
+      "examples": [
+        "He deduced that she was a spy from the miniature camera she had in her pen."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He deduced that this factor must have influenced the system."
+      ]
+    }
+  ]
+}

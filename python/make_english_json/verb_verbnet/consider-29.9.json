@@ -1,0 +1,63 @@
+{
+  "members": [
+    "acknowledge",
+    "consider",
+    "deem",
+    "esteem",
+    "posit",
+    "rate",
+    "reckon",
+    "suppose",
+    "suspect",
+    "think"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I considered how he could become professor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "I considered how to be a professor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "They considered him to be a mentor."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "They considered that he was their mentor.",
+        "They acknowledged that they had caused the accident."
+      ]
+    }
+  ]
+}

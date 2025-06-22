@@ -1,0 +1,42 @@
+{
+  "members": [
+    "feel",
+    "look",
+    "smell",
+    "sound",
+    "taste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ"
+      ],
+      "examples": [
+        "That pea soup tasted delicious."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ",
+        "PP.experiencer"
+      ],
+      "examples": [
+        "That pea soup tasted delicious to me."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.attribute"
+      ],
+      "examples": [
+        "That pea soups tasted like heaven."
+      ]
+    }
+  ]
+}

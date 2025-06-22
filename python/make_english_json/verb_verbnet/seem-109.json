@@ -1,0 +1,28 @@
+{
+  "members": [
+    "act",
+    "appear",
+    "be",
+    "feel",
+    "keep",
+    "look",
+    "remain",
+    "seem",
+    "smell",
+    "sound",
+    "stay",
+    "taste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADJ"
+      ],
+      "examples": [
+        "He appeared crazy."
+      ]
+    }
+  ]
+}

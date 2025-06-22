@@ -1,0 +1,31 @@
+{
+  "members": [
+    "bristle",
+    "bulge",
+    "buzz",
+    "hum",
+    "hyperventilate",
+    "seethe"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The bag bulged with groceries."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The bag bulged."
+      ]
+    }
+  ]
+}

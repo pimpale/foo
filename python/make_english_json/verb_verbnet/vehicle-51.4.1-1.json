@@ -1,0 +1,29 @@
+{
+  "members": [
+    "bicycle",
+    "bike",
+    "canoe",
+    "cycle",
+    "kayak",
+    "motorbike",
+    "motorcycle",
+    "raft",
+    "skate",
+    "skateboard",
+    "ski",
+    "sled",
+    "toboggan"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Claire rickshawed the streets."
+      ]
+    }
+  ]
+}

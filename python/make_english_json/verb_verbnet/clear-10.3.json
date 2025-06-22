@@ -1,0 +1,43 @@
+{
+  "members": [
+    "clean",
+    "clear",
+    "drain",
+    "empty",
+    "hollow"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source"
+      ],
+      "examples": [
+        "The strong winds cleared the sky."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "Doug cleaned the dishes from the table."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.source",
+        "PP.theme"
+      ],
+      "examples": [
+        "Doug cleaned the table of dishes."
+      ]
+    }
+  ]
+}

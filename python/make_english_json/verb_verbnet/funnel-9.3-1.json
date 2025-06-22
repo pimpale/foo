@@ -1,0 +1,39 @@
+{
+  "members": [
+    "bang",
+    "channel",
+    "dump",
+    "fit",
+    "funnel",
+    "hammer",
+    "pound",
+    "push",
+    "rake",
+    "ram",
+    "scrape",
+    "shake",
+    "shovel",
+    "spoon",
+    "squash",
+    "squeeze",
+    "squish",
+    "sweep",
+    "tuck",
+    "wedge",
+    "wipe",
+    "wring"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.destination"
+      ],
+      "examples": [
+        "He wedged the diamond between shifting dunes."
+      ]
+    }
+  ]
+}

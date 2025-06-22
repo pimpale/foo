@@ -1,0 +1,52 @@
+{
+  "members": [
+    "labour",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "They worked on the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme"
+      ],
+      "examples": [
+        "John worked with Paul on the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "They worked at finishing the task."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "John worked with Paul at finishing the task."
+      ]
+    }
+  ]
+}

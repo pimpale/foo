@@ -1,0 +1,93 @@
+{
+  "members": [
+    "argue",
+    "chat",
+    "chatter",
+    "chitchat",
+    "confer",
+    "converse",
+    "debate",
+    "discuss",
+    "flirt",
+    "gab",
+    "gossip",
+    "jest",
+    "joke",
+    "palaver",
+    "rap",
+    "schmooze",
+    "yak"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan was chitchatting."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan chitchatted with Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan chitchatted with Rachel about the problem."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Susan and Rachel chitchatted."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "Susan chitchatted about the problem with Rachel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan and Rachel chitchatted about matters of great import."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "Susan chitchatted about matters of great import."
+      ]
+    }
+  ]
+}

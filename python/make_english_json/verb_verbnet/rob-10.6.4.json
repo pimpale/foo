@@ -1,0 +1,55 @@
+{
+  "members": [
+    "bleed",
+    "cull",
+    "milk",
+    "rob",
+    "strip"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The embezzler bled the money."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source"
+      ],
+      "examples": [
+        "The swindler milked 20 dollars from them."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief robbed the money for Mary."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.source",
+        "PP.beneficiary"
+      ],
+      "examples": [
+        "The thief robbed the money from John for Mary."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "members": [
+    "consume",
+    "misspend",
+    "reuse",
+    "spend",
+    "squander",
+    "use",
+    "waste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I spent all that money."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_ING"
+      ],
+      "examples": [
+        "I spent that money feeding my family."
+      ]
+    }
+  ]
+}

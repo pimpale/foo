@@ -1,0 +1,39 @@
+{
+  "members": [
+    "accredit",
+    "certify",
+    "copyright",
+    "credential",
+    "evidence",
+    "imitate",
+    "impersonate",
+    "license",
+    "patent",
+    "register",
+    "trademark",
+    "verify"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I patented my idea."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.result"
+      ],
+      "examples": [
+        "The International Cardiovascular Society credentialed her as a Certified Cardiovascular Technologist."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "members": [
+    "hop",
+    "journey",
+    "leap",
+    "pad",
+    "perambulate",
+    "plod",
+    "prowl",
+    "ramble",
+    "roam",
+    "rove",
+    "stride",
+    "stroll",
+    "sweep",
+    "swim",
+    "traipse",
+    "tramp",
+    "travel",
+    "trek",
+    "trudge",
+    "vault",
+    "wade",
+    "wander",
+    "wing"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The horse hopped the fence."
+      ]
+    }
+  ]
+}

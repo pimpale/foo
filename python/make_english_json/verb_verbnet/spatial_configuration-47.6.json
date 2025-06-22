@@ -1,0 +1,92 @@
+{
+  "members": [
+    "balance",
+    "bend",
+    "bow",
+    "crouch",
+    "dangle",
+    "droop",
+    "flop",
+    "fly",
+    "hang",
+    "hover",
+    "huddle",
+    "hunch",
+    "jut",
+    "kneel",
+    "lean",
+    "lie",
+    "loll",
+    "loom",
+    "lounge",
+    "nestle",
+    "open",
+    "perch",
+    "plop",
+    "project",
+    "protrude",
+    "recline",
+    "repose",
+    "rest",
+    "rise",
+    "roost",
+    "sag",
+    "sit",
+    "slope",
+    "slouch",
+    "slump",
+    "sprawl",
+    "squat",
+    "stand",
+    "stoop",
+    "straddle",
+    "suspend",
+    "swag",
+    "swing",
+    "tilt",
+    "tower",
+    "yaw"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John slouched."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The statue stood on the corner."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "PP",
+        "NP"
+      ],
+      "examples": [
+        "There stood on the corner a statue."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "On the pedestal stood a statue."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "members": [
+    "fail",
+    "neglect",
+    "omit"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "I neglected to do the job."
+      ]
+    }
+  ]
+}

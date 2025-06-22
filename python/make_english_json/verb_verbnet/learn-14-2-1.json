@@ -1,0 +1,55 @@
+{
+  "members": [
+    "find_out",
+    "hear",
+    "learn",
+    "read",
+    "study"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.topic"
+      ],
+      "examples": [
+        "The president learned of a coup plot that might endanger his life."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "S_ING"
+      ],
+      "examples": [
+        "I learned about his drinking."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I learned about what he drank."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme",
+        "PP.source"
+      ],
+      "examples": [
+        "I learned about it from a book."
+      ]
+    }
+  ]
+}

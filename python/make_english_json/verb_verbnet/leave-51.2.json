@@ -1,0 +1,30 @@
+{
+  "members": [
+    "abandon",
+    "desert",
+    "leave"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.initial_location"
+      ],
+      "examples": [
+        "He deserted his post."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.initial_location",
+        "PP.destination"
+      ],
+      "examples": [
+        "She left her husband for another man."
+      ]
+    }
+  ]
+}

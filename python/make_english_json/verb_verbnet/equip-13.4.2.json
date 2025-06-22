@@ -1,0 +1,39 @@
+{
+  "members": [
+    "arm",
+    "armor",
+    "burden",
+    "charge",
+    "compensate",
+    "encumber",
+    "equip",
+    "fortify",
+    "invest",
+    "outfit",
+    "overburden",
+    "ply",
+    "rearm",
+    "recompense",
+    "redress",
+    "regale",
+    "remunerate",
+    "repay",
+    "reward",
+    "saddle",
+    "treat",
+    "weight"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-Fulfilling",
+        "PP"
+      ],
+      "examples": [
+        "Brown equipped Jones with a camera."
+      ]
+    }
+  ]
+}

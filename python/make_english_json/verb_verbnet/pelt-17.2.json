@@ -1,0 +1,34 @@
+{
+  "members": [
+    "bombard",
+    "buffet",
+    "pelt",
+    "pepperspray",
+    "shell",
+    "shower",
+    "stone"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.theme"
+      ],
+      "examples": [
+        "Steve pelted Anna with acorns."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Steve pelted Anna."
+      ]
+    }
+  ]
+}

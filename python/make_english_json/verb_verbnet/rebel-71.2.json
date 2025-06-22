@@ -1,0 +1,21 @@
+{
+  "members": [
+    "discriminate",
+    "legislate",
+    "protest",
+    "rebel",
+    "retaliate",
+    "sin"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "John rebelled."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "members": [
+    "bolt",
+    "gobble",
+    "gulp",
+    "guzzle",
+    "quaff",
+    "slug",
+    "swallow",
+    "swig",
+    "wolf"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Cynthia gobbled the pizza."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "down"
+      ],
+      "examples": [
+        "Cynthia gobbled the pizza down."
+      ]
+    }
+  ]
+}

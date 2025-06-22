@@ -1,0 +1,19 @@
+{
+  "members": [
+    "cultivate",
+    "farm"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.material",
+        "PP.product"
+      ],
+      "examples": [
+        "The farmer cultivates the land for crops."
+      ]
+    }
+  ]
+}

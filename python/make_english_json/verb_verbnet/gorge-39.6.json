@@ -1,0 +1,24 @@
+{
+  "members": [
+    "exist",
+    "feed",
+    "flourish",
+    "gorge",
+    "prosper",
+    "subsist",
+    "survive",
+    "thrive"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.patient"
+      ],
+      "examples": [
+        "Cynthia gorged on peaches."
+      ]
+    }
+  ]
+}

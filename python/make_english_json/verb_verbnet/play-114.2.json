@@ -1,0 +1,37 @@
+{
+  "members": [
+    "frolic",
+    "play",
+    "recreate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Mary played."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-agent"
+      ],
+      "examples": [
+        "The Tigers played with the Red Sox."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The Tigers and the Red Sox played."
+      ]
+    }
+  ]
+}

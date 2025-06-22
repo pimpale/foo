@@ -1,0 +1,28 @@
+{
+  "members": [
+    "anticipate",
+    "believe",
+    "expect",
+    "foreknow",
+    "foresee",
+    "foretell",
+    "guess",
+    "infer",
+    "presume",
+    "prophesy",
+    "trust",
+    "vaticinate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "He trusted the woman's statement."
+      ]
+    }
+  ]
+}

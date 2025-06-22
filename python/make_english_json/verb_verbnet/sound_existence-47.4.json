@@ -1,0 +1,61 @@
+{
+  "members": [
+    "echo",
+    "resonate",
+    "resound",
+    "reverberate",
+    "roll",
+    "sound"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "The voices echoed."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "The voices echoed through the hall."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "There echoed voices through the hall."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Through the hall echoed a loud cry."
+      ]
+    },
+    {
+      "primary": [
+        "NP.location",
+        "V",
+        "NP.theme"
+      ],
+      "examples": [
+        "The hall echoed with voices."
+      ]
+    }
+  ]
+}

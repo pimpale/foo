@@ -1,0 +1,44 @@
+{
+  "members": [
+    "approach",
+    "brave",
+    "breast",
+    "combat",
+    "confront",
+    "counter",
+    "face",
+    "go_about",
+    "handle",
+    "head_on",
+    "intercept",
+    "move_in_on",
+    "pre-empt",
+    "tackle",
+    "take_on",
+    "target",
+    "undertake"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "John confronted the disaster."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "John confronted it with emergency measures."
+      ]
+    }
+  ]
+}

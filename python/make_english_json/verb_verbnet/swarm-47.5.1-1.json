@@ -1,0 +1,55 @@
+{
+  "members": [
+    "bustle",
+    "crawl",
+    "creep",
+    "hop",
+    "pullulate",
+    "swarm",
+    "swim",
+    "teem"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.location"
+      ],
+      "examples": [
+        "Bees swarmed in the garden."
+      ]
+    },
+    {
+      "primary": [
+        "There",
+        "V",
+        "NP",
+        "PP"
+      ],
+      "examples": [
+        "There swarmed bees in the garden."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "In the aquarium swam a striped fish."
+      ]
+    },
+    {
+      "primary": [
+        "PP.location",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "The garden swarmed with bees."
+      ]
+    }
+  ]
+}

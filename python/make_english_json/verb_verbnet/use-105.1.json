@@ -1,0 +1,59 @@
+{
+  "members": [
+    "apply",
+    "employ",
+    "exert",
+    "exploit",
+    "play",
+    "reuse",
+    "run",
+    "use",
+    "utilize",
+    "work"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I used the shovel."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV"
+      ],
+      "examples": [
+        "I used the shovel well."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.predicate"
+      ],
+      "examples": [
+        "I used the shovel for digging ."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "S_INF"
+      ],
+      "examples": [
+        "I used the cupboard to store food."
+      ]
+    }
+  ]
+}

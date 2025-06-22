@@ -1,0 +1,26 @@
+{
+  "members": [
+    "bolster",
+    "boost",
+    "buoy",
+    "buttress",
+    "hold_up",
+    "reinforce",
+    "strengthen",
+    "support"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.instrument"
+      ],
+      "examples": [
+        "She supported her argument with facts.",
+        "I reinforced the tarp with rivets."
+      ]
+    }
+  ]
+}

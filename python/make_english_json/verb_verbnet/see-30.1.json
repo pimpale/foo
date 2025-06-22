@@ -1,0 +1,70 @@
+{
+  "members": [
+    "can_tell",
+    "detect",
+    "discern",
+    "feel",
+    "hear",
+    "notice",
+    "perceive",
+    "see",
+    "sense",
+    "smell",
+    "taste"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "I saw that you were excited."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "I saw the play."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP-ATTR-POS"
+      ],
+      "examples": [
+        "I sensed the eagerness in him."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "I saw how he arrived."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "I saw what they did."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "fail"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.eventuality",
+        "S_ING"
+      ],
+      "examples": [
+        "It failed in informing visitors of the facts."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_INF"
+      ],
+      "examples": [
+        "It failed to inform the visitors of the facts."
+      ]
+    }
+  ]
+}

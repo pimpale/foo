@@ -1,0 +1,20 @@
+{
+  "members": [
+    "foal",
+    "litter",
+    "spawn",
+    "whelp"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The dog whelped a litter of puppies."
+      ]
+    }
+  ]
+}

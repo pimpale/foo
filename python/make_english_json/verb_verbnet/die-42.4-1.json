@@ -1,0 +1,24 @@
+{
+  "members": [
+    "choke",
+    "conk",
+    "croak",
+    "die",
+    "drop_dead",
+    "expire",
+    "pass_away",
+    "perish"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.cause"
+      ],
+      "examples": [
+        "He died of illness."
+      ]
+    }
+  ]
+}

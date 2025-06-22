@@ -1,0 +1,123 @@
+{
+  "members": [
+    "abuse",
+    "acclaim",
+    "applaud",
+    "approve_of",
+    "assail",
+    "assault",
+    "attack",
+    "backbite",
+    "badmouth",
+    "belittle",
+    "berate",
+    "blame",
+    "blaspheme",
+    "bless",
+    "calumniate",
+    "castigate",
+    "celebrate",
+    "censure",
+    "chasten",
+    "chastise",
+    "chide",
+    "cite",
+    "commemorate",
+    "commend",
+    "compliment",
+    "condemn",
+    "condone",
+    "congratulate",
+    "criticize",
+    "curse",
+    "damn",
+    "decry",
+    "defame",
+    "denigrate",
+    "denounce",
+    "deprecate",
+    "deride",
+    "disparage",
+    "doubt",
+    "eulogize",
+    "excuse",
+    "extol",
+    "fault",
+    "felicitate",
+    "find_fault_with",
+    "forgive",
+    "gibe",
+    "glorify",
+    "greet",
+    "hail",
+    "herald",
+    "honor",
+    "imprecate",
+    "incriminate",
+    "insult",
+    "judge",
+    "lambaste",
+    "lampoon",
+    "laud",
+    "malign",
+    "mock",
+    "pardon",
+    "praise",
+    "rebuke",
+    "recommend",
+    "reproach",
+    "reprove",
+    "repudiate",
+    "revile",
+    "reward",
+    "ridicule",
+    "salute",
+    "satirize",
+    "scold",
+    "scorn",
+    "shame",
+    "slander",
+    "slang",
+    "snub",
+    "stigmatize",
+    "thank",
+    "toast",
+    "upbraid",
+    "vilify",
+    "welcome",
+    "write_up"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "They praised the volunteers."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.attribute"
+      ],
+      "examples": [
+        "They praised the volunteers for their dedication."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.attribute"
+      ],
+      "examples": [
+        "They praised the volunteer's dedication."
+      ]
+    }
+  ]
+}

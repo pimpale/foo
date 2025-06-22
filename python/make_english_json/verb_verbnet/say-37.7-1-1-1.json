@@ -1,0 +1,92 @@
+{
+  "members": [
+    "purpose",
+    "recommend",
+    "suggest"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "PP.recipient"
+      ],
+      "examples": [
+        "John suggested eye glasses to her."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "John suggested to her how she could do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "how",
+        "S_INF"
+      ],
+      "examples": [
+        "John suggested to her how to do it."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "John suggested to him that he goes."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "John suggested to him that he go."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "John suggested to her what she could do."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.recipient",
+        "what",
+        "S_INF"
+      ],
+      "examples": [
+        "John suggested to her what to do."
+      ]
+    }
+  ]
+}

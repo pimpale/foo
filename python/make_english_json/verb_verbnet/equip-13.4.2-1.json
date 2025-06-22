@@ -1,0 +1,35 @@
+{
+  "members": [
+    "arm",
+    "armor",
+    "burden",
+    "compensate",
+    "encumber",
+    "equip",
+    "fortify",
+    "outfit",
+    "overburden",
+    "rearm",
+    "recompense",
+    "redress",
+    "regale",
+    "remunerate",
+    "repay",
+    "reward",
+    "saddle",
+    "treat",
+    "weight"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.recipient"
+      ],
+      "examples": [
+        "Brown equipped his soldiers."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "members": [
+    "act",
+    "move"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.theme"
+      ],
+      "examples": [
+        "We moved (quickly) on the buyer's offer."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.predicate"
+      ],
+      "examples": [
+        "We must act to end hunger."
+      ]
+    }
+  ]
+}

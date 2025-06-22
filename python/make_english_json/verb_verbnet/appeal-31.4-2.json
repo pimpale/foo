@@ -1,0 +1,17 @@
+{
+  "members": [
+    "appeal"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.experiencer"
+      ],
+      "examples": [
+        "This painting appeals to Malinda."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "members": [
+    "procrastinate",
+    "stall"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "He procrastinated."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "Isaac Asimov procrastinated his studies in chemistry."
+      ]
+    }
+  ]
+}

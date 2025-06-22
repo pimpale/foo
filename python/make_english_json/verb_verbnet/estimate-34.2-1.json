@@ -1,0 +1,82 @@
+{
+  "members": [
+    "approximate",
+    "assess",
+    "estimate",
+    "gauge",
+    "guess",
+    "guesstimate",
+    "judge",
+    "overestimate",
+    "project",
+    "quantize"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.attribute"
+      ],
+      "examples": [
+        "He estimated the probability of Don Quixote spontaneously combusting upon contact with the curry powder."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "how",
+        "S"
+      ],
+      "examples": [
+        "He estimated how cold it was."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "to",
+        "be",
+        "NP"
+      ],
+      "examples": [
+        "He estimated the temperature to be 50 degrees."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "that",
+        "S"
+      ],
+      "examples": [
+        "He estimated that the air inside the refrigerator was 40 degrees."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "what",
+        "S"
+      ],
+      "examples": [
+        "He estimated what the temperature was."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.value"
+      ],
+      "examples": [
+        "He estimated 50 degrees."
+      ]
+    }
+  ]
+}

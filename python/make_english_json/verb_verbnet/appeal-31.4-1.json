@@ -1,0 +1,28 @@
+{
+  "members": [
+    "grate",
+    "niggle"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP.experiencer"
+      ],
+      "examples": [
+        "The irritation niggled Melinda."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.experiencer"
+      ],
+      "examples": [
+        "The music grated on me."
+      ]
+    }
+  ]
+}

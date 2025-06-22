@@ -1,0 +1,20 @@
+{
+  "members": [
+    "disconnect",
+    "dissociate",
+    "part",
+    "separate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-patient"
+      ],
+      "examples": [
+        "The yolk parted with the white."
+      ]
+    }
+  ]
+}

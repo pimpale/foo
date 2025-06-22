@@ -1,0 +1,24 @@
+{
+  "members": [
+    "administer",
+    "circularize",
+    "contribute",
+    "donate",
+    "forfeit",
+    "resubmit",
+    "sacrifice",
+    "submit",
+    "surrender"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V"
+      ],
+      "examples": [
+        "Some of the members may donate privately."
+      ]
+    }
+  ]
+}

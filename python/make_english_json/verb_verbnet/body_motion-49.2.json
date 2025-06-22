@@ -1,0 +1,44 @@
+{
+  "members": [
+    "extend",
+    "hold",
+    "reach",
+    "stretch"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV"
+      ],
+      "examples": [
+        "She reached her hand out."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "ADV",
+        "NP"
+      ],
+      "examples": [
+        "She reached out her hand."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP",
+        "ADV",
+        "PP.goal"
+      ],
+      "examples": [
+        "She reached her hand out toward the sun."
+      ]
+    }
+  ]
+}

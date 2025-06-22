@@ -1,0 +1,44 @@
+{
+  "members": [
+    "advance",
+    "boost",
+    "emphasize",
+    "encourage",
+    "further",
+    "invite",
+    "promote",
+    "underscore"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "We promoted the cause."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "We promoted writing novels."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "S_ING"
+      ],
+      "examples": [
+        "We promoted their writing novels."
+      ]
+    }
+  ]
+}

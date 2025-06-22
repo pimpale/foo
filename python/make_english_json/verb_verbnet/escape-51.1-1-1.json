@@ -1,0 +1,23 @@
+{
+  "members": [
+    "depart",
+    "disembark",
+    "escape",
+    "exit",
+    "flee",
+    "leave",
+    "vacate"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "NP"
+      ],
+      "examples": [
+        "The convict escaped the prison."
+      ]
+    }
+  ]
+}

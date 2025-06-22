@@ -1,0 +1,29 @@
+{
+  "members": [
+    "adhere",
+    "cleave",
+    "cling"
+  ],
+  "frames": [
+    {
+      "primary": [
+        "NP",
+        "V",
+        "PP.co-theme"
+      ],
+      "examples": [
+        "The plastic wrap clung to the bowl."
+      ]
+    },
+    {
+      "primary": [
+        "NP",
+        "V",
+        "together"
+      ],
+      "examples": [
+        "The child and her mother clung together."
+      ]
+    }
+  ]
+}
