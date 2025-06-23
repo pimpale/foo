@@ -278,6 +278,7 @@ raw_noun_data = load_raw_noun_files()
 resolved_nouns = resolve_nouns(raw_noun_data)
 
 # Initialise aggregate noun classes
+english_json["noun"] = {}
 english_json["countable_noun"] = {}
 english_json["uncountable_noun"] = {}
 
@@ -288,6 +289,10 @@ for fname, words in resolved_nouns.items():
     # Determine countability from the file's metadata. Only when explicitly
     # marked as countable do we add plural forms.
     is_countable = raw_noun_data.get(fname, {}).get("countable")
+
+    for w in words:
+        english_json["noun"][w] = None
+        english_json["noun"][noun_to_noun_pl(w)] = None
 
     # If explicitly marked countable add plural forms and update global class
     if is_countable is True:
@@ -302,7 +307,6 @@ for fname, words in resolved_nouns.items():
         # Aggregate uncountable nouns
         for w in words:
             english_json["uncountable_noun"][w] = None
-
 # 3. Verb classes and their inflections
 for kind in verbs:
     # base (VB*) entries as provided

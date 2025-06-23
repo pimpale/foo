@@ -2,6 +2,7 @@
     "commentary": "These are abstract concepts that appear as nouns in children's stories. Linguistic test: 'Love is important.' or 'The idea was good.'",
     "countable": true,
     "words": {
+        "concept": null,
         "hope": null,
         "dream": null,
         "wish": null,

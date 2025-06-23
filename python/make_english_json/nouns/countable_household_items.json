@@ -187,6 +187,16 @@
         "playpen": null,
         "stroller": null,
         "rocker": null,
-        "swing": null
+        "swing": null,
+        "book": null,
+        "dictionary": null,
+        "encyclopedia": null,
+        "atlas": null,
+        "thesaurus": null,
+        "bible": null,
+        "novel": null,
+        "magazine": null,
+        "newspaper": null,
+        "comic": null
     }
 }

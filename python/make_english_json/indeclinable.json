@@ -1,5 +1,5 @@
 {
-    "det": {
+    "determinative": {
         "a": null,
         "an": null,
         "the": null,
@@ -18,7 +18,7 @@
         "these": null,
         "those": null
     },
-    "possessive_adjective": {
+    "dependent_genitive_pronoun": {
         "my": null,
         "your": null,
         "his": null,
@@ -27,7 +27,7 @@
         "our": null,
         "their": null
     },
-    "possessive_pronoun": {
+    "independent_genitive_pronoun": {
         "mine": null,
         "yours": null,
         "his": null,
@@ -175,8 +175,18 @@
         "off": null
     },
     "precorenp_modifier": {
-        "even": null,
-        "all": null
+        "even": null
+    },
+    "quantificational_modifier": {
+        "all": null,
+        "some": null,
+        "many": null,
+        "few": null,
+        "every": null,
+        "each": null,
+        "half": null,
+        "twice": null,
+        "both": null
     },
     "postcorenp_modifier": {
         "too": null,
