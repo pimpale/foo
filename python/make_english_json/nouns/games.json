@@ -1,6 +1,7 @@
 {
     "commentary": "we played a game of",
-    "noun": {
+    "countable": false,
+    "words": {
         "football": null,
         "tennis": null,
         "baseball": null,

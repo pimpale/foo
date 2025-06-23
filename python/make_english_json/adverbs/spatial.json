@@ -1,0 +1,20 @@
+{
+    "commentary": "These are adverbs that describe spatial relationships.",
+    "words": {
+        "here": null,
+        "there": null,
+        "everywhere": null,
+        "somewhere": null,
+        "anywhere": null,
+        "nowhere": null,
+        "up": null,
+        "down": null,
+        "in": null,
+        "out": null,
+        "on": null,
+        "off": null
+    },
+    "classes": [
+        "adv_vp"
+    ]
+}

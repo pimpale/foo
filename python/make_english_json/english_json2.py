@@ -125,7 +125,7 @@ def cat_from_primary(slots):
     if slots == ["NP", "V"]:
         return "vb"
     if slots == ["NP", "V", "ADJ"]:
-        return "vb_ap"
+        return "vb_adjp"
     if slots == ["NP", "V", "S_INF"]:
         return "vb_to_inf_cl"
     if slots == ["NP", "V", "S_ING"]:
@@ -143,7 +143,7 @@ def cat_from_primary(slots):
     if slots == ["NP", "V", "NP", "NP"]:
         return "vb_np_np"
     if slots == ["NP", "V", "NP", "ADJ"]:
-        return "vb_np_ap"
+        return "vb_np_adjp"
     if slots == ["NP", "V", "NP", "S_INF"]:
         return "vb_np_to_inf_cl"
     if slots == ["NP", "V", "NP", "S_ING"]:

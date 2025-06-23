@@ -142,10 +142,14 @@
         "sorry": null
     },
     "adv": {
+        "very": null,
+        "pretty": null,
+        "too": null
+    },
+    "adv_vp": {
         "quickly": null,
         "slowly": null,
         "happily": null,
-        "very": null,
         "clearly": null,
         "sadly": null,
         "suddenly": null
@@ -187,6 +191,16 @@
         "half": null,
         "twice": null,
         "both": null
+    },
+    "precore_emphatic_modifier": {
+        "such": null,
+        "what": null
+    },
+    "precore_emphatic_modifier_adjp": {
+        "too": null,
+        "so": null,
+        "more": null,
+        "less": null
     },
     "postcorenp_modifier": {
         "too": null,

@@ -5,7 +5,12 @@
     "frames": [
         {
             "primary": ["NP", "V", "VP_VBN"],
-            "examples": ["The vase has broken."]
+            "examples": ["They are broken."]
+
+        },
+        {
+            "primary": ["NP", "V", "S_ING"],
+            "examples": ["They are playing."]
         }
     ]
 }
