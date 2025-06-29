@@ -1,4 +1,4 @@
-#%%
+# %%
 import json
 import pathlib
 from copy import deepcopy
@@ -68,6 +68,7 @@ def vb_to_vbz(verb: str) -> str:  # 3rd-person-singular
         return verb[:-1] + "ies"
     return verb + "s"
 
+
 def vb_to_vbp(verb: str) -> str:  # 3rd-person-plural (eg "they go")
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBP"]
@@ -84,30 +85,10 @@ VERBNET_DIRS = [Path("verb_verbnet"), Path("verb_custom")]
 
 
 def _normalize_primary(primary):
-    """Simplify a VerbNet primary frame to the slot sequence we care about.
-
-    This follows the approach in reference_files/verbs_cover_grammar.py:
-    1. Remove any role/feature annotations (keep part before '.')
-    2. Merge the sequence ['that', 'S'] into a single token 'that_S'.
-    3. Keep only slots we can currently cover.
     """
-    raw = [p.split(".")[0] for p in primary]
-    slots = []
-    i = 0
-    while i < len(raw):
-        if raw[i] == "that" and i + 1 < len(raw) and raw[i + 1] == "S":
-            slots.append("that_S")
-            i += 2
-        elif raw[i] == "what" and i + 1 < len(raw) and raw[i + 1] == "S":
-            slots.append("what_S")
-            i += 2
-        elif raw[i] in ("NP", "V", "ADJ", "ADV", "S", "S_INF", "S_ING", "S-Quote", "VP_VBN"):
-            slots.append(raw[i])
-            i += 1
-        else:
-            # Something we don't currently model → stop here
-            break
-    return slots
+    Simplify a VerbNet primary frame to the slot sequence we care about.
+    """
+    return [p.split(".")[0] for p in primary]
 
 
 # ---------------------------------------------------------------------------
@@ -116,27 +97,26 @@ def _normalize_primary(primary):
 
 
 def cat_from_primary(slots):
-    """Return one of our verb category names given *slots* sequence, or None.
-    """
-    # Must start with NP V and be of length 2–4
-    if not (2 <= len(slots) <= 4 and slots[0] == "NP" and slots[1] == "V"):
-        return None
-
+    """Return one of our verb category names given *slots* sequence, or None."""
     if slots == ["NP", "V"]:
+        return "vb"
+    if slots == ["It", "V"]:
         return "vb"
     if slots == ["NP", "V", "ADJ"]:
         return "vb_adjp"
     if slots == ["NP", "V", "S_INF"]:
         return "vb_to_inf_cl"
+    if slots == ["NP", "V", "bare_infinitive"]:
+        return "vb_bare_inf_cl"
     if slots == ["NP", "V", "S_ING"]:
         return "vb_vbg_cl"
     if slots == ["NP", "V", "VP_VBN"]:
         return "vb_vbn_cl"
     if slots == ["NP", "V", "S"]:
         return "vb_bare_declarative_cl"
-    if slots == ["NP", "V", "that_S"]:
+    if slots == ["NP", "V", "that", "S"]:
         return "vb_that_declarative_cl"
-    if slots == ["NP", "V", "what_S"]:
+    if slots == ["NP", "V", "what", "S"]:
         return "vb_interrogative_cl"
     if slots == ["NP", "V", "NP"]:
         return "vb_np"
@@ -152,9 +132,9 @@ def cat_from_primary(slots):
         return "vb_np_vbn_cl"
     if slots == ["NP", "V", "NP", "S"]:
         return "vb_np_bare_declarative_cl"
-    if slots == ["NP", "V", "NP", "that_S"]:
+    if slots == ["NP", "V", "NP", "that", "S"]:
         return "vb_np_that_declarative_cl"
-    if slots == ["NP", "V", "NP", "what_S"]:
+    if slots == ["NP", "V", "NP", "what", "S"]:
         return "vb_np_interrogative_cl"
     return None
 
@@ -265,7 +245,6 @@ def resolve_nouns(raw: Dict[str, dict]) -> Dict[str, Set[str]]:
 indeclinable = json.loads(Path("indeclinable.json").read_text())
 # Derive verb categories from VerbNet
 verbs = extract_verb_categories()
-prepositions = json.loads(Path("prepositions.json").read_text())
 
 english_json: Dict[str, Dict[str, None]] = {}
 
@@ -307,40 +286,67 @@ for fname, words in resolved_nouns.items():
         # Aggregate uncountable nouns
         for w in words:
             english_json["uncountable_noun"][w] = None
+
 # 3. Verb classes and their inflections
 for kind in verbs:
     # base (VB*) entries as provided
     english_json[kind] = deepcopy(verbs[kind])
 
     # derive other forms from VB* sets
-    english_json[kind.replace("vb", "vbd", 1)] = {vb_to_vbd(v): None for v in verbs[kind]}
-    english_json[kind.replace("vb", "vbn", 1)] = {vb_to_vbn(v): None for v in verbs[kind]}
-    english_json[kind.replace("vb", "vbg", 1)] = {vb_to_vbg(v): None for v in verbs[kind]}
-    english_json[kind.replace("vb", "vbz", 1)] = {vb_to_vbz(v): None for v in verbs[kind]}
-    english_json[kind.replace("vb", "vbp", 1)] = {vb_to_vbp(v): None for v in verbs[kind]}
+    english_json[kind.replace("vb", "vbd", 1)] = {
+        vb_to_vbd(v): None for v in verbs[kind]
+    }
+    english_json[kind.replace("vb", "vbn", 1)] = {
+        vb_to_vbn(v): None for v in verbs[kind]
+    }
+    english_json[kind.replace("vb", "vbg", 1)] = {
+        vb_to_vbg(v): None for v in verbs[kind]
+    }
+    english_json[kind.replace("vb", "vbz", 1)] = {
+        vb_to_vbz(v): None for v in verbs[kind]
+    }
+    english_json[kind.replace("vb", "vbp", 1)] = {
+        vb_to_vbp(v): None for v in verbs[kind]
+    }
 
-# 4. Prepositions (retain original structure + collapsed set)
-for kind in prepositions:
-    english_json[kind] = deepcopy(prepositions[kind])
+# ---------------------------------------------------------------------------
+# 3b. Adverb classes (from adverbs/ folder)
+# ---------------------------------------------------------------------------
+ADVERBS_DIR = Path("adverbs")
+for fp in ADVERBS_DIR.glob("*.json"):
+    data = json.loads(fp.read_text())
+    words = data.get("words", {}).keys()
+    for cls in data.get("classes", []):
+        # Ensure the class dictionary exists
+        english_json.setdefault(cls, {})
+        for w in words:
+            english_json[cls][w] = None
 
+# ---------------------------------------------------------------------------
+# 4. Preposition classes (from prepositions/ folder)
+# ---------------------------------------------------------------------------
 english_json["preposition"] = {}
-for kind in prepositions:
-    for prep in prepositions[kind]:
-        english_json["preposition"][prep] = None
+PREPOSITIONS_DIR = Path("prepositions")
+for fp in PREPOSITIONS_DIR.glob("*.json"):
+    data = json.loads(fp.read_text())
+    words = data.get("words", {}).keys()
+    for cls in data.get("classes", []):
+        english_json.setdefault(cls, {})
+        for w in words:
+            english_json[cls][w] = None
 
 # ---------------------------------------------------------------------------
 # Transpose: word -> list-of-classes
 # ---------------------------------------------------------------------------
 
-transposed: Dict[str, list] = {}
+transposed: Dict[str, Set[str]] = {}
 for kind, words in english_json.items():
     for word in words:
-        # lowercase all words
-        transposed.setdefault(word.lower(), []).append(kind)
+        # lowercase all words and avoid duplicate class entries
+        transposed.setdefault(word.lower(), set()).add(kind)
 
-# Sort class lists for consistency
-for word in transposed:
-    transposed[word].sort()
+# Convert each set to a sorted list for consistent JSON output
+transposed = {word: sorted(list(classes)) for word, classes in transposed.items()}
 
 # Write output
 Path("english.json").write_text(json.dumps(transposed, indent=4))

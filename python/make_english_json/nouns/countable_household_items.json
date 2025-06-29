@@ -197,6 +197,9 @@
         "novel": null,
         "magazine": null,
         "newspaper": null,
-        "comic": null
+        "comic": null,
+        "safe": null,
+        "lockbox": null,
+        "safebox": null
     }
 }

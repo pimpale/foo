@@ -1,0 +1,15 @@
+{
+    "commentary": "These are temporal prepositions that can accept a clause as their object.",
+    "words": {
+        "since": null,
+        "until": null,
+        "before": null,
+        "after": null,
+        "while": null,
+        "when": null
+    },
+    "classes": [
+        "preposition_np",
+        "preposition_bare_declarative_cl"
+    ]
+}

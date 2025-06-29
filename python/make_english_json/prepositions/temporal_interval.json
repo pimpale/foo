@@ -1,0 +1,16 @@
+{
+    "commentary": "These are prepositions that are used to indicate a temporal interval.",
+    "words": {
+        "for": null,
+        "since": null,
+        "until": null,
+        "before": null,
+        "after": null,
+        "by": null,
+        "within": null,
+        "during": null
+    },
+    "classes": [
+        "preposition_np"
+    ]
+}

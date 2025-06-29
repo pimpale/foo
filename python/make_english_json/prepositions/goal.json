@@ -1,0 +1,23 @@
+{
+    "commentary": "These are prepositions that are used to indicate a goal relationship.",
+    "words": {
+        "to": null,
+        "toward": null,
+        "towards": null,
+        "into": null,
+        "onto": null,
+        "upon": null,
+        "up": null,
+        "down": null,
+        "off": null,
+        "inside": null,
+        "outside": null,
+        "around": null,
+        "aboard": null,
+        "across": null,
+        "along": null
+    },
+    "classes": [
+        "preposition_np"
+    ]
+}

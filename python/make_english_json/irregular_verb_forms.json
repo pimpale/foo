@@ -278,5 +278,21 @@
         "VBG": "meeting",
         "VBZ": "meets",
         "VBP": "meet"
+    },
+    "steal": {
+        "VB": "steal",
+        "VBD": "stole",
+        "VBN": "stolen",
+        "VBG": "stealing",
+        "VBZ": "steals",
+        "VBP": "steal"
+    },
+    "fall": {
+        "VB": "fall",
+        "VBD": "fell",
+        "VBN": "fallen",
+        "VBG": "falling",
+        "VBZ": "falls",
+        "VBP": "fall"
     }
 }

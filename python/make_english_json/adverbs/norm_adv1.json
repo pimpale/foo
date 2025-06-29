@@ -1,0 +1,15 @@
+{
+    "commentary": "These are adverbs that can be used to modify verb phrases.",
+    "words": {
+        "quickly": null,
+        "slowly": null,
+        "happily": null,
+        "clearly": null,
+        "sadly": null,
+        "suddenly": null
+    },
+    "classes": [
+        "adv_vp",
+        "adv"
+    ]
+}

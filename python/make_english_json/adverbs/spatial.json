@@ -8,13 +8,10 @@
         "anywhere": null,
         "nowhere": null,
         "up": null,
-        "down": null,
-        "in": null,
-        "out": null,
-        "on": null,
-        "off": null
+        "down": null
     },
     "classes": [
-        "adv_vp"
+        "adv_vp",
+        "adv"
     ]
 }

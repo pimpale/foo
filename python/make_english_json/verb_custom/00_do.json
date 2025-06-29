@@ -1,0 +1,11 @@
+{
+    "members": [
+        "do"
+    ],
+    "frames": [
+        {
+            "primary": ["NP", "V", "bare_infinitive"],
+            "examples": ["I do know."]
+        }
+    ]
+}
