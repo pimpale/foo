@@ -24,7 +24,10 @@
         "seldom": null,
         "sometimes": null,
         "regularly": null,
-        "usually": null
+        "usually": null,
+        "yet": null,
+        "still": null,
+        "already": null
     },
     "classes": [
         "adv_vp",

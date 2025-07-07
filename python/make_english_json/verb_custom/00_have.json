@@ -1,6 +1,7 @@
 {
     "members": [
-        "have"
+        "have",
+        "NOT-have"
     ],
     "frames": [
         {

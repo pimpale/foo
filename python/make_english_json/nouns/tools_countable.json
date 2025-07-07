@@ -2,6 +2,7 @@
     "commentary": "These are countable tools that can be used with 'a/an'. Linguistic test: 'I need a <word>.' or 'He bought a <word>.'",
     "countable": true,
     "words": {
+        "tool": null,
         "hammer": null,
         "screwdriver": null,
         "wrench": null,
@@ -15,7 +16,6 @@
         "knife": null,
         "blade": null,
         "spanner": null,
-        "crowbar": null,
         "pickaxe": null,
         "mallet": null,
         "file": null,

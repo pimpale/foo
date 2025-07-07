@@ -33,7 +33,12 @@ def noun_to_noun_pl(singular: str) -> str:
 # `irregular_verbs` already loaded above
 
 
-def vb_to_vbd(verb: str) -> str:  # preterite
+def dict_to_vb(verb: str) -> str | None:  # base form
+    if verb in irregular_verbs:
+        return irregular_verbs[verb]["VB"]
+    return verb
+
+def dict_to_vbd(verb: str) -> str | None:  # preterite
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBD"]
     if verb.endswith("e"):
@@ -43,13 +48,13 @@ def vb_to_vbd(verb: str) -> str:  # preterite
     return verb + "ed"
 
 
-def vb_to_vbn(verb: str) -> str:  # past-participle
+def dict_to_vbn(verb: str) -> str | None:  # past-participle
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBN"]
-    return vb_to_vbd(verb)
+    return dict_to_vbd(verb)
 
 
-def vb_to_vbg(verb: str) -> str:  # gerund
+def dict_to_vbg(verb: str) -> str | None:  # gerund
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBG"]
     if verb.endswith("ie"):
@@ -59,7 +64,7 @@ def vb_to_vbg(verb: str) -> str:  # gerund
     return verb + "ing"
 
 
-def vb_to_vbz(verb: str) -> str:  # 3rd-person-singular
+def dict_to_vbz(verb: str) -> str | None:  # 3rd-person-singular
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBZ"]
     if verb.endswith(("s", "sh", "ch", "x")):
@@ -69,7 +74,7 @@ def vb_to_vbz(verb: str) -> str:  # 3rd-person-singular
     return verb + "s"
 
 
-def vb_to_vbp(verb: str) -> str:  # 3rd-person-plural (eg "they go")
+def dict_to_vbp(verb: str) -> str | None:  # 3rd-person-plural (eg "they go")
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VBP"]
     # usually just the same as VB
@@ -88,7 +93,11 @@ def _normalize_primary(primary):
     """
     Simplify a VerbNet primary frame to the slot sequence we care about.
     """
-    return [p.split(".")[0] for p in primary]
+    slots = [p.split(".")[0] for p in primary]
+    for i, slot in enumerate(slots):
+        if slot == "NP-Dative":
+            slots[i] = "NP"
+    return slots
 
 
 # ---------------------------------------------------------------------------
@@ -103,7 +112,7 @@ def cat_from_primary(slots):
     if slots == ["It", "V"]:
         return "vb"
     if slots == ["NP", "V", "ADJ"]:
-        return "vb_adjp"
+        return "vb_predcomp"
     if slots == ["NP", "V", "S_INF"]:
         return "vb_to_inf_cl"
     if slots == ["NP", "V", "bare_infinitive"]:
@@ -112,6 +121,8 @@ def cat_from_primary(slots):
         return "vb_vbg_cl"
     if slots == ["NP", "V", "VP_VBN"]:
         return "vb_vbn_cl"
+    if slots == ["NP", "V", "PASSIVE_CL"]:
+        return "vb_passive_cl"
     if slots == ["NP", "V", "S"]:
         return "vb_bare_declarative_cl"
     if slots == ["NP", "V", "that", "S"]:
@@ -120,10 +131,12 @@ def cat_from_primary(slots):
         return "vb_interrogative_cl"
     if slots == ["NP", "V", "NP"]:
         return "vb_np"
+    if slots == ["It", "V", "NP"]:
+        return "vb_it_np"
     if slots == ["NP", "V", "NP", "NP"]:
         return "vb_np_np"
     if slots == ["NP", "V", "NP", "ADJ"]:
-        return "vb_np_adjp"
+        return "vb_np_predcomp"
     if slots == ["NP", "V", "NP", "S_INF"]:
         return "vb_np_to_inf_cl"
     if slots == ["NP", "V", "NP", "S_ING"]:
@@ -289,25 +302,27 @@ for fname, words in resolved_nouns.items():
 
 # 3. Verb classes and their inflections
 for kind in verbs:
-    # base (VB*) entries as provided
-    english_json[kind] = deepcopy(verbs[kind])
-
-    # derive other forms from VB* sets
+    # derive other forms from dictionary sets
+    english_json[kind.replace("vb", "vb", 1)] = {
+        dict_to_vb(v): None for v in verbs[kind] if dict_to_vb(v) is not None
+    }
     english_json[kind.replace("vb", "vbd", 1)] = {
-        vb_to_vbd(v): None for v in verbs[kind]
+        dict_to_vbd(v): None for v in verbs[kind] if dict_to_vbd(v) is not None
     }
     english_json[kind.replace("vb", "vbn", 1)] = {
-        vb_to_vbn(v): None for v in verbs[kind]
+        dict_to_vbn(v): None for v in verbs[kind] if dict_to_vbn(v) is not None
     }
     english_json[kind.replace("vb", "vbg", 1)] = {
-        vb_to_vbg(v): None for v in verbs[kind]
+        dict_to_vbg(v): None for v in verbs[kind] if dict_to_vbg(v) is not None
     }
     english_json[kind.replace("vb", "vbz", 1)] = {
-        vb_to_vbz(v): None for v in verbs[kind]
+        dict_to_vbz(v): None for v in verbs[kind] if dict_to_vbz(v) is not None
     }
     english_json[kind.replace("vb", "vbp", 1)] = {
-        vb_to_vbp(v): None for v in verbs[kind]
+        dict_to_vbp(v): None for v in verbs[kind] if dict_to_vbp(v) is not None
     }
+    # combine finite forms for convenience
+    english_json[kind.replace("vb", "vbf", 1)] = english_json[kind.replace("vb", "vbd", 1)] | english_json[kind.replace("vb", "vbp", 1)] | english_json[kind.replace("vb", "vbz", 1)]
 
 # ---------------------------------------------------------------------------
 # 3b. Adverb classes (from adverbs/ folder)

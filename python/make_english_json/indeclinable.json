@@ -7,12 +7,17 @@
     },
     "pronoun": {
         "i": null,
+        "me": null,
         "you": null,
         "he": null,
+        "him": null,
         "she": null,
+        "her": null,
         "it": null,
         "we": null,
+        "us": null,
         "they": null,
+        "them": null,
         "this": null,
         "that": null,
         "these": null,
@@ -89,9 +94,6 @@
         "Sam": null,
         "Sue": null
     },
-    "not": {
-        "not": null
-    },
     "to": {
         "to": null
     },
@@ -121,7 +123,8 @@
         "mysterious": null,
         "free": null,
         "young": null,
-        "old": null
+        "old": null,
+        "shiny": null
     },
     "adj_pp": {
         "interested": null,
@@ -171,14 +174,41 @@
     },
     "modal": {
         "can": null,
+        "cannot": null,
+        "can't": null,
         "could": null,
+        "couldn't": null,
         "may": null,
         "might": null,
         "shall": null,
         "should": null,
         "will": null,
+        "won't": null,
         "would": null,
+        "wouldn't": null,
         "must": null
+    },
+    "aux": {
+        "do": null,
+        "don't": null,
+        "does": null,
+        "doesn't": null,
+        "did": null,
+        "didn't": null,
+        "have": null,
+        "haven't": null,
+        "had": null,
+        "hadn't": null,
+        "has": null,
+        "hasn't": null,
+        "is": null,
+        "isn't": null,
+        "are": null,
+        "aren't": null,
+        "was": null,
+        "wasn't": null,
+        "were": null,
+        "weren't": null
     },
     "how": {
         "how": null
@@ -188,6 +218,9 @@
     },
     "who": {
         "who": null
+    },
+    "whose": {
+        "whose": null
     },
     "what": {
         "what": null
@@ -200,23 +233,5 @@
     },
     "when": {
         "when": null
-    },
-    "is": {
-        "is": null
-    },
-    "are": {
-        "are": null
-    },
-    "were": {
-        "were": null
-    },
-    "does": {
-        "does": null
-    },
-    "do": {
-        "do": null
-    },
-    "did": {
-        "did": null
     }
 }

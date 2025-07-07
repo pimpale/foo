@@ -1,0 +1,25 @@
+{
+    "members": [
+        "compile",
+        "interpret",
+        "debug",
+        "run",
+        "parse",
+        "lex",
+        "link",
+        "load",
+        "assemble"
+    ],
+    "frames": [
+        {
+            "primary": [
+                "NP",
+                "V",
+                "NP"
+            ],
+            "examples": [
+                "The compiler compiles the code."
+            ]
+        }
+    ]
+}

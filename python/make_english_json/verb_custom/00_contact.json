@@ -1,0 +1,17 @@
+{
+    "members": [
+        "contact"
+    ],
+    "frames": [
+        {
+            "primary": [
+                "NP",
+                "V",
+                "NP"
+            ],
+            "examples": [
+                "He contacted the owners."
+            ]
+        }
+    ]
+}

@@ -1,8 +1,17 @@
 {
     "members": [
-        "be"
+        "be",
+        "NOT-be"
     ],
     "frames": [
+        {
+            "primary": ["NP", "V", "NP"],
+            "examples": ["He is a good boy."]
+        },
+        {
+            "primary": ["NP", "V", "ADJ"],
+            "examples": ["He is good."]
+        },
         {
             "primary": ["NP", "V", "VP_VBN"],
             "examples": ["They are broken."]

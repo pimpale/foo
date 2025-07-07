@@ -2,6 +2,7 @@
     "commentary": "These are occupations, jobs, and roles that people can have.",
     "countable": true,
     "words": {
+        "person": null,
         "butcher": null,
         "baker": null,
         "candlestick": null,

@@ -12,7 +12,8 @@
         "within": null,
         "above": null,
         "below": null,
-        "beside": null
+        "beside": null,
+        "past": null
     },
     "classes": [
         "preposition_np"

@@ -1,6 +1,7 @@
 {
     "members": [
-        "do"
+        "do",
+        "NOT-do"
     ],
     "frames": [
         {

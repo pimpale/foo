@@ -1,0 +1,13 @@
+{
+    "members": [
+        "be",
+        "NOT-be",
+        "get"
+    ],
+    "frames": [
+        {
+            "primary": ["NP", "V", "PASSIVE_CL"],
+            "examples": ["Mistakes were made."]
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "commentary": "These are computer concepts that are countable.",
+    "countable": true,
+    "words": {
+        "computer": null,
+        "laptop": null,
+        "desktop": null,
+        "tablet": null,
+        "smartphone": null,
+        "smartwatch": null,
+        "compiler": null,
+        "interpreter": null,
+        "debugger": null,
+        "kernel": null,
+        "firmware": null,
+        "driver": null,
+        "library": null,
+        "API": null,
+        "parser": null,
+        "lexer": null,
+        "linker": null,
+        "loader": null,
+        "assembler": null,
+        "OS": null,
+        "toolkit": null,
+        "framework": null
+    }
+} 

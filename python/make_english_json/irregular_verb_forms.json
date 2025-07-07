@@ -31,6 +31,14 @@
         "VBZ": "is",
         "VBP": "are"
     },
+    "not-be": {
+        "VB": null,
+        "VBD": "weren't",
+        "VBN": null,
+        "VBG": null,
+        "VBZ": "isn't",
+        "VBP": "aren't"
+    },
     "say": {
         "VB": "say",
         "VBD": "said",
@@ -54,6 +62,14 @@
         "VBG": "understanding",
         "VBZ": "understands",
         "VBP": "understand"
+    },
+    "get": {
+        "VB": "get",
+        "VBD": "got",
+        "VBN": "gotten",
+        "VBG": "getting",
+        "VBZ": "gets",
+        "VBP": "get"
     },
     "forget": {
         "VB": "forget",
@@ -94,6 +110,14 @@
         "VBG": "having",
         "VBZ": "has",
         "VBP": "have"
+    },
+    "not-have": {
+        "VB": null,
+        "VBD": "hadn't",
+        "VBN": null,
+        "VBG": null,
+        "VBZ": "hasn't",
+        "VBP": "haven't"
     },
     "make": {
         "VB": "make",
@@ -294,5 +318,37 @@
         "VBG": "falling",
         "VBZ": "falls",
         "VBP": "fall"
+    },
+    "take": {
+        "VB": "take",
+        "VBD": "took",
+        "VBN": "taken",
+        "VBG": "taking",
+        "VBZ": "takes",
+        "VBP": "take"
+    },
+    "build": {
+        "VB": "build",
+        "VBD": "built",
+        "VBN": "built",
+        "VBG": "building",
+        "VBZ": "builds",
+        "VBP": "build"
+    },
+    "do": {
+        "VB": "do",
+        "VBD": "did",
+        "VBN": "done",
+        "VBG": "doing",
+        "VBZ": "does",
+        "VBP": "do"
+    },
+    "not-do": {
+        "VB": null,
+        "VBD": "didn't",
+        "VBN": null,
+        "VBG": null,
+        "VBZ": "doesn't",
+        "VBP": "don't"
     }
 }
