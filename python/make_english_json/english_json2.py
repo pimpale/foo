@@ -33,7 +33,7 @@ def noun_to_noun_pl(singular: str) -> str:
 # `irregular_verbs` already loaded above
 
 
-def dict_to_vb(verb: str) -> str | None:  # base form
+def dict_to_inf(verb: str) -> str | None:  # base form
     if verb in irregular_verbs:
         return irregular_verbs[verb]["VB"]
     return verb
@@ -303,8 +303,8 @@ for fname, words in resolved_nouns.items():
 # 3. Verb classes and their inflections
 for kind in verbs:
     # derive other forms from dictionary sets
-    english_json[kind.replace("vb", "vb", 1)] = {
-        dict_to_vb(v): None for v in verbs[kind] if dict_to_vb(v) is not None
+    english_json[kind.replace("vb", "inf", 1)] = {
+        dict_to_inf(v): None for v in verbs[kind] if dict_to_inf(v) is not None
     }
     english_json[kind.replace("vb", "vbd", 1)] = {
         dict_to_vbd(v): None for v in verbs[kind] if dict_to_vbd(v) is not None
