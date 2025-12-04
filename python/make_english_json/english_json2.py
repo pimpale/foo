@@ -130,25 +130,25 @@ def cat_from_primary(slots):
     if slots == ["NP", "V", "what", "S"]:
         return "vb_interrogative_cl"
     if slots == ["NP", "V", "NP"]:
-        return "vb_np"
+        return "vb_o"
     if slots == ["It", "V", "NP"]:
         return "vb_it_np"
     if slots == ["NP", "V", "NP", "NP"]:
-        return "vb_np_np"
+        return "vb_io_do"
     if slots == ["NP", "V", "NP", "ADJ"]:
-        return "vb_np_predcomp"
+        return "vb_o_predcomp"
     if slots == ["NP", "V", "NP", "S_INF"]:
-        return "vb_np_to_inf_cl"
+        return "vb_intnp_to_inf_cl"
     if slots == ["NP", "V", "NP", "S_ING"]:
-        return "vb_np_vbg_cl"
+        return "vb_io_vbg_cl"
     if slots == ["NP", "V", "NP", "VP_VBN"]:
-        return "vb_np_vbn_cl"
+        return "vb_io_vbn_cl"
     if slots == ["NP", "V", "NP", "S"]:
-        return "vb_np_bare_declarative_cl"
+        return "vb_io_bare_declarative_cl"
     if slots == ["NP", "V", "NP", "that", "S"]:
-        return "vb_np_that_declarative_cl"
+        return "vb_io_that_declarative_cl"
     if slots == ["NP", "V", "NP", "what", "S"]:
-        return "vb_np_interrogative_cl"
+        return "vb_io_interrogative_cl"
     return None
 
 

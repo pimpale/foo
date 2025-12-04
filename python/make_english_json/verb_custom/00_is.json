@@ -13,11 +13,6 @@
             "examples": ["He is good."]
         },
         {
-            "primary": ["NP", "V", "VP_VBN"],
-            "examples": ["They are broken."]
-
-        },
-        {
             "primary": ["NP", "V", "S_ING"],
             "examples": ["They are playing."]
         }
