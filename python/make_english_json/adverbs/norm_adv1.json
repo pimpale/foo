@@ -7,7 +7,13 @@
         "happily": null,
         "clearly": null,
         "sadly": null,
-        "suddenly": null
+        "suddenly": null,
+        "eagerly": null,
+        "lazily": null,
+        "carefully": null,
+        "thoughtfully": null,
+        "wisely": null,
+        "foolishly": null
     },
     "classes": [
         "adv_vp",

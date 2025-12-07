@@ -344,6 +344,14 @@
         "housemate": null,
         "flatmate": null,
         "occupant": null,
-        "dweller": null
+        "dweller": null,
+        "joker": null,
+        "prankster": null,
+        "trickster": null,
+        "troublemaker": null,
+        "fool": null,
+        "idiot": null,
+        "moron": null,
+        "retard": null
     }
 } 

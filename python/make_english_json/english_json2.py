@@ -270,7 +270,8 @@ raw_noun_data = load_raw_noun_files()
 resolved_nouns = resolve_nouns(raw_noun_data)
 
 # Initialise aggregate noun classes
-english_json["noun"] = {}
+english_json["noun_sg"] = {}
+english_json["noun_pl"] = {}
 english_json["countable_noun"] = {}
 english_json["uncountable_noun"] = {}
 
@@ -283,8 +284,8 @@ for fname, words in resolved_nouns.items():
     is_countable = raw_noun_data.get(fname, {}).get("countable")
 
     for w in words:
-        english_json["noun"][w] = None
-        english_json["noun"][noun_to_noun_pl(w)] = None
+        english_json["noun_sg"][w] = None
+        english_json["noun_pl"][noun_to_noun_pl(w)] = None
 
     # If explicitly marked countable add plural forms and update global class
     if is_countable is True:
@@ -322,7 +323,9 @@ for kind in verbs:
         dict_to_vbp(v): None for v in verbs[kind] if dict_to_vbp(v) is not None
     }
     # combine finite forms for convenience
-    english_json[kind.replace("vb", "vbf", 1)] = english_json[kind.replace("vb", "vbd", 1)] | english_json[kind.replace("vb", "vbp", 1)] | english_json[kind.replace("vb", "vbz", 1)]
+    english_json[kind.replace("vb", "vbf_sg", 1)] = english_json[kind.replace("vb", "vbd", 1)] | english_json[kind.replace("vb", "vbz", 1)]
+    english_json[kind.replace("vb", "vbf_pl", 1)] = english_json[kind.replace("vb", "vbd", 1)] | english_json[kind.replace("vb", "vbp", 1)]
+
 
 # ---------------------------------------------------------------------------
 # 3b. Adverb classes (from adverbs/ folder)

@@ -5,21 +5,23 @@
         "the": null,
         "some": null
     },
-    "pronoun": {
-        "i": null,
-        "me": null,
-        "you": null,
+    "pronoun_sg": {
         "he": null,
         "him": null,
         "she": null,
         "her": null,
         "it": null,
+        "this": null,
+        "that": null
+    },
+    "pronoun_pl": {
+        "i": null,
+        "me": null,
+        "you": null,
         "we": null,
         "us": null,
         "they": null,
         "them": null,
-        "this": null,
-        "that": null,
         "these": null,
         "those": null
     },
@@ -41,7 +43,7 @@
         "ours": null,
         "theirs": null
     },
-    "proper_noun": {
+    "proper_noun_sg": {
         "London": null,
         "Paris": null,
         "Berlin": null,
@@ -124,7 +126,8 @@
         "free": null,
         "young": null,
         "old": null,
-        "shiny": null
+        "shiny": null,
+        "magical": null
     },
     "adj_pp": {
         "interested": null,

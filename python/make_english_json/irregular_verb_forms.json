@@ -350,5 +350,13 @@
         "VBG": null,
         "VBZ": "doesn't",
         "VBP": "don't"
+    },
+    "find": {
+        "VB": "find",
+        "VBD": "found",
+        "VBN": "found",
+        "VBG": "finding",
+        "VBZ": "finds",
+        "VBP": "find"
     }
 }

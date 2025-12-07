@@ -93,6 +93,8 @@
         "cave": null,
         "cavern": null,
         "island": null,
+        "land": null,
+        "continent": null,
         "peninsula": null,
         "glacier": null,
         "iceberg": null
