@@ -1,4 +1,31 @@
 {
+    "comma": {
+        ",": null
+    },
+    "period": {
+        ".": null
+    },
+    "question_mark": {
+        "?": null
+    },
+    "exclamation_mark": {
+        "!": null
+    },
+    "colon": {
+        ":": null
+    },
+    "semicolon": {
+        ";": null
+    },
+    "binary_coordinator": {
+        "and": null,
+        "or": null,
+        "but": null
+    },
+    "coordinator": {
+        "and": null,
+        "or": null
+    },
     "determinative": {
         "a": null,
         "an": null,
