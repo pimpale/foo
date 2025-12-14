@@ -13,18 +13,20 @@ This script estimates daily token production for major AI companies:
 METHODOLOGY AND ASSUMPTIONS
 =============================================================================
 
-1. OPENAI - Most Complete Data
-   - Direct token data: "100B words/day" (Feb 2024) → ~133B tokens/day
-     Assumption: 1 word ≈ 1.33 tokens (standard tokenization ratio)
+1. OPENAI - Multiple Estimation Methods
    - Direct message data: 451M (Jun 2024), 1B (Dec 2024), 2.627B (Jun 2025), 3B (Aug 2025)
    - API tokens: 6B/minute = 8.64T/day (Oct 2025)
    - GPT-5-Codex: ~2T/day (Oct 2025)
+   - Direct token data: "100B words/day" (Feb 2024) → ~133B tokens/day (Sam Altman tweet)
    
-   Key ratio computed: tokens_per_message = 133B / daily_messages_interpolated
-   This ratio is used to impute tokens for other companies.
+   Four OpenAI series are computed:
+   a) ChatGPT: message counts × CHAT_TOKENS_PER_MSG constant
+   b) API: direct API token measurements with growth extrapolation
+   c) OpenAI (Inference): scaled by inference compute spend, anchored to Sam's tweet
+   d) OpenAI (Revenue): scaled by revenue, anchored to Sam's tweet
    
-   Note: The Feb 2024 "100B words" figure predates our message data. We interpolate
-   messages to Feb 2024 and use that to establish our tokens/message baseline.
+   The Inference and Revenue series use data from ai_companies_compute_spend.csv
+   and ai_companies_revenue.csv respectively, providing different views on growth.
 
 2. GOOGLE - Gemini API/Chat Only
    - "All AI products" figures (9.7T → 1.3Q monthly) are EXCLUDED because they
@@ -35,14 +37,15 @@ METHODOLOGY AND ASSUMPTIONS
    
    Note: This makes Google comparable to other enterprise AI providers.
 
-3. META - Imputed from Messages
-   - No direct token data available
+3. META - MAU-based with messages/MAU ratio
+   - Rich MAU data: 400M (Sep 2024) → 1B (May 2025, plateaued)
    - Daily messages: 200M (Mar 2025, from Google antitrust trial)
-   - Apply OpenAI's tokens/message ratio
    
-   Assumptions:
-   - Meta AI conversations are similar in length to ChatGPT
-   - The Google trial estimate is reliable for order-of-magnitude
+   Method:
+   1. Interpolate MAU at Mar 2025 (~850M) from surrounding data points
+   2. Compute messages/MAU ratio: 200M / 850M = 0.235 messages/MAU/day
+   3. Apply ratio linearly to all MAU data points
+   4. Convert messages to tokens using CHAT_TOKENS_PER_MSG constant
 
 4. ANTHROPIC - Revenue-based with Inference Spend Anchor
    - Rich revenue data: $87M (Jan 2024) → $7B (Oct 2025)
@@ -92,6 +95,61 @@ from typing import Optional
 import warnings
 
 warnings.filterwarnings('ignore')
+
+# =============================================================================
+# CONSTANTS
+# =============================================================================
+
+# Assumed tokens per chat message for consumer AI assistants
+# This is a simplification - actual values vary by product and conversation length
+CHAT_TOKENS_PER_MSG = 512
+
+# Industry-wide growth rate (per year) for token production
+# Used for extrapolating single data point estimates
+# This is approximately the growth rate seen across multiple companies
+INDUSTRY_GROWTH_RATE = 1.7  # ~1.7x per year in log terms
+
+# Date range for plotting and export (decimal years)
+PLOT_BEGIN_DATE = 2024.0
+PLOT_END_DATE = 2028.0
+
+
+def teratokens_per_bil_revenue():
+    """
+    Calculate the ratio of daily teratokens per billion dollars of annualized revenue.
+    
+    This is computed from the OpenAI anchor point:
+    - Feb 2024: 133B tokens/day (Sam Altman "100B words/day" tweet)
+    - Revenue at Feb 2024: interpolated from revenue data
+    
+    Returns:
+        float: Teratokens per day per billion dollars of annualized revenue
+    
+    Note: This ratio implies that revenue scales linearly with token production,
+    which is a simplification. In reality, pricing, efficiency, and product mix
+    all affect this relationship.
+    """
+    # Anchor point: Feb 2024 from Sam Altman tweet
+    anchor_tokens = 133e9  # 133B tokens/day
+    anchor_date = date_to_decimal(datetime(2024, 2, 9))
+    
+    # Get OpenAI revenue data points to interpolate anchor revenue
+    # Note: This requires openai_data to be defined, so we import it here
+    rev_dates = np.array([date_to_decimal(dp.date) for dp in openai_data['revenue_annualized']])
+    rev_values = np.array([dp.value for dp in openai_data['revenue_annualized']])
+    
+    # Fit exponential to interpolate anchor revenue
+    a, b, _ = fit_exponential(rev_dates, rev_values)
+    anchor_revenue = exponential_model(anchor_date - 2024, a, b)
+    
+    # Calculate teratokens per billion revenue
+    # anchor_tokens is in tokens/day, anchor_revenue is in $/year
+    teratokens_per_day = anchor_tokens / 1e12
+    billions_revenue = anchor_revenue / 1e9
+    
+    ratio = teratokens_per_day / billions_revenue
+    
+    return ratio
 
 # =============================================================================
 # DATA CLASSES AND UTILITIES
@@ -166,6 +224,7 @@ def fit_exponential(dates: np.ndarray, values: np.ndarray,
 openai_data = {
     'daily_tokens': [
         # "100B words per day" = ~133B tokens (1 word ≈ 1.33 tokens)
+        # This is overall inference (ChatGPT + API combined)
         DataPoint(datetime(2024, 2, 9), 133e9, 'daily_tokens', 'Sam Altman tweet', 'Confident'),
     ],
     'daily_messages': [
@@ -182,164 +241,248 @@ openai_data = {
         # 40T tokens over 21 days = ~1.9T/day
         DataPoint(datetime(2025, 10, 6), 1.9e12, 'codex_daily_tokens', 'Dev Day', 'Confident'),
     ],
-}
-
-def calculate_openai_tokens_per_message():
-    """
-    Calculate the tokens per message ratio from OpenAI's data.
-    
-    We know: 133B tokens/day on Feb 9, 2024
-    We need to estimate daily messages at that time.
-    """
-    # Message data points
-    msg_dates = np.array([date_to_decimal(dp.date) for dp in openai_data['daily_messages']])
-    msg_values = np.array([dp.value for dp in openai_data['daily_messages']])
-    
-    # Fit exponential to messages
-    a, b, _ = fit_exponential(msg_dates, msg_values)
-    
-    # Extrapolate to Feb 2024
-    feb_2024 = date_to_decimal(datetime(2024, 2, 9))
-    estimated_messages_feb = exponential_model(feb_2024 - 2024, a, b)
-    
-    # Calculate ratio
-    tokens_feb = 133e9
-    tokens_per_message = tokens_feb / estimated_messages_feb
-    
-    print(f"OpenAI Tokens/Message Calculation:")
-    print(f"  Feb 2024 tokens: {tokens_feb/1e9:.1f}B")
-    print(f"  Feb 2024 messages (estimated): {estimated_messages_feb/1e6:.1f}M")
-    print(f"  Tokens per message: {tokens_per_message:.0f}")
-    print()
-    
-    return tokens_per_message
-
-
-def build_openai_daily_tokens():
-    """
-    Build comprehensive OpenAI daily token estimates.
-    
-    Strategy:
-    1. Use direct token data where available
-    2. Convert messages to tokens for ChatGPT consumer
-    3. Add API and Codex tokens for later dates
-    """
-    # Get tokens per message ratio
-    tokens_per_msg = calculate_openai_tokens_per_message()
-    
-    # Build token estimates from messages (ChatGPT consumer)
-    msg_dates = [dp.date for dp in openai_data['daily_messages']]
-    msg_values = [dp.value for dp in openai_data['daily_messages']]
-    
-    # Start with Feb 2024 direct measurement
-    estimates = [(datetime(2024, 2, 9), 133e9, 'direct')]
-    
-    # Add message-derived estimates
-    for date, msgs in zip(msg_dates, msg_values):
-        tokens = msgs * tokens_per_msg
-        estimates.append((date, tokens, 'from_messages'))
-    
-    # For Oct 2025, we also have API (8.64T) and Codex (1.9T) tokens
-    # The 3B messages (Aug 2025) is ChatGPT consumer only
-    # We need to add API tokens on top for total
-    
-    # Create DataFrame
-    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
-    df['decimal_date'] = df['date'].apply(date_to_decimal)
-    df = df.sort_values('decimal_date')
-    
-    return df, tokens_per_msg
-
-
-# =============================================================================
-# GOOGLE DATA
-# =============================================================================
-# 
-# NOTE: Google's "all AI products" figures (9.7T → 1.3Q monthly) include AI Search
-# Overviews, Google Translate, and other products that don't scale the same way
-# as enterprise AI/chat. We focus on Gemini API data for comparability.
-
-google_data = {
-    # These "all AI products" figures are NOT used - kept for reference only
-    'monthly_tokens_all_products': [
-        DataPoint(datetime(2024, 4, 15), 9.7e12, 'monthly_tokens', 'Google I/O 2024', 'Confident'),
-        DataPoint(datetime(2025, 4, 30), 480e12, 'monthly_tokens', 'Google I/O 2025', 'Confident'),
-        DataPoint(datetime(2025, 7, 23), 980e12, 'monthly_tokens', 'Q2 2025 Earnings', 'Confident'),
-        DataPoint(datetime(2025, 9, 30), 1.3e15, 'monthly_tokens', 'Demis Hassabis tweet', 'Confident'),
+    # Inference compute spend (from ai_companies_compute_spend.csv)
+    'inference_spend_annualized': [
+        DataPoint(datetime(2024, 12, 31), 1.8e9, 'inference_spend', 'The Information', 'Likely'),
+        DataPoint(datetime(2025, 12, 31), 7e9, 'inference_spend', 'The Information', 'Likely'),
     ],
-    # Gemini API tokens - more comparable to other enterprise AI providers
-    'api_daily_tokens': [
-        # 7B tokens/minute * 1440 min/day = 10.08T/day
-        DataPoint(datetime(2025, 10, 29), 10.08e12, 'api_daily_tokens', 'Q3 2025 Earnings', 'Confident'),
-    ],
-    'daily_messages': [
-        # Gemini chat: 140M daily messages (Mar 2025)
-        DataPoint(datetime(2025, 3, 28), 140e6, 'daily_messages', 'Google trial', 'Confident'),
+    # Revenue (from ai_companies_revenue.csv)
+    'revenue_annualized': [
+        DataPoint(datetime(2023, 12, 31), 2e9, 'revenue', 'FT', 'Likely'),
+        DataPoint(datetime(2024, 6, 12), 3.4e9, 'revenue', 'The Information', 'Likely'),
+        DataPoint(datetime(2024, 8, 15), 3.6e9, 'revenue', 'NYT', 'Likely'),
+        DataPoint(datetime(2024, 9, 12), 4e9, 'revenue', 'WSJ', 'Likely'),
+        DataPoint(datetime(2024, 12, 31), 5.5e9, 'revenue', 'CNBC', 'Likely'),
+        DataPoint(datetime(2025, 6, 9), 10e9, 'revenue', 'CNBC', 'Confident'),
+        DataPoint(datetime(2025, 7, 30), 12e9, 'revenue', 'CNBC/The Information', 'Confident'),
+        DataPoint(datetime(2025, 8, 1), 13e9, 'revenue', 'NYT', 'Likely'),
     ],
 }
 
-def build_google_daily_tokens(tokens_per_msg: float):
+def build_openai_chatgpt_tokens():
     """
-    Build Google daily token estimates using Gemini API data.
+    Build OpenAI ChatGPT (consumer) daily token estimates.
     
-    We use only API token data because:
-    1. "All AI products" includes Search AI Overviews, Translate, etc.
-    2. Chat messages can't be directly combined with API tokens for growth curves
-    
-    With only one API data point, we use OpenAI's growth rate as a proxy
-    for extrapolation (both are major AI providers with similar dynamics).
+    Uses message data converted to tokens via CHAT_TOKENS_PER_MSG constant.
     """
-    # Primary data: Gemini API tokens (Oct 2025): 10.08T/day
-    api_dp = google_data['api_daily_tokens'][0]
-    api_tokens = api_dp.value
-    api_date = api_dp.date
-    api_decimal = date_to_decimal(api_date)
-    
-    # For reference: Gemini chat would add ~0.07T (140M * 512 tokens)
-    # But this is small compared to API and mixing them creates issues
-    msg_dp = google_data['daily_messages'][0]
-    chat_tokens = msg_dp.value * tokens_per_msg
-    
-    # Since we only have 1 API data point, we need to assume a growth rate
-    # Use a reasonable estimate: similar to OpenAI's growth (~1.7/year)
-    # This is conservative compared to Google's reported "all products" growth
-    assumed_growth_rate = 1.7  # Similar to OpenAI
-    
-    # Build estimates by scaling from the API data point
+    # Build estimates from message data
     estimates = []
     
-    key_dates = [
-        datetime(2024, 6, 1),
-        datetime(2024, 12, 1),
-        datetime(2025, 3, 28),  # Chat data date - for reference
-        datetime(2025, 6, 1),
-        datetime(2025, 10, 29),  # API measurement date
-    ]
-    
-    for date in key_dates:
-        decimal = date_to_decimal(date)
-        time_diff = decimal - api_decimal
-        tokens = api_tokens * np.exp(assumed_growth_rate * time_diff)
-        source = 'gemini_api' if date == api_date else 'extrapolated'
-        estimates.append((date, tokens, source))
+    for dp in openai_data['daily_messages']:
+        tokens = dp.value * CHAT_TOKENS_PER_MSG
+        estimates.append((dp.date, tokens, 'from_messages'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
     df['decimal_date'] = df['date'].apply(date_to_decimal)
     df = df.sort_values('decimal_date')
     
-    print(f"Google Token Estimation (Gemini API):")
-    print(f"  Oct 2025 API: {api_tokens/1e12:.2f}T/day (primary data)")
-    print(f"  Chat tokens (Mar 2025, not used in fit): {chat_tokens/1e12:.2f}T/day")
-    print(f"  Assumed growth rate: {assumed_growth_rate}/year (similar to OpenAI)")
-    print(f"  NOTE: Only 1 API data point - growth rate is assumed, not fitted")
+    print(f"OpenAI ChatGPT Token Estimation:")
+    print(f"  Using {CHAT_TOKENS_PER_MSG} tokens/message")
+    print(f"  Message data points: {len(openai_data['daily_messages'])}")
+    print()
+    
+    return df
+
+
+def build_openai_api_tokens():
+    """
+    Build OpenAI API daily token estimates.
+    
+    Uses only the single direct API token measurement.
+    Growth rate is applied later in model fitting using INDUSTRY_GROWTH_RATE.
+    """
+    api_dp = openai_data['api_daily_tokens'][0]
+    api_tokens = api_dp.value
+    api_date = api_dp.date
+    
+    # Single data point only
+    estimates = [(api_date, api_tokens, 'api_direct')]
+    
+    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
+    df['decimal_date'] = df['date'].apply(date_to_decimal)
+    
+    print(f"OpenAI API Token Estimation:")
+    print(f"  {api_date.strftime('%Y-%m-%d')}: {api_tokens/1e12:.2f}T/day (direct measurement)")
+    print(f"  NOTE: Single point - will use industry growth rate for trendline")
+    print()
+    
+    return df
+
+
+def build_openai_inference_scaled_tokens():
+    """
+    Build OpenAI Combined daily token estimates scaled by INFERENCE SPEND.
+    
+    Method:
+    1. Anchor: Feb 2024 "100B words/day" = 133B tokens/day (Sam Altman tweet)
+    2. Interpolate inference spend at Feb 2024 from data points
+    3. Scale tokens by inference spend ratio at each data point
+    """
+    # Anchor point: Feb 2024 from Sam Altman tweet
+    anchor_tokens = 133e9  # 133B tokens/day
+    anchor_date = date_to_decimal(datetime(2024, 2, 9))
+    
+    # Get inference spend data points
+    spend_dates = np.array([date_to_decimal(dp.date) for dp in openai_data['inference_spend_annualized']])
+    spend_values = np.array([dp.value for dp in openai_data['inference_spend_annualized']])
+    
+    # Fit exponential to interpolate anchor spend
+    a, b, _ = fit_exponential(spend_dates, spend_values)
+    anchor_spend = exponential_model(anchor_date - 2024, a, b)
+    
+    # Build estimates at each inference spend data point
+    estimates = []
+    
+    for dp in openai_data['inference_spend_annualized']:
+        # Scale tokens by spend ratio relative to anchor
+        spend_ratio = dp.value / anchor_spend
+        tokens = anchor_tokens * spend_ratio
+        estimates.append((dp.date, tokens, 'from_inference_spend'))
+    
+    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
+    df['decimal_date'] = df['date'].apply(date_to_decimal)
+    df = df.sort_values('decimal_date')
+    
+    # Calculate tokens per $ inference spend
+    tokens_per_spend = anchor_tokens / anchor_spend
+    
+    print(f"OpenAI (Inference-Scaled) Token Estimation:")
+    print(f"  Anchor: Feb 2024 = {anchor_tokens/1e9:.0f}B tokens/day (Sam Altman tweet)")
+    print(f"  Anchor inference spend (interpolated): ${anchor_spend/1e9:.2f}B")
+    print(f"  Tokens per $ inference: {tokens_per_spend:.0f}")
+    print(f"  Inference data points: {len(openai_data['inference_spend_annualized'])}")
+    print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
+    print()
+    
+    return df
+
+
+def build_openai_revenue_scaled_tokens():
+    """
+    Build OpenAI Combined daily token estimates scaled by REVENUE.
+    
+    Uses teratokens_per_bil_revenue() ratio to convert revenue to tokens.
+    """
+    # Get the tokens-per-revenue ratio
+    tt_per_bil = teratokens_per_bil_revenue()
+    
+    # Build estimates at each revenue data point
+    estimates = []
+    
+    for dp in openai_data['revenue_annualized']:
+        # Convert revenue (in $) to tokens using the ratio
+        revenue_bil = dp.value / 1e9
+        teratokens = revenue_bil * tt_per_bil
+        tokens = teratokens * 1e12  # Convert back to tokens
+        estimates.append((dp.date, tokens, 'from_revenue'))
+    
+    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
+    df['decimal_date'] = df['date'].apply(date_to_decimal)
+    df = df.sort_values('decimal_date')
+    
+    print(f"OpenAI (Revenue-Scaled) Token Estimation:")
+    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
+    print(f"  Revenue data points: {len(openai_data['revenue_annualized'])}")
+    print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
     print()
     
     return df
 
 
 # =============================================================================
-# META DATA (Imputed)
+# GOOGLE DATA - Split into Gemini Assistant and Gemini API
 # =============================================================================
+
+google_data = {
+    # "All AI products" figures - NOT used (includes Search AI Overviews, Translate, etc.)
+    'monthly_tokens_all_products': [
+        DataPoint(datetime(2024, 4, 15), 9.7e12, 'monthly_tokens', 'Google I/O 2024', 'Confident'),
+        DataPoint(datetime(2025, 4, 30), 480e12, 'monthly_tokens', 'Google I/O 2025', 'Confident'),
+        DataPoint(datetime(2025, 7, 23), 980e12, 'monthly_tokens', 'Q2 2025 Earnings', 'Confident'),
+        DataPoint(datetime(2025, 9, 30), 1.3e15, 'monthly_tokens', 'Demis Hassabis tweet', 'Confident'),
+    ],
+    # Gemini Assistant MAU data
+    'gemini_mau': [
+        DataPoint(datetime(2025, 3, 15), 350e6, 'mau', 'The Information', 'Confident'),
+        DataPoint(datetime(2025, 5, 20), 400e6, 'mau', 'Google I/O', 'Confident'),
+        DataPoint(datetime(2025, 7, 23), 450e6, 'mau', 'Q2 Earnings', 'Confident'),
+        DataPoint(datetime(2025, 10, 29), 650e6, 'mau', 'Q3 Earnings', 'Confident'),
+    ],
+    # Gemini Assistant messages (Mar 2025)
+    'gemini_daily_messages': [
+        DataPoint(datetime(2025, 3, 28), 140e6, 'daily_messages', 'Google trial', 'Confident'),
+    ],
+    # Gemini API tokens
+    'api_daily_tokens': [
+        # 7B tokens/minute * 1440 min/day = 10.08T/day
+        DataPoint(datetime(2025, 10, 29), 10.08e12, 'api_daily_tokens', 'Q3 2025 Earnings', 'Confident'),
+    ],
+}
+
+def build_gemini_assistant_tokens():
+    """
+    Build Gemini Assistant (consumer) daily token estimates.
+    
+    Method: Use MAU data with messages/MAU ratio from Google trial.
+    """
+    # Compute messages/MAU ratio from Mar 2025 data
+    # 140M messages / 350M MAU = 0.4 messages/MAU/day
+    messages_mar = 140e6
+    mau_mar = 350e6
+    messages_per_mau = messages_mar / mau_mar
+    
+    estimates = []
+    
+    for dp in google_data['gemini_mau']:
+        daily_messages = dp.value * messages_per_mau
+        daily_tokens = daily_messages * CHAT_TOKENS_PER_MSG
+        estimates.append((dp.date, daily_tokens, 'from_mau'))
+    
+    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
+    df['decimal_date'] = df['date'].apply(date_to_decimal)
+    df = df.sort_values('decimal_date')
+    
+    print(f"Gemini Assistant Token Estimation (MAU-based):")
+    print(f"  Messages/MAU ratio: {messages_per_mau:.3f} (from Mar 2025: {messages_mar/1e6:.0f}M msgs / {mau_mar/1e6:.0f}M MAU)")
+    print(f"  Tokens/message: {CHAT_TOKENS_PER_MSG}")
+    print(f"  MAU data points: {len(google_data['gemini_mau'])}")
+    print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
+    print()
+    
+    return df
+
+
+def build_gemini_api_tokens():
+    """
+    Build Gemini API daily token estimates.
+    
+    Uses only the single direct API token measurement.
+    Growth rate is applied later in model fitting using INDUSTRY_GROWTH_RATE.
+    """
+    api_dp = google_data['api_daily_tokens'][0]
+    api_tokens = api_dp.value
+    api_date = api_dp.date
+    
+    # Single data point only
+    estimates = [(api_date, api_tokens, 'api_direct')]
+    
+    df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
+    df['decimal_date'] = df['date'].apply(date_to_decimal)
+    
+    print(f"Gemini API Token Estimation:")
+    print(f"  {api_date.strftime('%Y-%m-%d')}: {api_tokens/1e12:.2f}T/day (direct measurement)")
+    print(f"  NOTE: Single point - will use industry growth rate for trendline")
+    print()
+    
+    return df
+
+
+# =============================================================================
+# META DATA (MAU-based with messages/MAU ratio from Google trial)
+# =============================================================================
+#
+# Strategy: Use Google trial data to compute messages/MAU ratio, then apply
+# linearly to all MAU data points.
 
 meta_data = {
     'mau': [
@@ -359,47 +502,48 @@ meta_data = {
     ],
 }
 
-def build_meta_daily_tokens(tokens_per_msg: float):
+def build_meta_daily_tokens():
     """
-    Build Meta daily token estimates.
+    Build Meta daily token estimates using messages/MAU ratio.
     
-    Strategy: Use message data and apply OpenAI's tokens/message ratio.
-    For dates without message data, estimate from MAU trends.
+    Strategy:
+    1. Interpolate MAU at Mar 2025 (Google trial date)
+    2. Compute messages/MAU ratio from Google trial data
+    3. Apply ratio linearly to all MAU data points
+    4. Convert messages to tokens
     """
-    # We have one message data point
-    msg_dp = meta_data['daily_messages'][0]
-    base_tokens = msg_dp.value * tokens_per_msg
-    base_date = msg_dp.date
-    base_decimal = date_to_decimal(base_date)
+    # Google trial data: 200M messages on Mar 28, 2025
+    messages_mar_2025 = 200e6
     
-    # Estimate growth from MAU trend
-    mau_dates = np.array([date_to_decimal(dp.date) for dp in meta_data['mau']])
-    mau_values = np.array([dp.value for dp in meta_data['mau']])
+    # Interpolate MAU at Mar 2025 (between Jan 700M and May 1B)
+    # Jan 29 → Mar 28 is ~2 months, Jan 29 → May 28 is ~4 months
+    # Linear interpolation: 700M + (1B - 700M) * (2/4) = 850M
+    mau_mar_2025 = 850e6
     
-    # Fit exponential to MAU
-    a_mau, b_mau, _ = fit_exponential(mau_dates, mau_values)
+    # Compute messages per MAU per day (linear relationship)
+    messages_per_mau = messages_mar_2025 / mau_mar_2025
     
-    # Create estimates at MAU data points, scaling from base
+    print(f"Meta Token Estimation (MAU-based):")
+    print(f"  Google trial (Mar 2025): {messages_mar_2025/1e6:.0f}M messages/day")
+    print(f"  Interpolated MAU (Mar 2025): {mau_mar_2025/1e6:.0f}M")
+    print(f"  Messages per MAU per day: {messages_per_mau:.4f}")
+    print(f"  Tokens/message: {CHAT_TOKENS_PER_MSG}")
+    
+    # Apply ratio to all MAU data points
     estimates = []
     
-    # Use message-based estimate as anchor
-    estimates.append((base_date, base_tokens, 'from_messages'))
-    
-    # Scale other dates by MAU ratio
-    base_mau = exponential_model(base_decimal - 2024, a_mau, b_mau)
-    
     for dp in meta_data['mau']:
-        if dp.date != base_date:
-            decimal = date_to_decimal(dp.date)
-            mau_ratio = dp.value / base_mau
-            # Messages likely scale sub-linearly with MAU (engagement varies)
-            # Use sqrt scaling as approximation
-            scaled_tokens = base_tokens * np.sqrt(mau_ratio)
-            estimates.append((dp.date, scaled_tokens, 'scaled_from_mau'))
+        daily_messages = dp.value * messages_per_mau
+        daily_tokens = daily_messages * CHAT_TOKENS_PER_MSG
+        estimates.append((dp.date, daily_tokens, 'from_mau'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
     df['decimal_date'] = df['date'].apply(date_to_decimal)
     df = df.sort_values('decimal_date')
+    
+    print(f"  MAU data points: {len(meta_data['mau'])}")
+    print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
+    print()
     
     return df
 
@@ -435,65 +579,33 @@ openai_inference_spend = {
     2025: 7e9,    # Projected
 }
 
-def build_anthropic_daily_tokens(openai_df: pd.DataFrame):
+def build_anthropic_daily_tokens():
     """
-    Build Anthropic daily token estimates using revenue growth curve.
+    Build Anthropic daily token estimates using revenue and teratokens_per_bil_revenue.
     
-    Method:
-    1. Anchor: Jul 2025 inference spend ($2B) vs OpenAI ($7B) = 0.29 token ratio
-    2. Get OpenAI's tokens at Jul 2025 → Anthropic's tokens at Jul 2025
-    3. Scale other dates by revenue ratio (revenue growth ≈ token growth)
-    
-    This uses Anthropic's actual revenue growth curve instead of assuming
-    OpenAI's growth rate, giving us real data-driven estimates.
+    Uses the same tokens-per-revenue ratio as OpenAI.
     """
-    # Step 1: Anchor point from inference spend comparison
-    anthropic_spend_jul = 2e9
-    openai_spend_2025 = 7e9
-    token_ratio = anthropic_spend_jul / openai_spend_2025
+    # Get the tokens-per-revenue ratio
+    tt_per_bil = teratokens_per_bil_revenue()
     
-    # Step 2: Get OpenAI's tokens at July 2025
-    jul_2025 = date_to_decimal(datetime(2025, 7, 31))
-    openai_dates = openai_df['decimal_date'].values
-    openai_tokens = openai_df['daily_tokens'].values
-    a, b, _ = fit_exponential(openai_dates, openai_tokens)
-    openai_jul_tokens = exponential_model(jul_2025 - 2024, a, b)
-    
-    # Anthropic's tokens at July 2025 anchor point
-    anthropic_jul_tokens = openai_jul_tokens * token_ratio
-    
-    # Step 3: Get Anthropic's revenue at July 2025 for scaling
-    # Use the $5B data point from Jul 29, 2025
-    anthropic_revenue_jul = 5e9
-    
-    # Step 4: Build estimates at each revenue data point, scaled by revenue
+    # Build estimates at each revenue data point
     estimates = []
     
     for dp in anthropic_data['revenue_annualized']:
-        # Scale tokens by revenue ratio relative to July 2025
-        revenue_ratio = dp.value / anthropic_revenue_jul
-        tokens = anthropic_jul_tokens * revenue_ratio
+        # Convert revenue (in $) to tokens using the ratio
+        revenue_bil = dp.value / 1e9
+        teratokens = revenue_bil * tt_per_bil
+        tokens = teratokens * 1e12  # Convert back to tokens
         estimates.append((dp.date, tokens, 'from_revenue'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
     df['decimal_date'] = df['date'].apply(date_to_decimal)
     df = df.sort_values('decimal_date')
     
-    # Compare inference spend / revenue ratios
-    # OpenAI: 2024 ($1.8B inference / $3.7B rev), 2025 ($7B inference / $12B rev)
-    openai_ratio_2024 = 1.8e9 / 3.7e9
-    openai_ratio_2025 = 7e9 / 12e9
-    # Anthropic: Jul 2025 ($2B inference / $5B rev)
-    anthropic_ratio_jul = anthropic_spend_jul / anthropic_revenue_jul
-    
     print(f"Anthropic Token Estimation (revenue-based):")
-    print(f"  Inference/Revenue ratios:")
-    print(f"    OpenAI 2024: ${1.8}B / ${3.7}B = {openai_ratio_2024:.1%}")
-    print(f"    OpenAI 2025: ${7}B / ${12}B = {openai_ratio_2025:.1%}")
-    print(f"    Anthropic Jul 2025: ${anthropic_spend_jul/1e9:.1f}B / ${anthropic_revenue_jul/1e9:.1f}B = {anthropic_ratio_jul:.1%}")
-    print(f"  Anchor: inference spend ratio = {token_ratio:.2f}")
-    print(f"  Jul 2025 anchor: {anthropic_jul_tokens/1e12:.2f}T tokens/day")
+    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
     print(f"  Revenue data points: {len(anthropic_data['revenue_annualized'])}")
+    print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
     print()
     
     return df
@@ -519,58 +631,31 @@ xai_data = {
     ],
 }
 
-def build_xai_daily_tokens(openai_df: pd.DataFrame, anthropic_df: pd.DataFrame):
+def build_xai_daily_tokens():
     """
     Build xAI daily token estimates from revenue data.
     
-    Method:
-    1. Calculate tokens-per-revenue ratio from OpenAI and Anthropic
-    2. Apply average ratio to xAI's revenue data
-    
-    This gives us data-driven estimates instead of arbitrary growth rates.
+    Uses teratokens_per_bil_revenue() ratio to convert revenue to tokens.
     """
-    # Calculate tokens-per-revenue for OpenAI (use Jul 2025 data)
-    # OpenAI Jul 2025: ~$12B ARR, estimate tokens from fit
-    jul_2025 = date_to_decimal(datetime(2025, 7, 31))
-    openai_dates = openai_df['decimal_date'].values
-    openai_tokens = openai_df['daily_tokens'].values
-    a_oai, b_oai, _ = fit_exponential(openai_dates, openai_tokens)
-    openai_jul_tokens = exponential_model(jul_2025 - 2024, a_oai, b_oai)
-    openai_jul_revenue = 12e9  # $12B ARR in Jul 2025
-    openai_tokens_per_revenue = openai_jul_tokens / openai_jul_revenue
-    
-    # Calculate tokens-per-revenue for Anthropic (Jul 2025)
-    # Find Anthropic's Jul 2025 tokens from their dataframe
-    anthropic_jul = anthropic_df[anthropic_df['decimal_date'] >= jul_2025 - 0.1]
-    if len(anthropic_jul) > 0:
-        anthropic_jul_tokens = anthropic_jul.iloc[0]['daily_tokens']
-    else:
-        # Extrapolate
-        a_ant, b_ant, _ = fit_exponential(anthropic_df['decimal_date'].values, 
-                                          anthropic_df['daily_tokens'].values)
-        anthropic_jul_tokens = exponential_model(jul_2025 - 2024, a_ant, b_ant)
-    anthropic_jul_revenue = 5e9  # $5B ARR in Jul 2025
-    anthropic_tokens_per_revenue = anthropic_jul_tokens / anthropic_jul_revenue
-    
-    # Average the two ratios
-    avg_tokens_per_revenue = (openai_tokens_per_revenue + anthropic_tokens_per_revenue) / 2
-    
-    print(f"xAI Token Estimation (revenue-based):")
-    print(f"  OpenAI tokens/$ revenue: {openai_tokens_per_revenue:.0f}")
-    print(f"  Anthropic tokens/$ revenue: {anthropic_tokens_per_revenue:.0f}")
-    print(f"  Average tokens/$ revenue: {avg_tokens_per_revenue:.0f}")
+    # Get the tokens-per-revenue ratio
+    tt_per_bil = teratokens_per_bil_revenue()
     
     # Build estimates from xAI revenue data
     estimates = []
     
     for dp in xai_data['revenue_annualized']:
-        tokens = dp.value * avg_tokens_per_revenue
+        # Convert revenue (in $) to tokens using the ratio
+        revenue_bil = dp.value / 1e9
+        teratokens = revenue_bil * tt_per_bil
+        tokens = teratokens * 1e12  # Convert back to tokens
         estimates.append((dp.date, tokens, 'from_revenue'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
     df['decimal_date'] = df['date'].apply(date_to_decimal)
     df = df.sort_values('decimal_date')
     
+    print(f"xAI Token Estimation (revenue-based):")
+    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
     print(f"  Revenue data points: {len(xai_data['revenue_annualized'])}")
     print(f"  Latest estimate ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.3f}T/day")
     print()
@@ -588,24 +673,37 @@ def analyze_and_project():
     print("AI COMPANY DAILY TOKEN PROJECTION ANALYSIS")
     print("=" * 70)
     print()
-    
-    # Build OpenAI data and get tokens/message ratio
-    openai_df, tokens_per_msg = build_openai_daily_tokens()
-    
-    print(f"Using tokens/message ratio: {tokens_per_msg:.0f}")
+    print(f"Using CHAT_TOKENS_PER_MSG = {CHAT_TOKENS_PER_MSG}")
     print()
     
-    # Build all company data
-    # Note: Order matters - some depend on others
-    google_df = build_google_daily_tokens(tokens_per_msg)
-    meta_df = build_meta_daily_tokens(tokens_per_msg)
-    anthropic_df = build_anthropic_daily_tokens(openai_df)
-    xai_df = build_xai_daily_tokens(openai_df, anthropic_df)
+    # Build OpenAI ChatGPT data
+    openai_chatgpt_df = build_openai_chatgpt_tokens()
     
-    # Fit growth models
+    # Build OpenAI API data
+    openai_api_df = build_openai_api_tokens()
+    
+    # Build OpenAI Combined - two methods using Sam's tweet as anchor
+    openai_inference_df = build_openai_inference_scaled_tokens()
+    openai_revenue_df = build_openai_revenue_scaled_tokens()
+    
+    # Build Google Gemini data (split into Assistant and API)
+    gemini_assistant_df = build_gemini_assistant_tokens()
+    gemini_api_df = build_gemini_api_tokens()
+    
+    # Build other company data
+    meta_df = build_meta_daily_tokens()
+    # Revenue-based estimates using teratokens_per_bil_revenue()
+    anthropic_df = build_anthropic_daily_tokens()
+    xai_df = build_xai_daily_tokens()
+    
+    # Fit growth models - now with split categories
     companies = {
-        'OpenAI': openai_df,
-        'Google': google_df,
+        'OpenAI ChatGPT': openai_chatgpt_df,
+        'OpenAI API': openai_api_df,
+        'OpenAI (Inference)': openai_inference_df,
+        'OpenAI (Revenue)': openai_revenue_df,
+        'Gemini Assistant': gemini_assistant_df,
+        'Gemini API': gemini_api_df,
         'Meta': meta_df,
         'Anthropic': anthropic_df,
         'xAI': xai_df,
@@ -622,21 +720,38 @@ def analyze_and_project():
         dates = df['decimal_date'].values
         tokens = df['daily_tokens'].values
         
-        a, b, r2 = fit_exponential(dates, tokens)
+        if len(df) == 1:
+            # Single data point: use industry growth rate
+            # Calculate 'a' so that model passes through the single point
+            # Model: tokens = a * exp(b * (t - 2024))
+            # So: a = tokens / exp(b * (t - 2024))
+            b = INDUSTRY_GROWTH_RATE
+            t = dates[0]
+            a = tokens[0] / np.exp(b * (t - 2024))
+            r2 = float('nan')  # Can't compute R² with 1 point
+            
+            print(f"{name}:")
+            print(f"  Data points: {len(df)} (using industry growth rate)")
+            print(f"  Estimate: {tokens[0]:.2e} tokens/day ({tokens[0]/1e12:.2f}T)")
+            print(f"  Growth rate: {b:.2f}/year (INDUSTRY_GROWTH_RATE)")
+        else:
+            # Multiple data points: fit exponential
+            a, b, r2 = fit_exponential(dates, tokens)
+            
+            doubling_time = np.log(2) / b if b > 0 else float('inf')
+            monthly_growth = (np.exp(b / 12) - 1) * 100
+            
+            print(f"{name}:")
+            print(f"  Data points: {len(df)}")
+            print(f"  Latest estimate: {tokens[-1]:.2e} tokens/day ({tokens[-1]/1e12:.2f}T)")
+            print(f"  Growth rate: {b:.2f}/year ({monthly_growth:.1f}%/month)")
+            print(f"  Doubling time: {doubling_time:.2f} years ({doubling_time*12:.1f} months)")
+            print(f"  R² fit: {r2:.3f}")
+        
         models[name] = {'a': a, 'b': b, 'r2': r2}
-        
-        doubling_time = np.log(2) / b if b > 0 else float('inf')
-        monthly_growth = (np.exp(b / 12) - 1) * 100
-        
-        print(f"{name}:")
-        print(f"  Data points: {len(df)}")
-        print(f"  Latest estimate: {tokens[-1]:.2e} tokens/day ({tokens[-1]/1e12:.2f}T)")
-        print(f"  Growth rate: {b:.2f}/year ({monthly_growth:.1f}%/month)")
-        print(f"  Doubling time: {doubling_time:.2f} years ({doubling_time*12:.1f} months)")
-        print(f"  R² fit: {r2:.3f}")
         print()
     
-    return companies, models, tokens_per_msg
+    return companies, models
 
 
 def project_forward(companies: dict, models: dict, end_date: datetime = datetime(2027, 1, 1)):
@@ -661,13 +776,31 @@ def project_forward(companies: dict, models: dict, end_date: datetime = datetime
     
     for date in projection_dates:
         decimal = date_to_decimal(date)
-        total = 0
         
+        # Calculate each series
+        series_values = {}
         for name, params in models.items():
             tokens = exponential_model(decimal - 2024, params['a'], params['b'])
             projections[name].append(tokens)
-            total += tokens
+            series_values[name] = tokens
         
+        # Average company estimates before summing
+        # OpenAI: average 3 methods: (ChatGPT + API), Inference, Revenue
+        openai_chatgpt = series_values.get('OpenAI ChatGPT', 0)
+        openai_api = series_values.get('OpenAI API', 0)
+        openai_inference = series_values.get('OpenAI (Inference)', 0)
+        openai_revenue = series_values.get('OpenAI (Revenue)', 0)
+        openai_avg = (openai_chatgpt + openai_api + openai_inference + openai_revenue) / 3
+        
+        # Google: sum products
+        google_total = series_values.get('Gemini Assistant', 0) + series_values.get('Gemini API', 0)
+        
+        # Others: single series
+        meta_total = series_values.get('Meta', 0)
+        anthropic_total = series_values.get('Anthropic', 0)
+        xai_total = series_values.get('xAI', 0)
+        
+        total = openai_avg + google_total + meta_total + anthropic_total + xai_total
         projections['Total'].append(total)
     
     # Create projection DataFrame
@@ -690,46 +823,145 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     
     fig, ax = plt.subplots(figsize=(14, 8))
     
-    # Color scheme
-    colors = {
+    # Company colors (same color for same company)
+    company_colors = {
         'OpenAI': '#10a37f',      # OpenAI green
         'Google': '#4285f4',      # Google blue
-        'Meta': '#0866ff',        # Meta blue
+        'Meta': '#800080',        # Meta purple
         'Anthropic': '#d4a574',   # Anthropic tan/brown
         'xAI': '#1da1f2',         # xAI/Twitter blue
         'All': '#333333',         # Dark gray for total
     }
     
+    # Map each category to its company color
+    colors = {
+        'OpenAI ChatGPT': company_colors['OpenAI'],
+        'OpenAI API': company_colors['OpenAI'],
+        'OpenAI (Inference)': company_colors['OpenAI'],
+        'OpenAI (Revenue)': company_colors['OpenAI'],
+        'Gemini Assistant': company_colors['Google'],
+        'Gemini API': company_colors['Google'],
+        'Meta': company_colors['Meta'],
+        'Anthropic': company_colors['Anthropic'],
+        'xAI': company_colors['xAI'],
+    }
+    
+    # Markers: Chat (circle), API (square), Inference-scaled (plus), Revenue-scaled (star)
+    markers = {
+        'OpenAI ChatGPT': 'o',      # Chat - circle
+        'OpenAI API': 's',          # API - square
+        'OpenAI (Inference)': 'P',  # Inference-scaled - filled plus
+        'OpenAI (Revenue)': '*',    # Revenue-scaled - star
+        'Gemini Assistant': 'o',    # Chat - circle
+        'Gemini API': 's',          # API - square
+        'Meta': 'o',                # Chat - circle
+        'Anthropic': '*',           # Revenue-based - star
+        'xAI': '*',                 # Revenue-based - star
+    }
+    
+    # Line styles: Chat (solid), API (dashed), Inference (dashdot), Revenue (dotted)
+    linestyles = {
+        'OpenAI ChatGPT': '-',      # Chat - solid
+        'OpenAI API': '--',         # API - dashed
+        'OpenAI (Inference)': '-.',  # Inference-scaled - dashdot
+        'OpenAI (Revenue)': ':',    # Revenue-scaled - dotted
+        'Gemini Assistant': '-',    # Chat - solid
+        'Gemini API': '--',         # API - dashed
+        'Meta': '-',                # Chat - solid
+        'Anthropic': ':',           # Combined - dotted
+        'xAI': ':',                 # Combined - dotted
+    }
+    
     # Time range for plotting
-    t_plot = np.linspace(2024.0, 2027.0, 300)
+    t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
     
     # Plot each company
     for name, df in companies.items():
         # Plot data points
         ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
-                   s=80, color=colors[name], alpha=0.7, zorder=5,
-                   label=f'{name} (data)')
+                   s=80, color=colors[name], marker=markers[name], 
+                   alpha=0.7, zorder=5, label=f'{name}')
         
         # Plot trendline
         params = models[name]
         y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
-        ax.plot(t_plot, y_fit, '--', color=colors[name], alpha=0.6, linewidth=2)
+        ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
+                alpha=0.6, linewidth=2)
     
     # Calculate and plot "All" (total) line
-    total = np.zeros_like(t_plot)
+    # Group series by company and average before summing
+    # OpenAI has 3 estimation methods: (ChatGPT + API), Inference-scaled, Revenue-scaled
+    # Google has 2 products: Gemini Assistant + Gemini API (sum these)
+    # Meta, Anthropic, xAI each have 1 series
+    
+    company_estimates = {
+        'OpenAI': [],
+        'Google': [],
+        'Meta': [],
+        'Anthropic': [],
+        'xAI': [],
+    }
+    
+    # Calculate each series
     for name in companies.keys():
         params = models[name]
-        total += exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        series = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        
+        if name.startswith('OpenAI'):
+            company_estimates['OpenAI'].append((name, series))
+        elif name.startswith('Gemini'):
+            company_estimates['Google'].append((name, series))
+        elif name == 'Meta':
+            company_estimates['Meta'].append((name, series))
+        elif name == 'Anthropic':
+            company_estimates['Anthropic'].append((name, series))
+        elif name == 'xAI':
+            company_estimates['xAI'].append((name, series))
     
-    ax.plot(t_plot, total, '-', color=colors['All'], linewidth=3, label='All (total)', zorder=4)
+    # For OpenAI: average 3 methods: (ChatGPT + API), Inference, Revenue
+    openai_chatgpt = next((s for n, s in company_estimates['OpenAI'] if 'ChatGPT' in n), None)
+    openai_api = next((s for n, s in company_estimates['OpenAI'] if n == 'OpenAI API'), None)
+    openai_inference = next((s for n, s in company_estimates['OpenAI'] if 'Inference' in n), None)
+    openai_revenue = next((s for n, s in company_estimates['OpenAI'] if 'Revenue' in n), None)
+    
+    openai_method1 = openai_chatgpt + openai_api if openai_chatgpt is not None and openai_api is not None else np.zeros_like(t_plot)
+    openai_method2 = openai_inference if openai_inference is not None else np.zeros_like(t_plot)
+    openai_method3 = openai_revenue if openai_revenue is not None else np.zeros_like(t_plot)
+    openai_avg = (openai_method1 + openai_method2 + openai_method3) / 3
+    
+    # For Google: sum Gemini Assistant + Gemini API
+    google_total = sum(s for _, s in company_estimates['Google'])
+    
+    # For others: just use single series
+    meta_total = sum(s for _, s in company_estimates['Meta'])
+    anthropic_total = sum(s for _, s in company_estimates['Anthropic'])
+    xai_total = sum(s for _, s in company_estimates['xAI'])
+    
+    # annotate best guess of human cognitive effort in tokens per day
+    human_cognitive_effort = (8 * 10**9) * 16 * 60 * 60 * 3 / 1e12 # 8 billion people, 16 hours per day, 60 minutes per hour, 60 seconds per minute, 3 tokens per second
+    ax.hlines(human_cognitive_effort, PLOT_BEGIN_DATE, PLOT_END_DATE, color='red', linestyle='--', label='Human Cognitive Effort')
+
+    # Sum all companies
+    total = openai_avg + google_total + meta_total + anthropic_total + xai_total
+    
+    ax.plot(t_plot, total, '-', color=company_colors['All'], linewidth=3, 
+            label='All (avg per company)', zorder=4)
     
     ax.set_yscale('log')
     ax.set_xlabel('Year', fontsize=12)
     ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
-    ax.set_title('Daily Token Production by Company', fontsize=14, fontweight='bold')
-    ax.legend(loc='upper left', fontsize=9)
+    ax.set_title('Daily Token Production by Company/Product', fontsize=14, fontweight='bold')
+    
+    # Custom legend with marker explanations
+    ax.legend(loc='upper left', fontsize=8, ncol=2)
+    
+    # Add marker legend as text annotation
+    ax.text(0.98, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
+            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
     ax.grid(True, alpha=0.3, which='both')
-    ax.set_xlim(2024, 2027)
+    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
     
     plt.tight_layout()
     plt.savefig('per_company_token_projection.png', dpi=150, bbox_inches='tight')
@@ -777,20 +1009,23 @@ def create_summary_table(companies: dict, models: dict):
     print(summary_df.to_string(index=False))
     print()
     
-    # Total row
+    # Total row - average company estimates before summing
     dec_2025 = date_to_decimal(datetime(2025, 12, 1))
     dec_2026 = date_to_decimal(datetime(2026, 12, 1))
     
-    total_dec_2025 = sum(
-        exponential_model(dec_2025 - 2024, models[name]['a'], models[name]['b'])
-        for name in companies.keys()
-    )
-    total_dec_2026 = sum(
-        exponential_model(dec_2026 - 2024, models[name]['a'], models[name]['b'])
-        for name in companies.keys()
-    )
+    def calc_total(decimal):
+        series = {name: exponential_model(decimal - 2024, models[name]['a'], models[name]['b'])
+                  for name in companies.keys()}
+        # OpenAI: average 3 methods
+        openai_avg = (series.get('OpenAI ChatGPT', 0) + series.get('OpenAI API', 0) + 
+                      series.get('OpenAI (Inference)', 0) + series.get('OpenAI (Revenue)', 0)) / 3
+        google_total = series.get('Gemini Assistant', 0) + series.get('Gemini API', 0)
+        return openai_avg + google_total + series.get('Meta', 0) + series.get('Anthropic', 0) + series.get('xAI', 0)
     
-    print(f"TOTAL (All Companies):")
+    total_dec_2025 = calc_total(dec_2025)
+    total_dec_2026 = calc_total(dec_2026)
+    
+    print(f"TOTAL (All Companies, averaged per company):")
     print(f"  Dec 2025: {total_dec_2025/1e12:.2f}T tokens/day")
     print(f"  Dec 2026: {total_dec_2026/1e12:.2f}T tokens/day")
     print(f"  YoY Growth: {(total_dec_2026/total_dec_2025 - 1)*100:.1f}%")
@@ -800,8 +1035,10 @@ def create_summary_table(companies: dict, models: dict):
 def export_data(companies: dict, models: dict):
     """Export projection data to CSV."""
     
-    # Generate monthly projections
-    dates = pd.date_range('2024-01-01', '2027-01-01', freq='MS')
+    # Generate monthly projections using PLOT_BEGIN_DATE and PLOT_END_DATE
+    begin_date = decimal_to_date(PLOT_BEGIN_DATE)
+    end_date = decimal_to_date(PLOT_END_DATE)
+    dates = pd.date_range(begin_date, end_date, freq='MS')
     
     data = {'date': dates}
     
@@ -811,11 +1048,24 @@ def export_data(companies: dict, models: dict):
         tokens = [exponential_model(d - 2024, params['a'], params['b']) for d in decimals]
         data[f'{name}_daily_tokens'] = tokens
     
-    # Add total
-    data['total_daily_tokens'] = [
-        sum(data[f'{name}_daily_tokens'][i] for name in companies.keys())
-        for i in range(len(dates))
-    ]
+    # Add total - average company estimates before summing
+    total_tokens = []
+    for i in range(len(dates)):
+        # OpenAI: average 3 methods
+        openai_chatgpt = data.get('OpenAI ChatGPT_daily_tokens', [0]*len(dates))[i]
+        openai_api = data.get('OpenAI API_daily_tokens', [0]*len(dates))[i]
+        openai_inference = data.get('OpenAI (Inference)_daily_tokens', [0]*len(dates))[i]
+        openai_revenue = data.get('OpenAI (Revenue)_daily_tokens', [0]*len(dates))[i]
+        openai_avg = (openai_chatgpt + openai_api + openai_inference + openai_revenue) / 3
+        
+        google_total = data.get('Gemini Assistant_daily_tokens', [0]*len(dates))[i] + data.get('Gemini API_daily_tokens', [0]*len(dates))[i]
+        meta_total = data.get('Meta_daily_tokens', [0]*len(dates))[i]
+        anthropic_total = data.get('Anthropic_daily_tokens', [0]*len(dates))[i]
+        xai_total = data.get('xAI_daily_tokens', [0]*len(dates))[i]
+        
+        total_tokens.append(openai_avg + google_total + meta_total + anthropic_total + xai_total)
+    
+    data['total_daily_tokens'] = total_tokens
     
     df = pd.DataFrame(data)
     df.to_csv('token_projections.csv', index=False)
@@ -828,7 +1078,7 @@ def export_data(companies: dict, models: dict):
 
 if __name__ == '__main__':
     # Run analysis
-    companies, models, tokens_per_msg = analyze_and_project()
+    companies, models = analyze_and_project()
     
     # Generate projections
     projections, projection_dates = project_forward(companies, models)
@@ -845,15 +1095,15 @@ if __name__ == '__main__':
     print("=" * 70)
     print("METHODOLOGY NOTES")
     print("=" * 70)
-    print("""
-1. OpenAI tokens are derived from direct disclosures (100B words/day in Feb 2024)
-   and message counts, using a computed tokens/message ratio.
+    print(f"""
+1. Consumer chat tokens (OpenAI ChatGPT, Gemini Assistant, Meta) are computed
+   from message counts using CHAT_TOKENS_PER_MSG = {CHAT_TOKENS_PER_MSG} tokens/message.
 
 2. Google tokens use GEMINI-ONLY data (API + chat), excluding "all AI products"
    figures which include Search AI Overviews, Translate, etc.
 
-3. Meta tokens are imputed from daily message estimates using OpenAI's
-   tokens/message ratio.
+3. Meta tokens use a messages/MAU ratio (0.235) derived from Google trial data,
+   applied linearly to Meta's reported MAU figures.
 
 4. Anthropic tokens are anchored to inference spend comparison with OpenAI,
    then scaled using Anthropic's revenue growth curve (8 data points).
