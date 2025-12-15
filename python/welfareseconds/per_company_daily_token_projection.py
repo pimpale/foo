@@ -821,7 +821,8 @@ def project_forward(companies: dict, models: dict, end_date: datetime = datetime
         openai_api = series_values.get('OpenAI API', 0)
         openai_inference = series_values.get('OpenAI (Inference)', 0)
         openai_revenue = series_values.get('OpenAI (Revenue)', 0)
-        openai_avg = (openai_chatgpt + openai_api + openai_inference + openai_revenue) / 3
+        # Average 3 methods: (ChatGPT + API), Inference, Revenue
+        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
         
         # Google: sum products
         google_total = series_values.get('Gemini Assistant', 0) + series_values.get('Gemini API', 0)
@@ -1060,14 +1061,74 @@ def create_individual_company_plots(companies: dict, models: dict):
     # Time range for plotting
     t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
     
-    # Load population data for human token-equivalents line
-    pop_df = pd.read_csv('population.csv')
-    pop_years = pop_df['Year'].values
-    pop_values = pop_df['all years'].values
-    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
-    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12
+    # ==========================================================================
+    # Create combined OpenAI plot with all methods
+    # ==========================================================================
+    fig, ax = plt.subplots(figsize=(12, 7))
     
+    # Get OpenAI data and models
+    openai_series = {name: (companies[name], models[name]) 
+                     for name in companies.keys() if name.startswith('OpenAI')}
+    
+    # Define colors and styles for each OpenAI method
+    openai_styles = {
+        'OpenAI ChatGPT': {'color': '#2ecc71', 'marker': 'o', 'linestyle': '-', 'label': 'ChatGPT'},
+        'OpenAI API': {'color': '#3498db', 'marker': 's', 'linestyle': '-', 'label': 'API'},
+        'OpenAI (Inference)': {'color': '#e74c3c', 'marker': 'P', 'linestyle': '--', 'label': 'Inference-scaled'},
+        'OpenAI (Revenue)': {'color': '#9b59b6', 'marker': '*', 'linestyle': '--', 'label': 'Revenue-scaled'},
+    }
+    
+    # Plot each OpenAI method
+    openai_projections = {}
+    for name, (df, params) in openai_series.items():
+        style = openai_styles[name]
+        
+        # Plot data points
+        ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
+                   s=80, color=style['color'], marker=style['marker'], 
+                   alpha=0.7, zorder=5)
+        
+        # Plot trendline
+        y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        ax.plot(t_plot, y_fit, linestyle=style['linestyle'], color=style['color'], 
+                alpha=0.7, linewidth=2, label=style['label'])
+        
+        openai_projections[name] = y_fit
+    
+    # Calculate and plot ChatGPT + API combined
+    chatgpt_api_combined = openai_projections['OpenAI ChatGPT'] + openai_projections['OpenAI API']
+    ax.plot(t_plot, chatgpt_api_combined, linestyle='-', color='#f39c12', 
+            linewidth=2.5, label='ChatGPT + API', alpha=0.8)
+    
+    # Calculate and plot average of 3 methods: (ChatGPT + API), Inference, Revenue
+    openai_avg = (chatgpt_api_combined + openai_projections['OpenAI (Inference)'] + 
+                  openai_projections['OpenAI (Revenue)']) / 3
+    ax.plot(t_plot, openai_avg, linestyle='-', color='#1a1a1a', 
+            linewidth=3, label='Average (3 methods)', alpha=0.9)
+    
+    ax.set_yscale('log')
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
+    ax.set_title('OpenAI - Daily Token Production (Multiple Estimation Methods)', fontsize=14, fontweight='bold')
+    
+    ax.legend(loc='upper left', fontsize=9)
+    ax.grid(True, alpha=0.3, which='both')
+    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    
+    plt.tight_layout()
+    filepath = os.path.join(PLOTS_FOLDER, 'openai_combined_projection.png')
+    plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+    print(f"  Saved {filepath}")
+    
+    # ==========================================================================
+    # Create individual plots for non-OpenAI companies
+    # ==========================================================================
     for name, df in companies.items():
+        # Skip OpenAI - we already made a combined plot
+        if name.startswith('OpenAI'):
+            continue
+            
         fig, ax = plt.subplots(figsize=(10, 6))
         
         # Plot data points
@@ -1080,10 +1141,6 @@ def create_individual_company_plots(companies: dict, models: dict):
         y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
         ax.plot(t_plot, y_fit, '-', color=colors[name], alpha=0.7, linewidth=2.5, 
                 label=f'{name} (projection)')
-        
-        # Plot human token-equivalents for reference
-        ax.plot(t_plot, human_token_equivalents, color='red', linestyle='--', 
-                linewidth=2, label='Human Token-Equivalents', alpha=0.7)
         
         ax.set_yscale('log')
         ax.set_xlabel('Year', fontsize=12)
@@ -1111,7 +1168,14 @@ def create_individual_company_plots(companies: dict, models: dict):
         
         print(f"  Saved {filepath}")
     
-    # Also create a human token-equivalents only plot
+    # Load population data for human token-equivalents plot
+    pop_df = pd.read_csv('population.csv')
+    pop_years = pop_df['Year'].values
+    pop_values = pop_df['all years'].values
+    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
+    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12
+    
+    # Create a human token-equivalents only plot
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(t_plot, human_token_equivalents, color='red', linewidth=2.5, label='Human Token-Equivalents')
     ax.set_yscale('log')
@@ -1182,9 +1246,9 @@ def create_summary_table(companies: dict, models: dict):
     def calc_total(decimal):
         series = {name: exponential_model(decimal - 2024, models[name]['a'], models[name]['b'])
                   for name in companies.keys()}
-        # OpenAI: average 3 methods
-        openai_avg = (series.get('OpenAI ChatGPT', 0) + series.get('OpenAI API', 0) + 
-                      series.get('OpenAI (Inference)', 0) + series.get('OpenAI (Revenue)', 0)) / 3
+        # OpenAI: average 3 methods: (ChatGPT + API), Inference, Revenue
+        openai_product = series.get('OpenAI ChatGPT', 0) + series.get('OpenAI API', 0)
+        openai_avg = (openai_product + series.get('OpenAI (Inference)', 0) + series.get('OpenAI (Revenue)', 0)) / 3
         google_total = series.get('Gemini Assistant', 0) + series.get('Gemini API', 0)
         return openai_avg + google_total + series.get('Meta', 0) + series.get('Anthropic', 0) + series.get('xAI', 0)
     
@@ -1222,7 +1286,8 @@ def export_data(companies: dict, models: dict):
         openai_api = data.get('OpenAI API_daily_tokens', [0]*len(dates))[i]
         openai_inference = data.get('OpenAI (Inference)_daily_tokens', [0]*len(dates))[i]
         openai_revenue = data.get('OpenAI (Revenue)_daily_tokens', [0]*len(dates))[i]
-        openai_avg = (openai_chatgpt + openai_api + openai_inference + openai_revenue) / 3
+        # Average 3 methods: (ChatGPT + API), Inference, Revenue
+        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
         
         google_total = data.get('Gemini Assistant_daily_tokens', [0]*len(dates))[i] + data.get('Gemini API_daily_tokens', [0]*len(dates))[i]
         meta_total = data.get('Meta_daily_tokens', [0]*len(dates))[i]
