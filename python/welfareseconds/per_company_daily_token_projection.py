@@ -598,10 +598,42 @@ def build_anthropic_daily_tokens():
     df['decimal_date'] = df['date'].apply(date_to_decimal)
     df = df.sort_values('decimal_date')
     
+    # Sanity check: compare Anthropic's tokens per $ inference to OpenAI's
+    # Anthropic has one inference spend data point: $2B annualized at Jul 2025
+    anthropic_inference_dp = anthropic_data['inference_spend_annualized'][0]
+    anthropic_inference_spend = anthropic_inference_dp.value
+    anthropic_inference_date = date_to_decimal(anthropic_inference_dp.date)
+    
+    # Interpolate Anthropic tokens at the inference spend date using revenue-based fit
+    dates = df['decimal_date'].values
+    tokens = df['daily_tokens'].values
+    a, b, _ = fit_exponential(dates, tokens)
+    anthropic_tokens_at_inference_date = exponential_model(anthropic_inference_date - 2024, a, b)
+    
+    # Calculate Anthropic's tokens per $ inference
+    anthropic_tokens_per_inference = anthropic_tokens_at_inference_date / anthropic_inference_spend
+    
+    # Get OpenAI's tokens per $ inference for comparison
+    # (Same calculation as in build_openai_inference_scaled_tokens)
+    openai_anchor_tokens = 133e9
+    openai_anchor_date = date_to_decimal(datetime(2024, 2, 9))
+    openai_spend_dates = np.array([date_to_decimal(dp.date) for dp in openai_data['inference_spend_annualized']])
+    openai_spend_values = np.array([dp.value for dp in openai_data['inference_spend_annualized']])
+    a_openai, b_openai, _ = fit_exponential(openai_spend_dates, openai_spend_values)
+    openai_anchor_spend = exponential_model(openai_anchor_date - 2024, a_openai, b_openai)
+    openai_tokens_per_inference = openai_anchor_tokens / openai_anchor_spend
+
     print(f"Anthropic Token Estimation (revenue-based):")
     print(f"  Using tokens_per_revenue = {tpr:.2f} tokens/day per $")
     print(f"  Revenue data points: {len(anthropic_data['revenue_annualized'])}")
     print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
+    print(f"  ")
+    print(f"  SANITY CHECK (tokens per $ inference spend):")
+    print(f"    Anthropic inference spend ({anthropic_inference_dp.date.strftime('%Y-%m-%d')}): ${anthropic_inference_spend/1e9:.1f}B")
+    print(f"    Anthropic tokens (interpolated): {anthropic_tokens_at_inference_date/1e12:.2f}T/day")
+    print(f"    Anthropic tokens per $ inference: {anthropic_tokens_per_inference:.0f}")
+    print(f"    OpenAI tokens per $ inference: {openai_tokens_per_inference:.0f}")
+    print(f"    Ratio (Anthropic/OpenAI): {anthropic_tokens_per_inference/openai_tokens_per_inference:.2f}x")
     print()
     
     return df
@@ -781,6 +813,28 @@ def analyze_and_project():
         
         models[name] = {'a': a, 'b': b, 'r2': r2}
         print()
+    
+    # Compare Google "All AI Products" to OpenAI (averaged) at same dates
+    print("=" * 70)
+    print("GOOGLE 'ALL AI PRODUCTS' vs OPENAI COMPARISON")
+    print("=" * 70)
+    print("(Google figures include Search AI Overviews, Translate, etc.)")
+    print()
+    
+    for dp in google_data['monthly_tokens_all_products']:
+        google_daily = dp.value / 30  # monthly to daily
+        dp_decimal = date_to_decimal(dp.date)
+        
+        # Calculate OpenAI average (3 methods) at this date
+        openai_chatgpt = exponential_model(dp_decimal - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b'])
+        openai_api = exponential_model(dp_decimal - 2024, models['OpenAI API']['a'], models['OpenAI API']['b'])
+        openai_inference = exponential_model(dp_decimal - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b'])
+        openai_revenue = exponential_model(dp_decimal - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b'])
+        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
+        
+        ratio = google_daily / openai_avg
+        print(f"  {dp.date.strftime('%Y-%m-%d')}: Google {google_daily/1e12:.1f}T vs OpenAI (avg) {openai_avg/1e12:.2f}T = {ratio:.1f}x")
+    print()
     
     return companies, models
 
@@ -1122,11 +1176,70 @@ def create_individual_company_plots(companies: dict, models: dict):
     print(f"  Saved {filepath}")
     
     # ==========================================================================
-    # Create individual plots for non-OpenAI companies
+    # Create combined Google/Gemini plot
+    # ==========================================================================
+    fig, ax = plt.subplots(figsize=(12, 7))
+    
+    # Get Gemini data and models
+    gemini_series = {name: (companies[name], models[name]) 
+                     for name in companies.keys() if name.startswith('Gemini')}
+    
+    # Define colors and styles for each Gemini product
+    gemini_styles = {
+        'Gemini Assistant': {'color': '#2ecc71', 'marker': 'o', 'linestyle': '-', 'label': 'Gemini Assistant'},
+        'Gemini API': {'color': '#3498db', 'marker': 's', 'linestyle': '-', 'label': 'Gemini API'},
+    }
+    
+    # Plot each Gemini product
+    gemini_projections = {}
+    for name, (df, params) in gemini_series.items():
+        style = gemini_styles[name]
+        
+        # Plot data points
+        ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
+                   s=80, color=style['color'], marker=style['marker'], 
+                   alpha=0.7, zorder=5)
+        
+        # Plot trendline
+        y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        ax.plot(t_plot, y_fit, linestyle=style['linestyle'], color=style['color'], 
+                alpha=0.7, linewidth=2, label=style['label'])
+        
+        gemini_projections[name] = y_fit
+    
+    # Calculate and plot Gemini Assistant + API combined
+    gemini_combined = gemini_projections['Gemini Assistant'] + gemini_projections['Gemini API']
+    ax.plot(t_plot, gemini_combined, linestyle='-', color='#f39c12', 
+            linewidth=3, label='Gemini Total (Assistant + API)', alpha=0.9)
+    
+    # Plot Google "All AI Products" data points for reference (no trendline)
+    google_all_dates = [date_to_decimal(dp.date) for dp in google_data['monthly_tokens_all_products']]
+    google_all_daily_tokens = [dp.value / 30 / 1e12 for dp in google_data['monthly_tokens_all_products']]
+    ax.scatter(google_all_dates, google_all_daily_tokens, 
+               s=120, color='#e74c3c', marker='X', 
+               alpha=0.7, zorder=5, label='All AI Products (reference)')
+    
+    ax.set_yscale('log')
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
+    ax.set_title('Google/Gemini - Daily Token Production', fontsize=14, fontweight='bold')
+    
+    ax.legend(loc='upper left', fontsize=9)
+    ax.grid(True, alpha=0.3, which='both')
+    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    
+    plt.tight_layout()
+    filepath = os.path.join(PLOTS_FOLDER, 'google_combined_projection.png')
+    plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+    print(f"  Saved {filepath}")
+    
+    # ==========================================================================
+    # Create individual plots for non-OpenAI, non-Gemini companies
     # ==========================================================================
     for name, df in companies.items():
-        # Skip OpenAI - we already made a combined plot
-        if name.startswith('OpenAI'):
+        # Skip OpenAI and Gemini - we already made combined plots
+        if name.startswith('OpenAI') or name.startswith('Gemini'):
             continue
             
         fig, ax = plt.subplots(figsize=(10, 6))

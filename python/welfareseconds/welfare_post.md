@@ -82,13 +82,13 @@ The approach we'll take to get our final answer is to try multiple different est
 
 #### Approaches
 
-**Inference-scaled**: We fit an exponential to the inference compute spending growth trend and then find the interpolated inference in Feb 2024 when Sam made the tweet (which turns out to be \$0.54B). From this, we can calulate you get 248 tokens/day per \$ you spend on inference compute each year.
+**Inference-scaled**: Inference compute spending should be proportional to the number of tokens produced, as producing tokens costs money. We have enough points to draw a curve of inference spending. What we lack is the conversion factor between inference spending and tokens produced. To find this, we interpolate what the inference spending would have been in Feb 2024 when Sam made the tweet (which turns out to be \$0.54B). From this, we can calulate you get 248 tokens/day per marginal \$ you spend on inference compute.
 
-If we take 1 dollar for 248 tokens a day for a whole year this is equal to \$11/MToken, which seems to be roughly in the right ballpark. (For reference, GPT 5.2 is 1.75\$/MToken for input, and \$14.00/Mtoken for output, but 5.2 Pro is more expensive).
+Let's sanity check this: if we take 1 dollar for 248 tokens a day for a whole year this is equal to \$11/MToken. This is definitely in the right ballpark! (For reference, GPT 5.2 is 1.75\$/MToken for input, and \$14.00/Mtoken for output, but 5.2 Pro is more expensive).
 
-**Revenue-scaled**: This works pretty similarly to the inference-scaled approach, but using the revenue growth trend instead of the inference spending growth trend. The difference is we have 8 data points for revenue instead of just 2 for inference compute, so I'd expect this value to be slightly more reliable. 
+**Revenue-scaled**: Revenue should also be proportional to the number of tokens produced. Operationalizing this is pretty similar to the inference-scaled approach, but using the revenue growth trend instead of the inference spending growth trend. The difference is we have 8 data points for revenue instead of just 2 for inference compute, so I'd expect this value to be slightly more reliable.
 
-The daily tokens per dollar of revenue ends up being equal to \$40/MToken. This is slightly more expensive than I'd expect, but not implausible given that they probably have higher margins from ChatGPT than through the API. 
+The daily tokens per dollar of revenue ends up being 69.20 tokens/day per \$ (equal to \$40/MToken). This is slightly more expensive than I'd expect, but not implausible given that they probably have higher margins from ChatGPT than through the API. 
 
 **Product-Based**: For our final OpenAI analysis, we'll directly look at OpenAI's 2 main products (ChatGPT and the API) and attempt to calculate how many tokens they use individually, and then combine them.
 * **ChatGPT**: We have pretty good data on daily messages for ChatGPT. We'll assume (somewhat arbitrarily) that there are 512 tokens per message. This is a couple of paragraphs in practice.
@@ -101,22 +101,44 @@ Here's what they look like plotted together on a graph:
 
 ### Anthropic
 
-For Anthropic, the main challenge is that our data is much sparser
+For Anthropic, the main challenge is that our data is much sparser. We have one estimate of inference spend ($2B in Jul 2025), and 8 points of revenue data. Thus, we can only use the revenue based approach. 
 
-- **Data available**: Rich revenue data (8 points: $87M Jan 2024 → $7B Oct 2025), one inference spend data point (~$2B annualized, Jul 2025)
-- **Challenge**: No direct token or message data; must infer from financial metrics
-- **Approach**: Use tokens-per-revenue ratio derived from OpenAI's anchor point (Sam's tweet + OpenAI revenue at that date), apply to Anthropic's revenue curve
-- **Rationale**: Revenue should scale roughly with token production (more usage → more revenue); this leverages Anthropic's actual growth curve rather than assuming arbitrary rates
+
+#### Approaches
+**Revenue-based**: We can draw a curve through the revenue for Anthropic, and then scale it using the same 69.20 tokens/day per \$ of revenue that we get for OpenAI. 
+
+We can use our one estimate of inference spend to roughly sanity check this: the tokens per $ on inference should be reasonable. Using the revenue based approach above, we get 0.3T tokens/day around when the annualized inference spend was measured. Thus, we get 154 Anthropic tokens per day per marginal dollar spent on inference, about 62% of what OpenAI has. This is equivalent to \$17.79/MToken. Definitely seems to be in the right ballpark, considering that Claude Opus is quite popular, and very expensive. 
+
+Here's a plot of Anthropic's token projections:
+![Anthropic Token Projections](plots/anthropic_projection.png)
+
 
 ### Google
 
-- **Data available**: "All AI products" figures (9.7T → 1.3Q monthly tokens), Gemini API rate (7B/min, Oct 2025), Gemini chat messages (140M/day, Mar 2025), Gemini MAU data
-- **Challenge**: "All AI products" includes Search AI Overviews, Translate, etc. which don't scale comparably to LLM inference
-- **Approach**: Use Gemini-only data, split into two series:
-  - **Gemini Assistant**: MAU × messages-per-MAU ratio (0.4, from Mar 2025 data) × 512 tokens/message
-  - **Gemini API**: Direct token measurement (10.08T/day from 7B/min)
-- **Rationale**: Excluding "all AI products" makes Google comparable to other enterprise AI providers; the inflated figures would skew the total unrealistically
-- **Note**: "All AI products" data points are shown on charts for reference but excluded from projections
+We actually have a lot of data for Google:
+1. Total tokens across all Google AI products
+2. Gemini Monthly Active User (MAU) data
+3. Gemini daily chat messages (one point-in-time estimate)
+4. Gemini API tokens/min (one point-in-time estimate)
+
+If we could just use the total tokens across all Google AI products, that would be great! These numbers are reported directly by Google, and have exactly the metric we want, tokens. There's one issue: their numbers absolutely dwarf everone else's. They [report 43T tokens/day on Sep 30, 2025](https://x.com/demishassabis/status/1976712484657475691). This is 10.2x our best guess (computed above) for OpenAI at the same date. 
+
+This sort of makes sense: Google injects Search Overview into basically every google search, and also provides Google Translate services. I think these bias the underlying trend, since they are fundamentally different businesses, and won't grow at the same rate as API usage or chat usage will.
+
+So, we'll ignore those data points, and use a similar approach to OpenAI's per-product estimation. 
+
+#### Approaches
+**Product-Based**: We'll directly look at Gemini Assistant usage and the Gemini API, attempt to calculate how many tokens they use individually, and then combine them.
+* **Gemini Assistant**: We have many MAU data points, allowing us to draw a growth curve for the number of MAUs. Since we have the [daily messages for March 28, 2025](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court), we can interpolate the number of MAUs at that point, and calculate how many messages a monthly active user sends per day. If we do the math, we end up with about 0.4 messages/day. We'll use the same 512 tokens/message figure as ChatGPT. 
+* **Gemini API**: Similar to OpenAI, we have a single direct token measurement (10.08T/day, from [their earnings report](https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-release.pdf)). Like what we did in OpenAI, we'll impute the growth rate as the industry average growth rate, with the associated caveats that this is not necessarily sound.
+
+We add these estimates together to produce a final guess for the *relevant* component of Google's tokens:
+
+![Google/Gemini Token Projections](plots/google_combined_projection.png)
+
+Note: we include the "All AI products" reports in this graph for reference (red X markers), although they're not used in the final estimate.
+
+One thing to notice is that the API Gemini usage basically dominates the assistant message token count. 
 
 ### Meta
 
