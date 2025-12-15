@@ -29,6 +29,7 @@ To be clear, I don't believe in the maximalist interpretation. However, I do thi
     3. Google
     4. Meta
     5. xAI
+    6. Bringing it together
 3. When will the crossover happen?
 4. Summary
 
@@ -118,7 +119,7 @@ Here's a plot of Anthropic's token projections:
 We actually have a lot of data for Google:
 1. Total tokens across all Google AI products
 2. Gemini Monthly Active User (MAU) data
-3. Gemini daily chat messages (one point-in-time estimate)
+3. Gemini daily chat messages (one point-in-time estimate), [from a Google antitrust court testimonal](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court). 
 4. Gemini API tokens/min (one point-in-time estimate)
 
 If we could just use the total tokens across all Google AI products, that would be great! These numbers are reported directly by Google, and have exactly the metric we want, tokens. There's one issue: their numbers absolutely dwarf everone else's. They [report 43T tokens/day on Sep 30, 2025](https://x.com/demishassabis/status/1976712484657475691). This is 10.2x our best guess (computed above) for OpenAI at the same date. 
@@ -129,7 +130,7 @@ So, we'll ignore those data points, and use a similar approach to OpenAI's per-p
 
 #### Approaches
 **Product-Based**: We'll directly look at Gemini Assistant usage and the Gemini API, attempt to calculate how many tokens they use individually, and then combine them.
-* **Gemini Assistant**: We have many MAU data points, allowing us to draw a growth curve for the number of MAUs. Since we have the [daily messages for March 28, 2025](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court), we can interpolate the number of MAUs at that point, and calculate how many messages a monthly active user sends per day. If we do the math, we end up with about 0.4 messages/day. We'll use the same 512 tokens/message figure as ChatGPT. 
+* **Gemini Assistant**: We have many MAU data points, allowing us to draw a growth curve for the number of MAUs. Since we have the daily messages for March 28, 2025, we can interpolate the number of MAUs at that point, and calculate how many messages a monthly active user sends per day. If we do the math, we end up with about 0.4 messages/day. We'll use the same 512 tokens/message figure as ChatGPT. 
 * **Gemini API**: Similar to OpenAI, we have a single direct token measurement (10.08T/day, from [their earnings report](https://s206.q4cdn.com/479360582/files/doc_financials/2025/q3/2025q3-alphabet-earnings-release.pdf)). Like what we did in OpenAI, we'll impute the growth rate as the industry average growth rate, with the associated caveats that this is not necessarily sound.
 
 We add these estimates together to produce a final guess for the *relevant* component of Google's tokens:
@@ -142,20 +143,48 @@ One thing to notice is that the API Gemini usage basically dominates the assista
 
 ### Meta
 
-- **Data available**: Rich MAU data (400M Sep 2024 → 1B May 2025, then plateaued), daily messages (200M, Mar 2025 from Google antitrust trial)
-- **Challenge**: MAU data is abundant but messages data is sparse (single point)
-- **Approach**: 
-  - Interpolate MAU at Mar 2025 (~850M) from surrounding data points
-  - Compute messages/MAU ratio: 200M messages / 850M MAU = 0.235 messages/MAU/day
-  - Apply ratio to all MAU data points, convert to tokens (× 512 tokens/message)
-- **Rationale**: MAU growth drives message growth; the messages/MAU ratio captures engagement intensity and allows extrapolation from the richer MAU dataset
+Meta is basically a pure assistant platform. They don't have a popular enterprise AI offering. We have pretty good data on their monthly active users (6 data points), and one point in time estimate of daily messages from the [same court testimonial](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court). 
+
+#### Approaches
+**MAU-based**: We can use a similar approach as the one we did for Gemini Assistant. We interpolate the number of MAUs at March 28, and then find how many messages a monthly active user sends per day. For Meta, this turns out to be 0.235, less than Google. We can then multiply by 512 tokens/message as before. 
+
+Here's the graph:
+![Meta Token Projections](plots/meta_projection.png)
+
+Unfortunately for Meta, they do not make up a large proportion of future tokens. 
 
 ### xAI
+
+We have relatively little data about xAI. We have 4 revenue data points starting from Nov 2024. We also have their daily message count from the Google trial. 
+
+We'll use the revenue-based method since it's the only one we're able to draw a curve with:
+
+#### Approaches
+
+**Revenue-based**: Like we did before for Anthropic, we can draw a curve through the revenue for xAI, and then scale it using the same 69.20 tokens/day per \$ of revenue that we get for OpenAI.
+
+Unlike Anthropic, we don't have inference compute to sanity check against. Unfortunately, xAI has both API and Chat revenue, so we can't really use their chat message count to validate that the token count lines up, since it would give us an artificially inflated token count per message (since we'd count API tokens in the chat bucket).  
+
+In any case, here's the graph:
+![Meta Token Projections](plots/xai_projection.png)
+
 
 - **Data available**: Revenue data (4 points: $100M Nov 2024 → $500M Jul 2025), daily messages (75M, Mar 2025 from Google trial)
 - **Challenge**: No direct token or inference spend data; newest and smallest of the major players
 - **Approach**: Use tokens-per-revenue ratio (same as Anthropic method), apply to xAI's revenue data
 - **Rationale**: Revenue-based estimation is the most reliable method given available data; actual revenue growth (4 points) is better than arbitrary assumptions
+
+### Bringing it all together
+
+Note that just summing the above 5 companies won't be sufficient to get global token counts. We're not accounting for Chinese companies and other competitors. Unfortunately, I wasn't able to find detailed data for MAUs or API usage for Chinese companies. We also don't have detailed data on smaller American and European companies (although I suspect these wouldn't change the balance significantly). 
+
+To resolve this, we'll take the ratio of rest of the world's compute to the US's compute, and multiply the overall result by that. Epoch also helpfully [provides this ratio](https://epoch.ai/blog/trends-in-ai-supercomputers). It turns out the US controls about 75% of worldwide compute as of March 2025, and China around 15%. 
+
+Now that we have all 5 AI companies, plus the estimate of other players, let's see what it looks like when we put them on the same graph (alongside the human token projection as well):
+
+![Combined Graph](per_company_token_projection.png)
+
+## When will the crossover happen?
 
 ## Summary
 

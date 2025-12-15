@@ -915,7 +915,7 @@ def create_visualization(companies: dict, models: dict, projections: dict,
         'Google': '#4285f4',      # Google blue
         'Meta': '#800080',        # Meta purple
         'Anthropic': '#d4a574',   # Anthropic tan/brown
-        'xAI': '#1da1f2',         # xAI/Twitter blue
+        'xAI': '#ff8c00',         # xAI orange
         'All': '#333333',         # Dark gray for total
     }
     
@@ -961,18 +961,19 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     # Time range for plotting
     t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
     
-    # Plot each company
+    # Plot each company - markers only for OpenAI/Gemini, markers + trendlines for others
     for name, df in companies.items():
-        # Plot data points
+        # Plot data points (markers) for all
         ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
                    s=80, color=colors[name], marker=markers[name], 
                    alpha=0.7, zorder=5, label=f'{name}')
         
-        # Plot trendline
-        params = models[name]
-        y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
-        ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
-                alpha=0.6, linewidth=2)
+        # Only plot individual trendlines for non-OpenAI, non-Gemini companies
+        if not name.startswith('OpenAI') and not name.startswith('Gemini'):
+            params = models[name]
+            y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+            ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
+                    alpha=0.6, linewidth=2)
     
     # Plot Google "All AI Products" data points for reference (no trendline)
     # These include Search AI Overviews, Translate, etc. which don't scale the same way
@@ -982,54 +983,35 @@ def create_visualization(companies: dict, models: dict, projections: dict,
                s=100, color=company_colors['Google'], marker='X', 
                alpha=0.7, zorder=5, label='Google (All Products)')
     
-    # Calculate and plot "All" (total) line
-    # Group series by company and average before summing
+    # Calculate combined lines for OpenAI and Google
     # OpenAI has 3 estimation methods: (ChatGPT + API), Inference-scaled, Revenue-scaled
     # Google has 2 products: Gemini Assistant + Gemini API (sum these)
-    # Meta, Anthropic, xAI each have 1 series
     
-    company_estimates = {
-        'OpenAI': [],
-        'Google': [],
-        'Meta': [],
-        'Anthropic': [],
-        'xAI': [],
-    }
+    # Calculate OpenAI projections
+    openai_chatgpt = exponential_model(t_plot - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b']) / 1e12
+    openai_api = exponential_model(t_plot - 2024, models['OpenAI API']['a'], models['OpenAI API']['b']) / 1e12
+    openai_inference = exponential_model(t_plot - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b']) / 1e12
+    openai_revenue = exponential_model(t_plot - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b']) / 1e12
     
-    # Calculate each series
-    for name in companies.keys():
-        params = models[name]
-        series = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
-        
-        if name.startswith('OpenAI'):
-            company_estimates['OpenAI'].append((name, series))
-        elif name.startswith('Gemini'):
-            company_estimates['Google'].append((name, series))
-        elif name == 'Meta':
-            company_estimates['Meta'].append((name, series))
-        elif name == 'Anthropic':
-            company_estimates['Anthropic'].append((name, series))
-        elif name == 'xAI':
-            company_estimates['xAI'].append((name, series))
+    # OpenAI average: (ChatGPT + API), Inference, Revenue
+    openai_method1 = openai_chatgpt + openai_api
+    openai_avg = (openai_method1 + openai_inference + openai_revenue) / 3
     
-    # For OpenAI: average 3 methods: (ChatGPT + API), Inference, Revenue
-    openai_chatgpt = next((s for n, s in company_estimates['OpenAI'] if 'ChatGPT' in n), None)
-    openai_api = next((s for n, s in company_estimates['OpenAI'] if n == 'OpenAI API'), None)
-    openai_inference = next((s for n, s in company_estimates['OpenAI'] if 'Inference' in n), None)
-    openai_revenue = next((s for n, s in company_estimates['OpenAI'] if 'Revenue' in n), None)
+    # Calculate Google/Gemini projections
+    gemini_assistant = exponential_model(t_plot - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b']) / 1e12
+    gemini_api = exponential_model(t_plot - 2024, models['Gemini API']['a'], models['Gemini API']['b']) / 1e12
+    google_total = gemini_assistant + gemini_api
     
-    openai_method1 = openai_chatgpt + openai_api if openai_chatgpt is not None and openai_api is not None else np.zeros_like(t_plot)
-    openai_method2 = openai_inference if openai_inference is not None else np.zeros_like(t_plot)
-    openai_method3 = openai_revenue if openai_revenue is not None else np.zeros_like(t_plot)
-    openai_avg = (openai_method1 + openai_method2 + openai_method3) / 3
+    # Plot combined lines for OpenAI and Google
+    ax.plot(t_plot, openai_avg, '-', color=company_colors['OpenAI'], linewidth=2.5, 
+            alpha=0.8, label='OpenAI (combined)')
+    ax.plot(t_plot, google_total, '-', color=company_colors['Google'], linewidth=2.5, 
+            alpha=0.8, label='Google (combined)')
     
-    # For Google: sum Gemini Assistant + Gemini API
-    google_total = sum(s for _, s in company_estimates['Google'])
-    
-    # For others: just use single series
-    meta_total = sum(s for _, s in company_estimates['Meta'])
-    anthropic_total = sum(s for _, s in company_estimates['Anthropic'])
-    xai_total = sum(s for _, s in company_estimates['xAI'])
+    # For others: calculate single series
+    meta_total = exponential_model(t_plot - 2024, models['Meta']['a'], models['Meta']['b']) / 1e12
+    anthropic_total = exponential_model(t_plot - 2024, models['Anthropic']['a'], models['Anthropic']['b']) / 1e12
+    xai_total = exponential_model(t_plot - 2024, models['xAI']['a'], models['xAI']['b']) / 1e12
     
     # Load population data and calculate human token-equivalents per day
     # Formula: population * 16 hours/day * 60 min/hr * 60 sec/min * HUMAN_TOKENS_PER_SECOND
@@ -1042,11 +1024,20 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12  # in trillions
     ax.plot(t_plot, human_token_equivalents, color='red', linestyle='--', linewidth=2, label='Human Token-Equivalents')
 
-    # Sum all companies
-    total = openai_avg + google_total + meta_total + anthropic_total + xai_total
+    # Sum US companies (the 5 we track)
+    us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
     
-    ax.plot(t_plot, total, '-', color=company_colors['All'], linewidth=3, 
-            label='All (avg per company)', zorder=4)
+    # Estimate non-American companies: US is ~75% of global compute, so non-US is ~25%
+    # non_us = us_total * (25/75) = us_total / 3
+    non_us_total = us_total / 3
+    ax.plot(t_plot, non_us_total, '-.', color='#888888', linewidth=2, 
+            alpha=0.8, label='Other (non-American est.)')
+    
+    # Global total = US + non-US
+    global_total = us_total + non_us_total
+    
+    ax.plot(t_plot, global_total, '-', color=company_colors['All'], linewidth=3, 
+            label='Global Total', zorder=4)
     
     ax.set_yscale('log')
     ax.set_xlabel('Year', fontsize=12)
@@ -1083,7 +1074,7 @@ def create_individual_company_plots(companies: dict, models: dict):
         'Google': '#4285f4',
         'Meta': '#800080',
         'Anthropic': '#d4a574',
-        'xAI': '#1da1f2',
+        'xAI': '#ff8c00',  # Orange
     }
     
     # Map each category to its company color
@@ -1114,6 +1105,38 @@ def create_individual_company_plots(companies: dict, models: dict):
     
     # Time range for plotting
     t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
+    
+    # ==========================================================================
+    # Pre-compute max y-value for consistent y-axis across all company plots
+    # ==========================================================================
+    max_y_values = []
+    
+    # OpenAI: compute average projection
+    openai_chatgpt = exponential_model(t_plot - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b']) / 1e12
+    openai_api = exponential_model(t_plot - 2024, models['OpenAI API']['a'], models['OpenAI API']['b']) / 1e12
+    openai_inference = exponential_model(t_plot - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b']) / 1e12
+    openai_revenue = exponential_model(t_plot - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b']) / 1e12
+    openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
+    max_y_values.append(np.max(openai_avg))
+    
+    # Google: compute combined projection + all AI products reference points
+    gemini_assistant = exponential_model(t_plot - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b']) / 1e12
+    gemini_api = exponential_model(t_plot - 2024, models['Gemini API']['a'], models['Gemini API']['b']) / 1e12
+    gemini_combined = gemini_assistant + gemini_api
+    max_y_values.append(np.max(gemini_combined))
+    # Also consider Google "All AI Products" reference points
+    google_all_daily_tokens = [dp.value / 30 / 1e12 for dp in google_data['monthly_tokens_all_products']]
+    max_y_values.append(np.max(google_all_daily_tokens))
+    
+    # Other companies
+    for name in ['Meta', 'Anthropic', 'xAI']:
+        params = models[name]
+        y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        max_y_values.append(np.max(y_fit))
+    
+    # Set consistent y-axis limits (with some padding)
+    y_max = max(max_y_values) * 1.5  # Add 50% padding
+    y_min = 0.001  # Minimum of 0.001T = 1B tokens/day
     
     # ==========================================================================
     # Create combined OpenAI plot with all methods
@@ -1168,6 +1191,7 @@ def create_individual_company_plots(companies: dict, models: dict):
     ax.legend(loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.3, which='both')
     ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    ax.set_ylim(y_min, y_max)
     
     plt.tight_layout()
     filepath = os.path.join(PLOTS_FOLDER, 'openai_combined_projection.png')
@@ -1227,6 +1251,7 @@ def create_individual_company_plots(companies: dict, models: dict):
     ax.legend(loc='upper left', fontsize=9)
     ax.grid(True, alpha=0.3, which='both')
     ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    ax.set_ylim(y_min, y_max)
     
     plt.tight_layout()
     filepath = os.path.join(PLOTS_FOLDER, 'google_combined_projection.png')
@@ -1263,6 +1288,7 @@ def create_individual_company_plots(companies: dict, models: dict):
         ax.legend(loc='upper left', fontsize=10)
         ax.grid(True, alpha=0.3, which='both')
         ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+        ax.set_ylim(y_min, y_max)
         
         # Add growth rate annotation
         doubling_time = np.log(2) / params['b'] if params['b'] > 0 else float('inf')
