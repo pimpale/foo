@@ -215,7 +215,7 @@ Here's how human and AI welfare compare in the coming years:
 
 ![Welfare Bubble Chart](plots/welfare_bubble_chart.png)
 
-| Year | Human Token-equivalents | AI Tokens | AI as % of Human |
+| Year (Jan 01) | Human Token-equivalents | AI Tokens | AI as % of Human |
 | --| -- | -- | -- |
 | 2026| 	2444T| 	27T |	1.1%
 | 2027| 	2464T| 	129T |	5.2%
