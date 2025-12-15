@@ -85,6 +85,7 @@ For companies with sparse data, we use:
 =============================================================================
 """
 
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -104,26 +105,34 @@ warnings.filterwarnings('ignore')
 # This is a simplification - actual values vary by product and conversation length
 CHAT_TOKENS_PER_MSG = 512
 
+# Human tokens per second estimate
+# Based on: 230 words per minute reading/speaking speed, 4/3 tokens per word
+# (230 / 60) * (4/3) ≈ 5.11 tokens/second
+HUMAN_TOKENS_PER_SECOND = (230 / 60) * (4 / 3)
+
 # Industry-wide growth rate (per year) for token production
 # Used for extrapolating single data point estimates
-# This is approximately the growth rate seen across multiple companies
-INDUSTRY_GROWTH_RATE = 1.7  # ~1.7x per year in log terms
+# This is calculated dynamically by averaging growth rates from companies with multiple data points
+# (see calculate_industry_growth_rate() function)
 
 # Date range for plotting and export (decimal years)
 PLOT_BEGIN_DATE = 2024.0
-PLOT_END_DATE = 2028.0
+PLOT_END_DATE = 2030.0
+
+# Output folder for individual company plots
+PLOTS_FOLDER = 'plots'
 
 
-def teratokens_per_bil_revenue():
+def tokens_per_revenue():
     """
-    Calculate the ratio of daily teratokens per billion dollars of annualized revenue.
+    Calculate the ratio of daily tokens per dollar of annualized revenue.
     
     This is computed from the OpenAI anchor point:
     - Feb 2024: 133B tokens/day (Sam Altman "100B words/day" tweet)
     - Revenue at Feb 2024: interpolated from revenue data
     
     Returns:
-        float: Teratokens per day per billion dollars of annualized revenue
+        float: Daily tokens per dollar of annualized revenue
     
     Note: This ratio implies that revenue scales linearly with token production,
     which is a simplification. In reality, pricing, efficiency, and product mix
@@ -134,7 +143,6 @@ def teratokens_per_bil_revenue():
     anchor_date = date_to_decimal(datetime(2024, 2, 9))
     
     # Get OpenAI revenue data points to interpolate anchor revenue
-    # Note: This requires openai_data to be defined, so we import it here
     rev_dates = np.array([date_to_decimal(dp.date) for dp in openai_data['revenue_annualized']])
     rev_values = np.array([dp.value for dp in openai_data['revenue_annualized']])
     
@@ -142,14 +150,8 @@ def teratokens_per_bil_revenue():
     a, b, _ = fit_exponential(rev_dates, rev_values)
     anchor_revenue = exponential_model(anchor_date - 2024, a, b)
     
-    # Calculate teratokens per billion revenue
-    # anchor_tokens is in tokens/day, anchor_revenue is in $/year
-    teratokens_per_day = anchor_tokens / 1e12
-    billions_revenue = anchor_revenue / 1e9
-    
-    ratio = teratokens_per_day / billions_revenue
-    
-    return ratio
+    # Simple ratio: tokens per dollar of revenue
+    return anchor_tokens / anchor_revenue
 
 # =============================================================================
 # DATA CLASSES AND UTILITIES
@@ -289,7 +291,7 @@ def build_openai_api_tokens():
     Build OpenAI API daily token estimates.
     
     Uses only the single direct API token measurement.
-    Growth rate is applied later in model fitting using INDUSTRY_GROWTH_RATE.
+    Growth rate is applied later in model fitting using averaged industry growth rate.
     """
     api_dp = openai_data['api_daily_tokens'][0]
     api_tokens = api_dp.value
@@ -303,7 +305,7 @@ def build_openai_api_tokens():
     
     print(f"OpenAI API Token Estimation:")
     print(f"  {api_date.strftime('%Y-%m-%d')}: {api_tokens/1e12:.2f}T/day (direct measurement)")
-    print(f"  NOTE: Single point - will use industry growth rate for trendline")
+    print(f"  NOTE: Single point - will use averaged industry growth rate for trendline")
     print()
     
     return df
@@ -361,19 +363,16 @@ def build_openai_revenue_scaled_tokens():
     """
     Build OpenAI Combined daily token estimates scaled by REVENUE.
     
-    Uses teratokens_per_bil_revenue() ratio to convert revenue to tokens.
+    Uses tokens_per_revenue() ratio to convert revenue to tokens.
     """
     # Get the tokens-per-revenue ratio
-    tt_per_bil = teratokens_per_bil_revenue()
+    tpr = tokens_per_revenue()
     
     # Build estimates at each revenue data point
     estimates = []
     
     for dp in openai_data['revenue_annualized']:
-        # Convert revenue (in $) to tokens using the ratio
-        revenue_bil = dp.value / 1e9
-        teratokens = revenue_bil * tt_per_bil
-        tokens = teratokens * 1e12  # Convert back to tokens
+        tokens = dp.value * tpr
         estimates.append((dp.date, tokens, 'from_revenue'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
@@ -381,7 +380,7 @@ def build_openai_revenue_scaled_tokens():
     df = df.sort_values('decimal_date')
     
     print(f"OpenAI (Revenue-Scaled) Token Estimation:")
-    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
+    print(f"  Using tokens_per_revenue = {tpr:.2f} tokens/day per $")
     print(f"  Revenue data points: {len(openai_data['revenue_annualized'])}")
     print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
     print()
@@ -457,7 +456,7 @@ def build_gemini_api_tokens():
     Build Gemini API daily token estimates.
     
     Uses only the single direct API token measurement.
-    Growth rate is applied later in model fitting using INDUSTRY_GROWTH_RATE.
+    Growth rate is applied later in model fitting using averaged industry growth rate.
     """
     api_dp = google_data['api_daily_tokens'][0]
     api_tokens = api_dp.value
@@ -471,7 +470,7 @@ def build_gemini_api_tokens():
     
     print(f"Gemini API Token Estimation:")
     print(f"  {api_date.strftime('%Y-%m-%d')}: {api_tokens/1e12:.2f}T/day (direct measurement)")
-    print(f"  NOTE: Single point - will use industry growth rate for trendline")
+    print(f"  NOTE: Single point - will use averaged industry growth rate for trendline")
     print()
     
     return df
@@ -581,21 +580,18 @@ openai_inference_spend = {
 
 def build_anthropic_daily_tokens():
     """
-    Build Anthropic daily token estimates using revenue and teratokens_per_bil_revenue.
+    Build Anthropic daily token estimates using revenue and tokens_per_revenue.
     
     Uses the same tokens-per-revenue ratio as OpenAI.
     """
     # Get the tokens-per-revenue ratio
-    tt_per_bil = teratokens_per_bil_revenue()
+    tpr = tokens_per_revenue()
     
     # Build estimates at each revenue data point
     estimates = []
     
     for dp in anthropic_data['revenue_annualized']:
-        # Convert revenue (in $) to tokens using the ratio
-        revenue_bil = dp.value / 1e9
-        teratokens = revenue_bil * tt_per_bil
-        tokens = teratokens * 1e12  # Convert back to tokens
+        tokens = dp.value * tpr
         estimates.append((dp.date, tokens, 'from_revenue'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
@@ -603,7 +599,7 @@ def build_anthropic_daily_tokens():
     df = df.sort_values('decimal_date')
     
     print(f"Anthropic Token Estimation (revenue-based):")
-    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
+    print(f"  Using tokens_per_revenue = {tpr:.2f} tokens/day per $")
     print(f"  Revenue data points: {len(anthropic_data['revenue_annualized'])}")
     print(f"  Latest ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.2f}T tokens/day")
     print()
@@ -635,19 +631,16 @@ def build_xai_daily_tokens():
     """
     Build xAI daily token estimates from revenue data.
     
-    Uses teratokens_per_bil_revenue() ratio to convert revenue to tokens.
+    Uses tokens_per_revenue() ratio to convert revenue to tokens.
     """
     # Get the tokens-per-revenue ratio
-    tt_per_bil = teratokens_per_bil_revenue()
+    tpr = tokens_per_revenue()
     
     # Build estimates from xAI revenue data
     estimates = []
     
     for dp in xai_data['revenue_annualized']:
-        # Convert revenue (in $) to tokens using the ratio
-        revenue_bil = dp.value / 1e9
-        teratokens = revenue_bil * tt_per_bil
-        tokens = teratokens * 1e12  # Convert back to tokens
+        tokens = dp.value * tpr
         estimates.append((dp.date, tokens, 'from_revenue'))
     
     df = pd.DataFrame(estimates, columns=['date', 'daily_tokens', 'source'])
@@ -655,7 +648,7 @@ def build_xai_daily_tokens():
     df = df.sort_values('decimal_date')
     
     print(f"xAI Token Estimation (revenue-based):")
-    print(f"  Using teratokens_per_bil_revenue = {tt_per_bil:.4f} T/day per $B")
+    print(f"  Using tokens_per_revenue = {tpr:.2f} tokens/day per $")
     print(f"  Revenue data points: {len(xai_data['revenue_annualized'])}")
     print(f"  Latest estimate ({df.iloc[-1]['date'].strftime('%Y-%m-%d')}): {df.iloc[-1]['daily_tokens']/1e12:.3f}T/day")
     print()
@@ -666,6 +659,27 @@ def build_xai_daily_tokens():
 # =============================================================================
 # MAIN ANALYSIS
 # =============================================================================
+
+def calculate_industry_growth_rate(companies: dict) -> float:
+    """
+    Calculate industry-wide growth rate by averaging growth rates from companies
+    with multiple data points.
+    
+    Returns:
+        float: Average growth rate (per year) across companies with fitted models
+    """
+    growth_rates = []
+    
+    for name, df in companies.items():
+        if len(df) > 1:
+            dates = df['decimal_date'].values
+            tokens = df['daily_tokens'].values
+            _, b, _ = fit_exponential(dates, tokens)
+            growth_rates.append(b)
+    
+    avg_growth_rate = np.mean(growth_rates)
+    return avg_growth_rate
+
 
 def analyze_and_project():
     """Main analysis function."""
@@ -709,6 +723,23 @@ def analyze_and_project():
         'xAI': xai_df,
     }
     
+    # Calculate industry growth rate by averaging growth rates from multi-point companies
+    industry_growth_rate = calculate_industry_growth_rate(companies)
+    
+    print("=" * 70)
+    print("INDUSTRY GROWTH RATE CALCULATION")
+    print("=" * 70)
+    print()
+    print(f"Averaging growth rates from companies with multiple data points:")
+    for name, df in companies.items():
+        if len(df) > 1:
+            dates = df['decimal_date'].values
+            tokens = df['daily_tokens'].values
+            _, b, _ = fit_exponential(dates, tokens)
+            print(f"  {name}: {b:.2f}/year")
+    print(f"\nAverage industry growth rate: {industry_growth_rate:.2f}/year")
+    print()
+    
     models = {}
     
     print("=" * 70)
@@ -721,19 +752,19 @@ def analyze_and_project():
         tokens = df['daily_tokens'].values
         
         if len(df) == 1:
-            # Single data point: use industry growth rate
+            # Single data point: use industry growth rate (averaged from other companies)
             # Calculate 'a' so that model passes through the single point
             # Model: tokens = a * exp(b * (t - 2024))
             # So: a = tokens / exp(b * (t - 2024))
-            b = INDUSTRY_GROWTH_RATE
+            b = industry_growth_rate
             t = dates[0]
             a = tokens[0] / np.exp(b * (t - 2024))
             r2 = float('nan')  # Can't compute R² with 1 point
             
             print(f"{name}:")
-            print(f"  Data points: {len(df)} (using industry growth rate)")
+            print(f"  Data points: {len(df)} (using averaged industry growth rate)")
             print(f"  Estimate: {tokens[0]:.2e} tokens/day ({tokens[0]/1e12:.2f}T)")
-            print(f"  Growth rate: {b:.2f}/year (INDUSTRY_GROWTH_RATE)")
+            print(f"  Growth rate: {b:.2f}/year (averaged from other companies)")
         else:
             # Multiple data points: fit exponential
             a, b, r2 = fit_exponential(dates, tokens)
@@ -888,6 +919,14 @@ def create_visualization(companies: dict, models: dict, projections: dict,
         ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
                 alpha=0.6, linewidth=2)
     
+    # Plot Google "All AI Products" data points for reference (no trendline)
+    # These include Search AI Overviews, Translate, etc. which don't scale the same way
+    google_all_dates = [date_to_decimal(dp.date) for dp in google_data['monthly_tokens_all_products']]
+    google_all_daily_tokens = [dp.value / 30 / 1e12 for dp in google_data['monthly_tokens_all_products']]  # monthly -> daily, in trillions
+    ax.scatter(google_all_dates, google_all_daily_tokens, 
+               s=100, color=company_colors['Google'], marker='X', 
+               alpha=0.7, zorder=5, label='Google (All Products)')
+    
     # Calculate and plot "All" (total) line
     # Group series by company and average before summing
     # OpenAI has 3 estimation methods: (ChatGPT + API), Inference-scaled, Revenue-scaled
@@ -937,9 +976,16 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     anthropic_total = sum(s for _, s in company_estimates['Anthropic'])
     xai_total = sum(s for _, s in company_estimates['xAI'])
     
-    # annotate best guess of human cognitive effort in tokens per day
-    human_cognitive_effort = (8 * 10**9) * 16 * 60 * 60 * 3 / 1e12 # 8 billion people, 16 hours per day, 60 minutes per hour, 60 seconds per minute, 3 tokens per second
-    ax.hlines(human_cognitive_effort, PLOT_BEGIN_DATE, PLOT_END_DATE, color='red', linestyle='--', label='Human Cognitive Effort')
+    # Load population data and calculate human token-equivalents per day
+    # Formula: population * 16 hours/day * 60 min/hr * 60 sec/min * HUMAN_TOKENS_PER_SECOND
+    pop_df = pd.read_csv('population.csv')
+    pop_years = pop_df['Year'].values
+    pop_values = pop_df['all years'].values
+    
+    # Interpolate population at each t_plot point
+    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
+    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12  # in trillions
+    ax.plot(t_plot, human_token_equivalents, color='red', linestyle='--', linewidth=2, label='Human Token-Equivalents')
 
     # Sum all companies
     total = openai_avg + google_total + meta_total + anthropic_total + xai_total
@@ -968,6 +1014,126 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     plt.show()
     
     print("Saved visualization to 'per_company_token_projection.png'")
+
+
+def create_individual_company_plots(companies: dict, models: dict):
+    """Create individual plots for each company/product."""
+    
+    # Create output folder if it doesn't exist
+    os.makedirs(PLOTS_FOLDER, exist_ok=True)
+    
+    # Company colors
+    company_colors = {
+        'OpenAI': '#10a37f',
+        'Google': '#4285f4',
+        'Meta': '#800080',
+        'Anthropic': '#d4a574',
+        'xAI': '#1da1f2',
+    }
+    
+    # Map each category to its company color
+    colors = {
+        'OpenAI ChatGPT': company_colors['OpenAI'],
+        'OpenAI API': company_colors['OpenAI'],
+        'OpenAI (Inference)': company_colors['OpenAI'],
+        'OpenAI (Revenue)': company_colors['OpenAI'],
+        'Gemini Assistant': company_colors['Google'],
+        'Gemini API': company_colors['Google'],
+        'Meta': company_colors['Meta'],
+        'Anthropic': company_colors['Anthropic'],
+        'xAI': company_colors['xAI'],
+    }
+    
+    # Markers
+    markers = {
+        'OpenAI ChatGPT': 'o',
+        'OpenAI API': 's',
+        'OpenAI (Inference)': 'P',
+        'OpenAI (Revenue)': '*',
+        'Gemini Assistant': 'o',
+        'Gemini API': 's',
+        'Meta': 'o',
+        'Anthropic': '*',
+        'xAI': '*',
+    }
+    
+    # Time range for plotting
+    t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
+    
+    # Load population data for human token-equivalents line
+    pop_df = pd.read_csv('population.csv')
+    pop_years = pop_df['Year'].values
+    pop_values = pop_df['all years'].values
+    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
+    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12
+    
+    for name, df in companies.items():
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        # Plot data points
+        ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
+                   s=100, color=colors[name], marker=markers[name], 
+                   alpha=0.8, zorder=5, label=f'{name} (data)')
+        
+        # Plot trendline
+        params = models[name]
+        y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
+        ax.plot(t_plot, y_fit, '-', color=colors[name], alpha=0.7, linewidth=2.5, 
+                label=f'{name} (projection)')
+        
+        # Plot human token-equivalents for reference
+        ax.plot(t_plot, human_token_equivalents, color='red', linestyle='--', 
+                linewidth=2, label='Human Token-Equivalents', alpha=0.7)
+        
+        ax.set_yscale('log')
+        ax.set_xlabel('Year', fontsize=12)
+        ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
+        ax.set_title(f'{name} - Daily Token Production Projection', fontsize=14, fontweight='bold')
+        
+        ax.legend(loc='upper left', fontsize=10)
+        ax.grid(True, alpha=0.3, which='both')
+        ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+        
+        # Add growth rate annotation
+        doubling_time = np.log(2) / params['b'] if params['b'] > 0 else float('inf')
+        monthly_growth = (np.exp(params['b'] / 12) - 1) * 100
+        ax.text(0.98, 0.02, f"Growth: {params['b']:.2f}/yr ({monthly_growth:.1f}%/mo)\nDoubling: {doubling_time*12:.1f} months", 
+                transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+                bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        
+        plt.tight_layout()
+        
+        # Create safe filename
+        safe_name = name.replace(' ', '_').replace('(', '').replace(')', '').lower()
+        filepath = os.path.join(PLOTS_FOLDER, f'{safe_name}_projection.png')
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        
+        print(f"  Saved {filepath}")
+    
+    # Also create a human token-equivalents only plot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(t_plot, human_token_equivalents, color='red', linewidth=2.5, label='Human Token-Equivalents')
+    ax.set_yscale('log')
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
+    ax.set_title('Human Token-Equivalents per Day (Population-Based)', fontsize=14, fontweight='bold')
+    ax.legend(loc='upper left', fontsize=10)
+    ax.grid(True, alpha=0.3, which='both')
+    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    
+    # Add methodology note
+    ax.text(0.98, 0.02, f"Based on: population × 16 hrs/day × {HUMAN_TOKENS_PER_SECOND:.2f} tokens/sec\n(230 WPM × 4/3 tokens/word)", 
+            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    plt.tight_layout()
+    filepath = os.path.join(PLOTS_FOLDER, 'human_token_equivalents.png')
+    plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+    print(f"  Saved {filepath}")
+    
+    print(f"\nAll individual plots saved to '{PLOTS_FOLDER}/' folder")
 
 
 def create_summary_table(companies: dict, models: dict):
@@ -1086,12 +1252,7 @@ if __name__ == '__main__':
     # Create summary
     create_summary_table(companies, models)
     
-    # Create visualization
-    create_visualization(companies, models, projections, projection_dates)
-    
-    # Export data
-    export_data(companies, models)
-    
+  
     print("=" * 70)
     print("METHODOLOGY NOTES")
     print("=" * 70)
@@ -1122,5 +1283,16 @@ CAVEATS:
 - Internal/non-public AI usage is not captured
 - DeepSeek and other providers are excluded from this analysis
 """)
+
+    # Create combined visualization
+    create_visualization(companies, models, projections, projection_dates)
+    
+    # Create individual company plots
+    print("\nGenerating individual company plots...")
+    create_individual_company_plots(companies, models)
+    
+    # Export data
+    export_data(companies, models)
+  
 
 # %%
