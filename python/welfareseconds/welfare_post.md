@@ -82,13 +82,13 @@ The approach we'll take to get our final answer is to try multiple different est
 
 #### Approaches
 
-**Inference-scaled**: Inference compute spending should be proportional to the number of tokens produced, as producing tokens costs money. We have enough points to draw a curve of inference spending. What we lack is the conversion factor between inference spending and tokens produced. To find this, we interpolate what the inference spending would have been in Feb 2024 when Sam made the tweet (which turns out to be \$0.54B). From this, we can calulate you get 248 tokens/day per marginal \$ you spend on inference compute.
+**Inference-scaled**: Inference compute spending should be proportional to the number of tokens produced, as producing tokens costs money. We have enough points to draw a curve of inference spending. What we lack is the conversion factor between inference spending and tokens produced. To find this, we interpolate what the inference spending would have been in Feb 2024 when Sam made the tweet (which turns out to be <span>$</span>0.54B). From this, we can calulate you get 248 tokens/day per marginal <span>$</span> you spend on inference compute.
 
-Let's sanity check this: if we take 1 dollar for 248 tokens a day for a whole year this is equal to \$11/MToken. This is definitely in the right ballpark! (For reference, GPT 5.2 is 1.75\$/MToken for input, and \$14.00/Mtoken for output, but 5.2 Pro is more expensive).
+Let's sanity check this: if we take 1 dollar for 248 tokens a day for a whole year this is equal to <span>$</span>11/MToken. This is definitely in the right ballpark! (For reference, GPT 5.2 is 1.75<span>$</span>/MToken for input, and <span>$</span>14.00/MToken for output, but 5.2 Pro is more expensive).
 
 **Revenue-scaled**: Revenue should also be proportional to the number of tokens produced. Operationalizing this is pretty similar to the inference-scaled approach, but using the revenue growth trend instead of the inference spending growth trend. The difference is we have 8 data points for revenue instead of just 2 for inference compute, so I'd expect this value to be slightly more reliable.
 
-The daily tokens per dollar of revenue ends up being 69.20 tokens/day per \$ (equal to \$40/MToken). This is slightly more expensive than I'd expect, but not implausible given that they probably have higher margins from ChatGPT than through the API. 
+The daily tokens per dollar of revenue ends up being 69.20 tokens/day per <span>$</span> (equal to <span>$</span>40/MToken). This is slightly more expensive than I'd expect, but not implausible given that they probably have higher margins from ChatGPT than through the API. 
 
 **Product-Based**: For our final OpenAI analysis, we'll directly look at OpenAI's 2 main products (ChatGPT and the API) and attempt to calculate how many tokens they use individually, and then combine them.
 * **ChatGPT**: We have pretty good data on daily messages for ChatGPT. We'll assume (somewhat arbitrarily) that there are 512 tokens per message. This is a couple of paragraphs in practice.
@@ -101,13 +101,13 @@ Here's what they look like plotted together on a graph:
 
 ### Anthropic
 
-For Anthropic, the main challenge is that our data is much sparser. We have one estimate of inference spend ($2B in Jul 2025), and 8 points of revenue data. Thus, we can only use the revenue based approach. 
+For Anthropic, the main challenge is that our data is much sparser. We have one estimate of inference spend (<span>$</span>2B in Jul 2025), and 8 points of revenue data. Thus, we can only use the revenue based approach. 
 
 
 #### Approaches
-**Revenue-based**: We can draw a curve through the revenue for Anthropic, and then scale it using the same 69.20 tokens/day per \$ of revenue that we get for OpenAI. 
+**Revenue-based**: We can draw a curve through the revenue for Anthropic, and then scale it using the same 69.20 tokens/day per <span>$</span> of revenue that we get for OpenAI. 
 
-We can use our one estimate of inference spend to roughly sanity check this: the tokens per $ on inference should be reasonable. Using the revenue based approach above, we get 0.3T tokens/day around when the annualized inference spend was measured. Thus, we get 154 Anthropic tokens per day per marginal dollar spent on inference, about 62% of what OpenAI has. This is equivalent to \$17.79/MToken. Definitely seems to be in the right ballpark, considering that Claude Opus is quite popular, and very expensive. 
+We can use our one estimate of inference spend to roughly sanity check this: the tokens per <span>$</span> on inference should be reasonable. Using the revenue based approach above, we get 0.3T tokens/day around when the annualized inference spend was measured. Thus, we get 154 Anthropic tokens per day per marginal dollar spent on inference, about 62% of what OpenAI has. This is equivalent to <span>$</span>17.79/MToken. Definitely seems to be in the right ballpark, considering that Claude Opus is quite popular, and very expensive. 
 
 Here's a plot of Anthropic's token projections:
 ![Anthropic Token Projections](plots/anthropic_projection.png)
@@ -160,7 +160,7 @@ We'll use the revenue-based method since it's the only one we're able to draw a 
 
 #### Approaches
 
-**Revenue-based**: Like we did before for Anthropic, we can draw a curve through the revenue for xAI, and then scale it using the same 69.20 tokens/day per \$ of revenue that we get for OpenAI.
+**Revenue-based**: Like we did before for Anthropic, we can draw a curve through the revenue for xAI, and then scale it using the same 69.20 tokens/day per <span>$</span> of revenue that we get for OpenAI.
 
 Unlike Anthropic, we don't have inference compute to sanity check against. Unfortunately, xAI has both API and Chat revenue, so we can't really use their chat message count to validate that the token count lines up, since it would give us an artificially inflated token count per message (since we'd count API tokens in the chat bucket).  
 
@@ -168,7 +168,7 @@ In any case, here's the graph:
 ![Meta Token Projections](plots/xai_projection.png)
 
 
-- **Data available**: Revenue data (4 points: $100M Nov 2024 → $500M Jul 2025), daily messages (75M, Mar 2025 from Google trial)
+- **Data available**: Revenue data (4 points: <span>$</span>100M Nov 2024 → <span>$</span>500M Jul 2025), daily messages (75M, Mar 2025 from Google trial)
 - **Challenge**: No direct token or inference spend data; newest and smallest of the major players
 - **Approach**: Use tokens-per-revenue ratio (same as Anthropic method), apply to xAI's revenue data
 - **Rationale**: Revenue-based estimation is the most reliable method given available data; actual revenue growth (4 points) is better than arbitrary assumptions
