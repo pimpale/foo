@@ -112,8 +112,8 @@ HUMAN_TOKENS_PER_SECOND = (230 / 60) * (4 / 3)
 
 # Industry-wide growth rate (per year) for token production
 # Used for extrapolating single data point estimates
-# This is calculated dynamically by averaging growth rates from companies with multiple data points
-# (see calculate_industry_growth_rate() function)
+# This is calculated dynamically by averaging growth rates from API-focused companies
+# (see calculate_industry_api_growth_rate() function)
 
 # Date range for plotting and export (decimal years)
 PLOT_BEGIN_DATE = 2024.0
@@ -692,24 +692,50 @@ def build_xai_daily_tokens():
 # MAIN ANALYSIS
 # =============================================================================
 
-def calculate_industry_growth_rate(companies: dict) -> float:
+def calculate_industry_api_growth_rate(companies: dict) -> float:
     """
-    Calculate industry-wide growth rate by averaging growth rates from companies
-    with multiple data points.
+    Calculate industry API growth rate by averaging growth rates from:
+    - avg(OpenAI Inference, OpenAI Revenue)
+    - Anthropic
+    - xAI  
+    - Meta
+    - Gemini Assistant
     
     Returns:
-        float: Average growth rate (per year) across companies with fitted models
+        float: Average growth rate (per year) for industry
     """
-    growth_rates = []
+    # Get OpenAI Inference and Revenue growth rates, average them as one component
+    openai_inference_df = companies['OpenAI (Inference)']
+    openai_revenue_df = companies['OpenAI (Revenue)']
     
-    for name, df in companies.items():
-        if len(df) > 1:
-            dates = df['decimal_date'].values
-            tokens = df['daily_tokens'].values
-            _, b, _ = fit_exponential(dates, tokens)
-            growth_rates.append(b)
+    _, b_inference, _ = fit_exponential(openai_inference_df['decimal_date'].values, 
+                                         openai_inference_df['daily_tokens'].values)
+    _, b_revenue, _ = fit_exponential(openai_revenue_df['decimal_date'].values, 
+                                       openai_revenue_df['daily_tokens'].values)
+    openai_avg_rate = (b_inference + b_revenue) / 2
     
-    avg_growth_rate = np.mean(growth_rates)
+    # Get Anthropic growth rate
+    anthropic_df = companies['Anthropic']
+    _, b_anthropic, _ = fit_exponential(anthropic_df['decimal_date'].values, 
+                                         anthropic_df['daily_tokens'].values)
+    
+    # Get xAI growth rate
+    xai_df = companies['xAI']
+    _, b_xai, _ = fit_exponential(xai_df['decimal_date'].values, 
+                                   xai_df['daily_tokens'].values)
+    
+    # Get Meta growth rate
+    meta_df = companies['Meta']
+    _, b_meta, _ = fit_exponential(meta_df['decimal_date'].values, 
+                                    meta_df['daily_tokens'].values)
+    
+    # Get Gemini Assistant growth rate
+    gemini_assistant_df = companies['Gemini Assistant']
+    _, b_gemini, _ = fit_exponential(gemini_assistant_df['decimal_date'].values, 
+                                      gemini_assistant_df['daily_tokens'].values)
+    
+    # Average all 5 components
+    avg_growth_rate = (openai_avg_rate + b_anthropic + b_xai + b_meta + b_gemini) / 5
     return avg_growth_rate
 
 
@@ -755,21 +781,38 @@ def analyze_and_project():
         'xAI': xai_df,
     }
     
-    # Calculate industry growth rate by averaging growth rates from multi-point companies
-    industry_growth_rate = calculate_industry_growth_rate(companies)
+    # Calculate industry API growth rate
+    industry_api_growth_rate = calculate_industry_api_growth_rate(companies)
     
     print("=" * 70)
-    print("INDUSTRY GROWTH RATE CALCULATION")
+    print("INDUSTRY API GROWTH RATE CALCULATION")
     print("=" * 70)
     print()
-    print(f"Averaging growth rates from companies with multiple data points:")
-    for name, df in companies.items():
-        if len(df) > 1:
-            dates = df['decimal_date'].values
-            tokens = df['daily_tokens'].values
-            _, b, _ = fit_exponential(dates, tokens)
-            print(f"  {name}: {b:.2f}/year")
-    print(f"\nAverage industry growth rate: {industry_growth_rate:.2f}/year")
+    
+    # Show components of the calculation
+    _, b_inference, _ = fit_exponential(companies['OpenAI (Inference)']['decimal_date'].values,
+                                         companies['OpenAI (Inference)']['daily_tokens'].values)
+    _, b_revenue, _ = fit_exponential(companies['OpenAI (Revenue)']['decimal_date'].values,
+                                       companies['OpenAI (Revenue)']['daily_tokens'].values)
+    openai_avg = (b_inference + b_revenue) / 2
+    
+    _, b_anthropic, _ = fit_exponential(companies['Anthropic']['decimal_date'].values,
+                                         companies['Anthropic']['daily_tokens'].values)
+    _, b_xai, _ = fit_exponential(companies['xAI']['decimal_date'].values,
+                                   companies['xAI']['daily_tokens'].values)
+    _, b_meta, _ = fit_exponential(companies['Meta']['decimal_date'].values,
+                                    companies['Meta']['daily_tokens'].values)
+    
+    _, b_gemini, _ = fit_exponential(companies['Gemini Assistant']['decimal_date'].values,
+                                       companies['Gemini Assistant']['daily_tokens'].values)
+    
+    print(f"Components:")
+    print(f"  avg(OpenAI Inference, OpenAI Revenue): avg({b_inference:.2f}, {b_revenue:.2f}) = {openai_avg:.2f}/year")
+    print(f"  Anthropic: {b_anthropic:.2f}/year")
+    print(f"  xAI: {b_xai:.2f}/year")
+    print(f"  Meta: {b_meta:.2f}/year")
+    print(f"  Gemini Assistant: {b_gemini:.2f}/year")
+    print(f"\nIndustry API growth rate: {industry_api_growth_rate:.2f}/year")
     print()
     
     models = {}
@@ -788,7 +831,7 @@ def analyze_and_project():
             # Calculate 'a' so that model passes through the single point
             # Model: tokens = a * exp(b * (t - 2024))
             # So: a = tokens / exp(b * (t - 2024))
-            b = industry_growth_rate
+            b = industry_api_growth_rate
             t = dates[0]
             a = tokens[0] / np.exp(b * (t - 2024))
             r2 = float('nan')  # Can't compute R² with 1 point
@@ -1339,6 +1382,103 @@ def create_individual_company_plots(companies: dict, models: dict):
     print(f"\nAll individual plots saved to '{PLOTS_FOLDER}/' folder")
 
 
+def create_welfare_bubble_chart(models: dict):
+    """Create a bubble chart comparing human and AI welfare for 2026, 2027, 2028, 2029."""
+    
+    years = [2026, 2027, 2028, 2029]
+    
+    # Load population data
+    pop_df = pd.read_csv('population.csv')
+    pop_years = pop_df['Year'].values
+    pop_values = pop_df['all years'].values
+    
+    # Calculate values for each year
+    human_welfare = []
+    ai_welfare = []
+    
+    for year in years:
+        decimal_year = float(year)
+        
+        # Human token-equivalents
+        pop = np.interp(decimal_year, pop_years, pop_values)
+        human_tokens = pop * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12  # trillions/day
+        human_welfare.append(human_tokens)
+        
+        # AI tokens (global total)
+        # OpenAI average
+        openai_chatgpt = exponential_model(decimal_year - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b']) / 1e12
+        openai_api = exponential_model(decimal_year - 2024, models['OpenAI API']['a'], models['OpenAI API']['b']) / 1e12
+        openai_inference = exponential_model(decimal_year - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b']) / 1e12
+        openai_revenue = exponential_model(decimal_year - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b']) / 1e12
+        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
+        
+        # Google total
+        gemini_assistant = exponential_model(decimal_year - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b']) / 1e12
+        gemini_api = exponential_model(decimal_year - 2024, models['Gemini API']['a'], models['Gemini API']['b']) / 1e12
+        google_total = gemini_assistant + gemini_api
+        
+        # Others
+        meta_total = exponential_model(decimal_year - 2024, models['Meta']['a'], models['Meta']['b']) / 1e12
+        anthropic_total = exponential_model(decimal_year - 2024, models['Anthropic']['a'], models['Anthropic']['b']) / 1e12
+        xai_total = exponential_model(decimal_year - 2024, models['xAI']['a'], models['xAI']['b']) / 1e12
+        
+        # US total + non-US (25% extra)
+        us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
+        global_total = us_total * (1 + 1/3)  # Add non-US estimate
+        ai_welfare.append(global_total)
+    
+    # Create bubble chart
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Plot bubbles for each year
+    colors_list = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6']  # Blue, Green, Red, Purple for 2026, 2027, 2028, 2029
+    
+    for i, year in enumerate(years):
+        # Human welfare bubble (left side)
+        ax.scatter(year - 0.15, 1, s=human_welfare[i] * 3, color='#e74c3c', alpha=0.6, 
+                   edgecolors='darkred', linewidths=2, label=f'Human ({year})' if i == 0 else '')
+        ax.annotate(f'{human_welfare[i]:.0f}T', (year - 0.15, 1), ha='center', va='center', 
+                    fontsize=10, fontweight='bold')
+        
+        # AI welfare bubble (right side)
+        ax.scatter(year + 0.15, 2, s=ai_welfare[i] * 3, color='#3498db', alpha=0.6,
+                   edgecolors='darkblue', linewidths=2, label=f'AI ({year})' if i == 0 else '')
+        ax.annotate(f'{ai_welfare[i]:.0f}T', (year + 0.15, 2), ha='center', va='center',
+                    fontsize=10, fontweight='bold')
+    
+    # Add year labels
+    for year in years:
+        ax.annotate(str(year), (year, 0.3), ha='center', fontsize=14, fontweight='bold')
+    
+    # Formatting
+    ax.set_xlim(2025.5, 2029.5)
+    ax.set_ylim(0, 3)
+    ax.set_yticks([1, 2])
+    ax.set_yticklabels(['Human\nWelfare', 'AI\nWelfare'], fontsize=12)
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_title('Human vs AI Token-Equivalents per Day (Trillions)', fontsize=14, fontweight='bold')
+    
+    # Add legend for bubble size
+    ax.text(0.02, 0.98, 'Bubble size = daily tokens (trillions)\nNumbers inside = T tokens/day', 
+            transform=ax.transAxes, fontsize=9, va='top',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    # Print values
+    print("\nWelfare Comparison (Daily Tokens in Trillions):")
+    print("-" * 50)
+    for i, year in enumerate(years):
+        ratio = ai_welfare[i] / human_welfare[i] * 100
+        print(f"  {year}: Human={human_welfare[i]:.0f}T, AI={ai_welfare[i]:.0f}T ({ratio:.1f}% of human)")
+    
+    ax.grid(True, alpha=0.3, axis='x')
+    
+    plt.tight_layout()
+    filepath = os.path.join(PLOTS_FOLDER, 'welfare_bubble_chart.png')
+    plt.savefig(filepath, dpi=150, bbox_inches='tight')
+    plt.close(fig)
+    print(f"\n  Saved {filepath}")
+
+
 def create_summary_table(companies: dict, models: dict):
     """Create summary statistics table."""
     
@@ -1494,6 +1634,10 @@ CAVEATS:
     # Create individual company plots
     print("\nGenerating individual company plots...")
     create_individual_company_plots(companies, models)
+    
+    # Create welfare bubble chart
+    print("\nGenerating welfare bubble chart...")
+    create_welfare_bubble_chart(models)
     
     # Export data
     export_data(companies, models)

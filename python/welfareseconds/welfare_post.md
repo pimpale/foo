@@ -31,7 +31,6 @@ To be clear, I don't believe in the maximalist interpretation. However, I do thi
     5. xAI
     6. Bringing it together
 3. When will the crossover happen?
-4. Summary
 
 
 ## How many token-equivalents does humanity collectively experience each day?
@@ -174,6 +173,19 @@ In any case, here's the graph:
 - **Approach**: Use tokens-per-revenue ratio (same as Anthropic method), apply to xAI's revenue data
 - **Rationale**: Revenue-based estimation is the most reliable method given available data; actual revenue growth (4 points) is better than arbitrary assumptions
 
+### Industry growth rate
+
+Earlier, I mentioned that we'd set the OpenAI and Gemini API growth rates to the industry growth rate. The reason it's the industry growth rate and not the per-company growth rate is because I don't have enough Gemini data to feel confident basing on that. I am more confident on the overall OpenAI growth rate though, but elected to use a similar approach both for OpenAI and Gemini.
+
+We calculate it by averaging the following components:
+* avg(OpenAI Inference, OpenAI Revenue): avg(1.36, 1.26) = 1.31/year
+* Anthropic: 2.20/year
+* xAI: 2.32/year
+* Meta: 0.69/year
+* Gemini Chat: 1.05/year
+Industry growth rate: 1.51/year
+
+
 ### Bringing it all together
 
 Note that just summing the above 5 companies won't be sufficient to get global token counts. We're not accounting for Chinese companies and other competitors. Unfortunately, I wasn't able to find detailed data for MAUs or API usage for Chinese companies. We also don't have detailed data on smaller American and European companies (although I suspect these wouldn't change the balance significantly). 
@@ -184,9 +196,34 @@ Now that we have all 5 AI companies, plus the estimate of other players, let's s
 
 ![Combined Graph](per_company_token_projection.png)
 
-## When will the crossover happen?
+### Limitations
 
-## Summary
+There are some obvious issues with the approach used here. I'll name the largest ones:
+1. It's not justified to use an exponential this far into the future. AI will not grow exponentially forever. There could also be developments that enable stronger reasoning with fewer tokens.
+    1. Also, the per-company projections are even less reliable. Companies fail and get replaced all the time. This model doesn't account for that.
+2. The growth of the Gemini and OpenAI APIs is given mostly by the overall industry growth rate. This makes our overall prediction extremely sensitive to that parameter, especially in the long time horizon limit. The methodology for calculating this is pretty ad hoc. This is actually the bit of the prediction I am the least confident in.
+3. All of our revenue based predictions are effectively based off of a single sama tweet. 
+4. We're not considering internal/non-public AI usage.
 
+But all that being said, I think it's ballpark correct, especially for the next ~year. I have much less confidence for any time horizon beyond that. The crossover point should not be taken seriously. 
 
-But even if some degree of AI model consciousness is possible, it raises the question of how we should compare AI welfare to human welfare. Most people agree that human consciousness is richer and deeper than the consciousness of a pig or chicken. Similarly, the first AIs to possess a degree of consciousness will likely be "less conscious" than a human would be.
+## Ok, so when will the crossover happen?
+
+Based on the above graph, around late 2028!
+
+Here's how human and AI welfare compare in the coming years:
+
+![Welfare Bubble Chart](plots/welfare_bubble_chart.png)
+
+| Year | Human Token-equivalents | AI Tokens | AI as % of Human |
+| --| -- | -- | -- |
+| 2026| 	2444T| 	27T |	1.1%
+| 2027| 	2464T| 	129T |	5.2%
+| 2028| 	2484T| 	634T |	25.5%
+| 2029| 	2503T| 	3337T |	133.3%
+
+## Implications
+
+I think the most clear implication is that AI welfare is a very small issue today, in the sense that almost all welfare is held by humans, even if you take the maximalist solution. 
+
+It's also clear that if AI progress continues exponentially, this will change. I think exponential AI progress is plausible, but by no means guaranteed. 
