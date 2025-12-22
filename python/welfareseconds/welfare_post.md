@@ -1,6 +1,5 @@
 # When will AI Welfare overtake Human Welfare?
 
-
 ## Introduction
 In April 2025, Anthropic [announced](https://www.anthropic.com/research/exploring-model-welfare) that they were building a research program investigating the possibility of AI model welfare.
 The hypothesis is that if AI models become sufficiently advanced, they may start to experience qualia,
@@ -17,12 +16,14 @@ Let's call this the **maximalist** interpretation of AI consciousness:
 1. AI is exactly as conscious as a human.
 2. The amount of conscious experience the AI experiences is equal to the amount of time it would take a human to think those tokens. (Setting aside the question of whether the human is smart enough to think those exact tokens).
 
+The maximalist view takes a functionalist approach to thinking. That is, if a human takes $N$ seconds to think some thoughts, and the AI takes $M$ tokens to think the same thoughts, then the amount of thinking in the $N$ seconds and $M$ tokens is the same.
+
 The issue is, even with the maximalist interpretation, it's tough to figure out how big of an issue AI welfare is. How many tokens are generated each day? How many token-equivalents does humanity experience each day? When will AIs collectively experience more than humans collectively experience?
 
 To be clear, I don't believe in the maximalist interpretation. However, I do think the maximalist interpretation offers a kind of "upper bound" we can use to think about when AI welfare could even start to matter. Thus, I think finding an answer to the above questions is worth doing.
 
 ### Table Of Contents
-1. How many token-equivalents does humanity experience each day?
+1. How many token-equivalents does humanity think each day?
 2. How many tokens do AIs collectively process each day?
     1. OpenAI
     2. Anthropic 
@@ -33,9 +34,7 @@ To be clear, I don't believe in the maximalist interpretation. However, I do thi
 3. When will the crossover happen?
 
 
-## How many token-equivalents does humanity collectively experience each day?
-
-The maximalist view takes a functionalist approach to consciousness. That is, if a human takes $N$ seconds to think some thoughts, and the AI takes $M$ tokens to think the same thoughts, then the amount of experience in the $N$ seconds and $M$ tokens is the same.
+## How many token-equivalents does humanity collectively think each day?
 
 We don't have strong numbers on how fast people's internal stream of consciousness is, but we do have numbers on people's reading and speaking WPM, which should be in the same ballpark.
 
@@ -43,7 +42,7 @@ According to [this study](https://www.sciencedirect.com/science/article/abs/pii/
 Another [study on speaking speed in British English](https://francis-press.com/uploads/papers/pv7j7Z9uRgQyPUxnVTDTPecUAEP0HJcWWhGErVeD.pdf) suggests that the spoken words per minute in casual conversation is 222 wpm. 
 All of this together suggests that humans think at around 230 WPM (give or take 10).
 
-Now, a simple first-order approximation of the number of waking human minutes is to assume each of the roughly 8 billion humans is awake for 16 hours a day. This yields 7680 billion waking minutes each day. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct.
+Now, a simple first-order approximation of the number of waking human minutes is to assume each of the roughly 8 billion humans is awake for 16 hours a day. This yields 7680 billion waking minutes each day. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct. Let's assume, as an upper bound, that people think more or less constantly while they're awake.
 
 Tokens are [commonly approximated](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) as $\frac{3}{4}$ of a word.
 
@@ -65,13 +64,16 @@ Every company has different types of data available for it, and different busine
 
 Our methodology to approach this problem is going to be to split the market up into 5 major companies, independently try to estimate a projection of tokens used and then sum these up. In some cases, we'll split the company estimates by product in order to disambiguate between different metrics.
 
+Where possible, we also want to seperate out chat and enterprise usage.
+This is important, since I expect chat token usage to grow slower than enterprise usage over long time horizons. Enterprise usage can grow much larger much faster, as companies adopt AI and replace human workers, while chat usage will naturally cap out as AI chatbots reach everyone with internet. [Recent research from Epoch](https://epochai.substack.com/p/the-changing-drivers-of-llm-adoption) indicates that ChatGPT user growth is indeed slowing.
+
 Our companies are:
 1. OpenAI
 2. Anthropic 
 3. Google
 4. Meta
 5. xAI
-Unfortunately, we lack data on smaller competitors and Chinese companies, and thus will have to exclude them from our analysis. We'll attempt to account for this after our initial estimate, though.
+Unfortunately, we lack detailed data on smaller competitors and Chinese companies, and thus will have to exclude them from our analysis. We'll attempt to account for this after our initial estimate, though.
 
 ### OpenAI
 
@@ -181,6 +183,7 @@ We calculate it by averaging the following components:
 * Anthropic: 2.20/year
 * xAI: 2.32/year
 * Meta: 0.69/year
+  * I'm somewhat on the fence about including Meta, as it may be artificially weighing down the true growth rate.
 * Gemini Chat: 1.05/year
 Industry growth rate: 1.51/year
 
@@ -210,9 +213,9 @@ But all that being said, I think it's ballpark correct, especially for the next 
 
 Based on the above graph, around late 2028!
 
-Here's how human and AI welfare compare in the coming years:
+Here's how human and AI thinking compare in the coming years:
 
-![Welfare Bubble Chart](plots/welfare_bubble_chart.png)
+![Thinking Bubble Chart](plots/welfare_bubble_chart.png)
 
 | Year (Jan 01) | Human Token-equivalents | AI Tokens | AI as % of Human |
 | --| -- | -- | -- |
@@ -223,6 +226,22 @@ Here's how human and AI welfare compare in the coming years:
 
 ## Implications
 
-I think the most clear implication is that AI welfare is a very small issue today, in the sense that almost all welfare is held by humans, even if you take the maximalist solution. 
+The most surprising takeaway for me is just how small of a percentage AI thinking is compared to human thinking. Right now, despite all the hubbub, AI thinking makes up only 1.1% of what human thinking is. 
 
-It's also clear that if AI progress continues exponentially, this will change. I think exponential AI progress is plausible, but by no means guaranteed. 
+However, due to the nature of exponential growth, it will probably soon catch up. I'm quite confident in the overall thesis that AI enterprise usage will grow approximately exponentially over the next 2-3 years. We're only seeing the beginning of the wave of automation that will occur. 
+
+But even though the amount of AI thinking is likely to eclipse eclipse human thinking at some point in the future, assuming current growth trends, this doesn't necessarily imply that AI welfare will eclipse human welfare. 
+
+AIs, despite their remarkable abilities, may be similar to either P-zombies (creatures that behave as if they are conscious, but lack any internal experience), or David Chalmer's [Vulcans](https://philpapers.org/rec/CHASAM-11) (creatures that consciously percieve, think, and act, but don't experience pain or pleasure).
+
+I tend to lean towards assigning a nonzero moral weight towards AIs, especially as they inch towards neuron counts rivalling the synapse counts of humans. For reference, adult humans [have](https://www.neurology.org/doi/10.1212/01.WNL.0000166914.38327.BB) anywhere between 100 and 500 trillion synapses, and three year olds have 1 quadrillion. The largest AI models are [estimated](https://epoch.ai/data/ai-models) to have ~3 trillion parameters. This doesn't guarantee anything, but it does indicate that the "raw compute" might be there.
+
+Future models may have more, but I expect the growth rate of model pareameters to be slower than in the past, as companies are tending to invest more into RL and algorithmic improvements over pure model size scaleups. GPT-4.5, for example, was likely a very large model, but due to its expense and poor performance on agentic tasks, it never made it beyond a research preview.
+
+I think AI welfare is quite important, as such. There are three potentially-sentinent groups of beings that exist on Earth right now:
+1. Humans
+2. Animals
+3. Artificial Intelligences
+
+Of these, animal welfare has been left at the wayside, despite us nominally agreeing with the principle that animal welfare is real. Let's not make the same mistake with AI. 
+
