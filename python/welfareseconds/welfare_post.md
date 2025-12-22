@@ -64,7 +64,7 @@ Every company has different types of data available for it, and different busine
 
 Our methodology to approach this problem is going to be to split the market up into 5 major companies, independently try to estimate a projection of tokens used and then sum these up. In some cases, we'll split the company estimates by product in order to disambiguate between different metrics.
 
-Where possible, we also want to seperate out chat and enterprise usage.
+Where possible, we also want to separate out chat and enterprise usage.
 This is important, since I expect chat token usage to grow slower than enterprise usage over long time horizons. Enterprise usage can grow much larger much faster, as companies adopt AI and replace human workers, while chat usage will naturally cap out as AI chatbots reach everyone with internet. [Recent research from Epoch](https://epochai.substack.com/p/the-changing-drivers-of-llm-adoption) indicates that ChatGPT user growth is indeed slowing.
 
 Our companies are:
@@ -83,7 +83,7 @@ The approach we'll take to get our final answer is to try multiple different est
 
 #### Approaches
 
-**Inference-scaled**: Inference compute spending should be proportional to the number of tokens produced, as producing tokens costs money. We have enough points to draw a curve of inference spending. What we lack is the conversion factor between inference spending and tokens produced. To find this, we interpolate what the inference spending would have been in Feb 2024 when Sam made the tweet (which turns out to be <span>$</span>0.54B). From this, we can calulate you get 248 tokens/day per marginal <span>$</span> you spend on inference compute.
+**Inference-scaled**: Inference compute spending should be proportional to the number of tokens produced, as producing tokens costs money. We have enough points to draw a curve of inference spending. What we lack is the conversion factor between inference spending and tokens produced. To find this, we interpolate what the inference spending would have been in Feb 2024 when Sam made the tweet (which turns out to be <span>$</span>0.54B). From this, we can calculate you get 248 tokens/day per marginal <span>$</span> you spend on inference compute.
 
 Let's sanity check this: if we take 1 dollar for 248 tokens a day for a whole year this is equal to <span>$</span>11/MToken. This is definitely in the right ballpark! (For reference, GPT 5.2 is 1.75<span>$</span>/MToken for input, and <span>$</span>14.00/MToken for output, but 5.2 Pro is more expensive).
 
@@ -119,10 +119,10 @@ Here's a plot of Anthropic's token projections:
 We actually have a lot of data for Google:
 1. Total tokens across all Google AI products
 2. Gemini Monthly Active User (MAU) data
-3. Gemini daily chat messages (one point-in-time estimate), [from a Google antitrust court testimonal](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court). 
+3. Gemini daily chat messages (one point-in-time estimate), [from a Google antitrust court testimonial](https://www.theinformation.com/briefings/googles-gemini-user-numbers-revealed-court). 
 4. Gemini API tokens/min (one point-in-time estimate)
 
-If we could just use the total tokens across all Google AI products, that would be great! These numbers are reported directly by Google, and have exactly the metric we want, tokens. There's one issue: their numbers absolutely dwarf everone else's. They [report 43T tokens/day on Sep 30, 2025](https://x.com/demishassabis/status/1976712484657475691). This is 10.2x our best guess (computed above) for OpenAI at the same date. 
+If we could just use the total tokens across all Google AI products, that would be great! These numbers are reported directly by Google, and have exactly the metric we want, tokens. There's one issue: their numbers absolutely dwarf everyone else's. They [report 43T tokens/day on Sep 30, 2025](https://x.com/demishassabis/status/1976712484657475691). This is 10.2x our best guess (computed above) for OpenAI at the same date. 
 
 This sort of makes sense: Google injects Search Overview into basically every google search, and also provides Google Translate services. I think these bias the underlying trend, since they are fundamentally different businesses, and won't grow at the same rate as API usage or chat usage will.
 
@@ -166,13 +166,7 @@ We'll use the revenue-based method since it's the only one we're able to draw a 
 Unlike Anthropic, we don't have inference compute to sanity check against. Unfortunately, xAI has both API and Chat revenue, so we can't really use their chat message count to validate that the token count lines up, since it would give us an artificially inflated token count per message (since we'd count API tokens in the chat bucket).  
 
 In any case, here's the graph:
-![Meta Token Projections](plots/xai_projection.png)
-
-
-- **Data available**: Revenue data (4 points: <span>$</span>100M Nov 2024 → <span>$</span>500M Jul 2025), daily messages (75M, Mar 2025 from Google trial)
-- **Challenge**: No direct token or inference spend data; newest and smallest of the major players
-- **Approach**: Use tokens-per-revenue ratio (same as Anthropic method), apply to xAI's revenue data
-- **Rationale**: Revenue-based estimation is the most reliable method given available data; actual revenue growth (4 points) is better than arbitrary assumptions
+![xAI Token Projections](plots/xai_projection.png)
 
 ### Industry growth rate
 
@@ -226,22 +220,24 @@ Here's how human and AI thinking compare in the coming years:
 
 ## Implications
 
-The most surprising takeaway for me is just how small of a percentage AI thinking is compared to human thinking. Right now, despite all the hubbub, AI thinking makes up only 1.1% of what human thinking is. 
+The most surprising takeaway for me is just how small of a percentage AI thinking is compared to human thinking. Right now, despite all the fanfare, AI thinking makes up only 1.1% of human thought. 
 
 However, due to the nature of exponential growth, it will probably soon catch up. I'm quite confident in the overall thesis that AI enterprise usage will grow approximately exponentially over the next 2-3 years. We're only seeing the beginning of the wave of automation that will occur. 
 
-But even though the amount of AI thinking is likely to eclipse eclipse human thinking at some point in the future, assuming current growth trends, this doesn't necessarily imply that AI welfare will eclipse human welfare. 
+But even though the amount of AI thinking is likely to eclipse human thinking at some point in the future, assuming current growth trends, this doesn't necessarily imply that AI welfare will eclipse human welfare. 
 
-AIs, despite their remarkable abilities, may be similar to either P-zombies (creatures that behave as if they are conscious, but lack any internal experience), or David Chalmer's [Vulcans](https://philpapers.org/rec/CHASAM-11) (creatures that consciously percieve, think, and act, but don't experience pain or pleasure).
+AIs, despite their remarkable abilities, may be similar to either P-zombies (creatures that behave as if they are conscious, but lack any internal experience), or David Chalmers's [Vulcans](https://philpapers.org/rec/CHASAM-11) (creatures that consciously perceive, think, and act, but don't experience pain or pleasure).
 
 I tend to lean towards assigning a nonzero moral weight towards AIs, especially as they inch towards neuron counts rivalling the synapse counts of humans. For reference, adult humans [have](https://www.neurology.org/doi/10.1212/01.WNL.0000166914.38327.BB) anywhere between 100 and 500 trillion synapses, and three year olds have 1 quadrillion. The largest AI models are [estimated](https://epoch.ai/data/ai-models) to have ~3 trillion parameters. This doesn't guarantee anything, but it does indicate that the "raw compute" might be there.
 
-Future models may have more, but I expect the growth rate of model pareameters to be slower than in the past, as companies are tending to invest more into RL and algorithmic improvements over pure model size scaleups. GPT-4.5, for example, was likely a very large model, but due to its expense and poor performance on agentic tasks, it never made it beyond a research preview.
+Future models may have more, but I expect the growth rate of model parameters to be slower than in the past, as companies are tending to invest more into RL and algorithmic improvements over pure model size scaleups. GPT-4.5, for example, was likely a very large model, but due to its expense and poor performance on agentic tasks, it never made it beyond a research preview.
 
-I think AI welfare is quite important, as such. There are three potentially-sentinent groups of beings that exist on Earth right now:
-1. Humans
-2. Animals
-3. Artificial Intelligences
+Altogether, I think there are three key takeaways:
 
-Of these, animal welfare has been left at the wayside, despite us nominally agreeing with the principle that animal welfare is real. Let's not make the same mistake with AI. 
+1. **AI welfare is a small issue today.** Even under the maximalist interpretation, AI thinking accounts for only ~1% of human thinking. Thus, unlike issues like factory farming, AI welfare isn't yet a moral catastrophe. We have some time to manuever.
 
+2. **This will change fast.** Assuming current growth trends hold, the amount of thinking done by AI will surpass that done by humans by late 2028. 
+
+3. **We should err on the side of caution.** We don't know if AIs are conscious, and we may never know for certain. However, the sheer scale of the issue implies that it's worth treading carefully here.
+
+The good news is that treating AIs well doesn't require certainty about their moral status. Many of the interventions that would improve AI welfare (things like avoiding unnecessary "suffering" states and being thoughtful about training objectives) are also good for making AI systems more reliable and aligned with human values.
