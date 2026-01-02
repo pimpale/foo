@@ -1,0 +1,43 @@
+﻿Id,Notes,Company,Amount,Category,Period type,Source 1,Source 2,Source 3,Date,Report date,Confidence,Source Type,Exclude from graph view,Inference compute spend,R&D compute spend,Total compute spend
+Anthropic 2023 cloud compute,"""In May, Anthropic told investors it planned to spend $285 million on cloud services this year""",Anthropic,$285000000,"R&D cloud compute,Inference cloud compute",Year,https://www.theinformation.com/articles/pro-weekly-ai-pushes-cloud-vendors-to-new-heights?rc=9mzoog,,,12/31/2023,11/10/2023,Likely,Media report,,,,$285000000
+Anthropic 2024 training,"""The costs to develop AI models accounted for a major portion of Anthropic’s expenses last year. The company spent $1.5 billion on servers for training AI models.""
+
+This might not include compute for basic research (by comparison, OpenAI does distinguish between training and research compute). Other reports for Anthropic's total compute spend in 2024 are ~$2.5B, and Anthropic's inference costs for 2024 were likely not $1B, since their revenue run rate only reached $1B at the end of the year from $100M at the beginning.",Anthropic,$1500000000,R&D cloud compute,Year,https://www.theinformation.com/articles/anthropic-projects-soaring-growth-to-34-5-billion-in-2027-revenue?rc=9mzoog,,,12/31/2024,2/12/2025,Likely,Media report,,,$1500000000,
+Anthropic 2024 cloud compute,"According to source 1, from July 2024, Anthropic estimated $2.5 billion in compute spend in 2024
+
+Per source 2 from February 2025, Anthropic's cash burn in 2024 was $5.6B (including all expenses), 3B higher than projected, and more than half of the cash burn (i.e. ~3B) came from a one-off payment to access data centers. This implies: 1) that this one-off payment accounts for the unexpected increase in cash burn, meaning their expense projections were otherwise accurate (ignoring any forecast error in revenue which is probably minor: Anthropic's ARR was only 1B at end of 2024) and 2) their total compute-related cash payments in 2024 were actually around $5.5B.
+
+The nature of this one-off cash payment is unclear, but probably doesn't represent operating expenses that should be accounted for in 2024.",Anthropic,$2500000000,"R&D cloud compute,Inference cloud compute",Year,https://www.theinformation.com/articles/why-openai-could-lose-5-billion-this-year?rc=9mzoog,https://www.theinformation.com/articles/anthropic-projects-soaring-growth-to-34-5-billion-in-2027-revenue?rc=9mzoog,,12/31/2024,7/24/2024,Likely,Media report,,,,$2500000000
+Anthropic 2025 July inference,"Anthropic has a gross margin of around 60% as of July 2025, corroborated by The Information and Morgan Stanley, and a revenue run rate of $5B as of late-July/August 2025.
+
+This means cost of goods sold is 40% * 5B = $2B.
+
+If we assume all of Anthropic's cost of goods sold is inference compute, then their inference compute spend rate is $2B.
+
+Morgan Stanley uses the same methodology to estimate AWS's revenue from Anthropic inference, assuming AWS is 75% of Anthropic's inference compute.",Anthropic,$2000000000,Inference cloud compute,Annualized,https://www.theinformation.com/articles/anthropic-revenue-pace-nears-5-billion-run-mega-round?rc=9mzoog,https://www.businessinsider.com/amazon-anthropic-billions-cloud-revenue-growth-2025-7,https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation,7/31/2025,,Likely,Other,checked,$2000000000,,
+Anthropic 2025 inference,"Morgan Stanley projects 4B in Anthropic revenue for 2025, and assuming a 60% gross margin and 75% share for AWS, calculates $1.28B in Anthropic inference spend with AWS. This implies $1.7B in inference spend for the whole year.",Anthropic,$1700000000,Inference cloud compute,Year,https://www.businessinsider.com/amazon-anthropic-billions-cloud-revenue-growth-2025-7,,,12/31/2025,7/11/2025,Uncertain,Other,checked,$1700000000,,
+OpenAI 2022 compute + data,"OpenAI spend ""416M on ""computing and data"", out of ~500M in total spending.
+
+""But it was projecting expenses of $416.45 million on computing and data, $89.31 million on staff, and $38.75 million in unspecified other operating expenses""",OpenAI,$416000000,"R&D cloud compute,Inference cloud compute,Data",Year,https://fortune.com/longform/chatgpt-openai-sam-altman-microsoft/,,,12/31/2022,5/4/2023,Likely,Media report,,,,$416000000
+OpenAI 2024 inference,"Article states OpenAI projects inference computing to cost $1.8 billion this year. They show a chart rounding this up to 2B.
+
+Also projects gross margin of 41% and $3.7B in revenue, so the gross margin calculation includes some non-inference-compute costs, since inference compute alone mean ~50% margin.
+
+This is from a projection of 2024 spending published in October 2024, so numbers are not certain.",OpenAI,$1800000000,Inference cloud compute,Year,https://www.theinformation.com/articles/openai-projections-imply-losses-tripling-to-14-billion-in-2026?rc=9mzoog,,,12/31/2024,10/9/2024,Likely,Media report,,$1800000000,,
+OpenAI 2024 R&D compute,"Importantly, this may actually be ~$5-6B in incurred R&D compute expenses in 2024.
+
+The article shows a graph with $3B in training expenses, and $1 in research compute amortization
+
+I'll take the amortization at face value here, but the actual spending on research compute in 2024 is then equal to 1B multiplied by the amortization schedule in years, which is described as multiple years. So $2B if amortized over two years, $3B if three years.
+
+This is from a projection of 2024 spending published in October 2024, so numbers are not certain.",OpenAI,$4000000000,R&D cloud compute,Year,https://www.theinformation.com/articles/openai-projections-imply-losses-tripling-to-14-billion-in-2026?rc=9mzoog,,,12/31/2024,10/9/2024,Likely,Media report,,,$4000000000,
+OpenAI 2025 R&D compute,First graph in Source 1 indicates OpenAI will spend over 9B on R&D compute (hover over graph). This is based on internal OpenAI projections as reported by The Information. ,OpenAI,$9000000000,R&D cloud compute,Year,https://www.theinformation.com/articles/openai-spend-100-billion-backup-servers-ai-breakthroughs?rc=9mzoog,https://www.theinformation.com/articles/openai-says-business-will-burn-115-billion-2029?rc=9mzoog,,12/31/2025,9/19/2025,Likely,Media report,,,$9000000000,
+OpenAI 2025 cloud compute,"Per Source 1, OpenAI projects $16B in cloud compute spend in 2025. Figure shows at majority is R&D compute, consistent with other reports.
+
+Additionally, in Feb 2025 (Source 2), The Information reported OpenAI projected 13B in *Microsoft* cloud compute, with Microsoft making up the bulk of total compute, but without specifying total cloud compute spend.
+
+This projection may have increased: In July, The Information reported OpenAI originally projected 14B in total server spend earlier in the year, but cash burn estimate has since increased by 1B (exact cause unknown).
+https://www.theinformation.com/articles/openai-hits-12-billion-annualized-revenue-breaks-700-million-chatgpt-weekly-active-users?rc=9mzoog 
+
+And SemiAnalysis says that Microsoft was still most of OpenAI's compute in 2025, vs Oracle and CoreWeave.",OpenAI,$16000000000,"R&D cloud compute,Inference cloud compute",Year,https://www.theinformation.com/articles/openai-spend-100-billion-backup-servers-ai-breakthroughs?rc=9mzoog,https://www.theinformation.com/articles/openai-forecast-shows-shift-from-microsoft-to-softbank,https://semianalysis.com/2025/09/03/amazons-ai-resurgence-aws-anthropics-multi-gigawatt-trainium-expansion/,12/31/2025,7/30/0202,Likely,Media report,checked,,,$16000000000
+OpenAI 2025 inference compute,"Figure shows $7B in inference compute, and $9B in R&D compute for 2025. This is based on internal OpenAI projections as reported by The Information. ",OpenAI,$7000000000,Inference cloud compute,Year,https://www.theinformation.com/articles/openai-spend-100-billion-backup-servers-ai-breakthroughs?rc=9mzoog,,,12/31/2025,9/19/2025,Likely,Media report,,$7000000000,,
