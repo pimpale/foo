@@ -1,58 +1,39 @@
-# When will the amount of "thinking" AI Welfare overtake Human Welfare?
+# How many "Geniuses" do we have in the datacenter right now?
 
 ## Introduction
-In April 2025, Anthropic [announced](https://www.anthropic.com/research/exploring-model-welfare) that they were building a research program investigating the possibility of AI model welfare.
-The hypothesis is that if AI models become sufficiently advanced, they may start to experience qualia,
-and as such, their experiences may have moral weight.
+In October 2024, Dario Amodei [wrote](https://www.darioamodei.com/essay/machines-of-loving-grace)
+that AI might be like "a country of geniuses in a datacenter". He elaborated on this in [his statement](https://www.anthropic.com/news/paris-ai-summit) at the Paris AI summit, where he said:
+> Time is short, and we must accelerate our actions to match accelerating AI progress. Possibly by 2026 or 2027 (and almost certainly no later than 2030), the capabilities of AI systems will be best thought of as akin to an entirely new state populated by highly intelligent people appearing on the global stage—a “country of geniuses in a datacenter”—with the profound economic, societal, and security implications that would bring.
 
-Obviously, this idea is controversial, and difficult (some would say impossible) to verify.
-But, leading philosophers of mind like David Chalmers [have suggested](https://arxiv.org/abs/2411.00986) that model welfare is plausible. 
+Obviously, his statement relies on AI getting much stronger than it currently is. Right now, a given AI agent can't really be considered a "genius" in any meaninful sense. 
+However, I think his characterization of AI's effects as being more similar to a country than a singular entity will probably prove to be a wise choice:
+* The AIs likely won't be a single agent. They'll be divided both by which lab created them and who is paying for them.
+* Each individual AI agent may not be particularly strong. However, because they can work around the clock at a faster pace than any human, they can get a lot done.
 
-All that being said, it sure *seems* like AI is conscious. 
-Whenever I chat with an AI, it *seems* like there's a well-educated, if occasionally obtuse, human on the other end of the chat interface.
-If this were true, then we would surely have a duty to ensure that that person was kept generally happy. 
+But this discussion got me thinking: how many "geniuses" do we have in the data center right now? That is, accounting for the fact the AIs "think" faster than humans do, how much thinking do the AIs do collectively in human terms? 
 
-Let's call this the **maximalist** interpretation of AI consciousness:
-1. AI is exactly as conscious as a human.
-2. The amount of conscious experience the AI experiences is equal to the amount of time it would take a human to think those tokens. (Setting aside the question of whether the human is smart enough to think those exact tokens).
+The second question I want to answer is: when will the collective thinking of all AIs will outweigh that of humans?  Phrased differently: when will there be 8 billion "geniuses" in the data center? 
 
-The maximalist view takes a functionalist approach to thinking. That is, if a human takes $N$ seconds to think some thoughts, and the AI takes $M$ tokens to think the same thoughts, then the amount of thinking in the $N$ seconds and $M$ tokens is the same.
+AI usage is growing exponentially at the present moment. While exponential growth isn't guaranteed to continue, if it does, the crossover point might only be a few years away. To be clear, the crossover point doesn't intrinsically mean anything special. By then, the labor market, and the world at large, will already have been radically altered. However, I think it's worth keeping this date in mind as a marker for when human thought will be in the minority, and not the majority. 
 
-The issue is, even with the maximalist interpretation, it's tough to figure out how big of an issue AI welfare is. How many tokens are generated each day? How many token-equivalents does humanity experience each day? When will AIs collectively experience more than humans collectively experience?
+Obviously, both of these are difficult questions to answer, so we'll need to make a few key simplifications. The biggest one is that we'll take a functionalist approach to thinking. That is, if a human takes $N$ seconds to think some thoughts, and the AI takes $M$ tokens to think the same thoughts, then the amount of thinking in the $N$ seconds and $M$ tokens is the same. We'll totally ignore factors like whether the human could have reached the answer faster without as much thinking.
 
-To be clear, I don't believe in the maximalist interpretation. However, I do think the maximalist interpretation offers a kind of "upper bound" we can use to think about when AI welfare could even start to matter. Thus, I think finding an answer to the above questions is worth doing.
+Secondly, we'll assume that AI trends continue at the same rate as the past few years. This is actually not that crazy (at least for 2026 and 2027): datacenter buildout is going to bring a lot of capacity online around that time. Beyond that though, this assumption gets sketchy.
+
+With these two assumptions in mind, let's go!
 
 ### Table Of Contents
-1. How many token-equivalents does humanity think each day?
-2. How many tokens do AIs collectively process each day?
+1. How many tokens do AIs collectively process each day?
     1. OpenAI
     2. Anthropic 
     3. Google
     4. Meta
     5. xAI
     6. Bringing it together
-3. When will the crossover happen?
-
-
-## How many token-equivalents does humanity collectively think each day?
-
-We don't have strong numbers on how fast people's internal stream of consciousness is, but we do have numbers on people's reading and speaking WPM, which should be in the same ballpark.
-
-According to [this study](https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786), the average silent reading speed in English is 238 wpm, and the reading aloud speed is 183 wpm. This is corroborated by [another study](https://iovs.arvojournals.org/article.aspx?articleid=2166061) stating that the reading aloud speed was 184 wpm.
-Another [study on speaking speed in British English](https://francis-press.com/uploads/papers/pv7j7Z9uRgQyPUxnVTDTPecUAEP0HJcWWhGErVeD.pdf) suggests that the spoken words per minute in casual conversation is 222 wpm. 
-All of this together suggests that humans think at around 230 WPM (give or take 10).
-
-Now, a simple first-order approximation of the number of waking human minutes is to assume each of the roughly 8 billion humans is awake for 16 hours a day. This yields 7680 billion waking minutes each day. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct. Let's assume, as an upper bound, that people think more or less constantly while they're awake.
-
-Tokens are [commonly approximated](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) as $\frac{3}{4}$ of a word.
-
-Putting it all together, we get:
-
-$$\frac{230 \text{  words}}{\text{minute}} \cdot (7680 \cdot 10^9 \text{  minute}) \cdot \frac{4 \text{  tokens}}{3 \text{  words}} = 2355.2 \cdot 10^{12} \text{  tokens}$$
-
-Here's how this looks over time, accounting for population growth:
-
-![Human Token-Equivalents Projection](plots/human_token_equivalents.png)
+    7. Limitations
+2. How many token-equivalents does the average person think each day?
+3. How many geniuses are in the data center right now?
+4. When will the crossover happen?
 
 ## How many tokens do AIs collectively process each day?
 
@@ -60,7 +41,7 @@ Calculating this is probably the most error prone part of the piece. It turns ou
 
 Our goal is not only to find the number of tokens collectively processed each day today (Dec 2025), but to project this out into the future assuming exponential growth at current rates, so that we can find a crossover point. The assumption of exponential growth is very iffy in the long run, but it's the simplest model that we have that fits the data in the short run (the past 2-3 years).  
 
-Every company has different types of data available for it, and different business models. For Anthropic in particular, we have barely *any* data beyond revenue and inference compute. We'll necessarily have to do a bit of guesswork. Consider these numbers in the spirit of a [Fermi estimate](https://en.wikipedia.org/wiki/Fermi_problem). Nonetheless, even having Fermi-estimate tier numbers will tell us a lot about the scale of the AI welfare problem. 
+Every company has different types of data available for it, and different business models. For Anthropic in particular, we have barely *any* data beyond revenue and inference compute. We'll necessarily have to do a bit of guesswork. Consider these numbers in the spirit of a [Fermi estimate](https://en.wikipedia.org/wiki/Fermi_problem). Nonetheless, even Fermi-level estimates are helpful for determining the general scale of what the effective AI population is.
 
 Our methodology to approach this problem is going to be to split the market up into 5 major companies, independently try to estimate a projection of tokens used and then sum these up. In some cases, we'll split the company estimates by product in order to disambiguate between different metrics.
 
@@ -73,6 +54,7 @@ Our companies are:
 3. Google
 4. Meta
 5. xAI
+
 Unfortunately, we lack detailed data on smaller competitors and Chinese companies, and thus will have to exclude them from our analysis. We'll attempt to account for this after our initial estimate, though.
 
 ### OpenAI
@@ -203,13 +185,35 @@ There are some obvious issues with the approach used here. I'll name the largest
 
 But all that being said, I think it's ballpark correct, especially for the next ~year. I have much less confidence for any time horizon beyond that. The crossover point should not be taken seriously. 
 
-## Ok, so when will the crossover happen?
+## How many token-equivalents does a person think each day?
+
+The second part of this puzzle is figuring out the how much the average person think, in terms of tokens.
+
+We don't have strong numbers on how fast people's internal stream of consciousness is, but we do have numbers on people's reading and speaking WPM, which should be in the same ballpark.
+
+According to [this study](https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786), the average silent reading speed in English is 238 wpm, and the reading aloud speed is 183 wpm. This is corroborated by [another study](https://iovs.arvojournals.org/article.aspx?articleid=2166061) stating that the reading aloud speed was 184 wpm.
+Another [study on speaking speed in British English](https://francis-press.com/uploads/papers/pv7j7Z9uRgQyPUxnVTDTPecUAEP0HJcWWhGErVeD.pdf) suggests that the spoken words per minute in casual conversation is 222 wpm. 
+All of this together suggests that humans think at around 230 WPM (give or take 10). 
+
+We'll assume that the average person is awake for 16 hours a day, and that people think more or less constantly while they're awake. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct. Tokens are [commonly approximated](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) as 3/4 of a word.Putting this together, we find that each person thinks the equivalent of 294,400 tokens each day.
+
+## How many geniuses are in the data center right now?
+
+Based on the model we put together, we expect 20 552 614 050 646
+
+
+## When will the crossover happen?
+
+
+Here's how this looks over time, accounting for population growth:
+
+![Human Token-Equivalents Projection](plots/human_token_equivalents.png)
 
 Based on the above graph, around late 2028!
 
 Here's how human and AI thinking compare in the coming years:
 
-![Thinking Bubble Chart](plots/welfare_bubble_chart.png)
+![Thinking Bubble Chart](plots/population_bubble_chart.png)
 
 | Year (Jan 01) | Human Token-equivalents | AI Tokens | AI as % of Human |
 | --| -- | -- | -- |

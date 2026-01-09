@@ -1382,8 +1382,8 @@ def create_individual_company_plots(companies: dict, models: dict):
     print(f"\nAll individual plots saved to '{PLOTS_FOLDER}/' folder")
 
 
-def create_welfare_bubble_chart(models: dict):
-    """Create a bubble chart comparing human and AI welfare for 2026, 2027, 2028, 2029."""
+def create_population_bubble_chart(models: dict):
+    """Create a bubble chart comparing human and AI populations for 2026, 2027, 2028, 2029."""
     
     years = [2026, 2027, 2028, 2029]
     
@@ -1393,39 +1393,41 @@ def create_welfare_bubble_chart(models: dict):
     pop_values = pop_df['all years'].values
     
     # Calculate values for each year
-    human_welfare = []
-    ai_welfare = []
+    human_population = []
+    ai_population = []
     
     for year in years:
         decimal_year = float(year)
         
         # Human token-equivalents
         pop = np.interp(decimal_year, pop_years, pop_values)
-        human_tokens = pop * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12  # trillions/day
-        human_welfare.append(human_tokens)
+        human_population.append(pop)
         
         # AI tokens (global total)
         # OpenAI average
-        openai_chatgpt = exponential_model(decimal_year - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b']) / 1e12
-        openai_api = exponential_model(decimal_year - 2024, models['OpenAI API']['a'], models['OpenAI API']['b']) / 1e12
-        openai_inference = exponential_model(decimal_year - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b']) / 1e12
-        openai_revenue = exponential_model(decimal_year - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b']) / 1e12
+        openai_chatgpt = exponential_model(decimal_year - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b'])
+        openai_api = exponential_model(decimal_year - 2024, models['OpenAI API']['a'], models['OpenAI API']['b'])
+        openai_inference = exponential_model(decimal_year - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b'])
+        openai_revenue = exponential_model(decimal_year - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b'])
         openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
         
         # Google total
-        gemini_assistant = exponential_model(decimal_year - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b']) / 1e12
-        gemini_api = exponential_model(decimal_year - 2024, models['Gemini API']['a'], models['Gemini API']['b']) / 1e12
+        gemini_assistant = exponential_model(decimal_year - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b'])
+        gemini_api = exponential_model(decimal_year - 2024, models['Gemini API']['a'], models['Gemini API']['b'])
         google_total = gemini_assistant + gemini_api
         
         # Others
-        meta_total = exponential_model(decimal_year - 2024, models['Meta']['a'], models['Meta']['b']) / 1e12
-        anthropic_total = exponential_model(decimal_year - 2024, models['Anthropic']['a'], models['Anthropic']['b']) / 1e12
-        xai_total = exponential_model(decimal_year - 2024, models['xAI']['a'], models['xAI']['b']) / 1e12
+        meta_total = exponential_model(decimal_year - 2024, models['Meta']['a'], models['Meta']['b'])
+        anthropic_total = exponential_model(decimal_year - 2024, models['Anthropic']['a'], models['Anthropic']['b'])
+        xai_total = exponential_model(decimal_year - 2024, models['xAI']['a'], models['xAI']['b'])
         
         # US total + non-US (25% extra)
         us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
         global_total = us_total * (1 + 1/3)  # Add non-US estimate
-        ai_welfare.append(global_total)
+
+        # convert to population
+        ai_pop = global_total / 294400  # 294400 tokens per person per day
+        ai_population.append(ai_pop)
     
     # Create bubble chart
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -1434,16 +1436,16 @@ def create_welfare_bubble_chart(models: dict):
     colors_list = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6']  # Blue, Green, Red, Purple for 2026, 2027, 2028, 2029
     
     for i, year in enumerate(years):
-        # Human welfare bubble (left side)
-        ax.scatter(year - 0.15, 1, s=human_welfare[i] * 3, color='#e74c3c', alpha=0.6, 
+        # Human population bubble (left side)
+        ax.scatter(year - 0.15, 1, s=human_population[i]/1e6, color='#e74c3c', alpha=0.6, 
                    edgecolors='darkred', linewidths=2, label=f'Human ({year})' if i == 0 else '')
-        ax.annotate(f'{human_welfare[i]:.0f}T', (year - 0.15, 1), ha='center', va='center', 
+        ax.annotate(f'{human_population[i]/1e6:.0f}M', (year - 0.15, 1), ha='center', va='center', 
                     fontsize=10, fontweight='bold')
         
-        # AI welfare bubble (right side)
-        ax.scatter(year + 0.15, 2, s=ai_welfare[i] * 3, color='#3498db', alpha=0.6,
+        # AI population bubble (right side)
+        ax.scatter(year + 0.15, 2, s=ai_population[i]/1e6, color='#3498db', alpha=0.6,
                    edgecolors='darkblue', linewidths=2, label=f'AI ({year})' if i == 0 else '')
-        ax.annotate(f'{ai_welfare[i]:.0f}T', (year + 0.15, 2), ha='center', va='center',
+        ax.annotate(f'{ai_population[i]/1e6:.0f}M', (year + 0.15, 2), ha='center', va='center',
                     fontsize=10, fontweight='bold')
     
     # Add year labels
@@ -1454,26 +1456,21 @@ def create_welfare_bubble_chart(models: dict):
     ax.set_xlim(2025.5, 2029.5)
     ax.set_ylim(0, 3)
     ax.set_yticks([1, 2])
-    ax.set_yticklabels(['Human\nWelfare', 'AI\nWelfare'], fontsize=12)
+    ax.set_yticklabels(['Human\nPopulation', 'AI\nPopulation'], fontsize=12)
     ax.set_xlabel('Year', fontsize=12)
-    ax.set_title('Human vs AI Token-Equivalents per Day (Trillions)', fontsize=14, fontweight='bold')
-    
-    # Add legend for bubble size
-    ax.text(0.02, 0.98, 'Bubble size = daily tokens (trillions)\nNumbers inside = T tokens/day', 
-            transform=ax.transAxes, fontsize=9, va='top',
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    ax.set_title('Human vs AI Population', fontsize=14, fontweight='bold')
     
     # Print values
-    print("\nWelfare Comparison (Daily Tokens in Trillions):")
+    print("\Population Comparison (Effective Population):")
     print("-" * 50)
     for i, year in enumerate(years):
-        ratio = ai_welfare[i] / human_welfare[i] * 100
-        print(f"  {year}: Human={human_welfare[i]:.0f}T, AI={ai_welfare[i]:.0f}T ({ratio:.1f}% of human)")
+        ratio = ai_population[i] / human_population[i] * 100
+        print(f"  {year}: Human={human_population[i]/1e6:.0f}M, AI={ai_population[i]/1e6:.0f}M ({ratio:.1f}% of human)")
     
     ax.grid(True, alpha=0.3, axis='x')
     
     plt.tight_layout()
-    filepath = os.path.join(PLOTS_FOLDER, 'welfare_bubble_chart.png')
+    filepath = os.path.join(PLOTS_FOLDER, 'population_bubble_chart.png')
     plt.savefig(filepath, dpi=150, bbox_inches='tight')
     plt.close(fig)
     print(f"\n  Saved {filepath}")
@@ -1635,9 +1632,9 @@ CAVEATS:
     print("\nGenerating individual company plots...")
     create_individual_company_plots(companies, models)
     
-    # Create welfare bubble chart
-    print("\nGenerating welfare bubble chart...")
-    create_welfare_bubble_chart(models)
+    # Create population bubble chart
+    print("\nGenerating population bubble chart...")
+    create_population_bubble_chart(models)
     
     # Export data
     export_data(companies, models)
