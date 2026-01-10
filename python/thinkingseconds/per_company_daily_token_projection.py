@@ -1490,9 +1490,9 @@ def create_population_bubble_chart(models: dict):
     ax.set_xlim(2025.5, 2029.5)
     ax.set_ylim(0, 3)
     ax.set_yticks([1, 2])
-    ax.set_yticklabels(['Human\nPopulation', 'AI\nPopulation'], fontsize=12)
+    ax.set_yticklabels(['Human\nPopulation', 'AI Effective\nPopulation'], fontsize=12)
     ax.set_xlabel('Year', fontsize=12)
-    ax.set_title('Human vs AI Population', fontsize=14, fontweight='bold')
+    ax.set_title('Human Population vs AI Effective Population', fontsize=14, fontweight='bold')
     
     # Print values
     print("\Population Comparison (Effective Population):")
