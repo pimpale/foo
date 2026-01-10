@@ -218,6 +218,56 @@ def fit_exponential(dates: np.ndarray, values: np.ndarray,
         return a_init, b_init, 0.0
 
 
+# Global compute adjustment: US is ~75% of worldwide compute
+# So global = US / 0.75 = US * (1 + 1/3)
+GLOBAL_COMPUTE_MULTIPLIER = 1 + 1/3
+
+
+def calculate_totals(models: dict, decimal_years: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Calculate US and global token totals for given decimal years.
+    
+    This centralizes the logic for computing total daily tokens across all tracked
+    companies, handling the OpenAI multi-method averaging and the global adjustment.
+    
+    Args:
+        models: Dictionary of fitted exponential models with 'a' and 'b' params
+        decimal_years: Array of decimal years to compute totals for
+    
+    Returns:
+        (us_total, global_total) arrays in tokens/day
+    """
+    t = decimal_years - 2024  # Shift to model reference point
+    
+    # OpenAI: average of 3 methods
+    # Method 1: ChatGPT + API (product-based)
+    # Method 2: Inference compute scaling
+    # Method 3: Revenue scaling
+    openai_chatgpt = exponential_model(t, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b'])
+    openai_api = exponential_model(t, models['OpenAI API']['a'], models['OpenAI API']['b'])
+    openai_inference = exponential_model(t, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b'])
+    openai_revenue = exponential_model(t, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b'])
+    openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
+    
+    # Google: sum of Gemini products
+    gemini_assistant = exponential_model(t, models['Gemini Assistant']['a'], models['Gemini Assistant']['b'])
+    gemini_api = exponential_model(t, models['Gemini API']['a'], models['Gemini API']['b'])
+    google_total = gemini_assistant + gemini_api
+    
+    # Single-product companies
+    meta_total = exponential_model(t, models['Meta']['a'], models['Meta']['b'])
+    anthropic_total = exponential_model(t, models['Anthropic']['a'], models['Anthropic']['b'])
+    xai_total = exponential_model(t, models['xAI']['a'], models['xAI']['b'])
+    
+    # US total (the 5 companies we track)
+    us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
+    
+    # Global total: adjust for non-US companies (US is ~75% of global compute)
+    global_total = us_total * GLOBAL_COMPUTE_MULTIPLIER
+    
+    return us_total, global_total
+
+
 # =============================================================================
 # OPENAI DATA AND RATIO CALCULATION
 # =============================================================================
@@ -948,9 +998,7 @@ def project_forward(companies: dict, models: dict, end_date: datetime = datetime
 
 def create_visualization(companies: dict, models: dict, projections: dict, 
                          projection_dates: list):
-    """Create visualization of token projections."""
-    
-    fig, ax = plt.subplots(figsize=(14, 8))
+    """Create visualization of token projections (two versions: tokens and people-equivalents)."""
     
     # Company colors (same color for same company)
     company_colors = {
@@ -960,6 +1008,7 @@ def create_visualization(companies: dict, models: dict, projections: dict,
         'Anthropic': '#d4a574',   # Anthropic tan/brown
         'xAI': '#ff8c00',         # xAI orange
         'All': '#333333',         # Dark gray for total
+        'Human': '#e74c3c',       # Human red
     }
     
     # Map each category to its company color
@@ -1004,105 +1053,137 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     # Time range for plotting
     t_plot = np.linspace(PLOT_BEGIN_DATE, PLOT_END_DATE, 300)
     
+    # Tokens per person per day (for human-equivalent conversion)
+    TOKENS_PER_PERSON_PER_DAY = 294400
+    
+    # Load population data for the people-equivalent version
+    pop_df = pd.read_csv('population.csv')
+    pop_years = pop_df['Year'].values
+    pop_values = pop_df['all years'].values
+    # Interpolate population for each point in t_plot
+    human_population = np.interp(t_plot, pop_years, pop_values)
+    
+    # Pre-calculate all the projection data (in raw tokens)
+    # OpenAI projections
+    openai_chatgpt_raw = exponential_model(t_plot - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b'])
+    openai_api_raw = exponential_model(t_plot - 2024, models['OpenAI API']['a'], models['OpenAI API']['b'])
+    openai_inference_raw = exponential_model(t_plot - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b'])
+    openai_revenue_raw = exponential_model(t_plot - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b'])
+    openai_method1_raw = openai_chatgpt_raw + openai_api_raw
+    openai_avg_raw = (openai_method1_raw + openai_inference_raw + openai_revenue_raw) / 3
+    
+    # Google/Gemini projections
+    gemini_assistant_raw = exponential_model(t_plot - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b'])
+    gemini_api_raw = exponential_model(t_plot - 2024, models['Gemini API']['a'], models['Gemini API']['b'])
+    google_total_raw = gemini_assistant_raw + gemini_api_raw
+    
+    # US and global totals
+    us_total_raw, global_total_raw = calculate_totals(models, t_plot)
+    non_us_total_raw = global_total_raw - us_total_raw
+    
+    # Google "All AI Products" data points
+    google_all_dates = [date_to_decimal(dp.date) for dp in google_data['monthly_tokens_all_products']]
+    google_all_daily_tokens_raw = [dp.value / 30 for dp in google_data['monthly_tokens_all_products']]  # monthly -> daily
+    
+    # =========================================================================
+    # VERSION 1: Token-based (trillions)
+    # =========================================================================
+    fig, ax = plt.subplots(figsize=(14, 8))
+    
     # Plot each company - markers only for OpenAI/Gemini, markers + trendlines for others
     for name, df in companies.items():
-        # Plot data points (markers) for all
         ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
                    s=80, color=colors[name], marker=markers[name], 
                    alpha=0.7, zorder=5, label=f'{name}')
         
-        # Only plot individual trendlines for non-OpenAI, non-Gemini companies
         if not name.startswith('OpenAI') and not name.startswith('Gemini'):
             params = models[name]
             y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / 1e12
             ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
                     alpha=0.6, linewidth=2)
     
-    # Plot Google "All AI Products" data points for reference (no trendline)
-    # These include Search AI Overviews, Translate, etc. which don't scale the same way
-    google_all_dates = [date_to_decimal(dp.date) for dp in google_data['monthly_tokens_all_products']]
-    google_all_daily_tokens = [dp.value / 30 / 1e12 for dp in google_data['monthly_tokens_all_products']]  # monthly -> daily, in trillions
-    ax.scatter(google_all_dates, google_all_daily_tokens, 
+    # Google "All AI Products" data points
+    ax.scatter(google_all_dates, [t / 1e12 for t in google_all_daily_tokens_raw], 
                s=100, color=company_colors['Google'], marker='X', 
                alpha=0.7, zorder=5, label='Google (All Products)')
     
-    # Calculate combined lines for OpenAI and Google
-    # OpenAI has 3 estimation methods: (ChatGPT + API), Inference-scaled, Revenue-scaled
-    # Google has 2 products: Gemini Assistant + Gemini API (sum these)
-    
-    # Calculate OpenAI projections
-    openai_chatgpt = exponential_model(t_plot - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b']) / 1e12
-    openai_api = exponential_model(t_plot - 2024, models['OpenAI API']['a'], models['OpenAI API']['b']) / 1e12
-    openai_inference = exponential_model(t_plot - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b']) / 1e12
-    openai_revenue = exponential_model(t_plot - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b']) / 1e12
-    
-    # OpenAI average: (ChatGPT + API), Inference, Revenue
-    openai_method1 = openai_chatgpt + openai_api
-    openai_avg = (openai_method1 + openai_inference + openai_revenue) / 3
-    
-    # Calculate Google/Gemini projections
-    gemini_assistant = exponential_model(t_plot - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b']) / 1e12
-    gemini_api = exponential_model(t_plot - 2024, models['Gemini API']['a'], models['Gemini API']['b']) / 1e12
-    google_total = gemini_assistant + gemini_api
-    
-    # Plot combined lines for OpenAI and Google
-    ax.plot(t_plot, openai_avg, '-', color=company_colors['OpenAI'], linewidth=2.5, 
+    # Combined lines
+    ax.plot(t_plot, openai_avg_raw / 1e12, '-', color=company_colors['OpenAI'], linewidth=2.5, 
             alpha=0.8, label='OpenAI (combined)')
-    ax.plot(t_plot, google_total, '-', color=company_colors['Google'], linewidth=2.5, 
+    ax.plot(t_plot, google_total_raw / 1e12, '-', color=company_colors['Google'], linewidth=2.5, 
             alpha=0.8, label='Google (combined)')
-    
-    # For others: calculate single series
-    meta_total = exponential_model(t_plot - 2024, models['Meta']['a'], models['Meta']['b']) / 1e12
-    anthropic_total = exponential_model(t_plot - 2024, models['Anthropic']['a'], models['Anthropic']['b']) / 1e12
-    xai_total = exponential_model(t_plot - 2024, models['xAI']['a'], models['xAI']['b']) / 1e12
-    
-    # Load population data and calculate human token-equivalents per day
-    # Formula: population * 16 hours/day * 60 min/hr * 60 sec/min * HUMAN_TOKENS_PER_SECOND
-    pop_df = pd.read_csv('population.csv')
-    pop_years = pop_df['Year'].values
-    pop_values = pop_df['all years'].values
-    
-    # Interpolate population at each t_plot point
-    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
-    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12  # in trillions
-    ax.plot(t_plot, human_token_equivalents, color='red', linestyle='--', linewidth=2, label='Human Token-Equivalents')
-
-    # Sum US companies (the 5 we track)
-    us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
-    
-    # Estimate non-American companies: US is ~75% of global compute, so non-US is ~25%
-    # non_us = us_total * (25/75) = us_total / 3
-    non_us_total = us_total / 3
-    ax.plot(t_plot, non_us_total, '-.', color='#888888', linewidth=2, 
+    ax.plot(t_plot, non_us_total_raw / 1e12, '-.', color='#888888', linewidth=2, 
             alpha=0.8, label='Other (non-American est.)')
-    
-    # Global total = US + non-US
-    global_total = us_total + non_us_total
-    
-    ax.plot(t_plot, global_total, '-', color=company_colors['All'], linewidth=3, 
+    ax.plot(t_plot, global_total_raw / 1e12, '-', color=company_colors['All'], linewidth=3, 
             label='Global Total', zorder=4)
     
     ax.set_yscale('log')
     ax.set_xlabel('Year', fontsize=12)
     ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
     ax.set_title('Daily Token Production by Company/Product', fontsize=14, fontweight='bold')
-    
-    # Custom legend with marker explanations
     ax.legend(loc='upper left', fontsize=8, ncol=2)
-    
-    # Add marker legend as text annotation
     ax.text(0.98, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
             transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-    
     ax.grid(True, alpha=0.3, which='both')
     ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
     
     plt.tight_layout()
     plt.savefig('per_company_token_projection.png', dpi=150, bbox_inches='tight')
     plt.show()
-    
     print("Saved visualization to 'per_company_token_projection.png'")
+    
+    # =========================================================================
+    # VERSION 2: People-equivalent (millions of people)
+    # =========================================================================
+    fig, ax = plt.subplots(figsize=(14, 8))
+    
+    # Plot each company - markers only for OpenAI/Gemini, markers + trendlines for others
+    for name, df in companies.items():
+        ax.scatter(df['decimal_date'], df['daily_tokens'] / TOKENS_PER_PERSON_PER_DAY / 1e6, 
+                   s=80, color=colors[name], marker=markers[name], 
+                   alpha=0.7, zorder=5, label=f'{name}')
+        
+        if not name.startswith('OpenAI') and not name.startswith('Gemini'):
+            params = models[name]
+            y_fit = exponential_model(t_plot - 2024, params['a'], params['b']) / TOKENS_PER_PERSON_PER_DAY / 1e6
+            ax.plot(t_plot, y_fit, linestyle=linestyles[name], color=colors[name], 
+                    alpha=0.6, linewidth=2)
+    
+    # Google "All AI Products" data points
+    ax.scatter(google_all_dates, [t / TOKENS_PER_PERSON_PER_DAY / 1e6 for t in google_all_daily_tokens_raw], 
+               s=100, color=company_colors['Google'], marker='X', 
+               alpha=0.7, zorder=5, label='Google (All Products)')
+    
+    # Combined lines
+    ax.plot(t_plot, openai_avg_raw / TOKENS_PER_PERSON_PER_DAY / 1e6, '-', color=company_colors['OpenAI'], linewidth=2.5, 
+            alpha=0.8, label='OpenAI (combined)')
+    ax.plot(t_plot, google_total_raw / TOKENS_PER_PERSON_PER_DAY / 1e6, '-', color=company_colors['Google'], linewidth=2.5, 
+            alpha=0.8, label='Google (combined)')
+    ax.plot(t_plot, non_us_total_raw / TOKENS_PER_PERSON_PER_DAY / 1e6, '-.', color='#888888', linewidth=2, 
+            alpha=0.8, label='Other (non-American est.)')
+    ax.plot(t_plot, global_total_raw / TOKENS_PER_PERSON_PER_DAY / 1e6, '-', color=company_colors['All'], linewidth=3, 
+            label='Global AI Total', zorder=4)
+    
+    # Human population reference line
+    ax.plot(t_plot, human_population / 1e6, '-', color=company_colors['Human'], linewidth=3, 
+            label='Human Population', zorder=4)
+    
+    ax.set_yscale('log')
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('People-Equivalents (Millions)', fontsize=12)
+    ax.set_title('AI "Population" by Company (in Human Thinking Equivalents)', fontsize=14, fontweight='bold')
+    ax.legend(loc='upper left', fontsize=8, ncol=2)
+    ax.text(0.98, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
+            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    ax.grid(True, alpha=0.3, which='both')
+    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
+    
+    plt.tight_layout()
+    plt.savefig('per_company_population_projection.png', dpi=150, bbox_inches='tight')
+    plt.show()
+    print("Saved visualization to 'per_company_population_projection.png'")
 
 
 def create_individual_company_plots(companies: dict, models: dict):
@@ -1350,35 +1431,6 @@ def create_individual_company_plots(companies: dict, models: dict):
         
         print(f"  Saved {filepath}")
     
-    # Load population data for human token-equivalents plot
-    pop_df = pd.read_csv('population.csv')
-    pop_years = pop_df['Year'].values
-    pop_values = pop_df['all years'].values
-    pop_interpolated = np.interp(t_plot, pop_years, pop_values)
-    human_token_equivalents = pop_interpolated * 16 * 60 * 60 * HUMAN_TOKENS_PER_SECOND / 1e12
-    
-    # Create a human token-equivalents only plot
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(t_plot, human_token_equivalents, color='red', linewidth=2.5, label='Human Token-Equivalents')
-    ax.set_yscale('log')
-    ax.set_xlabel('Year', fontsize=12)
-    ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
-    ax.set_title('Human Token-Equivalents per Day (Population-Based)', fontsize=14, fontweight='bold')
-    ax.legend(loc='upper left', fontsize=10)
-    ax.grid(True, alpha=0.3, which='both')
-    ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
-    
-    # Add methodology note
-    ax.text(0.98, 0.02, f"Based on: population × 16 hrs/day × {HUMAN_TOKENS_PER_SECOND:.2f} tokens/sec\n(230 WPM × 4/3 tokens/word)", 
-            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-    
-    plt.tight_layout()
-    filepath = os.path.join(PLOTS_FOLDER, 'human_token_equivalents.png')
-    plt.savefig(filepath, dpi=150, bbox_inches='tight')
-    plt.close(fig)
-    print(f"  Saved {filepath}")
-    
     print(f"\nAll individual plots saved to '{PLOTS_FOLDER}/' folder")
 
 
@@ -1404,26 +1456,8 @@ def create_population_bubble_chart(models: dict):
         human_population.append(pop)
         
         # AI tokens (global total)
-        # OpenAI average
-        openai_chatgpt = exponential_model(decimal_year - 2024, models['OpenAI ChatGPT']['a'], models['OpenAI ChatGPT']['b'])
-        openai_api = exponential_model(decimal_year - 2024, models['OpenAI API']['a'], models['OpenAI API']['b'])
-        openai_inference = exponential_model(decimal_year - 2024, models['OpenAI (Inference)']['a'], models['OpenAI (Inference)']['b'])
-        openai_revenue = exponential_model(decimal_year - 2024, models['OpenAI (Revenue)']['a'], models['OpenAI (Revenue)']['b'])
-        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
-        
-        # Google total
-        gemini_assistant = exponential_model(decimal_year - 2024, models['Gemini Assistant']['a'], models['Gemini Assistant']['b'])
-        gemini_api = exponential_model(decimal_year - 2024, models['Gemini API']['a'], models['Gemini API']['b'])
-        google_total = gemini_assistant + gemini_api
-        
-        # Others
-        meta_total = exponential_model(decimal_year - 2024, models['Meta']['a'], models['Meta']['b'])
-        anthropic_total = exponential_model(decimal_year - 2024, models['Anthropic']['a'], models['Anthropic']['b'])
-        xai_total = exponential_model(decimal_year - 2024, models['xAI']['a'], models['xAI']['b'])
-        
-        # US total + non-US (25% extra)
-        us_total = openai_avg + google_total + meta_total + anthropic_total + xai_total
-        global_total = us_total * (1 + 1/3)  # Add non-US estimate
+        _, global_total = calculate_totals(models, np.array([decimal_year]))
+        global_total = global_total[0]  # Extract scalar from array
 
         # convert to population
         ai_pop = global_total / 294400  # 294400 tokens per person per day
@@ -1554,25 +1588,10 @@ def export_data(companies: dict, models: dict):
         tokens = [exponential_model(d - 2024, params['a'], params['b']) for d in decimals]
         data[f'{name}_daily_tokens'] = tokens
     
-    # Add total - average company estimates before summing
-    total_tokens = []
-    for i in range(len(dates)):
-        # OpenAI: average 3 methods
-        openai_chatgpt = data.get('OpenAI ChatGPT_daily_tokens', [0]*len(dates))[i]
-        openai_api = data.get('OpenAI API_daily_tokens', [0]*len(dates))[i]
-        openai_inference = data.get('OpenAI (Inference)_daily_tokens', [0]*len(dates))[i]
-        openai_revenue = data.get('OpenAI (Revenue)_daily_tokens', [0]*len(dates))[i]
-        # Average 3 methods: (ChatGPT + API), Inference, Revenue
-        openai_avg = ((openai_chatgpt + openai_api) + openai_inference + openai_revenue) / 3
-        
-        google_total = data.get('Gemini Assistant_daily_tokens', [0]*len(dates))[i] + data.get('Gemini API_daily_tokens', [0]*len(dates))[i]
-        meta_total = data.get('Meta_daily_tokens', [0]*len(dates))[i]
-        anthropic_total = data.get('Anthropic_daily_tokens', [0]*len(dates))[i]
-        xai_total = data.get('xAI_daily_tokens', [0]*len(dates))[i]
-        
-        total_tokens.append(openai_avg + google_total + meta_total + anthropic_total + xai_total)
-    
-    data['total_daily_tokens'] = total_tokens
+    # Add totals using the helper function
+    us_total, global_total = calculate_totals(models, np.array(decimals))
+    data['us_total_daily_tokens'] = us_total.tolist()
+    data['global_total_daily_tokens'] = global_total.tolist()
     
     df = pd.DataFrame(data)
     df.to_csv('token_projections.csv', index=False)

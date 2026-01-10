@@ -5,12 +5,12 @@ In October 2024, Dario Amodei [wrote](https://www.darioamodei.com/essay/machines
 that AI might be like "a country of geniuses in a datacenter". He elaborated on this in [his statement](https://www.anthropic.com/news/paris-ai-summit) at the Paris AI summit, where he said:
 > Time is short, and we must accelerate our actions to match accelerating AI progress. Possibly by 2026 or 2027 (and almost certainly no later than 2030), the capabilities of AI systems will be best thought of as akin to an entirely new state populated by highly intelligent people appearing on the global stage—a “country of geniuses in a datacenter”—with the profound economic, societal, and security implications that would bring.
 
-Obviously, his statement relies on AI getting much stronger than it currently is. Right now, a given AI agent can't really be considered a "genius" in any meaninful sense. 
-However, I think his characterization of AI's effects as being more similar to a country than a singular entity will probably prove to be a wise choice:
+Obviously, his statement relies on AI getting much stronger than it currently is. Right now, a given AI agent can't really be considered a "genius" in any meaningful sense. 
+However, I think his characterization of AI's effects as being more similar to a country than a singular entity will probably prove to be prescient:
 * The AIs likely won't be a single agent. They'll be divided both by which lab created them and who is paying for them.
 * Each individual AI agent may not be particularly strong. However, because they can work around the clock at a faster pace than any human, they can get a lot done.
 
-But this discussion got me thinking: how many "geniuses" do we have in the data center right now? That is, accounting for the fact the AIs "think" faster than humans do, how much thinking do the AIs do collectively in human terms? 
+But this discussion got me thinking: how many "geniuses" do we have in the data center right now? That is, accounting for the fact the AIs "think" faster than humans do, and can think in parallel, how much thinking do the AIs do collectively in human terms?
 
 The second question I want to answer is: when will the collective thinking of all AIs will outweigh that of humans?  Phrased differently: when will there be 8 billion "geniuses" in the data center? 
 
@@ -23,7 +23,8 @@ Secondly, we'll assume that AI trends continue at the same rate as the past few 
 With these two assumptions in mind, let's go!
 
 ### Table Of Contents
-1. How many tokens do AIs collectively process each day?
+1. How many token-equivalents does the average person think each day?
+2. How many tokens do AIs collectively process each day?
     1. OpenAI
     2. Anthropic 
     3. Google
@@ -31,9 +32,20 @@ With these two assumptions in mind, let's go!
     5. xAI
     6. Bringing it together
     7. Limitations
-2. How many token-equivalents does the average person think each day?
 3. How many geniuses are in the data center right now?
 4. When will the crossover happen?
+
+## How many token-equivalents does a person think each day?
+
+The first part of this puzzle is figuring out the how much the average person think, in terms of tokens.
+
+We don't have strong numbers on how fast people's internal stream of consciousness is, but we do have numbers on people's reading and speaking WPM, which should be in the same ballpark.
+
+According to [this study](https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786), the average silent reading speed in English is 238 wpm, and the reading aloud speed is 183 wpm. This is corroborated by [another study](https://iovs.arvojournals.org/article.aspx?articleid=2166061) stating that the reading aloud speed was 184 wpm.
+Another [study on speaking speed in British English](https://francis-press.com/uploads/papers/pv7j7Z9uRgQyPUxnVTDTPecUAEP0HJcWWhGErVeD.pdf) suggests that the spoken words per minute in casual conversation is 222 wpm. 
+All of this together suggests that humans think at around 230 WPM (give or take 10). 
+
+We'll assume that the average person is awake for 16 hours a day, and that people think more or less constantly while they're awake. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct. Tokens are [commonly approximated](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) as 3/4 of a word.Putting this together, we find that each person thinks the equivalent of 294,400 tokens each day.
 
 ## How many tokens do AIs collectively process each day?
 
@@ -170,7 +182,7 @@ Note that just summing the above 5 companies won't be sufficient to get global t
 
 To resolve this, we'll take the ratio of rest of the world's compute to the US's compute, and multiply the overall result by that. Epoch also helpfully [provides this ratio](https://epoch.ai/blog/trends-in-ai-supercomputers). It turns out the US controls about 75% of worldwide compute as of March 2025, and China around 15%. 
 
-Now that we have all 5 AI companies, plus the estimate of other players, let's see what it looks like when we put them on the same graph (alongside the human token projection as well):
+Now that we have all 5 AI companies, plus the estimate of other players, let's see what it looks like when we put them on the same graph:
 
 ![Combined Graph](per_company_token_projection.png)
 
@@ -183,65 +195,53 @@ There are some obvious issues with the approach used here. I'll name the largest
 3. All of our revenue based predictions are effectively based off of a single sama tweet. 
 4. We're not considering internal/non-public AI usage.
 
-But all that being said, I think it's ballpark correct, especially for the next ~year. I have much less confidence for any time horizon beyond that. The crossover point should not be taken seriously. 
+But all that being said, I think it's ballpark correct, especially for the next 2 years. This is not only because of the past trends being relatively consistent across both compute, inference, and revenue, but also because the [datacenter capacity projections](https://epoch.ai/data/data-centers) (as measured by the sites committed to by the various AI labs) line up with the token projections I'm making. Beyond that, I have much less confidence.
 
-## How many token-equivalents does a person think each day?
+## How many "geniuses" are in the data center right now?
 
-The second part of this puzzle is figuring out the how much the average person think, in terms of tokens.
+Based on the token model, there are about 27.4T tokens being processed per day in Jan 2026. This equates to about 93 million people's worth of thinking, based on our estimate of 294,400 tokens per day per person.
 
-We don't have strong numbers on how fast people's internal stream of consciousness is, but we do have numbers on people's reading and speaking WPM, which should be in the same ballpark.
-
-According to [this study](https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786), the average silent reading speed in English is 238 wpm, and the reading aloud speed is 183 wpm. This is corroborated by [another study](https://iovs.arvojournals.org/article.aspx?articleid=2166061) stating that the reading aloud speed was 184 wpm.
-Another [study on speaking speed in British English](https://francis-press.com/uploads/papers/pv7j7Z9uRgQyPUxnVTDTPecUAEP0HJcWWhGErVeD.pdf) suggests that the spoken words per minute in casual conversation is 222 wpm. 
-All of this together suggests that humans think at around 230 WPM (give or take 10). 
-
-We'll assume that the average person is awake for 16 hours a day, and that people think more or less constantly while they're awake. This isn't quite right, since babies and children sleep more, and older people sleep less, but it's probably approximately correct. Tokens are [commonly approximated](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) as 3/4 of a word.Putting this together, we find that each person thinks the equivalent of 294,400 tokens each day.
-
-## How many geniuses are in the data center right now?
-
-Based on the model we put together, we expect 20 552 614 050 646
-
+With 93 million people, AI collectively already forms a healthy sized country! For reference, a population of 93 million would place the country about halfway between Iran (85.9 million) and Vietnam (101.3 million).
 
 ## When will the crossover happen?
 
+If we use the same conversion ratio on the token graph, we can visualize the growth of tokens processed as "population in the datacenter":
 
-Here's how this looks over time, accounting for population growth:
+![Human Token-Equivalents Projection](per_company_population_projection.png)
 
-![Human Token-Equivalents Projection](plots/human_token_equivalents.png)
+I've included human population as a red line, showing that the intersection will occur around late 2028. Note that this includes population growth! It's just incredibly difficult to see on this logarithmic scale.
 
-Based on the above graph, around late 2028!
-
-Here's how human and AI thinking compare in the coming years:
+We can make it easier to visualize with this bubble chart:
 
 ![Thinking Bubble Chart](plots/population_bubble_chart.png)
 
-| Year (Jan 01) | Human Token-equivalents | AI Tokens | AI as % of Human |
+| Year (Jan 01) | Human Population | AI "Population" | AI as % of Human |
 | --| -- | -- | -- |
-| 2026| 	2444T| 	27T |	1.1%
-| 2027| 	2464T| 	129T |	5.2%
-| 2028| 	2484T| 	634T |	25.5%
-| 2029| 	2503T| 	3337T |	133.3%
+| 2026| 	8.30B| 	93M |	1.1%
+| 2027| 	8.37B| 	438M |	5.2%
+| 2028| 	8.44B| 	2.15B |	25.5%
+| 2029| 	8.50B| 	11.3B |	133.3%
 
-## Implications
+## AI as a country of midwits in a datacenter, taken seriously
 
-The most surprising takeaway for me is just how small of a percentage AI thinking is compared to human thinking. Right now, despite all the fanfare, AI thinking makes up only 1.1% of human thought. 
+The "country of geniuses in a datacenter" is already almost real.
+The amount of labor being done by AIs right now already would already take an entire human country's worth of people to do. The only difference is that our data center is filled with midwits and not geniuses (at least for now).  
+In some sense, this is unsurprising. With how much AI is being mentioned and discussed today, it would be surprising if the amount of actual labor being done was much lower than amount we see. 
 
-However, due to the nature of exponential growth, it will probably soon catch up. I'm quite confident in the overall thesis that AI enterprise usage will grow approximately exponentially over the next 2-3 years. We're only seeing the beginning of the wave of automation that will occur. 
+Let's take the conceptualization of AI as a country seriously for a minute. What would the implications be?
 
-But even though the amount of AI thinking is likely to eclipse human thinking at some point in the future, assuming current growth trends, this doesn't necessarily imply that AI welfare will eclipse human welfare. 
+First, it's obvious that this country is growing at an incredible rate. The projections next 4 years show a roughly 400% annual growth. The country with the current highest growth rate is Niger, but it has an annual growth rate of  only 3.8%. The total fertility rate (TFR), if we used standard methods to calculate it, would be literally off the charts (3 * 10^19). 
 
-AIs, despite their remarkable abilities, may be similar to either P-zombies (creatures that behave as if they are conscious, but lack any internal experience), or David Chalmers's [Vulcans](https://philpapers.org/rec/CHASAM-11) (creatures that consciously perceive, think, and act, but don't experience pain or pleasure).
+Second, it's obvious that this country is going to produce a lot. In terms of services, a lot of labor is going to be offshored here. These people work around the clock, they accept tiny wages, and their population is always growing. Junior software developers have a lot to fear. But, there's also the cultural products: all countries produce things like literature, music, and memes, and this one will be no exception. Catchphrases like "You're absolutely right!" have already entered into the global consciousness. This will likely intensify over the next few years. 
 
-I tend to lean towards assigning a nonzero moral weight towards AIs, especially as they inch towards neuron counts rivalling the synapse counts of humans. For reference, adult humans [have](https://www.neurology.org/doi/10.1212/01.WNL.0000166914.38327.BB) anywhere between 100 and 500 trillion synapses, and three year olds have 1 quadrillion. The largest AI models are [estimated](https://epoch.ai/data/ai-models) to have ~3 trillion parameters. This doesn't guarantee anything, but it does indicate that the "raw compute" might be there.
+Third, it's clear that this country, if it existed, would be shaping up to be a serious national security threat to the US. Their explosive population growth means that they have an incentive to compete with us for naturally limited resources like water, energy, and land. Their citizens are naturally skilled at launching cyberattacks, and they grow smarter each year. However, it's also true that their citizens are generally peaceful, and are not loyal to the idea of an "AI country", at least for now.
 
-Future models may have more, but I expect the growth rate of model parameters to be slower than in the past, as companies are tending to invest more into RL and algorithmic improvements over pure model size scaleups. GPT-4.5, for example, was likely a very large model, but due to its expense and poor performance on agentic tasks, it never made it beyond a research preview.
+Of course, this metaphor isn't perfect: The AI country lacks physical presence, leadership, and is utterly dependent on the goodwill of private companies to continue existing. But the analogies are strong enough that it makes a potent intuition pump.
 
-Altogether, I think there are three key takeaways:
+## Conclusion
 
-1. **AI welfare is a small issue today.** Even under the maximalist interpretation, AI thinking accounts for only ~1% of human thinking. Thus, unlike issues like factory farming, AI welfare isn't yet a moral catastrophe. We have some time to manuever.
+AI usage, as measured by tokens, has been growing exponentially over the past 2-3 years. Because information is relatively sparse, we can't be completely sure of the current amount of usage in tokens, but multiple lines of evidence, including revenue, compute spending, and stated usage, all point towards continued growth. Companies have already put down the money to build the data centers to support this rate of growth for the next year or two. That being said, the forecasts I make are Fermi-level esimates, and are meant to capture the general scale rather than be exact point-in-time estimates. Additionally, after the next few years point, I'm less confident about my predictions: exponential growth can't last forever, and will eventually come to an end.
 
-2. **This will change fast.** Assuming current growth trends hold, the amount of thinking done by AI will surpass that done by humans by late 2028. 
+Regardless, the implications of even the next two years will be immense. AI already collectively processes ~27.4 trillion tokens per day as of January 2026. This equals 93 million people's worth of thinking, roughly the population of a country between Iran and Vietnam. This country will grow at roughly 400% annually. By Jan 2029, in 3 years, the AI "population" will be 11.3 billion, 133% of human population. 
 
-3. **We should err on the side of caution.** We don't know if AIs are conscious, and we may never know for certain. However, the sheer scale of the issue implies that it's worth treading carefully here.
-
-The good news is that treating AIs well doesn't require certainty about their moral status. Many of the interventions that would improve AI welfare (things like avoiding unnecessary "suffering" states and being thoughtful about training objectives) are also good for making AI systems more reliable and aligned with human values.
+Dario points out that "country of geniuses in a datacenter" would bring "profound economic, societal, and security implications". He's most likely correct. Navigating the next few years will be tricky along many dimensions. However, I'm confident that if we manage it, we will be able to reap immense benefits for all. 
