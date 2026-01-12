@@ -1088,7 +1088,7 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     # =========================================================================
     # VERSION 1: Token-based (trillions)
     # =========================================================================
-    fig, ax = plt.subplots(figsize=(14, 8))
+    fig, ax = plt.subplots(figsize=(8, 4.6))
     
     # Plot each company - markers only for OpenAI/Gemini, markers + trendlines for others
     for name, df in companies.items():
@@ -1121,9 +1121,9 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     ax.set_xlabel('Year', fontsize=12)
     ax.set_ylabel('Daily Tokens (Trillions)', fontsize=12)
     ax.set_title('Daily Token Production by Company/Product', fontsize=14, fontweight='bold')
-    ax.legend(loc='upper left', fontsize=8, ncol=2)
-    ax.text(0.98, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
-            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+    ax.legend(loc='lower right', fontsize=8, ncol=2)
+    ax.text(0.02, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
+            transform=ax.transAxes, fontsize=9, ha='left', va='bottom',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     ax.grid(True, alpha=0.3, which='both')
     ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
@@ -1136,7 +1136,7 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     # =========================================================================
     # VERSION 2: People-equivalent (millions of people)
     # =========================================================================
-    fig, ax = plt.subplots(figsize=(14, 8))
+    fig, ax = plt.subplots(figsize=(8, 4.6))
     
     # Plot each company - markers only for OpenAI/Gemini, markers + trendlines for others
     for name, df in companies.items():
@@ -1173,9 +1173,9 @@ def create_visualization(companies: dict, models: dict, projections: dict,
     ax.set_xlabel('Year', fontsize=12)
     ax.set_ylabel('People-Equivalents (Millions)', fontsize=12)
     ax.set_title('AI "Population" by Company (in Human Thinking Equivalents)', fontsize=14, fontweight='bold')
-    ax.legend(loc='upper left', fontsize=8, ncol=2)
-    ax.text(0.98, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
-            transform=ax.transAxes, fontsize=9, ha='right', va='bottom',
+    ax.legend(loc='lower right', fontsize=8, ncol=2)
+    ax.text(0.02, 0.02, '○ Chat  □ API  ✚ Inference  ★ Revenue', 
+            transform=ax.transAxes, fontsize=9, ha='left', va='bottom',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     ax.grid(True, alpha=0.3, which='both')
     ax.set_xlim(PLOT_BEGIN_DATE, PLOT_END_DATE)
@@ -1265,7 +1265,7 @@ def create_individual_company_plots(companies: dict, models: dict):
     # ==========================================================================
     # Create combined OpenAI plot with all methods
     # ==========================================================================
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(7, 4.1))
     
     # Get OpenAI data and models
     openai_series = {name: (companies[name], models[name]) 
@@ -1326,7 +1326,7 @@ def create_individual_company_plots(companies: dict, models: dict):
     # ==========================================================================
     # Create combined Google/Gemini plot
     # ==========================================================================
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(7, 4.1))
     
     # Get Gemini data and models
     gemini_series = {name: (companies[name], models[name]) 
@@ -1391,7 +1391,7 @@ def create_individual_company_plots(companies: dict, models: dict):
         if name.startswith('OpenAI') or name.startswith('Gemini'):
             continue
             
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(6, 3.6))
         
         # Plot data points
         ax.scatter(df['decimal_date'], df['daily_tokens'] / 1e12, 
@@ -1434,6 +1434,106 @@ def create_individual_company_plots(companies: dict, models: dict):
     print(f"\nAll individual plots saved to '{PLOTS_FOLDER}/' folder")
 
 
+def create_country_comparison_chart():
+    """Create a chart comparing Iran, AI 'country', and Vietnam populations to scale."""
+    
+    # Population data (as of Jan 2026)
+    populations = {
+        'Iran': 85_961_000,
+        'AI': 93_000_000,  # From our Jan 2026 estimate
+        'Vietnam': 102_300_000,
+    }
+    
+    # Flag image paths
+    flag_paths = {
+        'Iran': 'country_svgs/ir/256.png',
+        'Vietnam': 'country_svgs/vn/256.png',
+    }
+    
+    # Narrower figure
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Positions for the three countries (left to right: Iran, AI, Vietnam)
+    x_positions = [1, 2, 3]
+    countries = ['Iran', 'AI', 'Vietnam']
+    
+    # Colors
+    colors = {
+        'Iran': '#e74c3c',      # Iran flag red
+        'AI': '#3498db',        # Blue for AI
+        'Vietnam': '#e74c3c',   # Vietnam flag red
+    }
+    
+    # Calculate bubble sizes proportional to population
+    # s parameter is area, so no sqrt needed - area directly proportional to population
+    max_pop = max(populations.values())
+    base_size = 8000  # Base size for the largest bubble
+    
+    for i, country in enumerate(countries):
+        pop = populations[country]
+        # Size proportional to population (s is area)
+        size = base_size * (pop / max_pop)
+        
+        # Draw the bubble
+        ax.scatter(x_positions[i], 0.5, s=size, color=colors[country], alpha=0.7,
+                   edgecolors='black', linewidths=2)
+        
+        # Add population label below
+        pop_str = f"{pop / 1e6:.1f}M"
+        ax.text(x_positions[i], 0.15, pop_str, ha='center', va='center',
+                fontsize=14, fontweight='bold')
+        
+        # Add country name above
+        ax.text(x_positions[i], 0.85, country, ha='center', va='center',
+                fontsize=16, fontweight='bold')
+    
+    # Try to overlay flags on Iran and Vietnam bubbles
+    try:
+        from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+        
+        for country in ['Iran', 'Vietnam']:
+            img = plt.imread(flag_paths[country])
+            # Scale image based on population
+            pop = populations[country]
+            zoom = 0.35 * (pop / max_pop) ** 0.5
+            
+            imagebox = OffsetImage(img, zoom=zoom)
+            x_pos = x_positions[countries.index(country)]
+            ab = AnnotationBbox(imagebox, (x_pos, 0.5), frameon=False)
+            ax.add_artist(ab)
+    except Exception as e:
+        print(f"  Could not overlay flags: {e}")
+    
+    # Add "AI" text on the blue bubble
+    ax.text(2, 0.5, 'AI', ha='center', va='center', fontsize=28, 
+            fontweight='bold', color='white')
+    
+    # Formatting
+    ax.set_xlim(0.3, 3.7)
+    ax.set_ylim(-0.1, 1.1)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    
+    ax.set_title('AI "Population" Compared to Countries (Jan 2026)', 
+                 fontsize=16, fontweight='bold', pad=20)
+    
+    # Add subtitle
+    ax.text(2, -0.05, 'Bubble size proportional to population', 
+            ha='center', va='center', fontsize=10, style='italic', color='gray')
+    
+    plt.tight_layout()
+    filepath = os.path.join(PLOTS_FOLDER, 'ai_country_comparison.png')
+    plt.savefig(filepath, dpi=150, bbox_inches='tight', facecolor='white')
+    plt.close(fig)
+    print(f"  Saved {filepath}")
+    
+    # Print comparison
+    print("\n  Population Comparison (Jan 2026):")
+    print(f"    Iran:    {populations['Iran']:>12,}")
+    print(f"    AI:      {populations['AI']:>12,}")
+    print(f"    Vietnam: {populations['Vietnam']:>12,}")
+
+
 def create_population_bubble_chart(models: dict):
     """Create a bubble chart comparing human and AI populations for 2026, 2027, 2028, 2029."""
     
@@ -1464,10 +1564,7 @@ def create_population_bubble_chart(models: dict):
         ai_population.append(ai_pop)
     
     # Create bubble chart
-    fig, ax = plt.subplots(figsize=(12, 8))
-    
-    # Plot bubbles for each year
-    colors_list = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6']  # Blue, Green, Red, Purple for 2026, 2027, 2028, 2029
+    fig, ax = plt.subplots(figsize=(9, 6))
     
     for i, year in enumerate(years):
         # Human population bubble (left side)
@@ -1654,6 +1751,10 @@ CAVEATS:
     # Create population bubble chart
     print("\nGenerating population bubble chart...")
     create_population_bubble_chart(models)
+    
+    # Create country comparison chart (Iran vs AI vs Vietnam)
+    print("\nGenerating country comparison chart...")
+    create_country_comparison_chart()
     
     # Export data
     export_data(companies, models)
