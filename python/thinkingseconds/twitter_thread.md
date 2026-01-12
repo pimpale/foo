@@ -16,7 +16,7 @@ I did the math. 🧵
 
 ## Tweet 2 (Operationalization)
 
-To operationalize this, I we'll take a functionalist approach to thinking.
+To operationalize this, I'll take a functionalist approach to thinking.
 We'll say that if a human takes N seconds to think some thoughts, and the AI takes M tokens to think the same thoughts, then the amount of "thinking" in the N seconds and M tokens is the same.
 
 ---
@@ -51,7 +51,7 @@ Result: AIs collectively process ~27.4 trillion tokens/day as of Jan 2026.
 ## Tweet 5 (The reveal)
 27.4T tokens/day = 93 million people's worth of thinking.
 
-AI already forms a country between Iran and Vietnam in size. However, I'd probably characterize it as a country of midwits, not geniuses, explaining why we're not yet reaping the benefits Dario speaks of.
+AI already forms a country between Iran and Vietnam in size. However, I'd characterize it as a country of midwits, not geniuses, explaining why we're not yet reaping the benefits (innovation and automation wise).
 
 ![AI Country Comparison](plots/ai_country_comparison.png)
 
@@ -76,7 +76,7 @@ The trajectory:
 2028: 2.15B (25.5%)
 2029: 11.3B (133%)
 
-It's growth rate would be 100x faster than Niger, the world's fastest-growing country.
+Its growth rate would be 100x faster than Niger, the world's fastest-growing country.
 
 ![Thinking Bubble Chart](plots/population_bubble_chart.png)
 
