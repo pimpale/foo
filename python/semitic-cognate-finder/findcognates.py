@@ -105,22 +105,22 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
             if base:
                 lemma_of[norm].add(normalize_self(base))
 
-    # Reverse gloss lookup
-    if common_words:
-        roman = ""
-        for f in entry.get("forms", []):
-            if "romanization" in f.get("tags", []):
-                roman = f.get("form", "")
-                break
+    # # Reverse gloss lookup
+    # if common_words:
+    #     roman = ""
+    #     for f in entry.get("forms", []):
+    #         if "romanization" in f.get("tags", []):
+    #             roman = f.get("form", "")
+    #             break
 
-        for sense in entry.get("senses", []):
-            for gloss in sense.get("glosses", []):
-                gloss_words = gloss.lower().split()
-                if len(gloss_words) > 4:
-                    continue
-                gloss_tokens = set(re.findall(r"[a-z]+", gloss.lower()))
-                for cw in gloss_tokens & common_words:
-                    gloss_index[cw].add((norm, word, roman))
+    #     for sense in entry.get("senses", []):
+    #         for gloss in sense.get("glosses", []):
+    #             gloss_words = gloss.lower().split()
+    #             if len(gloss_words) > 4:
+    #                 continue
+    #             gloss_tokens = set(re.findall(r"[a-z]+", gloss.lower()))
+    #             for cw in gloss_tokens & common_words:
+    #                 gloss_index[cw].add((norm, word, roman))
 
 
 def _process_english_entry(entry, common_words, translations):
