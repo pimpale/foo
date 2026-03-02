@@ -1,4 +1,29 @@
 {
+  "again": {
+    "english": "again",
+    "arabic_candidates": [
+      "مَرَّة أُخْرَى",
+      "ثَانِيَةً",
+      "مُجَدَّدًا",
+      "مِنْ جَدِيدٍ"
+    ],
+    "hebrew_candidates": [
+      "שׁוּב",
+      "שֵׁנִית",
+      "שניה"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "ثَانِيَةً",
+        "arabic_roman": "ṯāniyatan",
+        "hebrew": "שניה",
+        "hebrew_roman": "sh'niyá",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "album": {
     "english": "album",
     "arabic_candidates": [
@@ -32,7 +57,8 @@
     ],
     "hebrew_candidates": [
       "אַלְכּוֹהוֹל",
-      "סְפִּירְט"
+      "סְפִּירְט",
+      "כוהל"
     ],
     "cognate_matches": [
       {
@@ -54,10 +80,13 @@
   "alive": {
     "english": "alive",
     "arabic_candidates": [
-      "حَيّ"
+      "حَيّ",
+      "تعال",
+      "هلم"
     ],
     "hebrew_candidates": [
-      "חַי"
+      "חַי",
+      "גר"
     ],
     "cognate_matches": [
       {
@@ -75,7 +104,8 @@
     "english": "all",
     "arabic_candidates": [
       "كُلّ",
-      "جَمِيع"
+      "جَمِيع",
+      "جمع"
     ],
     "hebrew_candidates": [
       "כֹּל",
@@ -104,7 +134,9 @@
     "arabic_candidates": [
       "قَدِيم",
       "عَتِيق",
-      "عَرِيق"
+      "عَرِيق",
+      "أثري",
+      "حر"
     ],
     "hebrew_candidates": [
       "עָתִיק",
@@ -135,7 +167,8 @@
   "and": {
     "english": "and",
     "arabic_candidates": [
-      "وَـ"
+      "وَـ",
+      "مع"
     ],
     "hebrew_candidates": [
       "וְ־"
@@ -191,7 +224,8 @@
       "חַיָּה",
       "בְּהֵמָה",
       "חַיָּתִי",
-      "בַּהֲמִי"
+      "בַּהֲמִי",
+      "וואחש"
     ],
     "cognate_matches": [
       {
@@ -214,7 +248,8 @@
       "أَبْل"
     ],
     "hebrew_candidates": [
-      "תַּפּוּחַ"
+      "תַּפּוּחַ",
+      "תפוח עץ"
     ],
     "cognate_matches": [
       {
@@ -261,21 +296,6 @@
           "grc:ἀφροδίτη",
           "la:aprilis"
         ]
-      },
-      {
-        "arabic": "نِيسَان",
-        "arabic_roman": "nīsān",
-        "hebrew": "אַפְּרִיל",
-        "hebrew_roman": "apríl",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:ištar",
-          "ett:𐌖𐌓𐌐𐌀",
-          "grc:ἀφροδίτη",
-          "la:aprilis"
-        ]
       }
     ]
   },
@@ -284,11 +304,23 @@
     "arabic_candidates": [
       "ذِرَاع",
       "سِلَاح",
-      "سَلَّحَ"
+      "سَلَّحَ",
+      "ساعد",
+      "يد",
+      "رجل",
+      "مداد",
+      "قالة",
+      "كرس",
+      "حدث",
+      "خراء"
     ],
     "hebrew_candidates": [
       "זרוע",
-      "נֶשֶׁק"
+      "נֶשֶׁק",
+      "תחמושת",
+      "נישק",
+      "כלי נשק",
+      "התנשק"
     ],
     "cognate_matches": [
       {
@@ -312,7 +344,17 @@
       "مِثْلَمَا",
       "لَمَّا",
       "عِنْدَمَا",
-      "حِينَ"
+      "حِينَ",
+      "ضاهى",
+      "شبه",
+      "شابه",
+      "سي",
+      "حاكى",
+      "ماثل",
+      "ضارع",
+      "إلا",
+      "إذا",
+      "آن"
     ],
     "hebrew_candidates": [
       "כל כך",
@@ -322,7 +364,17 @@
       "כמה ש...",
       "כי",
       "כ־",
-      "אם"
+      "אם",
+      "כמות",
+      "כאשר",
+      "אלא",
+      "כן",
+      "ש־",
+      "כך",
+      "בגלל ש־",
+      "אבל",
+      "אמא",
+      "אלו"
     ],
     "cognate_matches": [
       {
@@ -343,6 +395,16 @@
           "direct_cognate_ar→he",
           "direct_cognate_he→ar"
         ]
+      },
+      {
+        "arabic": "إلا",
+        "arabic_roman": "ʔillā",
+        "hebrew": "אלא",
+        "hebrew_roman": "elá",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -353,7 +415,11 @@
       "طَلَبَ",
       "سقصى",
       "سول",
-      "سال"
+      "سال",
+      "سيئول",
+      "طوع",
+      "سيول",
+      "در"
     ],
     "hebrew_candidates": [
       "בִּקֵּשׁ",
@@ -372,30 +438,73 @@
       }
     ]
   },
+  "asleep": {
+    "english": "asleep",
+    "arabic_candidates": [
+      "نَائِم",
+      "راقد"
+    ],
+    "hebrew_candidates": [
+      "ישן",
+      "רדום",
+      "לשעבר",
+      "נם"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "نَائِم",
+        "arabic_roman": "nāʔim",
+        "hebrew": "נם",
+        "hebrew_roman": "nám",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
+  "author": {
+    "english": "author",
+    "arabic_candidates": [
+      "مُؤَلِّف",
+      "مُصَنِّف",
+      "أَلَّفَ",
+      "كاتب",
+      "أنس"
+    ],
+    "hebrew_candidates": [
+      "סוֹפֵר",
+      "מְחַבֵּר",
+      "יוֹצֵר",
+      "כותב"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "كاتب",
+        "arabic_roman": "kātaba",
+        "hebrew": "כותב",
+        "hebrew_roman": "kotév",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "bank": {
     "english": "bank",
     "arabic_candidates": [
       "مَصْرِف",
       "بَنْك",
-      "ضِفَّة"
+      "ضِفَّة",
+      "شط",
+      "خليج"
     ],
     "hebrew_candidates": [
       "בַּנְק",
       "גדה"
     ],
     "cognate_matches": [
-      {
-        "arabic": "مَصْرِف",
-        "arabic_roman": "maṣrif",
-        "hebrew": "בַּנְק",
-        "hebrew_roman": "bank",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "gem-pro:*bankiz"
-        ]
-      },
       {
         "arabic": "بَنْك",
         "arabic_roman": "bank",
@@ -461,7 +570,8 @@
       "היא",
       "הם",
       "הן",
-      "הָיָה"
+      "הָיָה",
+      "אלה"
     ],
     "cognate_matches": [
       {
@@ -484,11 +594,15 @@
       "فَاصُولِيَا",
       "لُوبِيَا",
       "فول",
-      "فولة"
+      "فولة",
+      "دجر",
+      "ليبيا",
+      "ثامر"
     ],
     "hebrew_candidates": [
       "שְׁעוּעִית",
-      "פּוֹל"
+      "פּוֹל",
+      "מלא"
     ],
     "cognate_matches": [
       {
@@ -509,7 +623,12 @@
       "دُبَّة",
       "حَمَلَ",
       "شال",
-      "اِحْتَمَلَ"
+      "اِحْتَمَلَ",
+      "دباب",
+      "أدر",
+      "حبل",
+      "وزر",
+      "طاق"
     ],
     "hebrew_candidates": [
       "דֹּב",
@@ -547,6 +666,45 @@
       }
     ]
   },
+  "bed": {
+    "english": "bed",
+    "arabic_candidates": [
+      "سَرِير",
+      "فِرَاش",
+      "تَخْت",
+      "ناموسية",
+      "قَاع",
+      "حَوْض",
+      "مَشَارَة",
+      "زِرَاعَة",
+      "كرسي",
+      "عرش",
+      "أريكة",
+      "ضجاع",
+      "قعر"
+    ],
+    "hebrew_candidates": [
+      "מיטה \\ מִטָּה",
+      "עֶרֶשׂ",
+      "מִשְׁכָּב",
+      "מַצָּע",
+      "קרקעית",
+      "עֲרוּגָה",
+      "מִיטָה"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "عرش",
+        "arabic_roman": "ʕaraša",
+        "hebrew": "עֶרֶשׂ",
+        "hebrew_roman": "éres",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "beer": {
     "english": "beer",
     "arabic_candidates": [
@@ -555,7 +713,13 @@
       "مِزْر"
     ],
     "hebrew_candidates": [
-      "בִּירָה"
+      "בִּירָה",
+      "בית המקדש",
+      "מצודה",
+      "ארמון",
+      "מבצר",
+      "עיר בירה",
+      "היכל"
     ],
     "cognate_matches": [
       {
@@ -596,7 +760,9 @@
   "between": {
     "english": "between",
     "arabic_candidates": [
-      "بَيْنَ"
+      "بَيْنَ",
+      "علل",
+      "شرح"
     ],
     "hebrew_candidates": [
       "בֵּין"
@@ -637,19 +803,55 @@
       }
     ]
   },
+  "bird": {
+    "english": "bird",
+    "arabic_candidates": [
+      "طَائِر",
+      "عُصْفُور",
+      "طير",
+      "عصفورة",
+      "برطال",
+      "مزة"
+    ],
+    "hebrew_candidates": [
+      "ציפור \\ צִפּוֹר",
+      "עוֹף",
+      "ציפור",
+      "תרנגול",
+      "תרנגולת"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "عُصْفُور",
+        "arabic_roman": "ʕuṣfūr",
+        "hebrew": "ציפור",
+        "hebrew_roman": "tsipór",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "bitter": {
     "english": "bitter",
     "arabic_candidates": [
       "مُرّ",
       "أَلِيم",
       "مَقِيت",
-      "مَمْقُوت"
+      "مَمْقُوت",
+      "قفل",
+      "مؤلم",
+      "كريه",
+      "مكروه",
+      "مبغوض"
     ],
     "hebrew_candidates": [
       "מַר",
       "מרה",
       "מָרִיר",
-      "מרירה"
+      "מרירה",
+      "אדון"
     ],
     "cognate_matches": [
       {
@@ -702,13 +904,18 @@
       "لَجْنَة",
       "هَيْأَت",
       "اِسْتَقَلَّ",
-      "صَعِدَ"
+      "صَعِدَ",
+      "مأتم",
+      "دست",
+      "مقعد",
+      "استتفه"
     ],
     "hebrew_candidates": [
       "לוּחַ",
       "דֹּפֶן",
       "גַּלְס",
-      "לֶג"
+      "לֶג",
+      "כותל"
     ],
     "cognate_matches": [
       {
@@ -723,18 +930,56 @@
       }
     ]
   },
+  "body": {
+    "english": "body",
+    "arabic_candidates": [
+      "بَدَن",
+      "جِسْم",
+      "جَسَد",
+      "شخص",
+      "ثيتل",
+      "درع",
+      "شبح",
+      "جثة",
+      "أنس",
+      "جسمان",
+      "ضخم",
+      "جثمان",
+      "جرم"
+    ],
+    "hebrew_candidates": [
+      "גּוּף",
+      "מֶרְכָּב",
+      "עֶצֶם"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "جثة",
+        "arabic_roman": "juṯṯa",
+        "hebrew": "גּוּף",
+        "hebrew_roman": "guf",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
   "bone": {
     "english": "bone",
     "arabic_candidates": [
       "عَظْم",
       "عضم",
       "عَظْمَة",
-      "عضمة"
+      "عضمة",
+      "حمد"
     ],
     "hebrew_candidates": [
       "עֶצֶם",
       "זיין",
-      "דפק"
+      "דפק",
+      "קיים יחסים",
+      "שכב",
+      "קיים יחסי מין"
     ],
     "cognate_matches": [
       {
@@ -771,22 +1016,25 @@
       "كِتَاب",
       "سِفْر",
       "سِجِل",
-      "حَجَزَ"
+      "حَجَزَ",
+      "مخطوطة",
+      "كتب",
+      "هدف",
+      "كنف"
     ],
     "hebrew_candidates": [
-      "סֵפֶר"
+      "סֵפֶר",
+      "כתב",
+      "כתיבה"
     ],
     "cognate_matches": [
       {
         "arabic": "كِتَاب",
         "arabic_roman": "kitāb",
-        "hebrew": "סֵפֶר",
-        "hebrew_roman": "séfer",
+        "hebrew": "כתב",
+        "hebrew_roman": "katáv",
         "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
+          "direct_cognate_he→ar"
         ]
       },
       {
@@ -801,6 +1049,15 @@
         "shared_borrowing_sources": [
           "akk:šiprum"
         ]
+      },
+      {
+        "arabic": "كتب",
+        "arabic_roman": "kataba",
+        "hebrew": "כתב",
+        "hebrew_roman": "katáv",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -813,7 +1070,13 @@
       "بزر",
       "صَبِيّ",
       "صبيان",
-      "ياه"
+      "ياه",
+      "عيار",
+      "شاب",
+      "ذرية",
+      "وضع",
+      "رضيع",
+      "حدقة"
     ],
     "hebrew_candidates": [
       "נַעַר",
@@ -845,13 +1108,25 @@
       "بز",
       "ديد",
       "صَدِر",
-      "ديس"
+      "ديس",
+      "نهد",
+      "جبهة",
+      "واجهة",
+      "حدث",
+      "قدم",
+      "مهد",
+      "بدء",
+      "انبثق",
+      "مقدم"
     ],
     "hebrew_candidates": [
       "שָׁד",
       "ציצי",
       "חָזֶה",
-      "לֵב"
+      "לֵב",
+      "דד",
+      "בית החזה",
+      "לבב"
     ],
     "cognate_matches": [
       {
@@ -867,6 +1142,15 @@
         "shared_proto_semitic_roots": [
           "*ṯdʾ"
         ]
+      },
+      {
+        "arabic": "بز",
+        "arabic_roman": "bezz",
+        "hebrew": "דד",
+        "hebrew_roman": "dád",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
       }
     ]
   },
@@ -876,7 +1160,9 @@
       "جِسْر",
       "قَنْطَرَة",
       "كوبري",
-      "بْرِيدْج"
+      "بْرِيدْج",
+      "جسور",
+      "ديماس"
     ],
     "hebrew_candidates": [
       "גֶשֶׁר",
@@ -886,6 +1172,15 @@
       {
         "arabic": "جِسْر",
         "arabic_roman": "jisr",
+        "hebrew": "גֶשֶׁר",
+        "hebrew_roman": "gésher",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "جسور",
+        "arabic_roman": "jasūr",
         "hebrew": "גֶשֶׁר",
         "hebrew_roman": "gésher",
         "match_layers": [
@@ -901,10 +1196,12 @@
       "شَقِيق",
       "إخوات",
       "أخو",
-      "خي"
+      "خي",
+      "صنو"
     ],
     "hebrew_candidates": [
-      "אָח"
+      "אָח",
+      "קמין"
     ],
     "cognate_matches": [
       {
@@ -953,7 +1250,10 @@
       "مَبْنَى",
       "دَار",
       "بِنَايَة",
-      "عِمَارَة"
+      "عِمَارَة",
+      "بان",
+      "سقف",
+      "سماء"
     ],
     "hebrew_candidates": [
       "בנייה",
@@ -976,7 +1276,10 @@
     "english": "bury",
     "arabic_candidates": [
       "دَفَنَ",
-      "قَبَرَ"
+      "قَبَرَ",
+      "مدفن",
+      "برزخ",
+      "لحد"
     ],
     "hebrew_candidates": [
       "קָבַר"
@@ -1001,36 +1304,13 @@
       "بَاص",
       "أُتُوبِيس",
       "أُتُوبُوس",
-      "نَاقِل"
+      "نَاقِل",
+      "بص"
     ],
     "hebrew_candidates": [
       "אוֹטוֹבּוּס"
     ],
     "cognate_matches": [
-      {
-        "arabic": "حَافِلَة",
-        "arabic_roman": "ḥāfila",
-        "hebrew": "אוֹטוֹבּוּס",
-        "hebrew_roman": "otobús",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "fr:autobus"
-        ]
-      },
-      {
-        "arabic": "بَاص",
-        "arabic_roman": "bāṣ",
-        "hebrew": "אוֹטוֹבּוּס",
-        "hebrew_roman": "otobús",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "fr:autobus"
-        ]
-      },
       {
         "arabic": "أُتُوبِيس",
         "arabic_roman": "ʔotobīs",
@@ -1062,14 +1342,20 @@
       "بَلْ",
       "إِلَّا",
       "سِوًى",
-      "مَا عَدَا"
+      "مَا عَدَا",
+      "لما",
+      "ساوى",
+      "make inexistent"
     ],
     "hebrew_candidates": [
       "אֲבָל",
       "אוּלָם",
       "אַךְ",
       "בְּרַם",
-      "אֶלָּא"
+      "אֶלָּא",
+      "כי",
+      "היכל",
+      "אפס כי"
     ],
     "cognate_matches": [
       {
@@ -1096,7 +1382,21 @@
       "مِن قِبَل",
       "بِوَاسِطَّة",
       "من",
-      "لِـ"
+      "لِـ",
+      "لدن",
+      "مع",
+      "منذ",
+      "قرابة",
+      "سابقا",
+      "قبل",
+      "لدى",
+      "نحو",
+      "كي",
+      "لأن",
+      "على",
+      "إلى",
+      "حتى",
+      "بغية"
     ],
     "hebrew_candidates": [
       "על ידי",
@@ -1104,7 +1404,9 @@
       "באמצעות",
       "מאת",
       "לפי",
-      "ב־"
+      "ב־",
+      "נצח",
+      "במו"
     ],
     "cognate_matches": [
       {
@@ -1130,6 +1432,15 @@
         ],
         "shared_proto_semitic_roots": [
           "*bV-"
+        ]
+      },
+      {
+        "arabic": "حتى",
+        "arabic_roman": "ḥattā",
+        "hebrew": "עד",
+        "hebrew_roman": "",
+        "match_layers": [
+          "direct_cognate_ar→he"
         ]
       }
     ]
@@ -1171,7 +1482,8 @@
     "english": "cap",
     "arabic_candidates": [
       "قُبَّعَة",
-      "كاب"
+      "كاب",
+      "قباء"
     ],
     "hebrew_candidates": [
       "מכסה",
@@ -1196,15 +1508,16 @@
       "بِطَاقَة",
       "كَارْت",
       "وَرَقَة",
-      "كَرْت"
+      "كَرْت",
+      "قرطاس"
     ],
     "hebrew_candidates": [
       "כַּרְטִיס"
     ],
     "cognate_matches": [
       {
-        "arabic": "وَرَقَة",
-        "arabic_roman": "waraqa",
+        "arabic": "قرطاس",
+        "arabic_roman": "qirṭās",
         "hebrew": "כַּרְטִיס",
         "hebrew_roman": "kartís",
         "match_layers": [
@@ -1224,7 +1537,9 @@
       "جَزَر",
       "خيزو",
       "زرودية",
-      "جعدة"
+      "جعدة",
+      "ذبح",
+      "ذكى"
     ],
     "hebrew_candidates": [
       "גזר"
@@ -1316,7 +1631,10 @@
   "chain": {
     "english": "chain",
     "arabic_candidates": [
-      "سِلْسِلَة"
+      "سِلْسِلَة",
+      "سبب",
+      "حبل",
+      "قلادة"
     ],
     "hebrew_candidates": [
       "שַׁרְשֶׁרֶת",
@@ -1341,7 +1659,8 @@
       "مُنَظَّمَة خَيْرِيَّة",
       "صَدَقَة",
       "إِحْسَان",
-      "سورة الماعون"
+      "سورة الماعون",
+      "فضل"
     ],
     "hebrew_candidates": [
       "צְדָקָה"
@@ -1367,7 +1686,8 @@
       "فرماج"
     ],
     "hebrew_candidates": [
-      "גְּבִינָה"
+      "גְּבִינָה",
+      "חריץ"
     ],
     "cognate_matches": [
       {
@@ -1416,7 +1736,9 @@
       "درّي",
       "وَلَد",
       "اِبْن",
-      "اِبْنَة"
+      "اِبْنَة",
+      "ذرية",
+      "وضع"
     ],
     "hebrew_candidates": [
       "יֶלֶד",
@@ -1473,7 +1795,9 @@
       "كَنِيسَة",
       "كَنَائِس",
       "بِيعَة",
-      "كنايس"
+      "كنايس",
+      "كنيس",
+      "صلاة"
     ],
     "hebrew_candidates": [
       "כְּנֵסִיָּה"
@@ -1505,7 +1829,12 @@
       "أَغْلَقَ",
       "سَكَّر",
       "قَفَّل",
-      "قَرِيب"
+      "قَرِيب",
+      "خمار",
+      "ثمل",
+      "بيلسان",
+      "مر",
+      "دني"
     ],
     "hebrew_candidates": [
       "סָגַר",
@@ -1542,7 +1871,9 @@
       "غَيْم",
       "غَمَام",
       "عَنَان",
-      "مُزْن"
+      "مُزْن",
+      "سير",
+      "زمام"
     ],
     "hebrew_candidates": [
       "עָנָן",
@@ -1612,7 +1943,9 @@
     ],
     "hebrew_candidates": [
       "עַמּוּד",
-      "טוּר"
+      "טוּר",
+      "מצבה",
+      "דף"
     ],
     "cognate_matches": [
       {
@@ -1627,13 +1960,46 @@
       }
     ]
   },
+  "command": {
+    "english": "command",
+    "arabic_candidates": [
+      "أَمْر",
+      "حُكْم",
+      "وصية",
+      "قضى",
+      "قضاء"
+    ],
+    "hebrew_candidates": [
+      "פְּקֻדּה",
+      "מצווה",
+      "מִצְוָה",
+      "צִוָּה",
+      "פָּקַד",
+      "הוֹרָה",
+      "צוואה",
+      "צואה",
+      "ציווי"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "وصية",
+        "arabic_roman": "waṣiyya",
+        "hebrew": "מצווה",
+        "hebrew_roman": "",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "complicated": {
     "english": "complicated",
     "arabic_candidates": [
       "مُعَقَّد",
       "مُرَكَّب",
       "صَعْب",
-      "عَوِيص"
+      "عَوِيص",
+      "عقد"
     ],
     "hebrew_candidates": [
       "מסובך",
@@ -1659,14 +2025,18 @@
       "مَبْنَى",
       "بِنَاء",
       "تَشْيِيد",
-      "إِنْشَاء"
+      "إِنْشَاء",
+      "بان",
+      "سقف",
+      "سماء"
     ],
     "hebrew_candidates": [
       "מִבְנֶה",
       "בנייה",
       "בְּנִיָּה",
       "בניין",
-      "בִּנְיָן"
+      "בִּנְיָן",
+      "קונסטרוקציה"
     ],
     "cognate_matches": [
       {
@@ -1699,13 +2069,17 @@
       "طَاهِيَة",
       "طَبَخَ",
       "طيب",
-      "طاب"
+      "طاب",
+      "طها",
+      "طهى"
     ],
     "hebrew_candidates": [
       "טַבָּח",
       "טבחית",
       "בישל \\ בִּשֵּׁל",
-      "הִתְבַּשֵּׁל"
+      "הִתְבַּשֵּׁל",
+      "שחיטה",
+      "שחט"
     ],
     "cognate_matches": [
       {
@@ -1752,14 +2126,25 @@
       "كونتري",
       "كنتري",
       "رِيفِيّ",
-      "نِسْبَة إِلَى الرِّيف"
+      "نِسْبَة إِلَى الرِّيف",
+      "حلة",
+      "فريق",
+      "تربة",
+      "ثرى",
+      "موطن",
+      "شقشقة",
+      "حل",
+      "بلدان",
+      "سواد"
     ],
     "hebrew_candidates": [
       "אֶרֶץ",
       "מְדִינָה",
       "כְּפָר",
       "כפרי",
-      "כפרית"
+      "כפרית",
+      "כדור הארץ",
+      "אדמה"
     ],
     "cognate_matches": [
       {
@@ -1786,7 +2171,8 @@
       "זוּג",
       "מְעַט",
       "חיבר",
-      "איחד"
+      "איחד",
+      "קצת"
     ],
     "cognate_matches": [
       {
@@ -1800,6 +2186,33 @@
         ],
         "shared_borrowing_sources": [
           "grc:ζεῦγος"
+        ]
+      }
+    ]
+  },
+  "create": {
+    "english": "create",
+    "arabic_candidates": [
+      "خَلَقَ",
+      "شرموطة",
+      "فطر",
+      "برأ",
+      "برية",
+      "ورى"
+    ],
+    "hebrew_candidates": [
+      "יָצַר",
+      "בָּרָא",
+      "דחף"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "برأ",
+        "arabic_roman": "baraʔa",
+        "hebrew": "בָּרָא",
+        "hebrew_roman": "bará",
+        "match_layers": [
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -1858,7 +2271,9 @@
       "קָרָא",
       "בכי",
       "צְעָקָה",
-      "קְרִיאָה"
+      "קְרִיאָה",
+      "חוגלה",
+      "כינה"
     ],
     "cognate_matches": [
       {
@@ -1906,7 +2321,8 @@
     "hebrew_candidates": [
       "כּוֹס",
       "סֵפֶל",
-      "גָּבִיעַ"
+      "גָּבִיעַ",
+      "קערה"
     ],
     "cognate_matches": [
       {
@@ -1962,7 +2378,10 @@
       "مُوَاعَدَة",
       "مَوْعِد",
       "لِقَاء الْحُبّ",
-      "أَرَّخَ"
+      "أَرَّخَ",
+      "رطيب",
+      "تأريخ",
+      "بقر"
     ],
     "hebrew_candidates": [
       "תָּמָר",
@@ -2017,7 +2436,10 @@
     "arabic_candidates": [
       "اِبْنَة",
       "بِنْت",
-      "بت"
+      "بت",
+      "قطع",
+      "جزم",
+      "بتر"
     ],
     "hebrew_candidates": [
       "בַּת"
@@ -2068,7 +2490,8 @@
   "dead": {
     "english": "dead",
     "arabic_candidates": [
-      "مَيِّت"
+      "مَيِّت",
+      "مائت"
     ],
     "hebrew_candidates": [
       "מֵת"
@@ -2087,6 +2510,72 @@
         "shared_proto_semitic_roots": [
           "*mawut-"
         ]
+      },
+      {
+        "arabic": "مائت",
+        "arabic_roman": "māʔit",
+        "hebrew": "מֵת",
+        "hebrew_roman": "met",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*mawut-"
+        ]
+      }
+    ]
+  },
+  "death": {
+    "english": "death",
+    "arabic_candidates": [
+      "مَوْت",
+      "وَفَاة",
+      "هَلَاك",
+      "مَنِيَّة",
+      "حِمَام",
+      "هادم اللذات",
+      "نياحة",
+      "منون",
+      "سام",
+      "تلف",
+      "ثبور",
+      "حلم",
+      "ديماس",
+      "مرحاض"
+    ],
+    "hebrew_candidates": [
+      "מוות \\ מָוֶת",
+      "מִיתָה",
+      "מַלְאַךְ הַמָּוֶת",
+      "הַמָּוֶת",
+      "מוות",
+      "מות"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "مَوْت",
+        "arabic_roman": "mawt",
+        "hebrew": "מוות",
+        "hebrew_roman": "mávet",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "مَوْت",
+        "arabic_roman": "mawt",
+        "hebrew": "מות",
+        "hebrew_roman": "mávet",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*mawut-"
+        ]
       }
     ]
   },
@@ -2097,7 +2586,15 @@
       "تُوُفِّيَ",
       "زَهْر اَلطَّاوِلَة",
       "زَهْر اَلنَّرْد",
-      "كَعْب"
+      "كَعْب",
+      "هلك",
+      "قضى نحبه",
+      "فني",
+      "زهق",
+      "رحل",
+      "خلا",
+      "فطس",
+      "توفى"
     ],
     "hebrew_candidates": [
       "מֵת",
@@ -2113,18 +2610,6 @@
         "match_layers": [
           "direct_cognate_ar→he",
           "direct_cognate_he→ar",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*mawut-"
-        ]
-      },
-      {
-        "arabic": "تُوُفِّيَ",
-        "arabic_roman": "tuwuffiya",
-        "hebrew": "מֵת",
-        "hebrew_roman": "met",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -2163,7 +2648,13 @@
     "arabic_candidates": [
       "طَبَق",
       "صَحْن",
-      "طَعَام"
+      "طَعَام",
+      "مصحنة",
+      "بر",
+      "قمح",
+      "أكل",
+      "حنطة",
+      "غلة"
     ],
     "hebrew_candidates": [
       "צַלַּחַת",
@@ -2201,7 +2692,10 @@
       "הַאִם",
       "עָשָׂה",
       "פָּעַל",
-      "דוֹ"
+      "דוֹ",
+      "שינקה",
+      "כלום",
+      "שינקן"
     ],
     "cognate_matches": [
       {
@@ -2220,7 +2714,8 @@
     "english": "dog",
     "arabic_candidates": [
       "كَلْب",
-      "چلب"
+      "چلب",
+      "سعار"
     ],
     "hebrew_candidates": [
       "כֶּלֶב"
@@ -2266,7 +2761,19 @@
       "حُلْم",
       "رُؤْيَا",
       "مَنام",
-      "أَحْلام"
+      "أَحْلام",
+      "احتلم",
+      "عقل",
+      "بلغ",
+      "منية",
+      "أدرك",
+      "رأى",
+      "ميز",
+      "حكمة",
+      "تخيل",
+      "تصور",
+      "رشد",
+      "بغية"
     ],
     "hebrew_candidates": [
       "חֲלוֹם",
@@ -2350,7 +2857,11 @@
       "כל",
       "כל אחד",
       "כל אחת",
-      "איש"
+      "איש",
+      "גבר",
+      "בן אדם",
+      "בעל",
+      "אדם"
     ],
     "cognate_matches": [
       {
@@ -2374,7 +2885,8 @@
     "arabic_candidates": [
       "أُذُن",
       "سُنْبُلَة",
-      "حَرَثَ"
+      "حَرَثَ",
+      "فلح"
     ],
     "hebrew_candidates": [
       "אוזן",
@@ -2403,62 +2915,19 @@
       "تُرَاب",
       "أَرْض",
       "دُنْيَا",
-      "الْأَرْض"
+      "الْأَرْض",
+      "عجاج",
+      "ثرى",
+      "عالم",
+      "أولى"
     ],
     "hebrew_candidates": [
       "אֲדָמָה",
       "אֶרֶץ",
-      "כַּדּוּר הָאָרֶץ"
+      "כַּדּוּר הָאָרֶץ",
+      "קרקע"
     ],
     "cognate_matches": [
-      {
-        "arabic": "تُرْبَة",
-        "arabic_roman": "turba",
-        "hebrew": "אֲדָמָה",
-        "hebrew_roman": "adamá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
-        "arabic": "تُرْبَة",
-        "arabic_roman": "turba",
-        "hebrew": "אֶרֶץ",
-        "hebrew_roman": "éretz",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
-        "arabic": "تُرْبَة",
-        "arabic_roman": "turba",
-        "hebrew": "כַּדּוּר הָאָרֶץ",
-        "hebrew_roman": "kadúr ha'árets",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
-        "arabic": "أَرْض",
-        "arabic_roman": "ʔarḍ",
-        "hebrew": "אֲדָמָה",
-        "hebrew_roman": "adamá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
       {
         "arabic": "أَرْض",
         "arabic_roman": "ʔarḍ",
@@ -2466,18 +2935,6 @@
         "hebrew_roman": "éretz",
         "match_layers": [
           "direct_cognate_ar→he",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
-        "arabic": "أَرْض",
-        "arabic_roman": "ʔarḍ",
-        "hebrew": "כַּדּוּר הָאָרֶץ",
-        "hebrew_roman": "kadúr ha'árets",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -2492,7 +2949,8 @@
       "شَرْق",
       "مَشْرِق",
       "شَرْقِيٌّ",
-      "الْمَشْرِق"
+      "الْمَشْرِق",
+      "أبلج"
     ],
     "hebrew_candidates": [
       "מִזְרָח",
@@ -2515,11 +2973,16 @@
     "arabic_candidates": [
       "أَكَلَ",
       "كل",
-      "كلا"
+      "كلا",
+      "طعم",
+      "طعام",
+      "أطعم",
+      "make inexistent"
     ],
     "hebrew_candidates": [
       "אָכַל",
-      "סעד"
+      "סעד",
+      "מזון"
     ],
     "cognate_matches": [
       {
@@ -2541,7 +3004,10 @@
     "english": "egg",
     "arabic_candidates": [
       "بَيْض",
-      "بَيْضَة"
+      "بَيْضَة",
+      "خوذة",
+      "قناع",
+      "خصية"
     ],
     "hebrew_candidates": [
       "בֵּיצָה"
@@ -2592,7 +3058,8 @@
       "سورة الفيل"
     ],
     "hebrew_candidates": [
-      "פִּיל"
+      "פִּיל",
+      "שנהב"
     ],
     "cognate_matches": [
       {
@@ -2613,7 +3080,17 @@
       "عِدْل",
       "مُسَاوٍ",
       "الْمُسَاوِي",
-      "سَاوَى"
+      "سَاوَى",
+      "شكارة",
+      "كيس",
+      "إنصاف",
+      "غرارة",
+      "جوال",
+      "تليس",
+      "كافأ",
+      "عادل",
+      "سوى",
+      "سوي"
     ],
     "hebrew_candidates": [
       "שָׁוֶה",
@@ -2625,6 +3102,24 @@
         "arabic_roman": "sāwā",
         "hebrew": "שָׁוֶה",
         "hebrew_roman": "shavé",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "سوى",
+        "arabic_roman": "sawwā",
+        "hebrew": "שווה",
+        "hebrew_roman": "",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "سوي",
+        "arabic_roman": "sawiya",
+        "hebrew": "שווה",
+        "hebrew_roman": "",
         "match_layers": [
           "direct_cognate_ar→he"
         ]
@@ -2640,7 +3135,17 @@
       "أَمْلَس",
       "سَوِيّ",
       "زَوْجِيّ",
-      "حَتَّى"
+      "حَتَّى",
+      "ممتد",
+      "مسرور",
+      "مستو",
+      "أبطح",
+      "ناعم",
+      "ساوى",
+      "كي",
+      "لأن",
+      "لكي",
+      "ل"
     ],
     "hebrew_candidates": [
       "שווה",
@@ -2693,11 +3198,22 @@
       "عنيين",
       "عينين",
       "سُمّ",
-      "خُرْبَة"
+      "خُرْبَة",
+      "نفس",
+      "ذات",
+      "معين",
+      "ينبوع",
+      "حسد",
+      "جدول",
+      "جاسوس",
+      "جحمة",
+      "منهل"
     ],
     "hebrew_candidates": [
       "עַיִן",
-      "קוּף"
+      "קוּף",
+      "מעין",
+      "מעיין"
     ],
     "cognate_matches": [
       {
@@ -2723,6 +3239,62 @@
         "shared_proto_semitic_roots": [
           "*ʕayn-"
         ]
+      },
+      {
+        "arabic": "معين",
+        "arabic_roman": "maʕīn",
+        "hebrew": "עַיִן",
+        "hebrew_roman": "áyin",
+        "match_layers": [
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*ʕayn-"
+        ]
+      },
+      {
+        "arabic": "معين",
+        "arabic_roman": "maʕīn",
+        "hebrew": "מעיין",
+        "hebrew_roman": "ma'ayán",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
+  "fall": {
+    "english": "fall",
+    "arabic_candidates": [
+      "وَقَعَ",
+      "سَقَطَ",
+      "تَسَاقَطَ",
+      "هَوَى",
+      "طاح",
+      "سُقُوط",
+      "هُوِيّ",
+      "وُقُوع",
+      "طيحة",
+      "حل",
+      "زخ"
+    ],
+    "hebrew_candidates": [
+      "נָפַל",
+      "נתפס",
+      "התקיף",
+      "הוחלט",
+      "חל"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "حل",
+        "arabic_roman": "ḥalla",
+        "hebrew": "חל",
+        "hebrew_roman": "khal",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -2732,7 +3304,10 @@
       "فَلَّاح",
       "فَلَّاحَة",
       "مُزَارِع",
-      "مُزَارِعَة"
+      "مُزَارِعَة",
+      "أكار",
+      "كافر",
+      "بردزبة"
     ],
     "hebrew_candidates": [
       "אִכָּר",
@@ -2742,23 +3317,12 @@
     ],
     "cognate_matches": [
       {
-        "arabic": "فَلَّاح",
-        "arabic_roman": "fallāḥ",
+        "arabic": "أكار",
+        "arabic_roman": "ʔakkār",
         "hebrew": "איכר",
         "hebrew_roman": "ikár",
         "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:ikkarum"
-        ]
-      },
-      {
-        "arabic": "فَلَّاحَة",
-        "arabic_roman": "fallāḥa",
-        "hebrew": "איכר",
-        "hebrew_roman": "ikár",
-        "match_layers": [
+          "direct_cognate_ar→he",
           "shared_borrowing_source"
         ],
         "shared_borrowing_sources": [
@@ -2774,13 +3338,21 @@
       "عميق",
       "بِسُرْعَة",
       "عَاجِلًا",
-      "صَامَ"
+      "صَامَ",
+      "عجل",
+      "عجيل",
+      "عجلان"
     ],
     "hebrew_candidates": [
       "מהיר",
       "הָדוּק",
       "מהר",
-      "צָם"
+      "צָם",
+      "זריז",
+      "חיש",
+      "אץ",
+      "במהירות",
+      "אירש"
     ],
     "cognate_matches": [
       {
@@ -2802,7 +3374,8 @@
       "بَدِين",
       "تخين",
       "دُهْن",
-      "شَحْم"
+      "شَحْم",
+      "overweight"
     ],
     "hebrew_candidates": [
       "שָׁמֵן",
@@ -2849,18 +3422,6 @@
         ]
       },
       {
-        "arabic": "وَالِد",
-        "arabic_roman": "wālid",
-        "hebrew": "אָב",
-        "hebrew_roman": "av",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔabw-"
-        ]
-      },
-      {
         "arabic": "أَبو",
         "arabic_roman": "abu",
         "hebrew": "אָב",
@@ -2897,18 +3458,6 @@
         "shared_borrowing_sources": [
           "la:februarius"
         ]
-      },
-      {
-        "arabic": "شُبَاط",
-        "arabic_roman": "šubāṭ",
-        "hebrew": "פֶבְּרוּאָר",
-        "hebrew_roman": "fébruar",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "la:februarius"
-        ]
       }
     ]
   },
@@ -2920,7 +3469,8 @@
     ],
     "hebrew_candidates": [
       "התמלא",
-      "מָלֵא"
+      "מָלֵא",
+      "פול"
     ],
     "cognate_matches": [
       {
@@ -2940,12 +3490,14 @@
     "arabic_candidates": [
       "إِصْبَع",
       "بَنَان",
-      "صَبَّعَ"
+      "صَبَّعَ",
+      "موز"
     ],
     "hebrew_candidates": [
       "אֶצְבַּע",
       "רציף",
-      "מזח"
+      "מזח",
+      "אצבע מורה"
     ],
     "cognate_matches": [
       {
@@ -2970,7 +3522,10 @@
       "حَرِيق",
       "حريجة",
       "حريقة",
-      "طَرَدَ"
+      "طَرَدَ",
+      "قراص",
+      "أنجرة",
+      "خرج"
     ],
     "hebrew_candidates": [
       "אֵשׁ",
@@ -2979,14 +3534,18 @@
       "שְׂרֵפָה",
       "הדליק",
       "פיטר",
-      "ירה"
+      "ירה",
+      "נור",
+      "דליקה",
+      "שם",
+      "רב"
     ],
     "cognate_matches": [
       {
         "arabic": "نَار",
         "arabic_roman": "nār",
-        "hebrew": "אֵשׁ",
-        "hebrew_roman": "esh",
+        "hebrew": "נור",
+        "hebrew_roman": "nur",
         "match_layers": [
           "shared_proto_semitic_root"
         ],
@@ -3024,7 +3583,10 @@
     "english": "float",
     "arabic_candidates": [
       "طَفَا",
-      "عَامَ"
+      "عَامَ",
+      "سبح",
+      "سنة",
+      "حول"
     ],
     "hebrew_candidates": [
       "צָף",
@@ -3046,37 +3608,21 @@
     "english": "food",
     "arabic_candidates": [
       "طَعَام",
-      "أَكْل"
+      "أَكْل",
+      "بر",
+      "قمح",
+      "حنطة",
+      "غلة",
+      "طعم",
+      "أطعم",
+      "make inexistent"
     ],
     "hebrew_candidates": [
       "אֹכֶל",
-      "מָזוֹן"
+      "מָזוֹן",
+      "אוכל"
     ],
     "cognate_matches": [
-      {
-        "arabic": "طَعَام",
-        "arabic_roman": "ṭaʕām",
-        "hebrew": "אֹכֶל",
-        "hebrew_roman": "ókhel",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔakal-"
-        ]
-      },
-      {
-        "arabic": "طَعَام",
-        "arabic_roman": "ṭaʕām",
-        "hebrew": "מָזוֹן",
-        "hebrew_roman": "mazón",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔakal-"
-        ]
-      },
       {
         "arabic": "أَكْل",
         "arabic_roman": "ʔakl",
@@ -3093,9 +3639,10 @@
       {
         "arabic": "أَكْل",
         "arabic_roman": "ʔakl",
-        "hebrew": "מָזוֹן",
-        "hebrew_roman": "mazón",
+        "hebrew": "אוכל",
+        "hebrew_roman": "ókhel",
         "match_layers": [
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -3110,7 +3657,15 @@
       "رِجْل",
       "قَدَم",
       "ريل",
-      "إجر"
+      "إجر",
+      "امرؤ",
+      "بقل",
+      "بربير",
+      "فرفحين",
+      "طرف",
+      "يد",
+      "ذراع",
+      "صدر"
     ],
     "hebrew_candidates": [
       "רגל"
@@ -3136,7 +3691,16 @@
       "لِأَنَّ",
       "لِـ",
       "لِأَجْل",
-      "بِالنِّسْبَة لِـ"
+      "بِالنِّسْبَة لِـ",
+      "حتى",
+      "لدى",
+      "نحو",
+      "كي",
+      "على",
+      "مع",
+      "إلى",
+      "بغية",
+      "من أجل"
     ],
     "hebrew_candidates": [
       "כִּי",
@@ -3144,12 +3708,22 @@
       "בכיוון",
       "בִּשְׁבִיל",
       "בעד",
-      "בגלל"
+      "בגלל",
+      "כאשר",
+      "אלא",
+      "כן",
+      "ש־",
+      "כך",
+      "בגלל ש־",
+      "אבל",
+      "־ה",
+      "משום",
+      "בשל"
     ],
     "cognate_matches": [
       {
-        "arabic": "لِأَنَّ",
-        "arabic_roman": "liʔanna",
+        "arabic": "لِـ",
+        "arabic_roman": "li-",
         "hebrew": "לְ־",
         "hebrew_roman": "l'-",
         "match_layers": [
@@ -3160,51 +3734,17 @@
         ]
       },
       {
-        "arabic": "لِأَنَّ",
-        "arabic_roman": "liʔanna",
-        "hebrew": "בִּשְׁבִיל",
-        "hebrew_roman": "bishvíl",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
-        ]
-      },
-      {
-        "arabic": "لِـ",
-        "arabic_roman": "li-",
+        "arabic": "كي",
+        "arabic_roman": "kay",
         "hebrew": "כִּי",
         "hebrew_roman": "ki",
         "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
           "*kiyā"
-        ]
-      },
-      {
-        "arabic": "لِـ",
-        "arabic_roman": "li-",
-        "hebrew": "לְ־",
-        "hebrew_roman": "l'-",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
-        ]
-      },
-      {
-        "arabic": "لِـ",
-        "arabic_roman": "li-",
-        "hebrew": "בִּשְׁבִיל",
-        "hebrew_roman": "bishvíl",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
         ]
       }
     ]
@@ -3271,6 +3811,47 @@
       }
     ]
   },
+  "free": {
+    "english": "free",
+    "arabic_candidates": [
+      "حُرّ",
+      "شَاغِر",
+      "بِغَيْرِ",
+      "بِدُونِ",
+      "مَجَّانًا",
+      "حَرَّرَ",
+      "عتيق",
+      "بلا",
+      "دون",
+      "من غير",
+      "من دون",
+      "دونما"
+    ],
+    "hebrew_candidates": [
+      "פָּנוּי",
+      "חופשי",
+      "חָפְשִׁי",
+      "בְּלְי",
+      "שיחרר",
+      "שִׁחְרֵר",
+      "נטול",
+      "בלא",
+      "אי",
+      "בלעדי",
+      "ללא"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "بلا",
+        "arabic_roman": "balā",
+        "hebrew": "בלא",
+        "hebrew_roman": "b'ló",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "frog": {
     "english": "frog",
     "arabic_candidates": [
@@ -3299,7 +3880,8 @@
     "english": "from",
     "arabic_candidates": [
       "مِن",
-      "عَنْ"
+      "عَنْ",
+      "منذ"
     ],
     "hebrew_candidates": [
       "מ־",
@@ -3330,10 +3912,12 @@
       "عامرة",
       "ملان",
       "شِبَع",
-      "شبعان"
+      "شبعان",
+      "دهاق"
     ],
     "hebrew_candidates": [
-      "מָלֵא"
+      "מָלֵא",
+      "פול"
     ],
     "cognate_matches": [
       {
@@ -3354,7 +3938,8 @@
       "هَزْلِيّ"
     ],
     "hebrew_candidates": [
-      "מַצְחִיק"
+      "מַצְחִיק",
+      "קומי"
     ],
     "cognate_matches": [
       {
@@ -3377,12 +3962,20 @@
       "جَنَّة",
       "جنينة",
       "بَخْشَة",
-      "جردة"
+      "جردة",
+      "جنون",
+      "نعيم",
+      "جن",
+      "جان",
+      "عليون",
+      "فردوس",
+      "جني"
     ],
     "hebrew_candidates": [
       "גַּן",
       "בוסתן \\ בֻּסְתָּן",
-      "גִּנֵּן"
+      "גִּנֵּן",
+      "הגן"
     ],
     "cognate_matches": [
       {
@@ -3403,6 +3996,34 @@
         "match_layers": [
           "direct_cognate_ar→he"
         ]
+      },
+      {
+        "arabic": "جَنَّة",
+        "arabic_roman": "janna",
+        "hebrew": "הגן",
+        "hebrew_roman": "hegén",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "جنون",
+        "arabic_roman": "junūn",
+        "hebrew": "גִּנֵּן",
+        "hebrew_roman": "ginén",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "جن",
+        "arabic_roman": "janna",
+        "hebrew": "גִּנֵּן",
+        "hebrew_roman": "ginén",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
       }
     ]
   },
@@ -3414,7 +4035,8 @@
     "hebrew_candidates": [
       "גַּז",
       "גזים",
-      "דלק"
+      "דלק",
+      "מאכלת"
     ],
     "cognate_matches": [
       {
@@ -3443,13 +4065,18 @@
       "عَامّ",
       "عُمُومِيّ",
       "جِنِرال",
-      "فريق أوّل"
+      "فريق أوّل",
+      "سبح",
+      "سنة",
+      "طفا",
+      "حول"
     ],
     "hebrew_candidates": [
       "כללי",
       "כְּלָלִית",
       "נפוץ",
-      "גֶּנֶרָל"
+      "גֶּנֶרָל",
+      "שבירה"
     ],
     "cognate_matches": [
       {
@@ -3467,6 +4094,40 @@
       }
     ]
   },
+  "gift": {
+    "english": "gift",
+    "arabic_candidates": [
+      "هَدِيَّة",
+      "كادو",
+      "قَرِيحَة",
+      "أَهْدَى",
+      "منحة",
+      "طبع",
+      "وهب"
+    ],
+    "hebrew_candidates": [
+      "מַתָּנָה",
+      "שַׁי",
+      "מנחה",
+      "זבד",
+      "אשכר",
+      "תשורה",
+      "דורון",
+      "מתן"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "منحة",
+        "arabic_roman": "minḥa",
+        "hebrew": "מנחה",
+        "hebrew_roman": "minkhá",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "glass": {
     "english": "glass",
     "arabic_candidates": [
@@ -3477,7 +4138,17 @@
       "قَدَح",
       "كباية",
       "قلاص",
-      "كاسة"
+      "كاسة",
+      "نشاب",
+      "نضي",
+      "وجنة",
+      "عذار",
+      "خد",
+      "ملطم",
+      "عارض",
+      "سهم",
+      "حظوة",
+      "حنك"
     ],
     "hebrew_candidates": [
       "זְכוּכִית",
@@ -3519,13 +4190,17 @@
       "الرَّبّ",
       "ربنا",
       "ربي",
-      "اِلٰه"
+      "اِلٰه",
+      "سنوت",
+      "صور"
     ],
     "hebrew_candidates": [
       "אלוהים \\ אֱלֹהִים",
       "אֵל",
       "אלוהים",
-      "אֱלֹהִים"
+      "אֱלֹהִים",
+      "־ה",
+      "א־"
     ],
     "cognate_matches": [
       {
@@ -3558,34 +4233,6 @@
         ]
       },
       {
-        "arabic": "رَبّ",
-        "arabic_roman": "rabb",
-        "hebrew": "אֵל",
-        "hebrew_roman": "el",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʾil-"
-        ]
-      },
-      {
-        "arabic": "رَبّ",
-        "arabic_roman": "rabb",
-        "hebrew": "אלוהים",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_proto_semitic_root",
-          "shared_borrowing_source"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʾil-"
-        ],
-        "shared_borrowing_sources": [
-          "sem-pro:*ʾil-"
-        ]
-      },
-      {
         "arabic": "الله",
         "arabic_roman": "allāh",
         "hebrew": "אלוהים",
@@ -3603,13 +4250,39 @@
       "إِبْرِيز",
       "دهب",
       "ذَهَبِي",
-      "مُذَهَّب"
+      "مُذَهَّب",
+      "أعدم",
+      "أزال",
+      "أردى",
+      "زهق",
+      "بدد",
+      "أتلف",
+      "زرياب",
+      "محا",
+      "أهلك",
+      "محق",
+      "استأصل",
+      "دمر",
+      "تبر",
+      "تبب",
+      "أفنى",
+      "لاشى",
+      "عسجد",
+      "أذهب",
+      "أزهق",
+      "أباد",
+      "رأي"
     ],
     "hebrew_candidates": [
       "זָהָב",
       "פָּז",
       "זהב \\ זָהָב",
-      "מדליית זהב \\ מֶדַלְיַת זָהָב"
+      "מדליית זהב \\ מֶדַלְיַת זָהָב",
+      "סגור",
+      "אופיר",
+      "כתם",
+      "חרוץ",
+      "בצר"
     ],
     "cognate_matches": [
       {
@@ -3677,7 +4350,14 @@
       "حَسَنًا",
       "خَيْر",
       "فَائِدَة",
-      "سِلْعَة"
+      "سِلْعَة",
+      "حبر",
+      "أصلح",
+      "جمل",
+      "بر",
+      "عفارم",
+      "أصحى",
+      "منفعة"
     ],
     "hebrew_candidates": [
       "טוֹב",
@@ -3687,7 +4367,9 @@
       "בריא",
       "מהנה",
       "מוצלח",
-      "טובה"
+      "טובה",
+      "היטב",
+      "אפקטיבי"
     ],
     "cognate_matches": [
       {
@@ -3724,11 +4406,14 @@
       "حَشِيش",
       "عُشْب",
       "نجيلة",
-      "ربيع"
+      "ربيع",
+      "سماء"
     ],
     "hebrew_candidates": [
       "דֶּשֶׁא",
-      "עֵשֶׂב"
+      "עֵשֶׂב",
+      "צמח",
+      "חצר"
     ],
     "cognate_matches": [
       {
@@ -3797,7 +4482,18 @@
       "إيد",
       "إدين",
       "عَقْرَب",
-      "عَامِل"
+      "عَامِل",
+      "كف",
+      "حزمة",
+      "مدق",
+      "كم",
+      "رزمة",
+      "طرف",
+      "دست",
+      "كراسة",
+      "دستج",
+      "رجل",
+      "ذراع"
     ],
     "hebrew_candidates": [
       "יָד",
@@ -3884,7 +4580,9 @@
       "נוֹף",
       "עמד בראש",
       "עשה את דרכו",
-      "ראשי"
+      "ראשי",
+      "שושן",
+      "ורד"
     ],
     "cognate_matches": [
       {
@@ -3946,20 +4644,29 @@
       "قَلْب",
       "جَوْهَر",
       "فُؤَاد",
-      "كُبَّا"
+      "كُبَّا",
+      "سوار",
+      "صير",
+      "لب",
+      "غير",
+      "عكس",
+      "صميم",
+      "ماهية"
     ],
     "hebrew_candidates": [
       "מרכז",
-      "לב"
+      "לב",
+      "לבב"
     ],
     "cognate_matches": [
       {
-        "arabic": "قَلْب",
-        "arabic_roman": "qalb",
+        "arabic": "لب",
+        "arabic_roman": "lubb",
         "hebrew": "לב",
         "hebrew_roman": "lev",
         "match_layers": [
           "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -3967,10 +4674,10 @@
         ]
       },
       {
-        "arabic": "فُؤَاد",
-        "arabic_roman": "fuʔād",
-        "hebrew": "לב",
-        "hebrew_roman": "lev",
+        "arabic": "لب",
+        "arabic_roman": "lubb",
+        "hebrew": "לבב",
+        "hebrew_roman": "leváv",
         "match_layers": [
           "shared_proto_semitic_root"
         ],
@@ -3985,29 +4692,36 @@
     "arabic_candidates": [
       "سَمَاء",
       "فَلَك",
-      "جَنَّة"
+      "جَنَّة",
+      "فضاء",
+      "بناء",
+      "عشب",
+      "أثير",
+      "رقيع",
+      "ضهر",
+      "ستراتوسفير",
+      "سقف",
+      "سفينة",
+      "بستان",
+      "حديقة",
+      "جنون",
+      "نعيم",
+      "جن",
+      "جان",
+      "عليون",
+      "فردوس",
+      "جني"
     ],
     "hebrew_candidates": [
       "שָׁמַיִם",
       "פרדיסא",
-      "גַּן עֵדֶן"
+      "גַּן עֵדֶן",
+      "שחקים"
     ],
     "cognate_matches": [
       {
         "arabic": "سَمَاء",
         "arabic_roman": "samāʔ",
-        "hebrew": "שָׁמַיִם",
-        "hebrew_roman": "shamáyim",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*šamāy-"
-        ]
-      },
-      {
-        "arabic": "فَلَك",
-        "arabic_roman": "falak",
         "hebrew": "שָׁמַיִם",
         "hebrew_roman": "shamáyim",
         "match_layers": [
@@ -4023,11 +4737,15 @@
     "english": "heel",
     "arabic_candidates": [
       "عَقِب",
-      "كَعْب"
+      "كَعْب",
+      "عقبة",
+      "عقبان",
+      "عاقبة"
     ],
     "hebrew_candidates": [
       "עָקֵב",
-      "נְשִׁיקָה"
+      "נְשִׁיקָה",
+      "בוסה"
     ],
     "cognate_matches": [
       {
@@ -4061,7 +4779,8 @@
       "שָׁלוֹם?",
       "הָלוֹ?",
       "שלום? מישהו שם?",
-      "הלו"
+      "הלו",
+      "היוש"
     ],
     "cognate_matches": [
       {
@@ -4100,7 +4819,8 @@
       "לפה",
       "עכשיו",
       "כעת",
-      "עתה"
+      "עתה",
+      "כרגע"
     ],
     "cognate_matches": [
       {
@@ -4127,7 +4847,8 @@
     ],
     "hebrew_candidates": [
       "שָׁלוֹם",
-      "היי"
+      "היי",
+      "היוש"
     ],
     "cognate_matches": [
       {
@@ -4157,18 +4878,6 @@
       {
         "arabic": "تَلّ",
         "arabic_roman": "tall",
-        "hebrew": "גִּבְעָה",
-        "hebrew_roman": "giv'á",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*tall-"
-        ]
-      },
-      {
-        "arabic": "تَلّ",
-        "arabic_roman": "tall",
         "hebrew": "תֵּל",
         "hebrew_roman": "tel",
         "match_layers": [
@@ -4184,7 +4893,10 @@
     "english": "home",
     "arabic_candidates": [
       "بَيْت",
-      "وَطَن"
+      "وَطَن",
+      "قرار",
+      "موطن",
+      "حل"
     ],
     "hebrew_candidates": [
       "בַּיִת",
@@ -4214,11 +4926,17 @@
       "فَرَس",
       "خَيْل",
       "خيلة",
-      "عود"
+      "عود",
+      "عجم",
+      "رند",
+      "يلنجوج"
     ],
     "hebrew_candidates": [
       "סוּס",
-      "פָּרָשׁ"
+      "פָּרָשׁ",
+      "חתיך",
+      "גברתן",
+      "צואה"
     ],
     "cognate_matches": [
       {
@@ -4237,7 +4955,8 @@
     "english": "hour",
     "arabic_candidates": [
       "سَاعَة",
-      "وَقْت"
+      "وَقْت",
+      "آن"
     ],
     "hebrew_candidates": [
       "שָׁעָה"
@@ -4262,7 +4981,11 @@
       "مَنْزِل",
       "دَار",
       "خيمة",
-      "مَجْلِس"
+      "مَجْلِس",
+      "قرار",
+      "مأتم",
+      "دست",
+      "مقعد"
     ],
     "hebrew_candidates": [
       "בַּיִת"
@@ -4289,7 +5012,8 @@
       "اِصْطَادَ",
       "صَادَ",
       "صَيْد",
-      "مُطارَدَة"
+      "مُطارَدَة",
+      "عطشان"
     ],
     "hebrew_candidates": [
       "צָד",
@@ -4356,54 +5080,27 @@
       "زَوْج",
       "بَعْل",
       "جوز",
-      "ريل"
+      "ريل",
+      "زوجة",
+      "أنكح",
+      "امرأة",
+      "وهب",
+      "قرينة"
     ],
     "hebrew_candidates": [
       "בַּעַל",
-      "אִישׁ"
+      "אִישׁ",
+      "קיים יחסי מין",
+      "גבר",
+      "בן אדם",
+      "אדם"
     ],
     "cognate_matches": [
       {
-        "arabic": "زَوْج",
-        "arabic_roman": "zawj",
-        "hebrew": "בַּעַל",
-        "hebrew_roman": "baʿal",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*baʕl-"
-        ]
-      },
-      {
-        "arabic": "زَوْج",
-        "arabic_roman": "zawj",
-        "hebrew": "אִישׁ",
-        "hebrew_roman": "ʾish",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*baʕl-"
-        ]
-      },
-      {
         "arabic": "بَعْل",
         "arabic_roman": "baʕl",
         "hebrew": "בַּעַל",
         "hebrew_roman": "baʿal",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*baʕl-"
-        ]
-      },
-      {
-        "arabic": "بَعْل",
-        "arabic_roman": "baʕl",
-        "hebrew": "אִישׁ",
-        "hebrew_roman": "ʾish",
         "match_layers": [
           "shared_proto_semitic_root"
         ],
@@ -4418,11 +5115,14 @@
     "arabic_candidates": [
       "أَي",
       "إِي",
-      "أَنَا"
+      "أَنَا",
+      "يه",
+      "نعم"
     ],
     "hebrew_candidates": [
       "אֲנִי",
-      "אנוכי \\ אָנֹכִי"
+      "אנוכי \\ אָנֹכִי",
+      "אגו"
     ],
     "cognate_matches": [
       {
@@ -4445,10 +5145,17 @@
     "arabic_candidates": [
       "إِنْ",
       "لَوْ",
-      "إِذَا"
+      "إِذَا",
+      "ما",
+      "إذما",
+      "لما",
+      "حين",
+      "إذ"
     ],
     "hebrew_candidates": [
-      "אִם"
+      "אִם",
+      "אמא",
+      "אלו"
     ],
     "cognate_matches": [
       {
@@ -4470,11 +5177,17 @@
     "arabic_candidates": [
       "فِي",
       "مِن",
-      "بَعْدَ"
+      "بَعْدَ",
+      "ب",
+      "منذ",
+      "نزح",
+      "من بعد",
+      "خلاف"
     ],
     "hebrew_candidates": [
       "בְּתוֹך",
-      "בְּ־"
+      "בְּ־",
+      "במו"
     ],
     "cognate_matches": [
       {
@@ -4483,6 +5196,19 @@
         "hebrew": "בְּ־",
         "hebrew_roman": "b'-",
         "match_layers": [
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*bV-"
+        ]
+      },
+      {
+        "arabic": "ب",
+        "arabic_roman": "b",
+        "hebrew": "בְּ־",
+        "hebrew_roman": "b'-",
+        "match_layers": [
+          "direct_cognate_ar→he",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -4504,18 +5230,6 @@
       {
         "arabic": "يَنَايِر",
         "arabic_roman": "yanāyir",
-        "hebrew": "יָנוּאָר",
-        "hebrew_roman": "yánuar",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "la:iānuārius"
-        ]
-      },
-      {
-        "arabic": "كَانُون اَلثَّانِي",
-        "arabic_roman": "kānūn aṯ-ṯānī",
         "hebrew": "יָנוּאָר",
         "hebrew_roman": "yánuar",
         "match_layers": [
@@ -4563,21 +5277,6 @@
       {
         "arabic": "يُولِيُو",
         "arabic_roman": "yūliyō",
-        "hebrew": "יוּלִי",
-        "hebrew_roman": "yúli",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "grc:ἴουλος",
-          "ine-pro:*welh-",
-          "la:iulius",
-          "phn:*𐤉𐤋"
-        ]
-      },
-      {
-        "arabic": "تَمُّوز",
-        "arabic_roman": "tammūz",
         "hebrew": "יוּלִי",
         "hebrew_roman": "yúli",
         "match_layers": [
@@ -4637,18 +5336,6 @@
         "shared_borrowing_sources": [
           "la:iunius"
         ]
-      },
-      {
-        "arabic": "حَزِيرَان",
-        "arabic_roman": "ḥazīrān",
-        "hebrew": "יוּנִי",
-        "hebrew_roman": "yúni",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "la:iunius"
-        ]
       }
     ]
   },
@@ -4680,12 +5367,24 @@
       "قَتَلَ",
       "موت",
       "ذبح",
-      "قَتْلَة"
+      "قَتْلَة",
+      "make inexistent",
+      "منية",
+      "هادم اللذات",
+      "وفاة",
+      "نياحة",
+      "منون",
+      "سام",
+      "جزر",
+      "نحر",
+      "ذكى"
     ],
     "hebrew_candidates": [
       "הרג",
       "קטל",
-      "הריגה"
+      "הריגה",
+      "שחיטה",
+      "שחט"
     ],
     "cognate_matches": [
       {
@@ -4703,7 +5402,8 @@
     "english": "king",
     "arabic_candidates": [
       "مَلِك",
-      "سُلْطَان"
+      "سُلْطَان",
+      "ملكوت"
     ],
     "hebrew_candidates": [
       "מֶלֶךְ"
@@ -4778,10 +5478,16 @@
       "موس",
       "خَنْجَر",
       "نَصْل",
-      "شَفْرَة"
+      "شَفْرَة",
+      "أسن",
+      "شلفة",
+      "رمز",
+      "طلسم"
     ],
     "hebrew_candidates": [
-      "סַכִּין"
+      "סַכִּין",
+      "מאכלת",
+      "פגיון"
     ],
     "cognate_matches": [
       {
@@ -4827,17 +5533,26 @@
       "مِصْبَاح",
       "لَمْبَة",
       "قِنْدِيل",
-      "سِرَاج"
+      "سِرَاج",
+      "وابور",
+      "فنار",
+      "نبراس",
+      "زجاجة",
+      "فانوس",
+      "بابور",
+      "مشعل"
     ],
     "hebrew_candidates": [
-      "מְנוֹרָה"
+      "מְנוֹרָה",
+      "פנס",
+      "חנוכייה"
     ],
     "cognate_matches": [
       {
-        "arabic": "قِنْدِيل",
-        "arabic_roman": "qindīl",
-        "hebrew": "מְנוֹרָה",
-        "hebrew_roman": "menorá",
+        "arabic": "فانوس",
+        "arabic_roman": "fānūs",
+        "hebrew": "פנס",
+        "hebrew_roman": "panás",
         "match_layers": [
           "shared_borrowing_source"
         ],
@@ -4855,14 +5570,36 @@
       "يابِسة",
       "بِلَاد",
       "بَلَد",
-      "هَبَطَ"
+      "هَبَطَ",
+      "محسن",
+      "تقي",
+      "صالح",
+      "متق",
+      "أحسن",
+      "قمح",
+      "مخلص",
+      "حنطة",
+      "طعام",
+      "صلح",
+      "استقام",
+      "وقر",
+      "بارك",
+      "غلة",
+      "قبل",
+      "تربة",
+      "ثرى",
+      "بلدان",
+      "حلة",
+      "فريق"
     ],
     "hebrew_candidates": [
       "אֶרֶץ",
       "אֲדָמָה",
       "יַבָּשָׁה",
       "נָחַת",
-      "הנחית"
+      "הנחית",
+      "כדור הארץ",
+      "קרקע"
     ],
     "cognate_matches": [
       {
@@ -4872,18 +5609,6 @@
         "hebrew_roman": "érets",
         "match_layers": [
           "direct_cognate_ar→he",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
-        "arabic": "أَرْض",
-        "arabic_roman": "ʔarḍ",
-        "hebrew": "אֲדָמָה",
-        "hebrew_roman": "adamá",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -4905,7 +5630,9 @@
     "english": "language",
     "arabic_candidates": [
       "لُغَة",
-      "لِسَان"
+      "لِسَان",
+      "لهجة",
+      "علامة تبويب"
     ],
     "hebrew_candidates": [
       "לָשׁוֹן",
@@ -4913,48 +5640,12 @@
     ],
     "cognate_matches": [
       {
-        "arabic": "لُغَة",
-        "arabic_roman": "luḡa",
-        "hebrew": "לָשׁוֹן",
-        "hebrew_roman": "lashón",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lišān-"
-        ]
-      },
-      {
-        "arabic": "لُغَة",
-        "arabic_roman": "luḡa",
-        "hebrew": "שָׂפָה",
-        "hebrew_roman": "safá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lišān-"
-        ]
-      },
-      {
         "arabic": "لِسَان",
         "arabic_roman": "lisān",
         "hebrew": "לָשׁוֹן",
         "hebrew_roman": "lashón",
         "match_layers": [
           "direct_cognate_ar→he",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lišān-"
-        ]
-      },
-      {
-        "arabic": "لِسَان",
-        "arabic_roman": "lisān",
-        "hebrew": "שָׂפָה",
-        "hebrew_roman": "safá",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -4973,69 +5664,11 @@
     "hebrew_candidates": [
       "מחשב נייד",
       "מַחְשֵׁב נַיָּד",
-      "לָפְּטוֹפּ"
+      "לָפְּטוֹפּ",
+      "מחשב נישא",
+      "נייד"
     ],
     "cognate_matches": [
-      {
-        "arabic": "كَمْبْيُوتِر مَحْمُول",
-        "arabic_roman": "kambyūtir maḥmūl",
-        "hebrew": "מחשב נייד",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:laptop"
-        ]
-      },
-      {
-        "arabic": "كَمْبْيُوتِر مَحْمُول",
-        "arabic_roman": "kambyūtir maḥmūl",
-        "hebrew": "לָפְּטוֹפּ",
-        "hebrew_roman": "láptop",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:laptop"
-        ]
-      },
-      {
-        "arabic": "حَاسُوب مَحْمُول",
-        "arabic_roman": "ḥāsūb maḥmūl",
-        "hebrew": "מחשב נייד",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:laptop"
-        ]
-      },
-      {
-        "arabic": "حَاسُوب مَحْمُول",
-        "arabic_roman": "ḥāsūb maḥmūl",
-        "hebrew": "לָפְּטוֹפּ",
-        "hebrew_roman": "láptop",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:laptop"
-        ]
-      },
-      {
-        "arabic": "لَابْتُوب",
-        "arabic_roman": "laptup, labtob",
-        "hebrew": "מחשב נייד",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:laptop"
-        ]
-      },
       {
         "arabic": "لَابْتُوب",
         "arabic_roman": "laptup, labtob",
@@ -5083,26 +5716,20 @@
       "شِمَالًا",
       "إِلَى اَلْيَسَار",
       "إِلَى اَلشِّمَال",
-      "بِقِي"
+      "بِقِي",
+      "جوف",
+      "دام",
+      "بقى",
+      "حل",
+      "فضل"
     ],
     "hebrew_candidates": [
       "שְׂמֹאל",
       "שׂמאֹלָן",
-      "שמאלה"
+      "שמאלה",
+      "צפון"
     ],
     "cognate_matches": [
-      {
-        "arabic": "يَسَار",
-        "arabic_roman": "yasār",
-        "hebrew": "שְׂמֹאל",
-        "hebrew_roman": "smol",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*śimaʔl-"
-        ]
-      },
       {
         "arabic": "شِمَال",
         "arabic_roman": "šimāl",
@@ -5124,7 +5751,15 @@
     "arabic_candidates": [
       "رِجْل",
       "سَاق",
-      "ريل"
+      "ريل",
+      "امرؤ",
+      "بقل",
+      "بربير",
+      "فرفحين",
+      "طرف",
+      "يد",
+      "ذراع",
+      "تعريجة"
     ],
     "hebrew_candidates": [
       "רֶגֶל",
@@ -5154,13 +5789,16 @@
       "كَذَبَ",
       "كدب",
       "كَذْبَة",
-      "كدبة"
+      "كدبة",
+      "مان",
+      "رهق"
     ],
     "hebrew_candidates": [
       "שָׁכַב",
       "שיקר \\ שִׁקֵּר",
       "שֶׁקֶר",
-      "כָּזָב"
+      "כָּזָב",
+      "זיין"
     ],
     "cognate_matches": [
       {
@@ -5223,7 +5861,10 @@
       "أَضَاءَ",
       "مُنِيرٌ",
       "خَفِيف",
-      "سورة النور"
+      "سورة النور",
+      "زهر",
+      "ضوأ",
+      "بهر"
     ],
     "hebrew_candidates": [
       "אוֹר",
@@ -5241,15 +5882,18 @@
       "קל",
       "קלה",
       "דיאטתי",
-      "דיאטתית"
+      "דיאטתית",
+      "נור",
+      "שם"
     ],
     "cognate_matches": [
       {
         "arabic": "نُور",
         "arabic_roman": "nūr",
-        "hebrew": "אוֹר",
-        "hebrew_roman": "or",
+        "hebrew": "נור",
+        "hebrew_roman": "nur",
         "match_layers": [
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -5257,15 +5901,103 @@
         ]
       },
       {
-        "arabic": "نُور",
-        "arabic_roman": "nūr",
-        "hebrew": "אֵשׁ",
-        "hebrew_roman": "ésh",
+        "arabic": "بهر",
+        "arabic_roman": "bahara",
+        "hebrew": "בהיר",
+        "hebrew_roman": "bahír",
         "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*nūr-"
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "بهر",
+        "arabic_roman": "bahara",
+        "hebrew": "בהירה",
+        "hebrew_roman": "behirá",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
+  "like": {
+    "english": "like",
+    "arabic_candidates": [
+      "حَبَّ",
+      "أَحَبَّ",
+      "اِسْتَمْطَعَ",
+      "أَعْجَبَ",
+      "مِثْل",
+      "شِبْه",
+      "كَـ",
+      "نَوْعًا مَا",
+      "كْمَا لَو كَان",
+      "محبة",
+      "ضاهى",
+      "شابه",
+      "سي",
+      "حاكى",
+      "ماثل",
+      "ضارع",
+      "شبيه"
+    ],
+    "hebrew_candidates": [
+      "אָהַב",
+      "חיבב",
+      "מָצָא חֵן בְּעֵינֵי",
+      "כמו",
+      "כָּזֶה",
+      "כאילו",
+      "כ־",
+      "כמות",
+      "יעני"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "كَـ",
+        "arabic_roman": "ka-",
+        "hebrew": "כ־",
+        "hebrew_roman": "k'-",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
+  "lion": {
+    "english": "lion",
+    "arabic_candidates": [
+      "أَسَد",
+      "لَيْث",
+      "سبع",
+      "درباس",
+      "حيدر",
+      "عنبس",
+      "غضنفر",
+      "سرحان",
+      "عباس",
+      "حمزة",
+      "قسورة",
+      "أسامة",
+      "شدقم"
+    ],
+    "hebrew_candidates": [
+      "אַרְיֵה",
+      "ארי",
+      "לביא",
+      "כפיר",
+      "ליש",
+      "שחל"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "لَيْث",
+        "arabic_roman": "layṯ",
+        "hebrew": "ליש",
+        "hebrew_roman": "láyish",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -5277,7 +6009,8 @@
       "شَفَايِف"
     ],
     "hebrew_candidates": [
-      "שָׂפָה"
+      "שָׂפָה",
+      "לשון"
     ],
     "cognate_matches": [
       {
@@ -5301,7 +6034,8 @@
       "أَنْصَتَ",
       "اِسْتَمَعَ",
       "سَمِعَ",
-      "أَطَاعَ"
+      "أَطَاعَ",
+      "نصت"
     ],
     "hebrew_candidates": [
       "הִקְשִׁיב",
@@ -5334,25 +6068,20 @@
       "حَيِيَ",
       "يَنْجُو",
       "حَيّ",
-      "مُباشِر"
+      "مُباشِر",
+      "قرار",
+      "سكنة",
+      "حل",
+      "تعال",
+      "هلم"
     ],
     "hebrew_candidates": [
       "גָּר",
-      "חַי"
+      "חַי",
+      "התגורר",
+      "דר"
     ],
     "cognate_matches": [
-      {
-        "arabic": "حَيِيَ",
-        "arabic_roman": "ḥayiya",
-        "hebrew": "גָּר",
-        "hebrew_roman": "gar",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ḥyw"
-        ]
-      },
       {
         "arabic": "حَيِيَ",
         "arabic_roman": "ḥayiya",
@@ -5385,12 +6114,16 @@
       "مَعَاش",
       "حَيَاة",
       "طَرِيقَة فِي حَيَاة",
-      "نَمَط حَيَاة"
+      "نَمَط حَيَاة",
+      "تعال",
+      "هلم",
+      "راتب"
     ],
     "hebrew_candidates": [
       "חי",
       "קַיָּם",
-      "מִחְיָה"
+      "מִחְיָה",
+      "גר"
     ],
     "cognate_matches": [
       {
@@ -5417,16 +6150,118 @@
       }
     ]
   },
+  "look": {
+    "english": "look",
+    "arabic_candidates": [
+      "نَظَرَ",
+      "شاف",
+      "بص",
+      "طالع",
+      "اتفَرَّج",
+      "تطلّع",
+      "تفرّج",
+      "بَدَا",
+      "نَظْرَة",
+      "شوفة",
+      "مَرْأىً",
+      "مَرْآة",
+      "رأي",
+      "اطلع",
+      "رأى",
+      "أشرف",
+      "حافلة",
+      "فأل",
+      "حظ",
+      "ظهر",
+      "ماوية",
+      "سجنجل",
+      "منظرة"
+    ],
+    "hebrew_candidates": [
+      "הִסְתַּכֵּל",
+      "הביט",
+      "ראה",
+      "נִרְאָה",
+      "מבט",
+      "מראה",
+      "שזף עין",
+      "עיין",
+      "ראי"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "رأي",
+        "arabic_roman": "raʔy",
+        "hebrew": "ראה",
+        "hebrew_roman": "ra'á",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "رأي",
+        "arabic_roman": "raʔy",
+        "hebrew": "נִרְאָה",
+        "hebrew_roman": "nir'á",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "رأي",
+        "arabic_roman": "raʔy",
+        "hebrew": "ראי",
+        "hebrew_roman": "r'í",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "رأى",
+        "arabic_roman": "raʔā",
+        "hebrew": "ראה",
+        "hebrew_roman": "ra'á",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "رأى",
+        "arabic_roman": "raʔā",
+        "hebrew": "נִרְאָה",
+        "hebrew_roman": "nir'á",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "رأى",
+        "arabic_roman": "raʔā",
+        "hebrew": "ראי",
+        "hebrew_roman": "r'í",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "lung": {
     "english": "lung",
     "arabic_candidates": [
       "رِئَة",
       "سَحَر",
-      "رية"
+      "رية",
+      "غداة",
+      "بكرة",
+      "فتن",
+      "صبح",
+      "فجر",
+      "شعوذة"
     ],
     "hebrew_candidates": [
       "ריאה",
-      "רֵאָה"
+      "רֵאָה",
+      "עיין"
     ],
     "cognate_matches": [
       {
@@ -5455,7 +6290,8 @@
       "سُوق"
     ],
     "hebrew_candidates": [
-      "שוק"
+      "שוק",
+      "הלם"
     ],
     "cognate_matches": [
       {
@@ -5479,29 +6315,20 @@
     "arabic_candidates": [
       "اِسْتَطَاعَ",
       "مَايُو",
-      "أَيَّار"
+      "أَيَّار",
+      "قدر"
     ],
     "hebrew_candidates": [
       "עשוי",
       "מַאי",
-      "מַאיָה"
+      "מַאיָה",
+      "נעשה",
+      "מאה"
     ],
     "cognate_matches": [
       {
         "arabic": "مَايُو",
         "arabic_roman": "māyū",
-        "hebrew": "מַאי",
-        "hebrew_roman": "may",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "ine-pro:*méǵh₂s"
-        ]
-      },
-      {
-        "arabic": "أَيَّار",
-        "arabic_roman": "ʔayyār",
         "hebrew": "מַאי",
         "hebrew_roman": "may",
         "match_layers": [
@@ -5516,10 +6343,14 @@
   "metre": {
     "english": "metre",
     "arabic_candidates": [
-      "مِتْر"
+      "مِتْر",
+      "مد",
+      "قطع",
+      "بتر"
     ],
     "hebrew_candidates": [
-      "מֶטֶר"
+      "מֶטֶר",
+      "גשם"
     ],
     "cognate_matches": [
       {
@@ -5564,7 +6395,11 @@
     "arabic_candidates": [
       "حَلِيب",
       "لَبَن",
-      "حَلَبَ"
+      "حَلَبَ",
+      "طوب",
+      "مدر",
+      "ماست",
+      "فربيون"
     ],
     "hebrew_candidates": [
       "חָלָב"
@@ -5597,7 +6432,8 @@
       "دَاعِيَة",
       "كَاهِن",
       "وَزِير",
-      "وَزِيرَة"
+      "وَزِيرَة",
+      "عراف"
     ],
     "hebrew_candidates": [
       "כֹּמֶר",
@@ -5605,7 +6441,8 @@
       "כּוֹהֵן",
       "כֹּהֵן",
       "שַׂר",
-      "שָׂרָה"
+      "שָׂרָה",
+      "רן"
     ],
     "cognate_matches": [
       {
@@ -5634,7 +6471,9 @@
       "רשם בפרוטוקול",
       "רשם פרוטוקול",
       "זעיר",
-      "מפורט"
+      "מפורט",
+      "שניה",
+      "דממה"
     ],
     "cognate_matches": [
       {
@@ -5649,17 +6488,48 @@
       }
     ]
   },
+  "moment": {
+    "english": "moment",
+    "arabic_candidates": [
+      "لَحْظَة",
+      "دَقِيقَة",
+      "وَهْلَة",
+      "برهة"
+    ],
+    "hebrew_candidates": [
+      "תֶּנַע",
+      "רֶגַע",
+      "שניה",
+      "דממה",
+      "דקה",
+      "זמן קצר"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "دَقِيقَة",
+        "arabic_roman": "daqīqa",
+        "hebrew": "דקה",
+        "hebrew_roman": "daká",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "mother": {
     "english": "mother",
     "arabic_candidates": [
       "أُمّ",
       "وَالِدَة",
       "مَامَا",
-      "إم"
+      "إم",
+      "قصد"
     ],
     "hebrew_candidates": [
       "אֵם",
-      "אִמָּא"
+      "אִמָּא",
+      "אלו"
     ],
     "cognate_matches": [
       {
@@ -5669,42 +6539,6 @@
         "hebrew_roman": "em",
         "match_layers": [
           "direct_cognate_ar→he",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔimm-"
-        ]
-      },
-      {
-        "arabic": "أُمّ",
-        "arabic_roman": "ʔumm",
-        "hebrew": "אִמָּא",
-        "hebrew_roman": "ímma",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔimm-"
-        ]
-      },
-      {
-        "arabic": "وَالِدَة",
-        "arabic_roman": "wālida",
-        "hebrew": "אֵם",
-        "hebrew_roman": "em",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔimm-"
-        ]
-      },
-      {
-        "arabic": "وَالِدَة",
-        "arabic_roman": "wālida",
-        "hebrew": "אִמָּא",
-        "hebrew_roman": "ímma",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -5721,7 +6555,13 @@
       "حلج",
       "بوز",
       "فا",
-      "تم"
+      "تم",
+      "جرجس",
+      "برغش",
+      "ناموس",
+      "قرقس",
+      "بعوض",
+      "ققنس"
     ],
     "hebrew_candidates": [
       "פֶּה"
@@ -5751,7 +6591,8 @@
       "تَصْوِير مُتَحَرِّك"
     ],
     "hebrew_candidates": [
-      "סֶרֶט"
+      "סֶרֶט",
+      "סרט קולנוע"
     ],
     "cognate_matches": [
       {
@@ -5770,18 +6611,22 @@
     "arabic_candidates": [
       "أُمّ",
       "مَامَا",
-      "مَامَان"
+      "مَامَان",
+      "والدة",
+      "قصد"
     ],
     "hebrew_candidates": [
-      "אִמָּא"
+      "אִמָּא",
+      "אם"
     ],
     "cognate_matches": [
       {
         "arabic": "أُمّ",
         "arabic_roman": "ʔumm",
-        "hebrew": "אִמָּא",
-        "hebrew_roman": "ímma",
+        "hebrew": "אם",
+        "hebrew_roman": "em",
         "match_layers": [
+          "direct_cognate_ar→he",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -5795,7 +6640,8 @@
     "arabic_candidates": [
       "مُوسِيقَى",
       "طَرَب",
-      "مزّيكا"
+      "مزّيكا",
+      "سماع"
     ],
     "hebrew_candidates": [
       "מוּזִיקָה"
@@ -5821,13 +6667,20 @@
     "arabic_candidates": [
       "ظُفْر",
       "ضفر",
-      "مِسْمَار"
+      "مِسْمَار",
+      "أظفور",
+      "نصر",
+      "دمج",
+      "سكي",
+      "جسأة"
     ],
     "hebrew_candidates": [
       "צִפֹּרֶן",
       "ציפורן",
       "מַסְמֵר",
-      "סִמֵּר"
+      "סִמֵּר",
+      "טופר",
+      "טפר"
     ],
     "cognate_matches": [
       {
@@ -5865,11 +6718,34 @@
       "سَمَّى",
       "اِخْتَارَ",
       "عَيَّنَ",
-      "نَصَبَ"
+      "نَصَبَ",
+      "بسمل",
+      "اصطفى",
+      "اختص",
+      "اجتبى",
+      "نفس",
+      "ذات",
+      "معين",
+      "ينبوع",
+      "حسد",
+      "جدول",
+      "جاسوس",
+      "جحمة",
+      "منهل",
+      "دعا",
+      "نادى",
+      "أعلن"
     ],
     "hebrew_candidates": [
       "שֵׁם",
-      "כִּנָּה"
+      "כִּנָּה",
+      "הפעיל",
+      "הרכיב",
+      "לבש",
+      "שת",
+      "חבש",
+      "נעל",
+      "הדליק"
     ],
     "cognate_matches": [
       {
@@ -5908,13 +6784,22 @@
       "أُمَّة",
       "قَوْم",
       "دَوْلَة",
-      "وَطَن"
+      "وَطَن",
+      "جارية",
+      "قومية",
+      "صوب",
+      "شقشقة",
+      "موطن",
+      "حل"
     ],
     "hebrew_candidates": [
       "אומה \\ אֻמָּה",
       "לְאוֹם",
       "מדינה \\ מְדִינָה",
-      "אֻמָּה"
+      "אֻמָּה",
+      "אומה",
+      "עם",
+      "שפחה"
     ],
     "cognate_matches": [
       {
@@ -5928,6 +6813,15 @@
         "shared_proto_semitic_roots": [
           "*ʔamat-"
         ]
+      },
+      {
+        "arabic": "أُمَّة",
+        "arabic_roman": "ʔumma",
+        "hebrew": "אומה",
+        "hebrew_roman": "'umá",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -5940,7 +6834,10 @@
       "عِنْدَ",
       "قَرِيب مِنَ",
       "جَنْبَ",
-      "قَرُبَ"
+      "قَرُبَ",
+      "دني",
+      "لدن",
+      "مع"
     ],
     "hebrew_candidates": [
       "קָרוֹב",
@@ -5999,10 +6896,12 @@
       "بليل",
       "عشية",
       "مَغْرِب",
-      "سورة الليل"
+      "سورة الليل",
+      "عشاء"
     ],
     "hebrew_candidates": [
-      "לַיְלָה"
+      "לַיְלָה",
+      "ליל"
     ],
     "cognate_matches": [
       {
@@ -6019,10 +6918,36 @@
         ]
       },
       {
+        "arabic": "لَيْلَة",
+        "arabic_roman": "layla",
+        "hebrew": "ליל",
+        "hebrew_roman": "láyil",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*layl-"
+        ]
+      },
+      {
         "arabic": "لَيْل",
         "arabic_roman": "layl",
         "hebrew": "לַיְלָה",
         "hebrew_roman": "láyla",
+        "match_layers": [
+          "direct_cognate_he→ar",
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*layl-"
+        ]
+      },
+      {
+        "arabic": "لَيْل",
+        "arabic_roman": "layl",
+        "hebrew": "ליל",
+        "hebrew_roman": "láyil",
         "match_layers": [
           "direct_cognate_he→ar",
           "shared_proto_semitic_root"
@@ -6061,11 +6986,17 @@
       "لَا",
       "نَعَم",
       "لَاءَان",
-      "لَاءَات"
+      "لَاءَات",
+      "محظور",
+      "يه",
+      "حبذا",
+      "إي"
     ],
     "hebrew_candidates": [
       "אף",
-      "לֹא"
+      "לֹא",
+      "בל",
+      "אי"
     ],
     "cognate_matches": [
       {
@@ -6087,18 +7018,23 @@
   "north": {
     "english": "north",
     "arabic_candidates": [
-      "شَمَال"
+      "شَمَال",
+      "جوف",
+      "يسار"
     ],
     "hebrew_candidates": [
-      "צָּפוֹן"
+      "צָּפוֹן",
+      "שמאל"
     ],
     "cognate_matches": [
       {
         "arabic": "شَمَال",
         "arabic_roman": "šamāl",
-        "hebrew": "צָּפוֹן",
-        "hebrew_roman": "tsafón",
+        "hebrew": "שמאל",
+        "hebrew_roman": "s'mól",
         "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -6149,12 +7085,20 @@
       "مش",
       "مب",
       "مو",
-      "ماشي"
+      "ماشي",
+      "أيش",
+      "أن",
+      "ماذا",
+      "مهما",
+      "أيما",
+      "إن"
     ],
     "hebrew_candidates": [
       "לא",
       "אֵין",
-      "ולא"
+      "ולא",
+      "בל",
+      "אי"
     ],
     "cognate_matches": [
       {
@@ -6170,6 +7114,16 @@
         "shared_proto_semitic_roots": [
           "*lā"
         ]
+      },
+      {
+        "arabic": "إن",
+        "arabic_roman": "ʔin",
+        "hebrew": "אֵין",
+        "hebrew_roman": "ein",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -6177,30 +7131,21 @@
     "english": "ocean",
     "arabic_candidates": [
       "مُحِيط",
-      "قَامُوس"
+      "قَامُوس",
+      "معجم"
     ],
     "hebrew_candidates": [
       "אוקיינוס \\ אוֹקְיָנוֹס",
-      "יָם"
+      "יָם",
+      "אוקיינוס",
+      "מערב"
     ],
     "cognate_matches": [
       {
-        "arabic": "مُحِيط",
-        "arabic_roman": "muḥīṭ",
-        "hebrew": "יָם",
-        "hebrew_roman": "yam",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "grc:ὠκεανός"
-        ]
-      },
-      {
         "arabic": "قَامُوس",
         "arabic_roman": "qāmūs",
-        "hebrew": "יָם",
-        "hebrew_roman": "yam",
+        "hebrew": "אוקיינוס",
+        "hebrew_roman": "okyános",
         "match_layers": [
           "shared_borrowing_source"
         ],
@@ -6216,30 +7161,32 @@
       "مِنْ",
       "ل",
       "لدى",
-      "مْتاع"
+      "مْتاع",
+      "منذ",
+      "نحو",
+      "كي",
+      "لأن",
+      "على",
+      "مع",
+      "إلى",
+      "حتى",
+      "بغية",
+      "لدن",
+      "مدق",
+      "وزيم"
     ],
     "hebrew_candidates": [
       "שֶׁל",
       "מ־",
       "בן",
-      "ל־"
+      "ל־",
+      "־ה",
+      "בשביל"
     ],
     "cognate_matches": [
       {
         "arabic": "ل",
         "arabic_roman": "li-",
-        "hebrew": "ל־",
-        "hebrew_roman": "l'-",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
-        ]
-      },
-      {
-        "arabic": "لدى",
-        "arabic_roman": "ladā",
         "hebrew": "ל־",
         "hebrew_roman": "l'-",
         "match_layers": [
@@ -6255,7 +7202,9 @@
     "english": "oil",
     "arabic_candidates": [
       "زَيْت",
-      "نَفْط"
+      "نَفْط",
+      "سليط",
+      "بترول"
     ],
     "hebrew_candidates": [
       "שֶׁמֶן",
@@ -6291,7 +7240,8 @@
       "بِخَيْر",
       "عَلَى مَا يُرَام",
       "بسيدر",
-      "يَعْنِي"
+      "يَعْنِي",
+      "صواب"
     ],
     "hebrew_candidates": [
       "אוֹקֵי",
@@ -6299,7 +7249,9 @@
       "בְּסֵדֶר",
       "אישור",
       "או. קיי.",
-      "סביר"
+      "סביר",
+      "היטב",
+      "הסכמה"
     ],
     "cognate_matches": [
       {
@@ -6322,7 +7274,11 @@
     "arabic_candidates": [
       "عَلَى",
       "فِي",
-      "عَلَى حِسَابِهِ"
+      "عَلَى حِسَابِهِ",
+      "بيد",
+      "ل",
+      "ب",
+      "منذ"
     ],
     "hebrew_candidates": [
       "עַל",
@@ -6438,7 +7394,9 @@
   "onto": {
     "english": "onto",
     "arabic_candidates": [
-      "عَلَى"
+      "عَلَى",
+      "بيد",
+      "ل"
     ],
     "hebrew_candidates": [
       "על"
@@ -6466,7 +7424,27 @@
       "محلول",
       "فَتَحَ",
       "حل",
-      "اِنْفَتَحَ"
+      "اِنْفَتَحَ",
+      "ذوب",
+      "شيرج",
+      "مكث",
+      "سمسم",
+      "بقي",
+      "حصل",
+      "جلجلان",
+      "حدث",
+      "عمر",
+      "جرى",
+      "فك",
+      "أقام",
+      "قر",
+      "عاش",
+      "وطن",
+      "نقض",
+      "نزل",
+      "وقع",
+      "سكن",
+      "سليط"
     ],
     "hebrew_candidates": [
       "פָּתוּחַ",
@@ -6495,7 +7473,9 @@
       "أَم",
       "إِمَّا",
       "ولا",
-      "أولا"
+      "أولا",
+      "والدة",
+      "قصد"
     ],
     "hebrew_candidates": [
       "אוֹ"
@@ -6521,7 +7501,8 @@
     "english": "oven",
     "arabic_candidates": [
       "فُرْن",
-      "تَنُّور"
+      "تَنُّور",
+      "كور"
     ],
     "hebrew_candidates": [
       "תַּנּוּר"
@@ -6548,7 +7529,9 @@
     "arabic_candidates": [
       "عَبْرَ",
       "فَوْقَ",
-      "عَلَى"
+      "عَلَى",
+      "بيد",
+      "ل"
     ],
     "hebrew_candidates": [
       "חלקי",
@@ -6575,7 +7558,13 @@
   "pair": {
     "english": "pair",
     "arabic_candidates": [
-      "زَوْج"
+      "زَوْج",
+      "زوجة",
+      "أنكح",
+      "امرأة",
+      "وهب",
+      "بعل",
+      "قرينة"
     ],
     "hebrew_candidates": [
       "זוּג",
@@ -6602,7 +7591,25 @@
     "arabic_candidates": [
       "طَرِيق",
       "صِرَاط",
-      "مَسَار"
+      "مَسَار",
+      "سبيل",
+      "درب",
+      "شارع",
+      "سمت",
+      "سكة",
+      "زقاق",
+      "طريقة",
+      "نهج",
+      "ممشى",
+      "ممر",
+      "شريعة",
+      "مخرج",
+      "رصيف",
+      "معبر",
+      "منفذ",
+      "سراط",
+      "مدخل",
+      "مسلك"
     ],
     "hebrew_candidates": [
       "דֶּרֶךְ",
@@ -6630,11 +7637,17 @@
       "سَلَام",
       "صُلْح",
       "سِلْم",
-      "أَمْن"
+      "أَمْن",
+      "بر",
+      "سلف",
+      "فلت",
+      "سبي",
+      "أفلت"
     ],
     "hebrew_candidates": [
       "שַׁלְוָה",
-      "שָׁלוֹם"
+      "שָׁלוֹם",
+      "היוש"
     ],
     "cognate_matches": [
       {
@@ -6656,17 +7669,36 @@
       "خَلْق",
       "شَعْب",
       "قَوْم",
-      "أَهْل"
+      "أَهْل",
+      "أناس",
+      "إنس",
+      "شرموطة",
+      "فطر",
+      "برأ",
+      "برية",
+      "ورى",
+      "مشد",
+      "مسلك",
+      "قومية",
+      "صوب",
+      "أسرة",
+      "حرمة",
+      "آل"
     ],
     "hebrew_candidates": [
       "אֲנָשִׁים",
       "עַם",
-      "אומה \\ אֻמָּה"
+      "אומה \\ אֻמָּה",
+      "אומה",
+      "גוי",
+      "לאום",
+      "את",
+      "אמה"
     ],
     "cognate_matches": [
       {
-        "arabic": "نَاس",
-        "arabic_roman": "nās",
+        "arabic": "أناس",
+        "arabic_roman": "ʔunās",
         "hebrew": "אֲנָשִׁים",
         "hebrew_roman": "anashim",
         "match_layers": [
@@ -6715,7 +7747,12 @@
       "حَدَث مُتَكَرِّر",
       "نُقْطَة",
       "عَلَامَة فَصْلِيَّة",
-      "حِصَّةٌ"
+      "حِصَّةٌ",
+      "آن",
+      "إذا",
+      "أصيل",
+      "عصرن",
+      "نطل"
     ],
     "hebrew_candidates": [
       "תְּקוּפָה",
@@ -6761,7 +7798,8 @@
   "pitch": {
     "english": "pitch",
     "arabic_candidates": [
-      "زِفْت"
+      "زِفْت",
+      "أسفلت"
     ],
     "hebrew_candidates": [
       "זפת",
@@ -6781,6 +7819,64 @@
       }
     ]
   },
+  "place": {
+    "english": "place",
+    "arabic_candidates": [
+      "مَيْدَان",
+      "مَكَان",
+      "مَقْعَد",
+      "حتة",
+      "مَحَل",
+      "بلاصة",
+      "موضع",
+      "وَضَعَ",
+      "حط",
+      "مجال",
+      "شأن",
+      "مكانة",
+      "مقام",
+      "مجلس",
+      "أكسح",
+      "متجر",
+      "أبطل",
+      "اختلق",
+      "ألغى",
+      "نسخ",
+      "افترى",
+      "ولد",
+      "كتب",
+      "شرع",
+      "جمع",
+      "خزن",
+      "أذل",
+      "خلع",
+      "أضاف"
+    ],
+    "hebrew_candidates": [
+      "כיכר \\ כִּכָּר",
+      "אֵזוֹר",
+      "מקום",
+      "בַּיִת",
+      "מיקום",
+      "מַצָּב",
+      "הגיע",
+      "מיקם",
+      "חגורה",
+      "סיטואציה"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "مقام",
+        "arabic_roman": "maqām",
+        "hebrew": "מקום",
+        "hebrew_roman": "makóm",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "plane": {
     "english": "plane",
     "arabic_candidates": [
@@ -6791,7 +7887,8 @@
       "طَائِرَة",
       "طَيَّارَة",
       "دُلْب",
-      "صِنَار"
+      "صِنَار",
+      "براية"
     ],
     "hebrew_candidates": [
       "מישורי",
@@ -6800,7 +7897,9 @@
       "מטוס",
       "אווירון",
       "אֲוִירוֹן",
-      "דולב"
+      "דולב",
+      "משלח יד",
+      "צלע"
     ],
     "cognate_matches": [
       {
@@ -6843,7 +7942,8 @@
     "english": "plate",
     "arabic_candidates": [
       "طَبَق",
-      "صَحْن"
+      "صَحْن",
+      "مصحنة"
     ],
     "hebrew_candidates": [
       "לוּחַ",
@@ -6894,7 +7994,9 @@
       "شِعْر"
     ],
     "hebrew_candidates": [
-      "שִׁירָה"
+      "שִׁירָה",
+      "רינה",
+      "אורחה"
     ],
     "cognate_matches": [
       {
@@ -6913,7 +8015,9 @@
     "arabic_candidates": [
       "نُقْطَة",
       "مَوْقِع",
-      "أَشَارَ"
+      "أَشَارَ",
+      "مشهد",
+      "لمع"
     ],
     "hebrew_candidates": [
       "נְקֻדָּה",
@@ -6982,7 +8086,8 @@
     "arabic_candidates": [
       "فَقِير",
       "مِسْكِين",
-      "فُقَرَاء"
+      "فُقَرَاء",
+      "عائل"
     ],
     "hebrew_candidates": [
       "עָנִי",
@@ -7012,7 +8117,10 @@
       "مينا",
       "مَنْفَذ",
       "كَيَّفَ",
-      "غَيَّرَ"
+      "غَيَّرَ",
+      "طريق",
+      "خلاف",
+      "قلب"
     ],
     "hebrew_candidates": [
       "נָמֵל"
@@ -7063,10 +8171,50 @@
       }
     ]
   },
+  "praise": {
+    "english": "praise",
+    "arabic_candidates": [
+      "مِدْحَة",
+      "إِثْنَاء",
+      "إِطْرَاء",
+      "مَحْمَدَة",
+      "عِبَادَة",
+      "حَمْد",
+      "مَدَحَ",
+      "أَثْنَى",
+      "أَطْرَى",
+      "غضب",
+      "سبح",
+      "سبحان",
+      "رضي",
+      "أشاد",
+      "عظم",
+      "مجد",
+      "سخط",
+      "ضمد",
+      "شكر"
+    ],
+    "hebrew_candidates": [
+      "שֶׁבַח",
+      "שיבח \\ שִׁבֵּחַ"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "سبح",
+        "arabic_roman": "sabḥ",
+        "hebrew": "שֶׁבַח",
+        "hebrew_roman": "",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "prevent": {
     "english": "prevent",
     "arabic_candidates": [
-      "مَنَعَ"
+      "مَنَعَ",
+      "خزل"
     ],
     "hebrew_candidates": [
       "מָנַע"
@@ -7090,7 +8238,8 @@
       "كَاهِن",
       "قِسِّيس",
       "قِسّ",
-      "خُورِيّ"
+      "خُورِيّ",
+      "عراف"
     ],
     "hebrew_candidates": [
       "כֹּמֶר",
@@ -7117,7 +8266,9 @@
       "تِلْمِيذَة",
       "حَدَقَة",
       "بُؤْبُؤ",
-      "إنْسَان العَيْن"
+      "إنْسَان العَيْن",
+      "طالب",
+      "صبي"
     ],
     "hebrew_candidates": [
       "תַּלְמִיד",
@@ -7155,7 +8306,8 @@
     "english": "quarter",
     "arabic_candidates": [
       "رُبُع",
-      "حَارَة"
+      "حَارَة",
+      "زابوق"
     ],
     "hebrew_candidates": [
       "רִבְעוֹן",
@@ -7206,14 +8358,25 @@
       "نطر",
       "شتا",
       "مطرة",
-      "أَمْطَرَ"
+      "أَمْطَرَ",
+      "غيث",
+      "سقاء",
+      "شن",
+      "زق",
+      "شجب",
+      "جحل",
+      "جود",
+      "قربة"
     ],
     "hebrew_candidates": [
       "גֶּשֶׁם",
       "מָטָר",
       "מִשְׁקָע",
       "ירד",
-      "הִמְטִיר"
+      "הִמְטִיר",
+      "מבול",
+      "ירד גשם",
+      "צנח"
     ],
     "cognate_matches": [
       {
@@ -7266,7 +8429,8 @@
     ],
     "hebrew_candidates": [
       "נָא",
-      "חַי"
+      "חַי",
+      "גר"
     ],
     "cognate_matches": [
       {
@@ -7286,11 +8450,14 @@
     "arabic_candidates": [
       "قَرَأَ",
       "قرا",
-      "قِري"
+      "قِري",
+      "اقترأ"
     ],
     "hebrew_candidates": [
       "קָרָא",
-      "הקריא"
+      "הקריא",
+      "חוגלה",
+      "כינה"
     ],
     "cognate_matches": [
       {
@@ -7308,10 +8475,12 @@
     "english": "reader",
     "arabic_candidates": [
       "قَارِئ",
-      "قَارِئَة"
+      "قَارِئَة",
+      "مقرئ"
     ],
     "hebrew_candidates": [
-      "קוֹרֵא"
+      "קוֹרֵא",
+      "חוגלה"
     ],
     "cognate_matches": [
       {
@@ -7333,7 +8502,8 @@
       "قَرِيبَة",
       "أَقْرِبَاء",
       "أَقارِبُ",
-      "قرايِب"
+      "قرايِب",
+      "دني"
     ],
     "hebrew_candidates": [
       "קָרוֹב",
@@ -7409,7 +8579,8 @@
       "اِمْتَطَى",
       "اقتعد",
       "رُكُوب",
-      "آليَّة"
+      "آليَّة",
+      "رحل"
     ],
     "hebrew_candidates": [
       "רָכַב",
@@ -7418,7 +8589,9 @@
       "נְסִיעָה",
       "סִיבוּב",
       "טְרֶמְפּ",
-      "הַסָּעָה"
+      "הַסָּעָה",
+      "מסע",
+      "טיול"
     ],
     "cognate_matches": [
       {
@@ -7456,14 +8629,18 @@
       "تمام",
       "حَقّ",
       "حُقُوق",
-      "صَحَّحَ"
+      "صَحَّحَ",
+      "صوب"
     ],
     "hebrew_candidates": [
       "יָמִין",
       "צוֹדֵק",
       "נָכוֹן",
       "יְמָנִי",
-      "זְכוּת"
+      "זְכוּת",
+      "תימן",
+      "דרום",
+      "נגב"
     ],
     "cognate_matches": [
       {
@@ -7480,13 +8657,42 @@
       }
     ]
   },
+  "rise": {
+    "english": "rise",
+    "arabic_candidates": [
+      "نَهَضَ",
+      "اِرْتَفْعَ",
+      "أَشْرَقَ",
+      "شَرَقَ",
+      "طَلَعَ",
+      "علا",
+      "تشامخ",
+      "غض"
+    ],
+    "hebrew_candidates": [
+      "עלה",
+      "זרח"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "علا",
+        "arabic_roman": "ʕalā",
+        "hebrew": "עלה",
+        "hebrew_roman": "'alá",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
   "river": {
     "english": "river",
     "arabic_candidates": [
       "نَهْر",
       "أَنْهَار",
       "أَنْهُر",
-      "نهر أبيض"
+      "نهر أبيض",
+      "خليج"
     ],
     "hebrew_candidates": [
       "נָהָר"
@@ -7556,30 +8762,6 @@
         "shared_borrowing_sources": [
           "cs:robot"
         ]
-      },
-      {
-        "arabic": "إِنْسَان آلِيّ",
-        "arabic_roman": "ʔinsān ʔāliyy",
-        "hebrew": "רוֹבּוֹט",
-        "hebrew_roman": "robót",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "cs:robot"
-        ]
-      },
-      {
-        "arabic": "رَجُل آلِيّ",
-        "arabic_roman": "rajul ʔāliyy",
-        "hebrew": "רוֹבּוֹט",
-        "hebrew_roman": "robót",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "cs:robot"
-        ]
       }
     ]
   },
@@ -7589,7 +8771,11 @@
       "جَذْر",
       "جدر",
       "شرش",
-      "أَصْل"
+      "أَصْل",
+      "جدار",
+      "عرق",
+      "مصل",
+      "سبر"
     ],
     "hebrew_candidates": [
       "שורש",
@@ -7613,7 +8799,18 @@
   "rope": {
     "english": "rope",
     "arabic_candidates": [
-      "حَبْل"
+      "حَبْل",
+      "قلس",
+      "وتر",
+      "طنب",
+      "عصب",
+      "رباط",
+      "سبب",
+      "حمل",
+      "مرسة",
+      "خيط",
+      "أشل",
+      "سلسلة"
     ],
     "hebrew_candidates": [
       "חֶבֶל"
@@ -7638,7 +8835,9 @@
     "english": "run",
     "arabic_candidates": [
       "رَكَضَ",
-      "جَرَى"
+      "جَرَى",
+      "هب",
+      "حل"
     ],
     "hebrew_candidates": [
       "רָץ",
@@ -7663,12 +8862,18 @@
       "بَحَّار",
       "بَحْرِيّ",
       "مَلَّاح",
-      "نُوتِيّ"
+      "نُوتِيّ",
+      "سويداء",
+      "قلام",
+      "قاقلة"
     ],
     "hebrew_candidates": [
       "מַלָּח",
       "יוֹרֵד יָם",
-      "שַׁיָּט"
+      "שַׁיָּט",
+      "ימאי",
+      "ספן",
+      "המליח"
     ],
     "cognate_matches": [
       {
@@ -7684,56 +8889,20 @@
           "akk:malāḫum",
           "sux:𒈣𒁻"
         ]
-      },
-      {
-        "arabic": "مَلَّاح",
-        "arabic_roman": "mallāḥ",
-        "hebrew": "יוֹרֵד יָם",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:malāḫum",
-          "sux:𒈣𒁻"
-        ]
-      },
-      {
-        "arabic": "نُوتِيّ",
-        "arabic_roman": "nūtiyy",
-        "hebrew": "מַלָּח",
-        "hebrew_roman": "malákh",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:malāḫum",
-          "sux:𒈣𒁻"
-        ]
-      },
-      {
-        "arabic": "نُوتِيّ",
-        "arabic_roman": "nūtiyy",
-        "hebrew": "יוֹרֵד יָם",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:malāḫum",
-          "sux:𒈣𒁻"
-        ]
       }
     ]
   },
   "salt": {
     "english": "salt",
     "arabic_candidates": [
-      "مِلْح"
+      "مِلْح",
+      "مالح"
     ],
     "hebrew_candidates": [
       "מֶלַח",
-      "המליח"
+      "המליח",
+      "ימאי",
+      "ספן"
     ],
     "cognate_matches": [
       {
@@ -7755,14 +8924,15 @@
     ],
     "hebrew_candidates": [
       "כָּרִיך",
-      "סֶנדוִיץ׳"
+      "סֶנדוִיץ׳",
+      "סנדוויץ׳"
     ],
     "cognate_matches": [
       {
         "arabic": "سَانْدَوِيتْش",
         "arabic_roman": "sandawitš",
-        "hebrew": "כָּרִיך",
-        "hebrew_roman": "karíkh",
+        "hebrew": "סנדוויץ׳",
+        "hebrew_roman": "séndvich",
         "match_layers": [
           "shared_borrowing_source"
         ],
@@ -7780,7 +8950,12 @@
       "سُلَّمٌ مُوسِيقِيّ",
       "سُلَّم",
       "فَلْس",
-      "حَرْشَف"
+      "حَرْشَف",
+      "سلف",
+      "فلت",
+      "سبي",
+      "أفلت",
+      "سفط"
     ],
     "hebrew_candidates": [
       "סולם",
@@ -7806,7 +8981,16 @@
       "مَكْتَب",
       "كُلِّيَّة",
       "جَامِعَة",
-      "قِسِم"
+      "قِسِم",
+      "معلمة",
+      "مدراس",
+      "نورج",
+      "دراسة",
+      "طربيل",
+      "جرجر",
+      "مكتبة",
+      "شق",
+      "حلف"
     ],
     "hebrew_candidates": [
       "בֵּית סֵפֶר",
@@ -7816,7 +9000,9 @@
       "אסכולה",
       "לימד",
       "לַהֲקַת דָּגִים",
-      "עֲדַת דַּגִים"
+      "עֲדַת דַּגִים",
+      "בצפר",
+      "בי״ס"
     ],
     "cognate_matches": [
       {
@@ -7860,7 +9046,9 @@
       "يَمّ"
     ],
     "hebrew_candidates": [
-      "יָם"
+      "יָם",
+      "אוקיינוס",
+      "מערב"
     ],
     "cognate_matches": [
       {
@@ -7881,13 +9069,16 @@
       "تاني",
       "ثاني",
       "ثَانِيَة",
-      "تانية"
+      "تانية",
+      "مجددا"
     ],
     "hebrew_candidates": [
       "שני",
       "דקה",
       "דקות",
-      "שְׁנִיָּה"
+      "שְׁנִיָּה",
+      "רגע",
+      "שנית"
     ],
     "cognate_matches": [
       {
@@ -7906,10 +9097,14 @@
     "arabic_candidates": [
       "رَأَى",
       "عَايَنَ",
-      "شاف"
+      "شاف",
+      "حلم",
+      "اطلع",
+      "أشرف"
     ],
     "hebrew_candidates": [
-      "רָאָה"
+      "רָאָה",
+      "עיין"
     ],
     "cognate_matches": [
       {
@@ -7961,7 +9156,10 @@
       "إِرْسَال",
       "عَبَدَ",
       "خَدَمَ",
-      "قَدَّمَ"
+      "قَدَّمَ",
+      "رقيق",
+      "مولى",
+      "صدر"
     ],
     "hebrew_candidates": [
       "עָבַד",
@@ -7969,7 +9167,11 @@
       "הִגִּישׁ",
       "שִׁמֵּשׁ",
       "יָשַׁב",
-      "כִּהֵן"
+      "כִּהֵן",
+      "חרש",
+      "מלצר",
+      "שליט",
+      "חמה"
     ],
     "cognate_matches": [
       {
@@ -7992,7 +9194,8 @@
     ],
     "hebrew_candidates": [
       "שֶׁבַע",
-      "שִׁבְעָה"
+      "שִׁבְעָה",
+      "מרוצה"
     ],
     "cognate_matches": [
       {
@@ -8025,7 +9228,10 @@
     "english": "shade",
     "arabic_candidates": [
       "ظِلّ",
-      "مَظَلَّة"
+      "مَظَلَّة",
+      "كنف",
+      "تندة",
+      "شمسية"
     ],
     "hebrew_candidates": [
       "צֵל",
@@ -8066,7 +9272,10 @@
     "arabic_candidates": [
       "ظِلّ",
       "خَيَال",
-      "ضل"
+      "ضل",
+      "كنف",
+      "شبح",
+      "نطار"
     ],
     "hebrew_candidates": [
       "צֵל"
@@ -8087,17 +9296,44 @@
       }
     ]
   },
+  "shake": {
+    "english": "shake",
+    "arabic_candidates": [
+      "هَزَّ",
+      "زعزع"
+    ],
+    "hebrew_candidates": [
+      "זִעְזֵעַ",
+      "נִיעֵר"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "زعزع",
+        "arabic_roman": "zaʕzaʕa",
+        "hebrew": "זִעְזֵעַ",
+        "hebrew_roman": "zi'zéa'",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "shape": {
     "english": "shape",
     "arabic_candidates": [
       "شَكْل",
       "أَشْكَال",
-      "صُورَة"
+      "صُورَة",
+      "تصويرة",
+      "سبر",
+      "نسخة"
     ],
     "hebrew_candidates": [
       "מַצָּב",
       "צוּרָה",
-      "עיצב"
+      "עיצב",
+      "סיטואציה"
     ],
     "cognate_matches": [
       {
@@ -8115,7 +9351,8 @@
   "sharp": {
     "english": "sharp",
     "arabic_candidates": [
-      "حَادّ"
+      "حَادّ",
+      "رفيع"
     ],
     "hebrew_candidates": [
       "חָרִיף",
@@ -8171,7 +9408,11 @@
       "غنمة",
       "خروفة",
       "نعجة",
-      "حولي"
+      "حولي",
+      "أراد",
+      "أدر",
+      "حبل",
+      "وزر"
     ],
     "hebrew_candidates": [
       "כֶּבֶשׂ",
@@ -8194,12 +9435,14 @@
     "english": "ship",
     "arabic_candidates": [
       "سَفِينَة",
-      "شَحَنَ"
+      "شَحَنَ",
+      "فلك"
     ],
     "hebrew_candidates": [
       "סְפִינָה",
       "אֳנִיָּה \\ אונייה",
-      "שיפ"
+      "שיפ",
+      "אונייה"
     ],
     "cognate_matches": [
       {
@@ -8222,10 +9465,13 @@
     "arabic_candidates": [
       "حِذَاء",
       "نَعْل",
-      "جَزْمَة"
+      "جَزْمَة",
+      "إزاء",
+      "خراز"
     ],
     "hebrew_candidates": [
-      "נַעַל"
+      "נַעַל",
+      "שם"
     ],
     "cognate_matches": [
       {
@@ -8249,37 +9495,14 @@
       "حَانُوت",
       "بِقالة",
       "تَسَوَّقَ",
-      "تَبَضَّعَ"
+      "تَبَضَّعَ",
+      "ماخور"
     ],
     "hebrew_candidates": [
       "חֲנוּת",
       "עשה קניות"
     ],
     "cognate_matches": [
-      {
-        "arabic": "دُكَّان",
-        "arabic_roman": "dukkān",
-        "hebrew": "חֲנוּת",
-        "hebrew_roman": "khanút",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "arc:חָנוּתָא"
-        ]
-      },
-      {
-        "arabic": "مَتْجَر",
-        "arabic_roman": "matjar",
-        "hebrew": "חֲנוּת",
-        "hebrew_roman": "khanút",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "arc:חָנוּתָא"
-        ]
-      },
       {
         "arabic": "حَانُوت",
         "arabic_roman": "ḥānūt",
@@ -8355,7 +9578,13 @@
       "مَعْرِض",
       "اِسْتِعْرَاض",
       "بَرْنَامَج",
-      "إِظْهَار"
+      "إِظْهَار",
+      "شفق",
+      "صدر",
+      "كاهل",
+      "بدا",
+      "نصع",
+      "غرس"
     ],
     "hebrew_candidates": [
       "הִצִּיג",
@@ -8363,7 +9592,10 @@
       "מוֹפָע",
       "הוֹפָעָה",
       "הַצָּגָה",
-      "תָּכְנִית"
+      "תָּכְנִית",
+      "תכנה",
+      "סכמה",
+      "אפליקציה"
     ],
     "cognate_matches": [
       {
@@ -8373,6 +9605,40 @@
         "hebrew_roman": "her'á",
         "match_layers": [
           "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
+  "sight": {
+    "english": "sight",
+    "arabic_candidates": [
+      "مَشْهَد",
+      "مَنْظَر",
+      "ضريح",
+      "مزار",
+      "طوس",
+      "موقع",
+      "ملتقى",
+      "موكب",
+      "مقام",
+      "مرقد",
+      "رأي"
+    ],
+    "hebrew_candidates": [
+      "מַרְאֶה",
+      "אֲתָר",
+      "כוונת",
+      "ראי",
+      "אתר אינטרנט"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "رأي",
+        "arabic_roman": "raʔy",
+        "hebrew": "ראי",
+        "hebrew_roman": "r'í",
+        "match_layers": [
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -8388,7 +9654,9 @@
     "hebrew_candidates": [
       "שקט",
       "דממה",
-      "השתיק"
+      "השתיק",
+      "רגע",
+      "רוגע"
     ],
     "cognate_matches": [
       {
@@ -8407,7 +9675,10 @@
     "arabic_candidates": [
       "بَسِيط",
       "سَهْل",
-      "أَبْلَه"
+      "أَبْلَه",
+      "أتاح",
+      "مهد",
+      "فدم"
     ],
     "hebrew_candidates": [
       "פשוט"
@@ -8430,7 +9701,8 @@
       "أُخْت",
       "شَقِيقَة",
       "اِخْت",
-      "إخت"
+      "إخت",
+      "صنو"
     ],
     "hebrew_candidates": [
       "אָחוֹת",
@@ -8460,7 +9732,9 @@
     "hebrew_candidates": [
       "שֵׁשׁ",
       "שִׁשָּׁה",
-      "שישה"
+      "שישה",
+      "שמח",
+      "בוץ"
     ],
     "cognate_matches": [
       {
@@ -8494,11 +9768,21 @@
     "arabic_candidates": [
       "سَمَاء",
       "سما",
-      "سَمَاوَات"
+      "سَمَاوَات",
+      "فلك",
+      "فضاء",
+      "بناء",
+      "عشب",
+      "أثير",
+      "رقيع",
+      "ضهر",
+      "ستراتوسفير",
+      "سقف"
     ],
     "hebrew_candidates": [
       "שמיים",
-      "שָׁמַיִם"
+      "שָׁמַיִם",
+      "שחקים"
     ],
     "cognate_matches": [
       {
@@ -8531,12 +9815,18 @@
     "english": "slave",
     "arabic_candidates": [
       "عَبْد",
-      "أَمَة"
+      "أَمَة",
+      "رقيق",
+      "مولى",
+      "جارية",
+      "قومية"
     ],
     "hebrew_candidates": [
       "עֶבֶד",
       "אָמָה",
-      "שִׁפְחָה"
+      "שִׁפְחָה",
+      "חרש",
+      "עם"
     ],
     "cognate_matches": [
       {
@@ -8560,18 +9850,6 @@
         "shared_proto_semitic_roots": [
           "*ʔamat-"
         ]
-      },
-      {
-        "arabic": "أَمَة",
-        "arabic_roman": "ʔama",
-        "hebrew": "שִׁפְחָה",
-        "hebrew_roman": "shifkhá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔamat-"
-        ]
       }
     ]
   },
@@ -8589,13 +9867,44 @@
       "نعاس",
       "غَمَص",
       "رَمَص",
-      "عماص"
+      "عماص",
+      "خدر",
+      "أنام",
+      "كرى",
+      "تقليد",
+      "عام",
+      "عرف",
+      "قيلولة",
+      "عادة",
+      "حول"
     ],
     "hebrew_candidates": [
       "יָשֵׁן",
-      "שינה"
+      "שינה",
+      "לשעבר",
+      "נם"
     ],
     "cognate_matches": [
+      {
+        "arabic": "نَامَ",
+        "arabic_roman": "nāma",
+        "hebrew": "נם",
+        "hebrew_roman": "nám",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "نَوْم",
+        "arabic_roman": "nawm",
+        "hebrew": "נם",
+        "hebrew_roman": "nám",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      },
       {
         "arabic": "سِنَة",
         "arabic_roman": "sina",
@@ -8614,7 +9923,8 @@
       "حَنَش",
       "حَيَّة",
       "أَفْعَى",
-      "تعبان"
+      "تعبان",
+      "معطشة"
     ],
     "hebrew_candidates": [
       "נָחָשׁ"
@@ -8666,12 +9976,17 @@
     "arabic_candidates": [
       "فَـ",
       "لِذَا",
-      "إِذًا"
+      "إِذًا",
+      "لما",
+      "حين",
+      "إذ"
     ],
     "hebrew_candidates": [
       "כל כך",
       "כך",
-      "אָז"
+      "אָז",
+      "ככה",
+      "כי"
     ],
     "cognate_matches": [
       {
@@ -8681,6 +9996,15 @@
         "hebrew_roman": "az",
         "match_layers": [
           "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "إذ",
+        "arabic_roman": "ʔiḏ",
+        "hebrew": "אָז",
+        "hebrew_roman": "az",
+        "match_layers": [
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -8711,32 +10035,26 @@
     "arabic_candidates": [
       "تُرْبَة",
       "أَرْض",
-      "اِتَّسَخَ"
+      "اِتَّسَخَ",
+      "تراب",
+      "ثرى"
     ],
     "hebrew_candidates": [
       "אֲדָמָה",
       "עָפָר",
-      "לכלך"
+      "לכלך",
+      "קרקע",
+      "ארץ",
+      "אבק"
     ],
     "cognate_matches": [
       {
-        "arabic": "تُرْبَة",
-        "arabic_roman": "turba",
-        "hebrew": "אֲדָמָה",
-        "hebrew_roman": "adamá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʔarṣ́-"
-        ]
-      },
-      {
         "arabic": "أَرْض",
         "arabic_roman": "ʔarḍ",
-        "hebrew": "אֲדָמָה",
-        "hebrew_roman": "adamá",
+        "hebrew": "ארץ",
+        "hebrew_roman": "érets",
         "match_layers": [
+          "direct_cognate_ar→he",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -8774,14 +10092,18 @@
     "english": "soul",
     "arabic_candidates": [
       "رُوح",
-      "نَفْس"
+      "نَفْس",
+      "عين",
+      "مشاش"
     ],
     "hebrew_candidates": [
       "נְשָׁמָה",
       "נֶפֶשׁ",
       "רוּחַ",
       "רוח חיים",
-      "נפש חיה"
+      "נפש חיה",
+      "אוויר",
+      "אטמוספירה"
     ],
     "cognate_matches": [
       {
@@ -8815,7 +10137,9 @@
       "مُتَبَّل",
       "حَار",
       "حَرَّاق",
-      "حِرِّيف"
+      "حِرِّيف",
+      "ساخن",
+      "زبون"
     ],
     "hebrew_candidates": [
       "מתובל",
@@ -8850,7 +10174,8 @@
       "شَبَث",
       "ابو شبت",
       "رتيلة",
-      "سورة العنكبوت"
+      "سورة العنكبوت",
+      "سنوت"
     ],
     "hebrew_candidates": [
       "עַכָּבִישׁ"
@@ -8876,7 +10201,9 @@
     ],
     "hebrew_candidates": [
       "רוּחַ",
-      "סְפִּירְט"
+      "סְפִּירְט",
+      "אוויר",
+      "אטמוספירה"
     ],
     "cognate_matches": [
       {
@@ -8922,30 +10249,27 @@
       "يَاي",
       "زُنْبُرُك",
       "نَابِض",
-      "سوستة"
+      "سوستة",
+      "نفس",
+      "ذات",
+      "معين",
+      "حسد",
+      "جدول",
+      "جاسوس",
+      "جحمة",
+      "منهل"
     ],
     "hebrew_candidates": [
       "אָבִיב",
       "מַעְיָן",
       "עַיִן",
-      "קְפִיץ"
+      "קְפִיץ",
+      "מעיין"
     ],
     "cognate_matches": [
       {
         "arabic": "عَيْن",
         "arabic_roman": "ʕayn",
-        "hebrew": "מַעְיָן",
-        "hebrew_roman": "ma'ayán",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʕayn-"
-        ]
-      },
-      {
-        "arabic": "عَيْن",
-        "arabic_roman": "ʕayn",
         "hebrew": "עַיִן",
         "hebrew_roman": "'áyin",
         "match_layers": [
@@ -8956,10 +10280,10 @@
         ]
       },
       {
-        "arabic": "يَنْبُوع",
-        "arabic_roman": "yanbūʕ",
-        "hebrew": "מַעְיָן",
-        "hebrew_roman": "ma'ayán",
+        "arabic": "معين",
+        "arabic_roman": "maʕīn",
+        "hebrew": "עַיִן",
+        "hebrew_roman": "'áyin",
         "match_layers": [
           "shared_proto_semitic_root"
         ],
@@ -8968,15 +10292,12 @@
         ]
       },
       {
-        "arabic": "يَنْبُوع",
-        "arabic_roman": "yanbūʕ",
-        "hebrew": "עַיִן",
-        "hebrew_roman": "'áyin",
+        "arabic": "معين",
+        "arabic_roman": "maʕīn",
+        "hebrew": "מעיין",
+        "hebrew_roman": "ma'ayán",
         "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʕayn-"
+          "direct_cognate_ar→he"
         ]
       }
     ]
@@ -8991,19 +10312,6 @@
       "אִצְטַדְיוֹן"
     ],
     "cognate_matches": [
-      {
-        "arabic": "مَلْعَب",
-        "arabic_roman": "malʕab",
-        "hebrew": "אִצְטַדְיוֹן",
-        "hebrew_roman": "itstadyón",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "grc:στάδιον",
-          "ine-pro:*steh₂-"
-        ]
-      },
       {
         "arabic": "إِسْتَاد",
         "arabic_roman": "ʔistād",
@@ -9025,7 +10333,10 @@
       "نَجْم",
       "كوكب",
       "نجمة",
-      "إِجَّامَة"
+      "إِجَّامَة",
+      "كوكب سيار",
+      "سيار",
+      "سيارة"
     ],
     "hebrew_candidates": [
       "כּוֹכָב",
@@ -9035,32 +10346,8 @@
     ],
     "cognate_matches": [
       {
-        "arabic": "نَجْم",
-        "arabic_roman": "najm",
-        "hebrew": "כּוֹכָב",
-        "hebrew_roman": "kokháv",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*kabkab-"
-        ]
-      },
-      {
         "arabic": "كوكب",
         "arabic_roman": "kawkab",
-        "hebrew": "כּוֹכָב",
-        "hebrew_roman": "kokháv",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*kabkab-"
-        ]
-      },
-      {
-        "arabic": "نجمة",
-        "arabic_roman": "negma",
         "hebrew": "כּוֹכָב",
         "hebrew_roman": "kokháv",
         "match_layers": [
@@ -9075,7 +10362,8 @@
   "steel": {
     "english": "steel",
     "arabic_candidates": [
-      "فُولَاذ"
+      "فُولَاذ",
+      "صلب"
     ],
     "hebrew_candidates": [
       "פלדה"
@@ -9104,7 +10392,9 @@
     ],
     "hebrew_candidates": [
       "קיבה \\ קֵבָה",
-      "בֶּטֶן"
+      "בֶּטֶן",
+      "אגוז אדמה",
+      "כרס"
     ],
     "cognate_matches": [
       {
@@ -9123,7 +10413,8 @@
     "english": "storm",
     "arabic_candidates": [
       "عَاصِفَة",
-      "طُوفَان"
+      "طُوفَان",
+      "فيضان"
     ],
     "hebrew_candidates": [
       "סְעָרָה",
@@ -9139,6 +10430,44 @@
         "arabic_roman": "ʕāṣifa",
         "hebrew": "סוּפָה",
         "hebrew_roman": "sufá",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
+  "strong": {
+    "english": "strong",
+    "arabic_candidates": [
+      "قَوِيّ",
+      "مَنِيع",
+      "مَتِيْن",
+      "راسِخ",
+      "شَدِيْد",
+      "حَادّ",
+      "ثَقِيْل",
+      "شَاذّ",
+      "غَيْر نِظَامِيّ",
+      "حَصِيْن",
+      "دامِغ",
+      "بِقُوَّة",
+      "خشن",
+      "شجاع",
+      "رفيع"
+    ],
+    "hebrew_candidates": [
+      "חָזָק",
+      "עמיד",
+      "נחוש",
+      "מרשים",
+      "חסון"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "خشن",
+        "arabic_roman": "ḵašuna",
+        "hebrew": "חסון",
+        "hebrew_roman": "khasón",
         "match_layers": [
           "direct_cognate_he→ar"
         ]
@@ -9162,30 +10491,6 @@
       "תַּלְמִידָה"
     ],
     "cognate_matches": [
-      {
-        "arabic": "طَالِب",
-        "arabic_roman": "ṭālib",
-        "hebrew": "תַּלְמִיד",
-        "hebrew_roman": "talmíd",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:talmīdum"
-        ]
-      },
-      {
-        "arabic": "طَالِبَة",
-        "arabic_roman": "ṭāliba",
-        "hebrew": "תַּלְמִיד",
-        "hebrew_roman": "talmíd",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:talmīdum"
-        ]
-      },
       {
         "arabic": "تِلْمِيذ",
         "arabic_roman": "tilmīḏ",
@@ -9215,7 +10520,9 @@
   "sugar": {
     "english": "sugar",
     "arabic_candidates": [
-      "سُكَّر"
+      "سُكَّر",
+      "خمار",
+      "ثمل"
     ],
     "hebrew_candidates": [
       "סוכר",
@@ -9246,7 +10553,10 @@
       "שֶׁמֶשׁ",
       "חַמָּה",
       "כּוֹכָב",
-      "מָאוֹר"
+      "מָאוֹר",
+      "מלצר",
+      "שליט",
+      "כוכב חמה"
     ],
     "cognate_matches": [
       {
@@ -9262,34 +10572,10 @@
         ]
       },
       {
-        "arabic": "شَمْس",
-        "arabic_roman": "šams",
-        "hebrew": "חַמָּה",
-        "hebrew_roman": "khamá",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*śamš-"
-        ]
-      },
-      {
         "arabic": "اَلشَّمْس",
         "arabic_roman": "aš-šams",
         "hebrew": "שֶׁמֶשׁ",
         "hebrew_roman": "shémesh",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*śamš-"
-        ]
-      },
-      {
-        "arabic": "اَلشَّمْس",
-        "arabic_roman": "aš-šams",
-        "hebrew": "חַמָּה",
-        "hebrew_roman": "khamá",
         "match_layers": [
           "shared_proto_semitic_root"
         ],
@@ -9328,13 +10614,20 @@
       "ديل",
       "زنطيط",
       "قزيبة",
-      "شوال"
+      "شوال",
+      "معصية",
+      "إثم",
+      "جناح",
+      "خطيئة",
+      "وعل",
+      "جوالق"
     ],
     "hebrew_candidates": [
       "זָנָב",
       "שובל",
       "פלי",
-      "זינב"
+      "זינב",
+      "שביל"
     ],
     "cognate_matches": [
       {
@@ -9349,18 +10642,6 @@
         "shared_proto_semitic_roots": [
           "*ḏanab-"
         ]
-      },
-      {
-        "arabic": "ذَيْل",
-        "arabic_roman": "ḏayl",
-        "hebrew": "זָנָב",
-        "hebrew_roman": "zanáv",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ḏanab-"
-        ]
       }
     ]
   },
@@ -9370,7 +10651,8 @@
       "شَرِيط"
     ],
     "hebrew_candidates": [
-      "סֶרֶט"
+      "סֶרֶט",
+      "סרט קולנוע"
     ],
     "cognate_matches": [
       {
@@ -9391,7 +10673,10 @@
       "طَعْم",
       "مَذَاق",
       "ذَاقَ",
-      "تَذَوَّقَ"
+      "تَذَوَّقَ",
+      "نكهة",
+      "مضغة",
+      "أكل"
     ],
     "hebrew_candidates": [
       "טַעַם"
@@ -9416,11 +10701,37 @@
       "شَقَّ",
       "خَرْق",
       "دَمْع",
-      "دَمْعَة"
+      "دَمْعَة",
+      "كسر",
+      "ثقب",
+      "شرخ",
+      "فتحة",
+      "صدع",
+      "ثقل",
+      "فلح",
+      "فلق",
+      "قص",
+      "قسم",
+      "فرق",
+      "نقض",
+      "نخر",
+      "خرم",
+      "قطع",
+      "هوة",
+      "انتهاك",
+      "مخالفة",
+      "تمزيق"
     ],
     "hebrew_candidates": [
       "קָרַע",
-      "דִּמְעָה"
+      "דִּמְעָה",
+      "הצחיק",
+      "עיף",
+      "הביס",
+      "עייף",
+      "נצח",
+      "ניצח",
+      "התיש"
     ],
     "cognate_matches": [
       {
@@ -9453,21 +10764,10 @@
     ],
     "hebrew_candidates": [
       "טֶלֶפוֹן",
-      "צילצל \\ צִלְצֵל"
+      "צילצל \\ צִלְצֵל",
+      "טל׳"
     ],
     "cognate_matches": [
-      {
-        "arabic": "هَاتِف",
-        "arabic_roman": "hātif",
-        "hebrew": "טֶלֶפוֹן",
-        "hebrew_roman": "télefon",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "fr:téléphone"
-        ]
-      },
       {
         "arabic": "تِلِفُون",
         "arabic_roman": "tilifūn",
@@ -9488,12 +10788,14 @@
       "تِلْفَاز",
       "تِلِفِزْيُون",
       "تَلْفَزَة",
-      "جِهَاز تِلِفِزْيُون"
+      "جِهَاز تِلِفِزْيُون",
+      "راء"
     ],
     "hebrew_candidates": [
       "טלוויזיה",
       "טֶלֶוִיזְיָה",
-      "טלוויזיה \\ טֶלֶוִיזְיָה"
+      "טלוויזיה \\ טֶלֶוִיזְיָה",
+      "סכיון"
     ],
     "cognate_matches": [
       {
@@ -9511,18 +10813,6 @@
       {
         "arabic": "تِلِفِزْيُون",
         "arabic_roman": "tilifizyūn",
-        "hebrew": "טלוויזיה",
-        "hebrew_roman": "",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "fr:télévision"
-        ]
-      },
-      {
-        "arabic": "تَلْفَزَة",
-        "arabic_roman": "talfaza",
         "hebrew": "טלוויזיה",
         "hebrew_roman": "",
         "match_layers": [
@@ -9558,7 +10848,12 @@
       "اَللَّوَاتِي",
       "اَللَّائِي",
       "اَللَّذَانِ",
-      "اَللَّتَانِ"
+      "اَللَّتَانِ",
+      "ما",
+      "كي",
+      "بغية",
+      "حتى",
+      "هذاك"
     ],
     "hebrew_candidates": [
       "אֲשֶׁר",
@@ -9567,27 +10862,24 @@
       "ההוא",
       "ההיא",
       "זה",
-      "...ש"
+      "...ש",
+      "למה",
+      "כאשר",
+      "אלא",
+      "כן",
+      "כך",
+      "בגלל ש־",
+      "אבל"
     ],
     "cognate_matches": [
       {
-        "arabic": "لِكَيْ",
-        "arabic_roman": "li-kay",
-        "hebrew": "שֶׁ־",
-        "hebrew_roman": "she-",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*kiyā"
-        ]
-      },
-      {
-        "arabic": "لِكَيْ",
-        "arabic_roman": "li-kay",
+        "arabic": "كي",
+        "arabic_roman": "kay",
         "hebrew": "כִּי",
         "hebrew_roman": "ki",
         "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -9602,7 +10894,8 @@
       "الـ"
     ],
     "hebrew_candidates": [
-      "ה־"
+      "ה־",
+      "כלום"
     ],
     "cognate_matches": [
       {
@@ -9623,12 +10916,20 @@
       "حِينَئِذٍ",
       "ثُمَّ",
       "إِذًا",
-      "إِذَنْ"
+      "إِذَنْ",
+      "إذاك",
+      "حينذاك",
+      "آنئذ",
+      "لما",
+      "حين",
+      "إذ",
+      "رضا"
     ],
     "hebrew_candidates": [
       "אָז",
       "אַחַר כָּךְ",
-      "דְּאָז"
+      "דְּאָז",
+      "לאחר כך"
     ],
     "cognate_matches": [
       {
@@ -9638,6 +10939,15 @@
         "hebrew_roman": "az",
         "match_layers": [
           "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "إذ",
+        "arabic_roman": "ʔiḏ",
+        "hebrew": "אָז",
+        "hebrew_roman": "az",
+        "match_layers": [
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -9653,7 +10963,8 @@
     ],
     "hebrew_candidates": [
       "הֵם",
-      "הֵן"
+      "הֵן",
+      "אלה"
     ],
     "cognate_matches": [
       {
@@ -9676,6 +10987,43 @@
       }
     ]
   },
+  "thin": {
+    "english": "thin",
+    "arabic_candidates": [
+      "رَفِيع",
+      "رَقِيق",
+      "ضعيف",
+      "ضعيفة",
+      "عال",
+      "جهير",
+      "لطيف",
+      "سام",
+      "دقيق",
+      "نبيل",
+      "شريف",
+      "حاد",
+      "عبد",
+      "شفاف",
+      "رشيق",
+      "نحيف"
+    ],
+    "hebrew_candidates": [
+      "דַּק",
+      "רָזֶה"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "دقيق",
+        "arabic_roman": "daqīq",
+        "hebrew": "דַּק",
+        "hebrew_roman": "daq",
+        "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "think": {
     "english": "think",
     "arabic_candidates": [
@@ -9685,7 +11033,8 @@
       "حَسَّب"
     ],
     "hebrew_candidates": [
-      "חָשַׁב"
+      "חָשַׁב",
+      "רואה חשבון"
     ],
     "cognate_matches": [
       {
@@ -9704,18 +11053,30 @@
     "english": "thirsty",
     "arabic_candidates": [
       "عَطْشَان",
-      "ظَمْآن"
+      "ظَمْآن",
+      "ظامئ",
+      "هيمان",
+      "لهبان",
+      "حران",
+      "صد",
+      "صديان",
+      "صاد",
+      "مغلول",
+      "ظمئ",
+      "عطش"
     ],
     "hebrew_candidates": [
       "צָמֵא"
     ],
     "cognate_matches": [
       {
-        "arabic": "عَطْشَان",
-        "arabic_roman": "ʕaṭšān",
+        "arabic": "ظامئ",
+        "arabic_roman": "ẓāmiʔ",
         "hebrew": "צָמֵא",
         "hebrew_roman": "tsamé",
         "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -9723,11 +11084,13 @@
         ]
       },
       {
-        "arabic": "ظَمْآن",
-        "arabic_roman": "ẓamʔān",
+        "arabic": "ظمئ",
+        "arabic_roman": "ẓamiʔa",
         "hebrew": "צָמֵא",
         "hebrew_roman": "tsamé",
         "match_layers": [
+          "direct_cognate_ar→he",
+          "direct_cognate_he→ar",
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -9758,7 +11121,9 @@
       "هدي",
       "هدو",
       "هيدا",
-      "هيدي"
+      "هيدي",
+      "ثاب",
+      "تاب"
     ],
     "hebrew_candidates": [
       "זֶה",
@@ -9862,10 +11227,12 @@
     "english": "thousand",
     "arabic_candidates": [
       "أَلْف",
-      "١٠٠٠"
+      "١٠٠٠",
+      "أنس"
     ],
     "hebrew_candidates": [
-      "אֶלֶף"
+      "אֶלֶף",
+      "משפחה"
     ],
     "cognate_matches": [
       {
@@ -9951,11 +11318,17 @@
       "حَتَّى",
       "إِلَى أَنّ",
       "رَيْثَمَا",
-      "حَرَثَ"
+      "حَرَثَ",
+      "كي",
+      "لأن",
+      "لكي",
+      "ل",
+      "فلح"
     ],
     "hebrew_candidates": [
       "עַד",
-      "עד ש־"
+      "עד ש־",
+      "נצח"
     ],
     "cognate_matches": [
       {
@@ -9983,33 +11356,27 @@
       "أَوَان",
       "مَرَّة",
       "خطرة",
-      "دقة"
+      "دقة",
+      "آن",
+      "أصيل",
+      "عصرن",
+      "نطل",
+      "إذا",
+      "كرة",
+      "تارة"
     ],
     "hebrew_candidates": [
       "זְמָן",
       "שָׁעָה",
       "עֵת",
       "פעם",
-      "פִּי"
+      "פִּי",
+      "אשון"
     ],
     "cognate_matches": [
       {
         "arabic": "زَمَان",
         "arabic_roman": "zamān",
-        "hebrew": "זְמָן",
-        "hebrew_roman": "zman",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "arc:𐡆𐡌𐡍𐡀",
-          "ira-pro:*ǰámahnah",
-          "peo:*jamānā"
-        ]
-      },
-      {
-        "arabic": "زَمَن",
-        "arabic_roman": "zaman",
         "hebrew": "זְמָן",
         "hebrew_roman": "zman",
         "match_layers": [
@@ -10029,43 +11396,33 @@
       "أَنّ",
       "لِ",
       "إِلَى",
-      "عَلَى"
+      "عَلَى",
+      "ما",
+      "لدى",
+      "نحو",
+      "كي",
+      "لأن",
+      "مع",
+      "حتى",
+      "بغية",
+      "بيد"
     ],
     "hebrew_candidates": [
       "ל־",
       "כְּדֵי",
       "עַד",
       "ב־",
-      "אל"
+      "אל",
+      "־ה",
+      "בשביל",
+      "נצח",
+      "במו",
+      "א־"
     ],
     "cognate_matches": [
       {
         "arabic": "لِ",
         "arabic_roman": "li",
-        "hebrew": "ל־",
-        "hebrew_roman": "l-",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
-        ]
-      },
-      {
-        "arabic": "لِ",
-        "arabic_roman": "li",
-        "hebrew": "אל",
-        "hebrew_roman": "el",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ʾila"
-        ]
-      },
-      {
-        "arabic": "إِلَى",
-        "arabic_roman": "ʔilā",
         "hebrew": "ל־",
         "hebrew_roman": "l-",
         "match_layers": [
@@ -10089,15 +11446,12 @@
         ]
       },
       {
-        "arabic": "عَلَى",
-        "arabic_roman": "ʕalā",
-        "hebrew": "ל־",
-        "hebrew_roman": "l-",
+        "arabic": "حتى",
+        "arabic_roman": "ḥattā",
+        "hebrew": "עַד",
+        "hebrew_roman": "",
         "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*lV-"
+          "direct_cognate_ar→he"
         ]
       }
     ]
@@ -10105,10 +11459,13 @@
   "tongue": {
     "english": "tongue",
     "arabic_candidates": [
-      "لِسَان"
+      "لِسَان",
+      "علامة تبويب",
+      "لغة"
     ],
     "hebrew_candidates": [
-      "לָשׁוֹן"
+      "לָשׁוֹן",
+      "שפה"
     ],
     "cognate_matches": [
       {
@@ -10131,7 +11488,16 @@
     "arabic_candidates": [
       "سِنّ",
       "سنة",
-      "سنان"
+      "سنان",
+      "عمر",
+      "تقليد",
+      "عام",
+      "عرف",
+      "قيلولة",
+      "نعاس",
+      "عادة",
+      "حول",
+      "مسن"
     ],
     "hebrew_candidates": [
       "שֵׁן"
@@ -10148,18 +11514,6 @@
         "shared_proto_semitic_roots": [
           "*šinn-"
         ]
-      },
-      {
-        "arabic": "سنان",
-        "arabic_roman": "senan",
-        "hebrew": "שֵׁן",
-        "hebrew_roman": "shen",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*šinn-"
-        ]
       }
     ]
   },
@@ -10168,7 +11522,10 @@
     "arabic_candidates": [
       "مَدِينَة",
       "قَرْيَة",
-      "بَلْدَة"
+      "بَلْدَة",
+      "مصر",
+      "حلة",
+      "فريق"
     ],
     "hebrew_candidates": [
       "עִיר",
@@ -10265,7 +11622,8 @@
       "اتنين",
       "اثنين",
       "جوج",
-      "تنين"
+      "تنين",
+      "يأجوج"
     ],
     "hebrew_candidates": [
       "שתיים",
@@ -10330,7 +11688,8 @@
       "تَحْتَ"
     ],
     "hebrew_candidates": [
-      "תַּחַת"
+      "תַּחַת",
+      "ישבן"
     ],
     "cognate_matches": [
       {
@@ -10349,11 +11708,16 @@
     "english": "until",
     "arabic_candidates": [
       "حَتَّى",
-      "إِلَى أَنْ"
+      "إِلَى أَنْ",
+      "كي",
+      "لأن",
+      "لكي",
+      "ل"
     ],
     "hebrew_candidates": [
       "עַד",
-      "לפני"
+      "לפני",
+      "נצח"
     ],
     "cognate_matches": [
       {
@@ -10389,18 +11753,45 @@
           "en:video",
           "la:videō"
         ]
-      },
+      }
+    ]
+  },
+  "view": {
+    "english": "view",
+    "arabic_candidates": [
+      "مَنْظَر",
+      "مَشْهَد",
+      "رأي",
+      "ضريح",
+      "مزار",
+      "طوس",
+      "موقع",
+      "ملتقى",
+      "موكب",
+      "مقام",
+      "مرقد"
+    ],
+    "hebrew_candidates": [
+      "ראייה \\ רְאִיָּה",
+      "מַרְאֶה",
+      "נוֹף",
+      "הֲבָנָה",
+      "דֵּעָה",
+      "כוונה \\ כַּוָּנָה",
+      "תצוגה",
+      "צפה",
+      "הסתכל",
+      "הציג",
+      "ראי"
+    ],
+    "cognate_matches": [
       {
-        "arabic": "فِيدِيُو",
-        "arabic_roman": "fīdiyū",
-        "hebrew": "סִרְטוֹן",
-        "hebrew_roman": "sirtón",
+        "arabic": "رأي",
+        "arabic_roman": "raʔy",
+        "hebrew": "ראי",
+        "hebrew_roman": "r'í",
         "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "en:video",
-          "la:videō"
+          "direct_cognate_he→ar"
         ]
       }
     ]
@@ -10411,7 +11802,11 @@
       "قَرْيَة",
       "كَفْر",
       "ضَيْعَة",
-      "دَشْرَة"
+      "دَشْرَة",
+      "مصر",
+      "حلة",
+      "فريق",
+      "سواد"
     ],
     "hebrew_candidates": [
       "כְּפָר"
@@ -10434,6 +11829,30 @@
       }
     ]
   },
+  "wash": {
+    "english": "wash",
+    "arabic_candidates": [
+      "غَسَلَ",
+      "make inexistent",
+      "رحض"
+    ],
+    "hebrew_candidates": [
+      "רָחַץ",
+      "שָׁטַף",
+      "כיבס"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "رحض",
+        "arabic_roman": "raḥaḍa",
+        "hebrew": "רָחַץ",
+        "hebrew_roman": "rakháts",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      }
+    ]
+  },
   "water": {
     "english": "water",
     "arabic_candidates": [
@@ -10446,7 +11865,18 @@
       "مَيّ",
       "مِيَاه",
       "سَقَى",
-      "أَسْقَى"
+      "أَسْقَى",
+      "مني",
+      "منهل",
+      "أيش",
+      "أن",
+      "ماذا",
+      "مهما",
+      "أيما",
+      "إن",
+      "ماه",
+      "شرب",
+      "أشرب"
     ],
     "hebrew_candidates": [
       "מַיִם",
@@ -10486,18 +11916,6 @@
       {
         "arabic": "سَقَى",
         "arabic_roman": "saqā",
-        "hebrew": "מַיִם",
-        "hebrew_roman": "máyim",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*māy-"
-        ]
-      },
-      {
-        "arabic": "سَقَى",
-        "arabic_roman": "saqā",
         "hebrew": "הִשְׁקָה",
         "hebrew_roman": "hishká",
         "match_layers": [
@@ -10513,6 +11931,18 @@
           "direct_cognate_ar→he",
           "direct_cognate_he→ar"
         ]
+      },
+      {
+        "arabic": "ماه",
+        "arabic_roman": "māha",
+        "hebrew": "מַיִם",
+        "hebrew_roman": "máyim",
+        "match_layers": [
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*māy-"
+        ]
       }
     ]
   },
@@ -10521,7 +11951,25 @@
     "arabic_candidates": [
       "طَرِيقَة",
       "طَرِيق",
-      "سَبِيل"
+      "سَبِيل",
+      "صراط",
+      "درب",
+      "شارع",
+      "سمت",
+      "سكة",
+      "زقاق",
+      "مسار",
+      "نهج",
+      "ممشى",
+      "ممر",
+      "شريعة",
+      "مخرج",
+      "رصيف",
+      "معبر",
+      "منفذ",
+      "سراط",
+      "مدخل",
+      "مسلك"
     ],
     "hebrew_candidates": [
       "דרך",
@@ -10567,18 +12015,6 @@
         "shared_proto_semitic_roots": [
           "*niḥnu"
         ]
-      },
-      {
-        "arabic": "نَحْنُ",
-        "arabic_roman": "naḥnu",
-        "hebrew": "אָנוּ",
-        "hebrew_roman": "ánu",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*niḥnu"
-        ]
       }
     ]
   },
@@ -10587,10 +12023,14 @@
     "arabic_candidates": [
       "لَبِسَ",
       "اِرْتَدَى",
-      "اِهْتِراء"
+      "اِهْتِراء",
+      "ألبس",
+      "توشح",
+      "التباس"
     ],
     "hebrew_candidates": [
-      "לָבַשׁ"
+      "לָבַשׁ",
+      "שם"
     ],
     "cognate_matches": [
       {
@@ -10616,7 +12056,16 @@
       "بِئْر",
       "بير",
       "جليب",
-      "عَيْن"
+      "عَيْن",
+      "نفس",
+      "ذات",
+      "معين",
+      "ينبوع",
+      "حسد",
+      "جدول",
+      "جاسوس",
+      "جحمة",
+      "منهل"
     ],
     "hebrew_candidates": [
       "הֵיטֵב",
@@ -10632,21 +12081,11 @@
       "גומה \\ גֻּמָּה",
       "מָקוֹר",
       "נבע",
-      "זרם"
+      "זרם",
+      "ברמות",
+      "נורא"
     ],
     "cognate_matches": [
-      {
-        "arabic": "طيّب",
-        "arabic_roman": "",
-        "hebrew": "הֵיטֵב",
-        "hebrew_roman": "hetév",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*ṭāb-"
-        ]
-      },
       {
         "arabic": "طيّب",
         "arabic_roman": "",
@@ -10679,11 +12118,15 @@
     "arabic_candidates": [
       "غَرْب",
       "مَغْرِب",
-      "الْغَرْب"
+      "الْغَرْب",
+      "صفصاف",
+      "خلاف",
+      "عشاء"
     ],
     "hebrew_candidates": [
       "מַעֲרָב",
-      "יָם"
+      "יָם",
+      "אוקיינוס"
     ],
     "cognate_matches": [
       {
@@ -10712,13 +12155,19 @@
       "شني",
       "آش",
       "أش",
-      "ش"
+      "ش",
+      "أيش",
+      "أن",
+      "مهما",
+      "أيما",
+      "إن"
     ],
     "hebrew_candidates": [
       "איזה",
       "מה",
       "ש",
-      "מָה?"
+      "מָה?",
+      "הס"
     ],
     "cognate_matches": [
       {
@@ -10768,13 +12217,20 @@
       "عِنْدَمَا",
       "لَمَّا",
       "حِينَ",
-      "إِذ"
+      "إِذ",
+      "متى ما",
+      "راتب",
+      "إلا",
+      "إذا",
+      "آن"
     ],
     "hebrew_candidates": [
       "מָתַי",
       "באיזו שעה",
       "כש־",
-      "כאשר"
+      "כאשר",
+      "אימתי",
+      "כי"
     ],
     "cognate_matches": [
       {
@@ -10785,6 +12241,40 @@
         "match_layers": [
           "direct_cognate_ar→he",
           "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
+  "where": {
+    "english": "where",
+    "arabic_candidates": [
+      "حَيْث",
+      "أَيْن",
+      "فين",
+      "وَيْن",
+      "فاين",
+      "إِلَى أَيْنَ",
+      "حيثما"
+    ],
+    "hebrew_candidates": [
+      "אֵיפֹה",
+      "הֵיכָן",
+      "מֵאַיִן",
+      "לְאָן",
+      "איה",
+      "מנין",
+      "אי מזה",
+      "מאיפה",
+      "אנה"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "أَيْن",
+        "arabic_roman": "ʔayna, ʔayn",
+        "hebrew": "אנה",
+        "hebrew_roman": "'ána",
+        "match_layers": [
+          "direct_cognate_ar→he"
         ]
       }
     ]
@@ -10801,7 +12291,8 @@
       "מלא",
       "בשלמות",
       "כּוּלּהּ",
-      "כּוּלּוׁ"
+      "כּוּלּוׁ",
+      "פול"
     ],
     "cognate_matches": [
       {
@@ -10834,29 +12325,59 @@
       }
     ]
   },
+  "why": {
+    "english": "why",
+    "arabic_candidates": [
+      "لِمَاذَا",
+      "لِمَ"
+    ],
+    "hebrew_candidates": [
+      "לָמָּה",
+      "מַדּוּעַ",
+      "מה פתאום",
+      "למה זה",
+      "ש־"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "لِمَاذَا",
+        "arabic_roman": "limāḏā",
+        "hebrew": "למה זה",
+        "hebrew_roman": "láma zé",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      }
+    ]
+  },
   "wing": {
     "english": "wing",
     "arabic_candidates": [
       "جَنَاح",
-      "كَنَف"
+      "كَنَف",
+      "ذنب",
+      "حبس",
+      "ستر",
+      "حماية",
+      "ظل",
+      "حجر",
+      "عناية",
+      "أمسك",
+      "صان",
+      "حضن",
+      "حمى",
+      "تبنى",
+      "حفظ",
+      "جمع",
+      "رعاية",
+      "حجز",
+      "صون"
     ],
     "hebrew_candidates": [
       "כָּנָף",
       "אֶבְרָה"
     ],
     "cognate_matches": [
-      {
-        "arabic": "جَنَاح",
-        "arabic_roman": "janāḥ",
-        "hebrew": "כָּנָף",
-        "hebrew_roman": "kanáf",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*kanap-"
-        ]
-      },
       {
         "arabic": "كَنَف",
         "arabic_roman": "kanaf",
@@ -10878,10 +12399,14 @@
     "arabic_candidates": [
       "حَكِيم",
       "فَطِن",
-      "عَاقِل"
+      "عَاقِل",
+      "حبر",
+      "داه"
     ],
     "hebrew_candidates": [
-      "חָכָם"
+      "חָכָם",
+      "נבון",
+      "אינטליגנטי"
     ],
     "cognate_matches": [
       {
@@ -10900,12 +12425,25 @@
     "english": "with",
     "arabic_candidates": [
       "مَعَ",
-      "بِـ"
+      "بِـ",
+      "و",
+      "عند",
+      "لدى",
+      "بيد",
+      "لدن",
+      "ل",
+      "في"
     ],
     "hebrew_candidates": [
       "עִם",
       "נגד",
-      "בְּ־"
+      "בְּ־",
+      "אומה",
+      "גוי",
+      "לאום",
+      "את",
+      "אמה",
+      "במו"
     ],
     "cognate_matches": [
       {
@@ -10930,6 +12468,51 @@
         "shared_proto_semitic_roots": [
           "*bV-"
         ]
+      },
+      {
+        "arabic": "في",
+        "arabic_roman": "fī",
+        "hebrew": "בְּ־",
+        "hebrew_roman": "b'-",
+        "match_layers": [
+          "shared_proto_semitic_root"
+        ],
+        "shared_proto_semitic_roots": [
+          "*bV-"
+        ]
+      }
+    ]
+  },
+  "without": {
+    "english": "without",
+    "arabic_candidates": [
+      "بِدُونِ",
+      "بِلَا",
+      "بِغَيْرِ",
+      "دُونَ",
+      "مِنْ دُونِ",
+      "من غير",
+      "دونما",
+      "اختبر"
+    ],
+    "hebrew_candidates": [
+      "בְּלִי",
+      "לְלֹא",
+      "בִּלְעַד",
+      "נטול",
+      "בלא",
+      "אי",
+      "בלעדי"
+    ],
+    "cognate_matches": [
+      {
+        "arabic": "بِلَا",
+        "arabic_roman": "bilā",
+        "hebrew": "בלא",
+        "hebrew_roman": "b'ló",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
       }
     ]
   },
@@ -10944,7 +12527,8 @@
       "مُؤَلَّف",
       "اِشْتَغَلَ",
       "خدم",
-      "سَارَ"
+      "سَارَ",
+      "كاتب"
     ],
     "hebrew_candidates": [
       "עֲבוֹדָה",
@@ -10953,7 +12537,10 @@
       "עָבַד",
       "עשה",
       "הִפְעִיל",
-      "הֶעֱבִיד"
+      "הֶעֱבִיד",
+      "משלח יד",
+      "חרש",
+      "שם"
     ],
     "cognate_matches": [
       {
@@ -10972,7 +12559,9 @@
     "english": "world",
     "arabic_candidates": [
       "عَالَم",
-      "دُنْيَا"
+      "دُنْيَا",
+      "باحث",
+      "أولى"
     ],
     "hebrew_candidates": [
       "עוֹלָם"
@@ -10994,29 +12583,50 @@
     "arabic_candidates": [
       "كَاتَبَ",
       "َأَلَّف",
-      "كَتَبَ"
+      "كَتَبَ",
+      "ناسخ",
+      "سافر",
+      "مؤلف",
+      "أنس",
+      "خط",
+      "أنشأ",
+      "نقش",
+      "سطر",
+      "وضع",
+      "حبر",
+      "قدر",
+      "سجل",
+      "رسم",
+      "سفر"
     ],
     "hebrew_candidates": [
-      "כָּתַב"
+      "כָּתַב",
+      "ספר"
     ],
     "cognate_matches": [
-      {
-        "arabic": "كَاتَبَ",
-        "arabic_roman": "kātaba",
-        "hebrew": "כָּתַב",
-        "hebrew_roman": "katáv",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
-        ]
-      },
       {
         "arabic": "كَتَبَ",
         "arabic_roman": "kataba",
         "hebrew": "כָּתַב",
         "hebrew_roman": "katáv",
+        "match_layers": [
+          "direct_cognate_he→ar"
+        ]
+      },
+      {
+        "arabic": "سافر",
+        "arabic_roman": "sāfara",
+        "hebrew": "ספר",
+        "hebrew_roman": "séfer",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
+      {
+        "arabic": "سفر",
+        "arabic_roman": "safar",
+        "hebrew": "ספר",
+        "hebrew_roman": "séfer",
         "match_layers": [
           "direct_cognate_he→ar",
           "shared_borrowing_source"
@@ -11033,7 +12643,10 @@
       "كَاتِب",
       "كَاتِبَة",
       "مُؤَلِّف",
-      "مُؤَلِّفَة"
+      "مُؤَلِّفَة",
+      "ناسخ",
+      "سافر",
+      "مصنف"
     ],
     "hebrew_candidates": [
       "כּוֹתֵב",
@@ -11048,61 +12661,16 @@
         "hebrew_roman": "kotév",
         "match_layers": [
           "direct_cognate_ar→he",
-          "direct_cognate_he→ar",
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
+          "direct_cognate_he→ar"
         ]
       },
       {
-        "arabic": "كَاتِب",
-        "arabic_roman": "kātib",
+        "arabic": "سافر",
+        "arabic_roman": "sāfara",
         "hebrew": "סוֹפֵר",
         "hebrew_roman": "sofér",
         "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
-        ]
-      }
-    ]
-  },
-  "writing": {
-    "english": "writing",
-    "arabic_candidates": [
-      "كِتَابَة",
-      "كتبة"
-    ],
-    "hebrew_candidates": [
-      "כְּתִיבָה",
-      "כְּתוּבִים",
-      "כְּתָב"
-    ],
-    "cognate_matches": [
-      {
-        "arabic": "كِتَابَة",
-        "arabic_roman": "kitāba",
-        "hebrew": "כְּתִיבָה",
-        "hebrew_roman": "ktivá",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
-        ]
-      },
-      {
-        "arabic": "كِتَابَة",
-        "arabic_roman": "kitāba",
-        "hebrew": "כְּתָב",
-        "hebrew_roman": "ktav",
-        "match_layers": [
-          "shared_borrowing_source"
-        ],
-        "shared_borrowing_sources": [
-          "akk:šiprum"
+          "direct_cognate_ar→he"
         ]
       }
     ]
@@ -11114,24 +12682,21 @@
       "سَنَوَات",
       "عَام",
       "سَنَة",
-      "صَفّ"
+      "صَفّ",
+      "سبح",
+      "طفا",
+      "حول",
+      "تقليد",
+      "عرف",
+      "قيلولة",
+      "نعاس",
+      "عادة",
+      "طابور"
     ],
     "hebrew_candidates": [
       "שָׁנָה"
     ],
     "cognate_matches": [
-      {
-        "arabic": "أَعْوَام",
-        "arabic_roman": "ʔaʕwām",
-        "hebrew": "שָׁנָה",
-        "hebrew_roman": "shaná",
-        "match_layers": [
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*šanat-"
-        ]
-      },
       {
         "arabic": "سَنَوَات",
         "arabic_roman": "sanawāt",
@@ -11139,18 +12704,6 @@
         "hebrew_roman": "shaná",
         "match_layers": [
           "direct_cognate_ar→he",
-          "shared_proto_semitic_root"
-        ],
-        "shared_proto_semitic_roots": [
-          "*šanat-"
-        ]
-      },
-      {
-        "arabic": "عَام",
-        "arabic_roman": "ʕām",
-        "hebrew": "שָׁנָה",
-        "hebrew_roman": "shaná",
-        "match_layers": [
           "shared_proto_semitic_root"
         ],
         "shared_proto_semitic_roots": [
@@ -11221,7 +12774,12 @@
       "حَضْرَتُكُمَا",
       "حَضْرَتُكُمْ",
       "حَضْرَتُكُنَّ",
-      "إنتوا"
+      "إنتوا",
+      "مثل",
+      "منذ",
+      "يد",
+      "كأين",
+      "مثلما"
     ],
     "hebrew_candidates": [
       "אותך",
@@ -11234,9 +12792,21 @@
       "לכן",
       "אֲתֶּם",
       "אֲתֶּן",
-      "יא"
+      "יא",
+      "־ך",
+      "עם",
+      "לפיכך"
     ],
     "cognate_matches": [
+      {
+        "arabic": "ـكَ",
+        "arabic_roman": "-ka",
+        "hebrew": "־ך",
+        "hebrew_roman": "-'khá",
+        "match_layers": [
+          "direct_cognate_ar→he"
+        ]
+      },
       {
         "arabic": "أَنْتَ",
         "arabic_roman": "ʔanta",
@@ -11343,7 +12913,35 @@
       "صَغِير",
       "حَدَث",
       "شَابّ",
-      "صَغِير اَلسِّنّ"
+      "صَغِير اَلسِّنّ",
+      "سماد",
+      "قالة",
+      "جعر",
+      "سلح",
+      "عذرة",
+      "خثي",
+      "عيار",
+      "مداد",
+      "رجيع",
+      "خراء",
+      "صدر",
+      "زبل",
+      "دمال",
+      "براز",
+      "غائط",
+      "روث",
+      "حل",
+      "عصرن",
+      "دمن",
+      "كرس",
+      "بعر",
+      "سرجين",
+      "ذرق",
+      "دمان",
+      "خالط",
+      "صبي",
+      "خلط",
+      "غلام"
     ],
     "hebrew_candidates": [
       "צָעִיר"
@@ -11370,7 +12968,11 @@
       "ـك",
       "ـكُم",
       "ـكُنَّ",
-      "ـكُمَا"
+      "ـكُمَا",
+      "مثل",
+      "يد",
+      "كأين",
+      "مثلما"
     ],
     "hebrew_candidates": [
       "שלך",
@@ -11378,7 +12980,8 @@
       "שלכם",
       "שלכן",
       "־כם",
-      "־כן"
+      "־כן",
+      "אותך"
     ],
     "cognate_matches": [
       {
