@@ -2,27 +2,30 @@
 """
 Semitic Cognate Finder
 
-For each of the 1000 most common English words, finds Arabic-Hebrew cognate
-pairs by cross-referencing Wiktionary (kaikki) etymology data.
+For each word in english-base-forms.txt, finds Arabic-Hebrew cognate pairs
+by cross-referencing Wiktionary (kaikki) etymology data.
 
 Three matching layers:
   Layer 1: Explicit cognate references in Arabic/Hebrew etymology templates
   Layer 2: Shared Proto-Semitic root matching
-  Layer 3: Shared borrowing source (both borrowed from the same word)
+  Layer 3: Shared borrowing source — direct or via transitive chain through
+           a global etymology graph (e.g. Arabic←French←Latin→Hebrew)
 """
 
 import csv
+import os
 import re
 import sys
 import time
 from collections import defaultdict
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 import orjson
 
 DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
-COMMON_WORDS_FILE = Path("1000-most-common-words.txt")
+WORDS_FILE = Path("Oxford-3000.txt")
 OUTPUT_FILE = Path("cognates.json")
 CSV_FILE = Path("cognates.csv")
 
@@ -35,10 +38,10 @@ ETYMON_LANG_WORD = re.compile(r"([a-z]{2,}):([^<>\s:]+)")
 
 BORROW_TEMPLATES = {"bor", "der", "lbor", "ubor", "slbor", "borrowed"}
 
-# Byte-level pre-filters for the all-languages file
 _AR = b'"ar"'
 _HE = b'"he"'
 _EN = b'"en"'
+_ETYM = b'"etymology_templates"'
 
 
 def normalize_arabic(text: str) -> str:
@@ -55,16 +58,13 @@ def _clean_translation_word(text: str) -> str:
 
 
 def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
-                           cognates, sem_roots, display_form, lemma_of,
-                           borrow_sources, gloss_index, common_words):
+                           cognates, sem_roots, lemma_of, borrow_sources):
     """Process a single Arabic or Hebrew kaikki entry."""
     word = entry.get("word", "")
     if not word:
         return
 
     norm = normalize_self(word)
-    if norm not in display_form:
-        display_form[norm] = word
 
     for tmpl in entry.get("etymology_templates", []):
         args = tmpl.get("args", {})
@@ -90,7 +90,6 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
                     if m.group(1) == target_lang:
                         cognates[norm].add(normalize_target(m.group(2)))
 
-        # Layer 3: track borrowing sources
         if name in BORROW_TEMPLATES:
             src_lang = args.get("2", "")
             src_word = args.get("3", "")
@@ -105,30 +104,58 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
             if base:
                 lemma_of[norm].add(normalize_self(base))
 
-    # # Reverse gloss lookup
-    # if common_words:
-    #     roman = ""
-    #     for f in entry.get("forms", []):
-    #         if "romanization" in f.get("tags", []):
-    #             roman = f.get("form", "")
-    #             break
 
-    #     for sense in entry.get("senses", []):
-    #         for gloss in sense.get("glosses", []):
-    #             gloss_words = gloss.lower().split()
-    #             if len(gloss_words) > 4:
-    #                 continue
-    #             gloss_tokens = set(re.findall(r"[a-z]+", gloss.lower()))
-    #             for cw in gloss_tokens & common_words:
-    #                 gloss_index[cw].add((norm, word, roman))
+def _extract_borrowing(entry, lang_code, borrow_graph):
+    """Extract borrowing sources from any entry into the global graph."""
+    word = entry.get("word", "")
+    if not word:
+        return
+    key = (lang_code, word.lower())
+    for tmpl in entry.get("etymology_templates", []):
+        if tmpl.get("name", "") not in BORROW_TEMPLATES:
+            continue
+        args = tmpl.get("args", {})
+        src_lang = args.get("2", "")
+        src_word = args.get("3", "")
+        if (src_lang and src_word
+                and src_word not in ("-", "?", "")
+                and len(src_word) > 1):
+            borrow_graph[key].add((src_lang, src_word.lower()))
 
 
-def _process_english_entry(entry, common_words, translations):
+def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
+    """Expand borrow sources in-place by walking the full borrowing graph."""
+    expanded_count = 0
+    for norm, sources in borrow_map.items():
+        ancestors = set()
+        frontier = set(sources)
+        visited = set()
+        for _ in range(max_depth):
+            next_frontier = set()
+            for node in frontier:
+                if node in visited:
+                    continue
+                visited.add(node)
+                parents = borrow_graph.get(node, set())
+                ancestors.update(parents)
+                next_frontier.update(parents)
+            frontier = next_frontier - visited
+            if not frontier:
+                break
+        new = ancestors - sources
+        if new:
+            sources.update(new)
+            expanded_count += 1
+    return expanded_count
+
+
+def _process_english_entry(entry, word_set, translations):
     """Process a single English kaikki entry for translations."""
     word = entry.get("word", "").lower()
-    if word not in common_words:
+    if word not in word_set:
         return
 
+    translations.setdefault(word, {"ar": {}, "he": {}})
     for t in entry.get("translations", []):
         _collect_translation(t, word, translations)
 
@@ -154,86 +181,162 @@ def _collect_translation(t, word, translations):
             translations[word]["he"][norm] = {"word": t_word, "roman": roman}
 
 
-def build_all_indexes(filepath, common_words):
-    """
-    Single pass through the all-languages kaikki file.
-    Builds Arabic indexes, Hebrew indexes, and English translations
-    simultaneously, using byte-level pre-filtering to skip irrelevant lines.
-    """
-    # Arabic indexes
+def _process_chunk(filepath_str, start_byte, end_byte, word_set):
+    """Worker: process one byte-range of the JSONL file, return partial indexes."""
     ar2he_cog = defaultdict(set)
     ar_sem = defaultdict(set)
-    ar_disp = {}
     ar_lemmas = defaultdict(set)
     ar_borrow = defaultdict(set)
-    ar_gloss = defaultdict(set)
 
-    # Hebrew indexes
     he2ar_cog = defaultdict(set)
     he_sem = defaultdict(set)
-    he_disp = {}
     he_lemmas = defaultdict(set)
     he_borrow = defaultdict(set)
-    he_gloss = defaultdict(set)
 
-    # English translations
-    en_trans = defaultdict(lambda: {"ar": {}, "he": {}})
+    borrow_graph = defaultdict(set)
+    en_trans = {}
 
-    ar_count = 0
-    he_count = 0
-    en_count = 0
+    ar_count = he_count = en_count = line_count = 0
 
-    with open(filepath, "rb") as f:
-        for i, line in enumerate(f):
-            if i % 1_000_000 == 0:
-                print(f"  ... {i:,} lines scanned "
-                      f"(ar:{ar_count:,} he:{he_count:,} en:{en_count:,})",
-                      file=sys.stderr)
+    with open(filepath_str, "rb") as f:
+        if start_byte > 0:
+            f.seek(start_byte)
+            f.readline()
 
-            if _AR in line:
-                entry = orjson.loads(line)
-                lc = entry.get("lang_code", "")
-                if lc == "ar":
-                    ar_count += 1
-                    _process_semitic_entry(
-                        entry, "he", normalize_arabic, normalize_hebrew,
-                        ar2he_cog, ar_sem, ar_disp, ar_lemmas,
-                        ar_borrow, ar_gloss, common_words,
-                    )
-                    continue
-                elif lc == "en":
-                    en_count += 1
-                    _process_english_entry(entry, common_words, en_trans)
-                    continue
+        while f.tell() < end_byte:
+            line = f.readline()
+            if not line:
+                break
 
-            if _HE in line:
-                entry = orjson.loads(line)
-                lc = entry.get("lang_code", "")
-                if lc == "he":
-                    he_count += 1
-                    _process_semitic_entry(
-                        entry, "ar", normalize_hebrew, normalize_arabic,
-                        he2ar_cog, he_sem, he_disp, he_lemmas,
-                        he_borrow, he_gloss, common_words,
-                    )
-                    continue
-                elif lc == "en":
-                    en_count += 1
-                    _process_english_entry(entry, common_words, en_trans)
-                    continue
+            line_count += 1
 
-            if _EN in line:
-                entry = orjson.loads(line)
-                if entry.get("lang_code") == "en":
-                    en_count += 1
-                    _process_english_entry(entry, common_words, en_trans)
+            if not (_AR in line or _HE in line or _EN in line
+                    or _ETYM in line):
+                continue
 
-    print(f"  ... done: {i+1:,} lines total "
-          f"(ar:{ar_count:,} he:{he_count:,} en:{en_count:,})")
+            entry = orjson.loads(line)
+            lc = entry.get("lang_code", "")
+
+            if lc == "ar":
+                ar_count += 1
+                _process_semitic_entry(
+                    entry, "he", normalize_arabic, normalize_hebrew,
+                    ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
+                )
+            elif lc == "he":
+                he_count += 1
+                _process_semitic_entry(
+                    entry, "ar", normalize_hebrew, normalize_arabic,
+                    he2ar_cog, he_sem, he_lemmas, he_borrow,
+                )
+            elif lc == "en":
+                en_count += 1
+                _process_english_entry(entry, word_set, en_trans)
+
+            _extract_borrowing(entry, lc, borrow_graph)
 
     return (
-        ar2he_cog, ar_sem, ar_disp, ar_lemmas, ar_borrow, ar_gloss,
-        he2ar_cog, he_sem, he_disp, he_lemmas, he_borrow, he_gloss,
+        dict(ar2he_cog), dict(ar_sem), dict(ar_lemmas), dict(ar_borrow),
+        dict(he2ar_cog), dict(he_sem), dict(he_lemmas), dict(he_borrow),
+        dict(borrow_graph), en_trans,
+        (ar_count, he_count, en_count, line_count),
+    )
+
+
+def _merge_set_dicts(target, source):
+    for key, values in source.items():
+        if key in target:
+            target[key] |= values
+        else:
+            target[key] = set(values)
+
+
+def _merge_translations(target, source):
+    for word, trans in source.items():
+        if word not in target:
+            target[word] = trans
+        else:
+            for lang in ("ar", "he"):
+                for norm, info in trans[lang].items():
+                    if norm not in target[word][lang]:
+                        target[word][lang][norm] = info
+
+
+def build_all_indexes(filepath, word_set, num_workers=None):
+    """
+    Parallel scan of the all-languages kaikki file using ProcessPoolExecutor.
+    Splits the file into byte-range chunks processed by separate workers,
+    then merges the partial indexes.
+    """
+    if num_workers is None:
+        num_workers = os.cpu_count() or 1
+
+    file_size = filepath.stat().st_size
+    chunk_size = file_size // num_workers
+
+    chunks = []
+    for i in range(num_workers):
+        start = i * chunk_size
+        end = file_size if i == num_workers - 1 else (i + 1) * chunk_size
+        chunks.append((str(filepath), start, end, word_set))
+
+    print(f"  dispatching {num_workers} workers "
+          f"(~{chunk_size // (1024*1024)} MB/chunk) …", file=sys.stderr)
+
+    with ProcessPoolExecutor(max_workers=num_workers) as pool:
+        futures = {pool.submit(_process_chunk, *c): i
+                   for i, c in enumerate(chunks)}
+        partial_results = [None] * num_workers
+        done_count = 0
+        totals = [0, 0, 0, 0]
+
+        for future in as_completed(futures):
+            idx = futures[future]
+            partial_results[idx] = future.result()
+            counts = partial_results[idx][-1]
+            for j in range(len(totals)):
+                totals[j] += counts[j]
+            done_count += 1
+            print(f"  ... {done_count}/{num_workers} chunks done",
+                  file=sys.stderr)
+
+    print("  merging indexes …", file=sys.stderr)
+    ar2he_cog = defaultdict(set)
+    ar_sem = defaultdict(set)
+    ar_lemmas = defaultdict(set)
+    ar_borrow = defaultdict(set)
+    he2ar_cog = defaultdict(set)
+    he_sem = defaultdict(set)
+    he_lemmas = defaultdict(set)
+    he_borrow = defaultdict(set)
+    borrow_graph = defaultdict(set)
+    en_trans = {}
+
+    for result in partial_results:
+        (p_ar2he, p_ar_sem, p_ar_lem, p_ar_bor,
+         p_he2ar, p_he_sem, p_he_lem, p_he_bor,
+         p_graph, p_en, _) = result
+
+        _merge_set_dicts(ar2he_cog, p_ar2he)
+        _merge_set_dicts(ar_sem, p_ar_sem)
+        _merge_set_dicts(ar_lemmas, p_ar_lem)
+        _merge_set_dicts(ar_borrow, p_ar_bor)
+        _merge_set_dicts(he2ar_cog, p_he2ar)
+        _merge_set_dicts(he_sem, p_he_sem)
+        _merge_set_dicts(he_lemmas, p_he_lem)
+        _merge_set_dicts(he_borrow, p_he_bor)
+        _merge_set_dicts(borrow_graph, p_graph)
+        _merge_translations(en_trans, p_en)
+
+    ar_n, he_n, en_n, lines_n = totals
+    print(f"  ... done: {lines_n:,} lines total "
+          f"(ar:{ar_n:,} he:{he_n:,} en:{en_n:,}"
+          f" graph:{len(borrow_graph):,} nodes)")
+
+    return (
+        ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
+        he2ar_cog, he_sem, he_lemmas, he_borrow,
+        borrow_graph,
         en_trans,
     )
 
@@ -242,6 +345,13 @@ def _expand_with_lemmas(norm, lemma_map):
     forms = {norm}
     forms.update(lemma_map.get(norm, set()))
     return forms
+
+
+def _collect(forms, index):
+    out = set()
+    for f in forms:
+        out.update(index.get(f, set()))
+    return out
 
 
 def match_pair(ar_norm, he_norm, ar2he, he2ar, ar_roots, he_roots,
@@ -254,7 +364,6 @@ def match_pair(ar_norm, he_norm, ar2he, he2ar, ar_roots, he_roots,
     ar_forms = _expand_with_lemmas(ar_norm, ar_lemmas)
     he_forms = _expand_with_lemmas(he_norm, he_lemmas)
 
-    # Layer 1: direct cognate references
     for af in ar_forms:
         for hf in he_forms:
             if hf in ar2he.get(af, set()):
@@ -263,26 +372,12 @@ def match_pair(ar_norm, he_norm, ar2he, he2ar, ar_roots, he_roots,
                 layers.append("direct_cognate_he→ar")
     layers = list(dict.fromkeys(layers))
 
-    # Layer 2: shared Proto-Semitic root
-    all_ar_roots = set()
-    for af in ar_forms:
-        all_ar_roots.update(ar_roots.get(af, set()))
-    all_he_roots = set()
-    for hf in he_forms:
-        all_he_roots.update(he_roots.get(hf, set()))
-    common_roots = all_ar_roots & all_he_roots
+    common_roots = _collect(ar_forms, ar_roots) & _collect(he_forms, he_roots)
     if common_roots:
         layers.append("shared_proto_semitic_root")
         shared_roots = sorted(common_roots)
 
-    # Layer 3: shared borrowing source
-    all_ar_borrow = set()
-    for af in ar_forms:
-        all_ar_borrow.update(ar_borrow.get(af, set()))
-    all_he_borrow = set()
-    for hf in he_forms:
-        all_he_borrow.update(he_borrow.get(hf, set()))
-    common_borrow = all_ar_borrow & all_he_borrow
+    common_borrow = _collect(ar_forms, ar_borrow) & _collect(he_forms, he_borrow)
     if common_borrow:
         layers.append("shared_borrowing_source")
         shared_sources = sorted(f"{lang}:{word}" for lang, word in common_borrow)
@@ -293,43 +388,36 @@ def match_pair(ar_norm, he_norm, ar2he, he2ar, ar_roots, he_roots,
 def main():
     t_total = time.monotonic()
 
-    print("Loading common words …")
-    common_words = []
-    with open(COMMON_WORDS_FILE) as f:
+    print("Loading word list …")
+    words = []
+    with open(WORDS_FILE) as f:
         for line in f:
             w = line.strip()
             if w:
-                common_words.append(w.lower())
-    common_set = set(common_words)
-    print(f"  {len(common_words)} words")
+                words.append(w.lower())
+    word_set = set(words)
+    print(f"  {len(words)} words from {WORDS_FILE}")
 
     # ── Single pass through all-languages file ────────────────────
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
     (
-        ar2he_cog, ar_sem, ar_disp, ar_lemmas, ar_borrow, ar_gloss,
-        he2ar_cog, he_sem, he_disp, he_lemmas, he_borrow, he_gloss,
+        ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
+        he2ar_cog, he_sem, he_lemmas, he_borrow,
+        borrow_graph,
         en_trans,
-    ) = build_all_indexes(ALL_WORDS_FILE, common_set)
+    ) = build_all_indexes(ALL_WORDS_FILE, word_set)
     scan_time = time.monotonic() - t0
 
     print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, {len(ar_sem)} sem roots, "
-          f"{len(ar_lemmas)} lemma links, {len(ar_borrow)} borrow sources, "
-          f"{len(ar_gloss)} gloss matches")
+          f"{len(ar_lemmas)} lemma links, {len(ar_borrow)} borrow sources")
     print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, {len(he_sem)} sem roots, "
-          f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources, "
-          f"{len(he_gloss)} gloss matches")
+          f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources")
+    print(f"  Borrow graph: {len(borrow_graph)} nodes")
 
-    # Merge gloss-based candidates into the translation pool
-    for cw in common_set:
-        if cw not in en_trans:
-            en_trans[cw] = {"ar": {}, "he": {}}
-        for norm, display, roman in ar_gloss.get(cw, set()):
-            if norm not in en_trans[cw]["ar"]:
-                en_trans[cw]["ar"][norm] = {"word": display, "roman": roman}
-        for norm, display, roman in he_gloss.get(cw, set()):
-            if norm not in en_trans[cw]["he"]:
-                en_trans[cw]["he"][norm] = {"word": display, "roman": roman}
+    ar_expanded = _expand_borrow_transitive(ar_borrow, borrow_graph)
+    he_expanded = _expand_borrow_transitive(he_borrow, borrow_graph)
+    print(f"  Transitive expansion: {ar_expanded} ar words, {he_expanded} he words")
 
     with_ar = sum(1 for v in en_trans.values() if v["ar"])
     with_he = sum(1 for v in en_trans.values() if v["he"])
@@ -344,7 +432,7 @@ def main():
     results = {}
     words_checked = 0
 
-    for word in common_words:
+    for word in words:
         tr = en_trans.get(word)
         if not tr or not tr["ar"] or not tr["he"]:
             continue
@@ -382,7 +470,7 @@ def main():
 
     match_elapsed = time.monotonic() - t0
     avg_ms = (match_elapsed / words_checked * 1000) if words_checked else 0
-    print(f"\n  {len(results)} / {len(common_words)} words produced cognate matches")
+    print(f"\n  {len(results)} / {len(words)} words produced cognate matches")
     print(f"  ⏱ {match_elapsed:.1f}s ({words_checked} words checked, {avg_ms:.2f}ms avg)")
 
     print(f"\nWriting {OUTPUT_FILE} …")
@@ -393,7 +481,7 @@ def main():
     with open(CSV_FILE, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["english", "arabic_romanization", "hebrew_romanization"])
-        for word in common_words:
+        for word in words:
             if word not in results:
                 continue
             for m in results[word]["cognate_matches"]:
