@@ -11,10 +11,12 @@ animal,ḥayawān,ḥayyá
 apple,tuffāḥa,tapúakh
 apple,tuffāḥ,tapúakh
 april,ʔabrīl,apríl
+april,nīsān,apríl
 arm,ḏirāʕ,zró‘a
 as,ka-,k'-
 as,kamā,kmo
 ask,saʔala,sha'ál
+bank,maṣrif,bank
 bank,bank,bank
 bar,bar,bar
 be,hiya,hi
@@ -30,6 +32,7 @@ blood,dam,dam
 board,lawḥ,lúakh
 bone,ʕaẓm,étsem
 bone,ʕaẓma,étsem
+book,kitāb,séfer
 book,sifr,séfer
 boy,walad,yéled
 breast,ṯady,shad
@@ -38,6 +41,8 @@ brother,ʔaḵ,akh
 build,banā,baná
 building,bināʔ,
 bury,qabara,kavár
+bus,ḥāfila,otobús
+bus,bāṣ,otobús
 bus,ʔotobīs,otobús
 bus,ʔotobūs,otobús
 but,ʔillā,élla
@@ -46,6 +51,7 @@ by,fī,be-
 cancer,saraṭān,sartán
 cancer,as-saraṭān,sartán
 cap,qubbaʕa,
+card,waraqa,kartís
 carrot,jazar,gezer
 cat,qiṭṭ,khatúl
 cat,qiṭṭa,khatúl
@@ -87,6 +93,7 @@ daughter,bint,bat
 day,yawm,yom
 dead,mayyit,met
 die,māta,met
+die,tuwuffiya,met
 dig,ḥafara,khafár
 dish,ṣaḥn,tsalákhat
 do,faʕala,pa'al
@@ -99,7 +106,12 @@ dream,ʔaḥlām,khalám
 dry,yabbasa,yavésh
 each,kull,kol
 ear,ʔuḏun,
+earth,turba,adamá
+earth,turba,éretz
+earth,turba,kadúr ha'árets
+earth,ʔarḍ,adamá
 earth,ʔarḍ,éretz
+earth,ʔarḍ,kadúr ha'árets
 east,mašriq,mizrákh
 eat,ʔakala,akhál
 egg,bayḍ,beitsá
@@ -110,18 +122,30 @@ even,sawiyy,shavé
 every,kull,kol
 eye,ʕayn,áyin
 eye,ʕīnēn,áyin
+farmer,fallāḥ,ikár
+farmer,fallāḥa,ikár
 fast,ṣāma,tsam
 fat,samīn,shamén
 father,ʔab,av
+father,wālid,av
 father,abu,av
 february,fibrāyir,fébruar
+february,šubāṭ,fébruar
 fill,malaʔa,malé
 finger,ʔiṣbaʕ,"étsba, etsbá"
+fire,nār,esh
 five,ḵamsa,khamésh
 float,ṭafā,ṣāf
+food,ṭaʕām,ókhel
+food,ṭaʕām,mazón
 food,ʔakl,ókhel
+food,ʔakl,mazón
 foot,rijl,regel
+for,liʔanna,l'-
+for,liʔanna,bishvíl
+for,li-,ki
 for,li-,l'-
+for,li-,bishvíl
 four,ʔarbaʕa,arbá
 four,ʔarbaʕa,arbaá
 four,ʔarbaʕ,arbá
@@ -138,6 +162,8 @@ glass,zujāj,zkhukhit
 glass,kaʔs,kos
 god,ʔilāh,el
 god,ʔilāh,
+god,rabb,el
+god,rabb,
 god,allāh,
 gold,ḏahab,zaháv
 gold,muḏahhab,zaháv
@@ -154,12 +180,15 @@ head,raʔs,rosh
 head,raʔs,
 hear,samiʕa,shamá'
 heart,qalb,lev
+heart,fuʔād,lev
 heaven,samāʔ,shamáyim
+heaven,falak,shamáyim
 heel,ʕaqib,
 hello,as-salāmu ʕalaykum,shalóm 'aleikhém
 hello,salām,shalóm
 here,hunā,héna
 hi,salām,shalóm
+hill,tall,giv'á
 hill,tall,tel
 home,bayt,báyit
 horse,faras,parash
@@ -169,15 +198,21 @@ hunt,ṣāda,tzad
 hunt,ṣayd,tzad
 hunt,ṣayd,tsáyid
 hunting,ṣayd,tsáyid
+husband,zawj,baʿal
+husband,zawj,ʾish
 husband,baʕl,baʿal
+husband,baʕl,ʾish
 i,ʔanā,aní
 if,ʔin,im
 in,fī,b'-
 january,yanāyir,yánuar
+january,kānūn aṯ-ṯānī,yánuar
 jeans,jīnz,jins
 july,yūliyō,yúli
+july,tammūz,yúli
 jump,qafaza,kafats
 june,yūniyō,yúni
+june,ḥazīrān,yúni
 kid,jady,g'dí
 kill,qatala,katal
 king,malik,mélekh
@@ -185,18 +220,32 @@ kitchen,maṭbaḵ,mitbákh
 knee,rukba,bérekh
 knife,sikkīn,sakín
 labour,ʕamal,amál
+lamp,qindīl,menorá
 land,ʔarḍ,érets
+land,ʔarḍ,adamá
 land,yābisa,yabashá
+language,luḡa,lashón
+language,luḡa,safá
 language,lisān,lashón
+language,lisān,safá
+laptop,kambyūtir maḥmūl,
+laptop,kambyūtir maḥmūl,láptop
+laptop,ḥāsūb maḥmūl,
+laptop,ḥāsūb maḥmūl,láptop
+laptop,"laptup, labtob",
 laptop,"laptup, labtob",láptop
 laugh,ḍaḥika,tsakhák
+left,yasār,smol
 left,šimāl,smol
 leg,rijl,régel
 lie,kaḏaba,kazáv
 lie,kaḏba,kazáv
 life,ḥayāh,khayím
+light,nūr,or
+light,nūr,ésh
 lip,šafa,safá
 listen,samiʕa,shama
+live,ḥayiya,gar
 live,ḥayiya,kháy
 live,ḥayy,kháy
 living,ḥayy,khay
@@ -205,6 +254,7 @@ lung,riʔa,
 lung,riʔa,re'á
 market,sūq,shuk
 may,māyū,may
+may,ʔayyār,may
 metre,mitr,méter
 mile,mīl,mil
 milk,ḥalīb,khaláv
@@ -212,8 +262,12 @@ milk,ḥalaba,khaláv
 minister,kāhin,
 minute,daqīqa,daká
 mother,ʔumm,em
+mother,ʔumm,ímma
+mother,wālida,em
+mother,wālida,ímma
 mouth,fam,pe
 movie,šarīṭ,séret
+mum,ʔumm,ímma
 music,mūsīqā,múzika
 nail,ẓufr,tzippóren
 nail,mismār,masmér
@@ -227,9 +281,13 @@ night,layla,láyla
 night,layl,láyla
 ninety,tisʕūna,tishʿím
 no,lā,lo
+north,šamāl,tsafón
 nose,ʔanf,af
 not,lā,lo
+ocean,muḥīṭ,yam
+ocean,qāmūs,yam
 of,li-,l'-
+of,ladā,l'-
 oil,nafṭ,neft
 ok,ṭayyeb,tov
 on,ʕalā,al
@@ -246,6 +304,7 @@ over,ʕabra,'avór
 pair,zawj,zug
 path,ṭarīq,dérekh
 peace,salām,shalóm
+people,nās,anashim
 pepper,filfil,pilpél
 period,nuqṭa,
 pig,ḵinzīr,khazír
@@ -286,11 +345,17 @@ river,nahr,nahár
 river,ʔanhār,nahár
 river,ʔanhur,nahár
 robot,rōbōt,robót
+robot,ʔinsān ʔāliyy,robót
+robot,rajul ʔāliyy,robót
 root,šereš,shóresh
 rope,ḥabl,khével
 run,rakaḍa,rats
 sailor,mallāḥ,malákh
+sailor,mallāḥ,
+sailor,nūtiyy,malákh
+sailor,nūtiyy,
 salt,milḥ,mélakh
+sandwich,sandawitš,karíkh
 scale,sullam,sulam
 school,kulliyya,mikhlalá
 scream,ṣaraḵa,tsarách
@@ -310,6 +375,8 @@ she,hiya,hi
 sheep,šāʔ,se
 ship,safīna,sfiná
 shoe,naʕl,náal
+shop,dukkān,khanút
+shop,matjar,khanút
 shop,ḥānūt,khanút
 short,qaṣīr,katsár
 shout,ṣaraḵa,tsarách
@@ -323,11 +390,14 @@ sky,samāʔ,šamáyim
 sky,samāwāt,šamáyim
 slave,ʕabd,éved
 slave,ʔama,amá
+slave,ʔama,shifkhá
 sleep,sina,sheiná
 snake,ḥanaš,nakhásh
 snow,ṯalj,shéleg
 so,ʔiḏan,az
 sock,jawrab,gérev
+soil,turba,adamá
+soil,ʔarḍ,adamá
 son,ibn,ben
 soul,rūḥ,rúakh
 soul,nafs,néfesh
@@ -336,31 +406,48 @@ spicy,ḥirrīf,kharíf
 spider,ʕankabūt,akavísh
 spirit,rūḥ,rúakh
 spiritual,rūḥāniyy,rukhaní
+spring,ʕayn,ma'ayán
 spring,ʕayn,'áyin
+spring,yanbūʕ,ma'ayán
+spring,yanbūʕ,'áyin
+stadium,malʕab,itstadyón
 stadium,ʔistād,itstadyón
+star,najm,kokháv
 star,kawkab,kokháv
+star,negma,kokháv
 steel,fūlāḏ,pladah
 stomach,baṭn,béten
 storm,ʕāṣifa,sufá
+student,ṭālib,talmíd
+student,ṭāliba,talmíd
 student,tilmīḏ,talmíd
 student,tilmīḏa,talmíd
 sugar,sukkar,
 sun,šams,shémesh
+sun,šams,khamá
 sun,aš-šams,shémesh
+sun,aš-šams,khamá
 tablet,lawḥ,lúakh
 tail,ḏanab,zanáv
+tail,ḏayl,zanáv
 tape,šarīṭ,séret
 taste,ṭaʕm,tá'am
 tear,damʕ,dim'á
 tear,damʕa,dim'á
+telephone,hātif,télefon
 telephone,tilifūn,télefon
 television,tilfāz,
 television,tilifizyūn,
+television,talfaza,
+that,li-kay,she-
+that,li-kay,ki
 the,al-,ha-
 then,ʔiḏan,az
 they,hum,hem
 they,hunna,hen
 think,ḥassab,khasháv
+thirsty,ʕaṭšān,tsamé
+thirsty,ẓamʔān,tsamé
 this,hāḏā,ze
 this,hāḏā,zot
 this,hāḏihi,ze
@@ -378,10 +465,15 @@ three,ṯalāṯ,shalosh
 three,ṯalāṯ,shlosha
 till,ḥattā,ad
 time,zamān,zman
+time,zaman,zman
 to,li,l-
+to,li,el
+to,ʔilā,l-
 to,ʔilā,el
+to,ʕalā,l-
 tongue,lisān,lashón
 tooth,sinn,shen
+tooth,senan,shen
 town,qarya,kiryá
 translate,tarjama,tirgem
 twenty,ʕišrūna,esrím
@@ -393,14 +485,18 @@ two,itnēn,
 under,taḥta,tákhat
 until,ḥattā,ad
 video,fīdiyū,víde'o
+video,fīdiyū,sirtón
 village,kafr,kfar
 water,māʔ,máyim
 water,miyāh,máyim
+water,saqā,máyim
 water,saqā,hishká
 water,ʔasqā,hishká
 way,ṭarīq,derekh
 we,naḥnu,anákhnu
+we,naḥnu,ánu
 wear,labisa,lavásh
+well,,hetév
 well,,tov
 well,biʔr,b'er
 west,maḡrib,ma'aráv
@@ -409,15 +505,22 @@ what,š-,she
 when,matā,matay
 whole,kull,
 whole,kull,
+wing,janāḥ,kanáf
 wing,kanaf,kanáf
 wise,ḥakīm,khakhám
 with,maʕa,ím / ʕím
 with,bi-,b'-
 work,ʕamal,amál
 world,ʕālam,olám
+write,kātaba,katáv
 write,kataba,katáv
 writer,kātib,kotév
+writer,kātib,sofér
+writing,kitāba,ktivá
+writing,kitāba,ktav
+year,ʔaʕwām,shaná
 year,sanawāt,shaná
+year,ʕām,shaná
 year,sana,shaná
 yesterday,ʔams,'émesh
 you,ʔanta,otkhá

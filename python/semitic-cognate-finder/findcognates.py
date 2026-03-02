@@ -58,7 +58,8 @@ def _clean_translation_word(text: str) -> str:
 
 
 def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
-                           cognates, sem_roots, lemma_of, borrow_sources):
+                           cognates, sem_roots, lemma_of, borrow_sources,
+                           synonyms):
     """Process a single Arabic or Hebrew kaikki entry."""
     word = entry.get("word", "")
     if not word:
@@ -103,6 +104,10 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
             base = fof.get("word", "")
             if base:
                 lemma_of[norm].add(normalize_self(base))
+        for syn in sense.get("synonyms", []):
+            syn_word = syn.get("word", "")
+            if syn_word:
+                synonyms[norm].add(normalize_self(syn_word))
 
 
 def _extract_borrowing(entry, lang_code, borrow_graph):
@@ -187,11 +192,13 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
     ar_sem = defaultdict(set)
     ar_lemmas = defaultdict(set)
     ar_borrow = defaultdict(set)
+    ar_synonyms = defaultdict(set)
 
     he2ar_cog = defaultdict(set)
     he_sem = defaultdict(set)
     he_lemmas = defaultdict(set)
     he_borrow = defaultdict(set)
+    he_synonyms = defaultdict(set)
 
     borrow_graph = defaultdict(set)
     en_trans = {}
@@ -221,13 +228,13 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
                 ar_count += 1
                 _process_semitic_entry(
                     entry, "he", normalize_arabic, normalize_hebrew,
-                    ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
+                    ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms,
                 )
             elif lc == "he":
                 he_count += 1
                 _process_semitic_entry(
                     entry, "ar", normalize_hebrew, normalize_arabic,
-                    he2ar_cog, he_sem, he_lemmas, he_borrow,
+                    he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms,
                 )
             elif lc == "en":
                 en_count += 1
@@ -237,7 +244,9 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
 
     return (
         dict(ar2he_cog), dict(ar_sem), dict(ar_lemmas), dict(ar_borrow),
+        dict(ar_synonyms),
         dict(he2ar_cog), dict(he_sem), dict(he_lemmas), dict(he_borrow),
+        dict(he_synonyms),
         dict(borrow_graph), en_trans,
         (ar_count, he_count, en_count, line_count),
     )
@@ -305,26 +314,30 @@ def build_all_indexes(filepath, word_set, num_workers=None):
     ar_sem = defaultdict(set)
     ar_lemmas = defaultdict(set)
     ar_borrow = defaultdict(set)
+    ar_synonyms = defaultdict(set)
     he2ar_cog = defaultdict(set)
     he_sem = defaultdict(set)
     he_lemmas = defaultdict(set)
     he_borrow = defaultdict(set)
+    he_synonyms = defaultdict(set)
     borrow_graph = defaultdict(set)
     en_trans = {}
 
     for result in partial_results:
-        (p_ar2he, p_ar_sem, p_ar_lem, p_ar_bor,
-         p_he2ar, p_he_sem, p_he_lem, p_he_bor,
+        (p_ar2he, p_ar_sem, p_ar_lem, p_ar_bor, p_ar_syn,
+         p_he2ar, p_he_sem, p_he_lem, p_he_bor, p_he_syn,
          p_graph, p_en, _) = result
 
         _merge_set_dicts(ar2he_cog, p_ar2he)
         _merge_set_dicts(ar_sem, p_ar_sem)
         _merge_set_dicts(ar_lemmas, p_ar_lem)
         _merge_set_dicts(ar_borrow, p_ar_bor)
+        _merge_set_dicts(ar_synonyms, p_ar_syn)
         _merge_set_dicts(he2ar_cog, p_he2ar)
         _merge_set_dicts(he_sem, p_he_sem)
         _merge_set_dicts(he_lemmas, p_he_lem)
         _merge_set_dicts(he_borrow, p_he_bor)
+        _merge_set_dicts(he_synonyms, p_he_syn)
         _merge_set_dicts(borrow_graph, p_graph)
         _merge_translations(en_trans, p_en)
 
@@ -334,16 +347,34 @@ def build_all_indexes(filepath, word_set, num_workers=None):
           f" graph:{len(borrow_graph):,} nodes)")
 
     return (
-        ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
-        he2ar_cog, he_sem, he_lemmas, he_borrow,
+        ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms,
+        he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms,
         borrow_graph,
         en_trans,
     )
 
 
-def _expand_with_lemmas(norm, lemma_map):
+def _make_bidirectional(graph):
+    """Add reverse edges so A→B also implies B→A."""
+    reverse = defaultdict(set)
+    for word, targets in graph.items():
+        for t in targets:
+            reverse[t].add(word)
+    for word, targets in reverse.items():
+        if word in graph:
+            graph[word] |= targets
+        else:
+            graph[word] = targets
+
+
+def _expand_forms(norm, lemma_map, synonym_map):
+    """Expand a normalized form via lemma links and synonyms."""
     forms = {norm}
     forms.update(lemma_map.get(norm, set()))
+    syn_expanded = set()
+    for f in list(forms):
+        syn_expanded.update(synonym_map.get(f, set()))
+    forms.update(syn_expanded)
     return forms
 
 
@@ -355,22 +386,30 @@ def _collect(forms, index):
 
 
 def match_pair(ar_norm, he_norm, ar2he, he2ar, ar_roots, he_roots,
-               ar_lemmas, he_lemmas, ar_borrow, he_borrow):
+               ar_lemmas, he_lemmas, ar_borrow, he_borrow,
+               ar_synonyms, he_synonyms):
     """Check a single (Arabic, Hebrew) pair against all three layers."""
     layers = []
     shared_roots = []
     shared_sources = []
 
-    ar_forms = _expand_with_lemmas(ar_norm, ar_lemmas)
-    he_forms = _expand_with_lemmas(he_norm, he_lemmas)
+    # Lemma-only expansion for direct cognate check (synonyms ≠ cognates)
+    ar_lemma_forms = {ar_norm}
+    ar_lemma_forms.update(ar_lemmas.get(ar_norm, set()))
+    he_lemma_forms = {he_norm}
+    he_lemma_forms.update(he_lemmas.get(he_norm, set()))
 
-    for af in ar_forms:
-        for hf in he_forms:
+    for af in ar_lemma_forms:
+        for hf in he_lemma_forms:
             if hf in ar2he.get(af, set()):
                 layers.append("direct_cognate_ar→he")
             if af in he2ar.get(hf, set()):
                 layers.append("direct_cognate_he→ar")
     layers = list(dict.fromkeys(layers))
+
+    # Full synonym expansion for root and borrowing checks
+    ar_forms = _expand_forms(ar_norm, ar_lemmas, ar_synonyms)
+    he_forms = _expand_forms(he_norm, he_lemmas, he_synonyms)
 
     common_roots = _collect(ar_forms, ar_roots) & _collect(he_forms, he_roots)
     if common_roots:
@@ -402,18 +441,28 @@ def main():
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
     (
-        ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
-        he2ar_cog, he_sem, he_lemmas, he_borrow,
+        ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms,
+        he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms,
         borrow_graph,
         en_trans,
     ) = build_all_indexes(ALL_WORDS_FILE, word_set)
     scan_time = time.monotonic() - t0
 
     print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, {len(ar_sem)} sem roots, "
-          f"{len(ar_lemmas)} lemma links, {len(ar_borrow)} borrow sources")
+          f"{len(ar_lemmas)} lemma links, {len(ar_borrow)} borrow sources, "
+          f"{len(ar_synonyms)} synonym links")
     print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, {len(he_sem)} sem roots, "
-          f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources")
+          f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources, "
+          f"{len(he_synonyms)} synonym links")
     print(f"  Borrow graph: {len(borrow_graph)} nodes")
+
+    _make_bidirectional(ar_synonyms)
+    _make_bidirectional(he_synonyms)
+    _make_bidirectional(ar2he_cog)
+    _make_bidirectional(he2ar_cog)
+    print(f"  After bidirectional: ar cognate refs {len(ar2he_cog)}, "
+          f"he cognate refs {len(he2ar_cog)}, "
+          f"ar synonyms {len(ar_synonyms)}, he synonyms {len(he_synonyms)}")
 
     ar_expanded = _expand_borrow_transitive(ar_borrow, borrow_graph)
     he_expanded = _expand_borrow_transitive(he_borrow, borrow_graph)
@@ -444,6 +493,7 @@ def main():
                 layers, shared_roots, shared_sources = match_pair(
                     ar_norm, he_norm, ar2he_cog, he2ar_cog, ar_sem, he_sem,
                     ar_lemmas, he_lemmas, ar_borrow, he_borrow,
+                    ar_synonyms, he_synonyms,
                 )
                 if not layers:
                     continue
