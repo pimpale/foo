@@ -162,6 +162,29 @@ def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
     return expanded_count
 
 
+def _extract_gloss_candidates(entry, word_set, normalize_fn, gloss_candidates):
+    """Parse glosses from an ar/he entry to find English word matches."""
+    word = entry.get("word", "")
+    if not word:
+        return
+    pos = entry.get("pos", "")
+    if pos not in ("noun", "verb", "adj"):
+        return
+    norm = normalize_fn(word)
+    for sense in entry.get("senses", []):
+        for gloss in sense.get("glosses", []):
+            for chunk in gloss.split(","):
+                chunk = chunk.strip().lower()
+                if pos == "verb":
+                    if chunk.startswith("to "):
+                        eng = chunk[3:].strip()
+                        if eng in word_set:
+                            gloss_candidates[eng].add(norm)
+                else:
+                    if chunk in word_set:
+                        gloss_candidates[chunk].add(norm)
+
+
 def _process_english_entry(entry, word_set, translations):
     """Process a single English kaikki entry for translations."""
     word = entry.get("word", "").lower()
@@ -213,6 +236,8 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
     he_roman = {}
 
     borrow_graph = defaultdict(set)
+    ar_gloss_cands = defaultdict(set)
+    he_gloss_cands = defaultdict(set)
     en_trans = {}
 
     ar_count = he_count = en_count = line_count = 0
@@ -243,6 +268,8 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
                     ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms,
                     ar_disp, ar_roman,
                 )
+                _extract_gloss_candidates(
+                    entry, word_set, normalize_arabic, ar_gloss_cands)
             elif lc == "he":
                 he_count += 1
                 _process_semitic_entry(
@@ -250,6 +277,8 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
                     he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms,
                     he_disp, he_roman,
                 )
+                _extract_gloss_candidates(
+                    entry, word_set, normalize_hebrew, he_gloss_cands)
             elif lc == "en":
                 en_count += 1
                 _process_english_entry(entry, word_set, en_trans)
@@ -261,7 +290,8 @@ def _process_chunk(filepath_str, start_byte, end_byte, word_set):
         dict(ar_synonyms), ar_disp, ar_roman,
         dict(he2ar_cog), dict(he_sem), dict(he_lemmas), dict(he_borrow),
         dict(he_synonyms), he_disp, he_roman,
-        dict(borrow_graph), en_trans,
+        dict(borrow_graph), dict(ar_gloss_cands), dict(he_gloss_cands),
+        en_trans,
         (ar_count, he_count, en_count, line_count),
     )
 
@@ -339,12 +369,15 @@ def build_all_indexes(filepath, word_set, num_workers=None):
     he_disp = {}
     he_roman = {}
     borrow_graph = defaultdict(set)
+    ar_gloss_cands = defaultdict(set)
+    he_gloss_cands = defaultdict(set)
     en_trans = {}
 
     for result in partial_results:
         (p_ar2he, p_ar_sem, p_ar_lem, p_ar_bor, p_ar_syn, p_ar_disp, p_ar_rom,
          p_he2ar, p_he_sem, p_he_lem, p_he_bor, p_he_syn, p_he_disp, p_he_rom,
-         p_graph, p_en, _) = result
+         p_graph, p_ar_gloss, p_he_gloss,
+         p_en, _) = result
 
         _merge_set_dicts(ar2he_cog, p_ar2he)
         _merge_set_dicts(ar_sem, p_ar_sem)
@@ -365,6 +398,8 @@ def build_all_indexes(filepath, word_set, num_workers=None):
         for k, v in p_he_rom.items():
             he_roman.setdefault(k, v)
         _merge_set_dicts(borrow_graph, p_graph)
+        _merge_set_dicts(ar_gloss_cands, p_ar_gloss)
+        _merge_set_dicts(he_gloss_cands, p_he_gloss)
         _merge_translations(en_trans, p_en)
 
     ar_n, he_n, en_n, lines_n = totals
@@ -375,7 +410,7 @@ def build_all_indexes(filepath, word_set, num_workers=None):
     return (
         ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms, ar_disp, ar_roman,
         he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms, he_disp, he_roman,
-        borrow_graph,
+        borrow_graph, ar_gloss_cands, he_gloss_cands,
         en_trans,
     )
 
@@ -464,7 +499,7 @@ def main():
     (
         ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_synonyms, ar_disp, ar_roman,
         he2ar_cog, he_sem, he_lemmas, he_borrow, he_synonyms, he_disp, he_roman,
-        borrow_graph,
+        borrow_graph, ar_gloss_cands, he_gloss_cands,
         en_trans,
     ) = build_all_indexes(ALL_WORDS_FILE, word_set)
     scan_time = time.monotonic() - t0
@@ -476,6 +511,7 @@ def main():
           f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources, "
           f"{len(he_synonyms)} synonym links")
     print(f"  Borrow graph: {len(borrow_graph)} nodes")
+    print(f"  Gloss candidates: {len(ar_gloss_cands)} ar, {len(he_gloss_cands)} he")
 
     _make_bidirectional(ar_synonyms)
     _make_bidirectional(he_synonyms)
@@ -495,6 +531,27 @@ def main():
     print(f"  English: {len(en_trans)} words, {with_ar} with ar, "
           f"{with_he} with he, {with_both} with both")
     print(f"  ⏱ {scan_time:.1f}s")
+
+    # ── Inject gloss-derived candidates ─────────────────────────
+    print("\nInjecting gloss-derived candidates …")
+    gloss_added = 0
+    for eng_word, ar_norms in ar_gloss_cands.items():
+        if eng_word not in word_set:
+            continue
+        tr = en_trans.setdefault(eng_word, {"ar": {}, "he": {}})
+        for norm in ar_norms:
+            if norm not in tr["ar"] and norm in ar_disp:
+                tr["ar"][norm] = {"word": ar_disp[norm], "roman": ar_roman.get(norm, "")}
+                gloss_added += 1
+    for eng_word, he_norms in he_gloss_cands.items():
+        if eng_word not in word_set:
+            continue
+        tr = en_trans.setdefault(eng_word, {"ar": {}, "he": {}})
+        for norm in he_norms:
+            if norm not in tr["he"] and norm in he_disp:
+                tr["he"][norm] = {"word": he_disp[norm], "roman": he_roman.get(norm, "")}
+                gloss_added += 1
+    print(f"  {gloss_added} gloss candidates added")
 
     # ── Expand candidates via synonyms ────────────────────────────
     print("\nExpanding candidates via synonyms …")
