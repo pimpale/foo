@@ -1,9 +1,12 @@
 [project]
-name = "semitic-cognate-finder"
+name = "pansemitic-lexicon"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "numpy>=2.0",
     "orjson>=3.11.7",
+    "torch>=2.9",
+    "transformers>=4.51",
 ]
