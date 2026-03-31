@@ -1,0 +1,43 @@
+$black:    #fbf1c7; // fg0
+$gray-900: #ebdbb2; // fg1
+$gray-800: #d5c4a1; // fg2
+$gray-700: #bdae93; // fg3
+$gray-600: #a89984; // gray
+$gray-500: #7c6f64; // bg4
+$gray-400: #504945; // bg2
+$gray-300: #3c3836; // bg1
+$gray-200: #282828; // bg0
+$gray-100: #1d2021; // bg0_h
+$white:    #000;    // black
+
+$body-color: $gray-900;
+$body-bg: $gray-200;
+$secondary: $gray-400;
+$card-bg: $gray-300;
+
+$form-range-track-bg: $gray-400;
+
+$blue:    #458588;
+$indigo:  #6610f2;
+$purple:  #b16286;
+$pink:    #fb4934;
+$red:     #dc3545;
+$orange:  #d65d0e;
+$yellow:  #d79921;
+$green:   #98971a;
+$teal:    #689d6a;
+$cyan:    #8ec07c;
+
+$link-hover-color: lighten($blue, 10);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1200px
+);
+
+
+
+@import "bootstrap/scss/bootstrap";
