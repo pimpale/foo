@@ -12,8 +12,12 @@ Three matching layers:
            a global etymology graph (e.g. Arabic←French←Latin→Hebrew)
 """
 
+from __future__ import annotations
+
 import csv
+import dataclasses
 import os
+from dataclasses import dataclass, field
 from urllib.parse import quote
 import re
 import sys
@@ -21,6 +25,7 @@ import time
 from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
+from typing import Any, Callable
 
 import numpy as np
 import orjson
@@ -43,34 +48,109 @@ ETYMON_LANG_WORD = re.compile(r"([a-z]{2,}):([^<>\s:]+)")
 
 BORROW_TEMPLATES = {"bor", "der", "lbor", "ubor", "slbor", "borrowed"}
 
+
+def _extract_canonical(entry: dict[str, Any]) -> str:
+    """Return the canonical form from a kaikki entry, or the headword as fallback."""
+    for fm in entry.get("forms", []):
+        if "canonical" in fm.get("tags", []):
+            return fm.get("form", entry.get("word", ""))
+    return entry.get("word", "")
+
+
 _AR = b'"ar"'
 _HE = b'"he"'
 _ETYM = b'"etymology_templates"'
 
 
+@dataclass
+class WordData:
+    """Per-word accumulated data from kaikki entries."""
+    canonical: str
+    norm: str
+    romanization: str = ""
+    glosses: set[str] = field(default_factory=set)
+    cognates: set[tuple[str, str]] = field(default_factory=set)  # (normalized, raw)
+    sem_roots: set[str] = field(default_factory=set)
+    lemma_of: set[str] = field(default_factory=set)
+    borrow_sources: set[tuple[str, str]] = field(default_factory=set)
+
+
+@dataclass
+class CognatePair:
+    """A matched Arabic-Hebrew cognate pair with evidence."""
+    ar_canonical: str
+    he_canonical: str
+    layers: list[str] = field(default_factory=list)
+    roots: list[str] = field(default_factory=list)
+    sources: list[str] = field(default_factory=list)
+
+
+@dataclass
+class SenseMatch:
+    """Best-matching sense pair between an Arabic and Hebrew word."""
+    arabic_sense: str
+    arabic_pos: str
+    hebrew_sense: str
+    hebrew_pos: str
+    similarity: float
+
+
+@dataclass
+class CognateEntry:
+    """Final output entry for a cognate pair."""
+    arabic: str
+    arabic_roman: str
+    arabic_glosses: list[str]
+    arabic_wiktionary: str
+    hebrew: str
+    hebrew_roman: str
+    hebrew_glosses: list[str]
+    hebrew_wiktionary: str
+    match_layers: list[str]
+    shared_proto_semitic_roots: list[str] | None = None
+    shared_borrowing_sources: list[str] | None = None
+    best_sense_match: SenseMatch | None = None
+    ancestor: str | None = None
+    pansemitic_form: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert to dict, omitting None fields."""
+        d = dataclasses.asdict(self)
+        return {k: v for k, v in d.items() if v is not None}
+
+
 def normalize_arabic(text: str) -> str:
+    # return text.strip()
     return ARABIC_DIACRITICS.sub("", text).strip()
 
 
 def normalize_hebrew(text: str) -> str:
+    # return text.strip()
     return HEBREW_DIACRITICS.sub("", text).strip()
 
 
-def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
-                           cognates, sem_roots, lemma_of, borrow_sources,
-                           display_form, roman_map, glosses):
+def _process_semitic_entry(
+    entry: dict[str, Any],
+    target_lang: str,
+    normalize_self: Callable[[str], str],
+    normalize_target: Callable[[str], str],
+    words: dict[str, WordData],
+    canonical: str,
+) -> None:
     """Process a single Arabic or Hebrew kaikki entry."""
     word = entry.get("word", "")
     if not word:
         return
 
     norm = normalize_self(word)
-    if norm not in display_form:
-        display_form[norm] = word
-    if norm not in roman_map:
+    if canonical not in words:
+        words[canonical] = WordData(canonical=canonical, norm=norm)
+    wd = words[canonical]
+
+    if not wd.romanization:
         for fm in entry.get("forms", []):
             if "romanization" in fm.get("tags", []):
-                roman_map[norm] = fm.get("form", "")
+                wd.romanization = fm.get("form", "")
                 break
 
     for tmpl in entry.get("etymology_templates", []):
@@ -80,22 +160,28 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
         if name == "cog" and args.get("1") == target_lang:
             cog_word = args.get("2", "")
             if cog_word:
-                cognates[norm].add(normalize_target(cog_word))
+                raw = cog_word
+                # Also check arg3 for diacritized form
+                arg3 = args.get("3", "")
+                if arg3 and arg3 not in ("-", "?", ""):
+                    raw = arg3
+                wd.cognates.add((normalize_target(cog_word), raw))
 
         if args.get("2") == "sem-pro":
             root = args.get("3", "")
             if root:
-                sem_roots[norm].add(root)
+                wd.sem_roots.add(root)
 
         if name == "etymon":
             for v in args.values():
                 if not isinstance(v, str):
                     continue
                 for m in ETYMON_SEM_PRO.finditer(v):
-                    sem_roots[norm].add(m.group(1))
+                    wd.sem_roots.add(m.group(1))
                 for m in ETYMON_LANG_WORD.finditer(v):
                     if m.group(1) == target_lang:
-                        cognates[norm].add(normalize_target(m.group(2)))
+                        raw = m.group(2)
+                        wd.cognates.add((normalize_target(raw), raw))
 
         if name in BORROW_TEMPLATES:
             src_lang = args.get("2", "")
@@ -103,15 +189,15 @@ def _process_semitic_entry(entry, target_lang, normalize_self, normalize_target,
             if (src_lang and src_word
                     and src_word not in ("-", "?", "")
                     and len(src_word) > 1):
-                borrow_sources[norm].add((src_lang, src_word.lower()))
+                wd.borrow_sources.add((src_lang, src_word.lower()))
 
     for sense in entry.get("senses", []):
         for fof in sense.get("form_of", []):
             base = fof.get("word", "")
             if base:
-                lemma_of[norm].add(normalize_self(base))
+                wd.lemma_of.add(normalize_self(base))
         for gloss in sense.get("glosses", []):
-            glosses[norm].add(gloss)
+            wd.glosses.add(gloss)
 
 
 def _extract_borrowing(entry, lang_code, borrow_graph):
@@ -158,25 +244,13 @@ def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
     return expanded_count
 
 
-def _process_chunk(filepath_str, start_byte, end_byte):
+def _process_chunk(
+    filepath_str: str, start_byte: int, end_byte: int,
+) -> tuple[dict[str, WordData], dict[str, WordData], dict[tuple[str, str], set[tuple[str, str]]], tuple[int, int, int]]:
     """Worker: process one byte-range of the JSONL file, return partial indexes."""
-    ar2he_cog = defaultdict(set)
-    ar_sem = defaultdict(set)
-    ar_lemmas = defaultdict(set)
-    ar_borrow = defaultdict(set)
-    ar_disp = {}
-    ar_roman = {}
-    ar_glosses = defaultdict(set)
-
-    he2ar_cog = defaultdict(set)
-    he_sem = defaultdict(set)
-    he_lemmas = defaultdict(set)
-    he_borrow = defaultdict(set)
-    he_disp = {}
-    he_roman = {}
-    he_glosses = defaultdict(set)
-
-    borrow_graph = defaultdict(set)
+    ar_words: dict[str, WordData] = {}
+    he_words: dict[str, WordData] = {}
+    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
 
     ar_count = he_count = line_count = 0
 
@@ -200,32 +274,25 @@ def _process_chunk(filepath_str, start_byte, end_byte):
 
             if lc == "ar":
                 ar_count += 1
+                canonical = _extract_canonical(entry)
                 _process_semitic_entry(
-                    entry, "he", normalize_arabic, normalize_hebrew,
-                    ar2he_cog, ar_sem, ar_lemmas, ar_borrow,
-                    ar_disp, ar_roman, ar_glosses,
+                    entry, "he", normalize_arabic, normalize_hebrew, ar_words,
+                    canonical=canonical,
                 )
             elif lc == "he":
                 he_count += 1
+                canonical = _extract_canonical(entry)
                 _process_semitic_entry(
-                    entry, "ar", normalize_hebrew, normalize_arabic,
-                    he2ar_cog, he_sem, he_lemmas, he_borrow,
-                    he_disp, he_roman, he_glosses,
+                    entry, "ar", normalize_hebrew, normalize_arabic, he_words,
+                    canonical=canonical,
                 )
 
             _extract_borrowing(entry, lc, borrow_graph)
 
-    return (
-        dict(ar2he_cog), dict(ar_sem), dict(ar_lemmas), dict(ar_borrow),
-        ar_disp, ar_roman, dict(ar_glosses),
-        dict(he2ar_cog), dict(he_sem), dict(he_lemmas), dict(he_borrow),
-        he_disp, he_roman, dict(he_glosses),
-        dict(borrow_graph),
-        (ar_count, he_count, line_count),
-    )
+    return (ar_words, he_words, dict(borrow_graph), (ar_count, he_count, line_count))
 
 
-def _merge_set_dicts(target, source):
+def _merge_set_dicts(target: dict, source: dict) -> None:
     for key, values in source.items():
         if key in target:
             target[key] |= values
@@ -233,7 +300,25 @@ def _merge_set_dicts(target, source):
             target[key] = set(values)
 
 
-def build_all_indexes(filepath, num_workers=None):
+def _merge_word_dicts(target: dict[str, WordData], source: dict[str, WordData]) -> None:
+    """Merge WordData dicts, combining set fields for shared canonical keys."""
+    for canonical, wd in source.items():
+        if canonical not in target:
+            target[canonical] = wd
+        else:
+            t = target[canonical]
+            if not t.romanization:
+                t.romanization = wd.romanization
+            t.glosses |= wd.glosses
+            t.cognates |= wd.cognates
+            t.sem_roots |= wd.sem_roots
+            t.lemma_of |= wd.lemma_of
+            t.borrow_sources |= wd.borrow_sources
+
+
+def build_all_indexes(
+    filepath: Path, num_workers: int | None = None,
+) -> tuple[dict[str, WordData], dict[str, WordData], dict[tuple[str, str], set[tuple[str, str]]]]:
     """
     Parallel scan of the all-languages kaikki file.
     Only extracts Arabic, Hebrew, and borrowing graph data.
@@ -271,45 +356,14 @@ def build_all_indexes(filepath, num_workers=None):
                   file=sys.stderr)
 
     print("  merging indexes …", file=sys.stderr)
-    ar2he_cog = defaultdict(set)
-    ar_sem = defaultdict(set)
-    ar_lemmas = defaultdict(set)
-    ar_borrow = defaultdict(set)
-    ar_disp = {}
-    ar_roman = {}
-    ar_glosses = defaultdict(set)
-    he2ar_cog = defaultdict(set)
-    he_sem = defaultdict(set)
-    he_lemmas = defaultdict(set)
-    he_borrow = defaultdict(set)
-    he_disp = {}
-    he_roman = {}
-    he_glosses = defaultdict(set)
-    borrow_graph = defaultdict(set)
+    ar_words: dict[str, WordData] = {}
+    he_words: dict[str, WordData] = {}
+    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
 
     for result in partial_results:
-        (p_ar2he, p_ar_sem, p_ar_lem, p_ar_bor, p_ar_disp, p_ar_rom, p_ar_gl,
-         p_he2ar, p_he_sem, p_he_lem, p_he_bor, p_he_disp, p_he_rom, p_he_gl,
-         p_graph, _) = result
-
-        _merge_set_dicts(ar2he_cog, p_ar2he)
-        _merge_set_dicts(ar_sem, p_ar_sem)
-        _merge_set_dicts(ar_lemmas, p_ar_lem)
-        _merge_set_dicts(ar_borrow, p_ar_bor)
-        _merge_set_dicts(ar_glosses, p_ar_gl)
-        for k, v in p_ar_disp.items():
-            ar_disp.setdefault(k, v)
-        for k, v in p_ar_rom.items():
-            ar_roman.setdefault(k, v)
-        _merge_set_dicts(he2ar_cog, p_he2ar)
-        _merge_set_dicts(he_sem, p_he_sem)
-        _merge_set_dicts(he_lemmas, p_he_lem)
-        _merge_set_dicts(he_borrow, p_he_bor)
-        _merge_set_dicts(he_glosses, p_he_gl)
-        for k, v in p_he_disp.items():
-            he_disp.setdefault(k, v)
-        for k, v in p_he_rom.items():
-            he_roman.setdefault(k, v)
+        p_ar, p_he, p_graph, _ = result
+        _merge_word_dicts(ar_words, p_ar)
+        _merge_word_dicts(he_words, p_he)
         _merge_set_dicts(borrow_graph, p_graph)
 
     ar_n, he_n, lines_n = totals
@@ -317,30 +371,26 @@ def build_all_indexes(filepath, num_workers=None):
           f"(ar:{ar_n:,} he:{he_n:,}"
           f" graph:{len(borrow_graph):,} nodes)")
 
-    return (
-        ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_disp, ar_roman, ar_glosses,
-        he2ar_cog, he_sem, he_lemmas, he_borrow, he_disp, he_roman, he_glosses,
-        borrow_graph,
-    )
+    return (ar_words, he_words, borrow_graph)
 
 
-def _make_bidirectional(graph):
-    """Add reverse edges so A→B also implies B→A."""
-    reverse = defaultdict(set)
-    for word, targets in graph.items():
-        for t in targets:
-            reverse[t].add(word)
-    for word, targets in reverse.items():
-        if word in graph:
-            graph[word] |= targets
-        else:
-            graph[word] = targets
+def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
+    """Extract cognate refs from WordData, keyed by canonical form.
+
+    Values are sets of (normalized_target, raw_target) tuples.
+    """
+    return {canonical: set(wd.cognates) for canonical, wd in words.items() if wd.cognates}
+
+
+def _make_borrow_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
+    """Extract borrow sources from WordData, keyed by canonical form."""
+    return {canonical: set(wd.borrow_sources) for canonical, wd in words.items() if wd.borrow_sources}
 
 
 def main():
     t_total = time.monotonic()
 
-    false_pos = set()
+    false_pos: set[tuple[str, str]] = set()
     if FALSE_POSITIVES_FILE.exists():
         with open(FALSE_POSITIVES_FILE) as f:
             for line in f:
@@ -355,23 +405,33 @@ def main():
     # ── Single pass through all-languages file ────────────────────
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
-    (
-        ar2he_cog, ar_sem, ar_lemmas, ar_borrow, ar_disp, ar_roman, ar_glosses,
-        he2ar_cog, he_sem, he_lemmas, he_borrow, he_disp, he_roman, he_glosses,
-        borrow_graph,
-    ) = build_all_indexes(ALL_WORDS_FILE)
+    ar_words, he_words, borrow_graph = build_all_indexes(ALL_WORDS_FILE)
     scan_time = time.monotonic() - t0
 
-    print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, {len(ar_sem)} sem roots, "
-          f"{len(ar_lemmas)} lemma links, {len(ar_borrow)} borrow sources")
-    print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, {len(he_sem)} sem roots, "
-          f"{len(he_lemmas)} lemma links, {len(he_borrow)} borrow sources")
-    print(f"  Borrow graph: {len(borrow_graph)} nodes")
+    # Build standalone cognate/borrow indexes keyed by canonical form
+    ar2he_cog = _make_cognate_index(ar_words)
+    he2ar_cog = _make_cognate_index(he_words)
+    ar_borrow = _make_borrow_index(ar_words)
+    he_borrow = _make_borrow_index(he_words)
 
-    _make_bidirectional(ar2he_cog)
-    _make_bidirectional(he2ar_cog)
-    print(f"  After bidirectional: ar cognate refs {len(ar2he_cog)}, "
-          f"he cognate refs {len(he2ar_cog)}")
+    # Build norm→canonical reverse indexes for fallback resolution
+    ar_norm_to_canonicals: dict[str, list[str]] = defaultdict(list)
+    for canonical, wd in ar_words.items():
+        ar_norm_to_canonicals[wd.norm].append(canonical)
+    he_norm_to_canonicals: dict[str, list[str]] = defaultdict(list)
+    for canonical, wd in he_words.items():
+        he_norm_to_canonicals[wd.norm].append(canonical)
+
+    ar_sem_count = sum(1 for wd in ar_words.values() if wd.sem_roots)
+    ar_lemma_count = sum(1 for wd in ar_words.values() if wd.lemma_of)
+    he_sem_count = sum(1 for wd in he_words.values() if wd.sem_roots)
+    he_lemma_count = sum(1 for wd in he_words.values() if wd.lemma_of)
+
+    print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, {ar_sem_count} sem roots, "
+          f"{ar_lemma_count} lemma links, {len(ar_borrow)} borrow sources")
+    print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, {he_sem_count} sem roots, "
+          f"{he_lemma_count} lemma links, {len(he_borrow)} borrow sources")
+    print(f"  Borrow graph: {len(borrow_graph)} nodes")
 
     ar_expanded = _expand_borrow_transitive(ar_borrow, borrow_graph)
     he_expanded = _expand_borrow_transitive(he_borrow, borrow_graph)
@@ -382,107 +442,106 @@ def main():
     print("\nMatching cognates directly …")
     t0 = time.monotonic()
 
-    # Collect all cognate pairs from the three layers into a unified dict
-    # Key: (ar_norm, he_norm) → {layers, shared_roots, shared_sources}
     _JUNK = {"", "-", "?"}
-    pair_data = {}
+    pair_data: dict[tuple[str, str], CognatePair] = {}
 
-    def _is_root_or_single(word):
+    def _is_root_or_single(word: str) -> bool:
         """Roots have 2+ hyphens (regular or maqaf), single letters have 1 grapheme."""
         if len(word) <= 1:
             return True
         hyphens = word.count("-") + word.count("\u05be")
         return hyphens >= 2
 
-    def _ensure_pair(ar_n, he_n):
+    def _ensure_pair(ar_c: str, he_c: str) -> CognatePair | None:
+        ar_wd = ar_words.get(ar_c)
+        he_wd = he_words.get(he_c)
+        ar_n = ar_wd.norm if ar_wd else ar_c
+        he_n = he_wd.norm if he_wd else he_c
         if ar_n in _JUNK or he_n in _JUNK:
             return None
         if _is_root_or_single(ar_n) or _is_root_or_single(he_n):
             return None
-        key = (ar_n, he_n)
+        if (ar_n, he_n) in false_pos:
+            return None
+        key = (ar_c, he_c)
         if key not in pair_data:
-            pair_data[key] = {"layers": [], "roots": [], "sources": []}
+            pair_data[key] = CognatePair(ar_canonical=ar_c, he_canonical=he_c)
         return pair_data[key]
 
-    # Layer 1: Direct cognate references
-    # ar2he_cog: ar_norm → {he_norms}
-    for ar_norm, he_norms in ar2he_cog.items():
-        for he_norm in he_norms:
-            if (ar_norm, he_norm) in false_pos:
-                continue
-            # Also check via lemmas
-            ar_forms = {ar_norm} | ar_lemmas.get(ar_norm, set())
-            he_forms = {he_norm} | he_lemmas.get(he_norm, set())
-            for af in ar_forms:
-                for hf in he_forms:
-                    if hf in ar2he_cog.get(af, set()):
-                        d = _ensure_pair(ar_norm, he_norm)
-                        if d and "direct_cognate_ar→he" not in d["layers"]:
-                            d["layers"].append("direct_cognate_ar→he")
-                        break
-                else:
-                    continue
-                break
+    def _resolve_target(raw: str, norm: str, target_words: dict[str, WordData],
+                        norm_to_canonicals: dict[str, list[str]]) -> list[str]:
+        """3-tier cognate target resolution → list of canonical keys."""
+        # Tier 1: direct match on raw form (may be diacritized canonical)
+        if raw in target_words:
+            return [raw]
+        # Tier 2: normalized fallback — find all canonical forms sharing the norm
+        candidates = norm_to_canonicals.get(norm, [])
+        if candidates:
+            return candidates
+        return []
 
-    # he2ar_cog: he_norm → {ar_norms}
-    for he_norm, ar_norms in he2ar_cog.items():
-        for ar_norm in ar_norms:
-            if (ar_norm, he_norm) in false_pos:
-                continue
-            d = _ensure_pair(ar_norm, he_norm)
-            if d and "direct_cognate_he→ar" not in d["layers"]:
-                d["layers"].append("direct_cognate_he→ar")
+    # Layer 1: Direct cognate references (ar→he)
+    for ar_canonical, cog_pairs in ar2he_cog.items():
+        for he_norm, he_raw in cog_pairs:
+            he_targets = _resolve_target(he_raw, he_norm, he_words, he_norm_to_canonicals)
+            for he_c in he_targets:
+                pair = _ensure_pair(ar_canonical, he_c)
+                if pair and "direct_cognate_ar→he" not in pair.layers:
+                    pair.layers.append("direct_cognate_ar→he")
+
+    # Layer 1: Direct cognate references (he→ar)
+    for he_canonical, cog_pairs in he2ar_cog.items():
+        for ar_norm, ar_raw in cog_pairs:
+            ar_targets = _resolve_target(ar_raw, ar_norm, ar_words, ar_norm_to_canonicals)
+            for ar_c in ar_targets:
+                pair = _ensure_pair(ar_c, he_canonical)
+                if pair and "direct_cognate_he→ar" not in pair.layers:
+                    pair.layers.append("direct_cognate_he→ar")
 
     # Layer 2: Shared Proto-Semitic root
-    # Invert: root → {ar_norms} and root → {he_norms}
-    root_to_ar = defaultdict(set)
-    root_to_he = defaultdict(set)
-    for ar_norm, roots in ar_sem.items():
-        for r in roots:
-            root_to_ar[r].add(ar_norm)
-    for he_norm, roots in he_sem.items():
-        for r in roots:
-            root_to_he[r].add(he_norm)
+    root_to_ar: dict[str, set[str]] = defaultdict(set)
+    root_to_he: dict[str, set[str]] = defaultdict(set)
+    for canonical, wd in ar_words.items():
+        for r in wd.sem_roots:
+            root_to_ar[r].add(canonical)
+    for canonical, wd in he_words.items():
+        for r in wd.sem_roots:
+            root_to_he[r].add(canonical)
 
     shared_roots_set = set(root_to_ar.keys()) & set(root_to_he.keys())
     for root in shared_roots_set:
-        for ar_norm in root_to_ar[root]:
-            for he_norm in root_to_he[root]:
-                if (ar_norm, he_norm) in false_pos:
+        for ar_c in root_to_ar[root]:
+            for he_c in root_to_he[root]:
+                pair = _ensure_pair(ar_c, he_c)
+                if not pair:
                     continue
-                d = _ensure_pair(ar_norm, he_norm)
-                if not d:
-                    continue
-                if "shared_proto_semitic_root" not in d["layers"]:
-                    d["layers"].append("shared_proto_semitic_root")
-                if root not in d["roots"]:
-                    d["roots"].append(root)
+                if "shared_proto_semitic_root" not in pair.layers:
+                    pair.layers.append("shared_proto_semitic_root")
+                if root not in pair.roots:
+                    pair.roots.append(root)
 
     # Layer 3: Shared borrowing source
-    # Invert: source → {ar_norms} and source → {he_norms}
-    source_to_ar = defaultdict(set)
-    source_to_he = defaultdict(set)
-    for ar_norm, sources in ar_borrow.items():
+    source_to_ar: dict[tuple[str, str], set[str]] = defaultdict(set)
+    source_to_he: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for ar_canonical, sources in ar_borrow.items():
         for s in sources:
-            source_to_ar[s].add(ar_norm)
-    for he_norm, sources in he_borrow.items():
+            source_to_ar[s].add(ar_canonical)
+    for he_canonical, sources in he_borrow.items():
         for s in sources:
-            source_to_he[s].add(he_norm)
+            source_to_he[s].add(he_canonical)
 
     shared_sources_set = set(source_to_ar.keys()) & set(source_to_he.keys())
     for source in shared_sources_set:
-        for ar_norm in source_to_ar[source]:
-            for he_norm in source_to_he[source]:
-                if (ar_norm, he_norm) in false_pos:
+        for ar_c in source_to_ar[source]:
+            for he_c in source_to_he[source]:
+                pair = _ensure_pair(ar_c, he_c)
+                if not pair:
                     continue
-                d = _ensure_pair(ar_norm, he_norm)
-                if not d:
-                    continue
-                if "shared_borrowing_source" not in d["layers"]:
-                    d["layers"].append("shared_borrowing_source")
+                if "shared_borrowing_source" not in pair.layers:
+                    pair.layers.append("shared_borrowing_source")
                 src_str = f"{source[0]}:{source[1]}"
-                if src_str not in d["sources"]:
-                    d["sources"].append(src_str)
+                if src_str not in pair.sources:
+                    pair.sources.append(src_str)
 
     match_elapsed = time.monotonic() - t0
     print(f"\n  {len(pair_data)} cognate pairs found")
@@ -495,10 +554,10 @@ def main():
     embeddings = np.load(EMBEDDINGS_FILE)
     print(f"  {embeddings.shape[0]} senses, dim={embeddings.shape[1]}")
 
-    def _best_sense_pair(ar_n, he_n):
+    def _best_sense_pair(ar_norm: str, he_norm: str) -> SenseMatch | None:
         """Find the (ar_sense, he_sense) pair with highest dot product."""
-        ar_senses = senses_data.get("ar", {}).get(ar_n, [])
-        he_senses = senses_data.get("he", {}).get(he_n, [])
+        ar_senses = senses_data.get("ar", {}).get(ar_norm, [])
+        he_senses = senses_data.get("he", {}).get(he_norm, [])
         if not ar_senses or not he_senses:
             return None
 
@@ -509,13 +568,13 @@ def main():
         dots = ar_emb @ he_emb.T      # (A, H)
 
         best = np.unravel_index(dots.argmax(), dots.shape)
-        return {
-            "arabic_sense": ar_senses[best[0]]["gloss"],
-            "arabic_pos": ar_senses[best[0]]["pos"],
-            "hebrew_sense": he_senses[best[1]]["gloss"],
-            "hebrew_pos": he_senses[best[1]]["pos"],
-            "similarity": round(float(dots[best]), 4),
-        }
+        return SenseMatch(
+            arabic_sense=ar_senses[best[0]]["gloss"],
+            arabic_pos=ar_senses[best[0]]["pos"],
+            hebrew_sense=he_senses[best[1]]["gloss"],
+            hebrew_pos=he_senses[best[1]]["pos"],
+            similarity=round(float(dots[best]), 4),
+        )
 
     # ── Build output ─────────────────────────────────────────────
     print(f"\nWriting {OUTPUT_FILE} …")
@@ -523,45 +582,48 @@ def main():
     ar_senses_keys = set(senses_data.get("ar", {}).keys())
     he_senses_keys = set(senses_data.get("he", {}).keys())
     skipped = 0
-    results = []
-    for (ar_norm, he_norm), data in sorted(pair_data.items()):
+    results: list[CognateEntry] = []
+    for (ar_canonical, he_canonical), pair in sorted(pair_data.items()):
+        ar_wd = ar_words.get(ar_canonical)
+        he_wd = he_words.get(he_canonical)
+        ar_norm = ar_wd.norm if ar_wd else ar_canonical
+        he_norm = he_wd.norm if he_wd else he_canonical
         if ar_norm not in ar_senses_keys or he_norm not in he_senses_keys:
             skipped += 1
             continue
-        ar_word = ar_disp.get(ar_norm, ar_norm)
-        he_word = he_disp.get(he_norm, he_norm)
-        entry = {
-            "arabic": ar_word,
-            "arabic_roman": ar_roman.get(ar_norm, ""),
-            "arabic_glosses": sorted(ar_glosses.get(ar_norm, set())),
-            "arabic_wiktionary": _WIKT + quote(ar_word) + "#Arabic",
-            "hebrew": he_word,
-            "hebrew_roman": he_roman.get(he_norm, ""),
-            "hebrew_glosses": sorted(he_glosses.get(he_norm, set())),
-            "hebrew_wiktionary": _WIKT + quote(he_word) + "#Hebrew",
-            "match_layers": data["layers"],
-        }
-        if data["roots"]:
-            entry["shared_proto_semitic_roots"] = sorted(data["roots"])
-        if data["sources"]:
-            entry["shared_borrowing_sources"] = sorted(data["sources"])
-        best = _best_sense_pair(ar_norm, he_norm)
-        if best:
-            entry["best_sense_match"] = best
+        ar_roman = ar_wd.romanization if ar_wd else ""
+        he_roman = he_wd.romanization if he_wd else ""
+
+        entry = CognateEntry(
+            arabic=ar_canonical,
+            arabic_roman=ar_roman,
+            arabic_glosses=sorted(ar_wd.glosses if ar_wd else []),
+            arabic_wiktionary=_WIKT + quote(ar_norm) + "#Arabic",
+            hebrew=he_canonical,
+            hebrew_roman=he_roman,
+            hebrew_glosses=sorted(he_wd.glosses if he_wd else []),
+            hebrew_wiktionary=_WIKT + quote(he_norm) + "#Hebrew",
+            match_layers=pair.layers,
+            shared_proto_semitic_roots=sorted(pair.roots) if pair.roots else None,
+            shared_borrowing_sources=sorted(pair.sources) if pair.sources else None,
+            best_sense_match=_best_sense_pair(ar_norm, he_norm),
+        )
         ancestor = reconstruct_ancestor(
-            entry["arabic_roman"], entry["hebrew_roman"],
-            shared_roots=data["roots"] or None,
-            shared_sources=data["sources"] or None,
+            entry.arabic_roman, entry.hebrew_roman,
+            shared_roots=pair.roots or None,
+            shared_sources=pair.sources or None,
         )
         if ancestor:
-            entry["ancestor"] = ancestor
+            entry.ancestor = ancestor
             pansemitic = construct_pansemitic_form(ancestor)
             if pansemitic:
-                entry["pansemitic_form"] = pansemitic
+                entry.pansemitic_form = pansemitic
         results.append(entry)
 
     with open(OUTPUT_FILE, "wb") as f:
-        f.write(orjson.dumps(results, option=orjson.OPT_INDENT_2))
+        f.write(orjson.dumps(
+            [e.to_dict() for e in results], option=orjson.OPT_INDENT_2,
+        ))
 
     print(f"Writing {CSV_FILE} …")
     with open(CSV_FILE, "w", encoding="utf-8", newline="") as f:
@@ -569,11 +631,11 @@ def main():
         writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "layers"])
         for entry in results:
             writer.writerow([
-                entry["arabic"],
-                entry["arabic_roman"],
-                entry["hebrew"],
-                entry["hebrew_roman"],
-                ";".join(entry["match_layers"]),
+                entry.arabic,
+                entry.arabic_roman,
+                entry.hebrew,
+                entry.hebrew_roman,
+                ";".join(entry.match_layers),
             ])
 
     print(f"\nDone in {time.monotonic() - t_total:.1f}s total.")
