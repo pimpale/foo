@@ -1,0 +1,6 @@
+# Known false positive cognate pairs.
+# Each line: arabic_normalized hebrew_normalized
+# The cog template in Wiktionary mentions these for comparison,
+# not as actual cognates.
+قلب לב
+قلب לבב
