@@ -44,9 +44,12 @@ ARABIC_DIACRITICS = re.compile(r"[\u064B-\u065F\u0670\u0640]")
 HEBREW_DIACRITICS = re.compile(r"[\u0591-\u05BD\u05BF-\u05C7]")
 
 ETYMON_SEM_PRO = re.compile(r"sem-pro:([^<>\s]+)")
-ETYMON_LANG_WORD = re.compile(r"([a-z]{2,}):([^<>\s:]+)")
+ETYMON_LANG_WORD = re.compile(r"([a-z]{2,}(?:-[a-z]+)*):([^<>\s:]+)")
+ETYMON_METADATA = re.compile(r"<[^>]*>")
 
-BORROW_TEMPLATES = {"bor", "der", "lbor", "ubor", "slbor", "borrowed"}
+ETYMOLOGY_TEMPLATES = {"bor", "der", "lbor", "ubor", "slbor", "borrowed",
+                       "inh", "inh+", "bor+", "der+"}
+ETYMON_RELATIONS = {":bor", ":der", ":inh", ":from", ":lbor"}
 
 
 def _extract_canonical(entry: dict[str, Any]) -> str:
@@ -70,7 +73,6 @@ class WordData:
     romanization: str = ""
     glosses: set[str] = field(default_factory=set)
     cognates: set[tuple[str, str]] = field(default_factory=set)  # (normalized, raw)
-    sem_roots: set[str] = field(default_factory=set)
     lemma_of: set[str] = field(default_factory=set)
     borrow_sources: set[tuple[str, str]] = field(default_factory=set)
 
@@ -81,8 +83,8 @@ class CognatePair:
     ar_canonical: str
     he_canonical: str
     layers: list[str] = field(default_factory=list)
-    roots: list[str] = field(default_factory=list)
-    sources: list[str] = field(default_factory=list)
+    # (lang, word) → (ar_depth, he_depth) — depth 0 = direct source
+    sources: dict[tuple[str, str], tuple[int, int]] = field(default_factory=dict)
 
 
 @dataclass
@@ -94,21 +96,20 @@ class SenseMatch:
     hebrew_pos: str
     similarity: float
 
+@dataclass
+class LangEntry:
+    canonical: str
+    roman: str
+    glosses: list[str]
+    wiktionary: str
 
 @dataclass
 class CognateEntry:
     """Final output entry for a cognate pair."""
-    arabic: str
-    arabic_roman: str
-    arabic_glosses: list[str]
-    arabic_wiktionary: str
-    hebrew: str
-    hebrew_roman: str
-    hebrew_glosses: list[str]
-    hebrew_wiktionary: str
+    arabic: LangEntry
+    hebrew: LangEntry
     match_layers: list[str]
-    shared_proto_semitic_roots: list[str] | None = None
-    shared_borrowing_sources: list[str] | None = None
+    shared_borrowing_sources: dict[str, tuple[int, int]] | None = None
     best_sense_match: SenseMatch | None = None
     ancestor: str | None = None
     pansemitic_form: str | None = None
@@ -167,23 +168,16 @@ def _process_semitic_entry(
                     raw = arg3
                 wd.cognates.add((normalize_target(cog_word), raw))
 
-        if args.get("2") == "sem-pro":
-            root = args.get("3", "")
-            if root:
-                wd.sem_roots.add(root)
-
         if name == "etymon":
             for v in args.values():
                 if not isinstance(v, str):
                     continue
-                for m in ETYMON_SEM_PRO.finditer(v):
-                    wd.sem_roots.add(m.group(1))
-                for m in ETYMON_LANG_WORD.finditer(v):
+                for m in ETYMON_LANG_WORD.finditer(ETYMON_METADATA.sub("", v)):
                     if m.group(1) == target_lang:
                         raw = m.group(2)
                         wd.cognates.add((normalize_target(raw), raw))
 
-        if name in BORROW_TEMPLATES:
+        if name in ETYMOLOGY_TEMPLATES:
             src_lang = args.get("2", "")
             src_word = args.get("3", "")
             if (src_lang and src_word
@@ -201,30 +195,62 @@ def _process_semitic_entry(
 
 
 def _extract_borrowing(entry, lang_code, borrow_graph):
-    """Extract borrowing sources from any entry into the global graph."""
+    """Extract etymology sources from any entry into the global graph.
+
+    Handles both positional templates (bor, der, inh, …) and the newer
+    etymon template which encodes lang:word<metadata> in its args.
+    """
     word = entry.get("word", "")
     if not word:
         return
     key = (lang_code, word.lower())
     for tmpl in entry.get("etymology_templates", []):
-        if tmpl.get("name", "") not in BORROW_TEMPLATES:
-            continue
+        name = tmpl.get("name", "")
         args = tmpl.get("args", {})
-        src_lang = args.get("2", "")
-        src_word = args.get("3", "")
-        if (src_lang and src_word
-                and src_word not in ("-", "?", "")
-                and len(src_word) > 1):
-            borrow_graph[key].add((src_lang, src_word.lower()))
+
+        if name in ETYMOLOGY_TEMPLATES:
+            src_lang = args.get("2", "")
+            src_word = args.get("3", "")
+            if (src_lang and src_word
+                    and src_word not in ("-", "?", "")
+                    and len(src_word) > 1):
+                borrow_graph[key].add((src_lang, src_word.lower()))
+
+        elif name == "etymon":
+            # Values contain relationship markers (:bor, :inh, …) and
+            # lang:word<metadata> pairs.  Extract lang:word from any arg
+            # that follows a relationship marker.
+            vals = list(args.values())
+            for v in vals:
+                if not isinstance(v, str):
+                    continue
+                if v in ETYMON_RELATIONS or v == ":inh":
+                    pass  # next value(s) should be lang:word
+                # Match lang:word (strip <…> metadata first)
+                cleaned = ETYMON_METADATA.sub("", v)
+                for m in ETYMON_LANG_WORD.finditer(cleaned):
+                    src_lang = m.group(1)
+                    src_word = m.group(2)
+                    if (src_word not in ("-", "?", "", "*")
+                            and len(src_word) > 1
+                            and src_lang != lang_code):
+                        borrow_graph[key].add((src_lang, src_word.lower()))
 
 
 def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
-    """Expand borrow sources in-place by walking the full borrowing graph."""
+    """Expand borrow sources by walking the borrowing graph, tracking depth.
+
+    Converts borrow_map in-place from {canonical: set((lang, word), ...)}
+    to {canonical: dict{(lang, word): depth}}, where depth 0 = direct source.
+    """
     expanded_count = 0
-    for norm, sources in borrow_map.items():
-        ancestors = set()
+    for canonical in list(borrow_map):
+        sources = borrow_map[canonical]
+        # Convert flat set to depth dict — direct sources are depth 0
+        depth_map: dict[tuple[str, str], int] = {s: 0 for s in sources}
         frontier = set(sources)
         visited = set()
+        current_depth = 0
         for _ in range(max_depth):
             next_frontier = set()
             for node in frontier:
@@ -232,15 +258,17 @@ def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
                     continue
                 visited.add(node)
                 parents = borrow_graph.get(node, set())
-                ancestors.update(parents)
-                next_frontier.update(parents)
+                for p in parents:
+                    if p not in depth_map:
+                        depth_map[p] = current_depth + 1
+                    next_frontier.add(p)
             frontier = next_frontier - visited
+            current_depth += 1
             if not frontier:
                 break
-        new = ancestors - sources
-        if new:
-            sources.update(new)
+        if len(depth_map) > len(sources):
             expanded_count += 1
+        borrow_map[canonical] = depth_map
     return expanded_count
 
 
@@ -311,7 +339,6 @@ def _merge_word_dicts(target: dict[str, WordData], source: dict[str, WordData]) 
                 t.romanization = wd.romanization
             t.glosses |= wd.glosses
             t.cognates |= wd.cognates
-            t.sem_roots |= wd.sem_roots
             t.lemma_of |= wd.lemma_of
             t.borrow_sources |= wd.borrow_sources
 
@@ -341,7 +368,7 @@ def build_all_indexes(
     with ProcessPoolExecutor(max_workers=num_workers) as pool:
         futures = {pool.submit(_process_chunk, *c): i
                    for i, c in enumerate(chunks)}
-        partial_results = [None] * num_workers
+        partial_results: list[Any] = [None] * num_workers
         done_count = 0
         totals = [0, 0, 0]
 
@@ -382,9 +409,45 @@ def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, 
     return {canonical: set(wd.cognates) for canonical, wd in words.items() if wd.cognates}
 
 
-def _make_borrow_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
-    """Extract borrow sources from WordData, keyed by canonical form."""
-    return {canonical: set(wd.borrow_sources) for canonical, wd in words.items() if wd.borrow_sources}
+def _make_borrow_index(words: dict[str, WordData]) -> dict[str, dict[tuple[str, str], int]]:
+    """Extract borrow sources from WordData, keyed by canonical form.
+
+    Initially all direct sources have depth 0; _expand_borrow_transitive
+    adds transitive ancestors with increasing depth.
+    """
+    return {canonical: {s: 0 for s in wd.borrow_sources}
+            for canonical, wd in words.items() if wd.borrow_sources}
+
+
+def _find_lcas(
+    sources: dict[tuple[str, str], tuple[int, int]],
+    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]],
+) -> list[tuple[str, str]]:
+    """Find lowest common ancestors among shared borrowing sources.
+
+    A common ancestor is an LCA if none of its descendants (children in the
+    borrow graph) are also in the common ancestor set.  The borrow_graph maps
+    child → parents, so we invert it to get parent → children for the
+    descendant check.
+    """
+    if len(sources) <= 1:
+        return list(sources.keys())
+
+    source_set = set(sources.keys())
+
+    # Build local parent→children map for just the sources we care about
+    children_of: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
+    for node in source_set:
+        for parent in borrow_graph.get(node, set()):
+            if parent in source_set:
+                children_of[parent].add(node)
+
+    # LCAs: sources that have no descendant also in the source set
+    lcas = [s for s in source_set if not children_of.get(s)]
+
+    # Tiebreak: sort by combined depth (ar_depth + he_depth)
+    lcas.sort(key=lambda s: sum(sources[s]))
+    return lcas
 
 
 def main():
@@ -422,15 +485,13 @@ def main():
     for canonical, wd in he_words.items():
         he_norm_to_canonicals[wd.norm].append(canonical)
 
-    ar_sem_count = sum(1 for wd in ar_words.values() if wd.sem_roots)
     ar_lemma_count = sum(1 for wd in ar_words.values() if wd.lemma_of)
-    he_sem_count = sum(1 for wd in he_words.values() if wd.sem_roots)
     he_lemma_count = sum(1 for wd in he_words.values() if wd.lemma_of)
 
-    print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, {ar_sem_count} sem roots, "
-          f"{ar_lemma_count} lemma links, {len(ar_borrow)} borrow sources")
-    print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, {he_sem_count} sem roots, "
-          f"{he_lemma_count} lemma links, {len(he_borrow)} borrow sources")
+    print(f"\n  Arabic:  {len(ar2he_cog)} cognate refs, "
+          f"{ar_lemma_count} lemma links, {len(ar_borrow)} borrow/etym sources")
+    print(f"  Hebrew:  {len(he2ar_cog)} cognate refs, "
+          f"{he_lemma_count} lemma links, {len(he_borrow)} borrow/etym sources")
     print(f"  Borrow graph: {len(borrow_graph)} nodes")
 
     ar_expanded = _expand_borrow_transitive(ar_borrow, borrow_graph)
@@ -498,50 +559,33 @@ def main():
                 if pair and "direct_cognate_he→ar" not in pair.layers:
                     pair.layers.append("direct_cognate_he→ar")
 
-    # Layer 2: Shared Proto-Semitic root
-    root_to_ar: dict[str, set[str]] = defaultdict(set)
-    root_to_he: dict[str, set[str]] = defaultdict(set)
-    for canonical, wd in ar_words.items():
-        for r in wd.sem_roots:
-            root_to_ar[r].add(canonical)
-    for canonical, wd in he_words.items():
-        for r in wd.sem_roots:
-            root_to_he[r].add(canonical)
-
-    shared_roots_set = set(root_to_ar.keys()) & set(root_to_he.keys())
-    for root in shared_roots_set:
-        for ar_c in root_to_ar[root]:
-            for he_c in root_to_he[root]:
-                pair = _ensure_pair(ar_c, he_c)
-                if not pair:
-                    continue
-                if "shared_proto_semitic_root" not in pair.layers:
-                    pair.layers.append("shared_proto_semitic_root")
-                if root not in pair.roots:
-                    pair.roots.append(root)
-
-    # Layer 3: Shared borrowing source
-    source_to_ar: dict[tuple[str, str], set[str]] = defaultdict(set)
-    source_to_he: dict[tuple[str, str], set[str]] = defaultdict(set)
-    for ar_canonical, sources in ar_borrow.items():
-        for s in sources:
-            source_to_ar[s].add(ar_canonical)
-    for he_canonical, sources in he_borrow.items():
-        for s in sources:
-            source_to_he[s].add(he_canonical)
+    # Layer 2: Shared etymology source (borrowing, inheritance, or derivation)
+    # ar_borrow/he_borrow are now {canonical: {(lang,word): depth}}
+    source_to_ar: dict[tuple[str, str], dict[str, int]] = defaultdict(dict)
+    source_to_he: dict[tuple[str, str], dict[str, int]] = defaultdict(dict)
+    for ar_canonical, depth_map in ar_borrow.items():
+        for s, depth in depth_map.items():
+            prev = source_to_ar[s].get(ar_canonical)
+            if prev is None or depth < prev:
+                source_to_ar[s][ar_canonical] = depth
+    for he_canonical, depth_map in he_borrow.items():
+        for s, depth in depth_map.items():
+            prev = source_to_he[s].get(he_canonical)
+            if prev is None or depth < prev:
+                source_to_he[s][he_canonical] = depth
 
     shared_sources_set = set(source_to_ar.keys()) & set(source_to_he.keys())
     for source in shared_sources_set:
-        for ar_c in source_to_ar[source]:
-            for he_c in source_to_he[source]:
+        for ar_c, ar_depth in source_to_ar[source].items():
+            for he_c, he_depth in source_to_he[source].items():
                 pair = _ensure_pair(ar_c, he_c)
                 if not pair:
                     continue
                 if "shared_borrowing_source" not in pair.layers:
                     pair.layers.append("shared_borrowing_source")
-                src_str = f"{source[0]}:{source[1]}"
-                if src_str not in pair.sources:
-                    pair.sources.append(src_str)
+                prev = pair.sources.get(source)
+                if prev is None or (ar_depth, he_depth) < prev:
+                    pair.sources[source] = (ar_depth, he_depth)
 
     match_elapsed = time.monotonic() - t0
     print(f"\n  {len(pair_data)} cognate pairs found")
@@ -554,10 +598,19 @@ def main():
     embeddings = np.load(EMBEDDINGS_FILE)
     print(f"  {embeddings.shape[0]} senses, dim={embeddings.shape[1]}")
 
-    def _best_sense_pair(ar_norm: str, he_norm: str) -> SenseMatch | None:
+    def _get_senses(lang: str, canonical: str, norm: str) -> list[dict]:
+        """Look up senses by canonical form, falling back to norm."""
+        lang_senses = senses_data.get(lang, {})
+        senses = lang_senses.get(canonical, [])
+        if not senses:
+            senses = lang_senses.get(norm, [])
+        return senses
+
+    def _best_sense_pair(ar_canonical: str, ar_norm: str,
+                         he_canonical: str, he_norm: str) -> SenseMatch | None:
         """Find the (ar_sense, he_sense) pair with highest dot product."""
-        ar_senses = senses_data.get("ar", {}).get(ar_norm, [])
-        he_senses = senses_data.get("he", {}).get(he_norm, [])
+        ar_senses = _get_senses("ar", ar_canonical, ar_norm)
+        he_senses = _get_senses("he", he_canonical, he_norm)
         if not ar_senses or not he_senses:
             return None
 
@@ -579,8 +632,6 @@ def main():
     # ── Build output ─────────────────────────────────────────────
     print(f"\nWriting {OUTPUT_FILE} …")
     _WIKT = "https://en.wiktionary.org/wiki/"
-    ar_senses_keys = set(senses_data.get("ar", {}).keys())
-    he_senses_keys = set(senses_data.get("he", {}).keys())
     skipped = 0
     results: list[CognateEntry] = []
     for (ar_canonical, he_canonical), pair in sorted(pair_data.items()):
@@ -588,30 +639,45 @@ def main():
         he_wd = he_words.get(he_canonical)
         ar_norm = ar_wd.norm if ar_wd else ar_canonical
         he_norm = he_wd.norm if he_wd else he_canonical
-        if ar_norm not in ar_senses_keys or he_norm not in he_senses_keys:
+        if not _get_senses("ar", ar_canonical, ar_norm) or \
+           not _get_senses("he", he_canonical, he_norm):
             skipped += 1
             continue
         ar_roman = ar_wd.romanization if ar_wd else ""
         he_roman = he_wd.romanization if he_wd else ""
 
         entry = CognateEntry(
-            arabic=ar_canonical,
-            arabic_roman=ar_roman,
-            arabic_glosses=sorted(ar_wd.glosses if ar_wd else []),
-            arabic_wiktionary=_WIKT + quote(ar_norm) + "#Arabic",
-            hebrew=he_canonical,
-            hebrew_roman=he_roman,
-            hebrew_glosses=sorted(he_wd.glosses if he_wd else []),
-            hebrew_wiktionary=_WIKT + quote(he_norm) + "#Hebrew",
+            arabic=LangEntry(
+                canonical=ar_canonical,
+                roman=ar_roman,
+                glosses=sorted(ar_wd.glosses if ar_wd else []),
+                wiktionary=_WIKT + quote(ar_norm) + "#Arabic",
+            ),
+            hebrew=LangEntry(
+                canonical=he_canonical,
+                roman=he_roman,
+                glosses=sorted(he_wd.glosses if he_wd else []),
+                wiktionary=_WIKT + quote(he_norm) + "#Hebrew",
+            ),
             match_layers=pair.layers,
-            shared_proto_semitic_roots=sorted(pair.roots) if pair.roots else None,
-            shared_borrowing_sources=sorted(pair.sources) if pair.sources else None,
-            best_sense_match=_best_sense_pair(ar_norm, he_norm),
+            shared_borrowing_sources=None,  # filled in below after LCA
+            best_sense_match=_best_sense_pair(ar_canonical, ar_norm, he_canonical, he_norm),
         )
+        lcas = _find_lcas(pair.sources, borrow_graph) if pair.sources else []
+        if pair.sources:
+            lca_set = set(lcas)
+            rest = sorted(
+                [s for s in pair.sources if s not in lca_set],
+                key=lambda s: sum(pair.sources[s]),
+            )
+            all_sorted = lcas + rest
+            entry.shared_borrowing_sources = {
+                f"{s[0]}:{s[1]}": pair.sources[s] for s in all_sorted
+            }
+        lca_strs = [f"{s[0]}:{s[1]}" for s in lcas] or None
         ancestor = reconstruct_ancestor(
-            entry.arabic_roman, entry.hebrew_roman,
-            shared_roots=pair.roots or None,
-            shared_sources=pair.sources or None,
+            entry.arabic.roman, entry.hebrew.roman,
+            shared_sources=lca_strs,
         )
         if ancestor:
             entry.ancestor = ancestor
@@ -631,10 +697,10 @@ def main():
         writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "layers"])
         for entry in results:
             writer.writerow([
-                entry.arabic,
-                entry.arabic_roman,
-                entry.hebrew,
-                entry.hebrew_roman,
+                entry.arabic.canonical,
+                entry.arabic.roman,
+                entry.hebrew.canonical,
+                entry.hebrew.roman,
                 ";".join(entry.match_layers),
             ])
 

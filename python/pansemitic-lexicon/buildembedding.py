@@ -45,8 +45,16 @@ def normalize_hebrew(text: str) -> str:
     return HEBREW_DIACRITICS.sub("", text).strip()
 
 
+def _extract_canonical(entry):
+    """Return the canonical form from a kaikki entry, or the headword as fallback."""
+    for fm in entry.get("forms", []):
+        if "canonical" in fm.get("tags", []):
+            return fm.get("form", entry.get("word", ""))
+    return entry.get("word", "")
+
+
 def _extract_senses_chunk(filepath_str, start_byte, end_byte):
-    """Worker: extract (lang, word, pos, glosses, romanization) from a chunk."""
+    """Worker: extract (lang, word, canonical, pos, glosses, romanization) from a chunk."""
     results = []
 
     with open(filepath_str, "rb") as f:
@@ -71,6 +79,7 @@ def _extract_senses_chunk(filepath_str, start_byte, end_byte):
             if not word:
                 continue
 
+            canonical = _extract_canonical(entry)
             pos = entry.get("pos", "")
             roman = ""
             for fm in entry.get("forms", []):
@@ -83,7 +92,7 @@ def _extract_senses_chunk(filepath_str, start_byte, end_byte):
                 if not glosses:
                     continue
                 gloss_text = ", ".join(glosses)
-                results.append((lang, word, pos, gloss_text, roman))
+                results.append((lang, word, canonical, pos, gloss_text, roman))
 
     return results
 
@@ -119,21 +128,25 @@ def extract_all_senses(filepath, num_workers=None):
 
 
 def build_sense_records(raw_senses):
-    """Deduplicate and organize senses, assign embedding indices."""
-    # key: (lang, norm, pos, gloss_text) → first occurrence info
+    """Deduplicate and organize senses, assign embedding indices.
+
+    Keyed by canonical form (diacritized) so that entries like
+    צַדִּיק (righteous) and צָדִּי״ק (letter name) get separate sense lists.
+    """
+    # key: (lang, canonical, pos, gloss_text) → first occurrence info
     seen = {}
     records = defaultdict(lambda: defaultdict(list))
     idx = 0
 
-    for lang, word, pos, gloss_text, roman in raw_senses:
+    for lang, word, canonical, pos, gloss_text, roman in raw_senses:
         norm = normalize_arabic(word) if lang == "ar" else normalize_hebrew(word)
-        key = (lang, norm, pos, gloss_text)
+        key = (lang, canonical, pos, gloss_text)
         if key in seen:
             continue
         seen[key] = idx
 
-        records[lang][norm].append({
-            "display": word,
+        records[lang][canonical].append({
+            "norm": norm,
             "pos": pos,
             "gloss": gloss_text,
             "roman": roman,

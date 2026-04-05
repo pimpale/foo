@@ -123,29 +123,20 @@ _PROTO_TO_PANSEMITIC = [
 ]
 
 
-def reconstruct_ancestor(ar_roman, he_roman, shared_roots=None,
-                         shared_sources=None):
+def reconstruct_ancestor(ar_roman, he_roman, shared_sources=None):
     """Return the best ancestor form as 'lang:word'.
 
     Priority:
-      1. Shared borrowing source (already an ancestor language + word)
-      2. Proto-Semitic root (if available)
-      3. Reconstruction from Arabic romanization
+      1. Shared etymology source — LCA from the borrowing/inheritance graph
+         (already sorted by the caller, first entry is the best)
+      2. Reconstruction from Arabic romanization
     """
-    # 1. Shared borrowing source — pick the first one
+    # 1. Shared etymology source — pick the first (best) one
     if shared_sources:
-        # shared_sources are strings like "akk:abum", "la:aprilis"
+        # shared_sources are strings like "akk:abum", "sem-pro:*ʔab-"
         return shared_sources[0]
 
-    # 2. Proto-Semitic root
-    if shared_roots:
-        # roots are like "*ʔabw-", "*ʔakal-"
-        root = shared_roots[0]
-        # Clean up: strip leading * and trailing -
-        clean = root.lstrip("*").rstrip("-")
-        return f"sem-pro:{clean}"
-
-    # 3. Reconstruct from Arabic
+    # 2. Reconstruct from Arabic
     form = _reconstruct_from_arabic(ar_roman, he_roman)
     if form:
         return f"recon:{form}"

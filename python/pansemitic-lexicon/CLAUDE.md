@@ -1,0 +1,1 @@
+Run cognates2.py with `uv run findcognates.py`.
