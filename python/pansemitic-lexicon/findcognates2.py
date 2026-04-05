@@ -30,7 +30,8 @@ from typing import Any, Callable
 import numpy as np
 import orjson
 
-from phonetics import reconstruct_ancestor, construct_pansemitic_form
+from phonetics import construct_pansemitic_form
+from reconstruction import reconstruct_ancestor
 
 DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
@@ -680,7 +681,7 @@ def main():
             shared_sources=lca_strs,
         )
         if ancestor:
-            entry.ancestor = ancestor
+            entry.ancestor = str(ancestor)
             pansemitic = construct_pansemitic_form(ancestor)
             if pansemitic:
                 entry.pansemitic_form = pansemitic
@@ -704,8 +705,10 @@ def main():
                 ";".join(entry.match_layers),
             ])
 
+    pansemitic_count = sum(1 for e in results if e.pansemitic_form)
     print(f"\nDone in {time.monotonic() - t_total:.1f}s total.")
     print(f"  {len(results)} cognate pairs written ({skipped} skipped, no senses)")
+    print(f"  {pansemitic_count} pansemitic forms generated")
 
 
 if __name__ == "__main__":

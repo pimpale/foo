@@ -169,7 +169,7 @@ def build_embedding_texts(records):
         for norm, senses in lang_records.items():
             for s in senses:
                 # e.g. "noun | تمساح | crocodile, alligator"
-                texts[s["idx"]] = f"{s['gloss']}"
+                texts[s["idx"]] = f"A {s['pos']} meaning '{s['gloss']}'"
     return texts
 
 
