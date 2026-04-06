@@ -2,6 +2,90 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
+
+class ReconstructionError(Exception):
+    """Raised when ancestor reconstruction fails, with a categorized reason."""
+    pass
+
+
+class UnsupportedLanguageError(ReconstructionError):
+    def __init__(self, lang: str):
+        self.lang = lang
+        super().__init__(f"unsupported source language: {lang}")
+
+
+class ConsonantMismatchError(ReconstructionError):
+    def __init__(self, ar_count: int, he_count: int):
+        self.ar_count = ar_count
+        self.he_count = he_count
+        super().__init__(f"consonant count mismatch: ar={ar_count} he={he_count}")
+
+
+class MissingRomanizationError(ReconstructionError):
+    def __init__(self, missing: str):
+        self.missing = missing
+        super().__init__(f"missing romanization: {missing}")
+
+
+class EmptyAncestorError(ReconstructionError):
+    def __init__(self):
+        super().__init__("ancestor word is empty after normalization")
+
+
+# ── Languages whose headwords are already Latin-script ────────
+LATIN_SCRIPT_LANGS = frozenset({
+    "akk", "la", "ine-pro", "egy", "afa-pro", "sux",
+    "en", "fr", "de", "it", "es", "pt", "nl", "cs", "ru",
+    "gem-pro", "ira-pro", "peo", "fa-cls",
+    "sem-pro", "sem-wes-pro",
+})
+
+
+@dataclass
+class SharedSource:
+    """A shared borrowing/etymology source with its romanization.
+
+    Romanization is resolved in priority order:
+      1. Word itself, if the source language uses Latin script
+      2. The `tr` (transliteration) arg from the etymology template
+      3. Romanization from the word's own kaikki entry
+    """
+    lang: str
+    word: str
+    romanization: str | None = None
+
+    @staticmethod
+    def resolve_romanization(
+        lang: str,
+        word: str,
+        template_tr: str | None = None,
+        kaikki_roman_index: dict[tuple[str, str], str] | None = None,
+    ) -> str | None:
+        """Resolve romanization using the three-tier strategy."""
+        # Tier 1: Latin-script language — word is its own romanization
+        if lang in LATIN_SCRIPT_LANGS:
+            return word
+        # Check if the word is already Latin script regardless of language
+        if word and all(
+            c.isascii() or "LATIN" in unicodedata.name(c, "")
+            for c in word if c.isalpha()
+        ):
+            return word
+        # Tier 2: tr arg from etymology template
+        if template_tr:
+            # Take the first alternative if comma-separated
+            return template_tr.split(",")[0].strip()
+        # Tier 3: kaikki entry lookup
+        if kaikki_roman_index:
+            roman = kaikki_roman_index.get((lang, word))
+            if roman:
+                return roman
+        return None
+
+    def __str__(self) -> str:
+        return f"{self.lang}:{self.word}"
+
+
 # ── Normalization to a common proto-Semitic encoding ───────────
 #
 # Target encoding (proto-Semitic canonical):
@@ -119,7 +203,12 @@ class HebrewWord(Word):
         # Vowel collapse: Hebrew e→i, o→u (Canaanite shift reversal)
         form = form.replace("e", "i").replace("o", "a")
 
-        return cls(word=form.strip())
+        # Initial vowel → glottal stop + vowel (PS words don't start with vowels)
+        form = form.strip()
+        if form and form[0] in VOWELS:
+            form = "ʔ" + form
+
+        return cls(word=form)
 
 
 class SemProWord(Word):
@@ -288,40 +377,68 @@ class AramaicWord(Word):
         return cls(word=form)
 
 
-def reconstruct_ancestor(ar_roman, he_roman, shared_sources=None) -> Word | None:
-    """Return the best ancestor form as 'lang:word'.
+def _word_from_source(source: SharedSource) -> Word:
+    """Normalize a SharedSource into a Word using its romanization.
+
+    Uses the romanization if available, otherwise the raw word.
+    Raises UnsupportedLanguageError if the language has no normalizer
+    and no romanization is available.
+    """
+    text = source.romanization or source.word
+    match source.lang:
+        case "ar":
+            return ArabicWord.from_romanization(text)
+        case "he":
+            return HebrewWord.from_romanization(text)
+        case "sem-pro" | "sem-wes-pro":
+            return SemProWord.from_romanization(text)
+        case "grc":
+            return GreekWord.from_romanization(text)
+        case "arc":
+            return AramaicWord.from_romanization(text)
+        case _:
+            if source.romanization:
+                # We have a romanization — treat it as a generic Latin-script
+                # source and normalize minimally via SemProWord
+                return SemProWord.from_romanization(source.romanization)
+            raise UnsupportedLanguageError(source.lang)
+
+
+def reconstruct_ancestor(
+    ar_roman: str,
+    he_roman: str,
+    shared_sources: list[SharedSource] | None = None,
+) -> Word:
+    """Return the best ancestor form.
 
     Priority:
       1. Shared etymology source — LCA from the borrowing/inheritance graph
          (already sorted by the caller, first entry is the best)
-      2. Reconstruction from Arabic romanization
+      2. Reconstruction from Arabic/Hebrew romanizations
     """
-    
+
     # 1. Shared etymology source — pick the first (best) one
     if shared_sources:
-        lang, word = shared_sources[0].split(":", 1)
-        match lang:
-            case "ar":
-                return ArabicWord.from_romanization(word)
-            case "he":
-                return HebrewWord.from_romanization(word)
-            case "sem-pro" | "sem-wes-pro":
-                return SemProWord.from_romanization(word)
-            case "grc":
-                return GreekWord.from_romanization(word)
-            case "arc":
-                return AramaicWord.from_romanization(word)
-            case _:
-                return None
+        result = _word_from_source(shared_sources[0])
+        if not result or not result.word:
+            raise EmptyAncestorError()
+        return result
 
     # 2. Merge Arabic and Hebrew romanizations
+    if not ar_roman or not he_roman:
+        missing = "both" if (not ar_roman and not he_roman) else ("arabic" if not ar_roman else "hebrew")
+        raise MissingRomanizationError(missing)
+
     ar = ArabicWord.from_romanization(ar_roman)
     he = HebrewWord.from_romanization(he_roman)
-    
-    if ar.countconsonants() == he.countconsonants():
-        return merge_roots(ar, he)
-    
-    return None
+
+    if ar.countconsonants() != he.countconsonants():
+        raise ConsonantMismatchError(ar.countconsonants(), he.countconsonants())
+
+    result = merge_roots(ar, he)
+    if not result or not result.word:
+        raise EmptyAncestorError()
+    return result
 
 
 def extract_phonemes(word: Word) -> list[tuple[str, str | None]]:

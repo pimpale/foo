@@ -208,7 +208,9 @@ def main():
 
     print("Loading model …")
     t0 = time.monotonic()
-    model = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
+    model = SentenceTransformer("microsoft/harrier-oss-v1-0.6b")
+    # model = SentenceTransformer("Qwen/Qwen3-Embedding-0.6B")
+    # model = SentenceTransformer('nvidia/NV-Embed-v2', trust_remote_code=True)
     print(f"  loaded in {time.monotonic() - t0:.1f}s")
 
     print("Embedding senses …")

@@ -31,7 +31,15 @@ import numpy as np
 import orjson
 
 from phonetics import construct_pansemitic_form
-from reconstruction import reconstruct_ancestor
+from reconstruction import (
+    SharedSource,
+    reconstruct_ancestor,
+    ReconstructionError,
+    UnsupportedLanguageError,
+    ConsonantMismatchError,
+    MissingRomanizationError,
+    EmptyAncestorError,
+)
 
 DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
@@ -195,11 +203,14 @@ def _process_semitic_entry(
             wd.glosses.add(gloss)
 
 
-def _extract_borrowing(entry, lang_code, borrow_graph):
+def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     """Extract etymology sources from any entry into the global graph.
 
     Handles both positional templates (bor, der, inh, …) and the newer
     etymon template which encodes lang:word<metadata> in its args.
+
+    Also captures the ``tr`` (transliteration) arg from templates into
+    *template_tr_index* keyed by ``(src_lang, src_word_lower)``.
     """
     word = entry.get("word", "")
     if not word:
@@ -215,7 +226,11 @@ def _extract_borrowing(entry, lang_code, borrow_graph):
             if (src_lang and src_word
                     and src_word not in ("-", "?", "")
                     and len(src_word) > 1):
-                borrow_graph[key].add((src_lang, src_word.lower()))
+                src_key = (src_lang, src_word.lower())
+                borrow_graph[key].add(src_key)
+                tr = args.get("tr", "")
+                if tr and src_key not in template_tr_index:
+                    template_tr_index[src_key] = tr
 
         elif name == "etymon":
             # Values contain relationship markers (:bor, :inh, …) and
@@ -273,13 +288,30 @@ def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
     return expanded_count
 
 
+def _extract_kaikki_romanization(entry) -> str:
+    """Return the romanization from a kaikki entry's forms, or ''."""
+    for fm in entry.get("forms", []):
+        if "romanization" in fm.get("tags", []):
+            return fm.get("form", "")
+    return ""
+
+
 def _process_chunk(
     filepath_str: str, start_byte: int, end_byte: int,
-) -> tuple[dict[str, WordData], dict[str, WordData], dict[tuple[str, str], set[tuple[str, str]]], tuple[int, int, int]]:
+) -> tuple[
+    dict[str, WordData],
+    dict[str, WordData],
+    dict[tuple[str, str], set[tuple[str, str]]],
+    dict[tuple[str, str], str],
+    dict[tuple[str, str], str],
+    tuple[int, int, int],
+]:
     """Worker: process one byte-range of the JSONL file, return partial indexes."""
     ar_words: dict[str, WordData] = {}
     he_words: dict[str, WordData] = {}
     borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
+    template_tr_index: dict[tuple[str, str], str] = {}
+    kaikki_roman_index: dict[tuple[str, str], str] = {}
 
     ar_count = he_count = line_count = 0
 
@@ -316,9 +348,20 @@ def _process_chunk(
                     canonical=canonical,
                 )
 
-            _extract_borrowing(entry, lc, borrow_graph)
+            # Collect romanization for any entry (for kaikki lookup tier)
+            word = entry.get("word", "")
+            if lc and word:
+                key = (lc, word.lower())
+                if key not in kaikki_roman_index:
+                    roman = _extract_kaikki_romanization(entry)
+                    if roman:
+                        kaikki_roman_index[key] = roman
 
-    return (ar_words, he_words, dict(borrow_graph), (ar_count, he_count, line_count))
+            _extract_borrowing(entry, lc, borrow_graph, template_tr_index)
+
+    return (ar_words, he_words, dict(borrow_graph),
+            template_tr_index, kaikki_roman_index,
+            (ar_count, he_count, line_count))
 
 
 def _merge_set_dicts(target: dict, source: dict) -> None:
@@ -344,12 +387,26 @@ def _merge_word_dicts(target: dict[str, WordData], source: dict[str, WordData]) 
             t.borrow_sources |= wd.borrow_sources
 
 
+def _merge_str_dicts(target: dict, source: dict) -> None:
+    """Merge str-valued dicts, keeping the first value for each key."""
+    for key, value in source.items():
+        if key not in target:
+            target[key] = value
+
+
 def build_all_indexes(
     filepath: Path, num_workers: int | None = None,
-) -> tuple[dict[str, WordData], dict[str, WordData], dict[tuple[str, str], set[tuple[str, str]]]]:
+) -> tuple[
+    dict[str, WordData],
+    dict[str, WordData],
+    dict[tuple[str, str], set[tuple[str, str]]],
+    dict[tuple[str, str], str],
+    dict[tuple[str, str], str],
+]:
     """
     Parallel scan of the all-languages kaikki file.
-    Only extracts Arabic, Hebrew, and borrowing graph data.
+    Extracts Arabic, Hebrew, borrowing graph, template transliterations,
+    and kaikki romanization data.
     """
     if num_workers is None:
         num_workers = os.cpu_count() or 1
@@ -387,19 +444,25 @@ def build_all_indexes(
     ar_words: dict[str, WordData] = {}
     he_words: dict[str, WordData] = {}
     borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
+    template_tr_index: dict[tuple[str, str], str] = {}
+    kaikki_roman_index: dict[tuple[str, str], str] = {}
 
     for result in partial_results:
-        p_ar, p_he, p_graph, _ = result
+        p_ar, p_he, p_graph, p_tr, p_roman, _ = result
         _merge_word_dicts(ar_words, p_ar)
         _merge_word_dicts(he_words, p_he)
         _merge_set_dicts(borrow_graph, p_graph)
+        _merge_str_dicts(template_tr_index, p_tr)
+        _merge_str_dicts(kaikki_roman_index, p_roman)
 
     ar_n, he_n, lines_n = totals
     print(f"  ... done: {lines_n:,} lines total "
           f"(ar:{ar_n:,} he:{he_n:,}"
-          f" graph:{len(borrow_graph):,} nodes)")
+          f" graph:{len(borrow_graph):,} nodes)"
+          f"\n  ... {len(template_tr_index):,} template transliterations,"
+          f" {len(kaikki_roman_index):,} kaikki romanizations")
 
-    return (ar_words, he_words, borrow_graph)
+    return (ar_words, he_words, borrow_graph, template_tr_index, kaikki_roman_index)
 
 
 def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
@@ -469,7 +532,7 @@ def main():
     # ── Single pass through all-languages file ────────────────────
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
-    ar_words, he_words, borrow_graph = build_all_indexes(ALL_WORDS_FILE)
+    ar_words, he_words, borrow_graph, template_tr_index, kaikki_roman_index = build_all_indexes(ALL_WORDS_FILE)
     scan_time = time.monotonic() - t0
 
     # Build standalone cognate/borrow indexes keyed by canonical form
@@ -634,6 +697,10 @@ def main():
     print(f"\nWriting {OUTPUT_FILE} …")
     _WIKT = "https://en.wiktionary.org/wiki/"
     skipped = 0
+    unsupported_langs: dict[str, int] = {}
+    consonant_mismatches = 0
+    missing_romanizations = 0
+    empty_ancestors = 0
     results: list[CognateEntry] = []
     for (ar_canonical, he_canonical), pair in sorted(pair_data.items()):
         ar_wd = ar_words.get(ar_canonical)
@@ -675,16 +742,35 @@ def main():
             entry.shared_borrowing_sources = {
                 f"{s[0]}:{s[1]}": pair.sources[s] for s in all_sorted
             }
-        lca_strs = [f"{s[0]}:{s[1]}" for s in lcas] or None
-        ancestor = reconstruct_ancestor(
-            entry.arabic.roman, entry.hebrew.roman,
-            shared_sources=lca_strs,
-        )
-        if ancestor:
+        lca_sources = [
+            SharedSource(
+                lang=s[0],
+                word=s[1],
+                romanization=SharedSource.resolve_romanization(
+                    s[0], s[1],
+                    template_tr=template_tr_index.get(s),
+                    kaikki_roman_index=kaikki_roman_index,
+                ),
+            )
+            for s in lcas
+        ] or None
+        try:
+            ancestor = reconstruct_ancestor(
+                entry.arabic.roman, entry.hebrew.roman,
+                shared_sources=lca_sources,
+            )
             entry.ancestor = str(ancestor)
             pansemitic = construct_pansemitic_form(ancestor)
             if pansemitic:
                 entry.pansemitic_form = pansemitic
+        except UnsupportedLanguageError as e:
+            unsupported_langs[e.lang] = unsupported_langs.get(e.lang, 0) + 1
+        except ConsonantMismatchError:
+            consonant_mismatches += 1
+        except MissingRomanizationError:
+            missing_romanizations += 1
+        except EmptyAncestorError:
+            empty_ancestors += 1
         results.append(entry)
 
     with open(OUTPUT_FILE, "wb") as f:
@@ -695,20 +781,30 @@ def main():
     print(f"Writing {CSV_FILE} …")
     with open(CSV_FILE, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "layers"])
+        writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "pansemitic", "layers"])
         for entry in results:
             writer.writerow([
                 entry.arabic.canonical,
                 entry.arabic.roman,
                 entry.hebrew.canonical,
                 entry.hebrew.roman,
+                entry.pansemitic_form or "",
                 ";".join(entry.match_layers),
             ])
 
     pansemitic_count = sum(1 for e in results if e.pansemitic_form)
+    total_failures = sum(unsupported_langs.values()) + consonant_mismatches + missing_romanizations + empty_ancestors
     print(f"\nDone in {time.monotonic() - t_total:.1f}s total.")
     print(f"  {len(results)} cognate pairs written ({skipped} skipped, no senses)")
     print(f"  {pansemitic_count} pansemitic forms generated")
+    print(f"\n  Pansemitic failures ({total_failures} total):")
+    print(f"    Consonant count mismatch:     {consonant_mismatches}")
+    print(f"    Unsupported source language:   {sum(unsupported_langs.values())}")
+    if unsupported_langs:
+        for lang, count in sorted(unsupported_langs.items(), key=lambda x: -x[1]):
+            print(f"      {lang:20s} {count}")
+    print(f"    Missing romanization:          {missing_romanizations}")
+    print(f"    Empty ancestor:                {empty_ancestors}")
 
 
 if __name__ == "__main__":

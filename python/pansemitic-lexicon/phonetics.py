@@ -26,13 +26,13 @@ _PROTO_TO_PANSEMITIC = [
 
 
 
-def construct_pansemitic_form(ancestor: Word):
+def construct_pansemitic_form(ancestor: Word) -> str | None:
     """Convert an ancestor Word into a pansemitic intermediate.
 
     Applies sound changes to produce a form with Arabic's 3-vowel system
     and Hebrew's consonant inventory.
     """
-    if not ancestor or not ancestor.word:
+    if not ancestor.word:
         return None
 
     lang = ancestor.lang
