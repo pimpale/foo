@@ -71,6 +71,7 @@ def _extract_canonical(entry: dict[str, Any]) -> str:
 _AR = b'"ar"'
 _HE = b'"he"'
 _ETYM = b'"etymology_templates"'
+_IPA = b'"ipa"'
 
 
 @dataclass
@@ -110,6 +111,7 @@ class LangEntry:
     roman: str
     glosses: list[str]
     wiktionary: str
+    ipa: str | None = None  # native kaikki IPA if available, else derived from roman
 
 @dataclass
 class CognateEntry:
@@ -121,11 +123,18 @@ class CognateEntry:
     best_sense_match: SenseMatch | None = None
     ancestor: str | None = None
     pansemitic_form: str | None = None
+    pansemitic_failure: str | None = None  # populated iff pansemitic_form is None
 
     def to_dict(self) -> dict[str, Any]:
-        """Convert to dict, omitting None fields."""
+        """Convert to dict, recursively omitting None fields."""
+        def _strip(obj: Any) -> Any:
+            if isinstance(obj, dict):
+                return {k: _strip(v) for k, v in obj.items() if v is not None}
+            if isinstance(obj, list):
+                return [_strip(x) for x in obj]
+            return obj
         d = dataclasses.asdict(self)
-        return {k: v for k, v in d.items() if v is not None}
+        return {k: _strip(v) for k, v in d.items() if v is not None}
 
 
 def normalize_arabic(text: str) -> str:
@@ -295,12 +304,22 @@ def _extract_kaikki_romanization(entry) -> str:
     return ""
 
 
+def _extract_kaikki_ipa(entry) -> str:
+    """Return the first IPA value from a kaikki entry's sounds, or ''."""
+    for s in entry.get("sounds", []):
+        ipa = s.get("ipa")
+        if ipa:
+            return ipa
+    return ""
+
+
 def _process_chunk(
     filepath_str: str, start_byte: int, end_byte: int,
 ) -> tuple[
     dict[str, WordData],
     dict[str, WordData],
     dict[tuple[str, str], set[tuple[str, str]]],
+    dict[tuple[str, str], str],
     dict[tuple[str, str], str],
     dict[tuple[str, str], str],
     tuple[int, int, int],
@@ -311,6 +330,7 @@ def _process_chunk(
     borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
     template_tr_index: dict[tuple[str, str], str] = {}
     kaikki_roman_index: dict[tuple[str, str], str] = {}
+    kaikki_ipa_index: dict[tuple[str, str], str] = {}
 
     ar_count = he_count = line_count = 0
 
@@ -326,7 +346,7 @@ def _process_chunk(
 
             line_count += 1
 
-            if not (_AR in line or _HE in line or _ETYM in line):
+            if not (_AR in line or _HE in line or _ETYM in line or _IPA in line):
                 continue
 
             entry = orjson.loads(line)
@@ -347,7 +367,7 @@ def _process_chunk(
                     canonical=canonical,
                 )
 
-            # Collect romanization for any entry (for kaikki lookup tier)
+            # Collect romanization and IPA for any entry (for lookup tiers).
             word = entry.get("word", "")
             if lc and word:
                 key = (lc, word)
@@ -355,11 +375,15 @@ def _process_chunk(
                     roman = _extract_kaikki_romanization(entry)
                     if roman:
                         kaikki_roman_index[key] = roman
+                if key not in kaikki_ipa_index:
+                    ipa = _extract_kaikki_ipa(entry)
+                    if ipa:
+                        kaikki_ipa_index[key] = ipa
 
             _extract_borrowing(entry, lc, borrow_graph, template_tr_index)
 
     return (ar_words, he_words, dict(borrow_graph),
-            template_tr_index, kaikki_roman_index,
+            template_tr_index, kaikki_roman_index, kaikki_ipa_index,
             (ar_count, he_count, line_count))
 
 
@@ -399,6 +423,7 @@ def build_all_indexes(
     dict[str, WordData],
     dict[str, WordData],
     dict[tuple[str, str], set[tuple[str, str]]],
+    dict[tuple[str, str], str],
     dict[tuple[str, str], str],
     dict[tuple[str, str], str],
 ]:
@@ -445,23 +470,27 @@ def build_all_indexes(
     borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
     template_tr_index: dict[tuple[str, str], str] = {}
     kaikki_roman_index: dict[tuple[str, str], str] = {}
+    kaikki_ipa_index: dict[tuple[str, str], str] = {}
 
     for result in partial_results:
-        p_ar, p_he, p_graph, p_tr, p_roman, _ = result
+        p_ar, p_he, p_graph, p_tr, p_roman, p_ipa, _ = result
         _merge_word_dicts(ar_words, p_ar)
         _merge_word_dicts(he_words, p_he)
         _merge_set_dicts(borrow_graph, p_graph)
         _merge_str_dicts(template_tr_index, p_tr)
         _merge_str_dicts(kaikki_roman_index, p_roman)
+        _merge_str_dicts(kaikki_ipa_index, p_ipa)
 
     ar_n, he_n, lines_n = totals
     print(f"  ... done: {lines_n:,} lines total "
           f"(ar:{ar_n:,} he:{he_n:,}"
           f" graph:{len(borrow_graph):,} nodes)"
           f"\n  ... {len(template_tr_index):,} template transliterations,"
-          f" {len(kaikki_roman_index):,} kaikki romanizations")
+          f" {len(kaikki_roman_index):,} kaikki romanizations,"
+          f" {len(kaikki_ipa_index):,} kaikki IPAs")
 
-    return (ar_words, he_words, borrow_graph, template_tr_index, kaikki_roman_index)
+    return (ar_words, he_words, borrow_graph, template_tr_index,
+            kaikki_roman_index, kaikki_ipa_index)
 
 
 def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
@@ -531,7 +560,8 @@ def main():
     # ── Single pass through all-languages file ────────────────────
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
-    ar_words, he_words, borrow_graph, template_tr_index, kaikki_roman_index = build_all_indexes(ALL_WORDS_FILE)
+    (ar_words, he_words, borrow_graph, template_tr_index,
+     kaikki_roman_index, kaikki_ipa_index) = build_all_indexes(ALL_WORDS_FILE)
     scan_time = time.monotonic() - t0
 
     # Build standalone cognate/borrow indexes keyed by canonical form
@@ -713,18 +743,34 @@ def main():
         ar_roman = ar_wd.romanization if ar_wd else ""
         he_roman = he_wd.romanization if he_wd else ""
 
+        def _surface_ipa(lang: str, canonical: str, norm: str, roman: str) -> str | None:
+            """Reuse the SharedSource dispatch pipeline — prefers native IPA,
+            falls back to romanization — for the ar/he surface form itself."""
+            ipa = (SharedSource.resolve_ipa(lang, canonical, kaikki_ipa_index=kaikki_ipa_index)
+                   or SharedSource.resolve_ipa(lang, norm, kaikki_ipa_index=kaikki_ipa_index))
+            ss = SharedSource(lang=lang, word=canonical, romanization=roman or None, ipa=ipa)
+            try:
+                return ss.to_word().to_ipa() or None
+            except ReconstructionError:
+                return None
+
+        ar_ipa = _surface_ipa("ar", ar_canonical, ar_norm, ar_roman)
+        he_ipa = _surface_ipa("he", he_canonical, he_norm, he_roman)
+
         entry = CognateEntry(
             arabic=LangEntry(
                 canonical=ar_canonical,
                 roman=ar_roman,
                 glosses=sorted(ar_wd.glosses if ar_wd else []),
                 wiktionary=_WIKT + quote(ar_norm) + "#Arabic",
+                ipa=ar_ipa,
             ),
             hebrew=LangEntry(
                 canonical=he_canonical,
                 roman=he_roman,
                 glosses=sorted(he_wd.glosses if he_wd else []),
                 wiktionary=_WIKT + quote(he_norm) + "#Hebrew",
+                ipa=he_ipa,
             ),
             match_layers=pair.layers,
             shared_borrowing_sources=None,  # filled in below after LCA
@@ -750,6 +796,10 @@ def main():
                     template_tr=template_tr_index.get(s),
                     kaikki_roman_index=kaikki_roman_index,
                 ),
+                ipa=SharedSource.resolve_ipa(
+                    s[0], s[1],
+                    kaikki_ipa_index=kaikki_ipa_index,
+                ),
             )
             for s in lcas
         ] or None
@@ -762,14 +812,22 @@ def main():
             pansemitic = ancestor.to_protopansemitic()
             if pansemitic:
                 entry.pansemitic_form = pansemitic
+            else:
+                entry.pansemitic_failure = "empty_pansemitic"
         except UnsupportedLanguageError as e:
             unsupported_langs[e.lang] = unsupported_langs.get(e.lang, 0) + 1
-        except ConsonantMismatchError:
+            entry.pansemitic_failure = f"unsupported_language:{e.lang}"
+        except ConsonantMismatchError as e:
             consonant_mismatches += 1
-        except MissingRomanizationError:
+            entry.pansemitic_failure = (
+                f"consonant_mismatch:ar={e.ar_count},he={e.he_count}"
+            )
+        except MissingRomanizationError as e:
             missing_romanizations += 1
+            entry.pansemitic_failure = f"missing_romanization:{e.missing}"
         except EmptyAncestorError:
             empty_ancestors += 1
+            entry.pansemitic_failure = "empty_ancestor"
         results.append(entry)
 
     with open(OUTPUT_FILE, "wb") as f:

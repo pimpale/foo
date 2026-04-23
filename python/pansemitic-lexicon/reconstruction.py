@@ -1,5 +1,6 @@
 import re
 import unicodedata
+from typing import Self
 from dataclasses import dataclass
 
 
@@ -35,24 +36,28 @@ class EmptyAncestorError(ReconstructionError):
 # ── Languages whose headwords are already Latin-script ────────
 LATIN_SCRIPT_LANGS = frozenset({
     "akk", "la", "ine-pro", "egy", "afa-pro", "sux",
-    "en", "fr", "de", "it", "es", "pt", "nl", "cs", "ru",
+    "en", "fr", "de", "it", "es", "pt", "nl", "cs",
     "gem-pro", "ira-pro", "peo", "fa-cls",
     "sem-pro", "sem-wes-pro",
 })
 
 
+_IPA_DELIMITED = re.compile(r"[/\[]([^/\]]+)[/\]]")
+
+
 @dataclass
 class SharedSource:
-    """A shared borrowing/etymology source with its romanization.
+    """A shared borrowing/etymology source.
 
-    Romanization is resolved in priority order:
-      1. Word itself, if the source language uses Latin script
-      2. The `tr` (transliteration) arg from the etymology template
-      3. Romanization from the word's own kaikki entry
+    Priority for what we hand to the Word builder:
+      1. `ipa` — native kaikki IPA if available (skips romanization step)
+      2. `romanization` — Latin/scholar transliteration
+      3. `word` — the raw source headword (often in native script)
     """
     lang: str
     word: str
     romanization: str | None = None
+    ipa: str | None = None
 
     @staticmethod
     def resolve_romanization(
@@ -62,14 +67,18 @@ class SharedSource:
         kaikki_roman_index: dict[tuple[str, str], str] | None = None,
     ) -> str | None:
         """Resolve romanization using the three-tier strategy."""
-        # Tier 1: Latin-script language — word is its own romanization
-        if lang in LATIN_SCRIPT_LANGS:
+        def _is_latin(s: str) -> bool:
+            return bool(s) and all(
+                c.isascii() or "LATIN" in unicodedata.name(c, "")
+                for c in s if c.isalpha()
+            )
+        # Tier 1: Latin-script language AND word is actually in Latin.
+        # (Some kaikki entries have the word in the native script even for
+        # nominally-Latin langs like sem-pro — don't return those.)
+        if lang in LATIN_SCRIPT_LANGS and _is_latin(word):
             return word
         # Check if the word is already Latin script regardless of language
-        if word and all(
-            c.isascii() or "LATIN" in unicodedata.name(c, "")
-            for c in word if c.isalpha()
-        ):
+        if _is_latin(word):
             return word
         # Tier 2: tr arg from etymology template
         if template_tr:
@@ -81,6 +90,88 @@ class SharedSource:
             if roman:
                 return roman
         return None
+
+    @staticmethod
+    def resolve_ipa(
+        lang: str,
+        word: str,
+        kaikki_ipa_index: dict[tuple[str, str], str] | None = None,
+    ) -> str | None:
+        """Look up native IPA from kaikki sounds data and normalize it.
+
+        kaikki wraps IPA in /…/ or […], may concatenate variants with commas,
+        and sprinkles prosodic marks (ˈ ˌ .) we don't want.
+        """
+        if not kaikki_ipa_index:
+            return None
+        raw = kaikki_ipa_index.get((lang, word))
+        if not raw:
+            return None
+        m = _IPA_DELIMITED.search(raw)
+        out = m.group(1) if m else raw
+        out = out.split(",")[0].strip()
+        for c in "ˈˌ.":
+            out = out.replace(c, "")
+        out = out.strip()
+        return out or None
+
+    def to_word(self) -> "Word":
+        """Build the language-appropriate Word for this source.
+
+        Prefers native IPA from kaikki (when present) over romanization.  Falls
+        back to the lang-specific from_romanization methods and finally to a
+        generic SemProWord normalization for unsupported langs that do have a
+        romanization.
+        """
+        match self.lang:
+            case "ar":
+                if self.ipa:
+                    return ArabicWord.from_ipa(self.ipa)
+                if self.romanization:
+                    return ArabicWord.from_romanization(self.romanization)
+                raise MissingRomanizationError("arabic")
+            case "he":
+                if self.ipa:
+                    return HebrewWord.from_ipa(self.ipa)
+                if self.romanization:
+                    return HebrewWord.from_romanization(self.romanization)
+                raise MissingRomanizationError("hebrew")
+            case "sem-pro" | "sem-wes-pro":
+                if self.ipa:
+                    return SemProWord.from_ipa(self.ipa)
+                if self.romanization:
+                    return SemProWord.from_romanization(self.romanization)
+                raise MissingRomanizationError("sem-pro")
+            case "grc":
+                if self.ipa:
+                    return GreekWord.from_ipa(self.ipa)
+                return GreekWord.from_greek(self.word)
+            case "arc":
+                if self.ipa:
+                    return AramaicWord.from_ipa(self.ipa)
+                return AramaicWord.from_aramaic(self.word)
+            case "egy":
+                if self.ipa:
+                    return EgyptianWord.from_ipa(self.ipa)
+                if self.romanization:
+                    return EgyptianWord.from_romanization(self.romanization)
+                raise MissingRomanizationError("egyptian")
+            case "ine-pro":
+                if self.ipa:
+                    return PieWord.from_ipa(self.ipa)
+                if self.romanization:
+                    return PieWord.from_romanization(self.romanization)
+                raise MissingRomanizationError("proto-indo-european")
+            case "ru" | "orv" | "sla-pro":
+                return CyrillicWord.from_cyrillic(self.word)
+            case _:
+                if self.ipa:
+                    return GenericIpaWord(word=_strip_combining(self.ipa), lang=self.lang)
+                if self.romanization:
+                    # We have a romanization — treat it as a generic Latin-script
+                    # source and normalize minimally via SemProWord
+                    return SemProWord.from_romanization(self.romanization)
+                raise UnsupportedLanguageError(self.lang)
 
     def __str__(self) -> str:
         return f"{self.lang}:{self.word}"
@@ -103,6 +194,27 @@ class SharedSource:
 VOWELS = set("aeiou")
 IPA_MODIFIERS = set("ːˤʰʲʷˠ")
 IPA_CONSONANT_DIGRAPHS = ("d͡ʒ", "t͡ʃ", "t͡s", "d͡z")
+
+
+def _strip_combining(form: str) -> str:
+    """Strip leftover combining-mark diacritics (NFD decompose + drop Mn).
+
+    IPA modifier letters (ˤ, ː, ʰ, ʲ, ʷ, ˠ — category Lm) survive.  Used at
+    the tail of the generic-Latin fallback path to clean assorted European /
+    Iranian / Turkic stress and length marks (â, ñ, è, ą, ǭ, ı …) that
+    leak through when a non-Semitic source has no specific subclass.
+    """
+    out = []
+    for c in unicodedata.normalize("NFD", form):
+        # Preserve U+0361 COMBINING DOUBLE INVERTED BREVE — the IPA tie bar
+        # that makes d͡ʒ, t͡ʃ, t͡s single phonemes.
+        if unicodedata.category(c) == "Mn" and c != "͡":
+            continue
+        if c == "ı":  # dotless i — doesn't decompose; map to plain i
+            out.append("i")
+        else:
+            out.append(c)
+    return "".join(out)
 
 
 def _geminate(form: str) -> str:
@@ -141,13 +253,6 @@ _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
 ]
 
 
-def ipa_to_scholar(ipa: str) -> str:
-    out = ipa
-    for src, dst in _IPA_TO_SCHOLAR:
-        out = out.replace(src, dst)
-    return out.replace("ː", "")
-
-
 # IPA → pansemitic.  Lossy: strips length + gemination, collapses vowels
 # to {a, i, u}, compresses the consonant inventory.
 _IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
@@ -165,11 +270,35 @@ _IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
     ("d͡ʒ", "j"),
     ("t͡ʃ", "š"),
     ("t͡s", "ṣ"),
+    ("d͡z", "z"),
     # voiceless dorsals merge → x
     ("χ", "x"),
     ("ħ", "x"),
-    # voiced velar fricative → g
+    # voiced velar fricative → g; IPA single-story g variant → plain g
     ("ɣ", "g"),
+    ("ɡ", "g"),
+    # Non-a/i/u IPA vowels collapse toward the nearest e/o/a/i/u base.
+    ("ɪ", "i"), ("ʏ", "i"), ("ɨ", "i"),
+    ("ʊ", "u"), ("ɯ", "u"),
+    ("ɛ", "e"), ("œ", "e"), ("ø", "e"),
+    ("ɔ", "o"),
+    ("ɐ", "a"), ("ɑ", "a"), ("ɒ", "a"), ("æ", "a"), ("ə", "a"),
+    ("ɕ", "s"), ("ʑ", "z"),   # alveolo-palatal fricatives
+    ("ɫ", "l"),               # velarized lateral
+    # Rhotics collapse → r
+    ("ɹ", "r"), ("ɾ", "r"), ("ʀ", "r"), ("ʁ", "r"), ("ɻ", "r"),
+    # Nasals
+    ("ŋ", "n"), ("ɲ", "n"), ("ɳ", "n"),
+    # Retroflex stops → dental
+    ("ʈ", "t"), ("ɖ", "d"),
+    # Rhotic schwa / low vowel
+    ("ɚ", "a"), ("ʌ", "a"),
+    # Aspiration / palatalization aren't phonemic for Semitic — drop.
+    ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
+    # Superscript letters used as IPA release/off-glide marks — drop.
+    ("ᵗ", ""), ("ⁱ", ""), ("ⁿ", ""),
+    # Drop any stray tie bar that wasn't consumed by an affricate rule above.
+    ("͡", ""),
     # interdentals → sibilants
     ("θ", "s"),
     ("ð", "z"),
@@ -178,29 +307,6 @@ _IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
     ("ʒ", "ž"),
     ("ɬ", "s"),
 ]
-
-
-def ipa_to_protopansemitic(ipa: str, lang: str) -> str:
-    if not ipa:
-        return ""
-    form = ipa.lstrip("*").rstrip("-").lower()
-
-    # Semitic-family sources: f reflects older *p.
-    if lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
-        form = form.replace("f", "p")
-
-    for src, dst in _IPA_TO_PANSEMITIC:
-        form = form.replace(src, dst)
-
-    # Collapse vowels to a/i/u — handle long forms first so eː → i, oː → a.
-    form = form.replace("eː", "i").replace("oː", "a")
-    form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
-    form = form.replace("e", "i").replace("o", "a")
-
-    # Drop any remaining ː (consonant gemination) and dedupe vowels.
-    form = form.replace("ː", "")
-    form = re.sub(r"([aiu])\1+", r"\1", form)
-    return form.strip()
 
 
 @dataclass
@@ -218,14 +324,49 @@ class Word:
     def lang(self) -> str:
         raise NotImplementedError("Subclasses must implement lang property")
 
+    @classmethod
+    def from_ipa(cls, ipa: str) -> Self:
+        """Wrap a pre-existing IPA string, normalizing combining marks.
+
+        Strips stress/length/prosodic accents (NFD + drop combining marks)
+        while preserving the IPA tie bar.  This is the entry point used when
+        kaikki supplies a native IPA directly.
+        """
+        return cls(word=_strip_combining(ipa))
+
     def to_ipa(self) -> str:
         return self.word
 
     def to_protosemitic_convention(self) -> str:
-        return ipa_to_scholar(self.word)
+        """IPA → proto-Semitic scholar notation.  Strips ː (length/gemination)."""
+        out = self.word
+        for src, dst in _IPA_TO_SCHOLAR:
+            out = out.replace(src, dst)
+        return out.replace("ː", "")
 
     def to_protopansemitic(self) -> str:
-        return ipa_to_protopansemitic(self.word, self.lang)
+        """IPA → pansemitic.  Lossy: strips length/gemination, collapses
+        vowels to a/i/u, compresses the consonant inventory."""
+        if not self.word:
+            return ""
+        form = self.word.lstrip("*").rstrip("-").lower()
+
+        # Semitic-family sources: f reflects older *p.
+        if self.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
+            form = form.replace("f", "p")
+
+        for src, dst in _IPA_TO_PANSEMITIC:
+            form = form.replace(src, dst)
+
+        # Collapse vowels to a/i/u — handle long forms first so eː → i, oː → a.
+        form = form.replace("eː", "i").replace("oː", "a")
+        form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
+        form = form.replace("e", "i").replace("o", "a")
+
+        # Drop any remaining ː (consonant gemination) and dedupe vowels.
+        form = form.replace("ː", "")
+        form = re.sub(r"([aiu])\1+", r"\1", form)
+        return form.strip()
 
     def countconsonants(self) -> int:
         return sum(1 for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
@@ -243,7 +384,7 @@ class ArabicWord(Word):
         return "ar"
     
     @classmethod
-    def from_romanization(cls, text) -> 'ArabicWord':
+    def from_romanization(cls, text: str) -> Self:
         """Arabic romanization → IPA (lossless: preserves length + gemination)."""
         if not text:
             return cls(word=text)
@@ -291,7 +432,7 @@ class HebrewWord(Word):
         return "he"
 
     @classmethod
-    def from_romanization(cls, text) -> 'HebrewWord':
+    def from_romanization(cls, text: str) -> Self:
         """Hebrew romanization → IPA.
 
         Kaikki Hebrew romanization marks stress with acute accents (not
@@ -338,7 +479,7 @@ class SemProWord(Word):
         return "sem-pro"
 
     @classmethod
-    def from_romanization(cls, text) -> 'SemProWord':
+    def from_romanization(cls, text: str) -> Self:
         """proto-Semitic scholar notation → IPA."""
         if not text:
             return cls(word=text)
@@ -386,6 +527,11 @@ class SemProWord(Word):
         form = form.replace("ō", "oː")
         form = form.replace("ô", "oː")
 
+        # Final cleanup — strips any stray accents/stress marks that survive
+        # from non-Semitic sources routed through SemProWord as a fallback
+        # (Persian, Pahlavi, Sanskrit, Germanic, etc.).
+        form = _strip_combining(form)
+
         return cls(word=form.strip())
 
 
@@ -407,7 +553,7 @@ class GreekWord(Word):
         return "grc"
 
     @classmethod
-    def from_greek(cls, text) -> 'GreekWord':
+    def from_greek(cls, text: str) -> Self:
         """Normalize Greek script to proto-Semitic-compatible encoding.
 
         Strips accents/breathing marks via NFD decomposition, then maps
@@ -462,7 +608,7 @@ class EgyptianWord(Word):
         return "egy"
 
     @classmethod
-    def from_romanization(cls, text) -> 'EgyptianWord':
+    def from_romanization(cls, text: str) -> Self:
         """Egyptian transliteration → IPA (Egyptological reading)."""
         if not text:
             return cls(word=text)
@@ -470,6 +616,7 @@ class EgyptianWord(Word):
         form = _geminate(form)
         for src, dst in _EGYPTIAN_MAP:
             form = form.replace(src, dst)
+        form = _strip_combining(form)
         return cls(word=form.strip())
 
 
@@ -518,7 +665,7 @@ class PieWord(Word):
         return "ine-pro"
 
     @classmethod
-    def from_romanization(cls, text) -> 'PieWord':
+    def from_romanization(cls, text: str) -> Self:
         """PIE scholar notation → IPA (best-guess)."""
         if not text:
             return cls(word=text)
@@ -530,6 +677,73 @@ class PieWord(Word):
         form = _geminate(form)
         for src, dst in _PIE_MAP:
             form = form.replace(src, dst)
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+# ── Cyrillic → IPA ──────────────────────────────────────────────
+# Handles Russian (ru), Old East Slavic (orv), and Proto-Slavic (sla-pro)
+# — the latter two sometimes use mixed Latin / Cyrillic transliterations
+# in kaikki data (e.g. sla-pro:*cěsařь).  Cyrillic chars get mapped;
+# stray Latin chars pass through untouched.
+
+_CYRILLIC_MAP: list[tuple[str, str]] = [
+    # Iotated vowels (multi-output; order before plain vowel maps)
+    ("ю", "ju"),
+    ("я", "ja"),
+    ("ё", "jo"),
+    ("є", "je"),
+    # Affricates & sibilants (IPA digraphs)
+    ("щ", "ʃː"),
+    ("ч", "t͡ʃ"),
+    ("ц", "t͡s"),
+    ("ж", "ʒ"),
+    ("ш", "ʃ"),
+    ("х", "x"),
+    # Plain consonants
+    ("б", "b"), ("в", "v"), ("г", "g"), ("д", "d"),
+    ("з", "z"), ("й", "j"), ("к", "k"), ("л", "l"),
+    ("м", "m"), ("н", "n"), ("п", "p"), ("р", "r"),
+    ("с", "s"), ("т", "t"), ("ф", "f"),
+    # Vowels
+    ("а", "a"), ("е", "e"), ("и", "i"), ("о", "o"),
+    ("у", "u"), ("ы", "i"), ("э", "e"),
+    ("ѣ", "e"),   # yat (Old East Slavic / early Russian)
+    # Yers and soft sign — drop (palatalization not tracked)
+    ("ъ", ""), ("ь", ""),
+    # Scholarly Latin transliterations of Cyrillic (kaikki's tr field uses
+    # this form for Russian / Old East Slavic / Proto-Slavic: ʹ = soft sign,
+    # ʺ = hard sign, č/š/ž/c = Slavic affricates/sibilants, ě = yat).
+    ("ʹ", ""), ("ʺ", ""),
+    ("č", "t͡ʃ"),
+    ("š", "ʃ"),
+    ("ž", "ʒ"),
+    ("ě", "e"),
+    ("ř", "r"),
+    ("ć", "t͡ɕ"),
+    ("ś", "ɕ"),
+    ("ź", "ʑ"),
+    ("ń", "n"),
+    ("ł", "w"),
+    ("c", "t͡s"),
+]
+
+
+class CyrillicWord(Word):
+    @property
+    def lang(self) -> str:
+        return "ru"
+
+    @classmethod
+    def from_cyrillic(cls, text: str) -> Self:
+        """Cyrillic (or mixed Cyrillic/Latin) → IPA."""
+        if not text:
+            return cls(word=text)
+        form = text.lower().lstrip("*").rstrip("-")
+        form = _geminate(form)
+        for src, dst in _CYRILLIC_MAP:
+            form = form.replace(src, dst)
+        form = _strip_combining(form)
         return cls(word=form.strip())
 
 
@@ -575,7 +789,7 @@ class AramaicWord(Word):
         return "arc"
 
     @classmethod
-    def from_aramaic(cls, text) -> 'AramaicWord':
+    def from_aramaic(cls, text) -> Self:
         """Aramaic (Hebrew script + nikkud) → IPA.  Dagesh preserved as ː."""
         if not text:
             return cls(word=text)
@@ -603,35 +817,22 @@ class AramaicWord(Word):
         return cls(word=form.strip())
 
 
-def _word_from_source(source: SharedSource) -> Word:
-    """Normalize a SharedSource into a Word using its romanization.
+class GenericIpaWord(Word):
+    """A Word wrapping a pre-existing IPA string with an arbitrary lang tag.
 
-    Uses the romanization if available, otherwise the raw word.
-    Raises UnsupportedLanguageError if the language has no normalizer
-    and no romanization is available.
+    Used when we have native IPA from kaikki for a language that has no
+    dedicated subclass (fr, la, sa, fa, …).  `from_romanization` is not
+    supported — construct directly with a cleaned IPA string.
     """
-    text = source.romanization or source.word
-    match source.lang:
-        case "ar":
-            return ArabicWord.from_romanization(text)
-        case "he":
-            return HebrewWord.from_romanization(text)
-        case "sem-pro" | "sem-wes-pro":
-            return SemProWord.from_romanization(text)
-        case "grc":
-            return GreekWord.from_greek(text)
-        case "arc":
-            return AramaicWord.from_aramaic(text)
-        case "egy":
-            return EgyptianWord.from_romanization(text)
-        case "ine-pro":
-            return PieWord.from_romanization(text)
-        case _:
-            if source.romanization:
-                # We have a romanization — treat it as a generic Latin-script
-                # source and normalize minimally via SemProWord
-                return SemProWord.from_romanization(source.romanization)
-            raise UnsupportedLanguageError(source.lang)
+
+    def __init__(self, word: str, lang: str):
+        self.word = word
+        self._lang_tag = lang
+
+    @property
+    def lang(self) -> str:
+        return self._lang_tag
+
 
 
 def reconstruct_ancestor(
@@ -649,8 +850,8 @@ def reconstruct_ancestor(
 
     # 1. Shared etymology source — pick the first (best) one
     if shared_sources:
-        result = _word_from_source(shared_sources[0])
-        if not result or not result.word:
+        result = shared_sources[0].to_word()
+        if not result.word:
             raise EmptyAncestorError()
         return result
 
