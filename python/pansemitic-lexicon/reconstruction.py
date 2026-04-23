@@ -86,46 +86,152 @@ class SharedSource:
         return f"{self.lang}:{self.word}"
 
 
-# ── Normalization to a common proto-Semitic encoding ───────────
+# ── Internal encoding: plain Unicode IPA ───────────────────────
 #
-# Target encoding (proto-Semitic canonical):
-#   Glottal stop:       ʔ
-#   Pharyngeal:         ʕ
-#   Voiceless pharyngeal fric.: ḥ
-#   Voiceless velar fric.:      ḫ  (Arabic ḵ, Hebrew kh)
-#   Interdental vl.:    ṯ
-#   Interdental vd.:    ḏ
-#   Velar fric. vd.:    ɣ  (Arabic ɣ/ḡ)
-#   Emphatic s:         ṣ  (also ṣ́ kept as-is — distinct phoneme)
-#   Emphatic t:         ṭ
-#   Emphatic interdental fric.:         ṯ̣
-#   Emphatic lateral fric.:         ṣ́
-#   Lateral fric.:      ś
-#   Postalveolar:       š
-#   Labial stop:        p  (Arabic f < *p)
-#   Uvular stop:        q  (sem-pro ḳ normalized to q)
-#   Vowels:             a i u (no length, no e/o)
+# Word.word stores a lossless IPA transcription:
+#   - Vowel length via ː             aː iː uː eː oː
+#   - Gemination via ː               bː sˤː  (Wikipedia: ː marks length and
+#                                              gemination alike)
+#   - Pharyngealization via ˤ        sˤ tˤ dˤ ðˤ
+#   - Affricates as tie-bar digraphs d͡ʒ (Arabic jīm), t͡s (Hebrew tsade), t͡ʃ
+#
+# Helpers below convert IPA to either "proto-Semitic scholar convention"
+# (ṣ ṭ ḫ ṯ ḏ ḥ š ś) or to the pansemitic form.  Anything downstream that
+# wants the scholar form must call Word.to_protosemitic_convention() — the
+# internal string is no longer in that encoding.
 
-VOWELS = set("aiu")
+VOWELS = set("aeiou")
+IPA_MODIFIERS = set("ːˤʰʲʷˠ")
+IPA_CONSONANT_DIGRAPHS = ("d͡ʒ", "t͡ʃ", "t͡s", "d͡z")
+
+
+def _geminate(form: str) -> str:
+    """Collapse runs of identical letters into letter + ː.
+
+    Applied to the raw romanization *before* single-char substitutions so
+    that doubled scholar-notation letters (e.g. ṣṣ) collapse cleanly and
+    the ː survives downstream (ṣṣ → ṣː → sˤː).
+    """
+    return re.sub(r"([^\W\d_])\1+", r"\1ː", form)
+
+
+# IPA → proto-Semitic scholar notation.  Strips ː (length and gemination).
+_IPA_TO_SCHOLAR: list[tuple[str, str]] = [
+    # multi-char first
+    ("ðˤ", "ṯ̣"),
+    ("θˤ", "ṯ̣"),
+    ("ɬˤ", "ṣ́"),
+    ("sˤ", "ṣ"),
+    ("tˤ", "ṭ"),
+    ("dˤ", "ḍ"),
+    # IPA palatal approximant → y first, so the j produced below for jīm
+    # is not double-converted.
+    ("j", "y"),
+    ("d͡ʒ", "j"),
+    # single-char  (t͡s, t͡ʃ are Hebrew-only; they have no scholar equivalent
+    # in proto-Semitic notation, so we leave them as IPA.)
+    ("θ", "ṯ"),
+    ("ð", "ḏ"),
+    ("χ", "ḫ"),
+    ("x", "ḫ"),
+    ("ħ", "ḥ"),
+    ("ʃ", "š"),
+    ("ɬ", "ś"),
+    ("ʒ", "ž"),
+]
+
+
+def ipa_to_scholar(ipa: str) -> str:
+    out = ipa
+    for src, dst in _IPA_TO_SCHOLAR:
+        out = out.replace(src, dst)
+    return out.replace("ː", "")
+
+
+# IPA → pansemitic.  Lossy: strips length + gemination, collapses vowels
+# to {a, i, u}, compresses the consonant inventory.
+_IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
+    # emphatics (multi-char first)
+    ("ðˤ", "ṣ"),
+    ("θˤ", "ṣ"),
+    ("ɬˤ", "ṣ"),
+    ("sˤ", "ṣ"),
+    ("tˤ", "ṭ"),
+    ("dˤ", "ṣ"),
+    # IPA palatal approximant → Semitic y.  Must run *before* d͡ʒ → j so
+    # that the j we produce for jīm isn't double-converted to y.
+    ("j", "y"),
+    # affricates
+    ("d͡ʒ", "j"),
+    ("t͡ʃ", "š"),
+    ("t͡s", "ṣ"),
+    # voiceless dorsals merge → x
+    ("χ", "x"),
+    ("ħ", "x"),
+    # voiced velar fricative → g
+    ("ɣ", "g"),
+    # interdentals → sibilants
+    ("θ", "s"),
+    ("ð", "z"),
+    # postalveolars and lateral
+    ("ʃ", "š"),
+    ("ʒ", "ž"),
+    ("ɬ", "s"),
+]
+
+
+def ipa_to_protopansemitic(ipa: str, lang: str) -> str:
+    if not ipa:
+        return ""
+    form = ipa.lstrip("*").rstrip("-").lower()
+
+    # Semitic-family sources: f reflects older *p.
+    if lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
+        form = form.replace("f", "p")
+
+    for src, dst in _IPA_TO_PANSEMITIC:
+        form = form.replace(src, dst)
+
+    # Collapse vowels to a/i/u — handle long forms first so eː → i, oː → a.
+    form = form.replace("eː", "i").replace("oː", "a")
+    form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
+    form = form.replace("e", "i").replace("o", "a")
+
+    # Drop any remaining ː (consonant gemination) and dedupe vowels.
+    form = form.replace("ː", "")
+    form = re.sub(r"([aiu])\1+", r"\1", form)
+    return form.strip()
 
 
 @dataclass
 class Word:
-    """
-    This represents a word that has been normalized to a common proto-Semitic encoding,
-    with language-specific extensions
+    """A word stored as a plain Unicode IPA string (lossless).
+
+    Subclass `from_romanization` methods convert their source notation to IPA
+    preserving vowel length and gemination.  Downstream consumers should call
+    `to_protosemitic_convention()` for scholarly notation or
+    `to_protopansemitic()` for the compressed pansemitic form.
     """
     word: str
-    
+
     @property
     def lang(self) -> str:
         raise NotImplementedError("Subclasses must implement lang property")
 
+    def to_ipa(self) -> str:
+        return self.word
+
+    def to_protosemitic_convention(self) -> str:
+        return ipa_to_scholar(self.word)
+
+    def to_protopansemitic(self) -> str:
+        return ipa_to_protopansemitic(self.word, self.lang)
+
     def countconsonants(self) -> int:
-        return sum(1 for c in self.word if c not in VOWELS and c.isalpha())
+        return sum(1 for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
 
     def consonants(self) -> str:
-        return "".join(c for c in self.word if c not in VOWELS and c.isalpha())
+        return "".join(tok for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
 
     def __str__(self) -> str:
         return f"{self.lang}:{self.word}"
@@ -138,36 +244,45 @@ class ArabicWord(Word):
     
     @classmethod
     def from_romanization(cls, text) -> 'ArabicWord':
-        """Normalize Arabic romanization to proto-Semitic encoding."""
+        """Arabic romanization → IPA (lossless: preserves length + gemination)."""
         if not text:
             return cls(word=text)
         form = text.lower()
 
-        # Remove Arabic-specific prefixes
+        # Strip definite-article assimilated prefixes (al-, an-, aš-, aṣ-, aṭ-, aḍ-).
         form = re.sub(r"^a[lrnsṣṭḍ]-", "", form)
 
-        # Multi-char first (order matters)
-        # Arabic doesn't use digraphs, but handle "sh" just in case
-        form = form.replace("sh", "š")
+        # Gemination on the raw romanization.  Done before substitutions so
+        # that doubled multi-char targets (ṣṣ → ṣː → sˤː) survive.
+        form = _geminate(form)
 
-        # Consonant mappings: Arabic → proto-Semitic
-        form = form.replace("ḵ", "ḫ")   # Arabic ḵ → PS *ḫ
-        form = form.replace("ḡ", "ɣ")   # normalize ḡ variant to ɣ
-        form = form.replace("ẓ", "ṯ̣")  # Arabic ẓ → PS *ṯ̣ (emphatic interdental fricative)
-        form = form.replace("ḍ", "ṣ́") # Arabic ḍ → PS *ṣ́ (emphatic lateral fricative)
-        form = form.replace("f", "p")   # Arabic f → PS *p (f is a later development from *p)
-        
-        # Glottal: Arabic uses ʔ consistently, which is already canonical
+        # Digraph first
+        form = form.replace("sh", "ʃ")
 
-        # Strip vowel length (macrons)
-        form = form.replace("ā", "a").replace("ī", "i").replace("ū", "u")
+        # Pharyngealized (emphatic) consonants
+        form = form.replace("ṣ", "sˤ")
+        form = form.replace("ṭ", "tˤ")
+        form = form.replace("ḍ", "dˤ")
+        form = form.replace("ẓ", "ðˤ")
 
-        # Collapse gemination (bb→b, ss→s, etc.)
-        form = re.sub(r'(.)\1+', r'\1', form)
+        # Fricatives
+        form = form.replace("ḥ", "ħ")
+        form = form.replace("ḵ", "x")
+        form = form.replace("ḡ", "ɣ")
+        form = form.replace("ḏ", "ð")
+        form = form.replace("ṯ", "θ")
 
-        form = form.strip()
+        # Affricate jīm → /d͡ʒ/; then repurpose j as the IPA palatal approximant
+        # for Arabic yāʾ.  Order matters — do j → d͡ʒ before y → j.
+        form = form.replace("j", "d͡ʒ")
+        form = form.replace("y", "j")
 
-        return cls(word=form)
+        # Vowel length
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+
+        return cls(word=form.strip())
 
 
 class HebrewWord(Word):
@@ -177,34 +292,40 @@ class HebrewWord(Word):
 
     @classmethod
     def from_romanization(cls, text) -> 'HebrewWord':
-        """Normalize Hebrew romanization to proto-Semitic encoding."""
+        """Hebrew romanization → IPA.
+
+        Kaikki Hebrew romanization marks stress with acute accents (not
+        length), so accents are stripped.  Dagesh-forte gemination, where
+        written as a doubled letter, is preserved via ː.
+        """
         if not text:
             return cls(word=text)
         form = text.lower()
 
-        # Strip vowel length (acute accents)
-        form = form.replace("á", "a").replace("é", "e").replace("í", "i")
-        form = form.replace("ó", "o").replace("ú", "u")
+        # Strip stress marks.
+        form = (form
+                .replace("á", "a").replace("é", "e").replace("í", "i")
+                .replace("ó", "o").replace("ú", "u"))
 
-        # Multi-char digraphs → single proto-Semitic chars (longest first)
-        form = form.replace("tsh", "ṣ")   # edge case: tsh before ts/sh
-        form = form.replace("ts", "ṣ")    # Hebrew tsade → PS *ṣ
-        form = form.replace("sh", "š")    # Hebrew shin → PS *š
-        form = form.replace("kh", "ḫ")    # Hebrew khaf → PS *ḫ (merged ḫ/ḥ)
-        form = form.replace("zh", "ž")    # Hebrew zayin+geresh (loanwords)
+        # Gemination on raw input, before digraph expansion.
+        form = _geminate(form)
 
-        # Remove schwa markers: b'rakhá → brakhá (already lowered)
+        # Digraphs (longest first).
+        form = form.replace("tsh", "t͡ʃ")
+        form = form.replace("ts", "t͡s")   # Hebrew tsade (affricate)
+        form = form.replace("sh", "ʃ")
+        form = form.replace("kh", "χ")     # modern Hebrew: uvular fricative
+        form = form.replace("zh", "ʒ")
+
+        # Drop kaikki schwa/syllable apostrophes (inconsistently used).
         form = form.replace("'", "")
 
-        # Note: Hebrew merged *ḫ and *ḥ into kh — we map to ḫ here.
-        # Without Arabic to disambiguate, we can't recover which it was.
-        # The caller can cross-reference with Arabic if needed.
+        # Palatal approximant
+        form = form.replace("y", "j")
 
-        # Vowel collapse: Hebrew e→i, o→u (Canaanite shift reversal)
-        form = form.replace("e", "i").replace("o", "a")
-
-        # Initial vowel → glottal stop + vowel (PS words don't start with vowels)
         form = form.strip()
+
+        # Hebrew words don't start with a bare vowel phonetically — prepend ʔ.
         if form and form[0] in VOWELS:
             form = "ʔ" + form
 
@@ -218,46 +339,52 @@ class SemProWord(Word):
 
     @classmethod
     def from_romanization(cls, text) -> 'SemProWord':
-        """Normalize sem-pro romanization to a consistent proto-Semitic encoding."""
+        """proto-Semitic scholar notation → IPA."""
         if not text:
             return cls(word=text)
         form = text.lower()
 
-        # Strip reconstruction markers
+        # Strip reconstruction markers.
         form = form.lstrip("*").rstrip("-")
 
-        # Glottal stop variants: ʾ and ʿ(misused) → ʔ
+        # Strip acute stress accents (kaikki uses them on non-Semitic loans).
+        form = (form
+                .replace("á", "a").replace("é", "e").replace("í", "i")
+                .replace("ó", "o").replace("ú", "u"))
+
+        # Glottal / pharyngeal variants first
         form = form.replace("ʾ", "ʔ")
-
-        # Fix ʿ only when used for glottal stop (in *ʿiśrū- etc.)
-        # We can't blindly replace ʿ since it's legitimately ayin.
-        # But ʿ as a glottal stop only appears word-initially before i;
-        # true ayin ʕ is the canonical target for pharyngeal.
-        # Handle the known pattern: word-initial ʿ before a vowel
-        # when it should be ʔ — this is rare, leave ʿ as ʕ mapping below.
-
-        # Pharyngeal: ʕ is already canonical; also map ʿ → ʕ
         form = form.replace("ʿ", "ʕ")
 
-        # Velar fricative variants: normalize
-        form = form.replace("ḡ", "ɣ")    # ḡ → ɣ
+        # Gemination on raw input.
+        form = _geminate(form)
 
-        # ḫ is already canonical for voiceless velar fricative
+        # Multi-char / combining scholar sequences first.
+        # θ̣ and ṯ̣ both encode the emphatic interdental fricative.
+        form = form.replace("θ̣", "θˤ")
+        form = form.replace("ṯ̣", "θˤ")
+        form = form.replace("ṣ́", "ɬˤ")     # emphatic lateral fricative
 
-        # Uvular stop: ḳ → q
+        # Single-char scholar → IPA
+        form = form.replace("ṣ", "sˤ")
+        form = form.replace("ṭ", "tˤ")
+        form = form.replace("ḍ", "dˤ")
+        form = form.replace("ṯ", "θ")
+        form = form.replace("ḏ", "ð")
+        form = form.replace("ḫ", "x")
+        form = form.replace("ḥ", "ħ")
+        form = form.replace("ś", "ɬ")
+        form = form.replace("š", "ʃ")
+        form = form.replace("ḡ", "ɣ")
         form = form.replace("ḳ", "q")
 
-        # Emphatic theta variants: θ̣ and ṯ̣ both appear
-        # Normalize θ to ṯ first, so θ̣ becomes ṯ̣
-        form = form.replace("θ", "ṯ")
-
-        # Vowel normalization
-        form = form.replace("ā", "a").replace("ī", "i").replace("ū", "u")
-        form = form.replace("ô", "a")
-        form = form.replace("e", "i").replace("o", "a")
-
-        # kʷ → k (labiovelar — no separate representation needed downstream)
-        form = form.replace("kʷ", "k")
+        # Vowel length
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
+        form = form.replace("ô", "oː")
 
         return cls(word=form.strip())
 
@@ -269,7 +396,7 @@ _GREEK_MAP = {
     'α': 'a', 'β': 'b', 'γ': 'g', 'δ': 'd', 'ε': 'i', 'ζ': 'z',
     'η': 'i', 'θ': 't', 'ι': 'i', 'κ': 'k', 'λ': 'l', 'μ': 'm',
     'ν': 'n', 'ξ': 'ks', 'ο': 'a', 'π': 'p', 'ρ': 'r', 'σ': 's',
-    'ς': 's', 'τ': 't', 'υ': 'u', 'φ': 'p', 'χ': 'ḫ', 'ψ': 'ps',
+    'ς': 's', 'τ': 't', 'υ': 'u', 'φ': 'p', 'χ': 'x', 'ψ': 'ps',
     'ω': 'a',
 }
 
@@ -280,7 +407,7 @@ class GreekWord(Word):
         return "grc"
 
     @classmethod
-    def from_romanization(cls, text) -> 'GreekWord':
+    def from_greek(cls, text) -> 'GreekWord':
         """Normalize Greek script to proto-Semitic-compatible encoding.
 
         Strips accents/breathing marks via NFD decomposition, then maps
@@ -299,40 +426,142 @@ class GreekWord(Word):
         # Map Greek letters; drop anything not in the map (hyphens, spaces, etc.)
         form = "".join(_GREEK_MAP.get(c, '') for c in stripped)
 
-        # Collapse gemination
-        form = re.sub(r'(.)\1+', r'\1', form)
+        # Preserve gemination via ː.
+        form = _geminate(form)
 
-        form = form.strip()
-        return cls(word=form)
+        return cls(word=form.strip())
+
+
+# ── Egyptian transliteration → IPA (Egyptological pronunciation) ─
+# Egyptological convention reads ꜣ, ꜥ, j, ı͗ as bare vowels /a/ or /i/,
+# regardless of their phonetic reconstruction.  That's what the user sees in
+# romanizations like "zbꜣt", "zbꜥwt" — we preserve that reading.
+_EGYPTIAN_MAP: list[tuple[str, str]] = [
+    # Multi-char / composed first
+    ("ı͗", "i"),
+    # Egyptian-specific consonants
+    ("ꜣ", "a"),      # aleph → /a/
+    ("ꜥ", "a"),      # ayin  → /a/
+    ("ḥ", "ħ"),      # emphatic h → voiceless pharyngeal fricative
+    ("ḫ", "x"),      # voiceless velar fricative
+    ("ẖ", "ç"),      # palatal fricative
+    ("š", "ʃ"),
+    ("ṯ", "t͡ʃ"),    # affricate (later merged with t)
+    ("ḏ", "d͡ʒ"),    # affricate (later merged with d)
+    ("ṱ", "tˤ"),     # emphatic t (rare)
+    ("q", "q"),
+    # Semivowels
+    ("j", "i"),      # Egyptological: j → /i/
+    ("y", "j"),      # y → palatal approximant
+]
+
+
+class EgyptianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "egy"
+
+    @classmethod
+    def from_romanization(cls, text) -> 'EgyptianWord':
+        """Egyptian transliteration → IPA (Egyptological reading)."""
+        if not text:
+            return cls(word=text)
+        form = text.lower().lstrip("*").rstrip("-")
+        form = _geminate(form)
+        for src, dst in _EGYPTIAN_MAP:
+            form = form.replace(src, dst)
+        return cls(word=form.strip())
+
+
+# ── Proto-Indo-European → IPA (best-guess reconstruction) ───────
+# Laryngeals: h₁ = /h/ (neutral), h₂ = /χ/ (uvular), h₃ = /ʕ/ (voiced
+# pharyngeal) — the most common phonetic guesses.  Palatovelars collapse
+# to plain velars since the distinction doesn't survive into Semitic.
+_PIE_MAP: list[tuple[str, str]] = [
+    # Laryngeals (multi-char)
+    ("h₁", "h"),
+    ("h₂", "χ"),
+    ("h₃", "ʕ"),
+    # Labiovelars (preserve labialization)
+    ("gʷʰ", "gʷʰ"),
+    ("kʷ", "kʷ"),
+    ("gʷ", "gʷ"),
+    # Aspirated (voiced) stops keep ʰ
+    ("bʰ", "bʰ"),
+    ("dʰ", "dʰ"),
+    ("ǵʰ", "gʰ"),
+    ("gʰ", "gʰ"),
+    # Palatovelars → plain velars (collapse)
+    ("ḱ", "k"),
+    ("ǵ", "g"),
+    # Semivowels
+    ("i̯", "j"),
+    ("u̯", "w"),
+    ("y", "j"),
+    # Syllabic resonants
+    ("l̥", "l̩"),
+    ("r̥", "r̩"),
+    ("m̥", "m̩"),
+    ("n̥", "n̩"),
+    # Vowel length
+    ("ē", "eː"),
+    ("ō", "oː"),
+    ("ā", "aː"),
+    ("ī", "iː"),
+    ("ū", "uː"),
+]
+
+
+class PieWord(Word):
+    @property
+    def lang(self) -> str:
+        return "ine-pro"
+
+    @classmethod
+    def from_romanization(cls, text) -> 'PieWord':
+        """PIE scholar notation → IPA (best-guess)."""
+        if not text:
+            return cls(word=text)
+        form = text.lower().lstrip("*").rstrip("-")
+        # Strip acute stress accents.
+        form = (form
+                .replace("á", "a").replace("é", "e").replace("í", "i")
+                .replace("ó", "o").replace("ú", "u"))
+        form = _geminate(form)
+        for src, dst in _PIE_MAP:
+            form = form.replace(src, dst)
+        return cls(word=form.strip())
 
 
 # ── Aramaic (Hebrew script) → proto-Semitic encoding ────────────
 _ARAMAIC_CONSONANTS = {
     'א': 'ʔ', 'ב': 'b', 'ג': 'g', 'ד': 'd', 'ה': 'h', 'ו': 'w',
-    'ז': 'z', 'ח': 'ḥ', 'ט': 'ṭ', 'י': 'y', 'כ': 'k', 'ך': 'k',
+    'ז': 'z', 'ח': 'ħ', 'ט': 'tˤ', 'י': 'j', 'כ': 'k', 'ך': 'k',
     'ל': 'l', 'מ': 'm', 'ם': 'm', 'נ': 'n', 'ן': 'n', 'ס': 's',
-    'ע': 'ʕ', 'פ': 'p', 'ף': 'p', 'צ': 'ṣ', 'ץ': 'ṣ', 'ק': 'q',
-    'ר': 'r', 'ש': 'š', 'ת': 't',
+    'ע': 'ʕ', 'פ': 'p', 'ף': 'p', 'צ': 'sˤ', 'ץ': 'sˤ', 'ק': 'q',
+    'ר': 'r', 'ש': 'ʃ', 'ת': 't',
 }
 
-# Nikkud (vowel points) → proto-Semitic vowels (e→i, o→a already applied)
+# Nikkud (vowel points) → IPA vowels (e and o preserved).
 _ARAMAIC_VOWELS = {
     '\u05B7': 'a',   # patach
     '\u05B8': 'a',   # qamats
-    '\u05B6': 'i',   # segol (e→i)
-    '\u05B5': 'i',   # tsere (e→i)
+    '\u05B6': 'e',   # segol
+    '\u05B5': 'e',   # tsere
     '\u05B4': 'i',   # hiriq
-    '\u05B9': 'a',   # holam (o→a)
+    '\u05B9': 'o',   # holam
     '\u05BB': 'u',   # qubuts
     '\u05B2': 'a',   # hataf patach
-    '\u05B1': 'i',   # hataf segol (e→i)
+    '\u05B1': 'e',   # hataf segol
     '\u05B3': 'a',   # hataf qamats
 }
 
-# Nikkud and marks to skip (shva, dagesh, rafe, etc.)
+# Dagesh: gemination marker on the preceding consonant.
+_ARAMAIC_DAGESH = '\u05BC'
+
+# Nikkud and marks to skip (shva, rafe, etc.)
 _ARAMAIC_SKIP = {
     '\u05B0',  # shva
-    '\u05BC',  # dagesh
     '\u05BF',  # rafe
     '\u05BD',  # meteg
     '\u05C1',  # shin dot
@@ -346,35 +575,32 @@ class AramaicWord(Word):
         return "arc"
 
     @classmethod
-    def from_romanization(cls, text) -> 'AramaicWord':
-        """Normalize Aramaic (Hebrew script with nikkud) to proto-Semitic encoding.
-
-        Extracts consonants from the base letters and vowels from nikkud,
-        mapping both to the proto-Semitic target encoding.
-        """
+    def from_aramaic(cls, text) -> 'AramaicWord':
+        """Aramaic (Hebrew script + nikkud) → IPA.  Dagesh preserved as ː."""
         if not text:
             return cls(word=text)
 
-        result = []
+        result: list[str] = []
         for c in text:
             if c in _ARAMAIC_CONSONANTS:
                 result.append(_ARAMAIC_CONSONANTS[c])
             elif c in _ARAMAIC_VOWELS:
                 result.append(_ARAMAIC_VOWELS[c])
+            elif c == _ARAMAIC_DAGESH:
+                # Gemination marker on the preceding consonant.  We can't
+                # distinguish dagesh-lene from dagesh-forte without morphology,
+                # so treat both as ː — preserves what's written.
+                result.append("ː")
             elif c in _ARAMAIC_SKIP:
                 continue
             # else: ignore (maqaf, sof pasuq, etc.)
 
         form = "".join(result)
 
-        # Collapse gemination
-        form = re.sub(r'(.)\1+', r'\1', form)
-
-        # Strip trailing ʔ (Aramaic emphatic state -א)
+        # Strip trailing ʔ (Aramaic emphatic state -א).
         form = form.rstrip('ʔ')
 
-        form = form.strip()
-        return cls(word=form)
+        return cls(word=form.strip())
 
 
 def _word_from_source(source: SharedSource) -> Word:
@@ -393,9 +619,13 @@ def _word_from_source(source: SharedSource) -> Word:
         case "sem-pro" | "sem-wes-pro":
             return SemProWord.from_romanization(text)
         case "grc":
-            return GreekWord.from_romanization(text)
+            return GreekWord.from_greek(text)
         case "arc":
-            return AramaicWord.from_romanization(text)
+            return AramaicWord.from_aramaic(text)
+        case "egy":
+            return EgyptianWord.from_romanization(text)
+        case "ine-pro":
+            return PieWord.from_romanization(text)
         case _:
             if source.romanization:
                 # We have a romanization — treat it as a generic Latin-script
@@ -441,31 +671,68 @@ def reconstruct_ancestor(
     return result
 
 
-def extract_phonemes(word: Word) -> list[tuple[str, str | None]]:
-    """Extract phonemes as (consonant, vowel) pairs from a normalized word.
+def _tokenize_phonemes(ipa: str) -> list[str]:
+    """Split an IPA string into phoneme tokens.
 
-    Each consonant is paired with its following vowel, or None if there's
-    no vowel (e.g. consonant clusters like "lb" in "kalb" → [(k,a), (l,None), (b,None)]).
+    A token is a base (single letter or tie-bar digraph like d͡ʒ) plus any
+    trailing modifier letters (ˤ, ː).  Non-letter / non-modifier characters
+    (whitespace, punctuation, reconstruction markers) are skipped.
     """
-    result = []
-    chars = list(word.word)
+    tokens: list[str] = []
     i = 0
-    while i < len(chars):
-        c = chars[i]
-        if c not in VOWELS:
-            # It's a consonant — check if next char is a vowel
-            vowel = None
-            if i + 1 < len(chars) and chars[i + 1] in VOWELS:
-                vowel = chars[i + 1]
+    n = len(ipa)
+    while i < n:
+        c = ipa[i]
+        if not c.isalpha() and c not in "ʔʕ":
+            i += 1
+            continue
+        # Tie-bar digraph: base + U+0361 + base
+        if i + 2 < n and ipa[i + 1] == '͡':
+            two = ipa[i] + ipa[i + 1] + ipa[i + 2]
+            if two in IPA_CONSONANT_DIGRAPHS:
+                phon = two
+                i += 3
+                while i < n and ipa[i] in IPA_MODIFIERS:
+                    phon += ipa[i]
+                    i += 1
+                tokens.append(phon)
+                continue
+        phon = c
+        i += 1
+        while i < n and ipa[i] in IPA_MODIFIERS:
+            phon += ipa[i]
+            i += 1
+        tokens.append(phon)
+    return tokens
+
+
+def _is_vowel_token(tok: str) -> bool:
+    return bool(tok) and tok[0] in VOWELS
+
+
+def extract_phonemes(word: Word) -> list[tuple[str, str | None]]:
+    """Extract (consonant, vowel) pairs from a Word's IPA string.
+
+    Each consonant phoneme is paired with its immediately-following vowel
+    phoneme, or None if no vowel follows (consonant clusters).  A leading
+    bare vowel becomes ("", vowel).
+    """
+    tokens = _tokenize_phonemes(word.word)
+    result: list[tuple[str, str | None]] = []
+    i = 0
+    while i < len(tokens):
+        tok = tokens[i]
+        if _is_vowel_token(tok):
+            result.append(("", tok))
+            i += 1
+        else:
+            vowel: str | None = None
+            if i + 1 < len(tokens) and _is_vowel_token(tokens[i + 1]):
+                vowel = tokens[i + 1]
                 i += 2
             else:
                 i += 1
-            result.append((c, vowel))
-        else:
-            # Leading vowel with no consonant — shouldn't happen in normalized
-            # forms, but handle gracefully
-            result.append(("", c))
-            i += 1
+            result.append((tok, vowel))
     return result
 
 
@@ -480,7 +747,7 @@ def reconcile_phoneme(ar_c: str, he_c: str) -> str:
 
     pair = (ar_c, he_c)
     match pair:
-        case ("w", "y"):
+        case ("w", "j"):
             return "w"
         case ("p", "p") | ("f", "p"):
             return "p"

@@ -30,7 +30,6 @@ from typing import Any, Callable
 import numpy as np
 import orjson
 
-from phonetics import construct_pansemitic_form
 from reconstruction import (
     SharedSource,
     reconstruct_ancestor,
@@ -192,7 +191,7 @@ def _process_semitic_entry(
             if (src_lang and src_word
                     and src_word not in ("-", "?", "")
                     and len(src_word) > 1):
-                wd.borrow_sources.add((src_lang, src_word.lower()))
+                wd.borrow_sources.add((src_lang, src_word))
 
     for sense in entry.get("senses", []):
         for fof in sense.get("form_of", []):
@@ -210,12 +209,12 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     etymon template which encodes lang:word<metadata> in its args.
 
     Also captures the ``tr`` (transliteration) arg from templates into
-    *template_tr_index* keyed by ``(src_lang, src_word_lower)``.
+    *template_tr_index* keyed by ``(src_lang, src_word)``.
     """
     word = entry.get("word", "")
     if not word:
         return
-    key = (lang_code, word.lower())
+    key = (lang_code, word)
     for tmpl in entry.get("etymology_templates", []):
         name = tmpl.get("name", "")
         args = tmpl.get("args", {})
@@ -226,7 +225,7 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
             if (src_lang and src_word
                     and src_word not in ("-", "?", "")
                     and len(src_word) > 1):
-                src_key = (src_lang, src_word.lower())
+                src_key = (src_lang, src_word)
                 borrow_graph[key].add(src_key)
                 tr = args.get("tr", "")
                 if tr and src_key not in template_tr_index:
@@ -250,7 +249,7 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
                     if (src_word not in ("-", "?", "", "*")
                             and len(src_word) > 1
                             and src_lang != lang_code):
-                        borrow_graph[key].add((src_lang, src_word.lower()))
+                        borrow_graph[key].add((src_lang, src_word))
 
 
 def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
@@ -351,7 +350,7 @@ def _process_chunk(
             # Collect romanization for any entry (for kaikki lookup tier)
             word = entry.get("word", "")
             if lc and word:
-                key = (lc, word.lower())
+                key = (lc, word)
                 if key not in kaikki_roman_index:
                     roman = _extract_kaikki_romanization(entry)
                     if roman:
@@ -760,7 +759,7 @@ def main():
                 shared_sources=lca_sources,
             )
             entry.ancestor = str(ancestor)
-            pansemitic = construct_pansemitic_form(ancestor)
+            pansemitic = ancestor.to_protopansemitic()
             if pansemitic:
                 entry.pansemitic_form = pansemitic
         except UnsupportedLanguageError as e:
