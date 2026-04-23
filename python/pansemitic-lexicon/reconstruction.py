@@ -33,16 +33,87 @@ class EmptyAncestorError(ReconstructionError):
         super().__init__("ancestor word is empty after normalization")
 
 
-# ── Languages whose headwords are already Latin-script ────────
-LATIN_SCRIPT_LANGS = frozenset({
-    "akk", "la", "ine-pro", "egy", "afa-pro", "sux",
-    "en", "fr", "de", "it", "es", "pt", "nl", "cs",
-    "gem-pro", "ira-pro", "peo", "fa-cls",
-    "sem-pro", "sem-wes-pro",
-})
-
-
 _IPA_DELIMITED = re.compile(r"[/\[]([^/\]]+)[/\]]")
+_HTML_TAG = re.compile(r"<[^>]+>")
+_INVALID_ROMANIZATION_VALUES = frozenset({"", "-", "?", "??"})
+_ROMANIZATION_EXTRA_LETTERS = frozenset({
+    "ʾ", "ʿ", "ʔ", "ʕ", "θ",
+})
+_ROMANIZATION_MARKUP_CHARS = frozenset("*-_'’()./^")
+
+
+def _romanization_vowel_count(text: str) -> int:
+    count = 0
+    for c in unicodedata.normalize("NFD", text.lower()):
+        if unicodedata.category(c) == "Mn":
+            continue
+        if c in "aeiou":
+            count += 1
+    return count
+
+
+def _romanization_letter_count(text: str) -> int:
+    return sum(1 for c in text if c.isalpha())
+
+
+def _romanization_score(text: str) -> tuple[int, int, int]:
+    """Rank valid romanization candidates.
+
+    Prefer reconstructions and vocalized transliterations over bare consonantal
+    spellings.  This keeps scholarly proto-Semitic forms like ``*ʾaḥad-`` while
+    letting vocalized template/entry transliterations beat consonant-only forms
+    such as Pahlavi ``ʾmbl`` when a candidate like ``ambar`` is available.
+    """
+    vowels = _romanization_vowel_count(text)
+    letters = _romanization_letter_count(text)
+    score = 0
+
+    if "*" in text:
+        score += 100
+
+    # Penalize consonant-heavy transliterations when a more pronounceable
+    # alternative exists in another tier.
+    if letters >= 4 and vowels <= 1 and "*" not in text:
+        score -= 30
+
+    score += min(vowels, 4) * 10
+
+    parts = [part for part in text.split("-") if part]
+    # Penalize segmented letter-by-letter transliterations such as
+    # ``h-i-du-u-š`` when a smoother vocalized candidate like ``hiⁿdūš``
+    # is available.
+    if len(parts) >= 3 and all(len(part) <= 2 for part in parts):
+        score -= 20
+
+    # Prefer cleaner strings when everything else is comparable, but still
+    # allow editorial markers (Akkadian determinatives, etc.) as a fallback.
+    markup_penalty = sum(1 for c in text if c in "^()/[]{}")
+    score -= markup_penalty * 2
+
+    return (score, vowels, -markup_penalty)
+
+
+@dataclass(frozen=True)
+class RomanizationTiers:
+    """The raw romanization candidates available from each lookup tier."""
+    tier1: str | None
+    tier2: str | None
+    tier3: str | None
+
+    def resolved(self) -> str | None:
+        candidates = [
+            ("tier1", self.tier1),
+            ("tier2", self.tier2),
+            ("tier3", self.tier3),
+        ]
+        best: tuple[tuple[int, int, int], int, str] | None = None
+        for idx, (_, value) in enumerate(candidates):
+            if not value:
+                continue
+            ranked = (_romanization_score(value), -idx, value)
+            if best is None or ranked > best:
+                best = ranked
+        return best[2] if best else None
 
 
 @dataclass
@@ -67,29 +138,71 @@ class SharedSource:
         kaikki_roman_index: dict[tuple[str, str], str] | None = None,
     ) -> str | None:
         """Resolve romanization using the three-tier strategy."""
-        def _is_latin(s: str) -> bool:
-            return bool(s) and all(
-                c.isascii() or "LATIN" in unicodedata.name(c, "")
-                for c in s if c.isalpha()
-            )
-        # Tier 1: Latin-script language AND word is actually in Latin.
-        # (Some kaikki entries have the word in the native script even for
-        # nominally-Latin langs like sem-pro — don't return those.)
-        if lang in LATIN_SCRIPT_LANGS and _is_latin(word):
-            return word
-        # Check if the word is already Latin script regardless of language
-        if _is_latin(word):
-            return word
-        # Tier 2: tr arg from etymology template
-        if template_tr:
-            # Take the first alternative if comma-separated
-            return template_tr.split(",")[0].strip()
-        # Tier 3: kaikki entry lookup
+        return SharedSource.get_romanization_tiers(
+            lang,
+            word,
+            template_tr=template_tr,
+            kaikki_roman_index=kaikki_roman_index,
+        ).resolved()
+
+    @staticmethod
+    def get_romanization_tiers(
+        lang: str,
+        word: str,
+        template_tr: str | None = None,
+        kaikki_roman_index: dict[tuple[str, str], str] | None = None,
+    ) -> RomanizationTiers:
+        """Return the raw romanization candidate available from each tier."""
+        def _clean_candidate(s: str | None) -> str | None:
+            if not s:
+                return None
+            s = s.strip()
+            if not s:
+                return None
+            if _HTML_TAG.search(s):
+                return None
+            if "," in s:
+                s = s.split(",")[0].strip()
+            if s in _INVALID_ROMANIZATION_VALUES:
+                return None
+            return s or None
+
+        def _looks_romanized(s: str | None) -> bool:
+            if not s:
+                return False
+            has_letter = False
+            for c in unicodedata.normalize("NFD", s):
+                if c in _ROMANIZATION_EXTRA_LETTERS:
+                    has_letter = True
+                    continue
+                if c.isalpha():
+                    has_letter = True
+                    if "LATIN" in unicodedata.name(c, "") or unicodedata.category(c) == "Lm":
+                        continue
+                    return False
+                if c.isdigit() or c.isspace():
+                    continue
+                if unicodedata.category(c) == "Mn":
+                    continue
+                if c in _ROMANIZATION_MARKUP_CHARS:
+                    continue
+                return False
+            return has_letter
+
+        tier1 = _clean_candidate(word)
+        if not _looks_romanized(tier1):
+            tier1 = None
+
+        tier2 = _clean_candidate(template_tr)
+        if not _looks_romanized(tier2):
+            tier2 = None
+
+        tier3 = None
         if kaikki_roman_index:
-            roman = kaikki_roman_index.get((lang, word))
-            if roman:
-                return roman
-        return None
+            tier3 = _clean_candidate(kaikki_roman_index.get((lang, word)))
+            if not _looks_romanized(tier3):
+                tier3 = None
+        return RomanizationTiers(tier1=tier1, tier2=tier2, tier3=tier3)
 
     @staticmethod
     def resolve_ipa(
@@ -120,8 +233,8 @@ class SharedSource:
 
         Prefers native IPA from kaikki (when present) over romanization.  Falls
         back to the lang-specific from_romanization methods and finally to a
-        generic SemProWord normalization for unsupported langs that do have a
-        romanization.
+        generic arbitrary-language Word for unsupported langs that do have IPA
+        or romanization.
         """
         match self.lang:
             case "ar":
@@ -166,11 +279,9 @@ class SharedSource:
                 return CyrillicWord.from_cyrillic(self.word)
             case _:
                 if self.ipa:
-                    return GenericIpaWord(word=_strip_combining(self.ipa), lang=self.lang)
+                    return GenericWord.from_ipa(self.ipa, lang=self.lang)
                 if self.romanization:
-                    # We have a romanization — treat it as a generic Latin-script
-                    # source and normalize minimally via SemProWord
-                    return SemProWord.from_romanization(self.romanization)
+                    return GenericWord.from_romanization(self.romanization, lang=self.lang)
                 raise UnsupportedLanguageError(self.lang)
 
     def __str__(self) -> str:
@@ -253,23 +364,26 @@ _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
 ]
 
 
-# IPA → pansemitic.  Lossy: strips length + gemination, collapses vowels
-# to {a, i, u}, compresses the consonant inventory.
-_IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
-    # emphatics (multi-char first)
-    ("ðˤ", "ṣ"),
-    ("θˤ", "ṣ"),
-    ("ɬˤ", "ṣ"),
-    ("sˤ", "ṣ"),
-    ("tˤ", "ṭ"),
-    ("dˤ", "ṣ"),
-    # IPA palatal approximant → Semitic y.  Must run *before* d͡ʒ → j so
-    # that the j we produce for jīm isn't double-converted to y.
-    ("j", "y"),
-    # affricates
-    ("d͡ʒ", "j"),
-    ("t͡ʃ", "š"),
-    ("t͡s", "ṣ"),
+# IPA → pansemitic IPA.  Lossy: compresses the consonant inventory to the
+# pansemitic phoneme set, collapses non-{a,i,u} vowels.  Length and
+# gemination are stripped separately by `PansemiticWord.from_word`.
+#
+# Pansemitic phoneme inventory (all IPA):
+#   vowels: a i u
+#   stops:  p b t d k g q ʔ   tˤ dˤ(→sˤ)
+#   fric.:  f s z ʃ ʒ x  sˤ   (ħ/χ → x; θ/ð → s/z; ɬ → s)
+#   affr.:  d͡ʒ          (t͡s/t͡ʃ collapse)
+#   other:  m n l r w j h ʕ ( v -> w)
+_IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
+    # emphatics collapse (multi-char first).  sˤ and tˤ are inventory; other
+    # emphatics fold into sˤ.
+    ("ðˤ", "sˤ"),
+    ("θˤ", "sˤ"),
+    ("ɬˤ", "sˤ"),
+    ("dˤ", "sˤ"),
+    # affricates: d͡ʒ is inventory; t͡ʃ and t͡s fold in.
+    ("t͡ʃ", "ʃ"),
+    ("t͡s", "sˤ"),
     ("d͡z", "z"),
     # voiceless dorsals merge → x
     ("χ", "x"),
@@ -297,15 +411,14 @@ _IPA_TO_PANSEMITIC: list[tuple[str, str]] = [
     ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
     # Superscript letters used as IPA release/off-glide marks — drop.
     ("ᵗ", ""), ("ⁱ", ""), ("ⁿ", ""),
-    # Drop any stray tie bar that wasn't consumed by an affricate rule above.
-    ("͡", ""),
+    # (Tie bar on d͡ʒ is preserved — d͡ʒ is in the pansemitic inventory.)
     # interdentals → sibilants
     ("θ", "s"),
     ("ð", "z"),
-    # postalveolars and lateral
-    ("ʃ", "š"),
-    ("ʒ", "ž"),
+    # lateral fricative → s.  (ʃ and ʒ are preserved — pansemitic inventory.)
     ("ɬ", "s"),
+    # v → w
+    ("v", "w"),
 ]
 
 
@@ -343,30 +456,6 @@ class Word:
         for src, dst in _IPA_TO_SCHOLAR:
             out = out.replace(src, dst)
         return out.replace("ː", "")
-
-    def to_protopansemitic(self) -> str:
-        """IPA → pansemitic.  Lossy: strips length/gemination, collapses
-        vowels to a/i/u, compresses the consonant inventory."""
-        if not self.word:
-            return ""
-        form = self.word.lstrip("*").rstrip("-").lower()
-
-        # Semitic-family sources: f reflects older *p.
-        if self.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
-            form = form.replace("f", "p")
-
-        for src, dst in _IPA_TO_PANSEMITIC:
-            form = form.replace(src, dst)
-
-        # Collapse vowels to a/i/u — handle long forms first so eː → i, oː → a.
-        form = form.replace("eː", "i").replace("oː", "a")
-        form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
-        form = form.replace("e", "i").replace("o", "a")
-
-        # Drop any remaining ː (consonant gemination) and dedupe vowels.
-        form = form.replace("ː", "")
-        form = re.sub(r"([aiu])\1+", r"\1", form)
-        return form.strip()
 
     def countconsonants(self) -> int:
         return sum(1 for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
@@ -817,22 +906,95 @@ class AramaicWord(Word):
         return cls(word=form.strip())
 
 
-class GenericIpaWord(Word):
-    """A Word wrapping a pre-existing IPA string with an arbitrary lang tag.
+class GenericWord(Word):
+    """A Word with an arbitrary lang tag and generic normalization paths.
 
-    Used when we have native IPA from kaikki for a language that has no
-    dedicated subclass (fr, la, sa, fa, …).  `from_romanization` is not
-    supported — construct directly with a cleaned IPA string.
+    Used for languages that have no dedicated subclass (fr, la, sa, fa, …).
+    We still want a normalized IPA-ish representation, but we must preserve the
+    original language tag so language-specific pansemitic rewrites (such as
+    Semitic ``f -> p``) do not accidentally fire for unrelated languages.
     """
 
     def __init__(self, word: str, lang: str):
         self.word = word
         self._lang_tag = lang
 
+    @classmethod
+    def from_ipa(cls, ipa: str, lang: str) -> "GenericWord":
+        return cls(word=_strip_combining(ipa), lang=lang)
+
+    @classmethod
+    def from_romanization(cls, text: str, lang: str) -> "GenericWord":
+        # Reuse the broad SemProWord transliteration cleanup so dotted / marked
+        # scholarly Latin input gets mapped into the same IPA-ish internal
+        # alphabet, but preserve the original language tag.
+        base = SemProWord.from_romanization(text)
+        return cls(word=base.word, lang=lang)
+
     @property
     def lang(self) -> str:
         return self._lang_tag
 
+
+_PANSEMITIC_IPA_TO_SCHOLAR: list[tuple[str, str]] = [
+    ("sˤ", "ṣ"),
+    ("tˤ", "ṭ"),
+    # IPA palatal approximant → Semitic y (before d͡ʒ → j so the jīm we
+    # produce isn't re-mapped to y).
+    ("j", "y"),
+    ("d͡ʒ", "j"),
+    ("ʃ", "š"),
+    ("ʒ", "ž"),
+    # Pansemitic keeps `x` as-is (merged dorsal fricative) rather than ḫ.
+    # Strip any leftover tie bar (from a foreign affricate not in our
+    # inventory).  Runs last so the d͡ʒ → j rule above gets first crack.
+    ("͡", ""),
+]
+
+
+class PansemiticWord(Word):
+    """A word reduced to the pansemitic phoneme inventory, stored as IPA.
+
+    Built from any ancestor Word via `PansemiticWord.from_word`.  Apply the
+    pansemitic phonetic compressions in IPA so that downstream consumers
+    (notably the loss function in `loss.py`) can work uniformly in IPA.
+    """
+
+    @property
+    def lang(self) -> str:
+        return "pansemitic"
+
+    def to_protosemitic_convention(self) -> str:
+        """Human-readable pansemitic rendering.  Uses a bespoke table: the
+        generic scholar mapping would fold x → ḫ, but pansemitic keeps x."""
+        out = self.word
+        for src, dst in _PANSEMITIC_IPA_TO_SCHOLAR:
+            out = out.replace(src, dst)
+        return out
+
+    @classmethod
+    def from_word(cls, ancestor: Word) -> "PansemiticWord":
+        if not ancestor.word:
+            return cls(word="")
+        form = ancestor.word.lstrip("*").rstrip("-").lower()
+
+        # Semitic-family sources: f reflects older *p.
+        if ancestor.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
+            form = form.replace("f", "p")
+
+        for src, dst in _IPA_TO_PANSEMITIC_IPA:
+            form = form.replace(src, dst)
+
+        # Collapse vowels to a/i/u — long forms first so eː → i, oː → a.
+        form = form.replace("eː", "i").replace("oː", "a")
+        form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
+        form = form.replace("e", "i").replace("o", "a")
+
+        # Drop remaining ː (consonant gemination) and dedupe adjacent vowels.
+        form = form.replace("ː", "")
+        form = re.sub(r"([aiu])\1+", r"\1", form)
+
+        return cls(word=form.strip())
 
 
 def reconstruct_ancestor(

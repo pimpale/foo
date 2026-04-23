@@ -32,6 +32,7 @@ import orjson
 
 from reconstruction import (
     SharedSource,
+    PansemiticWord,
     reconstruct_ancestor,
     ReconstructionError,
     UnsupportedLanguageError,
@@ -44,6 +45,7 @@ DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
 OUTPUT_FILE = Path("cognates2.json")
 CSV_FILE = Path("cognates2.csv")
+ROMANIZATION_TIER_DIFFS_FILE = Path("romanization_tier_differences.csv")
 SENSES_FILE = Path("senses.json")
 EMBEDDINGS_FILE = Path("embeddings.npy")
 FALSE_POSITIVES_FILE = Path("false-positives.txt")
@@ -135,6 +137,17 @@ class CognateEntry:
             return obj
         d = dataclasses.asdict(self)
         return {k: _strip(v) for k, v in d.items() if v is not None}
+
+
+@dataclass
+class RomanizationTierObservation:
+    lang: str
+    word: str
+    tier1: str | None
+    tier2: str | None
+    tier3: str | None
+    selected: str | None
+    uses: int = 0
 
 
 def normalize_arabic(text: str) -> str:
@@ -537,9 +550,25 @@ def _find_lcas(
     # LCAs: sources that have no descendant also in the source set
     lcas = [s for s in source_set if not children_of.get(s)]
 
-    # Tiebreak: sort by combined depth (ar_depth + he_depth)
-    lcas.sort(key=lambda s: sum(sources[s]))
+    # Sort by combined depth; break ties on (lang, word) for determinism.
+    lcas.sort(key=lambda s: (sum(sources[s]), s[0], s[1]))
     return lcas
+
+
+def _availability_key(obs: RomanizationTierObservation) -> str:
+    labels = []
+    if obs.tier1:
+        labels.append("1")
+    if obs.tier2:
+        labels.append("2")
+    if obs.tier3:
+        labels.append("3")
+    return "+".join(labels) if labels else "none"
+
+
+def _tiers_differ(obs: RomanizationTierObservation) -> bool:
+    available = [v for v in (obs.tier1, obs.tier2, obs.tier3) if v]
+    return len(available) >= 2 and len(set(available)) > 1
 
 
 def main():
@@ -730,6 +759,7 @@ def main():
     consonant_mismatches = 0
     missing_romanizations = 0
     empty_ancestors = 0
+    romanization_tier_obs: dict[tuple[str, str], RomanizationTierObservation] = {}
     results: list[CognateEntry] = []
     for (ar_canonical, he_canonical), pair in sorted(pair_data.items()):
         ar_wd = ar_words.get(ar_canonical)
@@ -787,29 +817,45 @@ def main():
             entry.shared_borrowing_sources = {
                 f"{s[0]}:{s[1]}": pair.sources[s] for s in all_sorted
             }
-        lca_sources = [
-            SharedSource(
-                lang=s[0],
-                word=s[1],
-                romanization=SharedSource.resolve_romanization(
-                    s[0], s[1],
-                    template_tr=template_tr_index.get(s),
-                    kaikki_roman_index=kaikki_roman_index,
-                ),
-                ipa=SharedSource.resolve_ipa(
-                    s[0], s[1],
-                    kaikki_ipa_index=kaikki_ipa_index,
-                ),
+        lca_sources = []
+        for s in lcas:
+            tiers = SharedSource.get_romanization_tiers(
+                s[0], s[1],
+                template_tr=template_tr_index.get(s),
+                kaikki_roman_index=kaikki_roman_index,
             )
-            for s in lcas
-        ] or None
+            key = (s[0], s[1])
+            if key not in romanization_tier_obs:
+                romanization_tier_obs[key] = RomanizationTierObservation(
+                    lang=s[0],
+                    word=s[1],
+                    tier1=tiers.tier1,
+                    tier2=tiers.tier2,
+                    tier3=tiers.tier3,
+                    selected=tiers.resolved(),
+                    uses=1,
+                )
+            else:
+                romanization_tier_obs[key].uses += 1
+            lca_sources.append(
+                SharedSource(
+                    lang=s[0],
+                    word=s[1],
+                    romanization=tiers.resolved(),
+                    ipa=SharedSource.resolve_ipa(
+                        s[0], s[1],
+                        kaikki_ipa_index=kaikki_ipa_index,
+                    ),
+                )
+            )
+        lca_sources = lca_sources or None
         try:
             ancestor = reconstruct_ancestor(
                 entry.arabic.roman, entry.hebrew.roman,
                 shared_sources=lca_sources,
             )
             entry.ancestor = str(ancestor)
-            pansemitic = ancestor.to_protopansemitic()
+            pansemitic = PansemiticWord.from_word(ancestor).to_protosemitic_convention()
             if pansemitic:
                 entry.pansemitic_form = pansemitic
             else:
@@ -849,11 +895,33 @@ def main():
                 ";".join(entry.match_layers),
             ])
 
+    tier1_available = sum(1 for obs in romanization_tier_obs.values() if obs.tier1)
+    tier2_available = sum(1 for obs in romanization_tier_obs.values() if obs.tier2)
+    tier3_available = sum(1 for obs in romanization_tier_obs.values() if obs.tier3)
+    tier_availability_counts: dict[str, int] = defaultdict(int)
+    for obs in romanization_tier_obs.values():
+        tier_availability_counts[_availability_key(obs)] += 1
+    tier_diff_rows = sorted(
+        [obs for obs in romanization_tier_obs.values() if _tiers_differ(obs)],
+        key=lambda obs: (obs.lang, obs.word),
+    )
+
     pansemitic_count = sum(1 for e in results if e.pansemitic_form)
     total_failures = sum(unsupported_langs.values()) + consonant_mismatches + missing_romanizations + empty_ancestors
     print(f"\nDone in {time.monotonic() - t_total:.1f}s total.")
     print(f"  {len(results)} cognate pairs written ({skipped} skipped, no senses)")
     print(f"  {pansemitic_count} pansemitic forms generated")
+    print("\n  Romanization tier inspection:")
+    print(f"    {len(romanization_tier_obs)} unique shared-source words "
+          f"({sum(obs.uses for obs in romanization_tier_obs.values())} total lookups)")
+    print(f"    Tier 1 available:              {tier1_available}")
+    print(f"    Tier 2 available:              {tier2_available}")
+    print(f"    Tier 3 available:              {tier3_available}")
+    print("    Availability combinations:")
+    for combo, count in sorted(tier_availability_counts.items()):
+        print(f"      {combo:4s} {count}")
+    print(f"    Differing tier rows:           {len(tier_diff_rows)}")
+
     print(f"\n  Pansemitic failures ({total_failures} total):")
     print(f"    Consonant count mismatch:     {consonant_mismatches}")
     print(f"    Unsupported source language:   {sum(unsupported_langs.values())}")
