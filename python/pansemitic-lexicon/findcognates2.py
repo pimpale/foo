@@ -30,6 +30,7 @@ from typing import Any, Callable
 import numpy as np
 import orjson
 
+from loss import LossBreakdown, triplet_loss_breakdown
 from reconstruction import (
     SharedSource,
     PansemiticWord,
@@ -125,6 +126,7 @@ class CognateEntry:
     best_sense_match: SenseMatch | None = None
     ancestor: str | None = None
     pansemitic_form: str | None = None
+    loss: LossBreakdown | None = None
     pansemitic_failure: str | None = None  # populated iff pansemitic_form is None
 
     def to_dict(self) -> dict[str, Any]:
@@ -236,7 +238,15 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     word = entry.get("word", "")
     if not word:
         return
-    key = (lang_code, word)
+
+    # Many Semitic entries have an unpointed ``word`` field but a pointed
+    # canonical form in ``forms``. Other entries may cite either one in
+    # etymology templates, so index both as aliases for the same node.
+    node_keys = {(lang_code, word)}
+    canonical = _extract_canonical(entry)
+    if canonical and canonical != word:
+        node_keys.add((lang_code, canonical))
+
     for tmpl in entry.get("etymology_templates", []):
         name = tmpl.get("name", "")
         args = tmpl.get("args", {})
@@ -248,7 +258,8 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
                     and src_word not in ("-", "?", "")
                     and len(src_word) > 1):
                 src_key = (src_lang, src_word)
-                borrow_graph[key].add(src_key)
+                for key in node_keys:
+                    borrow_graph[key].add(src_key)
                 tr = args.get("tr", "")
                 if tr and src_key not in template_tr_index:
                     template_tr_index[src_key] = tr
@@ -271,7 +282,9 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
                     if (src_word not in ("-", "?", "", "*")
                             and len(src_word) > 1
                             and src_lang != lang_code):
-                        borrow_graph[key].add((src_lang, src_word))
+                        src_key = (src_lang, src_word)
+                        for key in node_keys:
+                            borrow_graph[key].add(src_key)
 
 
 def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
@@ -383,15 +396,20 @@ def _process_chunk(
             # Collect romanization and IPA for any entry (for lookup tiers).
             word = entry.get("word", "")
             if lc and word:
-                key = (lc, word)
-                if key not in kaikki_roman_index:
-                    roman = _extract_kaikki_romanization(entry)
-                    if roman:
-                        kaikki_roman_index[key] = roman
-                if key not in kaikki_ipa_index:
-                    ipa = _extract_kaikki_ipa(entry)
-                    if ipa:
-                        kaikki_ipa_index[key] = ipa
+                key_aliases = {(lc, word)}
+                canonical = _extract_canonical(entry)
+                if canonical and canonical != word:
+                    key_aliases.add((lc, canonical))
+                roman = _extract_kaikki_romanization(entry)
+                if roman:
+                    for key in key_aliases:
+                        if key not in kaikki_roman_index:
+                            kaikki_roman_index[key] = roman
+                ipa = _extract_kaikki_ipa(entry)
+                if ipa:
+                    for key in key_aliases:
+                        if key not in kaikki_ipa_index:
+                            kaikki_ipa_index[key] = ipa
 
             _extract_borrowing(entry, lc, borrow_graph, template_tr_index)
 
@@ -514,14 +532,36 @@ def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, 
     return {canonical: set(wd.cognates) for canonical, wd in words.items() if wd.cognates}
 
 
-def _make_borrow_index(words: dict[str, WordData]) -> dict[str, dict[tuple[str, str], int]]:
+def _make_borrow_index(
+    words: dict[str, WordData],
+    lang: str,
+    cross_lang_source_targets: set[tuple[str, str]],
+) -> dict[str, dict[tuple[str, str], int]]:
     """Extract borrow sources from WordData, keyed by canonical form.
 
     Initially all direct sources have depth 0; _expand_borrow_transitive
     adds transitive ancestors with increasing depth.
     """
-    return {canonical: {s: 0 for s in wd.borrow_sources}
-            for canonical, wd in words.items() if wd.borrow_sources}
+    out: dict[str, dict[tuple[str, str], int]] = {}
+    for canonical, wd in words.items():
+        sources = {s: 0 for s in wd.borrow_sources}
+        self_nodes = {(lang, canonical)}
+        if wd.norm and wd.norm != canonical:
+            self_nodes.add((lang, wd.norm))
+
+        # Treat the Arabic/Hebrew lexeme itself as a graph node so the
+        # existing transitive-LCA pipeline can return a direct donor word
+        # (e.g. Hebrew <- Arabic) instead of always climbing to a deeper
+        # shared ancestor. Only seed these self-nodes when the lexeme is
+        # actually participating in an etymology chain itself, or when the
+        # opposite side explicitly cites it as a source.
+        if wd.borrow_sources or (self_nodes & cross_lang_source_targets):
+            for node in self_nodes:
+                sources[node] = 0
+
+        if sources:
+            out[canonical] = sources
+    return out
 
 
 def _find_lcas(
@@ -596,8 +636,16 @@ def main():
     # Build standalone cognate/borrow indexes keyed by canonical form
     ar2he_cog = _make_cognate_index(ar_words)
     he2ar_cog = _make_cognate_index(he_words)
-    ar_borrow = _make_borrow_index(ar_words)
-    he_borrow = _make_borrow_index(he_words)
+    ar_source_targets = {
+        source for wd in he_words.values() for source in wd.borrow_sources
+        if source[0] == "ar"
+    }
+    he_source_targets = {
+        source for wd in ar_words.values() for source in wd.borrow_sources
+        if source[0] == "he"
+    }
+    ar_borrow = _make_borrow_index(ar_words, "ar", ar_source_targets)
+    he_borrow = _make_borrow_index(he_words, "he", he_source_targets)
 
     # Build norm→canonical reverse indexes for fallback resolution
     ar_norm_to_canonicals: dict[str, list[str]] = defaultdict(list)
@@ -751,6 +799,24 @@ def main():
             similarity=round(float(dots[best]), 4),
         )
 
+    def _surface_source(lang: str, canonical: str, norm: str, roman: str) -> SharedSource:
+        """Build a SharedSource for the Arabic/Hebrew surface form itself."""
+        ipa = (SharedSource.resolve_ipa(lang, canonical, kaikki_ipa_index=kaikki_ipa_index)
+               or SharedSource.resolve_ipa(lang, norm, kaikki_ipa_index=kaikki_ipa_index))
+        return SharedSource(
+            lang=lang,
+            word=canonical,
+            romanization=roman or None,
+            ipa=ipa,
+        )
+
+    def _surface_ipa(source: SharedSource) -> str | None:
+        """Resolve a surface SharedSource to normalized IPA."""
+        try:
+            return source.to_word().to_ipa() or None
+        except ReconstructionError:
+            return None
+
     # ── Build output ─────────────────────────────────────────────
     print(f"\nWriting {OUTPUT_FILE} …")
     _WIKT = "https://en.wiktionary.org/wiki/"
@@ -773,19 +839,10 @@ def main():
         ar_roman = ar_wd.romanization if ar_wd else ""
         he_roman = he_wd.romanization if he_wd else ""
 
-        def _surface_ipa(lang: str, canonical: str, norm: str, roman: str) -> str | None:
-            """Reuse the SharedSource dispatch pipeline — prefers native IPA,
-            falls back to romanization — for the ar/he surface form itself."""
-            ipa = (SharedSource.resolve_ipa(lang, canonical, kaikki_ipa_index=kaikki_ipa_index)
-                   or SharedSource.resolve_ipa(lang, norm, kaikki_ipa_index=kaikki_ipa_index))
-            ss = SharedSource(lang=lang, word=canonical, romanization=roman or None, ipa=ipa)
-            try:
-                return ss.to_word().to_ipa() or None
-            except ReconstructionError:
-                return None
-
-        ar_ipa = _surface_ipa("ar", ar_canonical, ar_norm, ar_roman)
-        he_ipa = _surface_ipa("he", he_canonical, he_norm, he_roman)
+        ar_surface = _surface_source("ar", ar_canonical, ar_norm, ar_roman)
+        he_surface = _surface_source("he", he_canonical, he_norm, he_roman)
+        ar_ipa = _surface_ipa(ar_surface)
+        he_ipa = _surface_ipa(he_surface)
 
         entry = CognateEntry(
             arabic=LangEntry(
@@ -855,9 +912,16 @@ def main():
                 shared_sources=lca_sources,
             )
             entry.ancestor = str(ancestor)
-            pansemitic = PansemiticWord.from_word(ancestor).to_protosemitic_convention()
+            pansemitic_word = PansemiticWord.from_word(ancestor)
+            pansemitic = pansemitic_word.to_protosemitic_convention()
             if pansemitic:
                 entry.pansemitic_form = pansemitic
+                if ar_ipa and he_ipa:
+                    entry.loss = triplet_loss_breakdown(
+                        pansemitic_word.to_ipa(),
+                        ar_ipa,
+                        he_ipa,
+                    )
             else:
                 entry.pansemitic_failure = "empty_pansemitic"
         except UnsupportedLanguageError as e:

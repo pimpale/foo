@@ -223,6 +223,10 @@ class SharedSource:
         m = _IPA_DELIMITED.search(raw)
         out = m.group(1) if m else raw
         out = out.split(",")[0].strip()
+        # Some kaikki IPA strings are malformed and only include one edge
+        # delimiter, e.g. "/braːɡ". Trim any leftover wrapper chars after the
+        # normal /.../ or [...] extraction path above.
+        out = out.strip("/[]")
         for c in "ˈˌ.":
             out = out.replace(c, "")
         out = out.strip()
@@ -373,7 +377,7 @@ _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
 #   stops:  p b t d k g q ʔ   tˤ dˤ(→sˤ)
 #   fric.:  f s z ʃ ʒ x  sˤ   (ħ/χ → x; θ/ð → s/z; ɬ → s)
 #   affr.:  d͡ʒ          (t͡s/t͡ʃ collapse)
-#   other:  m n l r w j h ʕ ( v -> w)
+#   other:  m n l r w j h ʕ ( v -> w, ɦ -> h)
 _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     # emphatics collapse (multi-char first).  sˤ and tˤ are inventory; other
     # emphatics fold into sˤ.
@@ -419,6 +423,8 @@ _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     ("ɬ", "s"),
     # v → w
     ("v", "w"),
+    # voiced glottal fricative → h
+    ("ɦ", "h"),
 ]
 
 
@@ -572,7 +578,11 @@ class SemProWord(Word):
         """proto-Semitic scholar notation → IPA."""
         if not text:
             return cls(word=text)
-        form = text.lower()
+
+        # In sem-pro, capital `V` is the "unknown vowel" placeholder (see
+        # Wiktionary Reconstruction:Proto-Semitic/ḏV-).  Substitute a central
+        # vowel before lowercasing so it's not confused with consonant /v/.
+        form = text.replace("V", "a").lower()
 
         # Strip reconstruction markers.
         form = form.lstrip("*").rstrip("-")
@@ -585,6 +595,7 @@ class SemProWord(Word):
         # Glottal / pharyngeal variants first
         form = form.replace("ʾ", "ʔ")
         form = form.replace("ʿ", "ʕ")
+        form = form.replace("y", "j")
 
         # Gemination on raw input.
         form = _geminate(form)
@@ -994,7 +1005,13 @@ class PansemiticWord(Word):
         form = form.replace("ː", "")
         form = re.sub(r"([aiu])\1+", r"\1", form)
 
-        return cls(word=form.strip())
+        form = form.strip()
+        # Pansemitic words don't start with a bare vowel — prepend a glottal
+        # stop to match Semitic phonotactics.
+        if form and form[0] in "aiu":
+            form = "ʔ" + form
+
+        return cls(word=form)
 
 
 def reconstruct_ancestor(
