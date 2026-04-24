@@ -230,6 +230,11 @@ class SharedSource:
         for c in "ˈˌ.":
             out = out.replace(c, "")
         out = out.strip()
+        # Some kaikki IPA spells gemination as a doubled letter split across
+        # syllables (e.g. /ebˈbuː.bum/ → ebbuːbum).  Collapse those into the
+        # ː convention used elsewhere so downstream tokenization treats them
+        # as a single geminate phoneme.
+        out = _geminate(out)
         return out or None
 
     def to_word(self) -> "Word":

@@ -4,11 +4,11 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 آتَى,ʔātā,נָאוֹת,na'ót,ʔata,direct_cognate_he→ar
 آدَم,ʔādam,אָדָם,adám,ʔadami,shared_borrowing_source
 آدَم,ʔādam,דָּם,dam,dam,shared_borrowing_source
-آذَار,ʔāḏār,אֲדָר,adár,ʔaddarum,shared_borrowing_source
-آذَار,ʔāḏār,אֶדֶר,éder,ʔaddarum,shared_borrowing_source
+آذَار,ʔāḏār,אֲדָר,adár,ʔadarum,shared_borrowing_source
+آذَار,ʔāḏār,אֶדֶר,éder,ʔadarum,shared_borrowing_source
 آزَر,ʔāzar,אֱלִיעֶזֶר,Eli'ézer,ʾilī-ʿizir,shared_borrowing_source
 آس,ʔās,הֲדַס,haḏás,,direct_cognate_he→ar
-آشُور,ʔāšūr,אַשּׁוּר,ashúr,ʔaššur,shared_borrowing_source
+آشُور,ʔāšūr,אַשּׁוּר,ashúr,ʔašur,shared_borrowing_source
 آمَنَ,ʔāmana,הֶאֱמִין,he'emín,ʔamana,direct_cognate_ar→he;direct_cognate_he→ar
 آمُون,ʔāmūn,אָמוֹן,amon,yamanuw,shared_borrowing_source
 آمُون,ʔāmūn,יָמִין,yamín,yamin,shared_borrowing_source
@@ -21,7 +21,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 أَب,ʔab,אָב,áv,ʔabw,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
 أَبَار,ʔabār,אֵבֶר,'éver,ʔabar,direct_cognate_ar→he
 أَبَاسْخِيرُون,ʔabāsḵīrūn,אַב,av,ʔabw,shared_borrowing_source
-أَبَاسْخِيرُون,ʔabāsḵīrūn,אַבָּא,ába,ʔabbaʔ,shared_borrowing_source
+أَبَاسْخِيرُون,ʔabāsḵīrūn,אַבָּא,ába,ʔabaʔ,shared_borrowing_source
 أَبَاسْخِيرُون,ʔabāsḵīrūn,אָב,áv,ʔabw,shared_borrowing_source
 أَبَقَ,ʔabaqa,נֶאֱבַק,ne'evák,ʔabaqa,direct_cognate_he→ar
 أَبَى,ʔabā,אָבָה,avá,ʔabay,direct_cognate_he→ar;shared_borrowing_source
@@ -42,7 +42,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 أَثَر,ʔaṯar,אֲשֶׁר,ashér,ʔasar,direct_cognate_ar→he;direct_cognate_he→ar
 أَثْل,ʔaṯl,אֵשֶׁל,éshel,ʔasil,direct_cognate_ar→he
 أَجَرَ,ʔajara,אָגַר,agár,ʔajara,direct_cognate_ar→he
-أَجَمَة,ʔajama,אֲגַם,agám,ʔagammum,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
+أَجَمَة,ʔajama,אֲגַם,agám,ʔagamum,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
 أَحَادِيث,ʔaḥādīṯ,חֲדָשׁוֹת,khadashót,ʔaxadis,direct_cognate_he→ar
 أَحَد,ʔaḥad,אֶחָד,ekhád,ʔaxad,direct_cognate_ar→he
 أَحَد,ʔaḥad,חַד,khad-,ʔaxad,shared_borrowing_source
@@ -100,7 +100,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 أَكَلَ,ʔakala,אֻכַּל,ukál,ʔakal,direct_cognate_he→ar;shared_borrowing_source
 أَكَلَ,ʔakala,אׇכְלָה,okhlá,ʔakal,shared_borrowing_source
 أَكَلَّ,ʔakalla,אֹֽכֶל,ókhel,ʔakala,direct_cognate_he→ar
-أَكَّار,ʔakkār,אִכָּר,ikár,ʔikkarum,shared_borrowing_source
+أَكَّار,ʔakkār,אִכָּר,ikár,ʔikarum,shared_borrowing_source
 أَكَّلَ,ʔakkala,אֹֽכֶל,ókhel,ʔakala,direct_cognate_he→ar
 أَكِلَ,ʔakila,אֹֽכֶל,ókhel,ʔakila,direct_cognate_he→ar
 أَكْل,ʔakl,אֹֽכֶל,ókhel,ʔakil,direct_cognate_he→ar
@@ -195,7 +195,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 أُمّ,ʔumm,אֵם,em,ʔim,direct_cognate_ar→he;shared_borrowing_source
 أُنَاس,ʔunās,אֱנוֹשׁ,enósh,ʔinaš,shared_borrowing_source
 أُنَاس,ʔunās,אָנוּשׁ,anúsh,ʔinaš,shared_borrowing_source
-أُنْبُوب,ʔunbūb,אַבּוּב,abúv,ʔibbubum,direct_cognate_he→ar;shared_borrowing_source
+أُنْبُوب,ʔunbūb,אַבּוּב,abúv,ʔibubum,direct_cognate_he→ar;shared_borrowing_source
 أُنْثَى,ʔunṯā,אִשֶּׁה,ishé,ʔans-at,shared_borrowing_source
 أُنْثَى,ʔunṯā,אִשָּׁה,ishá,ʔans-at,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
 أُهِلَ,ʔuhila,אֹהֶל,óhel,ʔahl,shared_borrowing_source
@@ -259,17 +259,17 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 إِيدْز,ʔīdz,אֵיְדְּס,éyds,ʔidz,shared_borrowing_source
 التَّلْمُود,at-talmūd,תַּלְמוּד,talmúd,talmud,shared_borrowing_source
 التَّوْرَاة,at-tawrāh,תּוֹרָה,torá,tara,shared_borrowing_source
-الدَّار الْبَيْضَاء,ad-dār al-bayḍāʔ,קָזַבְּלַנְקָה,kazablánka,ʔaddar albayṣaʔ,shared_borrowing_source
+الدَّار الْبَيْضَاء,ad-dār al-bayḍāʔ,קָזַבְּלַנְקָה,kazablánka,ʔadar albayṣaʔ,shared_borrowing_source
 الرَّبّ,ar-rabb,רַב,ráv,rab,direct_cognate_ar→he
-السَّبْت,as-sabt,שֶׁבֶת,shévet,šapattum,shared_borrowing_source
+السَّبْت,as-sabt,שֶׁבֶת,shévet,šapatum,shared_borrowing_source
 السَّبْت,as-sabt,שַׁבָּת,shabát,šabas,shared_borrowing_source
-السَّبْت,as-sabt,שָׁבַת,shavát,šapattum,shared_borrowing_source
+السَّبْت,as-sabt,שָׁבַת,shavát,šapatum,shared_borrowing_source
 السَّلَامُ عَلَيْكُمْ,as-salāmu ʕalaykum,שָׁלוֹם עֲלֵיכֶם,shalóm alekhém,,direct_cognate_ar→he;direct_cognate_he→ar
 الشَّام,aš-šām,שְׂמֹאל,s'mól,ʔašaša,direct_cognate_ar→he
 الصِّين,aṣ-ṣīn,סִין,sin,tsina,shared_borrowing_source
 الفَاسِخ,al-fāsiḵ,פֶּסַח,pésakh,pasix,direct_cognate_ar→he
 اللّٰه,allāh,אֱלוֹהַּ,elóah,,direct_cognate_ar→he
-اللّٰه,allāh,אֲללַּהּ,alláh,ʔalla(h),shared_borrowing_source
+اللّٰه,allāh,אֲללַּהּ,alláh,ʔala(h),shared_borrowing_source
 اللّٰه,allāh,א־ל,ʾ-l,ʔil,shared_borrowing_source
 النَّقَب,an-naqab,נֶגֶב,négev,nigiw,shared_borrowing_source
 النِّيل,an-nīl,נִילוּס,nilus,nilas,shared_borrowing_source
@@ -464,7 +464,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 بُرّ,burr,בַּר,bar,bar,shared_borrowing_source
 بُرّ,burr,בָּר,bar,bar,direct_cognate_ar→he;shared_borrowing_source
 بُرْغُوث,burḡūṯ,פַּרְעוֹשׁ,par'ósh,purgus,shared_borrowing_source
-بُرْغِيّ,burḡiyy,בֹּרֶג,bóreg,burgiyy,shared_borrowing_source
+بُرْغِيّ,burḡiyy,בֹּרֶג,bóreg,burgiy,shared_borrowing_source
 بُسْر,busr,בֹּסֶר,bóser,busir,direct_cognate_ar→he
 بُسْطُن,busṭun,בּוֹסְטוֹן,bóston,bastan,shared_borrowing_source
 بُشَارَة,bušāra,בְּשׂוֹרָה,b'sorá,bušara,direct_cognate_ar→he
@@ -496,7 +496,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 بِئْر,biʔr,בְּאֵר,be'ér,biʔr,shared_borrowing_source
 بِئْر,biʔr,בֵּאֵר,be'ér,biʔr,shared_borrowing_source
 بِئْر,biʔr,בָּאר,bár,biʔr,shared_borrowing_source
-بِرِيطانِيَا,birīṭāniyā,בְּרִיטַנְיָה,británya,britannia,shared_borrowing_source
+بِرِيطانِيَا,birīṭāniyā,בְּרִיטַנְיָה,británya,britania,shared_borrowing_source
 بِرّ,birr,בַּר,bar,bar,shared_borrowing_source
 بِرّ,birr,בָּר,bar,bar,shared_borrowing_source
 بِزّ,,דַּד,dád,,direct_cognate_ar→he
@@ -511,7 +511,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 بِنَاء,bināʔ,בְּנִיָּה,bəniyyɔ̂,,direct_cognate_ar→he
 بِنْت,bint,בַּת,bat,bint,direct_cognate_ar→he;shared_borrowing_source
 بِنْش,benš,בַּנְק,bánk,bankiz,shared_borrowing_source
-بِيتْزَا,bītzā,פִּיצָה,pítsa,pitṣa,shared_borrowing_source
+بِيتْزَا,bītzā,פִּיצָה,pítsa,pitsa,shared_borrowing_source
 بِيتْزَا,bītzā,פִּיתָה,píta,,shared_borrowing_source
 بِيرَة,bīra,בִּירָה,birá,bia,direct_cognate_he→ar;shared_borrowing_source
 بِيرُقْرَاطِيَّة,bīruqrāṭiyya,בִּירוֹקְרַטְיָה,berokrátya,byrakrasi,shared_borrowing_source
@@ -546,7 +546,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 تَرّ,tarr,תּוֹר,tór,tar,direct_cognate_ar→he
 تَرْجَمَ,tarjama,תִּרְגֵּם,tirgém,tarjama,direct_cognate_ar→he;direct_cognate_he→ar
 تَلّ,tall,תֵּל,tél,tal,shared_borrowing_source
-تَلّ,tall,תַּיִל,táyil,tall,shared_borrowing_source
+تَلّ,tall,תַּיִל,táyil,tal,shared_borrowing_source
 تَمَام,tamām,תָּמִים,tamím,tamam,direct_cognate_ar→he;direct_cognate_he→ar
 تَمَرَّدَ,tamarrada,מֶרֶד,méred,marad,direct_cognate_he→ar;shared_borrowing_source
 تَمَرَّدَ,tamarrada,מַרְדָנוּת,,marad,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
@@ -880,7 +880,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 حَمَاس,ḥamās,חַמַאס,khamás,xamas,shared_borrowing_source
 حَمَام,ḥamām,יוֹנָה,yoná,šawman,shared_borrowing_source
 حَمَّ,ḥamma,חַם,kham,xama,direct_cognate_ar→he
-حَمَّام,ḥammām,חַמָּאם,hamám,xammam,shared_borrowing_source
+حَمَّام,ḥammām,חַמָּאם,hamám,xamam,shared_borrowing_source
 حَمَّام,ḥammām,יוֹנָה,yoná,šawman,shared_borrowing_source
 حَمَّصَ,ḥammaṣa,חִמְצָה,khimtsá,xamaṣa,direct_cognate_he→ar
 حَمَّضَ,ḥammaḍa,חָמוּץ,khamútz,,direct_cognate_he→ar
@@ -901,9 +901,9 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 حَنْبَل,ḥanbal,חֶבֶל,khével,xabl,shared_borrowing_source
 حَنْدَقُوق,ḥandaqūq,הֹדּוּ,hódu,hiduš,shared_borrowing_source
 حَنْك,ḥank,חֵךְ,khékh,,direct_cognate_ar→he
-حَوَّاء,ḥawwāʔ,חַוָּה,khavá,xawwa,shared_borrowing_source
+حَوَّاء,ḥawwāʔ,חַוָּה,khavá,xawa,shared_borrowing_source
 حَوَّاء,ḥawwāʔ,חַי,kháy,xyw,shared_borrowing_source
-حَوَّاء,ḥawwāʔ,חָוָה,khavá,xawwa,shared_borrowing_source
+حَوَّاء,ḥawwāʔ,חָוָה,khavá,xawa,shared_borrowing_source
 حَوَّلَ,ḥawwala,חִיֵּל,khiyél,xawala,direct_cognate_he→ar
 حَوَّلَ,ḥawwala,חַיִל,kháyil,xawala,direct_cognate_he→ar
 حَوَّلَ,ḥawwala,חַיָּל,khayál,xawala,direct_cognate_he→ar
@@ -934,7 +934,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 حُلْم,ḥulm,חֲלוֹם,khalóm,xulam,direct_cognate_ar→he;direct_cognate_he→ar
 حُمَة,ḥuma,חֵמָה,khemá,xuma,direct_cognate_he→ar
 حُمُّص,ḥummuṣ,חִמְצָה,khimtsá,xumuṣa,direct_cognate_ar→he;direct_cognate_he→ar
-حُمُّص,ḥummuṣ,חוּמוּס,khúmus,ximmiṣ,shared_borrowing_source
+حُمُّص,ḥummuṣ,חוּמוּס,khúmus,ximiṣ,shared_borrowing_source
 حُنْك,ḥunk,חֵךְ,khékh,,direct_cognate_ar→he
 حُول,ḥūl,חִיֵּל,khiyél,,direct_cognate_he→ar
 حُول,ḥūl,חַיִל,kháyil,,direct_cognate_he→ar
@@ -1555,11 +1555,11 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 سُلّ,,שָׁלַל,shalál,,direct_cognate_ar→he
 سُلْطَان,sulṭān,סוּלְטָן,sultán,sulṭan,shared_borrowing_source
 سُلْطَان,sulṭān,שִׁלְטוֹן,shiltón,sulṭan,direct_cognate_ar→he;direct_cognate_he→ar
-سُنَّة,sunna,סֻנָּה,suná,sunna,shared_borrowing_source
+سُنَّة,sunna,סֻנָּה,suná,suna,shared_borrowing_source
 سُنَّة,sunna,שָׁנָה,shaná,šanat,shared_borrowing_source
 سُنُونُو,sunūnū,סְנוּנִית,snunít,,direct_cognate_ar→he;direct_cognate_he→ar
-سُنِّيّ,sunniyy,סוּנִי,suni,sunniyy,shared_borrowing_source
-سُنِّيّ,sunniyy,סוני,suni,sunniyy,shared_borrowing_source
+سُنِّيّ,sunniyy,סוּנִי,suni,suniy,shared_borrowing_source
+سُنِّيّ,sunniyy,סוני,suni,suniy,shared_borrowing_source
 سُنْبُل,sunbul,שִׁבֹּלֶת,shibólet,sunabul,direct_cognate_ar→he
 سُنْبُلَة,sunbula,שִׁבֹּלֶת,shibólet,sunabula,direct_cognate_he→ar
 سُورَة,sūra,סִדְרָה,sidrá,siḏrā,shared_borrowing_source
@@ -1624,7 +1624,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 شَحَطَ,šaḥaṭa,שָׁחַט,shakhát,šaxaṭa,direct_cognate_ar→he
 شَحَّطَ,šaḥḥaṭa,שָׁחַט,shakhát,šaxaṭa,direct_cognate_ar→he
 شَحْط,šaḥṭ,שָׁחַט,shakhát,šaxaṭ,direct_cognate_ar→he
-شَدَّة,šadda,שַׁדָּה,shadá,šadda,shared_borrowing_source
+شَدَّة,šadda,שַׁדָּה,shadá,šada,shared_borrowing_source
 شَرَى,šarā,שָׁרָה,shará,šara,direct_cognate_ar→he
 شَرَى,šarā,שָׂרָה,sará,šara,direct_cognate_ar→he;direct_cognate_he→ar
 شَرَى,šarā,שרה,,,direct_cognate_ar→he
@@ -1673,7 +1673,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 شُرْش,šurš,שֹׁרַשׁ,šoráš,šurš,shared_borrowing_source
 شُعُر,šuʕur,שֵׂעָר,se'ár,,direct_cognate_he→ar
 شُوفَان,šūfān,שִׁיפוֹן,shifón,šupan,direct_cognate_ar→he;direct_cognate_he→ar
-شُوكُولَاتَة,šukūlāta,שׁוֹקוֹלָד,shokolád,šakkalata,shared_borrowing_source
+شُوكُولَاتَة,šukūlāta,שׁוֹקוֹלָד,shokolád,šakalata,shared_borrowing_source
 شِبِثّ,šibiṯṯ,שֶׁבֶת,shévet,,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
 شِبِثّ,šibiṯṯ,שַׁבָּת,shabát,,shared_borrowing_source
 شِبِثّ,šibiṯṯ,שָׁבַת,shavát,,shared_borrowing_source
@@ -1767,7 +1767,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 صُدَاع,ṣudāʕ,סוֹדָה לִשְׁתִיָּה,sōdá líš'tíyah,ṣudaʕ,shared_borrowing_source
 صُدَف,ṣudaf,צֶדֶף,tsédef,ṣadapa,shared_borrowing_source
 صُرْصُور,ṣurṣūr,צְרָצַר,tsratsár,ṣuraṣur,direct_cognate_ar→he
-صُفَّة,ṣuffa,סַפָּה,sapá,ṣuppa,shared_borrowing_source
+صُفَّة,ṣuffa,סַפָּה,sapá,ṣupa,shared_borrowing_source
 صُفْر,ṣufr,סִפְרָה,sifrá,ṣupra,direct_cognate_he→ar
 صُورَة,ṣūra,צוּרָה,tsurá,ṣura,direct_cognate_ar→he;direct_cognate_he→ar
 صِبًا,ṣiban,צָבָא,tsaváʾ,ṣiban,direct_cognate_he→ar
@@ -1806,7 +1806,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 ضِلْع,ḍilʕ,צֶלַע,tséla,,direct_cognate_ar→he
 ضِلْع,ḍilʕ,צָלַע,tsalá,,direct_cognate_ar→he
 طَابَع,ṭābaʕ,אֶצְבַּע,étsba,ṭabaʕa,direct_cognate_ar→he
-طَابَع,ṭābaʕ,דַּף,dáf,ṭuppum,shared_borrowing_source
+طَابَع,ṭābaʕ,דַּף,dáf,ṭupum,shared_borrowing_source
 طَابَع,ṭābaʕ,טַבַּעַת,tabá'at,ṭaḇaʕaṯ,direct_cognate_ar→he;shared_borrowing_source
 طَاغُوت,ṭāḡūt,טָעוּת,ta'út,ta(ʔ)ut,shared_borrowing_source
 طَاهِر,ṭāhir,טָהוֹר,tahór,ṭahir,direct_cognate_ar→he;direct_cognate_he→ar
@@ -2070,7 +2070,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 فَكَّ,fakka,פּוּךְ,pukh,paka,direct_cognate_he→ar
 فَلَافِل,falāfil,פִּלְפֵּל,pilpél,pilpil,shared_borrowing_source
 فَلَقَ,falaqa,פֶּלֶג,péleg,palaqa,direct_cognate_he→ar
-فَلْفَلَ,falfala,פִּלְפֵּל,pilpél,pippali,shared_borrowing_source
+فَلْفَلَ,falfala,פִּלְפֵּל,pilpél,pipali,shared_borrowing_source
 فَم,fam,פֶּה,pe,pay,direct_cognate_he→ar;shared_borrowing_source
 فَم,fam,פָה,fa,pay,shared_borrowing_source
 فَنِيَ,faniya,פָּנִים,paním,pan,shared_borrowing_source
@@ -2109,7 +2109,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 فِعْل,fiʕl,פֻּעַל,pu'al,,direct_cognate_he→ar
 فِلَسْطِين,filasṭīn,פָּלֶשְׂתִּינָה,palestína,palaistini,shared_borrowing_source
 فِلَسْطِين,filasṭīn,פָלַסְטִין,falastín,pilasṭin,shared_borrowing_source
-فِلْفِل,filfil,פִּלְפֵּל,pilpél,pippali,shared_borrowing_source
+فِلْفِل,filfil,פִּלְפֵּל,pilpél,pipali,shared_borrowing_source
 فِلْم,,וִילוֹן,vilón,wilu,shared_borrowing_source
 فِي,fī,בְּ־,b'-,ba,shared_borrowing_source
 فِي,fī,פֵּאָה,pe'á,piʔat,shared_borrowing_source
@@ -2226,8 +2226,8 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 قَوْس,qaws,קַשָּׁת,kashát,qawas,direct_cognate_he→ar
 قَوْل,qawl,קוֹל,kol,,direct_cognate_ar→he;direct_cognate_he→ar
 قَيَّرَ,qayyara,גִּיר,gir,gir,shared_borrowing_source
-قَيُّوم,qayyūm,קִיֵּם,kiyém,qayyam,direct_cognate_he→ar;shared_borrowing_source
-قَيُّوم,qayyūm,קַיָּם,kayám,qayyam,direct_cognate_he→ar;shared_borrowing_source
+قَيُّوم,qayyūm,קִיֵּם,kiyém,qayam,direct_cognate_he→ar;shared_borrowing_source
+قَيُّوم,qayyūm,קַיָּם,kayám,qayam,direct_cognate_he→ar;shared_borrowing_source
 قَيْصَر,qayṣar,צָאר,tsár,ṣar,shared_borrowing_source
 قَيْصَر,qayṣar,קֵיסָר,kesár,kaisar,direct_cognate_he→ar;shared_borrowing_source
 قَيْظ,qayẓ,קַיִץ,káyits,qayṣ,direct_cognate_ar→he;direct_cognate_he→ar;shared_borrowing_source
@@ -2235,7 +2235,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 قُبَّعَة,qubbaʕa,כּוֹבַע,kóva,,direct_cognate_ar→he;direct_cognate_he→ar
 قُدُس,qudus,קִדּוּשׁ,kidúsh,qudš,direct_cognate_he→ar;shared_borrowing_source
 قُدُس,qudus,קָדוֹשׁ,kadósh,qudš,direct_cognate_he→ar;shared_borrowing_source
-قُدّ,qudd,קוֹד,kód,kadd,direct_cognate_ar→he;shared_borrowing_source
+قُدّ,qudd,קוֹד,kód,kad,direct_cognate_ar→he;shared_borrowing_source
 قُرّ,qurr,קַר,qar,qur,direct_cognate_ar→he
 قُرْبَان,qurbān,קורבן,korbán,qurban,direct_cognate_ar→he;direct_cognate_he→ar
 قُرْصَان,qurṣān,קוּרְס,kurs,kursus,shared_borrowing_source
@@ -2271,9 +2271,9 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 كَأْس,kaʔs,רֹאשׁ,rosh,raʔš,shared_borrowing_source
 كَئِبَ,kaʔiba,כְּאֵב,ke'év,,direct_cognate_he→ar
 كَئِبَ,kaʔiba,כָּאַב,ka'áv,,direct_cognate_ar→he;direct_cognate_he→ar
-كَاب,kāb,קאפּ,káp,kapp,shared_borrowing_source
+كَاب,kāb,קאפּ,káp,kap,shared_borrowing_source
 كَاب,kāb,שֶׁף,shef,kaput,shared_borrowing_source
-كَابُتْشِينُو,kābutšīnū,קַפּוּצִ׳ינוֹ,kapuchino,kapputšina,shared_borrowing_source
+كَابُتْشِينُو,kābutšīnū,קַפּוּצִ׳ינוֹ,kapuchino,kaputšina,shared_borrowing_source
 كَابُل,kābul,קֻפְסָה,kufsá,kapya,shared_borrowing_source
 كَاتِب,kātib,כּוֹתֵב,kotév,katib,direct_cognate_ar→he;direct_cognate_he→ar
 كَامْبُودِيَا,kambōdiyā,קַמְבּוֹדְיָה,kambódya,kambaudia,shared_borrowing_source
@@ -2366,7 +2366,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 كُرّ,kurr,כּוּר,kur,kur,direct_cognate_ar→he
 كُرْج,kurj,גֵּאוֹרְגְּיָה,geórgya,wiruz-an,shared_borrowing_source
 كُرْسُف,kursuf,כַּרְפַּס,karpás,karpasa,shared_borrowing_source
-كُرْسِيّ,kursiyy,כִּסֵּא,kisé,kussum,shared_borrowing_source
+كُرْسِيّ,kursiyy,כִּסֵּא,kisé,kusum,shared_borrowing_source
 كُسْكُس,kuskus,כּוּסְכּוּס,kuskus,kuskus,direct_cognate_he→ar
 كُفْتَة,kufta,כֻּפְתָּה,kuftá,kupta,shared_borrowing_source
 كُفْر,kufr,כְּפָר,kfar,kapra,shared_borrowing_source
@@ -2494,7 +2494,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 مَالِح,māliḥ,מַלּוּחַ,malúakh,malixa,direct_cognate_ar→he
 مَالِح,māliḥ,מָלוּחַ,malúakh,malixa,direct_cognate_ar→he;direct_cognate_he→ar
 مَاهَ,māha,מַיִם,máyim,may,shared_borrowing_source
-مَايُو,māyū,מַאי,may,mayyus,shared_borrowing_source
+مَايُو,māyū,מַאי,may,mayus,shared_borrowing_source
 مَايُو,māyū,מַיְנְץ,máynts,migxs,shared_borrowing_source
 مَايُو,māyū,מַקְסִימָלִי,maksimáli,migxs,shared_borrowing_source
 مَايْكَل,māykal,מִיכָאֵל,mikha'él,mixa(ʔ)il,shared_borrowing_source
@@ -2577,7 +2577,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 مَكَرَ,makara,מֶכֶר,mécher,,direct_cognate_ar→he
 مَكَرَ,makara,מַכָּר,makár,makara,direct_cognate_ar→he
 مَكَرَ,makara,מָכַר,makhár,makara,direct_cognate_ar→he
-مَكَّة,makka,מֶכָּה,méka,makka,shared_borrowing_source
+مَكَّة,makka,מֶכָּה,méka,maka,shared_borrowing_source
 مَكْتُوب,maktūb,מַכְּתּוּבּ,maktúb,maktub,shared_borrowing_source
 مَكْر,makr,מֶכֶר,mécher,,direct_cognate_ar→he
 مَكْر,makr,מַכָּר,makár,makar,direct_cognate_ar→he
@@ -2626,17 +2626,17 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 مَيْن,mayn,מֵיְן,meyn,min,shared_borrowing_source
 مَيْن,mayn,מוֹל,mol,miy,shared_borrowing_source
 مَيْن,mayn,מוּל,mul,miy,shared_borrowing_source
-مُؤَذِّن,muʔaḏḏin,מוּאַזִּין,mu'azín,muʔazzin,shared_borrowing_source
+مُؤَذِّن,muʔaḏḏin,מוּאַזִּין,mu'azín,muʔazin,shared_borrowing_source
 مُبَارَك,mubārak,בָּרוּךְ,barúkh,,direct_cognate_he→ar
 مُبَارِك,mubārik,בָּרוּךְ,barúkh,,direct_cognate_he→ar
 مُحَاسِب,muḥāsib,חַשָּׁב,khasháv,,direct_cognate_ar→he
 مُحَافَظَة,muḥāfaẓa,מָחוֹז,makhóz,,direct_cognate_he→ar
 مُحَافِظَة,muḥāfiẓa,מָחוֹז,makhóz,,direct_cognate_he→ar
-مُحَمَّد,muḥammad,מֻחַמַּד,mukhamad,muxammad,shared_borrowing_source
+مُحَمَّد,muḥammad,מֻחַמַּד,mukhamad,muxamad,shared_borrowing_source
 مُحِقّ,muḥiqq,מָחַק,makhák,muxiq,direct_cognate_ar→he
 مُخَمَّس,muḵammas,מְחֻמָּשׁ,m'khumásh,muxamas,direct_cognate_ar→he
 مُخّ,muḵḵ,מוֹחַ,móakh,mux,shared_borrowing_source
-مُرَبَّى,murabbā,רִבָּה,ribá,murabba,shared_borrowing_source
+مُرَبَّى,murabbā,רִבָּה,ribá,muraba,shared_borrowing_source
 مُرَكَّب,murakkab,מֻרְכָּב,murkáv,murakab,direct_cognate_ar→he
 مُرّ,murr,מַר,mar,mur,direct_cognate_ar→he;direct_cognate_he→ar
 مُرّ,murr,מֹר,mór,mur,direct_cognate_he→ar
@@ -2753,8 +2753,8 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 نَذِرَ,naḏira,נִזַּר,nizár,nazira,direct_cognate_he→ar
 نَذِرَ,naḏira,נֵזֶר,nézer,nazira,direct_cognate_he→ar
 نَذْر,naḏr,נֶדֶר,néder,nazir,direct_cognate_he→ar
-نَرْجِس,narjis,נַרְקִיס,narkís,narkissas,shared_borrowing_source
-نَرْجِسِيَّة,narjisiyya,נַרְקִיס,narkís,narkissas,shared_borrowing_source
+نَرْجِس,narjis,נַרְקִיס,narkís,narkisas,shared_borrowing_source
+نَرْجِسِيَّة,narjisiyya,נַרְקִיס,narkís,narkisas,shared_borrowing_source
 نَزَحَ,nazaḥa,זָנַח,zanákh,nazaxa,direct_cognate_ar→he;direct_cognate_he→ar
 نَسَأَ,nasaʔa,נָשָׁא,nashá,,direct_cognate_he→ar
 نَسَأَ,nasaʔa,נָשָׁה,nashá,,direct_cognate_he→ar
@@ -2896,7 +2896,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 هَوَى,hawā,יהוה,YHWH,,direct_cognate_he→ar
 هَوَّى,hawwā,הֱוֵה,hĕwē,,direct_cognate_he→ar
 هَوَّى,hawwā,הֹוֶה,hōwe,,direct_cognate_he→ar
-هَيْكَل,haykal,הֵיכָל,hekhál,ʔikallum,direct_cognate_he→ar;shared_borrowing_source
+هَيْكَل,haykal,הֵיכָל,hekhál,ʔikalum,direct_cognate_he→ar;shared_borrowing_source
 هَيْل,hayl,הֶל,hel,hayl,shared_borrowing_source
 هُرْد,hurd,כְּלוֹר,klór,gilʕ,shared_borrowing_source
 هُلْك,hulk,הָלַךְ,halákh,halak,direct_cognate_ar→he;shared_borrowing_source
