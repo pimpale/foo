@@ -55,8 +55,11 @@ class EmptyAncestorError(ReconstructionError):
 # internal string is no longer in that encoding.
 
 VOWELS = set("aeiou")
-IPA_MODIFIERS = set("ːˤʰʲʷˠ")
-IPA_CONSONANT_DIGRAPHS = ("d͡ʒ", "t͡ʃ", "t͡s", "d͡z")
+IPA_MODIFIERS = set("ːˤʰʲʷˠʼ̃")
+IPA_CONSONANT_DIGRAPHS = (
+    "d͡ʒ", "t͡ʃ", "t͡s", "d͡z",
+    "t͡ɬ", "d͡ɮ", "k͡x", "ɡ͡ɣ",
+)
 
 
 def _strip_combining(form: str) -> str:
@@ -70,8 +73,10 @@ def _strip_combining(form: str) -> str:
     out = []
     for c in unicodedata.normalize("NFD", form):
         # Preserve U+0361 COMBINING DOUBLE INVERTED BREVE — the IPA tie bar
-        # that makes d͡ʒ, t͡ʃ, t͡s single phonemes.
-        if unicodedata.category(c) == "Mn" and c != "͡":
+        # that makes d͡ʒ, t͡ʃ, t͡s single phonemes, U+0329 COMBINING VERTICAL
+        # LINE BELOW for syllabic resonants such as r̩ and l̩, and U+0303
+        # COMBINING TILDE for nasalized vowels such as ã.
+        if unicodedata.category(c) == "Mn" and c not in {"͡", "̩", "̃"}:
             continue
         if c == "ı":  # dotless i — doesn't decompose; map to plain i
             out.append("i")
@@ -79,6 +84,29 @@ def _strip_combining(form: str) -> str:
             out.append(c)
     return "".join(out)
 
+
+def _strip_acute_vowels(form: str) -> str:
+    return (form
+            .replace("á", "a").replace("é", "e").replace("í", "i")
+            .replace("ó", "o").replace("ú", "u"))
+
+
+def _strip_tone_vowels(form: str) -> str:
+    return (form
+            .replace("â", "a").replace("ǎ", "a").replace("ā", "a")
+            .replace("ê", "e").replace("ě", "e").replace("ē", "e")
+            .replace("î", "i").replace("ǐ", "i").replace("ī", "i")
+            .replace("ô", "o").replace("ǒ", "o").replace("ō", "o")
+            .replace("û", "u").replace("ǔ", "u").replace("ū", "u"))
+
+
+def _promote_circumflex_vowels(form: str) -> str:
+    return (form
+            .replace("â", "ā")
+            .replace("ê", "ē")
+            .replace("î", "ī")
+            .replace("ô", "ō")
+            .replace("û", "ū"))
 
 # IPA → proto-Semitic scholar notation.  Strips ː (length and gemination).
 _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
@@ -114,7 +142,7 @@ _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
 #   vowels: a i u
 #   stops:  p b t d k g q ʔ   tˤ dˤ(→sˤ)
 #   fric.:  f s z ʃ ʒ x  sˤ   (ħ/χ → x; θ/ð → s/z; ɬ → s)
-#   affr.:  d͡ʒ          (t͡s/t͡ʃ collapse)
+#   affr.:  d͡ʒ          (foreign affricates otherwise unfold / collapse)
 #   other:  m n l r w j h ʕ ( v -> w, ɦ -> h)
 _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     # emphatics collapse (multi-char first).  sˤ and tˤ are inventory; other
@@ -123,16 +151,34 @@ _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     ("θˤ", "sˤ"),
     ("ɬˤ", "sˤ"),
     ("dˤ", "sˤ"),
-    # affricates: d͡ʒ is inventory; t͡ʃ and t͡s fold in.
+    ("t͡ɬʼ", "sˤ"),
+    ("t͡ʃʼ", "sˤ"),
+    ("t͡sʼ", "sˤ"),
+    # affricates: d͡ʒ is inventory; foreign t͡s unfolds to the cluster ts,
+    # while the rest fold toward the nearest pansemitic segment.
     ("t͡ʃ", "ʃ"),
-    ("t͡s", "sˤ"),
+    ("t͡s", "ts"),
+    ("t͡ɬ", "s"),
     ("d͡z", "z"),
+    ("d͡ɮ", "z"),
     # voiceless dorsals merge → x
+    ("k͡xʼ", "x"),
+    ("k͡x", "x"),
     ("χ", "x"),
     ("ħ", "x"),
     # voiced velar fricative → g; IPA single-story g variant → plain g
+    ("ɡ͡ɣ", "g"),
     ("ɣ", "g"),
     ("ɡ", "g"),
+    # IPA segments that can leak in from scholarly or generic fallback paths.
+    ("β", "b"),
+    ("ɓ", "b"),
+    ("ɸ", "p"),
+    ("ç", "x"),
+    ("c", "k"),
+    ("kʼ", "q"),
+    ("qʼ", "q"),
+    ("pʼ", "p"),
     # Non-a/i/u IPA vowels collapse toward the nearest e/o/a/i/u base.
     ("ɪ", "i"), ("ʏ", "i"), ("ɨ", "i"),
     ("ʊ", "u"), ("ɯ", "u"),
@@ -142,15 +188,21 @@ _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     ("ɕ", "s"), ("ʑ", "z"),   # alveolo-palatal fricatives
     ("ɫ", "l"),               # velarized lateral
     # Rhotics collapse → r
-    ("ɹ", "r"), ("ɾ", "r"), ("ʀ", "r"), ("ʁ", "r"), ("ɻ", "r"),
+    ("ɹ", "r"), ("ɾ", "r"), ("ʀ", "r"), ("ʁ", "r"), ("ɻ", "r"), ("ɽ", "r"),
     # Nasals
     ("ŋ", "n"), ("ɲ", "n"), ("ɳ", "n"),
     # Retroflex stops → dental
     ("ʈ", "t"), ("ɖ", "d"),
+    # Retroflex laterals collapse → l
+    ("ɭ", "l"),
     # Rhotic schwa / low vowel
     ("ɚ", "a"), ("ʌ", "a"),
     # Aspiration / palatalization aren't phonemic for Semitic — drop.
     ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
+    ("ʼ", ""),
+    ("̃", ""),
+    # We are not preserving labiovelars in the pansemitic layer here.
+    ("ʷ", ""),
     # Superscript letters used as IPA release/off-glide marks — drop.
     ("ᵗ", ""), ("ⁱ", ""), ("ⁿ", ""),
     # (Tie bar on d͡ʒ is preserved — d͡ʒ is in the pansemitic inventory.)
@@ -163,6 +215,8 @@ _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     ("v", "w"),
     # voiced glottal fricative → h
     ("ɦ", "h"),
+    # Remove resonants
+    ("l̩", "l"), ("r̩", "r"), ("m̩", "m"), ("n̩", "n"),
 ]
 
 
@@ -192,6 +246,10 @@ class Word:
         return cls(word=_strip_combining(ipa))
 
     def to_ipa(self) -> str:
+        return self.word
+
+    def to_pansemitic_ipa(self) -> str:
+        """Return the IPA string that pansemitic reduction should consume."""
         return self.word
 
     def to_protosemitic_convention(self) -> str:
@@ -305,6 +363,11 @@ class HebrewWord(Word):
 
         return cls(word=form)
 
+    def to_pansemitic_ipa(self) -> str:
+        # Hebrew tsade reflects the emphatic sibilant in the pansemitic layer,
+        # unlike foreign /t͡s/ affricates.
+        return self.word.replace("t͡s", "sˤ")
+
 
 class SemProWord(Word):
     @property
@@ -326,9 +389,7 @@ class SemProWord(Word):
         form = form.lstrip("*").rstrip("-")
 
         # Strip acute stress accents (kaikki uses them on non-Semitic loans).
-        form = (form
-                .replace("á", "a").replace("é", "e").replace("í", "i")
-                .replace("ó", "o").replace("ú", "u"))
+        form = _strip_acute_vowels(form)
 
         # Glottal / pharyngeal variants first
         form = form.replace("ʾ", "ʔ")
@@ -370,6 +431,273 @@ class SemProWord(Word):
         # (Persian, Pahlavi, Sanskrit, Germanic, etc.).
         form = _strip_combining(form)
 
+        return cls(word=form.strip())
+
+
+_AKKADIAN_DETERMINATIVE_RE = re.compile(r"\{[^}]*\}|[ᵈᶠᵐᵏᶫˢ]|[\u2070-\u209f]")
+
+
+class AkkadianWord(SemProWord):
+    @property
+    def lang(self) -> str:
+        return "akk"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Akkadian transliteration → IPA.
+
+        Akkadian scholarly transliteration is close enough to the proto-Semitic
+        path that we can reuse it after stripping determinatives/logogram
+        markers (for example superscript ᵈ) and normalizing circumflex long
+        vowels such as û to the macron series expected downstream.
+        """
+        if not text:
+            return cls(word=text)
+
+        form = text.strip()
+
+        # Determinatives / logogram markers are orthographic and not pronounced.
+        form = _AKKADIAN_DETERMINATIVE_RE.sub("", form)
+        form = form.replace("^", "")
+        form = _promote_circumflex_vowels(form)
+
+        base = SemProWord.from_romanization(form)
+        return cls(word=base.word)
+
+
+class ProtoItalicWord(Word):
+    @property
+    def lang(self) -> str:
+        return "itc-pro"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Proto-Italic notation → IPA-ish Unicode.
+
+        These entries are already close to IPA; the main normalization is
+        flattening unknown-vowel V to a and converting macron long vowels to
+        the repo's ː convention.
+        """
+        if not text:
+            return cls(word=text)
+
+        form = text.replace("V", "a").lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+class ProtoSouthDravidianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "dra-sou-pro"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Proto-South Dravidian notation → IPA-ish Unicode.
+
+        This decoder keeps the broad contrastive structure while mapping the
+        Dravidian retroflex series into explicit IPA. The reconstruction symbol
+        V is treated as an unspecified vowel and flattened to a.
+        """
+        if not text:
+            return cls(word=text)
+
+        form = text.replace("V", "a").lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+
+        form = form.replace("ñ", "ɲ")
+        form = form.replace("ṅ", "ŋ")
+        form = form.replace("ṇ", "ɳ")
+        form = form.replace("ṭ", "ʈ")
+        form = form.replace("ḍ", "ɖ")
+        form = form.replace("ḷ", "ɭ")
+        form = form.replace("ṛ", "ɽ")
+        form = form.replace("ẓ", "ɻ")
+
+        # Dravidian ṯ is conventionally an alveolar stop/obstruent; we
+        # approximate it as plain t in this IPA layer.
+        form = form.replace("ṯ", "t")
+
+        form = form.replace("y", "j")
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
+
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+class ProtoGermanicWord(Word):
+    @property
+    def lang(self) -> str:
+        return "gem-pro"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Proto-Germanic notation → IPA-ish Unicode.
+
+        This path is intentionally light-touch: preserve the near-IPA
+        transliteration, map thorn to theta, normalize long vowels, and keep
+        nasalized vowels explicit so the pansemitic reduction can drop them.
+        """
+        if not text:
+            return cls(word=text)
+
+        form = text.replace("V", "a").lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+        form = _promote_circumflex_vowels(form)
+        form = _geminate(form)
+
+        form = form.replace("þ", "θ")
+        form = form.replace("ǭ", "õː")
+        form = form.replace("ǫ", "õ")
+        form = form.replace("ą", "ã")
+
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
+
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+class SumerianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "sux"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Sumerian transliteration → IPA-ish Unicode.
+
+        The transliteration is already close to phonemic notation; we only map
+        a handful of conventional Sumerological symbols and strip sign
+        separators / gloss punctuation that are orthographic rather than
+        phonetic.
+        """
+        if not text:
+            return cls(word=text)
+
+        form = text.lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+        form = _promote_circumflex_vowels(form)
+        form = _geminate(form)
+
+        form = form.replace("g̃", "ŋ")
+        form = form.replace("ĝ", "ŋ")
+        form = form.replace("ḫ", "x")
+        form = form.replace("ř", "t͡sʰ")
+        form = form.replace("z", "t͡s")
+        form = form.replace("š", "ʃ")
+        form = form.replace("y", "j")
+
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
+
+        # Sumerological separators / optional gloss markers are not phonemic.
+        form = form.replace(".", "").replace("(", "").replace(")", "")
+
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+_AFRASIANIST_TO_IPA: list[tuple[str, str]] = [
+    # Multi-char / combining sequences first.
+    ("i̭", "j"),
+    ("ṯ̣", "θˤ"),
+    ("ḏ̣", "ðˤ"),
+    ("ć̣", "t͡sʼʲ"),
+    ("č̣", "t͡ʃʼ"),
+    ("c̣", "t͡sʼ"),
+    ("ĉ̣", "t͡ɬʼ"),
+    ("q̣", "qʼ"),
+    ("x̣", "k͡xʼ"),
+    ("ʒ̂", "d͡ɮ"),
+    ("ʒ́", "d͡zʲ"),
+    ("ṣ́", "sˤʲ"),
+    ("ć", "t͡sʲ"),
+    ("č", "t͡ʃ"),
+    ("ĉ", "t͡ɬ"),
+    ("l̀", "ɭ"),
+    ("k̑", "q"),
+    ("h̑", "χ"),
+    # Single-char mappings.
+    ("ɣ", "ʁ"),
+    ("p̠", "ɸ"),
+    ("ḇ", "β"),
+    ("ṗ", "pʼ"),
+    ("ḅ", "ɓ"),
+    ("ṯ", "θ"),
+    ("ḏ", "ð"),
+    ("c", "t͡s"),
+    ("ʒ", "d͡z"),
+    ("ṣ", "sˤ"),
+    ("ŝ", "ɬ"),
+    ("ḡ", "ɣ"),
+    ("ḳ", "kʼ"),
+    ("q", "kʼ"),
+    ("x", "k͡x"),
+    ("9", "ɡ͡ɣ"),
+    ("ś", "sʲ"),
+    ("ź", "zʲ"),
+    ("ń", "nʲ"),
+    ("ĺ", "lʲ"),
+    ("ŕ", "rʲ"),
+    ("ǹ", "ɳ"),
+    ("ṷ", "w"),
+    ("y", "j"),
+    ("ḥ", "ħ"),
+]
+
+
+class AfrasianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "afa-pro"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """proto-Afrasianist notation → IPA.
+
+        Afrasianist symbols overlap with proto-Semitic scholarship but are not
+        equivalent (for example c = /t͡s/, ʒ = /d͡z/, q/ḳ = /kʼ/).  Keep this as
+        a separate decoder so SemProWord can stay faithful to proto-Semitic
+        conventions. Tone-marked vowels such as ê/ě/ē are flattened because
+        the internal IPA layer does not model tone.
+        """
+        if not text:
+            return cls(word=text)
+
+        # As with proto-Semitic entries, treat capital V as an unspecified
+        # vowel placeholder and collapse it to a concrete vowel for downstream
+        # tokenization and pansemitic reduction.
+        form = text.replace("V", "a").lower()
+        form = form.lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+        form = _strip_tone_vowels(form)
+        form = form.replace("ʾ", "ʔ")
+        form = form.replace("ʿ", "ʕ")
+
+        # Preserve doubled consonants before expanding Afrasianist multigraphs.
+        form = _geminate(form)
+
+        for src, dst in _AFRASIANIST_TO_IPA:
+            form = form.replace(src, dst)
+
+        form = _strip_combining(form)
         return cls(word=form.strip())
 
 
@@ -515,6 +843,83 @@ class PieWord(Word):
         form = _geminate(form)
         for src, dst in _PIE_MAP:
             form = form.replace(src, dst)
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+class IranianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "ira-pro"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Proto-Iranian reconstruction notation → IPA-ish Unicode.
+
+        Pragmatic choices for this project:
+        - capital H (laryngeal placeholder) is flattened to h
+        - both c and č are accepted as /t͡ʃ/, since local data contains plain c
+        - r̥ / l̥ are kept as syllabic resonants, as in the PIE path
+        """
+        if not text:
+            return cls(word=text)
+        form = text.lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+
+        # Preserve doubled scholarly letters before segment expansion.
+        form = _geminate(form)
+
+        # Iranian-specific segments and local reconstruction conventions.
+        form = form.replace("ǰ", "d͡ʒ")
+        form = form.replace("č", "t͡ʃ")
+        form = form.replace("c", "t͡ʃ")
+        form = form.replace("š", "ʃ")
+        form = form.replace("y", "j")
+
+        # Syllabic resonants and vowel length.
+        form = form.replace("r̥̄", "r̩ː")
+        form = form.replace("l̥̄", "l̩ː")
+        form = form.replace("r̥", "r̩")
+        form = form.replace("l̥", "l̩")
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        
+        # Old Median Δ
+        form = form.replace("δ", "d") 
+
+        form = _strip_combining(form)
+        return cls(word=form.strip())
+
+
+class OldPersianWord(Word):
+    @property
+    def lang(self) -> str:
+        return "peo"
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Old Persian transliteration → IPA-ish Unicode.
+
+        Uses Old Persian scholarly conventions where c = /t͡ʃ/, j = /d͡ʒ/,
+        y = /j/, and macrons mark vowel length.
+        """
+        if not text:
+            return cls(word=text)
+        form = text.lower().lstrip("*").rstrip("-")
+        form = _strip_acute_vowels(form)
+
+        form = _geminate(form)
+
+        form = form.replace("c", "t͡ʃ")
+        form = form.replace("j", "d͡ʒ")
+        form = form.replace("š", "ʃ")
+        form = form.replace("y", "j")
+
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+
         form = _strip_combining(form)
         return cls(word=form.strip())
 
@@ -725,7 +1130,7 @@ class PansemiticWord(Word):
     def from_word(cls, ancestor: Word) -> "PansemiticWord":
         if not ancestor.word:
             return cls(word="")
-        form = ancestor.word.lstrip("*").rstrip("-").lower()
+        form = ancestor.to_pansemitic_ipa().lstrip("*").rstrip("-").lower()
 
         # Semitic-family sources: f reflects older *p.
         if ancestor.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
@@ -733,6 +1138,10 @@ class PansemiticWord(Word):
 
         for src, dst in _IPA_TO_PANSEMITIC_IPA:
             form = form.replace(src, dst)
+
+        # Keep inventory emphatics sˤ and tˤ, but drop stray pharyngealization
+        # marks that leak in on other consonants.
+        form = re.sub(r"(?<![st])ˤ", "", form)
 
         # Collapse vowels to a/i/u — long forms first so eː → i, oː → a.
         form = form.replace("eː", "i").replace("oː", "a")
@@ -772,12 +1181,26 @@ def word_from_sharedsource(src: SharedSource) -> Word:
             if src.romanization:
                 return HebrewWord.from_romanization(src.romanization)
             raise MissingRomanizationError("hebrew")
-        case "sem-pro" | "sem-wes-pro":
+        case "akk":
+            if src.ipa:
+                return AkkadianWord.from_ipa(src.ipa)
+            if src.romanization:
+                return AkkadianWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("akkadian")
+        case "sux":
+            if src.ipa:
+                return SumerianWord.from_ipa(src.ipa)
+            if src.romanization:
+                return SumerianWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("sumerian")
+        case "sem-pro" | "sem-wes-pro" | "qfa-hur-pro":
             if src.ipa:
                 return SemProWord.from_ipa(src.ipa)
-            if src.romanization:
-                return SemProWord.from_romanization(src.romanization)
-            raise MissingRomanizationError("sem-pro")
+            return SemProWord.from_romanization(src.word)
+        case "afa-pro":
+            if src.ipa:
+                return AfrasianWord.from_ipa(src.ipa)
+            return AfrasianWord.from_romanization(src.word)
         case "grc":
             if src.ipa:
                 return GreekWord.from_ipa(src.ipa)
@@ -798,13 +1221,36 @@ def word_from_sharedsource(src: SharedSource) -> Word:
             if src.romanization:
                 return PieWord.from_romanization(src.romanization)
             raise MissingRomanizationError("proto-indo-european")
+        case "itc-pro":
+            if src.ipa:
+                return ProtoItalicWord.from_ipa(src.ipa)
+            return ProtoItalicWord.from_romanization(src.word)
+        case "gem-pro":
+            if src.ipa:
+                return ProtoGermanicWord.from_ipa(src.ipa)
+            return ProtoGermanicWord.from_romanization(src.word)
+        case "ira-pro" | "xme-old":
+            if src.ipa:
+                return IranianWord.from_ipa(src.ipa)
+            if src.romanization:
+                return IranianWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("proto-iranian")
+        case "dra-sou-pro":
+            if src.ipa:
+                return ProtoSouthDravidianWord.from_ipa(src.ipa)
+            return ProtoSouthDravidianWord.from_romanization(src.word)
+        case "peo" | "pal" | "fa-cls" | "fa":
+            if src.ipa:
+                return OldPersianWord.from_ipa(src.ipa)
+            if src.romanization:
+                return OldPersianWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("old-persian")
         case "ru" | "orv" | "sla-pro":
             return CyrillicWord.from_cyrillic(src.word)
         case _:
             if src.ipa:
                 return GenericWord.from_ipa(src.ipa, lang=src.lang)
-            if src.romanization:
-                return GenericWord.from_romanization(src.romanization, lang=src.lang)
+            print(src.lang, src.word)
             raise UnsupportedLanguageError(src.lang)
 
 
