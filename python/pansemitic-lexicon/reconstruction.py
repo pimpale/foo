@@ -1,7 +1,14 @@
+from __future__ import annotations
+
 import re
 import unicodedata
-from typing import Self
+from typing import Self, TYPE_CHECKING
 from dataclasses import dataclass
+
+from kaikki import _geminate
+
+if TYPE_CHECKING:
+    from kaikki import SharedSource
 
 
 class ReconstructionError(Exception):
@@ -31,270 +38,6 @@ class MissingRomanizationError(ReconstructionError):
 class EmptyAncestorError(ReconstructionError):
     def __init__(self):
         super().__init__("ancestor word is empty after normalization")
-
-
-_IPA_DELIMITED = re.compile(r"[/\[]([^/\]]+)[/\]]")
-_HTML_TAG = re.compile(r"<[^>]+>")
-_INVALID_ROMANIZATION_VALUES = frozenset({"", "-", "?", "??"})
-_ROMANIZATION_EXTRA_LETTERS = frozenset({
-    "ʾ", "ʿ", "ʔ", "ʕ", "θ",
-})
-_ROMANIZATION_MARKUP_CHARS = frozenset("*-_'’()./^")
-
-
-def _romanization_vowel_count(text: str) -> int:
-    count = 0
-    for c in unicodedata.normalize("NFD", text.lower()):
-        if unicodedata.category(c) == "Mn":
-            continue
-        if c in "aeiou":
-            count += 1
-    return count
-
-
-def _romanization_letter_count(text: str) -> int:
-    return sum(1 for c in text if c.isalpha())
-
-
-def _romanization_score(text: str) -> tuple[int, int, int]:
-    """Rank valid romanization candidates.
-
-    Prefer reconstructions and vocalized transliterations over bare consonantal
-    spellings.  This keeps scholarly proto-Semitic forms like ``*ʾaḥad-`` while
-    letting vocalized template/entry transliterations beat consonant-only forms
-    such as Pahlavi ``ʾmbl`` when a candidate like ``ambar`` is available.
-    """
-    vowels = _romanization_vowel_count(text)
-    letters = _romanization_letter_count(text)
-    score = 0
-
-    if "*" in text:
-        score += 100
-
-    # Penalize consonant-heavy transliterations when a more pronounceable
-    # alternative exists in another tier.
-    if letters >= 4 and vowels <= 1 and "*" not in text:
-        score -= 30
-
-    score += min(vowels, 4) * 10
-
-    parts = [part for part in text.split("-") if part]
-    # Penalize segmented letter-by-letter transliterations such as
-    # ``h-i-du-u-š`` when a smoother vocalized candidate like ``hiⁿdūš``
-    # is available.
-    if len(parts) >= 3 and all(len(part) <= 2 for part in parts):
-        score -= 20
-
-    # Prefer cleaner strings when everything else is comparable, but still
-    # allow editorial markers (Akkadian determinatives, etc.) as a fallback.
-    markup_penalty = sum(1 for c in text if c in "^()/[]{}")
-    score -= markup_penalty * 2
-
-    return (score, vowels, -markup_penalty)
-
-
-@dataclass(frozen=True)
-class RomanizationTiers:
-    """The raw romanization candidates available from each lookup tier."""
-    tier1: str | None
-    tier2: str | None
-    tier3: str | None
-
-    def resolved(self) -> str | None:
-        candidates = [
-            ("tier1", self.tier1),
-            ("tier2", self.tier2),
-            ("tier3", self.tier3),
-        ]
-        best: tuple[tuple[int, int, int], int, str] | None = None
-        for idx, (_, value) in enumerate(candidates):
-            if not value:
-                continue
-            ranked = (_romanization_score(value), -idx, value)
-            if best is None or ranked > best:
-                best = ranked
-        return best[2] if best else None
-
-
-@dataclass
-class SharedSource:
-    """A shared borrowing/etymology source.
-
-    Priority for what we hand to the Word builder:
-      1. `ipa` — native kaikki IPA if available (skips romanization step)
-      2. `romanization` — Latin/scholar transliteration
-      3. `word` — the raw source headword (often in native script)
-    """
-    lang: str
-    word: str
-    romanization: str | None = None
-    ipa: str | None = None
-
-    @staticmethod
-    def resolve_romanization(
-        lang: str,
-        word: str,
-        template_tr: str | None = None,
-        kaikki_roman_index: dict[tuple[str, str], str] | None = None,
-    ) -> str | None:
-        """Resolve romanization using the three-tier strategy."""
-        return SharedSource.get_romanization_tiers(
-            lang,
-            word,
-            template_tr=template_tr,
-            kaikki_roman_index=kaikki_roman_index,
-        ).resolved()
-
-    @staticmethod
-    def get_romanization_tiers(
-        lang: str,
-        word: str,
-        template_tr: str | None = None,
-        kaikki_roman_index: dict[tuple[str, str], str] | None = None,
-    ) -> RomanizationTiers:
-        """Return the raw romanization candidate available from each tier."""
-        def _clean_candidate(s: str | None) -> str | None:
-            if not s:
-                return None
-            s = s.strip()
-            if not s:
-                return None
-            if _HTML_TAG.search(s):
-                return None
-            if "," in s:
-                s = s.split(",")[0].strip()
-            if s in _INVALID_ROMANIZATION_VALUES:
-                return None
-            return s or None
-
-        def _looks_romanized(s: str | None) -> bool:
-            if not s:
-                return False
-            has_letter = False
-            for c in unicodedata.normalize("NFD", s):
-                if c in _ROMANIZATION_EXTRA_LETTERS:
-                    has_letter = True
-                    continue
-                if c.isalpha():
-                    has_letter = True
-                    if "LATIN" in unicodedata.name(c, "") or unicodedata.category(c) == "Lm":
-                        continue
-                    return False
-                if c.isdigit() or c.isspace():
-                    continue
-                if unicodedata.category(c) == "Mn":
-                    continue
-                if c in _ROMANIZATION_MARKUP_CHARS:
-                    continue
-                return False
-            return has_letter
-
-        tier1 = _clean_candidate(word)
-        if not _looks_romanized(tier1):
-            tier1 = None
-
-        tier2 = _clean_candidate(template_tr)
-        if not _looks_romanized(tier2):
-            tier2 = None
-
-        tier3 = None
-        if kaikki_roman_index:
-            tier3 = _clean_candidate(kaikki_roman_index.get((lang, word)))
-            if not _looks_romanized(tier3):
-                tier3 = None
-        return RomanizationTiers(tier1=tier1, tier2=tier2, tier3=tier3)
-
-    @staticmethod
-    def resolve_ipa(
-        lang: str,
-        word: str,
-        kaikki_ipa_index: dict[tuple[str, str], str] | None = None,
-    ) -> str | None:
-        """Look up native IPA from kaikki sounds data and normalize it.
-
-        kaikki wraps IPA in /…/ or […], may concatenate variants with commas,
-        and sprinkles prosodic marks (ˈ ˌ .) we don't want.
-        """
-        if not kaikki_ipa_index:
-            return None
-        raw = kaikki_ipa_index.get((lang, word))
-        if not raw:
-            return None
-        m = _IPA_DELIMITED.search(raw)
-        out = m.group(1) if m else raw
-        out = out.split(",")[0].strip()
-        # Some kaikki IPA strings are malformed and only include one edge
-        # delimiter, e.g. "/braːɡ". Trim any leftover wrapper chars after the
-        # normal /.../ or [...] extraction path above.
-        out = out.strip("/[]")
-        for c in "ˈˌ.":
-            out = out.replace(c, "")
-        out = out.strip()
-        # Some kaikki IPA spells gemination as a doubled letter split across
-        # syllables (e.g. /ebˈbuː.bum/ → ebbuːbum).  Collapse those into the
-        # ː convention used elsewhere so downstream tokenization treats them
-        # as a single geminate phoneme.
-        out = _geminate(out)
-        return out or None
-
-    def to_word(self) -> "Word":
-        """Build the language-appropriate Word for this source.
-
-        Prefers native IPA from kaikki (when present) over romanization.  Falls
-        back to the lang-specific from_romanization methods and finally to a
-        generic arbitrary-language Word for unsupported langs that do have IPA
-        or romanization.
-        """
-        match self.lang:
-            case "ar":
-                if self.ipa:
-                    return ArabicWord.from_ipa(self.ipa)
-                if self.romanization:
-                    return ArabicWord.from_romanization(self.romanization)
-                raise MissingRomanizationError("arabic")
-            case "he":
-                if self.ipa:
-                    return HebrewWord.from_ipa(self.ipa)
-                if self.romanization:
-                    return HebrewWord.from_romanization(self.romanization)
-                raise MissingRomanizationError("hebrew")
-            case "sem-pro" | "sem-wes-pro":
-                if self.ipa:
-                    return SemProWord.from_ipa(self.ipa)
-                if self.romanization:
-                    return SemProWord.from_romanization(self.romanization)
-                raise MissingRomanizationError("sem-pro")
-            case "grc":
-                if self.ipa:
-                    return GreekWord.from_ipa(self.ipa)
-                return GreekWord.from_greek(self.word)
-            case "arc":
-                if self.ipa:
-                    return AramaicWord.from_ipa(self.ipa)
-                return AramaicWord.from_aramaic(self.word)
-            case "egy":
-                if self.ipa:
-                    return EgyptianWord.from_ipa(self.ipa)
-                if self.romanization:
-                    return EgyptianWord.from_romanization(self.romanization)
-                raise MissingRomanizationError("egyptian")
-            case "ine-pro":
-                if self.ipa:
-                    return PieWord.from_ipa(self.ipa)
-                if self.romanization:
-                    return PieWord.from_romanization(self.romanization)
-                raise MissingRomanizationError("proto-indo-european")
-            case "ru" | "orv" | "sla-pro":
-                return CyrillicWord.from_cyrillic(self.word)
-            case _:
-                if self.ipa:
-                    return GenericWord.from_ipa(self.ipa, lang=self.lang)
-                if self.romanization:
-                    return GenericWord.from_romanization(self.romanization, lang=self.lang)
-                raise UnsupportedLanguageError(self.lang)
-
-    def __str__(self) -> str:
-        return f"{self.lang}:{self.word}"
 
 
 # ── Internal encoding: plain Unicode IPA ───────────────────────
@@ -335,16 +78,6 @@ def _strip_combining(form: str) -> str:
         else:
             out.append(c)
     return "".join(out)
-
-
-def _geminate(form: str) -> str:
-    """Collapse runs of identical letters into letter + ː.
-
-    Applied to the raw romanization *before* single-char substitutions so
-    that doubled scholar-notation letters (e.g. ṣṣ) collapse cleanly and
-    the ː survives downstream (ṣṣ → ṣː → sˤː).
-    """
-    return re.sub(r"([^\W\d_])\1+", r"\1ː", form)
 
 
 # IPA → proto-Semitic scholar notation.  Strips ː (length and gemination).
@@ -1019,25 +752,80 @@ class PansemiticWord(Word):
         return cls(word=form)
 
 
+def word_from_sharedsource(src: SharedSource) -> Word:
+    """Build the language-appropriate Word for a shared etymology source.
+
+    Prefers native IPA from kaikki when available; falls back to romanization
+    and finally to script-specific decoders.  GenericWord catches everything
+    that has no dedicated subclass but does carry IPA or romanization.
+    """
+    match src.lang:
+        case "ar":
+            if src.ipa:
+                return ArabicWord.from_ipa(src.ipa)
+            if src.romanization:
+                return ArabicWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("arabic")
+        case "he":
+            if src.ipa:
+                return HebrewWord.from_ipa(src.ipa)
+            if src.romanization:
+                return HebrewWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("hebrew")
+        case "sem-pro" | "sem-wes-pro":
+            if src.ipa:
+                return SemProWord.from_ipa(src.ipa)
+            if src.romanization:
+                return SemProWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("sem-pro")
+        case "grc":
+            if src.ipa:
+                return GreekWord.from_ipa(src.ipa)
+            return GreekWord.from_greek(src.word)
+        case "arc":
+            if src.ipa:
+                return AramaicWord.from_ipa(src.ipa)
+            return AramaicWord.from_aramaic(src.word)
+        case "egy":
+            if src.ipa:
+                return EgyptianWord.from_ipa(src.ipa)
+            if src.romanization:
+                return EgyptianWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("egyptian")
+        case "ine-pro":
+            if src.ipa:
+                return PieWord.from_ipa(src.ipa)
+            if src.romanization:
+                return PieWord.from_romanization(src.romanization)
+            raise MissingRomanizationError("proto-indo-european")
+        case "ru" | "orv" | "sla-pro":
+            return CyrillicWord.from_cyrillic(src.word)
+        case _:
+            if src.ipa:
+                return GenericWord.from_ipa(src.ipa, lang=src.lang)
+            if src.romanization:
+                return GenericWord.from_romanization(src.romanization, lang=src.lang)
+            raise UnsupportedLanguageError(src.lang)
+
+
 def reconstruct_ancestor(
     ar_roman: str,
     he_roman: str,
-    shared_sources: list[SharedSource] | None = None,
+    ancestor: Word | None = None,
 ) -> Word:
     """Return the best ancestor form.
 
     Priority:
-      1. Shared etymology source — LCA from the borrowing/inheritance graph
-         (already sorted by the caller, first entry is the best)
+      1. Pre-built ancestor Word (built by the caller from a shared etymology
+         source — the LCA of the borrowing/inheritance graph)
       2. Reconstruction from Arabic/Hebrew romanizations
     """
 
-    # 1. Shared etymology source — pick the first (best) one
-    if shared_sources:
-        result = shared_sources[0].to_word()
-        if not result.word:
+    # 1. Pre-built ancestor from a shared etymology source.
+    if ancestor is not None:
+        if not ancestor.word:
             raise EmptyAncestorError()
-        return result
+        return ancestor
 
     # 2. Merge Arabic and Hebrew romanizations
     if not ar_roman or not he_roman:

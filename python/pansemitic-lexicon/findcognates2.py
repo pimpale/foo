@@ -25,16 +25,17 @@ import time
 from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Self
 
 import numpy as np
 import orjson
 
 from loss import LossBreakdown, triplet_loss_breakdown
+from kaikki import PartialSource, SharedSource, canonical_from_entry
 from reconstruction import (
-    SharedSource,
     PansemiticWord,
     reconstruct_ancestor,
+    word_from_sharedsource,
     ReconstructionError,
     UnsupportedLanguageError,
     ConsonantMismatchError,
@@ -63,14 +64,6 @@ ETYMOLOGY_TEMPLATES = {"bor", "der", "lbor", "ubor", "slbor", "borrowed",
 ETYMON_RELATIONS = {":bor", ":der", ":inh", ":from", ":lbor"}
 
 
-def _extract_canonical(entry: dict[str, Any]) -> str:
-    """Return the canonical form from a kaikki entry, or the headword as fallback."""
-    for fm in entry.get("forms", []):
-        if "canonical" in fm.get("tags", []):
-            return fm.get("form", entry.get("word", ""))
-    return entry.get("word", "")
-
-
 _AR = b'"ar"'
 _HE = b'"he"'
 _ETYM = b'"etymology_templates"'
@@ -87,6 +80,76 @@ class WordData:
     cognates: set[tuple[str, str]] = field(default_factory=set)  # (normalized, raw)
     lemma_of: set[str] = field(default_factory=set)
     borrow_sources: set[tuple[str, str]] = field(default_factory=set)
+
+    def absorb(self, other: Self) -> None:
+        """Fold another partial WordData for the same canonical into self."""
+        if not self.romanization:
+            self.romanization = other.romanization
+        self.glosses |= other.glosses
+        self.cognates |= other.cognates
+        self.lemma_of |= other.lemma_of
+        self.borrow_sources |= other.borrow_sources
+
+
+@dataclass
+class ScanCounts:
+    """Per-chunk counts used for progress reporting."""
+    ar: int = 0
+    he: int = 0
+    lines: int = 0
+
+    def add(self, other: Self) -> None:
+        self.ar += other.ar
+        self.he += other.he
+        self.lines += other.lines
+
+
+@dataclass
+class KaikkiScanResult:
+    """All indexes built from one (or merged across many) kaikki scans."""
+    ar_words: dict[str, WordData] = field(default_factory=dict)
+    he_words: dict[str, WordData] = field(default_factory=dict)
+    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = field(
+        default_factory=lambda: defaultdict(set)
+    )
+    template_tr_index: dict[tuple[str, str], str] = field(default_factory=dict)
+    kaikki_partials: dict[tuple[str, str], PartialSource] = field(default_factory=dict)
+    counts: ScanCounts = field(default_factory=ScanCounts)
+
+    def merge(self, other: Self) -> None:
+        self._merge_words(self.ar_words, other.ar_words)
+        self._merge_words(self.he_words, other.he_words)
+        self._merge_setvalued(self.borrow_graph, other.borrow_graph)
+        self._merge_first_wins(self.template_tr_index, other.template_tr_index)
+        self._merge_first_wins(self.kaikki_partials, other.kaikki_partials)
+        self.counts.add(other.counts)
+
+    @staticmethod
+    def _merge_words(
+        target: dict[str, WordData], source: dict[str, WordData],
+    ) -> None:
+        """Combine partial WordData dicts on shared canonical keys."""
+        for canonical, wd in source.items():
+            existing = target.get(canonical)
+            if existing is None:
+                target[canonical] = wd
+            else:
+                existing.absorb(wd)
+
+    @staticmethod
+    def _merge_setvalued(target: dict, source: dict) -> None:
+        """Merge dicts whose values are sets — union per shared key."""
+        for key, values in source.items():
+            if key in target:
+                target[key] |= values
+            else:
+                target[key] = set(values)
+
+    @staticmethod
+    def _merge_first_wins(target: dict, source: dict) -> None:
+        """Merge plain-value dicts, keeping whichever value was inserted first."""
+        for key, value in source.items():
+            target.setdefault(key, value)
 
 
 @dataclass
@@ -243,7 +306,7 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     # canonical form in ``forms``. Other entries may cite either one in
     # etymology templates, so index both as aliases for the same node.
     node_keys = {(lang_code, word)}
-    canonical = _extract_canonical(entry)
+    canonical = canonical_from_entry(entry)
     if canonical and canonical != word:
         node_keys.add((lang_code, canonical))
 
@@ -322,43 +385,11 @@ def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
     return expanded_count
 
 
-def _extract_kaikki_romanization(entry) -> str:
-    """Return the romanization from a kaikki entry's forms, or ''."""
-    for fm in entry.get("forms", []):
-        if "romanization" in fm.get("tags", []):
-            return fm.get("form", "")
-    return ""
-
-
-def _extract_kaikki_ipa(entry) -> str:
-    """Return the first IPA value from a kaikki entry's sounds, or ''."""
-    for s in entry.get("sounds", []):
-        ipa = s.get("ipa")
-        if ipa:
-            return ipa
-    return ""
-
-
 def _process_chunk(
     filepath_str: str, start_byte: int, end_byte: int,
-) -> tuple[
-    dict[str, WordData],
-    dict[str, WordData],
-    dict[tuple[str, str], set[tuple[str, str]]],
-    dict[tuple[str, str], str],
-    dict[tuple[str, str], str],
-    dict[tuple[str, str], str],
-    tuple[int, int, int],
-]:
+) -> KaikkiScanResult:
     """Worker: process one byte-range of the JSONL file, return partial indexes."""
-    ar_words: dict[str, WordData] = {}
-    he_words: dict[str, WordData] = {}
-    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
-    template_tr_index: dict[tuple[str, str], str] = {}
-    kaikki_roman_index: dict[tuple[str, str], str] = {}
-    kaikki_ipa_index: dict[tuple[str, str], str] = {}
-
-    ar_count = he_count = line_count = 0
+    result = KaikkiScanResult()
 
     with open(filepath_str, "rb") as f:
         if start_byte > 0:
@@ -370,7 +401,7 @@ def _process_chunk(
             if not line:
                 break
 
-            line_count += 1
+            result.counts.lines += 1
 
             if not (_AR in line or _HE in line or _ETYM in line or _IPA in line):
                 continue
@@ -379,85 +410,40 @@ def _process_chunk(
             lc = entry.get("lang_code", "")
 
             if lc == "ar":
-                ar_count += 1
-                canonical = _extract_canonical(entry)
+                result.counts.ar += 1
+                canonical = canonical_from_entry(entry)
                 _process_semitic_entry(
-                    entry, "he", normalize_arabic, normalize_hebrew, ar_words,
+                    entry, "he", normalize_arabic, normalize_hebrew, result.ar_words,
                     canonical=canonical,
                 )
             elif lc == "he":
-                he_count += 1
-                canonical = _extract_canonical(entry)
+                result.counts.he += 1
+                canonical = canonical_from_entry(entry)
                 _process_semitic_entry(
-                    entry, "ar", normalize_hebrew, normalize_arabic, he_words,
+                    entry, "ar", normalize_hebrew, normalize_arabic, result.he_words,
                     canonical=canonical,
                 )
 
-            # Collect romanization and IPA for any entry (for lookup tiers).
-            word = entry.get("word", "")
-            if lc and word:
-                key_aliases = {(lc, word)}
-                canonical = _extract_canonical(entry)
-                if canonical and canonical != word:
-                    key_aliases.add((lc, canonical))
-                roman = _extract_kaikki_romanization(entry)
-                if roman:
-                    for key in key_aliases:
-                        if key not in kaikki_roman_index:
-                            kaikki_roman_index[key] = roman
-                ipa = _extract_kaikki_ipa(entry)
-                if ipa:
-                    for key in key_aliases:
-                        if key not in kaikki_ipa_index:
-                            kaikki_ipa_index[key] = ipa
+            # Build a PartialSource for any entry (feeds tier3 + IPA lookup).
+            partial = PartialSource.from_kaikki_entry(entry)
+            if partial is not None:
+                key_aliases = {(partial.lang, partial.word)}
+                raw_word = entry.get("word", "")
+                if raw_word and raw_word != partial.word:
+                    key_aliases.add((partial.lang, raw_word))
+                for key in key_aliases:
+                    result.kaikki_partials.setdefault(key, partial)
 
-            _extract_borrowing(entry, lc, borrow_graph, template_tr_index)
+            _extract_borrowing(entry, lc, result.borrow_graph, result.template_tr_index)
 
-    return (ar_words, he_words, dict(borrow_graph),
-            template_tr_index, kaikki_roman_index, kaikki_ipa_index,
-            (ar_count, he_count, line_count))
-
-
-def _merge_set_dicts(target: dict, source: dict) -> None:
-    for key, values in source.items():
-        if key in target:
-            target[key] |= values
-        else:
-            target[key] = set(values)
-
-
-def _merge_word_dicts(target: dict[str, WordData], source: dict[str, WordData]) -> None:
-    """Merge WordData dicts, combining set fields for shared canonical keys."""
-    for canonical, wd in source.items():
-        if canonical not in target:
-            target[canonical] = wd
-        else:
-            t = target[canonical]
-            if not t.romanization:
-                t.romanization = wd.romanization
-            t.glosses |= wd.glosses
-            t.cognates |= wd.cognates
-            t.lemma_of |= wd.lemma_of
-            t.borrow_sources |= wd.borrow_sources
-
-
-def _merge_str_dicts(target: dict, source: dict) -> None:
-    """Merge str-valued dicts, keeping the first value for each key."""
-    for key, value in source.items():
-        if key not in target:
-            target[key] = value
+    # defaultdict → plain dict for cross-process pickling cleanliness.
+    result.borrow_graph = dict(result.borrow_graph)
+    return result
 
 
 def build_all_indexes(
     filepath: Path, num_workers: int | None = None,
-) -> tuple[
-    dict[str, WordData],
-    dict[str, WordData],
-    dict[tuple[str, str], set[tuple[str, str]]],
-    dict[tuple[str, str], str],
-    dict[tuple[str, str], str],
-    dict[tuple[str, str], str],
-]:
+) -> KaikkiScanResult:
     """
     Parallel scan of the all-languages kaikki file.
     Extracts Arabic, Hebrew, borrowing graph, template transliterations,
@@ -481,47 +467,30 @@ def build_all_indexes(
     with ProcessPoolExecutor(max_workers=num_workers) as pool:
         futures = {pool.submit(_process_chunk, *c): i
                    for i, c in enumerate(chunks)}
-        partial_results: list[Any] = [None] * num_workers
+        partial_results: list[KaikkiScanResult | None] = [None] * num_workers
         done_count = 0
-        totals = [0, 0, 0]
 
         for future in as_completed(futures):
             idx = futures[future]
             partial_results[idx] = future.result()
-            counts = partial_results[idx][-1]
-            for j in range(len(totals)):
-                totals[j] += counts[j]
             done_count += 1
             print(f"  ... {done_count}/{num_workers} chunks done",
                   file=sys.stderr)
 
     print("  merging indexes …", file=sys.stderr)
-    ar_words: dict[str, WordData] = {}
-    he_words: dict[str, WordData] = {}
-    borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
-    template_tr_index: dict[tuple[str, str], str] = {}
-    kaikki_roman_index: dict[tuple[str, str], str] = {}
-    kaikki_ipa_index: dict[tuple[str, str], str] = {}
+    merged = KaikkiScanResult()
+    for partial in partial_results:
+        assert partial is not None
+        merged.merge(partial)
 
-    for result in partial_results:
-        p_ar, p_he, p_graph, p_tr, p_roman, p_ipa, _ = result
-        _merge_word_dicts(ar_words, p_ar)
-        _merge_word_dicts(he_words, p_he)
-        _merge_set_dicts(borrow_graph, p_graph)
-        _merge_str_dicts(template_tr_index, p_tr)
-        _merge_str_dicts(kaikki_roman_index, p_roman)
-        _merge_str_dicts(kaikki_ipa_index, p_ipa)
+    c = merged.counts
+    print(f"  ... done: {c.lines:,} lines total "
+          f"(ar:{c.ar:,} he:{c.he:,}"
+          f" graph:{len(merged.borrow_graph):,} nodes)"
+          f"\n  ... {len(merged.template_tr_index):,} template transliterations,"
+          f" {len(merged.kaikki_partials):,} kaikki partial sources")
 
-    ar_n, he_n, lines_n = totals
-    print(f"  ... done: {lines_n:,} lines total "
-          f"(ar:{ar_n:,} he:{he_n:,}"
-          f" graph:{len(borrow_graph):,} nodes)"
-          f"\n  ... {len(template_tr_index):,} template transliterations,"
-          f" {len(kaikki_roman_index):,} kaikki romanizations,"
-          f" {len(kaikki_ipa_index):,} kaikki IPAs")
-
-    return (ar_words, he_words, borrow_graph, template_tr_index,
-            kaikki_roman_index, kaikki_ipa_index)
+    return merged
 
 
 def _make_cognate_index(words: dict[str, WordData]) -> dict[str, set[tuple[str, str]]]:
@@ -629,8 +598,12 @@ def main():
     # ── Single pass through all-languages file ────────────────────
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
-    (ar_words, he_words, borrow_graph, template_tr_index,
-     kaikki_roman_index, kaikki_ipa_index) = build_all_indexes(ALL_WORDS_FILE)
+    scan = build_all_indexes(ALL_WORDS_FILE)
+    ar_words = scan.ar_words
+    he_words = scan.he_words
+    borrow_graph = scan.borrow_graph
+    template_tr_index = scan.template_tr_index
+    kaikki_partials = scan.kaikki_partials
     scan_time = time.monotonic() - t0
 
     # Build standalone cognate/borrow indexes keyed by canonical form
@@ -801,19 +774,18 @@ def main():
 
     def _surface_source(lang: str, canonical: str, norm: str, roman: str) -> SharedSource:
         """Build a SharedSource for the Arabic/Hebrew surface form itself."""
-        ipa = (SharedSource.resolve_ipa(lang, canonical, kaikki_ipa_index=kaikki_ipa_index)
-               or SharedSource.resolve_ipa(lang, norm, kaikki_ipa_index=kaikki_ipa_index))
+        partial = kaikki_partials.get((lang, canonical)) or kaikki_partials.get((lang, norm))
         return SharedSource(
             lang=lang,
             word=canonical,
-            romanization=roman or None,
-            ipa=ipa,
+            kaikki_romanization=roman or None,
+            ipa=partial.ipa if partial else None,
         )
 
     def _surface_ipa(source: SharedSource) -> str | None:
         """Resolve a surface SharedSource to normalized IPA."""
         try:
-            return source.to_word().to_ipa() or None
+            return word_from_sharedsource(source).to_ipa() or None
         except ReconstructionError:
             return None
 
@@ -874,42 +846,35 @@ def main():
             entry.shared_borrowing_sources = {
                 f"{s[0]}:{s[1]}": pair.sources[s] for s in all_sorted
             }
-        lca_sources = []
+        lca_sources: list[SharedSource] = []
         for s in lcas:
-            tiers = SharedSource.get_romanization_tiers(
-                s[0], s[1],
-                template_tr=template_tr_index.get(s),
-                kaikki_roman_index=kaikki_roman_index,
+            citation = SharedSource.from_citation(s[0], s[1], template_tr_index.get(s))
+            src = SharedSource.resolve(
+                lang=s[0], word=s[1],
+                entry=kaikki_partials.get(s),
+                citation=citation,
             )
             key = (s[0], s[1])
             if key not in romanization_tier_obs:
                 romanization_tier_obs[key] = RomanizationTierObservation(
                     lang=s[0],
                     word=s[1],
-                    tier1=tiers.tier1,
-                    tier2=tiers.tier2,
-                    tier3=tiers.tier3,
-                    selected=tiers.resolved(),
+                    tier1=src.tier1,
+                    tier2=src.tier2,
+                    tier3=src.tier3,
+                    selected=src.romanization,
                     uses=1,
                 )
             else:
                 romanization_tier_obs[key].uses += 1
-            lca_sources.append(
-                SharedSource(
-                    lang=s[0],
-                    word=s[1],
-                    romanization=tiers.resolved(),
-                    ipa=SharedSource.resolve_ipa(
-                        s[0], s[1],
-                        kaikki_ipa_index=kaikki_ipa_index,
-                    ),
-                )
-            )
-        lca_sources = lca_sources or None
+            lca_sources.append(src)
         try:
+            ancestor_word = (
+                word_from_sharedsource(lca_sources[0]) if lca_sources else None
+            )
             ancestor = reconstruct_ancestor(
                 entry.arabic.roman, entry.hebrew.roman,
-                shared_sources=lca_sources,
+                ancestor=ancestor_word,
             )
             entry.ancestor = str(ancestor)
             pansemitic_word = PansemiticWord.from_word(ancestor)
