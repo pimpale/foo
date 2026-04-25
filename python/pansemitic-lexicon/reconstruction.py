@@ -108,6 +108,16 @@ def _promote_circumflex_vowels(form: str) -> str:
             .replace("ô", "ō")
             .replace("û", "ū"))
 
+
+def _normalize_hebrew_vowel_marks(form: str) -> str:
+    """Drop Hebrew romanization stress marks but preserve macron length."""
+    out = []
+    for c in unicodedata.normalize("NFD", form):
+        if unicodedata.category(c) == "Mn" and c != "̄":
+            continue
+        out.append(c)
+    return unicodedata.normalize("NFC", "".join(out))
+
 # IPA → proto-Semitic scholar notation.  Strips ː (length and gemination).
 _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
     # multi-char first
@@ -133,93 +143,6 @@ _IPA_TO_SCHOLAR: list[tuple[str, str]] = [
     ("ʒ", "ž"),
 ]
 
-
-# IPA → pansemitic IPA.  Lossy: compresses the consonant inventory to the
-# pansemitic phoneme set, collapses non-{a,i,u} vowels.  Length and
-# gemination are stripped separately by `PansemiticWord.from_word`.
-#
-# Pansemitic phoneme inventory (all IPA):
-#   vowels: a i u
-#   stops:  p b t d k g q ʔ   tˤ dˤ(→sˤ)
-#   fric.:  f s z ʃ ʒ x  sˤ   (ħ/χ → x; θ/ð → s/z; ɬ → s)
-#   affr.:  d͡ʒ          (foreign affricates otherwise unfold / collapse)
-#   other:  m n l r w j h ʕ ( v -> w, ɦ -> h)
-_IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
-    # emphatics collapse (multi-char first).  sˤ and tˤ are inventory; other
-    # emphatics fold into sˤ.
-    ("ðˤ", "sˤ"),
-    ("θˤ", "sˤ"),
-    ("ɬˤ", "sˤ"),
-    ("dˤ", "sˤ"),
-    ("t͡ɬʼ", "sˤ"),
-    ("t͡ʃʼ", "sˤ"),
-    ("t͡sʼ", "sˤ"),
-    # affricates: d͡ʒ is inventory; foreign t͡s unfolds to the cluster ts,
-    # while the rest fold toward the nearest pansemitic segment.
-    ("t͡ʃ", "ʃ"),
-    ("t͡s", "ts"),
-    ("t͡ɬ", "s"),
-    ("d͡z", "z"),
-    ("d͡ɮ", "z"),
-    # voiceless dorsals merge → x
-    ("k͡xʼ", "x"),
-    ("k͡x", "x"),
-    ("χ", "x"),
-    ("ħ", "x"),
-    # voiced velar fricative → g; IPA single-story g variant → plain g
-    ("ɡ͡ɣ", "g"),
-    ("ɣ", "g"),
-    ("ɡ", "g"),
-    # IPA segments that can leak in from scholarly or generic fallback paths.
-    ("β", "b"),
-    ("ɓ", "b"),
-    ("ɸ", "p"),
-    ("ç", "x"),
-    ("c", "k"),
-    ("kʼ", "q"),
-    ("qʼ", "q"),
-    ("pʼ", "p"),
-    # Non-a/i/u IPA vowels collapse toward the nearest e/o/a/i/u base.
-    ("ɪ", "i"), ("ʏ", "i"), ("ɨ", "i"),
-    ("ʊ", "u"), ("ɯ", "u"),
-    ("ɛ", "e"), ("œ", "e"), ("ø", "e"),
-    ("ɔ", "o"),
-    ("ɐ", "a"), ("ɑ", "a"), ("ɒ", "a"), ("æ", "a"), ("ə", "a"),
-    ("ɕ", "s"), ("ʑ", "z"),   # alveolo-palatal fricatives
-    ("ɫ", "l"),               # velarized lateral
-    # Rhotics collapse → r
-    ("ɹ", "r"), ("ɾ", "r"), ("ʀ", "r"), ("ʁ", "r"), ("ɻ", "r"), ("ɽ", "r"),
-    # Nasals
-    ("ŋ", "n"), ("ɲ", "n"), ("ɳ", "n"),
-    # Retroflex stops → dental
-    ("ʈ", "t"), ("ɖ", "d"),
-    # Retroflex laterals collapse → l
-    ("ɭ", "l"),
-    # Rhotic schwa / low vowel
-    ("ɚ", "a"), ("ʌ", "a"),
-    # Aspiration / palatalization aren't phonemic for Semitic — drop.
-    ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
-    ("ʼ", ""),
-    ("̃", ""),
-    # We are not preserving labiovelars in the pansemitic layer here.
-    ("ʷ", ""),
-    # Superscript letters used as IPA release/off-glide marks — drop.
-    ("ᵗ", ""), ("ⁱ", ""), ("ⁿ", ""),
-    # (Tie bar on d͡ʒ is preserved — d͡ʒ is in the pansemitic inventory.)
-    # interdentals → sibilants
-    ("θ", "s"),
-    ("ð", "z"),
-    # lateral fricative → s.  (ʃ and ʒ are preserved — pansemitic inventory.)
-    ("ɬ", "s"),
-    # v → w
-    ("v", "w"),
-    # voiced glottal fricative → h
-    ("ɦ", "h"),
-    # Remove resonants
-    ("l̩", "l"), ("r̩", "r"), ("m̩", "m"), ("n̩", "n"),
-]
-
-
 @dataclass
 class Word:
     """A word stored as a plain Unicode IPA string (lossless).
@@ -243,6 +166,10 @@ class Word:
         while preserving the IPA tie bar.  This is the entry point used when
         kaikki supplies a native IPA directly.
         """
+        # many languages represent an unknown vowel with capital V in even IPA.
+        # We replace it with a concrete guessed vowel
+        ipa = ipa.replace("V", "a")
+        
         return cls(word=_strip_combining(ipa))
 
     def to_ipa(self) -> str:
@@ -334,10 +261,27 @@ class HebrewWord(Word):
             return cls(word=text)
         form = text.lower()
 
-        # Strip stress marks.
-        form = (form
-                .replace("á", "a").replace("é", "e").replace("í", "i")
-                .replace("ó", "o").replace("ú", "u"))
+        # Parentheses in Hebrew romanization mark optional ayin enunciation;
+        # make the enunciated form the default.
+        form = form.replace("(", "").replace(")", "")
+
+        # Circumflex vowels are used like macrons in some source romanizations.
+        form = _promote_circumflex_vowels(form)
+
+        # Scholarly Semitic letters used in shared-source romanizations.
+        # these are slightly odd, since the hebrew evolution didn't follow the same path
+        # we assign them slightly different values
+        form = form.replace("ʾ", "ʔ")
+        form = form.replace("ʿ", "ʕ")
+        form = form.replace("ś", "s")
+        form = form.replace("ḇ", "β")
+        form = form.replace("ṯ", "t")
+        form = form.replace("ḏ", "d")
+        form = form.replace("ḵ", "x")
+        form = form.replace("ḥ", "ħ")
+
+        # Strip stress/extra accents while keeping macrons for length.
+        form = _normalize_hebrew_vowel_marks(form)
 
         # Gemination on raw input, before digraph expansion.
         form = _geminate(form)
@@ -354,6 +298,13 @@ class HebrewWord(Word):
 
         # Palatal approximant
         form = form.replace("y", "j")
+
+        # Macron vowels mark length, unlike the acute stress marks above.
+        form = form.replace("ā", "aː")
+        form = form.replace("ī", "iː")
+        form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
 
         form = form.strip()
 
@@ -434,7 +385,20 @@ class SemProWord(Word):
         return cls(word=form.strip())
 
 
-_AKKADIAN_DETERMINATIVE_RE = re.compile(r"\{[^}]*\}|[ᵈᶠᵐᵏᶫˢ]|[\u2070-\u209f]")
+class SemWesProWord(SemProWord):
+    @property
+    def lang(self) -> str:
+        return "sem-wes-pro"
+
+class ReconstructedSemProWord(SemProWord):
+    @property
+    def lang(self) -> str:
+        return "recon-sem-pro"
+
+
+_AKKADIAN_DETERMINATIVE_RE = re.compile(
+    r"\^\([^)]*\)|\{[^}]*\}|[ᵈᶠᵐᵏᶫˢ]|[\u2070-\u209f]"
+)
 
 
 class AkkadianWord(SemProWord):
@@ -459,6 +423,7 @@ class AkkadianWord(SemProWord):
         # Determinatives / logogram markers are orthographic and not pronounced.
         form = _AKKADIAN_DETERMINATIVE_RE.sub("", form)
         form = form.replace("^", "")
+        form = form.replace(".", "")
         form = _promote_circumflex_vowels(form)
 
         base = SemProWord.from_romanization(form)
@@ -778,7 +743,7 @@ class EgyptianWord(Word):
         """Egyptian transliteration → IPA (Egyptological reading)."""
         if not text:
             return cls(word=text)
-        form = text.lower().lstrip("*").rstrip("-")
+        form = text.replace("V", "a").lower().lstrip("*").rstrip("-")
         form = _geminate(form)
         for src, dst in _EGYPTIAN_MAP:
             form = form.replace(src, dst)
@@ -1098,13 +1063,99 @@ _PANSEMITIC_IPA_TO_SCHOLAR: list[tuple[str, str]] = [
     ("j", "y"),
     ("d͡ʒ", "j"),
     ("ʃ", "š"),
-    ("ʒ", "ž"),
     # Pansemitic keeps `x` as-is (merged dorsal fricative) rather than ḫ.
     # Strip any leftover tie bar (from a foreign affricate not in our
     # inventory).  Runs last so the d͡ʒ → j rule above gets first crack.
     ("͡", ""),
 ]
 
+
+
+# IPA → pansemitic IPA.  Lossy: compresses the consonant inventory to the
+# pansemitic phoneme set, collapses non-{a,i,u} vowels.  Length and
+# gemination are stripped separately by `PansemiticWord.from_word`.
+#
+# Pansemitic phoneme inventory (all IPA):
+#   vowels: a i u
+#   stops:  p b t d k g q ʔ   tˤ dˤ(→sˤ)
+#   fric.:  f s z ʃ x  sˤ   (ħ/χ → x; θ/ð/ʒ → s/z; ɬ → s)
+#   affr.:  d͡ʒ          (foreign affricates otherwise unfold / collapse)
+#   other:  m n l r w j h ʕ ( v -> w, ɦ -> h)
+_IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
+    # emphatics collapse (multi-char first).  sˤ and tˤ are inventory; other
+    # emphatics fold into sˤ.
+    ("ðˤ", "sˤ"),
+    ("θˤ", "sˤ"),
+    ("ɬˤ", "sˤ"),
+    ("dˤ", "sˤ"),
+    ("t͡ɬʼ", "sˤ"),
+    ("t͡ʃʼ", "sˤ"),
+    ("t͡sʼ", "sˤ"),
+    # affricates: d͡ʒ is inventory; foreign t͡s unfolds to the cluster ts,
+    # while the rest fold toward the nearest pansemitic segment.
+    ("t͡ʃ", "ʃ"),
+    ("t͡s", "ts"),
+    ("t͡ɬ", "tl"),
+    ("d͡z", "z"),
+    ("d͡ɮ", "z"),
+    # voiceless dorsals merge → x
+    ("k͡xʼ", "x"),
+    ("k͡x", "x"),
+    ("χ", "x"),
+    ("ħ", "x"),
+    # voiced velar fricative → g; IPA single-story g variant → plain g
+    ("ɡ͡ɣ", "g"),
+    ("ɣ", "g"),
+    ("ɡ", "g"),
+    # IPA segments that can leak in from scholarly or generic fallback paths.
+    ("β", "b"),
+    ("ɓ", "b"),
+    ("ɸ", "p"),
+    ("ç", "x"),
+    ("c", "k"),
+    ("kʼ", "q"),
+    ("qʼ", "q"),
+    ("pʼ", "p"),
+    # Non-a/i/u IPA vowels collapse toward the nearest e/o/a/i/u base.
+    ("ɪ", "i"), ("ʏ", "i"), ("ɨ", "i"),
+    ("ʊ", "u"), ("ɯ", "u"),
+    ("ɛ", "e"), ("œ", "e"), ("ø", "e"),
+    ("ɔ", "o"),
+    ("ɐ", "a"), ("ɑ", "a"), ("ɒ", "a"), ("æ", "a"), ("ə", "a"),
+    ("ɕ", "s"), ("ʑ", "z"),   # alveolo-palatal fricatives
+    ("ɫ", "l"),               # velarized lateral
+    # Rhotics collapse → r
+    ("ɹ", "r"), ("ɾ", "r"), ("ʀ", "r"), ("ʁ", "r"), ("ɻ", "r"), ("ɽ", "r"),
+    # Nasals
+    ("ŋ", "n"), ("ɲ", "n"), ("ɳ", "n"),
+    # Retroflex stops → dental
+    ("ʈ", "t"), ("ɖ", "d"),
+    # Retroflex laterals collapse → l
+    ("ɭ", "l"),
+    # Rhotic schwa / low vowel
+    ("ɚ", "a"), ("ʌ", "a"),
+    # Aspiration / palatalization aren't phonemic for Semitic — drop.
+    ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
+    ("ʼ", ""),
+    ("̃", ""),
+    # We are not preserving labiovelars in the pansemitic layer here.
+    ("ʷ", ""),
+    # Superscript letters used as IPA release/off-glide marks — drop.
+    ("ᵗ", ""), ("ⁱ", ""), ("ⁿ", ""),
+    # (Tie bar on d͡ʒ is preserved — d͡ʒ is in the pansemitic inventory.)
+    # interdentals → sibilants
+    ("θ", "s"),
+    ("ð", "z"),
+    # lateral fricative → s.  (ʃ is preserved; standalone ʒ is handled below
+    # so d͡ʒ stays intact.)
+    ("ɬ", "s"),
+    # v → w
+    ("v", "w"),
+    # voiced glottal fricative → h
+    ("ɦ", "h"),
+    # Remove resonants
+    ("l̩", "l"), ("r̩", "r"), ("m̩", "m"), ("n̩", "n"),
+]
 
 class PansemiticWord(Word):
     """A word reduced to the pansemitic phoneme inventory, stored as IPA.
@@ -1130,7 +1181,7 @@ class PansemiticWord(Word):
     def from_word(cls, ancestor: Word) -> "PansemiticWord":
         if not ancestor.word:
             return cls(word="")
-        form = ancestor.to_pansemitic_ipa().lstrip("*").rstrip("-").lower()
+        form = ancestor.to_pansemitic_ipa()
 
         # Semitic-family sources: f reflects older *p.
         if ancestor.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
@@ -1138,6 +1189,9 @@ class PansemiticWord(Word):
 
         for src, dst in _IPA_TO_PANSEMITIC_IPA:
             form = form.replace(src, dst)
+
+        # Standalone /ʒ/ is not pansemitic; keep affricate /d͡ʒ/ untouched.
+        form = re.sub(r"(?<!͡)ʒ", "d͡ʒ", form)
 
         # Keep inventory emphatics sˤ and tˤ, but drop stray pharyngealization
         # marks that leak in on other consonants.
@@ -1148,8 +1202,10 @@ class PansemiticWord(Word):
         form = form.replace("aː", "a").replace("iː", "i").replace("uː", "u")
         form = form.replace("e", "i").replace("o", "a")
 
-        # Drop remaining ː (consonant gemination) and dedupe adjacent vowels.
+        # Drop remaining ː (consonant gemination), then dedupe any identical
+        # consonants introduced by lowering rules and finally dedupe vowels.
         form = form.replace("ː", "")
+        form = _dedupe_adjacent_consonants(form)
         form = re.sub(r"([aiu])\1+", r"\1", form)
 
         form = form.strip()
@@ -1193,10 +1249,14 @@ def word_from_sharedsource(src: SharedSource) -> Word:
             if src.romanization:
                 return SumerianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("sumerian")
-        case "sem-pro" | "sem-wes-pro" | "qfa-hur-pro":
+        case "sem-pro" |  "qfa-hur-pro":
             if src.ipa:
                 return SemProWord.from_ipa(src.ipa)
             return SemProWord.from_romanization(src.word)
+        case "sem-wes-pro":
+            if src.ipa:
+                return SemWesProWord.from_ipa(src.ipa)
+            return SemWesProWord.from_romanization(src.word)
         case "afa-pro":
             if src.ipa:
                 return AfrasianWord.from_ipa(src.ipa)
@@ -1329,6 +1389,46 @@ def _is_vowel_token(tok: str) -> bool:
     return bool(tok) and tok[0] in VOWELS
 
 
+def _dedupe_adjacent_consonants(ipa: str) -> str:
+    """Collapse identical adjacent consonants while preserving unknown chars."""
+    out: list[str] = []
+    prev: str | None = None
+    i = 0
+    n = len(ipa)
+    while i < n:
+        c = ipa[i]
+        if not c.isalpha() and c not in "ʔʕ":
+            out.append(c)
+            prev = None
+            i += 1
+            continue
+
+        if i + 2 < n and ipa[i + 1] == '͡':
+            two = ipa[i] + ipa[i + 1] + ipa[i + 2]
+            if two in IPA_CONSONANT_DIGRAPHS:
+                tok = two
+                i += 3
+                while i < n and ipa[i] in IPA_MODIFIERS:
+                    tok += ipa[i]
+                    i += 1
+                if prev == tok and not _is_vowel_token(tok):
+                    continue
+                out.append(tok)
+                prev = tok
+                continue
+
+        tok = c
+        i += 1
+        while i < n and ipa[i] in IPA_MODIFIERS:
+            tok += ipa[i]
+            i += 1
+        if prev == tok and not _is_vowel_token(tok):
+            continue
+        out.append(tok)
+        prev = tok
+    return "".join(out)
+
+
 def extract_phonemes(word: Word) -> list[tuple[str, str | None]]:
     """Extract (consonant, vowel) pairs from a Word's IPA string.
 
@@ -1370,6 +1470,8 @@ def reconcile_phoneme(ar_c: str, he_c: str) -> str:
             return "w"
         case ("p", "p") | ("f", "p"):
             return "p"
+        case ("d͡ʒ", "g"):
+            return "g"
         case _:
             # Default: prefer Arabic (more conservative)
             return ar_c
@@ -1387,7 +1489,7 @@ def merge_roots(ar: ArabicWord, he: HebrewWord) -> Word:
 
     Extracts phonemes from both, aligns by consonant position, reconciles
     each pair, and reassembles.
-    """
+    """    
     ar_phon = extract_phonemes(ar)
     he_phon = extract_phonemes(he)
 
@@ -1398,5 +1500,5 @@ def merge_roots(ar: ArabicWord, he: HebrewWord) -> Word:
         if v is not None:
             result.append(v)
 
-    return SemProWord(word="".join(result))
+    return ReconstructedSemProWord(word="".join(result))
     

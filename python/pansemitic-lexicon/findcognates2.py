@@ -20,6 +20,7 @@ import os
 from dataclasses import dataclass, field
 from urllib.parse import quote
 import re
+import statistics
 import sys
 import time
 from collections import defaultdict
@@ -580,6 +581,47 @@ def _tiers_differ(obs: RomanizationTierObservation) -> bool:
     return len(available) >= 2 and len(set(available)) > 1
 
 
+def _print_loss_statistics(results: list[CognateEntry]) -> None:
+    losses = [entry.loss for entry in results if entry.loss is not None]
+    skipped = len(results) - len(losses)
+
+    print("\n  Loss statistics:")
+    if not losses:
+        print(f"    No scorable triplets ({skipped} skipped, missing loss)")
+        return
+
+    joint = [loss.joint for loss in losses]
+    arabic = [loss.arabic for loss in losses]
+    hebrew = [loss.hebrew for loss in losses]
+
+    print(f"    Scored triplets: {len(losses)} ({skipped} skipped, missing loss)")
+    print(f"    Joint mean:      {statistics.mean(joint):.4f}")
+    print(f"    Joint median:    {statistics.median(joint):.4f}")
+    if len(joint) > 1:
+        print(f"    Joint stdev:     {statistics.stdev(joint):.4f}")
+    else:
+        print("    Joint stdev:     n/a")
+    print(f"    Joint min:       {min(joint):.4f}")
+    print(f"    Joint max:       {max(joint):.4f}")
+    print(f"    Arabic mean:     {statistics.mean(arabic):.4f}")
+    print(f"    Hebrew mean:     {statistics.mean(hebrew):.4f}")
+
+    buckets = [0.0, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0, float("inf")]
+    counts = [0] * (len(buckets) - 1)
+    for loss in joint:
+        for i in range(len(buckets) - 1):
+            if buckets[i] <= loss < buckets[i + 1]:
+                counts[i] += 1
+                break
+    print("    Joint distribution:")
+    for i, count in enumerate(counts):
+        upper = (
+            "inf" if buckets[i + 1] == float("inf")
+            else f"{buckets[i + 1]:.2f}"
+        )
+        print(f"      [{buckets[i]:.2f}, {upper})  {count}")
+
+
 def main():
     t_total = time.monotonic()
 
@@ -959,6 +1001,7 @@ def main():
             print(f"      {lang:20s} {count}")
     print(f"    Missing romanization:          {missing_romanizations}")
     print(f"    Empty ancestor:                {empty_ancestors}")
+    _print_loss_statistics(results)
 
 
 if __name__ == "__main__":
