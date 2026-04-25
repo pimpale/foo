@@ -48,6 +48,9 @@ DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
 OUTPUT_FILE = Path("cognates2.json")
 CSV_FILE = Path("cognates2.csv")
+GOOD_OUTPUT_FILE = Path("cognates_good.json")
+GOOD_CSV_FILE = Path("cognates_good.csv")
+GOOD_SIMILARITY_THRESHOLD = 0.83
 ROMANIZATION_TIER_DIFFS_FILE = Path("romanization_tier_differences.csv")
 SENSES_FILE = Path("senses.json")
 EMBEDDINGS_FILE = Path("embeddings.npy")
@@ -964,6 +967,31 @@ def main():
                 entry.hebrew.roman,
                 entry.pansemitic_form or "",
                 ";".join(entry.match_layers),
+            ])
+
+    good_results = [
+        e for e in results
+        if e.pansemitic_form
+        and e.best_sense_match is not None
+        and e.best_sense_match.similarity > GOOD_SIMILARITY_THRESHOLD
+    ]
+    print(f"Writing {GOOD_OUTPUT_FILE} ({len(good_results)} entries) …")
+    with open(GOOD_OUTPUT_FILE, "wb") as f:
+        f.write(orjson.dumps(
+            [e.to_dict() for e in good_results], option=orjson.OPT_INDENT_2,
+        ))
+    print(f"Writing {GOOD_CSV_FILE} …")
+    with open(GOOD_CSV_FILE, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "pansemitic", "meaning"])
+        for entry in good_results:
+            writer.writerow([
+                entry.arabic.canonical,
+                entry.arabic.roman,
+                entry.hebrew.canonical,
+                entry.hebrew.roman,
+                entry.pansemitic_form or "",
+                entry.best_sense_match.arabic_sense if entry.best_sense_match else "",
             ])
 
     tier1_available = sum(1 for obs in romanization_tier_obs.values() if obs.tier1)
