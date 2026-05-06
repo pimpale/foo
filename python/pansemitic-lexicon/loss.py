@@ -10,7 +10,9 @@ mutation rather than its own op.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
+from typing import Callable
 
 from reconstruction import _tokenize_phonemes
 
@@ -18,72 +20,111 @@ from reconstruction import _tokenize_phonemes
 # ── Phoneme feature tables ────────────────────────────────────
 #
 # Each base phoneme (no length/gemination, no pharyngealization modifier
-# when stored separately) is assigned a feature vector with components in
-# [0, 1].  Cost functions use feature distance to score mutations.
+# when stored separately) is assigned a feature vector.  Cost functions
+# use feature distance to score mutations.
 #
 # Place  — 0 (labial) … 1 (glottal), monotone front-to-back.
-# Manner — 0 (stop) … 1 (approximant), monotone on sonority/openness.
-# Voicing, pharyngealized, lateral — boolean {0, 1}.
+# Manner — discrete enum, paired via _MANNER_MATRIX below.
+# Voicing, pharyngealized, lateral, aspirated — boolean {0, 1}.
 
-_CONSONANT_FEATURES: dict[str, dict[str, float]] = {
-    # stops
-    "p":  {"place": 0.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "pʰ": {"place": 0.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "b":  {"place": 0.00, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t":  {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "tʰ": {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "d":  {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "k":  {"place": 0.70, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "kʰ": {"place": 0.70, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "g":  {"place": 0.70, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɡ":  {"place": 0.70, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "q":  {"place": 0.80, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "qˤ": {"place": 0.80, "manner": 0.00, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ʔ":  {"place": 1.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "tˤ": {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "dˤ": {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+_MANNER_NASAL = 0
+_MANNER_PLOSIVE = 1
+_MANNER_AFFRICATE = 2
+_MANNER_FRICATIVE = 3
+_MANNER_TAP = 4
+_MANNER_TRILL = 5
+_MANNER_APPROXIMANT = 6
+
+
+_CONSONANT_FEATURES: dict[str, dict[str, float | int]] = {
+    # plosives
+    "p":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "pʰ":  {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "b":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "tʰ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "d":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "k":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "kʰ":  {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "g":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɡ":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "q":   {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "qˤ":  {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ʔ":   {"place": 1.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "tˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "dˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
     # affricates
-    "d͡ʒ": {"place": 0.45, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡ʃ": {"place": 0.45, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡s": {"place": 0.30, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡sˤ":{"place": 0.30, "manner": 0.15, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "d͡z": {"place": 0.30, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "d͡ʒ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡ʃ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡s":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡sˤ": {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "d͡z":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
     # fricatives
-    "f":  {"place": 0.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "v":  {"place": 0.00, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "β":  {"place": 0.00, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "θ":  {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ð":  {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "s":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "z":  {"place": 0.30, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "sˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ðˤ": {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "θˤ": {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ʃ":  {"place": 0.45, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʒ":  {"place": 0.45, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "x":  {"place": 0.70, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɣ":  {"place": 0.70, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "χ":  {"place": 0.80, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʁ":  {"place": 0.80, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ħ":  {"place": 0.90, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʕ":  {"place": 0.90, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "h":  {"place": 1.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɬ":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 1, "aspirated": 0},
-    "ɬˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 1, "aspirated": 0},
+    "f":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "v":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "β":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "θ":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ð":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "s":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "z":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "sˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ðˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "θˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ʃ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʒ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "x":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɣ":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "χ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʁ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ħ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʕ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "h":   {"place": 1.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɬ":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 1, "aspirated": 0},
+    "ɬˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 1, "aspirated": 0},
     # nasals
-    "m":  {"place": 0.00, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "n":  {"place": 0.30, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    # liquids
-    "l":  {"place": 0.30, "manner": 0.70, "voicing": 1, "pharyng": 0, "lateral": 1, "aspirated": 0},
-    "ɫ":  {"place": 0.30, "manner": 0.70, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0},
-    "r":  {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "rˤ": {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ɾ":  {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʀ":  {"place": 0.80, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    # approximants / glides
-    "w":  {"place": 0.00, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "j":  {"place": 0.55, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "m":   {"place": 0.00, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "n":   {"place": 0.30, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    # lateral approximants (l, ɫ): underlying manner = approximant, lateral=1
+    "l":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 1, "aspirated": 0},
+    "ɫ":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0},
+    # rhotics
+    "r":   {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "rˤ":  {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ɾ":   {"place": 0.30, "manner": _MANNER_TAP,         "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʀ":   {"place": 0.80, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    # glides / approximants
+    "w":   {"place": 0.00, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "j":   {"place": 0.55, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
 }
+
+# Manner-to-manner cost matrix.  Indexed by the _MANNER_* constants.
+# Tuned to roughly track perceptual / diachronic distance for Semitic
+# (e.g. plosive↔fricative cheap because of begadkefat lenition;
+# tap↔trill cheap because allophonic).
+#
+# Only the upper triangle is filled; _symmetrize_in_place mirrors it
+# below the diagonal so each pair has one source of truth to tweak.
+_MANNER_MATRIX: list[list[float]] = [
+    # nas  plo  aff  fri  tap  tri  apx
+    [0.0, 0.6, 0.8, 0.7, 1.0, 1.0, 0.7],  # nasal
+    [0.0, 0.0, 0.3, 0.4, 0.9, 0.9, 0.7],  # plosive
+    [0.0, 0.0, 0.0, 0.3, 0.9, 0.9, 0.8],  # affricate
+    [0.0, 0.0, 0.0, 0.0, 0.7, 0.7, 0.5],  # fricative
+    [0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 0.4],  # tap
+    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5],  # trill
+    [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # approximant
+]
+
+
+def _symmetrize_in_place(matrix: list[list[float]]) -> None:
+    n = len(matrix)
+    for i in range(n):
+        for j in range(i):
+            matrix[i][j] = matrix[j][i]
+
+
+_symmetrize_in_place(_MANNER_MATRIX)
+
 
 # Vowel features: height (high→low = 0→1), backness (front→back = 0→1), rounding.
 _VOWEL_FEATURES: dict[str, dict[str, float]] = {
@@ -105,9 +146,9 @@ _VOWEL_FEATURES: dict[str, dict[str, float]] = {
 # All features contribute to mutation cost via weighted Manhattan distance.
 # Tune these and re-run to see how the lexicon-wide loss shifts.
 
-# Consonant feature weights
+# Consonant feature weights.  Manner has no weight knob: its cost lives
+# entirely inside _MANNER_MATRIX.
 W_PLACE = 1.0
-W_MANNER = 1.0
 W_VOICING = 0.5
 W_PHARYNG = 0.8
 W_LATERAL = 0.6
@@ -182,13 +223,11 @@ class Consonant(Phoneme):
     def cost(self, other: Phoneme) -> float:
         if not isinstance(other, Consonant):
             return C_CROSS_TYPE
-        if self == other:
-            return 0.0
         af = self.features()
         bf = other.features()
         d = (
             W_PLACE * abs(af["place"] - bf["place"])
-            + W_MANNER * abs(af["manner"] - bf["manner"])
+            + _MANNER_MATRIX[int(af["manner"])][int(bf["manner"])]
             + W_VOICING * abs(af["voicing"] - bf["voicing"])
             + W_PHARYNG * abs(af["pharyng"] - bf["pharyng"])
             + W_LATERAL * abs(af["lateral"] - bf["lateral"])
@@ -213,8 +252,6 @@ class Vowel(Phoneme):
     def cost(self, other: Phoneme) -> float:
         if not isinstance(other, Vowel):
             return C_CROSS_TYPE
-        if self == other:
-            return 0.0
         af = self.features()
         bf = other.features()
         d = (
@@ -228,17 +265,45 @@ class Vowel(Phoneme):
 
 # ── Alignment ────────────────────────────────────────────────
 
+# A rule's apply function takes the windows it would consume from each side
+# and returns the cost of applying it, or None if the rule doesn't match.
+RuleApply = Callable[[tuple[Phoneme, ...], tuple[Phoneme, ...]], "float | None"]
+
+
 @dataclass(frozen=True)
 class Rule:
-    """An edit operation: how many phonemes it consumes from each side."""
+    """An edit operation.
+
+    `consume_a` / `consume_b` are how many phonemes the rule consumes from
+    each sequence.  `apply` is called with the two windows and returns the
+    cost of applying the rule, or None if it doesn't match those windows.
+    """
     name: str
     consume_a: int
     consume_b: int
+    apply: RuleApply
 
 
-DELETE = Rule(name="delete", consume_a=1, consume_b=0)
-INSERT = Rule(name="insert", consume_a=0, consume_b=1)
-SUBSTITUTE = Rule(name="substitute", consume_a=1, consume_b=1)
+def _delete_apply(a_win: tuple[Phoneme, ...], _b_win: tuple[Phoneme, ...]) -> float:
+    return a_win[0].insdel_cost()
+
+
+def _insert_apply(_a_win: tuple[Phoneme, ...], b_win: tuple[Phoneme, ...]) -> float:
+    return b_win[0].insdel_cost()
+
+
+def _substitute_apply(a_win: tuple[Phoneme, ...], b_win: tuple[Phoneme, ...]) -> float:
+    return a_win[0].cost(b_win[0])
+
+
+DELETE = Rule(name="delete", consume_a=1, consume_b=0, apply=_delete_apply)
+INSERT = Rule(name="insert", consume_a=0, consume_b=1, apply=_insert_apply)
+SUBSTITUTE = Rule(name="substitute", consume_a=1, consume_b=1, apply=_substitute_apply)
+
+# Default rule list.  Order matters for tie-breaking: the first rule whose
+# total cost equals the running minimum at a cell wins.  Append custom
+# rules (e.g. diphthong→glide as a 2:1 rule) — earlier entries win ties.
+RULES: list[Rule] = [SUBSTITUTE, DELETE, INSERT]
 
 
 @dataclass(frozen=True)
@@ -250,63 +315,68 @@ class SelectedRule:
     cost: float
 
 
-def trace_cost(a: list[Phoneme], b: list[Phoneme]) -> list[SelectedRule]:
+def trace_cost(
+    a: list[Phoneme],
+    b: list[Phoneme],
+    rules: list[Rule] | None = None,
+) -> list[SelectedRule]:
     """Optimal edit script aligning `a` to `b`, as a list of applied rules.
 
-    Standard three-op DP (delete from a, insert from b, substitute) with
-    per-phoneme costs from `Phoneme.cost` / `Phoneme.insdel_cost`.  Full
-    O(n·m) matrix is retained so we can backtrace.  Tie-break order is
-    substitute > delete > insert.
+    DP iterates every rule at every cell: for each rule, looks back
+    `(consume_a, consume_b)` cells and adds the rule's cost.  Earlier
+    rules in the list win cost ties.  Boundary handling falls out of the
+    rules themselves — at `(0, j)` only INSERT fits, at `(i, 0)` only
+    DELETE fits.
     """
+    if rules is None:
+        rules = RULES
+    if not any(r.consume_a > 0 or r.consume_b > 0 for r in rules):
+        raise ValueError("Rule set must contain at least one progressing rule")
+
     n, m = len(a), len(b)
-    if n == 0:
-        return [SelectedRule(INSERT, (), (p,), p.insdel_cost()) for p in b]
-    if m == 0:
-        return [SelectedRule(DELETE, (p,), (), p.insdel_cost()) for p in a]
-
-    dp: list[list[float]] = [[0.0] * (m + 1) for _ in range(n + 1)]
+    INF = math.inf
+    dp: list[list[float]] = [[INF] * (m + 1) for _ in range(n + 1)]
     back: list[list[Rule | None]] = [[None] * (m + 1) for _ in range(n + 1)]
-    for j in range(1, m + 1):
-        dp[0][j] = dp[0][j - 1] + b[j - 1].insdel_cost()
-        back[0][j] = INSERT
-    for i in range(1, n + 1):
-        dp[i][0] = dp[i - 1][0] + a[i - 1].insdel_cost()
-        back[i][0] = DELETE
+    dp[0][0] = 0.0
 
-    for i in range(1, n + 1):
-        ap = a[i - 1]
-        for j in range(1, m + 1):
-            bp = b[j - 1]
-            sub_c = dp[i - 1][j - 1] + ap.cost(bp)
-            del_c = dp[i - 1][j] + ap.insdel_cost()
-            ins_c = dp[i][j - 1] + bp.insdel_cost()
-            best = min(sub_c, del_c, ins_c)
-            dp[i][j] = best
-            if best == sub_c:
-                back[i][j] = SUBSTITUTE
-            elif best == del_c:
-                back[i][j] = DELETE
-            else:
-                back[i][j] = INSERT
+    for i in range(n + 1):
+        for j in range(m + 1):
+            if i == 0 and j == 0:
+                continue
+            for rule in rules:
+                if rule.consume_a > i or rule.consume_b > j:
+                    continue
+                pi, pj = i - rule.consume_a, j - rule.consume_b
+                prev = dp[pi][pj]
+                if prev == INF:
+                    continue
+                a_win = tuple(a[pi:i])
+                b_win = tuple(b[pj:j])
+                c = rule.apply(a_win, b_win)
+                if c is None:
+                    continue
+                total = prev + c
+                if total < dp[i][j]:
+                    dp[i][j] = total
+                    back[i][j] = rule
+
+    if dp[n][m] == INF:
+        raise ValueError(
+            "No alignment found; rule set cannot bridge these sequences"
+        )
 
     trace: list[SelectedRule] = []
     i, j = n, m
     while i > 0 or j > 0:
         rule = back[i][j]
         assert rule is not None
-        if rule is SUBSTITUTE:
-            ap, bp = a[i - 1], b[j - 1]
-            trace.append(SelectedRule(rule, (ap,), (bp,), ap.cost(bp)))
-            i -= 1
-            j -= 1
-        elif rule is DELETE:
-            ap = a[i - 1]
-            trace.append(SelectedRule(rule, (ap,), (), ap.insdel_cost()))
-            i -= 1
-        else:  # INSERT
-            bp = b[j - 1]
-            trace.append(SelectedRule(rule, (), (bp,), bp.insdel_cost()))
-            j -= 1
+        pi, pj = i - rule.consume_a, j - rule.consume_b
+        a_win = tuple(a[pi:i])
+        b_win = tuple(b[pj:j])
+        c = rule.apply(a_win, b_win)
+        assert c is not None
+        trace.append(SelectedRule(rule, a_win, b_win, c))
+        i, j = pi, pj
     trace.reverse()
     return trace
 

@@ -244,7 +244,13 @@ class ArabicWord(Word):
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
 
-        return cls(word=form.strip())
+        # Arabic phonotactics forbid vowel-initial words; the romanization
+        # elides the prothetic ʔ for words like "ism", "aḫ", "ibn".
+        form = form.strip()
+        if form and form[0] in "aeiou":
+            form = "ʔ" + form
+
+        return cls(word=form)
 
 
 class HebrewWord(Word):
