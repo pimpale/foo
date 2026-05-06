@@ -3,3 +3,4 @@ data/
 __pycache__/
 embeddings.npy
 senses.json
+loss.json

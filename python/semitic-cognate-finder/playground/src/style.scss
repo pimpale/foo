@@ -38,6 +38,13 @@ $container-max-widths: (
   xxl: 1200px
 );
 
+@font-face {
+  font-family: 'Noto Sans Phoenician Local';
+  src: url('./NotoSansPhoenicianRegular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 
 @import "bootstrap/scss/bootstrap";

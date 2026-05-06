@@ -54,7 +54,8 @@ function transliterate(input: string): string {
 
 const FONTS = [
   { label: 'Segoe UI Historic', family: '"Segoe UI Historic"' },
-  { label: 'Noto Sans Phoenician', family: '"Noto Sans Phoenician"' },
+  { label: 'Noto Sans Phoenician (system)', family: '"Noto Sans Phoenician"' },
+  { label: 'Noto Sans Phoenician (bundled)', family: '"Noto Sans Phoenician Local"' },
   { label: 'inherit', family: 'inherit' },
 ] as const;
 

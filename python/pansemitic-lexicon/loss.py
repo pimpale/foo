@@ -27,59 +27,77 @@ from reconstruction import _tokenize_phonemes
 
 _CONSONANT_FEATURES: dict[str, dict[str, float]] = {
     # stops
-    "p":  {"place": 0.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "b":  {"place": 0.00, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "t":  {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "d":  {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "k":  {"place": 0.70, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "g":  {"place": 0.70, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "q":  {"place": 0.80, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ʔ":  {"place": 1.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "tˤ": {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 1, "lateral": 0},
-    "dˤ": {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 1, "lateral": 0},
+    "p":  {"place": 0.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "pʰ": {"place": 0.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "b":  {"place": 0.00, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t":  {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "tʰ": {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "d":  {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "k":  {"place": 0.70, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "kʰ": {"place": 0.70, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
+    "g":  {"place": 0.70, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɡ":  {"place": 0.70, "manner": 0.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "q":  {"place": 0.80, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "qˤ": {"place": 0.80, "manner": 0.00, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ʔ":  {"place": 1.00, "manner": 0.00, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "tˤ": {"place": 0.30, "manner": 0.00, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "dˤ": {"place": 0.30, "manner": 0.00, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
     # affricates
-    "d͡ʒ": {"place": 0.45, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "t͡ʃ": {"place": 0.45, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "t͡s": {"place": 0.30, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "d͡z": {"place": 0.30, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0},
+    "d͡ʒ": {"place": 0.45, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡ʃ": {"place": 0.45, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡s": {"place": 0.30, "manner": 0.15, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "t͡sˤ":{"place": 0.30, "manner": 0.15, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "d͡z": {"place": 0.30, "manner": 0.15, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
     # fricatives
-    "f":  {"place": 0.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "v":  {"place": 0.00, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "θ":  {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ð":  {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "s":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "z":  {"place": 0.30, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "sˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0},
-    "ðˤ": {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 1, "lateral": 0},
-    "θˤ": {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0},
-    "ʃ":  {"place": 0.45, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ʒ":  {"place": 0.45, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "x":  {"place": 0.70, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ɣ":  {"place": 0.70, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "χ":  {"place": 0.80, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ħ":  {"place": 0.90, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ʕ":  {"place": 0.90, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "h":  {"place": 1.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0},
-    "ɬ":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 1},
-    "ɬˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 1},
+    "f":  {"place": 0.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "v":  {"place": 0.00, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "β":  {"place": 0.00, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "θ":  {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ð":  {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "s":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "z":  {"place": 0.30, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "sˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ðˤ": {"place": 0.15, "manner": 0.35, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "θˤ": {"place": 0.15, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ʃ":  {"place": 0.45, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʒ":  {"place": 0.45, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "x":  {"place": 0.70, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɣ":  {"place": 0.70, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "χ":  {"place": 0.80, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʁ":  {"place": 0.80, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ħ":  {"place": 0.90, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʕ":  {"place": 0.90, "manner": 0.35, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "h":  {"place": 1.00, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ɬ":  {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 0, "lateral": 1, "aspirated": 0},
+    "ɬˤ": {"place": 0.30, "manner": 0.35, "voicing": 0, "pharyng": 1, "lateral": 1, "aspirated": 0},
     # nasals
-    "m":  {"place": 0.00, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "n":  {"place": 0.30, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0},
+    "m":  {"place": 0.00, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "n":  {"place": 0.30, "manner": 0.55, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
     # liquids
-    "l":  {"place": 0.30, "manner": 0.70, "voicing": 1, "pharyng": 0, "lateral": 1},
-    "r":  {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0},
+    "l":  {"place": 0.30, "manner": 0.70, "voicing": 1, "pharyng": 0, "lateral": 1, "aspirated": 0},
+    "ɫ":  {"place": 0.30, "manner": 0.70, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0},
+    "r":  {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "rˤ": {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "ɾ":  {"place": 0.30, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "ʀ":  {"place": 0.80, "manner": 0.85, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
     # approximants / glides
-    "w":  {"place": 0.00, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0},
-    "j":  {"place": 0.55, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0},
+    "w":  {"place": 0.00, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "j":  {"place": 0.55, "manner": 1.00, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
 }
 
 # Vowel features: height (high→low = 0→1), backness (front→back = 0→1), rounding.
 _VOWEL_FEATURES: dict[str, dict[str, float]] = {
     "a": {"height": 1.00, "backness": 0.50, "rounded": 0},
     "e": {"height": 0.50, "backness": 0.00, "rounded": 0},
+    "ɛ": {"height": 0.70, "backness": 0.00, "rounded": 0},
     "i": {"height": 0.00, "backness": 0.00, "rounded": 0},
+    "y": {"height": 0.00, "backness": 0.00, "rounded": 1},
     "o": {"height": 0.50, "backness": 1.00, "rounded": 1},
+    "ɔ": {"height": 0.70, "backness": 1.00, "rounded": 1},
     "u": {"height": 0.00, "backness": 1.00, "rounded": 1},
+    "æ": {"height": 0.90, "backness": 0.00, "rounded": 0},
+    "ɒ": {"height": 1.00, "backness": 1.00, "rounded": 1},
+    "ə": {"height": 0.50, "backness": 0.50, "rounded": 0},
 }
 
 
@@ -93,6 +111,7 @@ W_MANNER = 1.0
 W_VOICING = 0.5
 W_PHARYNG = 0.8
 W_LATERAL = 0.6
+W_ASPIRATED = 0.3
 
 # Vowel feature weights
 W_HEIGHT = 1.0
@@ -118,122 +137,201 @@ C_CONS_INSDEL = 1.5
 C_CROSS_TYPE = 2.0
 
 
-# ── Cost functions ────────────────────────────────────────────
+# ── Phoneme classes ──────────────────────────────────────────
 
-def _parse_token(tok: str) -> tuple[str, bool]:
-    """Split a phoneme token into (base, is_long_or_geminate)."""
-    if tok.endswith("ː"):
-        return tok[:-1], True
-    return tok, False
+@dataclass(frozen=True)
+class Phoneme:
+    """An IPA phoneme token, parsed into a base symbol plus length."""
+    base: str
+    long: bool
 
+    @staticmethod
+    def parse(tok: str) -> "Phoneme":
+        if tok.endswith("ː"):
+            base, long = tok[:-1], True
+        else:
+            base, long = tok, False
+        if base in _VOWEL_FEATURES:
+            return Vowel(base, long)
+        if base in _CONSONANT_FEATURES:
+            return Consonant(base, long)
+        raise ValueError(f"Unknown phoneme: {tok!r}")
 
-def _is_vowel_base(base: str) -> bool:
-    return base in _VOWEL_FEATURES
+    def features(self) -> dict[str, float]:
+        raise NotImplementedError
 
+    def cost(self, other: "Phoneme") -> float:
+        raise NotImplementedError
 
-def _vowel_cost(a: str, b: str, a_long: bool, b_long: bool) -> float:
-    af = _VOWEL_FEATURES.get(a)
-    bf = _VOWEL_FEATURES.get(b)
-    if af is None or bf is None:
-        # Unknown vowel (shouldn't happen after pansemitic/AR/HE normalization):
-        # treat as max mutation unless bases literally match.
-        base_match = a == b
-        length_cost = W_LENGTH_VOWEL * (0 if a_long == b_long else 1)
-        return length_cost if base_match else C_VOWEL_MUT_MAX
-    d = (
-        W_HEIGHT * abs(af["height"] - bf["height"])
-        + W_BACKNESS * abs(af["backness"] - bf["backness"])
-        + W_ROUNDED * abs(af["rounded"] - bf["rounded"])
-        + W_LENGTH_VOWEL * (0 if a_long == b_long else 1)
-    )
-    return min(d, C_VOWEL_MUT_MAX)
-
-
-def _cons_cost(a: str, b: str, a_long: bool, b_long: bool) -> float:
-    af = _CONSONANT_FEATURES.get(a)
-    bf = _CONSONANT_FEATURES.get(b)
-    if af is None or bf is None:
-        base_match = a == b
-        length_cost = W_LENGTH_CONS * (0 if a_long == b_long else 1)
-        return length_cost if base_match else C_CONS_MUT_MAX
-    d = (
-        W_PLACE * abs(af["place"] - bf["place"])
-        + W_MANNER * abs(af["manner"] - bf["manner"])
-        + W_VOICING * abs(af["voicing"] - bf["voicing"])
-        + W_PHARYNG * abs(af["pharyng"] - bf["pharyng"])
-        + W_LATERAL * abs(af["lateral"] - bf["lateral"])
-        + W_LENGTH_CONS * (0 if a_long == b_long else 1)
-    )
-    return min(d, C_CONS_MUT_MAX)
+    def insdel_cost(self) -> float:
+        raise NotImplementedError
 
 
-def sub_cost(a: str, b: str) -> float:
-    """Cost of substituting phoneme token `a` with `b`.  0 iff identical."""
-    if a == b:
-        return 0.0
-    a_base, a_long = _parse_token(a)
-    b_base, b_long = _parse_token(b)
-    a_is_vowel = _is_vowel_base(a_base)
-    b_is_vowel = _is_vowel_base(b_base)
-    if a_is_vowel != b_is_vowel:
-        return C_CROSS_TYPE
-    if a_is_vowel:
-        return _vowel_cost(a_base, b_base, a_long, b_long)
-    return _cons_cost(a_base, b_base, a_long, b_long)
+@dataclass(frozen=True)
+class Consonant(Phoneme):
+    def __post_init__(self) -> None:
+        if self.base not in _CONSONANT_FEATURES:
+            raise ValueError(f"Unknown consonant: {self.base!r}")
+
+    def features(self) -> dict[str, float]:
+        return _CONSONANT_FEATURES[self.base]
+
+    def insdel_cost(self) -> float:
+        return C_CONS_INSDEL
+
+    def cost(self, other: Phoneme) -> float:
+        if not isinstance(other, Consonant):
+            return C_CROSS_TYPE
+        if self == other:
+            return 0.0
+        af = self.features()
+        bf = other.features()
+        d = (
+            W_PLACE * abs(af["place"] - bf["place"])
+            + W_MANNER * abs(af["manner"] - bf["manner"])
+            + W_VOICING * abs(af["voicing"] - bf["voicing"])
+            + W_PHARYNG * abs(af["pharyng"] - bf["pharyng"])
+            + W_LATERAL * abs(af["lateral"] - bf["lateral"])
+            + W_ASPIRATED * abs(af["aspirated"] - bf["aspirated"])
+            + W_LENGTH_CONS * (0 if self.long == other.long else 1)
+        )
+        return min(d, C_CONS_MUT_MAX)
 
 
-def insdel_cost(tok: str) -> float:
-    """Cost of inserting or deleting phoneme token `tok`."""
-    base, _ = _parse_token(tok)
-    return C_VOWEL_INSDEL if _is_vowel_base(base) else C_CONS_INSDEL
+@dataclass(frozen=True)
+class Vowel(Phoneme):
+    def __post_init__(self) -> None:
+        if self.base not in _VOWEL_FEATURES:
+            raise ValueError(f"Unknown vowel: {self.base!r}")
+
+    def features(self) -> dict[str, float]:
+        return _VOWEL_FEATURES[self.base]
+
+    def insdel_cost(self) -> float:
+        return C_VOWEL_INSDEL
+
+    def cost(self, other: Phoneme) -> float:
+        if not isinstance(other, Vowel):
+            return C_CROSS_TYPE
+        if self == other:
+            return 0.0
+        af = self.features()
+        bf = other.features()
+        d = (
+            W_HEIGHT * abs(af["height"] - bf["height"])
+            + W_BACKNESS * abs(af["backness"] - bf["backness"])
+            + W_ROUNDED * abs(af["rounded"] - bf["rounded"])
+            + W_LENGTH_VOWEL * (0 if self.long == other.long else 1)
+        )
+        return min(d, C_VOWEL_MUT_MAX)
 
 
 # ── Alignment ────────────────────────────────────────────────
 
-def align_cost(a_tokens: list[str], b_tokens: list[str]) -> float:
-    """Weighted Levenshtein distance between two phoneme-token sequences.
+@dataclass(frozen=True)
+class Rule:
+    """An edit operation: how many phonemes it consumes from each side."""
+    name: str
+    consume_a: int
+    consume_b: int
 
-    Standard three-op DP (insert from b, delete from a, substitute) with
-    per-token costs from `sub_cost` / `insdel_cost`.  Gemination is folded
-    into consonant substitution via the length feature — `Cː ↔ C` costs
-    `W_LENGTH_CONS`, which is the gemination/degemination op.
+
+DELETE = Rule(name="delete", consume_a=1, consume_b=0)
+INSERT = Rule(name="insert", consume_a=0, consume_b=1)
+SUBSTITUTE = Rule(name="substitute", consume_a=1, consume_b=1)
+
+
+@dataclass(frozen=True)
+class SelectedRule:
+    """A rule applied at a specific point in the alignment, with its cost."""
+    rule: Rule
+    a_phonemes: tuple[Phoneme, ...]
+    b_phonemes: tuple[Phoneme, ...]
+    cost: float
+
+
+def trace_cost(a: list[Phoneme], b: list[Phoneme]) -> list[SelectedRule]:
+    """Optimal edit script aligning `a` to `b`, as a list of applied rules.
+
+    Standard three-op DP (delete from a, insert from b, substitute) with
+    per-phoneme costs from `Phoneme.cost` / `Phoneme.insdel_cost`.  Full
+    O(n·m) matrix is retained so we can backtrace.  Tie-break order is
+    substitute > delete > insert.
     """
-    n, m = len(a_tokens), len(b_tokens)
+    n, m = len(a), len(b)
     if n == 0:
-        return sum(insdel_cost(t) for t in b_tokens)
+        return [SelectedRule(INSERT, (), (p,), p.insdel_cost()) for p in b]
     if m == 0:
-        return sum(insdel_cost(t) for t in a_tokens)
+        return [SelectedRule(DELETE, (p,), (), p.insdel_cost()) for p in a]
 
-    # Row-by-row DP, keeping two rows to stay O(m) memory.
-    prev = [0.0] * (m + 1)
+    dp: list[list[float]] = [[0.0] * (m + 1) for _ in range(n + 1)]
+    back: list[list[Rule | None]] = [[None] * (m + 1) for _ in range(n + 1)]
     for j in range(1, m + 1):
-        prev[j] = prev[j - 1] + insdel_cost(b_tokens[j - 1])
-
-    curr = [0.0] * (m + 1)
+        dp[0][j] = dp[0][j - 1] + b[j - 1].insdel_cost()
+        back[0][j] = INSERT
     for i in range(1, n + 1):
-        a_tok = a_tokens[i - 1]
-        curr[0] = prev[0] + insdel_cost(a_tok)
-        for j in range(1, m + 1):
-            b_tok = b_tokens[j - 1]
-            delete_a = prev[j] + insdel_cost(a_tok)
-            insert_b = curr[j - 1] + insdel_cost(b_tok)
-            substitute = prev[j - 1] + sub_cost(a_tok, b_tok)
-            curr[j] = min(delete_a, insert_b, substitute)
-        prev, curr = curr, prev
+        dp[i][0] = dp[i - 1][0] + a[i - 1].insdel_cost()
+        back[i][0] = DELETE
 
-    return prev[m]
+    for i in range(1, n + 1):
+        ap = a[i - 1]
+        for j in range(1, m + 1):
+            bp = b[j - 1]
+            sub_c = dp[i - 1][j - 1] + ap.cost(bp)
+            del_c = dp[i - 1][j] + ap.insdel_cost()
+            ins_c = dp[i][j - 1] + bp.insdel_cost()
+            best = min(sub_c, del_c, ins_c)
+            dp[i][j] = best
+            if best == sub_c:
+                back[i][j] = SUBSTITUTE
+            elif best == del_c:
+                back[i][j] = DELETE
+            else:
+                back[i][j] = INSERT
+
+    trace: list[SelectedRule] = []
+    i, j = n, m
+    while i > 0 or j > 0:
+        rule = back[i][j]
+        assert rule is not None
+        if rule is SUBSTITUTE:
+            ap, bp = a[i - 1], b[j - 1]
+            trace.append(SelectedRule(rule, (ap,), (bp,), ap.cost(bp)))
+            i -= 1
+            j -= 1
+        elif rule is DELETE:
+            ap = a[i - 1]
+            trace.append(SelectedRule(rule, (ap,), (), ap.insdel_cost()))
+            i -= 1
+        else:  # INSERT
+            bp = b[j - 1]
+            trace.append(SelectedRule(rule, (), (bp,), bp.insdel_cost()))
+            j -= 1
+    trace.reverse()
+    return trace
+
+
+def align_cost(a: list[Phoneme], b: list[Phoneme]) -> float:
+    """Weighted Levenshtein distance between two phoneme sequences."""
+    return sum(sr.cost for sr in trace_cost(a, b))
+
+
+def ipa_distance_with_trace(a: str, b: str) -> tuple[float, list[SelectedRule]]:
+    """Same as `ipa_distance`, but also returns the optimal edit script."""
+    at = [Phoneme.parse(t) for t in _tokenize_phonemes(a)]
+    bt = [Phoneme.parse(t) for t in _tokenize_phonemes(b)]
+    if not at and not bt:
+        return 0.0, []
+    trace = trace_cost(at, bt)
+    raw = sum(sr.cost for sr in trace)
+    return raw / max(len(at), len(bt)), trace
 
 
 def ipa_distance(a: str, b: str) -> float:
     """Weighted edit distance between two IPA strings.  Normalized by the
     longer token sequence so long-vs-short comparisons stay on a shared
     scale."""
-    at = _tokenize_phonemes(a)
-    bt = _tokenize_phonemes(b)
-    if not at and not bt:
-        return 0.0
-    raw = align_cost(at, bt)
-    return raw / max(len(at), len(bt))
+    return ipa_distance_with_trace(a, b)[0]
 
 
 # ── Triplet loss ──────────────────────────────────────────────
@@ -292,14 +390,30 @@ def pansemitic_scholar_to_ipa(form: str) -> str:
 
 # ── CLI driver ────────────────────────────────────────────────
 
+def _phoneme_str(p: Phoneme) -> str:
+    return p.base + ("ː" if p.long else "")
+
+
+def _serialize_step(sr: SelectedRule) -> dict:
+    return {
+        "rule": sr.rule.name,
+        "a": [_phoneme_str(p) for p in sr.a_phonemes],
+        "b": [_phoneme_str(p) for p in sr.b_phonemes],
+        "cost": round(sr.cost, 4),
+    }
+
+
 def _main() -> None:
     import csv
+    import json
     import statistics
     from pathlib import Path
     from reconstruction import ArabicWord, HebrewWord
 
     csv_path = Path("cognates2.csv")
+    out_path = Path("loss.json")
     losses: list[float] = []
+    entries: list[dict] = []
     skipped = 0
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -313,7 +427,29 @@ def _main() -> None:
             ar_ipa = ArabicWord.from_romanization(ar_roman).to_ipa()
             he_ipa = HebrewWord.from_romanization(he_roman).to_ipa()
             pan_ipa = pansemitic_scholar_to_ipa(pan_scholar)
-            losses.append(triplet_loss(pan_ipa, ar_ipa, he_ipa))
+            ar_dist, ar_trace = ipa_distance_with_trace(pan_ipa, ar_ipa)
+            he_dist, he_trace = ipa_distance_with_trace(pan_ipa, he_ipa)
+            joint = ar_dist + he_dist
+            losses.append(joint)
+            entries.append({
+                "arabic": row.get("arabic") or "",
+                "arabic_romanization": ar_roman,
+                "arabic_ipa": ar_ipa,
+                "hebrew": row.get("hebrew") or "",
+                "hebrew_romanization": he_roman,
+                "hebrew_ipa": he_ipa,
+                "pansemitic": pan_scholar,
+                "pansemitic_ipa": pan_ipa,
+                "arabic_distance": round(ar_dist, 4),
+                "hebrew_distance": round(he_dist, 4),
+                "joint": round(joint, 4),
+                "arabic_trace": [_serialize_step(s) for s in ar_trace],
+                "hebrew_trace": [_serialize_step(s) for s in he_trace],
+            })
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(entries, f, ensure_ascii=False, indent=2)
+    print(f"Wrote {len(entries)} entries to {out_path}")
 
     if not losses:
         print("No scorable triplets.")

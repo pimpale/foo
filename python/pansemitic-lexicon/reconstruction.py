@@ -217,6 +217,7 @@ class ArabicWord(Word):
 
         # Digraph first
         form = form.replace("sh", "ʃ")
+        form = form.replace("š", "ʃ")
 
         # Pharyngealized (emphatic) consonants
         form = form.replace("ṣ", "sˤ")
@@ -240,6 +241,8 @@ class ArabicWord(Word):
         form = form.replace("ā", "aː")
         form = form.replace("ī", "iː")
         form = form.replace("ū", "uː")
+        form = form.replace("ē", "eː")
+        form = form.replace("ō", "oː")
 
         return cls(word=form.strip())
 
@@ -273,6 +276,7 @@ class HebrewWord(Word):
         # we assign them slightly different values
         form = form.replace("ʾ", "ʔ")
         form = form.replace("ʿ", "ʕ")
+        form = form.replace("ʻ", "ʕ")
         form = form.replace("ś", "s")
         form = form.replace("ḇ", "β")
         form = form.replace("ṯ", "t")
@@ -289,6 +293,7 @@ class HebrewWord(Word):
         # Digraphs (longest first).
         form = form.replace("tsh", "t͡ʃ")
         form = form.replace("ts", "t͡s")   # Hebrew tsade (affricate)
+        form = form.replace("ch", "t͡ʃ")   # loan-word digraph (e.g., chek)
         form = form.replace("sh", "ʃ")
         form = form.replace("kh", "χ")     # modern Hebrew: uvular fricative
         form = form.replace("zh", "ʒ")
