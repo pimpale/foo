@@ -104,6 +104,43 @@ def _promote_circumflex_vowels(form: str) -> str:
             .replace("û", "ū"))
 
 
+def _expand_triliteral_root(form: str) -> str:
+    """Expand a vowelless 3-consonant root template to CaCaCa.
+
+    Accepts either explicit-hyphen form (``k-t-b``) or bare CCC (``ktb``).
+    Multi-byte scholarly consonants (ṣ, ṭ, ṯ, ḫ, ʔ, …) count as one slot
+    via NFD base+combining segmentation. Anything that already contains
+    a vowel, or whose consonant count isn't 3, is returned unchanged.
+    """
+    if not form:
+        return form
+    nfd = unicodedata.normalize("NFD", form)
+    if any(c in "aeiou" for c in nfd):
+        return form
+
+    if "-" in form:
+        parts = form.split("-")
+        if len(parts) == 3 and all(parts):
+            return "a".join(parts) + "a"
+        return form
+
+    tokens: list[str] = []
+    cur = ""
+    for c in nfd:
+        if unicodedata.category(c) == "Mn":
+            cur += c
+        else:
+            if cur:
+                tokens.append(cur)
+            cur = c
+    if cur:
+        tokens.append(cur)
+
+    if len(tokens) == 3:
+        return unicodedata.normalize("NFC", "a".join(tokens) + "a")
+    return form
+
+
 def _normalize_hebrew_vowel_marks(form: str) -> str:
     """Drop Hebrew romanization stress marks but preserve macron length."""
     out = []
@@ -279,11 +316,13 @@ class HebrewWord(Word):
         form = form.replace("ʿ", "ʕ")
         form = form.replace("ʻ", "ʕ")
         form = form.replace("ś", "s")
+        form = form.replace("š", "ʃ")
         form = form.replace("ḇ", "β")
         form = form.replace("ṯ", "t")
         form = form.replace("ḏ", "d")
         form = form.replace("ḵ", "x")
         form = form.replace("ḥ", "ħ")
+        form = form.replace("p̄", "p")
 
         # Strip stress/extra accents while keeping macrons for length.
         form = _normalize_hebrew_vowel_marks(form)
@@ -294,6 +333,7 @@ class HebrewWord(Word):
         # Digraphs (longest first).
         form = form.replace("tsh", "t͡ʃ")
         form = form.replace("ts", "t͡s")   # Hebrew tsade (affricate)
+        form = form.replace("tz", "t͡s")   # Hebrew tsade (affricate)
         form = form.replace("ch", "t͡ʃ")   # loan-word digraph (e.g., chek)
         form = form.replace("sh", "ʃ")
         form = form.replace("kh", "χ")     # modern Hebrew: uvular fricative
@@ -345,6 +385,9 @@ class SemProWord(Word):
 
         # Strip acute stress accents (kaikki uses them on non-Semitic loans).
         form = _strip_acute_vowels(form)
+
+        # Triliteral root template (C-C-C or CCC) → CaCaCa.
+        form = _expand_triliteral_root(form)
 
         # Glottal / pharyngeal variants first
         form = form.replace("ʾ", "ʔ")
@@ -1330,10 +1373,11 @@ def reconstruct_ancestor(
     ar = ArabicWord.from_romanization(ar_roman)
     he = HebrewWord.from_romanization(he_roman)
 
-    if ar.countconsonants() != he.countconsonants():
-        raise ConsonantMismatchError(ar.countconsonants(), he.countconsonants())
-
-    result = merge_roots(ar, he)
+    # Trace-based aligned merge handles unequal consonant counts on its own,
+    # so the old `countconsonants()` guard / ConsonantMismatchError are not
+    # invoked on this path.  To switch back to the strict zip path, replace
+    # this call with `merge_roots(ar, he)` and re-add the count check above.
+    result, _unresolved = merge_roots_aligned(ar, he)
     if not result or not result.word:
         raise EmptyAncestorError()
     return result
@@ -1428,6 +1472,8 @@ def reconcile_consonant(ar: Consonant, he: Consonant) -> Consonant:
             return Consonant(tok="p")
         case ("d͡ʒ", "g"):
             return Consonant(tok="g")
+        case ("ʃ", "s"):
+            return Consonant(tok="ɬ")
         case _:
             # Default: prefer Arabic (more conservative)
             return ar

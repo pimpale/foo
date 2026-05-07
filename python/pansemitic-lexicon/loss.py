@@ -187,9 +187,9 @@ IPA_CONSONANT_DIGRAPHS = (
 # entirely inside _MANNER_MATRIX.
 W_PLACE = 1.0
 W_VOICING = 0.5
-W_PHARYNG = 0.8
+W_PHARYNG = 0.5
 W_LATERAL = 0.6
-W_ASPIRATED = 0.3
+W_ASPIRATED = 0.2
 
 # Vowel feature weights
 W_HEIGHT = 0.4
@@ -210,8 +210,9 @@ C_VOWEL_MUT_MAX = 2.0
 C_RHOTIC_ALLOPHONE_MAX = 0.3
 
 # Insert/delete — vowels cheap, consonants high (option b from plan).
-C_VOWEL_INSDEL = 0.75
+C_VOWEL_INSDEL = 0.8
 C_CONS_INSDEL = 1.5
+C_CHEAP_CONS_INSDEL = 0.75   # for a small set of "cheap" consonants (e.g. glottal stop, pharyngeals)
 
 # Cross-type (consonant ↔ vowel): should never happen in a sensible
 # alignment; guard with a very high cost.
@@ -290,7 +291,13 @@ class Consonant(Phoneme):
         return _CONSONANT_FEATURES[self.tok]
 
     def insdel_cost(self) -> float:
-        return C_CONS_INSDEL
+        if self.features().place == 1.0:
+            cost = C_CHEAP_CONS_INSDEL
+            if self.features().long:
+                cost += W_LENGTH_CONS
+            return cost 
+        else:
+            return C_CONS_INSDEL
 
     def cost(self, other: Phoneme) -> float:
         if not isinstance(other, Consonant):
@@ -378,15 +385,17 @@ def _metathesis_apply(a_win: tuple[Phoneme, ...], b_win: tuple[Phoneme, ...]) ->
     return None
 
 
-DELETE = Rule(name="delete", consume_a=1, consume_b=0, apply=_delete_apply)
-INSERT = Rule(name="insert", consume_a=0, consume_b=1, apply=_insert_apply)
-SUBSTITUTE = Rule(name="substitute", consume_a=1, consume_b=1, apply=_substitute_apply)
-METATHESIS = Rule(name="metathesis", consume_a=2, consume_b=2, apply=_metathesis_apply)
+
 
 # Default rule list.  Order matters for tie-breaking: the first rule whose
 # total cost equals the running minimum at a cell wins.  Append custom
 # rules (e.g. diphthong→glide as a 2:1 rule) — earlier entries win ties.
-RULES: list[Rule] = [SUBSTITUTE, DELETE, INSERT, METATHESIS]
+RULES: list[Rule] = [
+    Rule(name="delete", consume_a=1, consume_b=0, apply=_delete_apply),
+    Rule(name="insert", consume_a=0, consume_b=1, apply=_insert_apply),
+    Rule(name="substitute", consume_a=1, consume_b=1, apply=_substitute_apply),
+    Rule(name="metathesis", consume_a=2, consume_b=2, apply=_metathesis_apply),
+]
 
 
 @dataclass(frozen=True)
