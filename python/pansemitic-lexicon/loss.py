@@ -145,7 +145,9 @@ def _symmetrize_in_place(matrix: list[list[float]]) -> None:
 _symmetrize_in_place(_MANNER_MATRIX)
 
 
-# Vowel features: height (high→low = 0→1), backness (front→back = 0→1), rounding.
+# Vowel features: height (close→open = 0→1), backness (front→back = 0→1), rounding.
+# Height steps follow the seven IPA rows: close 0.00, near-close 0.17,
+# close-mid 0.33, mid 0.50, open-mid 0.67, near-open 0.83, open 1.00.
 @dataclass(frozen=True)
 class VowelFeatures:
     height: float
@@ -155,17 +157,18 @@ class VowelFeatures:
 
 
 _VOWEL_FEATURES: dict[str, VowelFeatures] = {
-    "a": VowelFeatures(height=1.00, backness=0.50, rounded=0, long=0),
-    "e": VowelFeatures(height=0.50, backness=0.00, rounded=0, long=0),
-    "ɛ": VowelFeatures(height=0.70, backness=0.00, rounded=0, long=0),
     "i": VowelFeatures(height=0.00, backness=0.00, rounded=0, long=0),
     "y": VowelFeatures(height=0.00, backness=0.00, rounded=1, long=0),
-    "o": VowelFeatures(height=0.50, backness=1.00, rounded=1, long=0),
-    "ɔ": VowelFeatures(height=0.70, backness=1.00, rounded=1, long=0),
     "u": VowelFeatures(height=0.00, backness=1.00, rounded=1, long=0),
-    "æ": VowelFeatures(height=0.90, backness=0.00, rounded=0, long=0),
-    "ɒ": VowelFeatures(height=1.00, backness=1.00, rounded=1, long=0),
+    "e": VowelFeatures(height=0.33, backness=0.00, rounded=0, long=0),
+    "o": VowelFeatures(height=0.33, backness=1.00, rounded=1, long=0),
     "ə": VowelFeatures(height=0.50, backness=0.50, rounded=0, long=0),
+    "ɛ": VowelFeatures(height=0.67, backness=0.00, rounded=0, long=0),
+    "ɔ": VowelFeatures(height=0.67, backness=1.00, rounded=1, long=0),
+    "æ": VowelFeatures(height=0.83, backness=0.00, rounded=0, long=0),
+    # "a" is treated as central-open (≈ ä) — Semitic /a/ is typically central.
+    "a": VowelFeatures(height=1.00, backness=0.50, rounded=0, long=0),
+    "ɒ": VowelFeatures(height=1.00, backness=1.00, rounded=1, long=0),
 }
 
 _elongate_in_place(_VOWEL_FEATURES)
@@ -210,7 +213,7 @@ C_VOWEL_MUT_MAX = 2.0
 C_RHOTIC_ALLOPHONE_MAX = 0.3
 
 # Insert/delete — vowels cheap, consonants high (option b from plan).
-C_VOWEL_INSDEL = 0.8
+C_VOWEL_INSDEL = 0.7
 C_CONS_INSDEL = 1.5
 C_CHEAP_CONS_INSDEL = 0.75   # for a small set of "cheap" consonants (e.g. glottal stop, pharyngeals)
 
