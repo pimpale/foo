@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from numpy import isin
 
 from kaikki import _geminate
-from loss import Consonant, Phoneme, Vowel, VOWELS, IPA_MODIFIERS, IPA_CONSONANT_DIGRAPHS
+from loss import Consonant, Phoneme, Vowel, VOWELS, IPA_MODIFIERS, IPA_CONSONANT_DIGRAPHS, trace_cost
 
 if TYPE_CHECKING:
     from kaikki import SharedSource
@@ -164,8 +164,14 @@ class Word:
         # many languages represent an unknown vowel with capital V in even IPA.
         # We replace it with a concrete guessed vowel
         ipa = ipa.replace("V", "a")
-        
-        return cls(word=_strip_combining(ipa))
+
+        ipa = _strip_combining(ipa).strip()
+
+        # Apply hard attack to all initial vowels for synchronization purposes.
+        if ipa and ipa[0] in VOWELS:
+            ipa = "ʔ" + ipa
+
+        return cls(word=ipa)
 
     def to_ipa(self) -> str:
         return self.word
@@ -182,8 +188,7 @@ class Word:
         return out.replace("ː", "")
 
     def countconsonants(self) -> int:
-        return sum(1 for phon in Phoneme.parse(self.word) if isinstance(phon, Vowel))
-
+        return sum(1 for phon in Phoneme.parse(self.word) if isinstance(phon, Consonant))
 
     def __str__(self) -> str:
         return f"{self.lang}:{self.word}"
@@ -240,13 +245,7 @@ class ArabicWord(Word):
         # replace some alternate notation:
         form = form.replace("ʾ", "ʔ")  # hamza
 
-        # Arabic phonotactics forbid vowel-initial words; the romanization
-        # elides the prothetic ʔ for words like "ism", "aḫ", "ibn".
-        form = form.strip()
-        if form and form[0] in "aeiou":
-            form = "ʔ" + form
-
-        return cls(word=form)
+        return cls.from_ipa(form)
 
 
 class HebrewWord(Word):
@@ -300,9 +299,6 @@ class HebrewWord(Word):
         form = form.replace("kh", "χ")     # modern Hebrew: uvular fricative
         form = form.replace("zh", "ʒ")
 
-        # Drop kaikki schwa/syllable apostrophes (inconsistently used).
-        form = form.replace("'", "")
-
         # Palatal approximant
         form = form.replace("y", "j")
 
@@ -313,13 +309,14 @@ class HebrewWord(Word):
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
 
-        form = form.strip()
 
-        # Hebrew words don't start with a bare vowel phonetically — prepend ʔ.
-        if form and form[0] in VOWELS:
-            form = "ʔ" + form
+        # Apostrophe between two vowels (long or short) is a glottal stop;
+        # elsewhere it's a syllable/schwa marker and gets dropped.
+        form = re.sub(r"([aeiou]ː?)'([aeiou])", r"\1ʔ\2", form)
+        form = form.replace("'", "")
 
-        return cls(word=form)
+
+        return cls.from_ipa(form)
 
     def to_pansemitic_ipa(self) -> str:
         # Hebrew tsade reflects the emphatic sibilant in the pansemitic layer,
@@ -384,12 +381,7 @@ class SemProWord(Word):
         form = form.replace("ō", "oː")
         form = form.replace("ô", "oː")
 
-        # Final cleanup — strips any stray accents/stress marks that survive
-        # from non-Semitic sources routed through SemProWord as a fallback
-        # (Persian, Pahlavi, Sanskrit, Germanic, etc.).
-        form = _strip_combining(form)
-
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 class SemWesProWord(SemProWord):
@@ -434,7 +426,7 @@ class AkkadianWord(SemProWord):
         form = _promote_circumflex_vowels(form)
 
         base = SemProWord.from_romanization(form)
-        return cls(word=base.word)
+        return cls.from_ipa(base.word)
 
 
 class ProtoItalicWord(Word):
@@ -460,8 +452,8 @@ class ProtoItalicWord(Word):
         form = form.replace("ū", "uː")
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+
+        return cls.from_ipa(form)
 
 
 class ProtoSouthDravidianWord(Word):
@@ -503,8 +495,7 @@ class ProtoSouthDravidianWord(Word):
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 class ProtoGermanicWord(Word):
@@ -539,8 +530,8 @@ class ProtoGermanicWord(Word):
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        
+        return cls.from_ipa(form)
 
 
 class SumerianWord(Word):
@@ -582,8 +573,7 @@ class SumerianWord(Word):
         # Sumerological separators / optional gloss markers are not phonemic.
         form = form.replace(".", "").replace("(", "").replace(")", "")
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 _AFRASIANIST_TO_IPA: list[tuple[str, str]] = [
@@ -669,8 +659,7 @@ class AfrasianWord(Word):
         for src, dst in _AFRASIANIST_TO_IPA:
             form = form.replace(src, dst)
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 # ── Greek script → proto-Semitic-compatible romanization ─────────
@@ -713,7 +702,7 @@ class GreekWord(Word):
         # Preserve gemination via ː.
         form = _geminate(form)
 
-        return cls(word=form.strip())
+        return cls.from_ipa(form.strip())
 
 
 # ── Egyptian transliteration → IPA (Egyptological pronunciation) ─
@@ -754,8 +743,7 @@ class EgyptianWord(Word):
         form = _geminate(form)
         for src, dst in _EGYPTIAN_MAP:
             form = form.replace(src, dst)
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 # ── Proto-Indo-European → IPA (best-guess reconstruction) ───────
@@ -815,8 +803,7 @@ class PieWord(Word):
         form = _geminate(form)
         for src, dst in _PIE_MAP:
             form = form.replace(src, dst)
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 class IranianWord(Word):
@@ -858,10 +845,9 @@ class IranianWord(Word):
         form = form.replace("ū", "uː")
         
         # Old Median Δ
-        form = form.replace("δ", "d") 
+        form = form.replace("δ", "d")
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 class OldPersianWord(Word):
@@ -892,8 +878,7 @@ class OldPersianWord(Word):
         form = form.replace("ī", "iː")
         form = form.replace("ū", "uː")
 
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 # ── Cyrillic → IPA ──────────────────────────────────────────────
@@ -958,8 +943,7 @@ class CyrillicWord(Word):
         form = _geminate(form)
         for src, dst in _CYRILLIC_MAP:
             form = form.replace(src, dst)
-        form = _strip_combining(form)
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 # ── Aramaic (Hebrew script) → proto-Semitic encoding ────────────
@@ -1029,7 +1013,7 @@ class AramaicWord(Word):
         # Strip trailing ʔ (Aramaic emphatic state -א).
         form = form.rstrip('ʔ')
 
-        return cls(word=form.strip())
+        return cls.from_ipa(form)
 
 
 class GenericWord(Word):
@@ -1047,7 +1031,11 @@ class GenericWord(Word):
 
     @classmethod
     def from_ipa(cls, ipa: str, lang: str) -> "GenericWord":
-        return cls(word=_strip_combining(ipa), lang=lang)
+        ipa = ipa.replace("V", "a")
+        ipa = _strip_combining(ipa).strip()
+        if ipa and ipa[0] in VOWELS:
+            ipa = "ʔ" + ipa
+        return cls(word=ipa, lang=lang)
 
     @classmethod
     def from_romanization(cls, text: str, lang: str) -> "GenericWord":
@@ -1055,7 +1043,7 @@ class GenericWord(Word):
         # scholarly Latin input gets mapped into the same IPA-ish internal
         # alphabet, but preserve the original language tag.
         base = SemProWord.from_romanization(text)
-        return cls(word=base.word, lang=lang)
+        return cls.from_ipa(base.word, lang=lang)
 
     @property
     def lang(self) -> str:
@@ -1215,13 +1203,7 @@ class PansemiticWord(Word):
         form = _dedupe_adjacent_consonants(form)
         form = re.sub(r"([aiu])\1+", r"\1", form)
 
-        form = form.strip()
-        # Pansemitic words don't start with a bare vowel — prepend a glottal
-        # stop to match Semitic phonotactics.
-        if form and form[0] in "aiu":
-            form = "ʔ" + form
-
-        return cls(word=form)
+        return cls.from_ipa(form)
 
 
 def word_from_sharedsource(src: SharedSource) -> Word:
@@ -1347,12 +1329,6 @@ def reconstruct_ancestor(
 
     ar = ArabicWord.from_romanization(ar_roman)
     he = HebrewWord.from_romanization(he_roman)
-
-    try:
-        ar.countconsonants()
-    except ValueError:
-        print(ar.word)
-        raise
 
     if ar.countconsonants() != he.countconsonants():
         raise ConsonantMismatchError(ar.countconsonants(), he.countconsonants())
@@ -1481,4 +1457,112 @@ def merge_roots(ar: ArabicWord, he: HebrewWord) -> Word:
             result.append(v)
 
     return ReconstructedSemProWord(word="".join(r.tok for r in result))
-    
+
+
+@dataclass(frozen=True)
+class UnresolvedSite:
+    """A point in the alignment where two-language reconstruction is ambiguous.
+
+    `kind` names the source of ambiguity: "prothesis" (an initial /ʔ/ we
+    dropped as romanization-side prothesis), "vowel_indel" (a vowel
+    present on only one side — kept, but flagged because vowel templates
+    diverge between Arabic and Hebrew), "metathesis" (segment order
+    couldn't be settled from two languages), "cross_type" (the alignment
+    paired a vowel with a consonant — should never happen in practice).
+
+    `chosen` is what was emitted into the ancestor (empty tuple = nothing).
+    Caller can revisit these later with a third witness (Aramaic, Akkadian).
+    """
+    kind: str
+    arabic: tuple[Phoneme, ...]
+    hebrew: tuple[Phoneme, ...]
+    chosen: tuple[Phoneme, ...]
+
+
+def merge_roots_aligned(
+    ar: ArabicWord, he: HebrewWord
+) -> tuple[Word, list[UnresolvedSite]]:
+    """Reconstruct an ancestor by aligning Arabic and Hebrew via `trace_cost`.
+
+    The trace is a *correspondence map*, not a transformation script —
+    applying every step would just yield Hebrew. This walker interprets
+    each step under Semitic priors:
+
+      - SUBSTITUTE: reconcile_consonant / reconcile_vowel.
+      - DELETE (Arabic-only segment): keep it. Arabic is more conservative,
+        so assume Hebrew lost it. Word-initial /ʔ/ is dropped as
+        romanization-side prothesis (the from_romanization paths inject
+        /ʔ/ before any initial vowel).
+      - INSERT (Hebrew-only segment): keep it as a probable Arabic-side
+        loss; word-initial /ʔ/ likewise dropped as prothesis. Vowel
+        insertions are kept but flagged.
+      - METATHESIS: emit Arabic order, flagged.
+
+    Unlike `merge_roots`, this handles unequal consonant counts: prothesis,
+    metathesis, and segment loss show up as DELETE/INSERT/METATHESIS in
+    the trace and are interpreted, not zipped.
+    """
+    if not ar.word or not he.word:
+        raise EmptyAncestorError()
+
+    a_phs = Phoneme.parse(ar.word)
+    b_phs = Phoneme.parse(he.word)
+    trace = trace_cost(a_phs, b_phs)
+
+    out: list[Phoneme] = []
+    unresolved: list[UnresolvedSite] = []
+    seen_segment = False
+
+    for sr in trace:
+        a_win = sr.a_phonemes
+        b_win = sr.b_phonemes
+        name = sr.rule.name
+
+        if name == "substitute":
+            a0, b0 = a_win[0], b_win[0]
+            if isinstance(a0, Vowel) and isinstance(b0, Vowel):
+                v = reconcile_vowel(a0, b0)
+                if v is not None:
+                    out.append(v)
+                    seen_segment = True
+            elif isinstance(a0, Consonant) and isinstance(b0, Consonant):
+                out.append(reconcile_consonant(a0, b0))
+                seen_segment = True
+            else:
+                out.append(a0)
+                seen_segment = True
+                unresolved.append(UnresolvedSite("cross_type", a_win, b_win, (a0,)))
+
+        elif name == "delete":
+            a0 = a_win[0]
+            if not seen_segment and a0.tok == "ʔ":
+                unresolved.append(UnresolvedSite("prothesis", a_win, (), ()))
+                continue
+            out.append(a0)
+            seen_segment = True
+            if isinstance(a0, Vowel):
+                unresolved.append(UnresolvedSite("vowel_indel", a_win, (), a_win))
+
+        elif name == "insert":
+            b0 = b_win[0]
+            if not seen_segment and b0.tok == "ʔ":
+                unresolved.append(UnresolvedSite("prothesis", (), b_win, ()))
+                continue
+            out.append(b0)
+            seen_segment = True
+            if isinstance(b0, Vowel):
+                unresolved.append(UnresolvedSite("vowel_indel", (), b_win, b_win))
+
+        elif name == "metathesis":
+            out.extend(a_win)
+            seen_segment = True
+            unresolved.append(UnresolvedSite("metathesis", a_win, b_win, a_win))
+
+        else:
+            raise ValueError(f"merge_roots_aligned: unhandled rule {name!r}")
+
+    word = "".join(p.tok for p in out)
+    if not word:
+        raise EmptyAncestorError()
+    return ReconstructedSemProWord(word=word), unresolved
+
