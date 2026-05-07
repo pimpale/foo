@@ -12,10 +12,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Callable
-
-from reconstruction import _tokenize_phonemes
-
+from typing import Callable, Self
 
 # ── Phoneme feature tables ────────────────────────────────────
 #
@@ -35,67 +32,75 @@ _MANNER_TAP = 4
 _MANNER_TRILL = 5
 _MANNER_APPROXIMANT = 6
 
+def _elongate_in_place(features: dict[str, dict[str, float | int]]) -> None:
+    """Mutate a phoneme's features in place to represent gemination."""
+    for k in list(features.keys()):
+        if features[k]["long"] == 0:
+            features[k + "ː"] = features[k] | {"long": 1}
 
 _CONSONANT_FEATURES: dict[str, dict[str, float | int]] = {
     # plosives
-    "p":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "pʰ":  {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "b":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "tʰ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "d":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "k":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "kʰ":  {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1},
-    "g":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɡ":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "q":   {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "qˤ":  {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ʔ":   {"place": 1.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "tˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "dˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
+    "p":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "pʰ":  {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1, "long": 0},
+    "b":   {"place": 0.00, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "t":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "tʰ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1, "long": 0},
+    "d":   {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "k":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "kʰ":  {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 1, "long": 0},
+    "g":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ɡ":   {"place": 0.70, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "q":   {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "qˤ":  {"place": 0.80, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʔ":   {"place": 1.00, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "tˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "dˤ":  {"place": 0.30, "manner": _MANNER_PLOSIVE,     "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
     # affricates
-    "d͡ʒ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡ʃ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡s":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "t͡sˤ": {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "d͡z":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "d͡ʒ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "t͡ʃ":  {"place": 0.45, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "t͡s":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "t͡sˤ": {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "d͡z":  {"place": 0.30, "manner": _MANNER_AFFRICATE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
     # fricatives
-    "f":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "v":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "β":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "θ":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ð":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "s":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "z":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "sˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ðˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "θˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ʃ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʒ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "x":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɣ":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "χ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʁ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ħ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʕ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "h":   {"place": 1.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ɬ":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 1, "aspirated": 0},
-    "ɬˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 1, "aspirated": 0},
+    "f":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "v":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "β":   {"place": 0.00, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "θ":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ð":   {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "s":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "z":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "sˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "ðˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "θˤ":  {"place": 0.15, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʃ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʒ":   {"place": 0.45, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "x":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ɣ":   {"place": 0.70, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "χ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʁ":   {"place": 0.80, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ħ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʕ":   {"place": 0.90, "manner": _MANNER_FRICATIVE,   "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "h":   {"place": 1.00, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ɬ":   {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 0, "lateral": 1, "aspirated": 0, "long": 0},
+    "ɬˤ":  {"place": 0.30, "manner": _MANNER_FRICATIVE,   "voicing": 0, "pharyng": 1, "lateral": 1, "aspirated": 0, "long": 0},
     # nasals
-    "m":   {"place": 0.00, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "n":   {"place": 0.30, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "m":   {"place": 0.00, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "n":   {"place": 0.30, "manner": _MANNER_NASAL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
     # lateral approximants (l, ɫ): underlying manner = approximant, lateral=1
-    "l":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 1, "aspirated": 0},
-    "ɫ":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0},
+    "l":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 1, "aspirated": 0, "long": 0},
+    "lˤ":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0, "long": 0},
+    "ɫ":   {"place": 0.30, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 1, "lateral": 1, "aspirated": 0, "long": 0},
     # rhotics
-    "r":   {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "rˤ":  {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0},
-    "ɾ":   {"place": 0.30, "manner": _MANNER_TAP,         "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "ʀ":   {"place": 0.80, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "r":   {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "rˤ":  {"place": 0.30, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 1, "lateral": 0, "aspirated": 0, "long": 0},
+    "ɾ":   {"place": 0.30, "manner": _MANNER_TAP,         "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "ʀ":   {"place": 0.80, "manner": _MANNER_TRILL,       "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
     # glides / approximants
-    "w":   {"place": 0.00, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
-    "j":   {"place": 0.55, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0},
+    "w":   {"place": 0.00, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
+    "j":   {"place": 0.55, "manner": _MANNER_APPROXIMANT, "voicing": 1, "pharyng": 0, "lateral": 0, "aspirated": 0, "long": 0},
 }
+
+_elongate_in_place(_CONSONANT_FEATURES)
 
 # Manner-to-manner cost matrix.  Indexed by the _MANNER_* constants.
 # Tuned to roughly track perceptual / diachronic distance for Semitic
@@ -128,18 +133,28 @@ _symmetrize_in_place(_MANNER_MATRIX)
 
 # Vowel features: height (high→low = 0→1), backness (front→back = 0→1), rounding.
 _VOWEL_FEATURES: dict[str, dict[str, float]] = {
-    "a": {"height": 1.00, "backness": 0.50, "rounded": 0},
-    "e": {"height": 0.50, "backness": 0.00, "rounded": 0},
-    "ɛ": {"height": 0.70, "backness": 0.00, "rounded": 0},
-    "i": {"height": 0.00, "backness": 0.00, "rounded": 0},
-    "y": {"height": 0.00, "backness": 0.00, "rounded": 1},
-    "o": {"height": 0.50, "backness": 1.00, "rounded": 1},
-    "ɔ": {"height": 0.70, "backness": 1.00, "rounded": 1},
-    "u": {"height": 0.00, "backness": 1.00, "rounded": 1},
-    "æ": {"height": 0.90, "backness": 0.00, "rounded": 0},
-    "ɒ": {"height": 1.00, "backness": 1.00, "rounded": 1},
-    "ə": {"height": 0.50, "backness": 0.50, "rounded": 0},
+    "a": {"height": 1.00, "backness": 0.50, "rounded": 0, "long": 0},
+    "e": {"height": 0.50, "backness": 0.00, "rounded": 0, "long": 0},
+    "ɛ": {"height": 0.70, "backness": 0.00, "rounded": 0, "long": 0},
+    "i": {"height": 0.00, "backness": 0.00, "rounded": 0, "long": 0},
+    "y": {"height": 0.00, "backness": 0.00, "rounded": 1, "long": 0},
+    "o": {"height": 0.50, "backness": 1.00, "rounded": 1, "long": 0},
+    "ɔ": {"height": 0.70, "backness": 1.00, "rounded": 1, "long": 0},
+    "u": {"height": 0.00, "backness": 1.00, "rounded": 1, "long": 0},
+    "æ": {"height": 0.90, "backness": 0.00, "rounded": 0, "long": 0},
+    "ɒ": {"height": 1.00, "backness": 1.00, "rounded": 1, "long": 0},
+    "ə": {"height": 0.50, "backness": 0.50, "rounded": 0, "long": 0},
 }
+
+_elongate_in_place(_VOWEL_FEATURES)
+
+VOWELS = set(_VOWEL_FEATURES.keys())
+IPA_MODIFIERS = set("ːˤʰʲʷˠʼ̃")
+IPA_CONSONANT_DIGRAPHS = (
+    "d͡ʒ", "t͡ʃ", "t͡s", "d͡z",
+    "t͡ɬ", "d͡ɮ", "k͡x", "ɡ͡ɣ",
+)
+
 
 
 # ── Operation weights ─────────────────────────────────────────
@@ -187,20 +202,51 @@ C_METATHESIS = 0.8
 @dataclass(frozen=True)
 class Phoneme:
     """An IPA phoneme token, parsed into a base symbol plus length."""
-    base: str
-    long: bool
+    tok: str
 
     @staticmethod
-    def parse(tok: str) -> "Phoneme":
-        if tok.endswith("ː"):
-            base, long = tok[:-1], True
-        else:
-            base, long = tok, False
-        if base in _VOWEL_FEATURES:
-            return Vowel(base, long)
-        if base in _CONSONANT_FEATURES:
-            return Consonant(base, long)
+    def of_token(tok: str) -> "Phoneme":
+        if tok in _VOWEL_FEATURES:
+            return Vowel(tok)
+        if tok in _CONSONANT_FEATURES:
+            return Consonant(tok)
         raise ValueError(f"Unknown phoneme: {tok!r}")
+    
+    @staticmethod
+    def parse(ipa: str) -> "list[Phoneme]":
+        """Split an IPA string into phoneme tokens.
+
+        A token is a base (single letter or tie-bar digraph like d͡ʒ) plus any
+        trailing modifier letters (ˤ, ː).  Non-letter / non-modifier characters
+        (whitespace, punctuation, reconstruction markers) are skipped.
+        """
+        phonemes: list[Phoneme] = []
+        i = 0
+        n = len(ipa)
+        while i < n:
+            c = ipa[i]
+            if not c.isalpha() and c not in "ʔʕ":
+                i += 1
+                continue
+            # Tie-bar digraph: base + U+0361 + base
+            if i + 2 < n and ipa[i + 1] == '͡':
+                two = ipa[i] + ipa[i + 1] + ipa[i + 2]
+                if two in IPA_CONSONANT_DIGRAPHS:
+                    phon = two
+                    i += 3
+                    while i < n and ipa[i] in IPA_MODIFIERS:
+                        phon += ipa[i]
+                        i += 1
+                    phonemes.append(Phoneme.of_token(phon))
+                    continue
+            phon = c
+            i += 1
+            while i < n and ipa[i] in IPA_MODIFIERS:
+                phon += ipa[i]
+                i += 1
+            
+            phonemes.append(Phoneme.of_token(phon))
+        return phonemes
 
     def features(self) -> dict[str, float]:
         raise NotImplementedError
@@ -215,11 +261,11 @@ class Phoneme:
 @dataclass(frozen=True)
 class Consonant(Phoneme):
     def __post_init__(self) -> None:
-        if self.base not in _CONSONANT_FEATURES:
-            raise ValueError(f"Unknown consonant: {self.base!r}")
+        if self.tok not in _CONSONANT_FEATURES:
+            raise ValueError(f"Unknown consonant: {self.tok!r}")
 
     def features(self) -> dict[str, float]:
-        return _CONSONANT_FEATURES[self.base]
+        return _CONSONANT_FEATURES[self.tok]
 
     def insdel_cost(self) -> float:
         return C_CONS_INSDEL
@@ -236,7 +282,7 @@ class Consonant(Phoneme):
             + W_PHARYNG * abs(af["pharyng"] - bf["pharyng"])
             + W_LATERAL * abs(af["lateral"] - bf["lateral"])
             + W_ASPIRATED * abs(af["aspirated"] - bf["aspirated"])
-            + W_LENGTH_CONS * (0 if self.long == other.long else 1)
+            + W_LENGTH_CONS * abs(af["long"] - bf["long"])
         )
         return min(d, C_CONS_MUT_MAX)
 
@@ -244,11 +290,11 @@ class Consonant(Phoneme):
 @dataclass(frozen=True)
 class Vowel(Phoneme):
     def __post_init__(self) -> None:
-        if self.base not in _VOWEL_FEATURES:
-            raise ValueError(f"Unknown vowel: {self.base!r}")
+        if self.tok not in _VOWEL_FEATURES:
+            raise ValueError(f"Unknown vowel: {self.tok!r}")
 
     def features(self) -> dict[str, float]:
-        return _VOWEL_FEATURES[self.base]
+        return _VOWEL_FEATURES[self.tok]
 
     def insdel_cost(self) -> float:
         return C_VOWEL_INSDEL
@@ -262,7 +308,7 @@ class Vowel(Phoneme):
             W_HEIGHT * abs(af["height"] - bf["height"])
             + W_BACKNESS * abs(af["backness"] - bf["backness"])
             + W_ROUNDED * abs(af["rounded"] - bf["rounded"])
-            + W_LENGTH_VOWEL * (0 if self.long == other.long else 1)
+            + W_LENGTH_VOWEL * abs(af["long"] - bf["long"])
         )
         return min(d, C_VOWEL_MUT_MAX)
 
@@ -401,8 +447,8 @@ def align_cost(a: list[Phoneme], b: list[Phoneme]) -> float:
 
 def ipa_distance_with_trace(a: str, b: str) -> tuple[float, list[SelectedRule]]:
     """Same as `ipa_distance`, but also returns the optimal edit script."""
-    at = [Phoneme.parse(t) for t in _tokenize_phonemes(a)]
-    bt = [Phoneme.parse(t) for t in _tokenize_phonemes(b)]
+    at = Phoneme.parse(a)
+    bt = Phoneme.parse(b)
     if not at and not bt:
         return 0.0, []
     trace = trace_cost(at, bt)
@@ -473,15 +519,11 @@ def pansemitic_scholar_to_ipa(form: str) -> str:
 
 # ── CLI driver ────────────────────────────────────────────────
 
-def _phoneme_str(p: Phoneme) -> str:
-    return p.base + ("ː" if p.long else "")
-
-
 def _serialize_step(sr: SelectedRule) -> dict:
     return {
         "rule": sr.rule.name,
-        "a": [_phoneme_str(p) for p in sr.a_phonemes],
-        "b": [_phoneme_str(p) for p in sr.b_phonemes],
+        "a": [p.tok for p in sr.a_phonemes],
+        "b": [p.tok for p in sr.b_phonemes],
         "cost": round(sr.cost, 4),
     }
 

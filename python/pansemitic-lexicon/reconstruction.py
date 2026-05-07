@@ -5,7 +5,10 @@ import unicodedata
 from typing import Self, TYPE_CHECKING
 from dataclasses import dataclass
 
+from numpy import isin
+
 from kaikki import _geminate
+from loss import Consonant, Phoneme, Vowel, VOWELS, IPA_MODIFIERS, IPA_CONSONANT_DIGRAPHS
 
 if TYPE_CHECKING:
     from kaikki import SharedSource
@@ -53,14 +56,6 @@ class EmptyAncestorError(ReconstructionError):
 # (ṣ ṭ ḫ ṯ ḏ ḥ š ś) or to the pansemitic form.  Anything downstream that
 # wants the scholar form must call Word.to_protosemitic_convention() — the
 # internal string is no longer in that encoding.
-
-VOWELS = set("aeiou")
-IPA_MODIFIERS = set("ːˤʰʲʷˠʼ̃")
-IPA_CONSONANT_DIGRAPHS = (
-    "d͡ʒ", "t͡ʃ", "t͡s", "d͡z",
-    "t͡ɬ", "d͡ɮ", "k͡x", "ɡ͡ɣ",
-)
-
 
 def _strip_combining(form: str) -> str:
     """Strip leftover combining-mark diacritics (NFD decompose + drop Mn).
@@ -187,10 +182,8 @@ class Word:
         return out.replace("ː", "")
 
     def countconsonants(self) -> int:
-        return sum(1 for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
+        return sum(1 for phon in Phoneme.parse(self.word) if isinstance(phon, Vowel))
 
-    def consonants(self) -> str:
-        return "".join(tok for tok in _tokenize_phonemes(self.word) if not _is_vowel_token(tok))
 
     def __str__(self) -> str:
         return f"{self.lang}:{self.word}"
@@ -243,6 +236,9 @@ class ArabicWord(Word):
         form = form.replace("ū", "uː")
         form = form.replace("ē", "eː")
         form = form.replace("ō", "oː")
+
+        # replace some alternate notation:
+        form = form.replace("ʾ", "ʔ")  # hamza
 
         # Arabic phonotactics forbid vowel-initial words; the romanization
         # elides the prothetic ʔ for words like "ism", "aḫ", "ibn".
@@ -1352,6 +1348,12 @@ def reconstruct_ancestor(
     ar = ArabicWord.from_romanization(ar_roman)
     he = HebrewWord.from_romanization(he_roman)
 
+    try:
+        ar.countconsonants()
+    except ValueError:
+        print(ar.word)
+        raise
+
     if ar.countconsonants() != he.countconsonants():
         raise ConsonantMismatchError(ar.countconsonants(), he.countconsonants())
 
@@ -1360,44 +1362,6 @@ def reconstruct_ancestor(
         raise EmptyAncestorError()
     return result
 
-
-def _tokenize_phonemes(ipa: str) -> list[str]:
-    """Split an IPA string into phoneme tokens.
-
-    A token is a base (single letter or tie-bar digraph like d͡ʒ) plus any
-    trailing modifier letters (ˤ, ː).  Non-letter / non-modifier characters
-    (whitespace, punctuation, reconstruction markers) are skipped.
-    """
-    tokens: list[str] = []
-    i = 0
-    n = len(ipa)
-    while i < n:
-        c = ipa[i]
-        if not c.isalpha() and c not in "ʔʕ":
-            i += 1
-            continue
-        # Tie-bar digraph: base + U+0361 + base
-        if i + 2 < n and ipa[i + 1] == '͡':
-            two = ipa[i] + ipa[i + 1] + ipa[i + 2]
-            if two in IPA_CONSONANT_DIGRAPHS:
-                phon = two
-                i += 3
-                while i < n and ipa[i] in IPA_MODIFIERS:
-                    phon += ipa[i]
-                    i += 1
-                tokens.append(phon)
-                continue
-        phon = c
-        i += 1
-        while i < n and ipa[i] in IPA_MODIFIERS:
-            phon += ipa[i]
-            i += 1
-        tokens.append(phon)
-    return tokens
-
-
-def _is_vowel_token(tok: str) -> bool:
-    return bool(tok) and tok[0] in VOWELS
 
 
 def _dedupe_adjacent_consonants(ipa: str) -> str:
@@ -1422,7 +1386,7 @@ def _dedupe_adjacent_consonants(ipa: str) -> str:
                 while i < n and ipa[i] in IPA_MODIFIERS:
                     tok += ipa[i]
                     i += 1
-                if prev == tok and not _is_vowel_token(tok):
+                if prev == tok and tok not in VOWELS:
                     continue
                 out.append(tok)
                 prev = tok
@@ -1433,62 +1397,67 @@ def _dedupe_adjacent_consonants(ipa: str) -> str:
         while i < n and ipa[i] in IPA_MODIFIERS:
             tok += ipa[i]
             i += 1
-        if prev == tok and not _is_vowel_token(tok):
+        if prev == tok and tok not in VOWELS:
             continue
         out.append(tok)
         prev = tok
     return "".join(out)
 
 
-def extract_phonemes(word: Word) -> list[tuple[str, str | None]]:
+def extract_phonemes(word: Word) -> list[tuple[Consonant, Vowel | None]]:
     """Extract (consonant, vowel) pairs from a Word's IPA string.
 
     Each consonant phoneme is paired with its immediately-following vowel
     phoneme, or None if no vowel follows (consonant clusters).  A leading
     bare vowel becomes ("", vowel).
     """
-    tokens = _tokenize_phonemes(word.word)
-    result: list[tuple[str, str | None]] = []
+    tokens = Phoneme.parse(word.word)
+    result: list[tuple[Consonant, Vowel | None]] = []
     i = 0
     while i < len(tokens):
         tok = tokens[i]
-        if _is_vowel_token(tok):
-            result.append(("", tok))
+        if isinstance(tok, Vowel):
+            result.append((Consonant(tok="ʔ"), tok))
             i += 1
         else:
-            vowel: str | None = None
-            if i + 1 < len(tokens) and _is_vowel_token(tokens[i + 1]):
-                vowel = tokens[i + 1]
+            vowel: Vowel | None = None
+            if i + 1 < len(tokens) and isinstance(tokens[i + 1], Vowel):
+                nexttoken = tokens[i + 1]
+                assert isinstance(nexttoken, Vowel)
+                vowel = nexttoken
                 i += 2
             else:
                 i += 1
+            assert isinstance(tok, Consonant)
             result.append((tok, vowel))
     return result
 
 
-def reconcile_phoneme(ar_c: str, he_c: str) -> str:
+def reconcile_consonant(ar: Consonant, he: Consonant) -> Consonant:
     """Reconcile a consonant pair between Arabic and Hebrew.
 
     If both are the same, return it. Otherwise apply known correspondences
     to recover the proto-Semitic form.
     """
+    ar_c = ar.tok
+    he_c = he.tok
     if ar_c == he_c:
-        return ar_c
+        return ar
 
     pair = (ar_c, he_c)
     match pair:
         case ("w", "j"):
-            return "w"
+            return Consonant(tok="w")
         case ("p", "p") | ("f", "p"):
-            return "p"
+            return Consonant(tok="p")
         case ("d͡ʒ", "g"):
-            return "g"
+            return Consonant(tok="g")
         case _:
             # Default: prefer Arabic (more conservative)
-            return ar_c
+            return ar
 
 
-def reconcile_vowel(ar_v: str | None, he_v: str | None) -> str | None:
+def reconcile_vowel(ar_v: Vowel | None, he_v: Vowel | None) -> Vowel | None:
     """Reconcile a vowel pair. Prefer Arabic; fall back to Hebrew if Arabic is null."""
     if ar_v is not None:
         return ar_v
@@ -1506,10 +1475,10 @@ def merge_roots(ar: ArabicWord, he: HebrewWord) -> Word:
 
     result = []
     for (ar_c, ar_v), (he_c, he_v) in zip(ar_phon, he_phon):
-        result.append(reconcile_phoneme(ar_c, he_c))
+        result.append(reconcile_consonant(ar_c, he_c))
         v = reconcile_vowel(ar_v, he_v)
         if v is not None:
             result.append(v)
 
-    return ReconstructedSemProWord(word="".join(result))
+    return ReconstructedSemProWord(word="".join(r.tok for r in result))
     
