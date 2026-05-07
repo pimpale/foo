@@ -284,9 +284,9 @@
     "ancestor": "egy:jamaːnuw",
     "pansemitic_form": "yamanuw",
     "loss": {
-      "arabic": 0.6571428571428571,
-      "hebrew": 0.6142857142857142,
-      "joint": 1.2714285714285714
+      "arabic": 0.6785714285714286,
+      "hebrew": 0.6357142857142858,
+      "joint": 1.3142857142857145
     }
   },
   {
@@ -474,8 +474,8 @@
     "pansemitic_form": "ʔabu ṣaby",
     "loss": {
       "arabic": 0.11875,
-      "hebrew": 0.4375,
-      "joint": 0.55625
+      "hebrew": 0.4625,
+      "joint": 0.58125
     }
   },
   {
@@ -2367,11 +2367,11 @@
         0,
         0
       ],
-      "ale:alaxsxaq": [
+      "ru:Аля́ска": [
         1,
         1
       ],
-      "ru:Аля́ска": [
+      "ale:alaxsxaq": [
         1,
         1
       ]
@@ -3747,9 +3747,9 @@
     "ancestor": "en:juːkəleɪli",
     "pansemitic_form": "yukalili",
     "loss": {
-      "arabic": 0.4125,
+      "arabic": 0.43125,
       "hebrew": 0.3111111111111111,
-      "joint": 0.7236111111111111
+      "joint": 0.7423611111111111
     }
   },
   {
@@ -4182,18 +4182,6 @@
         1,
         1
       ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "grc:ὀγκία": [
-        1,
-        2
-      ],
-      "it:lonza": [
-        1,
-        2
-      ],
       "frm:once": [
         1,
         2
@@ -4202,7 +4190,7 @@
         1,
         2
       ],
-      "grc:λύγξ": [
+      "la-vul:*luncea": [
         1,
         2
       ],
@@ -4210,7 +4198,19 @@
         1,
         2
       ],
-      "grk-pro:*lúnks": [
+      "grc:ὀγκία": [
+        1,
+        2
+      ],
+      "grc:λύγξ": [
+        1,
+        2
+      ],
+      "it:lonza": [
+        1,
+        2
+      ],
+      "fro:longe": [
         2,
         3
       ],
@@ -4218,7 +4218,7 @@
         2,
         3
       ],
-      "fro:longe": [
+      "grk-pro:*lúnks": [
         2,
         3
       ]
@@ -4269,18 +4269,6 @@
         1,
         1
       ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "grc:ὀγκία": [
-        1,
-        2
-      ],
-      "it:lonza": [
-        1,
-        2
-      ],
       "frm:once": [
         1,
         2
@@ -4289,7 +4277,7 @@
         1,
         2
       ],
-      "grc:λύγξ": [
+      "la-vul:*luncea": [
         1,
         2
       ],
@@ -4297,7 +4285,19 @@
         1,
         2
       ],
-      "grk-pro:*lúnks": [
+      "grc:ὀγκία": [
+        1,
+        2
+      ],
+      "grc:λύγξ": [
+        1,
+        2
+      ],
+      "it:lonza": [
+        1,
+        2
+      ],
+      "fro:longe": [
         2,
         3
       ],
@@ -4305,7 +4305,7 @@
         2,
         3
       ],
-      "fro:longe": [
+      "grk-pro:*lúnks": [
         2,
         3
       ]
@@ -4499,9 +4499,9 @@
     "ancestor": "he:jiʁmja",
     "pansemitic_form": "yirmya",
     "loss": {
-      "arabic": 0.32857142857142857,
+      "arabic": 0.35,
       "hebrew": 0.19999999999999998,
-      "joint": 0.5285714285714286
+      "joint": 0.5499999999999999
     }
   },
   {
@@ -4634,9 +4634,9 @@
     "ancestor": "he:jisˤħaq",
     "pansemitic_form": "yiṣxaq",
     "loss": {
-      "arabic": 0.46666666666666673,
+      "arabic": 0.4916666666666667,
       "hebrew": 0.03333333333333335,
-      "joint": 0.5000000000000001
+      "joint": 0.525
     }
   },
   {
@@ -4722,9 +4722,9 @@
     "ancestor": "he:(j)iʃma(ʔ)el",
     "pansemitic_form": "(y)išma(ʔ)il",
     "loss": {
-      "arabic": 0.40625,
+      "arabic": 0.425,
       "hebrew": 0.0625,
-      "joint": 0.46875
+      "joint": 0.4875
     }
   },
   {
@@ -5498,8 +5498,8 @@
     "pansemitic_form": "ʔadar albayṣaʔ",
     "loss": {
       "arabic": 0.25384615384615383,
-      "hebrew": 0.5884615384615385,
-      "joint": 0.8423076923076923
+      "hebrew": 0.573076923076923,
+      "joint": 0.8269230769230769
     }
   },
   {
@@ -5852,8 +5852,8 @@
     "pansemitic_form": "ʔurdun",
     "loss": {
       "arabic": 0.25,
-      "hebrew": 0.7166666666666667,
-      "joint": 0.9666666666666667
+      "hebrew": 0.7416666666666667,
+      "joint": 0.9916666666666667
     }
   },
   {
@@ -5895,9 +5895,9 @@
     "ancestor": "grc:aleksandros",
     "pansemitic_form": "ʔaliksandras",
     "loss": {
-      "arabic": 0.5083333333333333,
+      "arabic": 0.4583333333333333,
       "hebrew": 0.25,
-      "joint": 0.7583333333333333
+      "joint": 0.7083333333333333
     }
   },
   {
@@ -5983,9 +5983,9 @@
     "ancestor": "he:ʕibriːt",
     "pansemitic_form": "ʕibrit",
     "loss": {
-      "arabic": 0.4444444444444444,
+      "arabic": 0.4722222222222222,
       "hebrew": 0.049999999999999996,
-      "joint": 0.4944444444444444
+      "joint": 0.5222222222222223
     }
   },
   {
@@ -6359,19 +6359,19 @@
         0,
         0
       ],
-      "nan-hbl:日本": [
-        0,
-        0
-      ],
       "ms:Jepang": [
         0,
         0
       ],
-      "ltc:日本": [
+      "nan-hbl:日本": [
+        0,
+        0
+      ],
+      "nan-hbl:日本//Ji̍t-pún": [
         1,
         1
       ],
-      "nan-hbl:日本//Ji̍t-pún": [
+      "ltc:日本": [
         1,
         1
       ]
@@ -6755,8 +6755,8 @@
     "pansemitic_form": "ʔistaʕraba",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.52,
-      "joint": 0.67
+      "hebrew": 0.58,
+      "joint": 0.73
     }
   },
   {
@@ -6854,8 +6854,8 @@
     "pansemitic_form": "ʔintipaṣa",
     "loss": {
       "arabic": 0.34444444444444444,
-      "hebrew": 0.2111111111111111,
-      "joint": 0.5555555555555556
+      "hebrew": 0.23333333333333334,
+      "joint": 0.5777777777777777
     }
   },
   {
@@ -7071,11 +7071,15 @@
         0,
         0
       ],
-      "grc:βάρος": [
+      "la-med:barrare": [
         1,
         1
       ],
       "fro:barrer": [
+        1,
+        1
+      ],
+      "fro:barre": [
         1,
         1
       ],
@@ -7087,15 +7091,11 @@
         1,
         1
       ],
-      "la-med:barrare": [
-        1,
-        1
-      ],
       "la-vul:*barra": [
         1,
         1
       ],
-      "fro:barre": [
+      "grc:βάρος": [
         1,
         1
       ]
@@ -7143,11 +7143,15 @@
         0,
         0
       ],
-      "grc:βάρος": [
+      "la-med:barrare": [
         1,
         1
       ],
       "fro:barrer": [
+        1,
+        1
+      ],
+      "fro:barre": [
         1,
         1
       ],
@@ -7159,15 +7163,11 @@
         1,
         1
       ],
-      "la-med:barrare": [
-        1,
-        1
-      ],
       "la-vul:*barra": [
         1,
         1
       ],
-      "fro:barre": [
+      "grc:βάρος": [
         1,
         1
       ]
@@ -8709,9 +8709,9 @@
     "ancestor": "grc:balsamon",
     "pansemitic_form": "balsaman",
     "loss": {
-      "arabic": 0.51875,
-      "hebrew": 0.5,
-      "joint": 1.01875
+      "arabic": 0.53125,
+      "hebrew": 0.5111111111111112,
+      "joint": 1.042361111111111
     }
   },
   {
@@ -9108,7 +9108,7 @@
         0,
         0
       ],
-      "grc:Βρεττανία": [
+      "cel-pro:*Kʷritanī": [
         1,
         1
       ],
@@ -9116,7 +9116,7 @@
         1,
         1
       ],
-      "cel-pro:*Kʷritanī": [
+      "grc:Βρεττανία": [
         1,
         1
       ]
@@ -9372,15 +9372,15 @@
         0,
         0
       ],
+      "gkm:πίτα": [
+        1,
+        1
+      ],
       "lng:bizza": [
         1,
         1
       ],
       "nap:pizza": [
-        1,
-        1
-      ],
-      "gkm:πίτα": [
         1,
         1
       ]
@@ -9436,19 +9436,19 @@
         1,
         1
       ],
-      "ine-pro:*bʰews-": [
-        2,
-        1
-      ],
       "gmw-pro:*beuʀ": [
         2,
         1
       ],
-      "gmh:bier": [
+      "ine-pro:*bʰews-": [
         2,
         1
       ],
       "gem-pro:*beuzą": [
+        2,
+        1
+      ],
+      "gmh:bier": [
         2,
         1
       ]
@@ -9691,15 +9691,15 @@
         0,
         0
       ],
-      "enm:Pluto,Pluton": [
-        1,
-        1
-      ],
       "grc:Πλούτων<t:god of the underworld>": [
         1,
         1
       ],
       "la:Plūtō": [
+        1,
+        1
+      ],
+      "enm:Pluto,Pluton": [
         1,
         1
       ]
@@ -10769,8 +10769,8 @@
     "pansemitic_form": "matulunga",
     "loss": {
       "arabic": 0.46111111111111114,
-      "hebrew": 0.7111111111111111,
-      "joint": 1.1722222222222223
+      "hebrew": 0.7777777777777778,
+      "joint": 1.238888888888889
     }
   },
   {
@@ -11506,11 +11506,11 @@
         0,
         0
       ],
-      "la:Caesar": [
+      "orv:цьсарь": [
         1,
         1
       ],
-      "sla-pro:*cěsařь": [
+      "la:Caesar": [
         1,
         1
       ],
@@ -11518,7 +11518,7 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "sla-pro:*cěsařь": [
         1,
         1
       ]
@@ -11752,9 +11752,9 @@
     "ancestor": "sem-pro:θdʔ",
     "pansemitic_form": "sdʔ",
     "loss": {
-      "arabic": 0.5375,
+      "arabic": 0.575,
       "hebrew": 0.7166666666666667,
-      "joint": 1.2541666666666667
+      "joint": 1.2916666666666665
     }
   },
   {
@@ -13466,11 +13466,11 @@
         0,
         0
       ],
-      "fro:general": [
+      "la:generālis": [
         1,
         1
       ],
-      "la:generālis": [
+      "fro:general": [
         1,
         1
       ]
@@ -15477,8 +15477,8 @@
     "pansemitic_form": "xayah",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.56,
-      "joint": 0.66
+      "hebrew": 0.7000000000000001,
+      "joint": 0.8
     }
   },
   {
@@ -15951,8 +15951,8 @@
     "pansemitic_form": "xizama",
     "loss": {
       "arabic": 0.16666666666666666,
-      "hebrew": 0.75,
-      "joint": 0.9166666666666666
+      "hebrew": 0.9,
+      "joint": 1.0666666666666667
     }
   },
   {
@@ -15991,8 +15991,8 @@
     "pansemitic_form": "xizam",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.7,
-      "joint": 0.7999999999999999
+      "hebrew": 0.8800000000000001,
+      "joint": 0.9800000000000001
     }
   },
   {
@@ -16076,8 +16076,8 @@
     "pansemitic_form": "xiṣrim",
     "loss": {
       "arabic": 0.03333333333333335,
-      "hebrew": 0.7999999999999999,
-      "joint": 0.8333333333333333
+      "hebrew": 0.8500000000000001,
+      "joint": 0.8833333333333334
     }
   },
   {
@@ -16638,11 +16638,11 @@
         0,
         0
       ],
-      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
+      "ine-pro:*ǵʰer-": [
         1,
         1
       ],
-      "ine-pro:*ǵʰer-": [
+      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
         1,
         1
       ]
@@ -16770,11 +16770,11 @@
         1,
         0
       ],
-      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
+      "ine-pro:*ǵʰer-": [
         2,
         1
       ],
-      "ine-pro:*ǵʰer-": [
+      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
         2,
         1
       ]
@@ -17689,8 +17689,8 @@
     "pansemitic_form": "xiṭmiy",
     "loss": {
       "arabic": 0.049999999999999996,
-      "hebrew": 0.5916666666666667,
-      "joint": 0.6416666666666667
+      "hebrew": 0.775,
+      "joint": 0.8250000000000001
     }
   },
   {
@@ -18540,11 +18540,11 @@
         0,
         0
       ],
-      "poz-mly-pro:*duri-an": [
+      "poz-pro:*duʀi-an": [
         1,
         0
       ],
-      "poz-pro:*duʀi-an": [
+      "poz-mly-pro:*duri-an": [
         1,
         0
       ],
@@ -20351,8 +20351,8 @@
     "pansemitic_form": "raqaṣa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.3333333333333333,
-      "joint": 0.3333333333333333
+      "hebrew": 0.3666666666666667,
+      "joint": 0.3666666666666667
     }
   },
   {
@@ -20436,8 +20436,8 @@
     "pansemitic_form": "rakaʕa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.6333333333333333,
-      "joint": 0.6333333333333333
+      "hebrew": 0.7333333333333334,
+      "joint": 0.7333333333333334
     }
   },
   {
@@ -21859,7 +21859,7 @@
         0,
         0
       ],
-      "syc:ܙܢܓܒܝܠ": [
+      "oty:𑀇𑀜𑁆𑀘𑀺𑀯𑁂𑀭𑁆": [
         0,
         1
       ],
@@ -21867,7 +21867,7 @@
         0,
         1
       ],
-      "oty:𑀇𑀜𑁆𑀘𑀺𑀯𑁂𑀭𑁆": [
+      "syc:ܙܢܓܒܝܠ": [
         0,
         1
       ]
@@ -21977,8 +21977,8 @@
     "pansemitic_form": "zawal",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.64,
-      "joint": 0.74
+      "hebrew": 0.7,
+      "joint": 0.7999999999999999
     }
   },
   {
@@ -25680,11 +25680,11 @@
         0,
         0
       ],
-      "la:campus": [
+      "la-lat:campānia": [
         1,
         0
       ],
-      "la-lat:campānia": [
+      "la:campus": [
         1,
         0
       ],
@@ -26043,21 +26043,21 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "fa:جوراب": [
-        1,
-        1
-      ],
       "ar:جَوْرَب": [
         2,
         0
       ],
-      "pal:*gōrab": [
-        2,
-        2
+      "fa:جوراب": [
+        1,
+        1
       ],
       "arc:גְּרָב / גְּרַב": [
         3,
         1
+      ],
+      "pal:*gōrab": [
+        2,
+        2
       ]
     },
     "best_sense_match": {
@@ -26098,21 +26098,21 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "fa:جوراب": [
-        1,
-        1
-      ],
       "ar:جَوْرَب": [
         2,
         0
       ],
-      "pal:*gōrab": [
-        2,
-        2
+      "fa:جوراب": [
+        1,
+        1
       ],
       "arc:גְּרָב / גְּרַב": [
         3,
         1
+      ],
+      "pal:*gōrab": [
+        2,
+        2
       ]
     },
     "best_sense_match": {
@@ -26262,8 +26262,8 @@
     "pansemitic_form": "šitaʔ",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.43,
-      "joint": 0.49
+      "hebrew": 0.51,
+      "joint": 0.5700000000000001
     }
   },
   {
@@ -26392,39 +26392,11 @@
         1,
         0
       ],
-      "ar:شَاه": [
-        2,
-        1
-      ],
-      "la-med:scaccus": [
-        2,
-        1
-      ],
-      "enm:chekken": [
-        2,
-        1
-      ],
-      "fro:eschequier": [
-        2,
-        1
-      ],
-      "fa-cls:شَاه": [
-        2,
-        1
-      ],
-      "ine-pro:*tek-": [
-        2,
-        1
-      ],
-      "enm:chek": [
+      "pal:𐭬𐭫𐭪𐭠": [
         2,
         1
       ],
       "iir-pro:*kšáyati": [
-        2,
-        1
-      ],
-      "pal:𐭬𐭫𐭪𐭠": [
         2,
         1
       ],
@@ -26433,6 +26405,34 @@
         1
       ],
       "la-med:scaccarium": [
+        2,
+        1
+      ],
+      "enm:chekken": [
+        2,
+        1
+      ],
+      "ar:شَاه": [
+        2,
+        1
+      ],
+      "ine-pro:*tek-": [
+        2,
+        1
+      ],
+      "fa-cls:شَاه": [
+        2,
+        1
+      ],
+      "enm:chek": [
+        2,
+        1
+      ],
+      "fro:eschequier": [
+        2,
+        1
+      ],
+      "la-med:scaccus": [
         2,
         1
       ],
@@ -26687,11 +26687,11 @@
         1,
         1
       ],
-      "ine-pro:*sel-": [
+      "gem-pro:*salą": [
         1,
         1
       ],
-      "gem-pro:*salą": [
+      "ine-pro:*sel-": [
         1,
         1
       ]
@@ -27492,11 +27492,11 @@
         0,
         0
       ],
-      "akk:𒈨𒁍": [
+      "arc:צִפָּא": [
         0,
         1
       ],
-      "arc:צִפָּא": [
+      "akk:𒈨𒁍": [
         0,
         1
       ],
@@ -28463,8 +28463,8 @@
     "pansemitic_form": "ṣariban",
     "loss": {
       "arabic": 0.1357142857142857,
-      "hebrew": 0.39999999999999997,
-      "joint": 0.5357142857142857
+      "hebrew": 0.42857142857142855,
+      "joint": 0.5642857142857143
     }
   },
   {
@@ -29126,8 +29126,8 @@
     "pansemitic_form": "ʕajala",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.5083333333333333,
-      "joint": 0.5083333333333333
+      "hebrew": 0.525,
+      "joint": 0.525
     }
   },
   {
@@ -30365,15 +30365,15 @@
         0,
         1
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
-        1,
-        2
-      ],
       "iir-pro:*sambʰārás": [
         1,
         2
       ],
       "ira-pro:*hambāráh": [
+        1,
+        2
+      ],
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -30572,8 +30572,8 @@
     "pansemitic_form": "ʕawra",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.48,
-      "joint": 0.48
+      "hebrew": 0.36,
+      "joint": 0.36
     }
   },
   {
@@ -31098,8 +31098,8 @@
     "pansemitic_form": "ʕidalamilad",
     "loss": {
       "arabic": 0.12727272727272726,
-      "hebrew": 0.41818181818181815,
-      "joint": 0.5454545454545454
+      "hebrew": 0.49090909090909085,
+      "joint": 0.6181818181818182
     }
   },
   {
@@ -31221,10 +31221,6 @@
         1,
         1
       ],
-      "goh:gazza": [
-        1,
-        1
-      ],
       "dum:gasse": [
         1,
         1
@@ -31233,15 +31229,19 @@
         1,
         1
       ],
+      "goh:gazza": [
+        1,
+        1
+      ],
       "gmh:gazze": [
         1,
         1
       ],
-      "gmw-pro:*gatwā": [
+      "ine-pro:*ǵʰeh₂-": [
         2,
         2
       ],
-      "ine-pro:*ǵʰeh₂-": [
+      "gmw-pro:*gatwā": [
         2,
         2
       ]
@@ -31696,11 +31696,11 @@
         0,
         0
       ],
-      "grk-pro:*pʰawehnós": [
+      "ine-pro:*bʰh₂wesnós": [
         1,
         1
       ],
-      "ine-pro:*bʰh₂wesnós": [
+      "grk-pro:*pʰawehnós": [
         1,
         1
       ]
@@ -32762,7 +32762,7 @@
         1,
         1
       ],
-      "akk:𒉺𒆷𒀸𒌓": [
+      "he:יִשְׂרָאֵל": [
         1,
         2
       ],
@@ -32774,7 +32774,7 @@
         1,
         2
       ],
-      "he:יִשְׂרָאֵל": [
+      "akk:𒉺𒆷𒀸𒌓": [
         1,
         2
       ]
@@ -32825,7 +32825,7 @@
         0,
         0
       ],
-      "akk:𒉺𒆷𒀸𒌓": [
+      "he:יִשְׂרָאֵל": [
         1,
         1
       ],
@@ -32837,11 +32837,11 @@
         1,
         1
       ],
-      "he:פְּלֶשֶׁת": [
+      "akk:𒉺𒆷𒀸𒌓": [
         1,
         1
       ],
-      "he:יִשְׂרָאֵל": [
+      "he:פְּלֶשֶׁת": [
         1,
         1
       ]
@@ -33269,9 +33269,9 @@
     "ancestor": "he:qoraħ",
     "pansemitic_form": "qarax",
     "loss": {
-      "arabic": 0.52,
+      "arabic": 0.5399999999999999,
       "hebrew": 0.20000000000000004,
-      "joint": 0.7200000000000001
+      "joint": 0.74
     }
   },
   {
@@ -34987,7 +34987,7 @@
         0,
         1
       ],
-      "sla-pro:*cěsařь": [
+      "orv:цьсарь": [
         1,
         1
       ],
@@ -34995,7 +34995,7 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "sla-pro:*cěsařь": [
         1,
         1
       ]
@@ -36721,8 +36721,8 @@
     "pansemitic_form": "kana",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.575,
-      "joint": 0.6499999999999999
+      "hebrew": 0.6,
+      "joint": 0.6749999999999999
     }
   },
   {
@@ -37054,9 +37054,9 @@
     "ancestor": "akk:kusːuːm",
     "pansemitic_form": "kusum",
     "loss": {
-      "arabic": 0.6333333333333333,
+      "arabic": 0.6416666666666667,
       "hebrew": 0.6799999999999999,
-      "joint": 1.3133333333333332
+      "joint": 1.3216666666666668
     }
   },
   {
@@ -37741,6 +37741,18 @@
         0,
         0
       ],
+      "la-lat:crama": [
+        1,
+        1
+      ],
+      "frm:chresme": [
+        1,
+        1
+      ],
+      "fro:cresme": [
+        1,
+        1
+      ],
       "la:chrisma": [
         1,
         1
@@ -37749,19 +37761,7 @@
         1,
         1
       ],
-      "frm:chresme": [
-        1,
-        1
-      ],
-      "la-lat:crama": [
-        1,
-        1
-      ],
-      "fro:cresme": [
-        1,
-        1
-      ],
-      "grc:χρῖσμᾰ": [
+      "la-lat:crāmum": [
         2,
         2
       ],
@@ -37769,7 +37769,7 @@
         2,
         2
       ],
-      "la-lat:crāmum": [
+      "grc:χρῖσμᾰ": [
         2,
         2
       ]
@@ -37915,9 +37915,9 @@
     "ancestor": "sem-pro:labiʔ",
     "pansemitic_form": "labiʔ",
     "loss": {
-      "arabic": 0.5,
+      "arabic": 0.64,
       "hebrew": 0.12,
-      "joint": 0.62
+      "joint": 0.76
     }
   },
   {
@@ -38197,15 +38197,15 @@
         0,
         0
       ],
-      "la:lyra": [
-        1,
-        1
-      ],
       "la:lībra": [
         1,
         1
       ],
       "grc:λύρᾱ": [
+        1,
+        1
+      ],
+      "la:lyra": [
         1,
         1
       ],
@@ -38626,6 +38626,10 @@
         0,
         0
       ],
+      "ang:Lunden": [
+        1,
+        1
+      ],
       "enm:Londoun": [
         1,
         1
@@ -38634,11 +38638,7 @@
         1,
         1
       ],
-      "ang:Lunden": [
-        1,
-        1
-      ],
-      "ine-pro:*lendʰ-": [
+      "ine-pro:*plew-": [
         2,
         2
       ],
@@ -38646,7 +38646,7 @@
         2,
         2
       ],
-      "ine-pro:*plew-": [
+      "ine-pro:*lendʰ-": [
         2,
         2
       ],
@@ -39849,11 +39849,11 @@
         0,
         0
       ],
-      "la:matrix": [
+      "ar:مَجْرًى": [
         1,
         1
       ],
-      "ar:مَجْرًى": [
+      "la:matrix": [
         1,
         1
       ]
@@ -40960,14 +40960,6 @@
         0,
         0
       ],
-      "ine-pro:*meld-": [
-        1,
-        1
-      ],
-      "gem-pro:*maltą": [
-        1,
-        1
-      ],
       "enm:malt": [
         1,
         1
@@ -40976,7 +40968,15 @@
         1,
         1
       ],
+      "ine-pro:*meld-": [
+        1,
+        1
+      ],
       "gmw-pro:*malt": [
+        1,
+        1
+      ],
+      "gem-pro:*maltą": [
         1,
         1
       ]
@@ -41445,14 +41445,6 @@
         0,
         0
       ],
-      "sga:Maine": [
-        1,
-        1
-      ],
-      "fr:Maine": [
-        1,
-        1
-      ],
       "ga:An Mhaing": [
         1,
         1
@@ -41461,15 +41453,23 @@
         1,
         1
       ],
-      "fr:Maine#Etymology_2_2": [
-        1,
-        1
-      ],
       "la:Meduāna": [
         1,
         1
       ],
+      "fr:Maine": [
+        1,
+        1
+      ],
       "la:*Cenomania": [
+        1,
+        1
+      ],
+      "sga:Maine": [
+        1,
+        1
+      ],
+      "fr:Maine#Etymology_2_2": [
         1,
         1
       ],
@@ -43027,11 +43027,11 @@
         0,
         0
       ],
-      "fr:mémé": [
+      "grc:μῑμέομαι": [
         1,
         1
       ],
-      "grc:μῑμέομαι": [
+      "fr:mémé": [
         1,
         1
       ]
@@ -43313,9 +43313,9 @@
     "ancestor": "de:naːtsi",
     "pansemitic_form": "natsi",
     "loss": {
-      "arabic": 0.74,
+      "arabic": 0.75,
       "hebrew": 0.36,
-      "joint": 1.1
+      "joint": 1.1099999999999999
     }
   },
   {
@@ -44304,11 +44304,11 @@
         0,
         0
       ],
-      "arc:נוקניק": [
+      "gkm:λουκάνικον": [
         0,
         1
       ],
-      "gkm:λουκάνικον": [
+      "arc:נוקניק": [
         0,
         1
       ]
@@ -45055,11 +45055,11 @@
         0,
         0
       ],
-      "itc-pro:*neptūnos": [
+      "ine-pro:*nébʰos": [
         1,
         1
       ],
-      "ine-pro:*nébʰos": [
+      "itc-pro:*neptūnos": [
         1,
         1
       ]
@@ -45655,11 +45655,11 @@
         0,
         1
       ],
-      "dra-pro:*ēla": [
+      "sa:एला": [
         0,
         1
       ],
-      "sa:एला": [
+      "dra-pro:*ēla": [
         0,
         1
       ]
@@ -45905,9 +45905,9 @@
     "ancestor": "sem-pro:ʃiʔa",
     "pansemitic_form": "šiʔa",
     "loss": {
-      "arabic": 0.5125,
+      "arabic": 0.55,
       "hebrew": 0.3375,
-      "joint": 0.85
+      "joint": 0.8875000000000001
     }
   },
   {
@@ -45953,9 +45953,9 @@
     "ancestor": "sem-pro:ʔaħad",
     "pansemitic_form": "ʔaxad",
     "loss": {
-      "arabic": 0.56,
+      "arabic": 0.7000000000000001,
       "hebrew": 0.1,
-      "joint": 0.66
+      "joint": 0.8
     }
   },
   {
@@ -46455,8 +46455,8 @@
     "pansemitic_form": "waṣa",
     "loss": {
       "arabic": 0.36,
-      "hebrew": 0.95,
-      "joint": 1.31
+      "hebrew": 1.0,
+      "joint": 1.3599999999999999
     }
   },
   {
@@ -46701,11 +46701,11 @@
         0,
         0
       ],
-      "la-med:aqua vītae": [
+      "ga:uisce beatha": [
         1,
         1
       ],
-      "ga:uisce beatha": [
+      "la-med:aqua vītae": [
         1,
         1
       ],
@@ -46930,11 +46930,11 @@
         0,
         1
       ],
-      "dum:jacht": [
+      "odt:*jagot": [
         1,
         1
       ],
-      "odt:*jagot": [
+      "dum:jacht": [
         1,
         1
       ]
@@ -47595,8 +47595,8 @@
     "pansemitic_form": "yuriniam",
     "loss": {
       "arabic": 0.45,
-      "hebrew": 0.6375,
-      "joint": 1.0875
+      "hebrew": 0.65625,
+      "joint": 1.10625
     }
   },
   {

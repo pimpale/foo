@@ -155,9 +155,9 @@ W_LATERAL = 0.6
 W_ASPIRATED = 0.3
 
 # Vowel feature weights
-W_HEIGHT = 1.0
-W_BACKNESS = 0.8
-W_ROUNDED = 0.4
+W_HEIGHT = 0.4
+W_BACKNESS = 0.35
+W_ROUNDED = 0.15
 
 # Length / gemination — the same physical feature (ː).  A single op in the
 # user's list: "gemination / degemination" for consonants, subsumed into
@@ -166,16 +166,20 @@ W_LENGTH_CONS = 0.3     # C vs Cː
 W_LENGTH_VOWEL = 0.3    # V vs Vː
 
 # Caps on mutation cost so distant pairs don't dominate the sum.
-C_CONS_MUT_MAX = 1.5
-C_VOWEL_MUT_MAX = 0.8
+C_CONS_MUT_MAX = 3.0
+C_VOWEL_MUT_MAX = 2.0
 
 # Insert/delete — vowels cheap, consonants high (option b from plan).
-C_VOWEL_INSDEL = 0.5
+C_VOWEL_INSDEL = 0.75
 C_CONS_INSDEL = 1.5
 
 # Cross-type (consonant ↔ vowel): should never happen in a sensible
 # alignment; guard with a very high cost.
-C_CROSS_TYPE = 2.0
+C_CROSS_TYPE = 5.0
+
+# Metathesis (adjacent-phoneme swap, e.g. Hebrew hitpaʕel t-infix).
+# Strict form: only fires for exact swaps `(X, Y) ↔ (Y, X)`.
+C_METATHESIS = 0.8
 
 
 # ── Phoneme classes ──────────────────────────────────────────
@@ -296,14 +300,23 @@ def _substitute_apply(a_win: tuple[Phoneme, ...], b_win: tuple[Phoneme, ...]) ->
     return a_win[0].cost(b_win[0])
 
 
+def _metathesis_apply(a_win: tuple[Phoneme, ...], b_win: tuple[Phoneme, ...]) -> float | None:
+    if len(a_win) != 2 or len(b_win) != 2:
+        return None
+    if a_win[0] == b_win[1] and a_win[1] == b_win[0] and a_win[0] != a_win[1]:
+        return C_METATHESIS
+    return None
+
+
 DELETE = Rule(name="delete", consume_a=1, consume_b=0, apply=_delete_apply)
 INSERT = Rule(name="insert", consume_a=0, consume_b=1, apply=_insert_apply)
 SUBSTITUTE = Rule(name="substitute", consume_a=1, consume_b=1, apply=_substitute_apply)
+METATHESIS = Rule(name="metathesis", consume_a=2, consume_b=2, apply=_metathesis_apply)
 
 # Default rule list.  Order matters for tie-breaking: the first rule whose
 # total cost equals the running minimum at a cell wins.  Append custom
 # rules (e.g. diphthong→glide as a 2:1 rule) — earlier entries win ties.
-RULES: list[Rule] = [SUBSTITUTE, DELETE, INSERT]
+RULES: list[Rule] = [SUBSTITUTE, DELETE, INSERT, METATHESIS]
 
 
 @dataclass(frozen=True)
@@ -439,15 +452,15 @@ def triplet_loss(pansemitic_ipa: str, ar_ipa: str, he_ipa: str) -> float:
 
 # ── Scholar-pansemitic → IPA (inverse of _PANSEMITIC_IPA_TO_SCHOLAR) ──
 # The CSV stores pansemitic in scholar notation.  To compute loss from a
-# CSV row we need to push it back to IPA.  Order: y → j before j → d͡ʒ so
-# the jīm we produce isn't re-tagged as palatal.
+# CSV row we need to push it back to IPA.  Order: j → d͡ʒ before y → j, so
+# the IPA j we produce from scholar y isn't re-tagged as jīm.
 _PAN_SCHOLAR_TO_IPA: list[tuple[str, str]] = [
     ("ṣ", "sˤ"),
     ("ṭ", "tˤ"),
     ("š", "ʃ"),
     ("ž", "ʒ"),
-    ("y", "j"),
     ("j", "d͡ʒ"),
+    ("y", "j"),
 ]
 
 
