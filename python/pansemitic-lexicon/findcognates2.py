@@ -31,9 +31,11 @@ from typing import Any, Callable, Self
 import numpy as np
 import orjson
 
-from loss import LossBreakdown, triplet_loss_breakdown
+from loss import LossBreakdown, ipa_distance, triplet_loss_breakdown
 from kaikki import PartialSource, SharedSource, canonical_from_entry
 from reconstruction import (
+    ArabicWord,
+    HebrewWord,
     PansemiticWord,
     reconstruct_ancestor,
     word_from_sharedsource,
@@ -306,13 +308,21 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     if not word:
         return
 
-    # Many Semitic entries have an unpointed ``word`` field but a pointed
-    # canonical form in ``forms``. Other entries may cite either one in
-    # etymology templates, so index both as aliases for the same node.
-    node_keys = {(lang_code, word)}
+    # Hebrew/Arabic entries with homographs at the unpointed lemma (e.g.
+    # דָּוִד "David" and דּוֹד "uncle" both write דוד) must NOT alias
+    # word↔canonical: doing so would merge two distinct etymologies into one
+    # graph node.  For he/ar we write only to the canonical; unpointed
+    # citations get resolved post-merge in _resolve_semitic_citations.
+    # All other languages keep the alias so cross-language citations to
+    # either the bare word or a script-diacritized canonical (Greek macrons,
+    # etc.) reach the same node.
     canonical = canonical_from_entry(entry)
-    if canonical and canonical != word:
-        node_keys.add((lang_code, canonical))
+    if lang_code in ("he", "ar"):
+        node_keys = {(lang_code, canonical or word)}
+    else:
+        node_keys = {(lang_code, word)}
+        if canonical and canonical != word:
+            node_keys.add((lang_code, canonical))
 
     for tmpl in entry.get("etymology_templates", []):
         name = tmpl.get("name", "")
@@ -352,6 +362,139 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
                         src_key = (src_lang, src_word)
                         for key in node_keys:
                             borrow_graph[key].add(src_key)
+
+
+def _resolve_unpointed_semitic(
+    src_lang: str,
+    src_word: str,
+    he_words: dict[str, WordData],
+    ar_words: dict[str, WordData],
+    he_n2c: dict[str, list[str]],
+    ar_n2c: dict[str, list[str]],
+    tr_options: set[str] | None = None,
+) -> list[str] | None:
+    """Resolve a possibly-unpointed Hebrew/Arabic citation to pointed canonical(s).
+
+    Returns None if no rewriting is needed (already canonical or no candidates).
+    Returns [c] if uniquely resolvable, or [c1, c2, ...] for fan-out when the
+    citation is ambiguous and tr-based disambiguation cannot pick one.
+    """
+    if src_lang not in ("he", "ar"):
+        return None
+    words = he_words if src_lang == "he" else ar_words
+    n2c = he_n2c if src_lang == "he" else ar_n2c
+    normalize = normalize_hebrew if src_lang == "he" else normalize_arabic
+    word_cls = HebrewWord if src_lang == "he" else ArabicWord
+
+    if src_word in words:
+        return None  # already a pointed canonical we know
+
+    candidates = n2c.get(normalize(src_word), [])
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return [candidates[0]]
+
+    def _ipa_of(roman: str) -> str | None:
+        if not roman:
+            return None
+        try:
+            return word_cls.from_romanization(roman).to_ipa() or None
+        except Exception:
+            return None
+
+    if tr_options:
+        best: tuple[float, str] | None = None
+        for tr in tr_options:
+            tr_ipa = _ipa_of(tr)
+            if not tr_ipa:
+                continue
+            for cand in candidates:
+                cand_ipa = _ipa_of(words[cand].romanization)
+                if not cand_ipa:
+                    continue
+                try:
+                    d = ipa_distance(tr_ipa, cand_ipa)
+                except Exception:
+                    continue
+                if best is None or d < best[0]:
+                    best = (d, cand)
+        if best is not None:
+            return [best[1]]
+
+    return list(candidates)  # fan-out — no usable tr or no scorable romanizations
+
+
+def _resolve_semitic_citations(scan: KaikkiScanResult) -> tuple[int, int]:
+    """Rewrite unpointed Hebrew/Arabic citations to specific pointed canonicals.
+
+    Returns (resolved_unique, fanned_out) — the number of citation keys that
+    collapsed to one canonical and the number that fanned out to multiple.
+    """
+    he_words = scan.he_words
+    ar_words = scan.ar_words
+
+    he_n2c: dict[str, list[str]] = defaultdict(list)
+    for c, wd in he_words.items():
+        he_n2c[wd.norm].append(c)
+    ar_n2c: dict[str, list[str]] = defaultdict(list)
+    for c, wd in ar_words.items():
+        ar_n2c[wd.norm].append(c)
+
+    tr_options: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for k, v in scan.template_tr_index.items():
+        if v:
+            tr_options[k].add(v)
+
+    citation_keys: set[tuple[str, str]] = set(scan.template_tr_index.keys())
+    for wd in he_words.values():
+        citation_keys.update(wd.borrow_sources)
+    for wd in ar_words.values():
+        citation_keys.update(wd.borrow_sources)
+    for tgts in scan.borrow_graph.values():
+        citation_keys.update(tgts)
+
+    mapping: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    n_unique = n_fanout = 0
+    for k in citation_keys:
+        resolved = _resolve_unpointed_semitic(
+            k[0], k[1], he_words, ar_words, he_n2c, ar_n2c,
+            tr_options=tr_options.get(k) or None,
+        )
+        if resolved is None:
+            continue
+        mapping[k] = [(k[0], c) for c in resolved]
+        if len(resolved) == 1:
+            n_unique += 1
+        else:
+            n_fanout += 1
+
+    if not mapping:
+        return 0, 0
+
+    for wd in (*he_words.values(), *ar_words.values()):
+        if not wd.borrow_sources:
+            continue
+        new_set: set[tuple[str, str]] = set()
+        for s in wd.borrow_sources:
+            new_set.update(mapping.get(s, [s]))
+        wd.borrow_sources = new_set
+
+    new_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
+    for src, tgts in scan.borrow_graph.items():
+        new_tgts: set[tuple[str, str]] = set()
+        for tgt in tgts:
+            new_tgts.update(mapping.get(tgt, [tgt]))
+        new_graph[src] |= new_tgts
+    scan.borrow_graph = dict(new_graph)
+
+    new_tr_index: dict[tuple[str, str], str] = {}
+    for k, v in scan.template_tr_index.items():
+        for nk in mapping.get(k, [k]):
+            new_tr_index.setdefault(nk, v)
+    scan.template_tr_index = new_tr_index
+
+    return n_unique, n_fanout
 
 
 def _expand_borrow_transitive(borrow_map, borrow_graph, max_depth=10):
@@ -644,6 +787,9 @@ def main():
     print(f"\nScanning {ALL_WORDS_FILE.name} …")
     t0 = time.monotonic()
     scan = build_all_indexes(ALL_WORDS_FILE)
+    n_resolved, n_fanned = _resolve_semitic_citations(scan)
+    print(f"  resolved {n_resolved} unpointed citations uniquely, "
+          f"{n_fanned} fanned out to multiple homographs")
     ar_words = scan.ar_words
     he_words = scan.he_words
     borrow_graph = scan.borrow_graph

@@ -50,7 +50,6 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 أَكَلَ,ʔakala,אָכַל,akhál,ʔakal,"to eat, to consume (food)"
 أَكَلَ,ʔakala,אֹֽכֶל,ókhel,ʔakala,"to eat, to consume (food)"
 أَكَلَ,ʔakala,אֻכַּל,ukál,ʔakal,"to gnaw, to eat away, to abrade, to corrode, to erode; to destroy"
-أَكَلَ,ʔakala,אׇכְלָה,okhlá,ʔakal,"to eat, to consume (food)"
 أَكَّار,ʔakkār,אִכָּר,ikár,ʔikarum,"farmer, tiller, cultivator of land"
 أَكَّلَ,ʔakkala,אֹֽכֶל,ókhel,ʔakala,"to give (something) to eat, to feed"
 أَكْل,ʔakl,אֹֽכֶל,ókhel,ʔakil,"food, fodder, feed"
@@ -65,12 +64,10 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 أَنَا,ʔana,אֲנִי,aní,ʔanaku,ego
 أَنَا,ʔana,אָנֹכִי,anokhí,ʔanaku,I (first person singular subject pronoun)
 أَنِمِي,ʔanimī,אָנִימֶה,ánime,ʔanimi,anime (Animated works that originated in Japan)
-أَنْتَ,ʔanta,אַתְּ,át,ʔanti,"you, thou (masculine singular subject pronoun)"
 أَنْتَ,ʔanta,אַתָּה,atá,ʔanta,"you, thou (masculine singular subject pronoun)"
 أَنْتُمْ,ʔantum,אַתֶּם,atém,ʔantum,"you, ye (masculine plural subject pronoun)"
 أَنْتُنَّ,ʔantunna,אַתֶּן,atén,ʔantin,"you, ye (feminine plural subject pronoun)"
 أَنْتِ,ʔanti,אַתְּ,át,ʔanti,"you, thou (feminine singular subject pronoun)"
-أَنْتِ,ʔanti,אַתָּה,atá,ʔanta,"you, thou (feminine singular subject pronoun)"
 أَنْف,ʔanf,אַף,af,ʔanp,nose
 أَهْلًا,ʔahlan,אַהְלָן,áhlan,ʔahlan,hi
 أَوْ,ʔaw,אוֹ,'o,ʔaw,indicates an inclusive disjunction
@@ -146,7 +143,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 الْمَكْسِيك,al-maksīk,מֶקְסִיקוֹ,méksiko,mixika,Mexico (a country in North America)
 الْهِنْد,al-hind,הֹדּוּ,hódu,hiduš,India (country in Asia)
 الْيَابَان,al-yābān,יַפָּן,yapán,yapan,Japan (a country and archipelago of East Asia)
-اَلتَّنَاخ,at-tanāḵ,תָּנָ״ךְ,tanákh,ha-tanax,"Tanach, Bible"
+اَلتَّنَاخ,at-tanāḵ,תָּנָ״ךְ,tanákh,tanax,"Tanach, Bible"
 اَلرَّحْمٰن,ar-raḥmān,הָרַחֲמָן,haraḥaman,haraxaman,"God, the Most Merciful (one of the 99 Names of Allah)"
 اَلْمِشْنَاه,al-mišnāh,מִשְׁנָה,mishná,mišni,"Mishna, Mishnah"
 اِبْن,ibn,אִבְּן,ibn,ʔibn,son
@@ -205,12 +202,13 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 بَنْزِين,banzīn,בֶּנְזִין,benzín,banzin,"petrol, gasoline"
 بَنْك,bank,בַּנְק,bánk,bankiz,bank
 بَهِيمَة,bahīma,בְּהֵמָה,behemá,bihima,"beast, head of cattle"
+بَوْسَة,bawsa,בּוּסָה,búsa,bawsa,a kiss
 بَيْت,bayt,בַּיִת,báyit,bayt,"house, building"
 بَيْت الْمَقْدِس,bayt al-maqdis,בֵּית ־הַמִּקְדָּשׁ,béit-hamikdásh,baiythalmaqdis,the Temple in Jerusalem
 بَيْض,bayḍ,בֵּיצָה,betsá,bayṣa,eggs
 بَيْلَسَان,baylasān,אֲפַרְסְמוֹן,afarsemón,balsaman,"Myroxylon, especially Myroxylon balsamum"
 بَيْنَ,bayna,בֵּין,ben,bayna,between (“in the position or interval that separates two things”)
-بُرّ,burr,בָּר,bar,bar,wheat
+بُرّ,burr,בָּר,bar,bur,wheat
 بُرْغُوث,burḡūṯ,פַּרְעוֹשׁ,par'ósh,purgus,flea
 بُرْغِيّ,burḡiyy,בֹּרֶג,bóreg,burgiy,"screw, bolt, a threaded metal fastener"
 بُسْر,busr,בֹּסֶר,bóser,busir,unripe dates
@@ -299,7 +297,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 جَبَل,jabal,גָ׳בְּלָאוֹת,jabla'ót,jabal,mountain
 جَبَى,jabā,גָּבָה,gavá,gaba,"to collect, to levy, to raise"
 جَبَّار,jabbār,גִּבּוֹר,gibór,gabar,"mighty, powerful"
-جَبْر,jabr,אַלְגֶּבְּרָה,álgebra,jabara,algebra
+جَبْر,jabr,אַלְגֶּבְּרָה,álgebra,jabr,algebra
 جَبْرَائِيل,jabrāʔīl,גַּבְרִיאֵל,gavri'él,gawriʔil,the archangel Gabriel
 جَبْهَة,jabha,גַּבָּה,gabá,gabha,"forehead, brow"
 جَحْفَل,jaḥfal,גּוּף,guf,gaxfal,"army, legion"
@@ -364,10 +362,10 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 حَسَّ,ḥassa,חָשׁ,khásh,xasa,"to have sensation, perceive by the senses"
 حَصْبَة,ḥaṣba,חַצֶּבֶת,khatsévet,xaṣibat,measles
 حَفَرَ,ḥafara,חָפַר,khafár,xapar,"to dig, dig out, hollow"
-حَفْر,ḥafr,חָפַר,khafár,xapar,"digging, hollowing"
 حَقّ,ḥaqq,חֹק,khók,xaq,right
 حَكَا,ḥakā,חִקָּה,khiká,xaka,to imitate
 حَكِيم,ḥakīm,חָכָם,khakhám,xakim,wise
+حَلَب,ḥalab,חַאלַבּ,khálab,xalab,"Aleppo (the capital city of Aleppo governorate, Syria)"
 حَلَب,ḥalab,חָלַב,khaláv,xalab,fresh milk
 حَلَبَ,ḥalaba,חָלַב,khaláv,xalaba,to milk
 حَلَّ,ḥalla,חָל,khal,xala,"to occur, to happen"
@@ -431,7 +429,6 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 خَطِئَ,ḵaṭiʔa,חָטָא,khatá,xaṭiʔa,to sin
 خَطِفَ,ḵaṭifa,חָטַף,chatáf,xaṭifa,"to abduct, to kidnap"
 خَطْف,ḵaṭf,חָטַף,chatáf,xaṭaf,"abduction, robbery"
-خَفَرَ,ḵafara,חָפַר,khafár,xapar,"to watch, to guard, to protect"
 خَفِرَ,ḵafira,חָפֵר,khafér,xapar,to be shy
 خَلَاص,ḵalāṣ,חָלָס,ḥálas,xalaṣ,cut it out! stop it!
 خَلَّدَ,ḵallada,חֶלֶד,khéled,xalada,"to grow very old, to enjoy a long life, to be long-lived"
@@ -455,7 +452,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 دَاعِش,dāʕiš,דָאעֵ״ש,"dá'e""sh",daʕiš,"ISIS, ISIL, IS"
 دَانَ,dāna,דָּן,dan,dana,to judge
 دَاوُد,dāwud,דָּוִד,davíd,dawid,"a male given name, Daoud, Dawud, or Davoud, equivalent to English David"
-دَاوُود,dāwūd,דָּוִד,davíd,dad,"a male given name, Daoud, Dawud, or Davoud, equivalent to English David"
+دَاوُود,dāwūd,דָּוִד,davíd,dawid,"a male given name, Daoud, Dawud, or Davoud, equivalent to English David"
 دَبُّور,dabbūr,דְּבוֹרָה,dvorá,dabr,"wasp, hornet"
 دَبِقَ,dabiqa,דָּבַק,davák,dabiqa,"to stick, to stay attached, to adhere, to cleave"
 دَحَا,daḥā,דָּחָה,dakhá,daxa,to push
@@ -510,6 +507,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 رَأْس السَّنَة,raʔs as-sana,רֹאשׁ הַשָּׁנָה,rosh-hashaná,raʔsasasana,"Rosh Hashanah, Jewish New Year"
 رَاحِيل,rāḥīl,רָחֵל,rakhél,raxil,"a female given name, equivalent to English Rachel"
 رَاعٍ,rāʕin,רֹעֶה,ro'é,raʕin,shepherd
+رَامَ اللّٰه,rāma llāh,רמאללה,ramálla,ram alah,"Ramallah (a city in the West Bank, Palestine)"
 رَبَّ,rabba,רַב,ráv,rab,"to grow, to increase, to become greater"
 رَجَمَ,rajama,רָגַם,ragám,ragama,"to stone, to lapidate, to throw stones at"
 رَجْم,rajm,רָגַם,ragám,ragam,"stoning, lapidation"
@@ -621,6 +619,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 سَكِرَ,sakira,שֵׁכָר,shekhár,šikar,"to be drunk, to be intoxicated"
 سَكِرَ,sakira,שָׁכַר,shakhár,šikar,"to be drunk, to be intoxicated"
 سَلَام,salām,שָׁלוֹם,shalóm,salam,peace
+سَلَامْتَك,salāmtak,סלאמתק,salámtak,salamtak,get well soon
 سَلَّة,salla,סַל,sal,sala,basket
 سَلَّطَ,sallaṭa,שָׁלַט,shalát,salaṭa,to give power
 سَلْوَى,salwā,שְׂלָו,slav,salwa,quails
@@ -719,7 +718,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 صَتَم,ṣatam,סְתָם,stám,ṣatam,"strong, robust, mature"
 صَحِيح,ṣaḥīḥ,צַח,tsákh,ṣaxix,"complete, perfect, whole"
 صَحْن,ṣaḥn,צַלַּחַת,tsalákhat,ṣalaxan,"dish, plate, meal"
-صَدَف,ṣadaf,צֶדֶף,tsédef,ṣadapa,"shell(s), seashell(s)"
+صَدَف,ṣadaf,צֶדֶף,tsédef,ṣadap,"shell(s), seashell(s)"
 صَدَقَة,ṣadaqa,צְדָקָה,ts'daká,ṣadaqa,alms; charitable gift; charity
 صَدُقَة,ṣaduqa,צְדָקָה,ts'daká,ṣaduqa,dowry
 صَرَخَ,ṣaraḵa,צָרַח,tsarákh,ṣaraxa,"to scream, to shout, to shriek"
@@ -938,7 +937,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 قَفَزَ,qafaza,קִפֵּץ,kipéts,qapaza,"to jump, to leap"
 قَفَزَ,qafaza,קָפַץ,kafáts,qafaza,"to jump, to leap"
 قَلَم,qalam,קֻלְמוּס,kulmus,kalamas,"pen, reed pen"
-قَلَّسَ,qallasa,קֶלֶס,keles,qalasa,"to mock, to deride"
+قَلَّسَ,qallasa,קֶלֶס,keles,qilis,"to mock, to deride"
 قَلِيل,qalīl,קַל,kal,qalil,"short, thin, paltry, insignificant-looking"
 قَمِين,qamīn,קָמִין,kamin,qamin,"oven, furnace, kiln"
 قَهْوَة,qahwa,קַהְוָה,kahvá,qahwa,coffee (the drink)
@@ -978,7 +977,6 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 كَرِش,kariš,כָּרֵס,karés,karis,"potbelly, paunch, belly"
 كَرْم,karm,כֶּרֶם,kérem,kaʔam,"vineyard, vines, orchard"
 كَسَا,kasā,כָּסָה,kasá,kasa,to cover
-كَفَر,kavar,כִּפֵּר,kippér,kapra,"cover, case"
 كَفَّرَ,kaffara,כִּפֵּר,kippér,kafara,"to cover, hide"
 كَفّ,kaff,כַּף,kaf,kap,"paw, foot, claw"
 كَفْر,kafr,כְּפָר,kfar,kapra,"open, town, village, suburb"
@@ -998,6 +996,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 كُحْلِيّ,kuḥliyy,כָּחֹל,kaḥól,kuxaliy,"dark blue, blue-black, navy blue"
 كُرْسُف,kursuf,כַּרְפַּס,karpás,karpasa,cotton
 كُرْسِيّ,kursiyy,כִּסֵּא,kisé,kusum,"chair, seat"
+كُسّ,kuss,כּוּס,kus,kus,pussy
 كُسْكُس,kuskus,כּוּסְכּוּס,kuskus,kuskus,couscous
 كُفْتَة,kufta,כֻּפְתָּה,kuftá,kupta,"kufta, meatball, meat dumpling"
 كُلُور,kulūr,כְּלוֹר,klór,klarin,chlorine
@@ -1093,7 +1092,6 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 مَلَأَ,malaʔa,מִלֵּא,milé,malaʔa,to fill
 مَلَأَ,malaʔa,מָלֵא,malé,malaʔa,to fill
 مَلَأَ,malaʔa,מֻלָּא,mulá,malaʔa,to fill
-مَلَك,malak,מֶלֶךְ,mélekh,malk,angel
 مَلَك,malak,מַלְאָךְ,mal'ákh,malʔax,angel
 مَلَّاح,mallāḥ,מַלָּח,mallā́ḥ,malaxum,"mariner, shipman, sailor, helmsman"
 مَلَّحَ,mallaḥa,מֶלַח,mélaḥ,milx,to salt
@@ -1124,6 +1122,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 مُخّ,muḵḵ,מוֹחַ,móakh,mux,cerebrum
 مُرَبَّى,murabbā,רִבָּה,ribá,muraba,"jam, preserved fruit"
 مُرَكَّب,murakkab,מֻרְכָּב,murkáv,murakab,"compound, composed of multiple parts"
+مُرَّاكُش,murrākuš,מָרוֹקוֹ,maróko,murakuš,Morocco (a country in North Africa)
 مُرّ,murr,מַר,mar,mur,bitter
 مُرّ,murr,מֹר,mór,mur,"myrrh, the plant Commiphora myrrha"
 مُسْلِم,muslim,מֻסְלְמִי,musl'mí,muslim,Muslim
@@ -1167,6 +1166,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 نَار,nār,נוּר,nur,nur,fire
 نَازِيّ,nāziyy,נָאצִי,nátsi,natsi,Nazi
 نَاصِرِيّ,nāṣiriyy,נוֹצְרִי,notsrí,naṣiriy,Nazarene
+نَاقَة,nāqa,נָאקָה,naká,naqa,female camel
 نَامَ,nāma,נָם,nám,nama,to sleep
 نَبَحَ,nabaḥa,נָבַח,navákh,nabaxa,"to bark, to bay, to yelp"
 نَبِيّ,nabiyy,נָבִיא,naví,nabiy,prophet
@@ -1196,6 +1196,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 نَغْم,naḡm,נְעִימָה,ne'imá,nagima,"tune, air, melody; voice, part; timbre, tone color; sound, tone"
 نَفَخَ,nafaḵa,נִפֵּחַ,nipéakh,napax,"to blow up, to inflate"
 نَفَخَ,nafaḵa,נָפַח,nafákh,napax,to blow
+نَفِيل,nafīl,נָפִיל,nafíl,nafil,"a Naphil, a member of the Nephilim"
 نَفْس,nafs,נֶפֶשׁ,néfesh,napš,"life, breath"
 نَقَانِق,naqāniq,נַקְנִיק,nakník,naqaniq,"sausage, baloney"
 نَقِيّ,naqiyy,נָקִי,nakí,naqiy,"clean, spotless"
@@ -1255,6 +1256,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 وَلَد,walad,יֶלֶד,yéled,walad,child (“son or daughter of any age”)
 وَلَدَ,walada,יָלַד,yalád,walad,"to bear, to beget"
 وَلِيد,walīd,יָלִיד,yalíd,walid,"the product of, the result of, occasioned by, engendered by, sprung from"
+وَٱللّٰهِ,wal-lāhi,וַאלְלַהּ,wálla,wa‿lahi,"really?, really!"
 وِلَادَة,wilāda,הֻלֶּדֶת,hulédet,wiladat,birth (process of childbearing)
 وِيسْكِي,wiskī,וִיסְקִי,víski,wiski,whiskey
 يَأْجُوج,yaʔjūj,גּוֹג,gog,gag,Gog (an evil tribe associated with Magog)
@@ -1263,6 +1265,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 يَئِسَ,yaʔisa,יֵאֵשׁ,ye'ésh,yaʔisa,"to give up hope, to despair, to be hopeless"
 يَا,yā,יָא,yá,ya,"O; hey; you; vocative particle preceding a noun used in direct address, only rarely omitted in such contexts"
 يَابِسَة,yābisa,יַבָּשָׁה,yabashá,yabisa,"earth, land, surface, sand, mud; as opposed to water"
+يَاٱللَّٰه,yāllāh,יַאלְלָה,yálla,ya‿lah,"come on, c’mon"
 يَخْت,yaḵt,יַכְטָה,yákhta,yaxt,yacht
 يَد,yad,יָד,yád,yad,"an appendage of a body (as of an animal), a foreleg"
 يَسُوع,yasūʕ,יֵשׁוּעַ,yeshúa,yasuaʕ,Jesus of Nazareth

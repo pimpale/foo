@@ -2289,51 +2289,6 @@
   },
   {
     "arabic": {
-      "canonical": "أَكَلَ",
-      "roman": "ʔakala",
-      "glosses": [
-        "to consume (resources, money, and so on) (envisioned as a form of eating)",
-        "to eat, to consume (food)",
-        "to gnaw, to eat away, to abrade, to corrode, to erode; to destroy"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D8%A3%D9%83%D9%84#Arabic",
-      "ipa": "ʔakala"
-    },
-    "hebrew": {
-      "canonical": "אׇכְלָה",
-      "roman": "okhlá",
-      "glosses": [
-        "food, nourishment."
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9B%D7%9C%D7%94#Hebrew",
-      "ipa": "ʔukʰla"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*ʔakal-": [
-        0,
-        1
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "to eat, to consume (food)",
-      "arabic_pos": "verb",
-      "hebrew_sense": "food, nourishment.",
-      "hebrew_pos": "noun",
-      "similarity": 0.8506
-    },
-    "ancestor": "sem-pro:ʔakal",
-    "pansemitic_form": "ʔakal",
-    "loss": {
-      "arabic": 0.11666666666666665,
-      "hebrew": 0.34500000000000003,
-      "joint": 0.46166666666666667
-    }
-  },
-  {
-    "arabic": {
       "canonical": "أَكَّار",
       "roman": "ʔakkār",
       "glosses": [
@@ -2961,49 +2916,6 @@
       "ipa": "ʔanta"
     },
     "hebrew": {
-      "canonical": "אַתְּ",
-      "roman": "át",
-      "glosses": [
-        "You, thou: (the feminine singular second-person personal pronoun)."
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%AA#Hebrew",
-      "ipa": "ʔatʰtʰ"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*ʔanti": [
-        1,
-        0
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "you, thou (masculine singular subject pronoun)",
-      "arabic_pos": "pron",
-      "hebrew_sense": "You, thou: (the feminine singular second-person personal pronoun).",
-      "hebrew_pos": "pron",
-      "similarity": 0.9351
-    },
-    "ancestor": "sem-pro:ʔanti",
-    "pansemitic_form": "ʔanti",
-    "loss": {
-      "arabic": 0.11499999999999999,
-      "hebrew": 0.44000000000000006,
-      "joint": 0.555
-    }
-  },
-  {
-    "arabic": {
-      "canonical": "أَنْتَ",
-      "roman": "ʔanta",
-      "glosses": [
-        "you, thou (masculine singular subject pronoun)"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D8%A3%D9%86%D8%AA#Arabic",
-      "ipa": "ʔanta"
-    },
-    "hebrew": {
       "canonical": "אַתָּה",
       "roman": "atá",
       "glosses": [
@@ -3164,49 +3076,6 @@
       "arabic": 0.0,
       "hebrew": 0.44000000000000006,
       "joint": 0.44000000000000006
-    }
-  },
-  {
-    "arabic": {
-      "canonical": "أَنْتِ",
-      "roman": "ʔanti",
-      "glosses": [
-        "you, thou (feminine singular subject pronoun)"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D8%A3%D9%86%D8%AA#Arabic",
-      "ipa": "ʔanti"
-    },
-    "hebrew": {
-      "canonical": "אַתָּה",
-      "roman": "atá",
-      "glosses": [
-        "you, thou (second-person singular masculine)"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%AA%D7%94#Hebrew",
-      "ipa": "ʔatːaː"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*ʔanta": [
-        1,
-        0
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "you, thou (feminine singular subject pronoun)",
-      "arabic_pos": "pron",
-      "hebrew_sense": "you, thou (second-person singular masculine)",
-      "hebrew_pos": "pron",
-      "similarity": 0.9542
-    },
-    "ancestor": "sem-pro:ʔanta",
-    "pansemitic_form": "ʔanta",
-    "loss": {
-      "arabic": 0.11499999999999999,
-      "hebrew": 0.42000000000000004,
-      "joint": 0.535
     }
   },
   {
@@ -4336,11 +4205,7 @@
         1,
         1
       ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "grc:λύγξ": [
+      "fro:lonce": [
         1,
         2
       ],
@@ -4348,11 +4213,15 @@
         1,
         2
       ],
-      "grc:ὀγκία": [
+      "grc:λύγξ": [
         1,
         2
       ],
-      "la:lynx": [
+      "la-vul:*luncea": [
+        1,
+        2
+      ],
+      "grc:ὀγκία": [
         1,
         2
       ],
@@ -4360,7 +4229,7 @@
         1,
         2
       ],
-      "fro:lonce": [
+      "la:lynx": [
         1,
         2
       ],
@@ -4423,11 +4292,7 @@
         1,
         1
       ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "grc:λύγξ": [
+      "fro:lonce": [
         1,
         2
       ],
@@ -4435,11 +4300,15 @@
         1,
         2
       ],
-      "grc:ὀγκία": [
+      "grc:λύγξ": [
         1,
         2
       ],
-      "la:lynx": [
+      "la-vul:*luncea": [
+        1,
+        2
+      ],
+      "grc:ὀγκία": [
         1,
         2
       ],
@@ -4447,7 +4316,7 @@
         1,
         2
       ],
-      "fro:lonce": [
+      "la:lynx": [
         1,
         2
       ],
@@ -4546,7 +4415,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:إبزيم": [
+      "ar:إِبْزِيم": [
         0,
         0
       ],
@@ -4723,7 +4592,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:ירמיה": [
+      "he:יִרְמְיָה": [
         0,
         0
       ]
@@ -4858,7 +4727,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:יצחק": [
+      "he:יִצְחָק": [
         0,
         0
       ]
@@ -6472,11 +6341,11 @@
         0,
         0
       ],
-      "grc:κρημνοί": [
+      "la:Cimmerium": [
         1,
         1
       ],
-      "la:Cimmerium": [
+      "grc:κρημνοί": [
         1,
         1
       ]
@@ -6585,11 +6454,11 @@
         0,
         0
       ],
-      "sa:सिन्धु॑": [
+      "inc-pro:*síndʰuṣ": [
         1,
         1
       ],
-      "inc-pro:*síndʰuṣ": [
+      "sa:सिन्धु॑": [
         1,
         1
       ]
@@ -6636,19 +6505,19 @@
         0,
         0
       ],
-      "ms:Jepang": [
-        0,
-        0
-      ],
       "nan-hbl:日本": [
         0,
         0
       ],
-      "ltc:日本": [
+      "ms:Jepang": [
+        0,
+        0
+      ],
+      "nan-hbl:日本//Ji̍t-pún": [
         1,
         1
       ],
-      "nan-hbl:日本//Ji̍t-pún": [
+      "ltc:日本": [
         1,
         1
       ]
@@ -6691,7 +6560,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:תנ״ך": [
+      "he:תָּנָ״ךְ": [
         0,
         0
       ]
@@ -6703,12 +6572,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.8644
     },
-    "ancestor": "he:ha-tanaχ",
-    "pansemitic_form": "ha-tanax",
+    "ancestor": "he:tanaχ",
+    "pansemitic_form": "tanax",
     "loss": {
-      "arabic": 0.275,
-      "hebrew": 0.22142857142857145,
-      "joint": 0.49642857142857144
+      "arabic": 0.40625,
+      "hebrew": 0.020000000000000018,
+      "joint": 0.42625
     }
   },
   {
@@ -7625,7 +7494,7 @@
         0,
         0
       ],
-      "enm:barre": [
+      "enm:barren": [
         1,
         1
       ],
@@ -7633,15 +7502,11 @@
         1,
         1
       ],
-      "enm:barren": [
+      "la-vul:*barra": [
         1,
         1
       ],
       "fro:barre": [
-        1,
-        1
-      ],
-      "la-vul:*barra": [
         1,
         1
       ],
@@ -7650,6 +7515,10 @@
         1
       ],
       "grc:βάρος": [
+        1,
+        1
+      ],
+      "enm:barre": [
         1,
         1
       ]
@@ -7697,7 +7566,7 @@
         0,
         0
       ],
-      "enm:barre": [
+      "enm:barren": [
         1,
         1
       ],
@@ -7705,15 +7574,11 @@
         1,
         1
       ],
-      "enm:barren": [
+      "la-vul:*barra": [
         1,
         1
       ],
       "fro:barre": [
-        1,
-        1
-      ],
-      "la-vul:*barra": [
         1,
         1
       ],
@@ -7722,6 +7587,10 @@
         1
       ],
       "grc:βάρος": [
+        1,
+        1
+      ],
+      "enm:barre": [
         1,
         1
       ]
@@ -9187,7 +9056,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:بنزين": [
+      "ar:بَنْزِين": [
         0,
         0
       ],
@@ -9304,6 +9173,53 @@
       "arabic": 0.14583333333333334,
       "hebrew": 0.044000000000000004,
       "joint": 0.18983333333333335
+    }
+  },
+  {
+    "arabic": {
+      "canonical": "بَوْسَة",
+      "roman": "bawsa",
+      "glosses": [
+        "a kiss"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D8%A8%D9%88%D8%B3%D8%A9#Arabic",
+      "ipa": "bawsa"
+    },
+    "hebrew": {
+      "canonical": "בּוּסָה",
+      "roman": "búsa",
+      "glosses": [
+        "a kiss"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%91%D7%95%D7%A1%D7%94#Hebrew",
+      "ipa": "busa"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:بَوْسَة": [
+        0,
+        0
+      ],
+      "fa-cls:بوسه": [
+        0,
+        1
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "a kiss",
+      "arabic_pos": "noun",
+      "hebrew_sense": "a kiss",
+      "hebrew_pos": "noun",
+      "similarity": 0.9982
+    },
+    "ancestor": "ar:bawsa",
+    "pansemitic_form": "bawsa",
+    "loss": {
+      "arabic": 0.0,
+      "hebrew": 0.445,
+      "joint": 0.445
     }
   },
   {
@@ -9478,7 +9394,7 @@
         0,
         1
       ],
-      "he:בושם": [
+      "he:בֹּשֶׂם": [
         1,
         1
       ],
@@ -9561,15 +9477,8 @@
       "ipa": "baʁ"
     },
     "match_layers": [
-      "direct_cognate_ar→he",
-      "shared_borrowing_source"
+      "direct_cognate_ar→he"
     ],
-    "shared_borrowing_sources": {
-      "sem-pro:*barr-": [
-        1,
-        1
-      ]
-    },
     "best_sense_match": {
       "arabic_sense": "wheat",
       "arabic_pos": "noun",
@@ -9577,11 +9486,11 @@
       "hebrew_pos": "noun",
       "similarity": 0.9173
     },
-    "ancestor": "sem-pro:barː",
-    "pansemitic_form": "bar",
+    "ancestor": "recon-sem-pro:burː",
+    "pansemitic_form": "bur",
     "loss": {
-      "arabic": 0.3416666666666666,
-      "hebrew": 0.09999999999999999,
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.3416666666666666,
       "joint": 0.4416666666666666
     }
   },
@@ -10324,15 +10233,15 @@
         0,
         0
       ],
-      "lng:bizza": [
-        1,
-        1
-      ],
       "nap:pizza": [
         1,
         1
       ],
       "gkm:πίτα": [
+        1,
+        1
+      ],
+      "lng:bizza": [
         1,
         1
       ]
@@ -10392,11 +10301,11 @@
         2,
         1
       ],
-      "gem-pro:*beuzą": [
+      "ine-pro:*bʰews-": [
         2,
         1
       ],
-      "ine-pro:*bʰews-": [
+      "gem-pro:*beuzą": [
         2,
         1
       ],
@@ -12307,7 +12216,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:تمساح": [
+      "ar:تِمْسَاح": [
         0,
         0
       ],
@@ -12497,11 +12406,7 @@
         0,
         0
       ],
-      "sla-pro:*cěsařь": [
-        1,
-        1
-      ],
-      "la:Caesar": [
+      "orv:цьсарь": [
         1,
         1
       ],
@@ -12509,7 +12414,11 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "sla-pro:*cěsařь": [
+        1,
+        1
+      ],
+      "la:Caesar": [
         1,
         1
       ]
@@ -13391,7 +13300,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:גולית": [
+      "he:גׇּלְיָת": [
         0,
         0
       ],
@@ -13440,7 +13349,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:جبل": [
+      "ar:جَبَل": [
         0,
         0
       ]
@@ -13569,7 +13478,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:جبر": [
+      "ar:جَبْر": [
         0,
         0
       ]
@@ -13581,12 +13490,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9984
     },
-    "ancestor": "ar:d͡ʒabara",
-    "pansemitic_form": "jabara",
+    "ancestor": "ar:d͡ʒabr",
+    "pansemitic_form": "jabr",
     "loss": {
-      "arabic": 0.2333333333333333,
+      "arabic": 0.0,
       "hebrew": 0.580375,
-      "joint": 0.8137083333333333
+      "joint": 0.580375
     }
   },
   {
@@ -14675,7 +14584,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:גולית": [
+      "he:גׇּלְיָת": [
         0,
         0
       ],
@@ -15024,11 +14933,11 @@
         0,
         0
       ],
-      "fro:general": [
+      "la:generālis": [
         1,
         1
       ],
-      "la:generālis": [
+      "fro:general": [
         1,
         1
       ]
@@ -16060,7 +15969,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:חרדי": [
+      "he:חֲרֵדִי": [
         0,
         0
       ]
@@ -16393,55 +16302,6 @@
   },
   {
     "arabic": {
-      "canonical": "حَفْر",
-      "roman": "ḥafr",
-      "glosses": [
-        "digging, hollowing",
-        "verbal noun of حَفَرَ (ḥafara) (form I)"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D8%AD%D9%81%D8%B1#Arabic",
-      "ipa": "ħafr"
-    },
-    "hebrew": {
-      "canonical": "חָפַר",
-      "roman": "khafár",
-      "glosses": [
-        "to dig",
-        "to pester or to annoy especially by talking a lot",
-        "to search, to look through",
-        "to survey, to spy out",
-        "to tunnel, to burrow or to excavate",
-        "to yap"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%A4%D7%A8#Hebrew",
-      "ipa": "χafaʁ"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*ḥapar-": [
-        1,
-        0
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "digging, hollowing",
-      "arabic_pos": "noun",
-      "hebrew_sense": "to tunnel, to burrow or to excavate",
-      "hebrew_pos": "verb",
-      "similarity": 0.8575
-    },
-    "ancestor": "sem-pro:ħapar",
-    "pansemitic_form": "xapar",
-    "loss": {
-      "arabic": 0.26,
-      "hebrew": 0.16,
-      "joint": 0.42000000000000004
-    }
-  },
-  {
-    "arabic": {
       "canonical": "حَقّ",
       "roman": "ḥaqq",
       "glosses": [
@@ -16578,6 +16438,54 @@
       "arabic": 0.1,
       "hebrew": 0.34500000000000003,
       "joint": 0.44500000000000006
+    }
+  },
+  {
+    "arabic": {
+      "canonical": "حَلَب",
+      "roman": "ḥalab",
+      "glosses": [
+        "Aleppo (a governorate of Syria)",
+        "Aleppo (the capital city of Aleppo governorate, Syria)",
+        "fresh milk",
+        "verbal noun of حَلِبَ (ḥaliba) (form I)",
+        "Ḥalab, one of the tribes of Doms in Egypt"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D8%AD%D9%84%D8%A8#Arabic",
+      "ipa": "ħalab"
+    },
+    "hebrew": {
+      "canonical": "חַאלַבּ",
+      "roman": "khálab",
+      "glosses": [
+        "Aleppo (a governorate of Syria)",
+        "Aleppo (the capital city of Aleppo Governorate, Syria)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%90%D7%9C%D7%91#Hebrew",
+      "ipa": "χalab"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:حَلَب": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "Aleppo (the capital city of Aleppo governorate, Syria)",
+      "arabic_pos": "name",
+      "hebrew_sense": "Aleppo (the capital city of Aleppo Governorate, Syria)",
+      "hebrew_pos": "name",
+      "similarity": 0.9996
+    },
+    "ancestor": "ar:ħalab",
+    "pansemitic_form": "xalab",
+    "loss": {
+      "arabic": 0.040000000000000015,
+      "hebrew": 0.020000000000000018,
+      "joint": 0.06000000000000003
     }
   },
   {
@@ -17125,7 +17033,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:חוה": [
+      "he:חַוָּה": [
         0,
         0
       ],
@@ -17865,7 +17773,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:יחזקאל": [
+      "he:יְחֶזְקֵאל": [
         0,
         0
       ]
@@ -18674,11 +18582,11 @@
         0,
         0
       ],
-      "ine-pro:*ǵʰer-": [
+      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
         1,
         1
       ],
-      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
+      "ine-pro:*ǵʰer-": [
         1,
         1
       ]
@@ -18806,11 +18714,11 @@
         1,
         0
       ],
-      "ine-pro:*ǵʰer-": [
+      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
         2,
         1
       ],
-      "phn:𐤇𐤓𐤈𐤉𐤕<t:that which has been written>": [
+      "ine-pro:*ǵʰer-": [
         2,
         1
       ]
@@ -19297,54 +19205,6 @@
   },
   {
     "arabic": {
-      "canonical": "خَفَرَ",
-      "roman": "ḵafara",
-      "glosses": [
-        "to watch, to guard, to protect"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D8%AE%D9%81%D8%B1#Arabic",
-      "ipa": "xafara"
-    },
-    "hebrew": {
-      "canonical": "חָפַר",
-      "roman": "khafár",
-      "glosses": [
-        "to dig",
-        "to pester or to annoy especially by talking a lot",
-        "to search, to look through",
-        "to survey, to spy out",
-        "to tunnel, to burrow or to excavate",
-        "to yap"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%A4%D7%A8#Hebrew",
-      "ipa": "χafaʁ"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*ḫapar-": [
-        0,
-        1
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "to watch, to guard, to protect",
-      "arabic_pos": "verb",
-      "hebrew_sense": "to search, to look through",
-      "hebrew_pos": "verb",
-      "similarity": 0.8315
-    },
-    "ancestor": "sem-pro:xapar",
-    "pansemitic_form": "xapar",
-    "loss": {
-      "arabic": 0.18333333333333335,
-      "hebrew": 0.16,
-      "joint": 0.3433333333333334
-    }
-  },
-  {
-    "arabic": {
       "canonical": "خَفِرَ",
       "roman": "ḵafira",
       "glosses": [
@@ -19710,7 +19570,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:خرشوف": [
+      "ar:خُرْشُوف": [
         0,
         0
       ],
@@ -20339,13 +20199,9 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:דוד": [
+      "he:דָּוִד": [
         0,
         0
-      ],
-      "sem-wes-pro:*dād-": [
-        1,
-        1
       ]
     },
     "best_sense_match": {
@@ -20355,12 +20211,12 @@
       "hebrew_pos": "name",
       "similarity": 0.915
     },
-    "ancestor": "he:doːd",
-    "pansemitic_form": "dad",
+    "ancestor": "he:daːwiːd",
+    "pansemitic_form": "dawid",
     "loss": {
-      "arabic": 0.5,
-      "hebrew": 0.5,
-      "joint": 1.0
+      "arabic": 0.22000000000000003,
+      "hebrew": 0.12,
+      "joint": 0.34
     }
   },
   {
@@ -22719,6 +22575,49 @@
   },
   {
     "arabic": {
+      "canonical": "رَامَ اللّٰه",
+      "roman": "rāma llāh",
+      "glosses": [
+        "Ramallah (a city in the West Bank, Palestine)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D8%B1%D8%A7%D9%85%20%D8%A7%D9%84%D9%84%D9%87#Arabic",
+      "ipa": "raːm alˤlˤaːh"
+    },
+    "hebrew": {
+      "canonical": "רמאללה",
+      "roman": "ramálla",
+      "glosses": [
+        "Ramallah (a city in the West Bank, Palestine)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%9E%D7%90%D7%9C%D7%9C%D7%94#Hebrew",
+      "ipa": "ramalːa"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:رَامَ اللّٰه": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "Ramallah (a city in the West Bank, Palestine)",
+      "arabic_pos": "name",
+      "hebrew_sense": "Ramallah (a city in the West Bank, Palestine)",
+      "hebrew_pos": "name",
+      "similarity": 0.9967
+    },
+    "ancestor": "ar:raːm alˤlˤaːh",
+    "pansemitic_form": "ram alah",
+    "loss": {
+      "arabic": 0.325,
+      "hebrew": 0.15,
+      "joint": 0.475
+    }
+  },
+  {
+    "arabic": {
       "canonical": "رَبَّ",
       "roman": "rabba",
       "glosses": [
@@ -24841,11 +24740,11 @@
         0,
         0
       ],
-      "fa-cls:زُرنَاپَا": [
+      "syc:ܙܪܝܦܐ": [
         0,
         1
       ],
-      "syc:ܙܪܝܦܐ": [
+      "fa-cls:زُرنَاپَا": [
         0,
         1
       ]
@@ -25333,15 +25232,15 @@
         0,
         0
       ],
-      "oty:𑀇𑀜𑁆𑀘𑀺𑀯𑁂𑀭𑁆": [
-        0,
-        1
-      ],
       "syc:ܙܢܓܒܝܠ": [
         0,
         1
       ],
       "pra-sau:𑀲𑀺𑀁𑀕𑀺𑀯𑁂𑀭": [
+        0,
+        1
+      ],
+      "oty:𑀇𑀜𑁆𑀘𑀺𑀯𑁂𑀭𑁆": [
         0,
         1
       ]
@@ -26038,10 +25937,6 @@
     "shared_borrowing_sources": {
       "he:שרה": [
         0,
-        0
-      ],
-      "sem-pro:*śarār": [
-        1,
         0
       ]
     },
@@ -27459,6 +27354,49 @@
   },
   {
     "arabic": {
+      "canonical": "سَلَامْتَك",
+      "roman": "salāmtak",
+      "glosses": [
+        "get well soon"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D8%B3%D9%84%D8%A7%D9%85%D8%AA%D9%83#Arabic",
+      "ipa": "salaːmtak"
+    },
+    "hebrew": {
+      "canonical": "סלאמתק",
+      "roman": "salámtak",
+      "glosses": [
+        "good job, beautiful"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%9C%D7%90%D7%9E%D7%AA%D7%A7#Hebrew",
+      "ipa": "salamtak"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:سَلَامْتَك": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "get well soon",
+      "arabic_pos": "intj",
+      "hebrew_sense": "good job, beautiful",
+      "hebrew_pos": "intj",
+      "similarity": 0.9054
+    },
+    "ancestor": "ar:salaːmtak",
+    "pansemitic_form": "salamtak",
+    "loss": {
+      "arabic": 0.0375,
+      "hebrew": 0.0,
+      "joint": 0.0375
+    }
+  },
+  {
+    "arabic": {
       "canonical": "سَلَّة",
       "roman": "salla",
       "glosses": [
@@ -28645,7 +28583,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:סולם": [
+      "he:סֻלָּם": [
         0,
         0
       ],
@@ -30938,11 +30876,11 @@
         0,
         2
       ],
-      "nci:chocolatl": [
+      "yua:chocol": [
         1,
         3
       ],
-      "yua:chocol": [
+      "nci:chocolatl": [
         1,
         3
       ]
@@ -31211,26 +31149,6 @@
         1,
         0
       ],
-      "iir-pro:*kšáyati": [
-        2,
-        1
-      ],
-      "la-med:scaccarium": [
-        2,
-        1
-      ],
-      "enm:chekken": [
-        2,
-        1
-      ],
-      "la-med:scaccus": [
-        2,
-        1
-      ],
-      "fa-cls:شَاه": [
-        2,
-        1
-      ],
       "ine-pro:*tek-": [
         2,
         1
@@ -31239,15 +31157,15 @@
         2,
         1
       ],
-      "ar:شَاه": [
+      "la-med:scaccarium": [
         2,
         1
       ],
-      "fro:eschek": [
+      "iir-pro:*kšáyati": [
         2,
         1
       ],
-      "fro:eschequier": [
+      "fa-cls:شَاه": [
         2,
         1
       ],
@@ -31255,7 +31173,27 @@
         2,
         1
       ],
-      "fa:شاه": [
+      "ar:شَاه": [
+        2,
+        1
+      ],
+      "la-med:scaccus": [
+        2,
+        1
+      ],
+      "enm:chekken": [
+        2,
+        1
+      ],
+      "fro:eschequier": [
+        2,
+        1
+      ],
+      "fro:eschek": [
+        2,
+        1
+      ],
+      "fa-cls:شاه": [
         3,
         2
       ],
@@ -31263,7 +31201,7 @@
         3,
         2
       ],
-      "fa-cls:شاه": [
+      "fa:شاه": [
         3,
         2
       ],
@@ -31498,7 +31436,7 @@
         0,
         0
       ],
-      "lng:sala": [
+      "it:salone": [
         1,
         1
       ],
@@ -31506,11 +31444,11 @@
         1,
         1
       ],
-      "it:salone": [
+      "gem-pro:*salą": [
         1,
         1
       ],
-      "gem-pro:*salą": [
+      "lng:sala": [
         1,
         1
       ]
@@ -31849,7 +31787,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:صدف": [
+      "ar:صَدَف": [
         0,
         0
       ]
@@ -31861,12 +31799,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9467
     },
-    "ancestor": "ar:sˤadafa",
-    "pansemitic_form": "ṣadapa",
+    "ancestor": "ar:sˤadaf",
+    "pansemitic_form": "ṣadap",
     "loss": {
-      "arabic": 0.18333333333333335,
-      "hebrew": 0.4643333333333333,
-      "joint": 0.6476666666666666
+      "arabic": 0.08,
+      "hebrew": 0.41719999999999996,
+      "joint": 0.4972
     }
   },
   {
@@ -32639,11 +32577,11 @@
         0,
         0
       ],
-      "akk:𒍦𒉺𒀀𒌅": [
+      "arc:צִפָּא": [
         0,
         1
       ],
-      "arc:צִפָּא": [
+      "akk:𒍦𒉺𒀀𒌅": [
         0,
         1
       ],
@@ -35423,7 +35361,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:عزيز": [
+      "ar:عَزِيز": [
         0,
         0
       ]
@@ -36361,11 +36299,11 @@
         1,
         2
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
+      "ira-pro:*hambāráh": [
         1,
         2
       ],
-      "ira-pro:*hambāráh": [
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -37362,7 +37300,7 @@
         0,
         0
       ],
-      "gem-pro:*gatwǭ": [
+      "gmh:gazze": [
         1,
         1
       ],
@@ -37374,11 +37312,11 @@
         1,
         1
       ],
-      "gmh:gazze": [
+      "dum:gasse": [
         1,
         1
       ],
-      "dum:gasse": [
+      "gem-pro:*gatwǭ": [
         1,
         1
       ],
@@ -37883,11 +37821,11 @@
         0,
         0
       ],
-      "ine-pro:*bʰh₂wesnós": [
+      "grk-pro:*pʰawehnós": [
         1,
         1
       ],
-      "grk-pro:*pʰawehnós": [
+      "ine-pro:*bʰh₂wesnós": [
         1,
         1
       ]
@@ -38896,19 +38834,8 @@
       "ipa": "pol"
     },
     "match_layers": [
-      "direct_cognate_he→ar",
-      "shared_borrowing_source"
+      "direct_cognate_he→ar"
     ],
-    "shared_borrowing_sources": {
-      "ar:فُول": [
-        0,
-        1
-      ],
-      "arc:פֹּולא": [
-        0,
-        2
-      ]
-    },
     "best_sense_match": {
       "arabic_sense": "fava beans, fava (Vicia faba)",
       "arabic_pos": "noun",
@@ -38916,7 +38843,7 @@
       "hebrew_pos": "noun",
       "similarity": 0.9698
     },
-    "ancestor": "ar:fuːl",
+    "ancestor": "recon-sem-pro:puːl",
     "pansemitic_form": "pul",
     "loss": {
       "arabic": 0.2333333333333333,
@@ -39290,11 +39217,11 @@
         1,
         2
       ],
-      "akk:𒆳𒉺𒆷𒊍𒌓": [
+      "egy:pwrꜣsꜣtj": [
         1,
         2
       ],
-      "egy:pwrꜣsꜣtj": [
+      "akk:𒆳𒉺𒆷𒊍𒌓": [
         1,
         2
       ],
@@ -39353,11 +39280,11 @@
         1,
         1
       ],
-      "akk:𒆳𒉺𒆷𒊍𒌓": [
+      "egy:pwrꜣsꜣtj": [
         1,
         1
       ],
-      "egy:pwrꜣsꜣtj": [
+      "akk:𒆳𒉺𒆷𒊍𒌓": [
         1,
         1
       ],
@@ -39604,11 +39531,11 @@
         0,
         0
       ],
-      "enm:flasshen": [
+      "enm:flashe": [
         1,
         1
       ],
-      "enm:flashe": [
+      "enm:flasshen": [
         1,
         1
       ]
@@ -39778,7 +39705,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:קורח": [
+      "he:קֹרַח": [
         0,
         0
       ]
@@ -41475,8 +41402,15 @@
       "ipa": "keles"
     },
     "match_layers": [
-      "direct_cognate_ar→he"
+      "direct_cognate_ar→he",
+      "shared_borrowing_source"
     ],
+    "shared_borrowing_sources": {
+      "he:קֶלֶס": [
+        0,
+        0
+      ]
+    },
     "best_sense_match": {
       "arabic_sense": "to mock, to deride",
       "arabic_pos": "verb",
@@ -41484,12 +41418,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.8956
     },
-    "ancestor": "recon-sem-pro:qalːasa",
-    "pansemitic_form": "qalasa",
+    "ancestor": "he:qilːes",
+    "pansemitic_form": "qilis",
     "loss": {
-      "arabic": 0.049999999999999996,
-      "hebrew": 0.28099999999999997,
-      "joint": 0.33099999999999996
+      "arabic": 0.35833333333333334,
+      "hebrew": 0.07280000000000002,
+      "joint": 0.43113333333333337
     }
   },
   {
@@ -41736,7 +41670,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:קיים": [
+      "he:קַיָּם": [
         0,
         0
       ]
@@ -41792,7 +41726,7 @@
         0,
         1
       ],
-      "sla-pro:*cěsařь": [
+      "orv:цьсарь": [
         1,
         1
       ],
@@ -41800,7 +41734,7 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "sla-pro:*cěsařь": [
         1,
         1
       ]
@@ -42088,11 +42022,11 @@
         2,
         2
       ],
-      "gem-pro:*kuddô": [
+      "ine-pro:*gewt-": [
         1,
         3
       ],
-      "ine-pro:*gewt-": [
+      "gem-pro:*kuddô": [
         1,
         3
       ],
@@ -42423,7 +42357,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:קורח": [
+      "he:קֹרַח": [
         0,
         0
       ]
@@ -43258,59 +43192,6 @@
   },
   {
     "arabic": {
-      "canonical": "كَفَر",
-      "roman": "kavar",
-      "glosses": [
-        "cover, case"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D9%83%D9%81%D8%B1#Arabic",
-      "ipa": "kavar"
-    },
-    "hebrew": {
-      "canonical": "כִּפֵּר",
-      "roman": "kippér",
-      "glosses": [
-        "defective spelling of כיפר (kippér, “to cover; to pardon”)",
-        "to appease one who has been injured, e.g. by paying a fee",
-        "to cover",
-        "to expiate an offense",
-        "to make expiation for an offender, to free from charge",
-        "to obtain forgiveness",
-        "to pardon sin, forgive"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A4%D7%A8#Hebrew",
-      "ipa": "kipːer"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "arc:כַּפְרָא": [
-        1,
-        0
-      ],
-      "akk:kaprum": [
-        1,
-        0
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "cover, case",
-      "arabic_pos": "noun",
-      "hebrew_sense": "to cover",
-      "hebrew_pos": "verb",
-      "similarity": 0.8775
-    },
-    "ancestor": "arc:kafrɑ",
-    "pansemitic_form": "kapra",
-    "loss": {
-      "arabic": 0.34,
-      "hebrew": 0.45499999999999996,
-      "joint": 0.7949999999999999
-    }
-  },
-  {
-    "arabic": {
       "canonical": "كَفَّرَ",
       "roman": "kaffara",
       "glosses": [
@@ -44016,15 +43897,35 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:كحل": [
+      "ar:كُحْل": [
+        0,
+        0
+      ],
+      "ar:كَحَل": [
         1,
         0
       ],
-      "arc:כוחלא": [
+      "ar:كَحَلَ": [
+        1,
+        0
+      ],
+      "ar:كَحَّلَ": [
+        1,
+        0
+      ],
+      "ar:كَحِل": [
+        1,
+        0
+      ],
+      "ar:كَحْل": [
+        1,
+        0
+      ],
+      "akk:guḫlum": [
         1,
         1
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ]
@@ -44181,6 +44082,53 @@
   },
   {
     "arabic": {
+      "canonical": "كُسّ",
+      "roman": "kuss",
+      "glosses": [
+        "pussy"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%83%D8%B3#Arabic",
+      "ipa": "kusː"
+    },
+    "hebrew": {
+      "canonical": "כּוּס",
+      "roman": "kus",
+      "glosses": [
+        "A pussy (vagina)."
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%95%D7%A1#Hebrew",
+      "ipa": "kus"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:كُسّ": [
+        0,
+        0
+      ],
+      "fa-cls:کُس": [
+        0,
+        1
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "pussy",
+      "arabic_pos": "noun",
+      "hebrew_sense": "A pussy (vagina).",
+      "hebrew_pos": "noun",
+      "similarity": 0.8725
+    },
+    "ancestor": "ar:kusː",
+    "pansemitic_form": "kus",
+    "loss": {
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.0,
+      "joint": 0.09999999999999999
+    }
+  },
+  {
+    "arabic": {
       "canonical": "كُسْكُس",
       "roman": "kuskus",
       "glosses": [
@@ -44302,11 +44250,11 @@
         0,
         0
       ],
-      "grk-pro:*kʰlōrós": [
+      "ine-pro:*ǵʰelh₃-": [
         1,
         1
       ],
-      "ine-pro:*ǵʰelh₃-": [
+      "grk-pro:*kʰlōrós": [
         1,
         1
       ]
@@ -44809,8 +44757,12 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:קבוץ": [
+      "he:קִבּוּץ": [
         0,
+        0
+      ],
+      "arc:קיבוץ": [
+        1,
         0
       ]
     },
@@ -45036,23 +44988,23 @@
         1,
         1
       ],
+      "grc:χρῖσμα": [
+        1,
+        1
+      ],
       "frm:chresme": [
         1,
         1
       ],
-      "grc:χρῖσμα": [
-        1,
-        1
+      "la-lat:crāmum": [
+        2,
+        2
       ],
       "grc:χρῖσμᾰ": [
         2,
         2
       ],
       "la-ecc:chrisma": [
-        2,
-        2
-      ],
-      "la-lat:crāmum": [
         2,
         2
       ]
@@ -45520,7 +45472,7 @@
         0,
         0
       ],
-      "la:lyra": [
+      "la:lībra": [
         1,
         1
       ],
@@ -45528,7 +45480,7 @@
         1,
         1
       ],
-      "la:lībra": [
+      "la:lyra": [
         1,
         1
       ],
@@ -45961,11 +45913,7 @@
         1,
         1
       ],
-      "ine-pro:*lendʰ-": [
-        2,
-        2
-      ],
-      "la-vul:*Lundeinju": [
+      "cel-pro:*Londinyom": [
         2,
         2
       ],
@@ -45973,7 +45921,11 @@
         2,
         2
       ],
-      "cel-pro:*Londinyom": [
+      "ine-pro:*lendʰ-": [
+        2,
+        2
+      ],
+      "la-vul:*Lundeinju": [
         2,
         2
       ]
@@ -47251,11 +47203,11 @@
         0,
         0
       ],
-      "la:matrix": [
+      "ar:مَجْرًى": [
         1,
         1
       ],
-      "ar:مَجْرًى": [
+      "la:matrix": [
         1,
         1
       ]
@@ -48441,53 +48393,6 @@
       "ipa": "malak"
     },
     "hebrew": {
-      "canonical": "מֶלֶךְ",
-      "roman": "mélekh",
-      "glosses": [
-        "king"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%9C%D7%9A#Hebrew",
-      "ipa": "malk"
-    },
-    "match_layers": [
-      "shared_borrowing_source"
-    ],
-    "shared_borrowing_sources": {
-      "sem-pro:*malk-": [
-        1,
-        0
-      ]
-    },
-    "best_sense_match": {
-      "arabic_sense": "angel",
-      "arabic_pos": "noun",
-      "hebrew_sense": "king",
-      "hebrew_pos": "noun",
-      "similarity": 0.8602
-    },
-    "ancestor": "sem-pro:malk",
-    "pansemitic_form": "malk",
-    "loss": {
-      "arabic": 0.13999999999999999,
-      "hebrew": 0.0,
-      "joint": 0.13999999999999999
-    }
-  },
-  {
-    "arabic": {
-      "canonical": "مَلَك",
-      "roman": "malak",
-      "glosses": [
-        "agent or effective cause",
-        "angel",
-        "food and water, resources; anything which regulates, maintains, or sustains; essentials, supplies, utilities",
-        "foundation of ones existence",
-        "possession, property"
-      ],
-      "wiktionary": "https://en.wiktionary.org/wiki/%D9%85%D9%84%D9%83#Arabic",
-      "ipa": "malak"
-    },
-    "hebrew": {
       "canonical": "מַלְאָךְ",
       "roman": "mal'ákh",
       "glosses": [
@@ -48727,6 +48632,10 @@
         0,
         0
       ],
+      "enm:malt": [
+        1,
+        1
+      ],
       "ang:mealt": [
         1,
         1
@@ -48735,15 +48644,11 @@
         1,
         1
       ],
-      "gem-pro:*maltą": [
-        1,
-        1
-      ],
       "gmw-pro:*malt": [
         1,
         1
       ],
-      "enm:malt": [
+      "gem-pro:*maltą": [
         1,
         1
       ]
@@ -49382,7 +49287,11 @@
         0,
         0
       ],
-      "fro:Cemaine": [
+      "la:*Cenomania": [
+        1,
+        1
+      ],
+      "ga:An Mhaing": [
         1,
         1
       ],
@@ -49390,7 +49299,7 @@
         1,
         1
       ],
-      "ga:An Mhaing": [
+      "fr:Maine#Etymology_2_2": [
         1,
         1
       ],
@@ -49402,11 +49311,7 @@
         1,
         1
       ],
-      "fr:Maine#Etymology_2_2": [
-        1,
-        1
-      ],
-      "la:*Cenomania": [
+      "fro:Cemaine": [
         1,
         1
       ],
@@ -49809,6 +49714,50 @@
       "arabic": 0.04285714285714286,
       "hebrew": 0.15714285714285717,
       "joint": 0.2
+    }
+  },
+  {
+    "arabic": {
+      "canonical": "مُرَّاكُش",
+      "roman": "murrākuš",
+      "glosses": [
+        "Marrakech (the capital city of the Marrakesh-Safi region, Morocco)",
+        "Morocco (a country in North Africa)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%85%D8%B1%D8%A7%D9%83%D8%B4#Arabic",
+      "ipa": "murːaːkuʃ"
+    },
+    "hebrew": {
+      "canonical": "מָרוֹקוֹ",
+      "roman": "maróko",
+      "glosses": [
+        "Morocco (a country in North Africa)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%A8%D7%95%D7%A7%D7%95#Hebrew",
+      "ipa": "maroko"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:مُرَّاكُش": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "Morocco (a country in North Africa)",
+      "arabic_pos": "name",
+      "hebrew_sense": "Morocco (a country in North Africa)",
+      "hebrew_pos": "name",
+      "similarity": 1.0012
+    },
+    "ancestor": "ar:murːaːkuʃ",
+    "pansemitic_form": "murakuš",
+    "loss": {
+      "arabic": 0.08571428571428572,
+      "hebrew": 0.42142857142857143,
+      "joint": 0.5071428571428571
     }
   },
   {
@@ -51690,6 +51639,53 @@
   },
   {
     "arabic": {
+      "canonical": "نَاقَة",
+      "roman": "nāqa",
+      "glosses": [
+        "female camel"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%86%D8%A7%D9%82%D8%A9#Arabic",
+      "ipa": "naːqa"
+    },
+    "hebrew": {
+      "canonical": "נָאקָה",
+      "roman": "naká",
+      "glosses": [
+        "camel (female)"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%90%D7%A7%D7%94#Hebrew",
+      "ipa": "naka"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:نَاقَة": [
+        0,
+        0
+      ],
+      "sem-pro:*yanaḳ-": [
+        0,
+        1
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "female camel",
+      "arabic_pos": "noun",
+      "hebrew_sense": "camel (female)",
+      "hebrew_pos": "noun",
+      "similarity": 0.9783
+    },
+    "ancestor": "ar:naːqa",
+    "pansemitic_form": "naqa",
+    "loss": {
+      "arabic": 0.075,
+      "hebrew": 0.025000000000000022,
+      "joint": 0.10000000000000002
+    }
+  },
+  {
+    "arabic": {
       "canonical": "نَامَ",
       "roman": "nāma",
       "glosses": [
@@ -52935,6 +52931,51 @@
   },
   {
     "arabic": {
+      "canonical": "نَفِيل",
+      "roman": "nafīl",
+      "glosses": [
+        "a Naphil, a member of the Nephilim",
+        "a giant"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%86%D9%81%D9%8A%D9%84#Arabic",
+      "ipa": "nafiːl"
+    },
+    "hebrew": {
+      "canonical": "נָפִיל",
+      "roman": "nafíl",
+      "glosses": [
+        "a Naphil, a member of the Nephilim",
+        "a giant"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%A4%D7%99%D7%9C#Hebrew",
+      "ipa": "nafil"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "he:נָפִיל": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "a Naphil, a member of the Nephilim",
+      "arabic_pos": "noun",
+      "hebrew_sense": "a Naphil, a member of the Nephilim",
+      "hebrew_pos": "noun",
+      "similarity": 1.0022
+    },
+    "ancestor": "he:nafil",
+    "pansemitic_form": "nafil",
+    "loss": {
+      "arabic": 0.06,
+      "hebrew": 0.0,
+      "joint": 0.06
+    }
+  },
+  {
+    "arabic": {
       "canonical": "نَفْس",
       "roman": "nafs",
       "glosses": [
@@ -53017,7 +53058,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "ar:نقانق": [
+      "ar:نَقَانِق": [
         0,
         0
       ],
@@ -53857,11 +53898,11 @@
         0,
         0
       ],
-      "ine-pro:*nébʰos": [
+      "itc-pro:*neptūnos": [
         1,
         1
       ],
-      "itc-pro:*neptūnos": [
+      "ine-pro:*nébʰos": [
         1,
         1
       ]
@@ -54188,7 +54229,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:הגר": [
+      "he:הָגָר": [
         0,
         0
       ]
@@ -54200,7 +54241,7 @@
       "hebrew_pos": "name",
       "similarity": 0.921
     },
-    "ancestor": "he:haːgaːr",
+    "ancestor": "he:hagar",
     "pansemitic_form": "hagar",
     "loss": {
       "arabic": 0.16999999999999998,
@@ -54720,11 +54761,11 @@
         1,
         0
       ],
-      "sa:सिन्धु॑": [
+      "inc-pro:*síndʰuṣ": [
         1,
         1
       ],
-      "inc-pro:*síndʰuṣ": [
+      "sa:सिन्धु॑": [
         1,
         1
       ]
@@ -55595,6 +55636,50 @@
   },
   {
     "arabic": {
+      "canonical": "وَٱللّٰهِ",
+      "roman": "wal-lāhi",
+      "glosses": [
+        "by God!",
+        "really?, really!"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%88%D8%A7%D9%84%D9%84%D9%87#Arabic",
+      "ipa": "wa‿lˤlˤaːhi"
+    },
+    "hebrew": {
+      "canonical": "וַאלְלַהּ",
+      "roman": "wálla",
+      "glosses": [
+        "Wow!, really?, you don't say!, no kidding!"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%95%D7%90%D7%9C%D7%9C%D7%94#Hebrew",
+      "ipa": "walːa"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:وَٱللّٰهِ": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "really?, really!",
+      "arabic_pos": "intj",
+      "hebrew_sense": "Wow!, really?, you don't say!, no kidding!",
+      "hebrew_pos": "intj",
+      "similarity": 0.9341
+    },
+    "ancestor": "ar:wa‿lˤlˤaːhi",
+    "pansemitic_form": "wa‿lahi",
+    "loss": {
+      "arabic": 0.32857142857142857,
+      "hebrew": 0.2916666666666667,
+      "joint": 0.6202380952380953
+    }
+  },
+  {
+    "arabic": {
       "canonical": "وِلَادَة",
       "roman": "wilāda",
       "glosses": [
@@ -55937,6 +56022,53 @@
   },
   {
     "arabic": {
+      "canonical": "يَاٱللَّٰه",
+      "roman": "yāllāh",
+      "glosses": [
+        "come on, c’mon",
+        "let’s go, hurry up",
+        "word accompanying bye-bye, bye"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D9%8A%D8%A7%D8%A7%D9%84%D9%84%D9%87#Arabic",
+      "ipa": "ja‿lˤlˤaːh"
+    },
+    "hebrew": {
+      "canonical": "יַאלְלָה",
+      "roman": "yálla",
+      "glosses": [
+        "come on, c’mon",
+        "let’s go, hurry up",
+        "okay, let's do it"
+      ],
+      "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%90%D7%9C%D7%9C%D7%94#Hebrew",
+      "ipa": "jalːa"
+    },
+    "match_layers": [
+      "shared_borrowing_source"
+    ],
+    "shared_borrowing_sources": {
+      "ar:يَاٱللَّٰه": [
+        0,
+        0
+      ]
+    },
+    "best_sense_match": {
+      "arabic_sense": "come on, c’mon",
+      "arabic_pos": "intj",
+      "hebrew_sense": "come on, c’mon",
+      "hebrew_pos": "intj",
+      "similarity": 1.0056
+    },
+    "ancestor": "ar:ja‿lˤlˤaːh",
+    "pansemitic_form": "ya‿lah",
+    "loss": {
+      "arabic": 0.3833333333333333,
+      "hebrew": 0.21000000000000002,
+      "joint": 0.5933333333333333
+    }
+  },
+  {
+    "arabic": {
       "canonical": "يَخْت",
       "roman": "yaḵt",
       "glosses": [
@@ -55966,11 +56098,11 @@
         0,
         1
       ],
-      "odt:*jagot": [
+      "dum:jacht": [
         1,
         1
       ],
-      "dum:jacht": [
+      "odt:*jagot": [
         1,
         1
       ]
@@ -56428,7 +56560,7 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:יהודה": [
+      "he:יְהוּדָה": [
         0,
         0
       ]
@@ -56814,12 +56946,8 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "he:יונה": [
-        0,
-        0
-      ],
       "he:יוֹנָה": [
-        1,
+        0,
         0
       ],
       "sem-pro:*šawmān-": [
