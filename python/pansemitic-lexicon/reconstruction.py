@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 from numpy import isin
 
-from kaikki import _geminate
+from kaikki import IpaRealization, _geminate
 from loss import Consonant, Phoneme, Vowel, VOWELS, IPA_MODIFIERS, IPA_CONSONANT_DIGRAPHS, trace_cost
 
 if TYPE_CHECKING:
@@ -201,6 +201,9 @@ class Word:
         # many languages represent an unknown vowel with capital V in even IPA.
         # We replace it with a concrete guessed vowel
         ipa = ipa.replace("V", "a")
+
+        # eliminate parens
+        ipa = ipa.replace("(", "").replace(")", "")
 
         ipa = _strip_combining(ipa).strip()
 
@@ -1248,6 +1251,29 @@ class PansemiticWord(Word):
 
         return cls.from_ipa(form)
 
+def get_dialect(pronounciations: list[IpaRealization], ordered_tags: list[str]) -> str | None:
+    """
+    Get the preferred dialect pronounciation with fallbacks
+    """
+    for tag in ordered_tags:
+        for pronounciation in pronounciations:
+            if tag in pronounciation.tags or tag == "*":
+                return pronounciation.ipa
+    return None
+
+
+# Per-language dialect preference, applied to IpaRealization.tags.  The "*"
+# sentinel in get_dialect accepts any remaining realization as a last resort.
+_DIALECT_PREFERENCES: dict[str, list[str]] = {
+    "he": ["Biblical-Hebrew", "Modern-Israeli-Hebrew", "*"],
+    "en": ["General-American", "Received-Pronunciation", "*"],
+}
+
+
+def _pick_ipa(src: SharedSource) -> str | None:
+    prefs = _DIALECT_PREFERENCES.get(src.lang, ["*"])
+    return get_dialect(src.pronunciations, prefs)
+
 
 def word_from_sharedsource(src: SharedSource) -> Word:
     """Build the language-appropriate Word for a shared etymology source.
@@ -1256,92 +1282,93 @@ def word_from_sharedsource(src: SharedSource) -> Word:
     and finally to script-specific decoders.  GenericWord catches everything
     that has no dedicated subclass but does carry IPA or romanization.
     """
+    ipa = _pick_ipa(src)
     match src.lang:
         case "ar":
-            if src.ipa:
-                return ArabicWord.from_ipa(src.ipa)
+            if ipa:
+                return ArabicWord.from_ipa(ipa)
             if src.romanization:
                 return ArabicWord.from_romanization(src.romanization)
             raise MissingRomanizationError("arabic")
         case "he":
-            if src.ipa:
-                return HebrewWord.from_ipa(src.ipa)
+            if ipa:
+                return HebrewWord.from_ipa(ipa)
             if src.romanization:
                 return HebrewWord.from_romanization(src.romanization)
             raise MissingRomanizationError("hebrew")
         case "akk":
-            if src.ipa:
-                return AkkadianWord.from_ipa(src.ipa)
+            if ipa:
+                return AkkadianWord.from_ipa(ipa)
             if src.romanization:
                 return AkkadianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("akkadian")
         case "sux":
-            if src.ipa:
-                return SumerianWord.from_ipa(src.ipa)
+            if ipa:
+                return SumerianWord.from_ipa(ipa)
             if src.romanization:
                 return SumerianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("sumerian")
         case "sem-pro" |  "qfa-hur-pro":
-            if src.ipa:
-                return SemProWord.from_ipa(src.ipa)
+            if ipa:
+                return SemProWord.from_ipa(ipa)
             return SemProWord.from_romanization(src.word)
         case "sem-wes-pro":
-            if src.ipa:
-                return SemWesProWord.from_ipa(src.ipa)
+            if ipa:
+                return SemWesProWord.from_ipa(ipa)
             return SemWesProWord.from_romanization(src.word)
         case "afa-pro":
-            if src.ipa:
-                return AfrasianWord.from_ipa(src.ipa)
+            if ipa:
+                return AfrasianWord.from_ipa(ipa)
             return AfrasianWord.from_romanization(src.word)
         case "grc":
-            if src.ipa:
-                return GreekWord.from_ipa(src.ipa)
+            if ipa:
+                return GreekWord.from_ipa(ipa)
             return GreekWord.from_greek(src.word)
         case "arc":
-            if src.ipa:
-                return AramaicWord.from_ipa(src.ipa)
+            if ipa:
+                return AramaicWord.from_ipa(ipa)
             return AramaicWord.from_aramaic(src.word)
         case "egy":
-            if src.ipa:
-                return EgyptianWord.from_ipa(src.ipa)
+            if ipa:
+                return EgyptianWord.from_ipa(ipa)
             if src.romanization:
                 return EgyptianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("egyptian")
         case "ine-pro":
-            if src.ipa:
-                return PieWord.from_ipa(src.ipa)
+            if ipa:
+                return PieWord.from_ipa(ipa)
             if src.romanization:
                 return PieWord.from_romanization(src.romanization)
             raise MissingRomanizationError("proto-indo-european")
         case "itc-pro":
-            if src.ipa:
-                return ProtoItalicWord.from_ipa(src.ipa)
+            if ipa:
+                return ProtoItalicWord.from_ipa(ipa)
             return ProtoItalicWord.from_romanization(src.word)
         case "gem-pro":
-            if src.ipa:
-                return ProtoGermanicWord.from_ipa(src.ipa)
+            if ipa:
+                return ProtoGermanicWord.from_ipa(ipa)
             return ProtoGermanicWord.from_romanization(src.word)
         case "ira-pro" | "xme-old":
-            if src.ipa:
-                return IranianWord.from_ipa(src.ipa)
+            if ipa:
+                return IranianWord.from_ipa(ipa)
             if src.romanization:
                 return IranianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("proto-iranian")
         case "dra-sou-pro":
-            if src.ipa:
-                return ProtoSouthDravidianWord.from_ipa(src.ipa)
+            if ipa:
+                return ProtoSouthDravidianWord.from_ipa(ipa)
             return ProtoSouthDravidianWord.from_romanization(src.word)
         case "peo" | "pal" | "fa-cls" | "fa":
-            if src.ipa:
-                return OldPersianWord.from_ipa(src.ipa)
+            if ipa:
+                return OldPersianWord.from_ipa(ipa)
             if src.romanization:
                 return OldPersianWord.from_romanization(src.romanization)
             raise MissingRomanizationError("old-persian")
         case "ru" | "orv" | "sla-pro":
             return CyrillicWord.from_cyrillic(src.word)
         case _:
-            if src.ipa:
-                return GenericWord.from_ipa(src.ipa, lang=src.lang)
+            if ipa:
+                return GenericWord.from_ipa(ipa, lang=src.lang)
             print(src.lang, src.word)
             raise UnsupportedLanguageError(src.lang)
 

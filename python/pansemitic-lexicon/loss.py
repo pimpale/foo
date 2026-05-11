@@ -168,6 +168,7 @@ _VOWEL_FEATURES: dict[str, VowelFeatures] = {
     "æ": VowelFeatures(height=0.83, backness=0.00, rounded=0, long=0),
     # "a" is treated as central-open (≈ ä) — Semitic /a/ is typically central.
     "a": VowelFeatures(height=1.00, backness=0.50, rounded=0, long=0),
+    "ɑ": VowelFeatures(height=1.00, backness=1.00, rounded=0, long=0),
     "ɒ": VowelFeatures(height=1.00, backness=1.00, rounded=1, long=0),
 }
 

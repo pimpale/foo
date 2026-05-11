@@ -650,7 +650,7 @@
         "oh, alas, ah"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%94%D7%94#Hebrew",
-      "ipa": "ʔaha"
+      "ipa": "ʔahaːh"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -823,7 +823,7 @@
         "father (a male parent, especially of a human; a male who parents a child (which he has sired, adopted, fostered, taken as his own, etc.))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%91%D7%90#Hebrew",
-      "ipa": "ʔabːɔː"
+      "ipa": "ʔaba"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -845,8 +845,8 @@
     "pansemitic_form": "ʔabw",
     "loss": {
       "arabic": 0.375,
-      "hebrew": 0.625,
-      "joint": 1.0
+      "hebrew": 0.55,
+      "joint": 0.925
     }
   },
   {
@@ -1000,7 +1000,7 @@
         "father (a male parent, especially of a human; a male who parents a child (which he has sired, adopted, fostered, taken as his own, etc.))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%91%D7%90#Hebrew",
-      "ipa": "ʔabːɔː"
+      "ipa": "ʔaba"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -1026,8 +1026,8 @@
     "pansemitic_form": "ʔabaʔ",
     "loss": {
       "arabic": 0.6900000000000001,
-      "hebrew": 0.3614,
-      "joint": 1.0514000000000001
+      "hebrew": 0.15,
+      "joint": 0.8400000000000001
     }
   },
   {
@@ -1096,7 +1096,7 @@
         "to struggle"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%90%D7%91%D7%A7#Hebrew",
-      "ipa": "ne(ʔ)evak"
+      "ipa": "neʔevak"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -1602,11 +1602,11 @@
         0,
         0
       ],
-      "ett:𐌖𐌓𐌐𐌀": [
+      "grc:Ἀφροδίτη": [
         1,
         1
       ],
-      "grc:Ἀφροδίτη": [
+      "ett:𐌖𐌓𐌐𐌀": [
         1,
         1
       ],
@@ -1828,7 +1828,7 @@
         "That, which, who, whom; a relative pronoun, used to introduce a relative clause."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A9%D7%A8#Hebrew",
-      "ipa": "ʔaʃɛr"
+      "ipa": "ʔaʃeʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -1845,8 +1845,8 @@
     "pansemitic_form": "ʔasar",
     "loss": {
       "arabic": 0.03,
-      "hebrew": 0.0914,
-      "joint": 0.1214
+      "hebrew": 0.1786,
+      "joint": 0.2086
     }
   },
   {
@@ -2597,7 +2597,7 @@
         "to resemble"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%96%D7%9B%D7%99%D7%A8#Hebrew",
-      "ipa": "(h)izkiʁ"
+      "ipa": "hizkiʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -2635,7 +2635,7 @@
         "a male given name"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A8%D7%9D#Hebrew",
-      "ipa": "(ʔ)aʁam"
+      "ipa": "ʔaʁam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -2672,7 +2672,7 @@
         "show"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A8%D7%90%D7%94#Hebrew",
-      "ipa": "(h)eʁ(ʔ)a"
+      "ipa": "heʁʔa"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -3202,7 +3202,7 @@
         "A female rabbit (a mammal of most genera of the family Leporidae, with long ears, long hind legs and a short, fluffy tail); a doe."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A8%D7%A0%D7%91%D7%AA#Hebrew",
-      "ipa": "ʔarnɛːvɛθ"
+      "ipa": "ʔaʁnevet"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -3225,8 +3225,8 @@
     "pansemitic_form": "ʔarnab",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.400875,
-      "joint": 0.400875
+      "hebrew": 0.417875,
+      "joint": 0.417875
     }
   },
   {
@@ -3584,7 +3584,7 @@
         "to give drink to, to water"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A9%D7%A7%D7%94#Hebrew",
-      "ipa": "(h)iʃka"
+      "ipa": "hiʃka"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -3624,7 +3624,7 @@
         "to store, to stockpile, to hoard"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A6%D7%A8#Hebrew",
-      "ipa": "ʔat͡saʁ"
+      "ipa": "ʔaːsˤar"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -3640,8 +3640,8 @@
     "pansemitic_form": "ʔaṣara",
     "loss": {
       "arabic": 0.049999999999999996,
-      "hebrew": 0.3,
-      "joint": 0.35
+      "hebrew": 0.16666666666666666,
+      "joint": 0.21666666666666665
     }
   },
   {
@@ -3943,7 +3943,7 @@
         "to twist, to distort"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%95%D7%94#Hebrew",
-      "ipa": "(ʔ)iva"
+      "ipa": "ʔiva"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -3982,7 +3982,7 @@
         "viper, adder"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A4%D7%A2%D7%94#Hebrew",
-      "ipa": "ʔef(ʔ)e"
+      "ipa": "ʔepʰʕeː"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -4005,8 +4005,8 @@
     "pansemitic_form": "ʔapʕaw",
     "loss": {
       "arabic": 0.2333333333333333,
-      "hebrew": 0.631,
-      "joint": 0.8643333333333333
+      "hebrew": 0.4809999999999999,
+      "joint": 0.7143333333333333
     }
   },
   {
@@ -4639,11 +4639,11 @@
         0,
         0
       ],
-      "ru:Аля́ска": [
+      "ale:alaxsxaq": [
         1,
         1
       ],
-      "ale:alaxsxaq": [
+      "ru:Аля́ска": [
         1,
         1
       ]
@@ -4772,7 +4772,7 @@
         "a god"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%94#Hebrew",
-      "ipa": "ʔeloah"
+      "ipa": "ʔiloːh"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -4794,8 +4794,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.5041666666666667,
-      "hebrew": 0.38033333333333336,
-      "joint": 0.8845000000000001
+      "hebrew": 0.29,
+      "joint": 0.7941666666666667
     }
   },
   {
@@ -4865,7 +4865,7 @@
         "to, towards, into"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C#Hebrew",
-      "ipa": "ʔɛl"
+      "ipa": "ʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -4887,8 +4887,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.5041666666666667,
-      "hebrew": 0.08933333333333333,
-      "joint": 0.5935
+      "hebrew": 0.044000000000000004,
+      "joint": 0.5481666666666667
     }
   },
   {
@@ -5306,7 +5306,7 @@
         "to kill, put to death"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9E%D7%99%D7%AA#Hebrew",
-      "ipa": "(h)emit"
+      "ipa": "hemit"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -6006,7 +6006,7 @@
       "hebrew_pos": "noun",
       "similarity": 0.7989
     },
-    "ancestor": "sa:ɑːmɾɐ",
+    "ancestor": "sa:ʔɑːmɾɐ",
     "pansemitic_form": "ʔamra",
     "loss": {
       "arabic": 0.45,
@@ -6118,7 +6118,7 @@
         "You, y'all, you guys: the second-person masculine plural subject pronoun."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%AA%D7%9D#Hebrew",
-      "ipa": "ʔatʰtʰim(maː)"
+      "ipa": "ʔatʰtʰimmaː"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -6162,7 +6162,7 @@
         "Form of את (et) including third-person masculine plural personal pronoun as object, defective spelling: them (as a direct object)."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%AA%D7%9D#Hebrew",
-      "ipa": "ʔatʰtʰim(maː)"
+      "ipa": "ʔatʰtʰimmaː"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -6206,7 +6206,7 @@
         "You, y'all, you guys: the second-person feminine plural subject pronoun."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%AA%D7%9F#Hebrew",
-      "ipa": "ʔatʰtʰin(n)"
+      "ipa": "ʔatʰtʰinn"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -6891,7 +6891,7 @@
         "to execute by hanging"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%95%D7%A7%D7%99%D7%A2#Hebrew",
-      "ipa": "(h)okia"
+      "ipa": "hokia"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -8308,7 +8308,7 @@
         "Defective spelling of אילוף (“domestication, taming”)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%A3#Hebrew",
-      "ipa": "(ʔ)aluf"
+      "ipa": "ʔaluf"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -8347,7 +8347,7 @@
         "major general"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%A3#Hebrew",
-      "ipa": "(ʔ)aluf"
+      "ipa": "ʔaluf"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -8473,7 +8473,7 @@
         "mother, feminine originator or codifier (as in \"the mother of all battles\")"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9D#Hebrew",
-      "ipa": "ʔeːm"
+      "ipa": "ʔem"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -8496,8 +8496,8 @@
     "pansemitic_form": "ʔim",
     "loss": {
       "arabic": 0.26666666666666666,
-      "hebrew": 0.144,
-      "joint": 0.4106666666666666
+      "hebrew": 0.044000000000000004,
+      "joint": 0.31066666666666665
     }
   },
   {
@@ -8613,7 +8613,7 @@
         "reed, flute"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%91%D7%95%D7%91#Hebrew",
-      "ipa": "(ʔ)abuv"
+      "ipa": "ʔabuv"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -8897,11 +8897,11 @@
         0,
         0
       ],
-      "grc:ὀρχήστρα": [
+      "la:orchēstra": [
         1,
         1
       ],
-      "la:orchēstra": [
+      "grc:ὀρχήστρα": [
         1,
         1
       ]
@@ -8913,12 +8913,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.6533
     },
-    "ancestor": "en:ʔɔːkɪstɹə",
-    "pansemitic_form": "ʔakistra",
+    "ancestor": "en:ʔoɹkɪstɹə",
+    "pansemitic_form": "ʔarkistra",
     "loss": {
-      "arabic": 0.28055555555555556,
-      "hebrew": 0.903125,
-      "joint": 1.1836805555555556
+      "arabic": 0.11388888888888887,
+      "hebrew": 0.6952222222222222,
+      "joint": 0.8091111111111111
     }
   },
   {
@@ -9004,23 +9004,7 @@
         1,
         1
       ],
-      "la:lynx": [
-        1,
-        2
-      ],
       "fro:lonce": [
-        1,
-        2
-      ],
-      "grc:ὀγκία": [
-        1,
-        2
-      ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "frm:once": [
         1,
         2
       ],
@@ -9028,15 +9012,31 @@
         1,
         2
       ],
+      "frm:once": [
+        1,
+        2
+      ],
       "grc:λύγξ": [
         1,
         2
       ],
-      "fro:longe": [
+      "grc:ὀγκία": [
+        1,
+        2
+      ],
+      "la:lynx": [
+        1,
+        2
+      ],
+      "la-vul:*luncea": [
+        1,
+        2
+      ],
+      "ine-pro:*lewǵ-": [
         2,
         3
       ],
-      "ine-pro:*lewǵ-": [
+      "fro:longe": [
         2,
         3
       ],
@@ -9128,23 +9128,7 @@
         1,
         1
       ],
-      "la:lynx": [
-        1,
-        2
-      ],
       "fro:lonce": [
-        1,
-        2
-      ],
-      "grc:ὀγκία": [
-        1,
-        2
-      ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "frm:once": [
         1,
         2
       ],
@@ -9152,15 +9136,31 @@
         1,
         2
       ],
+      "frm:once": [
+        1,
+        2
+      ],
       "grc:λύγξ": [
         1,
         2
       ],
-      "fro:longe": [
+      "grc:ὀγκία": [
+        1,
+        2
+      ],
+      "la:lynx": [
+        1,
+        2
+      ],
+      "la-vul:*luncea": [
+        1,
+        2
+      ],
+      "ine-pro:*lewǵ-": [
         2,
         3
       ],
-      "ine-pro:*lewǵ-": [
+      "fro:longe": [
         2,
         3
       ],
@@ -9215,23 +9215,7 @@
         1,
         1
       ],
-      "la:lynx": [
-        1,
-        2
-      ],
       "fro:lonce": [
-        1,
-        2
-      ],
-      "grc:ὀγκία": [
-        1,
-        2
-      ],
-      "la-vul:*luncea": [
-        1,
-        2
-      ],
-      "frm:once": [
         1,
         2
       ],
@@ -9239,15 +9223,31 @@
         1,
         2
       ],
+      "frm:once": [
+        1,
+        2
+      ],
       "grc:λύγξ": [
         1,
         2
       ],
-      "fro:longe": [
+      "grc:ὀγκία": [
+        1,
+        2
+      ],
+      "la:lynx": [
+        1,
+        2
+      ],
+      "la-vul:*luncea": [
+        1,
+        2
+      ],
+      "ine-pro:*lewǵ-": [
         2,
         3
       ],
-      "ine-pro:*lewǵ-": [
+      "fro:longe": [
         2,
         3
       ],
@@ -9294,7 +9294,7 @@
         "to shine, be illuminated"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%95%D7%A8#Hebrew",
-      "ipa": "(ʔ)oʁ"
+      "ipa": "ʔoʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -9376,7 +9376,7 @@
         "buckle (of a belt)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%91%D7%96%D7%9D#Hebrew",
-      "ipa": "(ʔ)avzam"
+      "ipa": "ʔavzam"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -9507,7 +9507,7 @@
         "pear (an edible fruit produced by the pear tree, similar to an apple but typically elongated towards the stem)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%92%D7%A1#Hebrew",
-      "ipa": "(ʔ)aɡas"
+      "ipa": "ʔaɡas"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -9636,7 +9636,7 @@
         "locust"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A8%D7%91%D7%94#Hebrew",
-      "ipa": "ʔarbɛ"
+      "ipa": "ʔaʁbe"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -9658,8 +9658,8 @@
     "pansemitic_form": "ʔirbay",
     "loss": {
       "arabic": 0.346875,
-      "hebrew": 0.39699999999999996,
-      "joint": 0.743875
+      "hebrew": 0.4696666666666667,
+      "joint": 0.8165416666666667
     }
   },
   {
@@ -9764,7 +9764,7 @@
         "knife, scalpel."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%96%D7%9E%D7%9C#Hebrew",
-      "ipa": "(ʔ)izmel"
+      "ipa": "ʔizmel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -10258,7 +10258,7 @@
         "the Muslim world, the Muslims"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A9%D7%9E%D7%A2%D7%90%D7%9C#Hebrew",
-      "ipa": "(j)iʃma(ʔ)el"
+      "ipa": "jiʃmaʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -10276,8 +10276,8 @@
       "hebrew_pos": "name",
       "similarity": 0.9783
     },
-    "ancestor": "he:(j)iʃma(ʔ)el",
-    "pansemitic_form": "(y)išma(ʔ)il",
+    "ancestor": "he:jiʃmaʔel",
+    "pansemitic_form": "yišmaʔil",
     "loss": {
       "arabic": 0.425,
       "hebrew": 0.0165,
@@ -10305,7 +10305,7 @@
         "forefinger (the index finger: the first finger next to the thumb)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "ʔɛsˤbaʕ"
+      "ipa": "ʔet͡sba"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -10327,8 +10327,8 @@
     "pansemitic_form": "ʔiṣbaʕ",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.04466666666666667,
-      "joint": 0.04466666666666667
+      "hebrew": 0.4053333333333333,
+      "joint": 0.4053333333333333
     }
   },
   {
@@ -10671,7 +10671,7 @@
         "to, towards, into"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C#Hebrew",
-      "ipa": "ʔɛl"
+      "ipa": "ʔel"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -10694,8 +10694,8 @@
     "pansemitic_form": "ʔila",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.242,
-      "joint": 0.317
+      "hebrew": 0.208,
+      "joint": 0.283
     }
   },
   {
@@ -10759,7 +10759,7 @@
         "a god"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%94#Hebrew",
-      "ipa": "ʔeloah"
+      "ipa": "ʔiloːh"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -10781,8 +10781,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.09999999999999999,
-      "hebrew": 0.38033333333333336,
-      "joint": 0.48033333333333333
+      "hebrew": 0.29,
+      "joint": 0.38999999999999996
     }
   },
   {
@@ -10863,7 +10863,7 @@
         "to, towards, into"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C#Hebrew",
-      "ipa": "ʔɛl"
+      "ipa": "ʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -10885,8 +10885,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.09999999999999999,
-      "hebrew": 0.08933333333333333,
-      "joint": 0.18933333333333333
+      "hebrew": 0.044000000000000004,
+      "joint": 0.144
     }
   },
   {
@@ -10907,7 +10907,7 @@
         "a god"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%94#Hebrew",
-      "ipa": "ʔeloah"
+      "ipa": "ʔiloːh"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -10930,8 +10930,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.29,
-      "hebrew": 0.38033333333333336,
-      "joint": 0.6703333333333333
+      "hebrew": 0.29,
+      "joint": 0.58
     }
   },
   {
@@ -10999,7 +10999,7 @@
         "to, towards, into"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C#Hebrew",
-      "ipa": "ʔɛl"
+      "ipa": "ʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -11021,8 +11021,8 @@
     "pansemitic_form": "ʔil",
     "loss": {
       "arabic": 0.29,
-      "hebrew": 0.08933333333333333,
-      "joint": 0.3793333333333333
+      "hebrew": 0.044000000000000004,
+      "joint": 0.33399999999999996
     }
   },
   {
@@ -11133,7 +11133,7 @@
         "mother, feminine originator or codifier (as in \"the mother of all battles\")"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9D#Hebrew",
-      "ipa": "ʔeːm"
+      "ipa": "ʔem"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -11155,8 +11155,8 @@
     "pansemitic_form": "šim",
     "loss": {
       "arabic": 0.4166666666666667,
-      "hebrew": 0.4606666666666667,
-      "joint": 0.8773333333333334
+      "hebrew": 0.3606666666666667,
+      "joint": 0.7773333333333334
     }
   },
   {
@@ -11260,7 +11260,7 @@
         "With incorporated personal pronoun, preceding the predicate."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%99%D7%9F#Hebrew",
-      "ipa": "(ʔ)en"
+      "ipa": "ʔen"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -11299,7 +11299,7 @@
         "nothingness"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%99%D7%9F#Hebrew",
-      "ipa": "(ʔ)en"
+      "ipa": "ʔen"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -11735,7 +11735,7 @@
         "week (Mishnaic Hebrew)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%AA#Hebrew",
-      "ipa": "ʃabɔs"
+      "ipa": "ʃabat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -11757,12 +11757,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9167
     },
-    "ancestor": "he:ʃabɔs",
-    "pansemitic_form": "šabas",
+    "ancestor": "he:ʃabat",
+    "pansemitic_form": "šabat",
     "loss": {
-      "arabic": 0.5,
-      "hebrew": 0.0914,
-      "joint": 0.5914
+      "arabic": 0.43333333333333335,
+      "hebrew": 0.0,
+      "joint": 0.43333333333333335
     }
   },
   {
@@ -11785,7 +11785,7 @@
         "to stop working, to rest"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%AA#Hebrew",
-      "ipa": "ʃabɔs"
+      "ipa": "ʃabat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -11807,8 +11807,8 @@
     "pansemitic_form": "šapatum",
     "loss": {
       "arabic": 0.6928571428571428,
-      "hebrew": 0.5081428571428571,
-      "joint": 1.201
+      "hebrew": 0.38571428571428573,
+      "joint": 1.0785714285714285
     }
   },
   {
@@ -11984,7 +11984,7 @@
         "God"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D8%A7%D9%84%D9%84%D9%87#Arabic",
-      "ipa": "ʔaɫːaː(h)"
+      "ipa": "ʔaɫːaːh"
     },
     "hebrew": {
       "canonical": "אֱלוֹהַּ",
@@ -11994,7 +11994,7 @@
         "a god"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%95%D7%94#Hebrew",
-      "ipa": "ʔeloah"
+      "ipa": "ʔiloːh"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -12010,8 +12010,8 @@
     "pansemitic_form": "ʔalah",
     "loss": {
       "arabic": 0.22000000000000003,
-      "hebrew": 0.19049999999999997,
-      "joint": 0.4105
+      "hebrew": 0.29359999999999997,
+      "joint": 0.5136000000000001
     }
   },
   {
@@ -12022,7 +12022,7 @@
         "God"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D8%A7%D9%84%D9%84%D9%87#Arabic",
-      "ipa": "ʔaɫːaː(h)"
+      "ipa": "ʔaɫːaːh"
     },
     "hebrew": {
       "canonical": "אֲללַּהּ",
@@ -12053,8 +12053,8 @@
       "hebrew_pos": "name",
       "similarity": 0.9441
     },
-    "ancestor": "ar:ʔaɫːaː(h)",
-    "pansemitic_form": "ʔala(h)",
+    "ancestor": "ar:ʔaɫːaːh",
+    "pansemitic_form": "ʔalah",
     "loss": {
       "arabic": 0.22000000000000003,
       "hebrew": 0.06,
@@ -12069,7 +12069,7 @@
         "God"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D8%A7%D9%84%D9%84%D9%87#Arabic",
-      "ipa": "ʔaɫːaː(h)"
+      "ipa": "ʔaɫːaːh"
     },
     "hebrew": {
       "canonical": "א־ל",
@@ -12653,7 +12653,7 @@
         "defective spelling of קוראן"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A7%D7%95%D7%A8%D7%90%D7%9F#Hebrew",
-      "ipa": "kuʁ(ʔ)an"
+      "ipa": "kuʁʔan"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -12706,11 +12706,11 @@
         0,
         0
       ],
-      "la:Cimmerium": [
+      "grc:κρημνοί": [
         1,
         1
       ],
-      "grc:κρημνοί": [
+      "la:Cimmerium": [
         1,
         1
       ]
@@ -12910,19 +12910,19 @@
         0,
         0
       ],
-      "nan-hbl:日本": [
-        0,
-        0
-      ],
       "ms:Jepang": [
         0,
         0
       ],
-      "nan-hbl:日本//Ji̍t-pún": [
+      "nan-hbl:日本": [
+        0,
+        0
+      ],
+      "ltc:日本": [
         1,
         1
       ],
-      "ltc:日本": [
+      "nan-hbl:日本//Ji̍t-pún": [
         1,
         1
       ]
@@ -14291,7 +14291,7 @@
         "to take revenge, to avenge"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%A7%D7%9D#Hebrew",
-      "ipa": "nakam"
+      "ipa": "naːkam"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -14307,8 +14307,8 @@
     "pansemitic_form": "ʔintaqama",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.4166666666666667,
-      "joint": 0.4166666666666667
+      "hebrew": 0.44999999999999996,
+      "joint": 0.44999999999999996
     }
   },
   {
@@ -14473,19 +14473,19 @@
         0,
         0
       ],
-      "la:pistus": [
-        1,
-        1
-      ],
       "la:pīnsō": [
         1,
         1
       ],
-      "ine-pro:*peys-": [
+      "la:pistus": [
+        1,
+        1
+      ],
+      "itc-pro:*pinsō": [
         2,
         2
       ],
-      "itc-pro:*pinsō": [
+      "ine-pro:*peys-": [
         2,
         2
       ]
@@ -14704,7 +14704,7 @@
         "to be given up"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%91%D7%93#Hebrew",
-      "ipa": "(ʔ)avad"
+      "ipa": "ʔavad"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -14751,11 +14751,23 @@
         0,
         1
       ],
+      "enm:barre": [
+        1,
+        2
+      ],
       "fro:barre": [
         1,
         2
       ],
-      "enm:barre": [
+      "fro:barrer": [
+        1,
+        2
+      ],
+      "la-med:barrare": [
+        1,
+        2
+      ],
+      "enm:barren": [
         1,
         2
       ],
@@ -14764,18 +14776,6 @@
         2
       ],
       "la-vul:*barra": [
-        1,
-        2
-      ],
-      "enm:barren": [
-        1,
-        2
-      ],
-      "la-med:barrare": [
-        1,
-        2
-      ],
-      "fro:barrer": [
         1,
         2
       ]
@@ -14787,12 +14787,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.7168
     },
-    "ancestor": "en:bɑː",
-    "pansemitic_form": "ba",
+    "ancestor": "en:bɑɹ",
+    "pansemitic_form": "bar",
     "loss": {
-      "arabic": 0.6,
-      "hebrew": 0.6786,
-      "joint": 1.2786
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.37859999999999994,
+      "joint": 0.4785999999999999
     }
   },
   {
@@ -14823,11 +14823,23 @@
         0,
         1
       ],
+      "enm:barre": [
+        1,
+        2
+      ],
       "fro:barre": [
         1,
         2
       ],
-      "enm:barre": [
+      "fro:barrer": [
+        1,
+        2
+      ],
+      "la-med:barrare": [
+        1,
+        2
+      ],
+      "enm:barren": [
         1,
         2
       ],
@@ -14836,18 +14848,6 @@
         2
       ],
       "la-vul:*barra": [
-        1,
-        2
-      ],
-      "enm:barren": [
-        1,
-        2
-      ],
-      "la-med:barrare": [
-        1,
-        2
-      ],
-      "fro:barrer": [
         1,
         2
       ]
@@ -14859,12 +14859,12 @@
       "hebrew_pos": "verb",
       "similarity": 0.6896
     },
-    "ancestor": "en:bɑː",
-    "pansemitic_form": "ba",
+    "ancestor": "en:bɑɹ",
+    "pansemitic_form": "bar",
     "loss": {
-      "arabic": 0.6,
-      "hebrew": 0.6786,
-      "joint": 1.2786
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.37859999999999994,
+      "joint": 0.4785999999999999
     }
   },
   {
@@ -14903,19 +14903,15 @@
         1,
         0
       ],
-      "fro:barre": [
-        1,
-        1
-      ],
       "enm:barre": [
         1,
         1
       ],
-      "la-vul:*barra": [
+      "fro:barre": [
         1,
         1
       ],
-      "enm:barren": [
+      "fro:barrer": [
         1,
         1
       ],
@@ -14923,7 +14919,11 @@
         1,
         1
       ],
-      "fro:barrer": [
+      "enm:barren": [
+        1,
+        1
+      ],
+      "la-vul:*barra": [
         1,
         1
       ]
@@ -14935,12 +14935,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.7806
     },
-    "ancestor": "en:bɑː",
-    "pansemitic_form": "ba",
+    "ancestor": "en:bɑɹ",
+    "pansemitic_form": "bar",
     "loss": {
-      "arabic": 0.6,
-      "hebrew": 0.5,
-      "joint": 1.1
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.09999999999999999,
+      "joint": 0.19999999999999998
     }
   },
   {
@@ -14970,11 +14970,23 @@
         0,
         0
       ],
+      "enm:barre": [
+        1,
+        1
+      ],
       "fro:barre": [
         1,
         1
       ],
-      "enm:barre": [
+      "fro:barrer": [
+        1,
+        1
+      ],
+      "la-med:barrare": [
+        1,
+        1
+      ],
+      "enm:barren": [
         1,
         1
       ],
@@ -14983,18 +14995,6 @@
         1
       ],
       "la-vul:*barra": [
-        1,
-        1
-      ],
-      "enm:barren": [
-        1,
-        1
-      ],
-      "la-med:barrare": [
-        1,
-        1
-      ],
-      "fro:barrer": [
         1,
         1
       ]
@@ -15006,12 +15006,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9532
     },
-    "ancestor": "en:bɑː",
-    "pansemitic_form": "ba",
+    "ancestor": "en:bɑɹ",
+    "pansemitic_form": "bar",
     "loss": {
-      "arabic": 0.6,
-      "hebrew": 0.5,
-      "joint": 1.1
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.0,
+      "joint": 0.09999999999999999
     }
   },
   {
@@ -15042,11 +15042,23 @@
         0,
         0
       ],
+      "enm:barre": [
+        1,
+        1
+      ],
       "fro:barre": [
         1,
         1
       ],
-      "enm:barre": [
+      "fro:barrer": [
+        1,
+        1
+      ],
+      "la-med:barrare": [
+        1,
+        1
+      ],
+      "enm:barren": [
         1,
         1
       ],
@@ -15055,18 +15067,6 @@
         1
       ],
       "la-vul:*barra": [
-        1,
-        1
-      ],
-      "enm:barren": [
-        1,
-        1
-      ],
-      "la-med:barrare": [
-        1,
-        1
-      ],
-      "fro:barrer": [
         1,
         1
       ]
@@ -15078,12 +15078,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9091
     },
-    "ancestor": "en:bɑː",
-    "pansemitic_form": "ba",
+    "ancestor": "en:bɑɹ",
+    "pansemitic_form": "bar",
     "loss": {
-      "arabic": 0.6,
-      "hebrew": 0.5,
-      "joint": 1.1
+      "arabic": 0.09999999999999999,
+      "hebrew": 0.09999999999999999,
+      "joint": 0.19999999999999998
     }
   },
   {
@@ -16917,15 +16917,15 @@
         0,
         1
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
-        1,
-        2
-      ],
       "iir-pro:*sambʰārás": [
         1,
         2
       ],
       "ira-pro:*hambāráh": [
+        1,
+        2
+      ],
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -16972,15 +16972,15 @@
         0,
         1
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
-        1,
-        2
-      ],
       "iir-pro:*sambʰārás": [
         1,
         2
       ],
       "ira-pro:*hambāráh": [
+        1,
+        2
+      ],
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -18907,7 +18907,7 @@
         "lord, idol"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%91%D7%A2%D7%9C#Hebrew",
-      "ipa": "baːʕal"
+      "ipa": "baʕl"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -18929,8 +18929,8 @@
     "pansemitic_form": "baʕl",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.2,
-      "joint": 0.2
+      "hebrew": 0.0,
+      "joint": 0.0
     }
   },
   {
@@ -18956,7 +18956,7 @@
         "master, owner"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%91%D7%A2%D7%9C#Hebrew",
-      "ipa": "baːʕal"
+      "ipa": "baʕl"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -18978,8 +18978,8 @@
     "pansemitic_form": "baʕl",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.2,
-      "joint": 0.2
+      "hebrew": 0.0,
+      "joint": 0.0
     }
   },
   {
@@ -20313,7 +20313,7 @@
         "egg"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%91%D7%99%D7%A6%D7%94#Hebrew",
-      "ipa": "beːsˤɔː"
+      "ipa": "bejt͡sa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -20330,8 +20330,8 @@
     "pansemitic_form": "bayṣa",
     "loss": {
       "arabic": 0.32,
-      "hebrew": 0.6,
-      "joint": 0.9199999999999999
+      "hebrew": 0.2486,
+      "joint": 0.5686
     }
   },
   {
@@ -22136,15 +22136,15 @@
         0,
         0
       ],
+      "grc:Βρεττανία": [
+        1,
+        1
+      ],
       "cel-pro:*Kʷritanī": [
         1,
         1
       ],
       "ine-pro:*kʷer-": [
-        1,
-        1
-      ],
-      "grc:Βρεττανία": [
         1,
         1
       ]
@@ -22381,7 +22381,7 @@
         "greed"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%91%D7%A6%D7%A2#Hebrew",
-      "ipa": "bet͡sa"
+      "ipa": "bɛsˤaʕ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -22397,8 +22397,8 @@
     "pansemitic_form": "biṣaʕ",
     "loss": {
       "arabic": 0.32,
-      "hebrew": 0.4864,
-      "joint": 0.8064
+      "hebrew": 0.0536,
+      "joint": 0.3736
     }
   },
   {
@@ -22865,15 +22865,15 @@
         1,
         1
       ],
+      "gmw-pro:*beuʀ": [
+        2,
+        1
+      ],
       "gmh:bier": [
         2,
         1
       ],
       "ine-pro:*bʰews-": [
-        2,
-        1
-      ],
-      "gmw-pro:*beuʀ": [
         2,
         1
       ],
@@ -23163,7 +23163,7 @@
         0,
         0
       ],
-      "la:Plūtō": [
+      "enm:Pluto,Pluton": [
         1,
         1
       ],
@@ -23171,7 +23171,7 @@
         1,
         1
       ],
-      "enm:Pluto,Pluton": [
+      "la:Plūtō": [
         1,
         1
       ]
@@ -23426,7 +23426,7 @@
         "A calendar date."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%AA%D7%90%D7%A8%D7%99%D7%9A#Hebrew",
-      "ipa": "ta(ʔ)aʁiχ"
+      "ipa": "taʔaʁiχ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -23764,7 +23764,7 @@
         "A calendar date."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%AA%D7%90%D7%A8%D7%99%D7%9A#Hebrew",
-      "ipa": "ta(ʔ)aʁiχ"
+      "ipa": "taʔaʁiχ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -23940,7 +23940,7 @@
         "Tadmor, a town built by Solomon after his conquest of Hamath-zobah."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%AA%D7%93%D7%9E%D7%95%D7%A8#Hebrew",
-      "ipa": "taðmoːr"
+      "ipa": "tadmoʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -23957,8 +23957,8 @@
     "pansemitic_form": "tadmur",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.16366666666666665,
-      "joint": 0.16366666666666665
+      "hebrew": 0.072,
+      "joint": 0.072
     }
   },
   {
@@ -25224,11 +25224,11 @@
         2,
         3
       ],
-      "grc:τένων": [
+      "ine-pro:*tend-": [
         2,
         3
       ],
-      "ine-pro:*tend-": [
+      "grc:τένων": [
         2,
         3
       ]
@@ -25446,7 +25446,7 @@
         "A (male) twin, a twin brother: one of two or more siblings born after a single pregnancy."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%AA%D7%90%D7%95%D7%9D#Hebrew",
-      "ipa": "tʔoːm"
+      "ipa": "teʔom"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -25463,8 +25463,8 @@
     "pansemitic_form": "tawʔam",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.5155,
-      "joint": 0.5155
+      "hebrew": 0.4226666666666667,
+      "joint": 0.4226666666666667
     }
   },
   {
@@ -25787,7 +25787,7 @@
         "apple tree, tree of the genus Malus."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%AA%D7%A4%D7%95%D7%97#Hebrew",
-      "ipa": "tapːuːwaħ"
+      "ipa": "tapuaχ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -25803,8 +25803,8 @@
     "pansemitic_form": "tufuax",
     "loss": {
       "arabic": 0.25,
-      "hebrew": 0.48928571428571427,
-      "joint": 0.7392857142857143
+      "hebrew": 0.2041666666666667,
+      "joint": 0.4541666666666667
     }
   },
   {
@@ -26588,11 +26588,7 @@
         0,
         0
       ],
-      "gem-pro:*kaisaraz": [
-        1,
-        1
-      ],
-      "sla-pro:*cěsařь": [
+      "orv:цьсарь": [
         1,
         1
       ],
@@ -26600,7 +26596,11 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "sla-pro:*cěsařь": [
+        1,
+        1
+      ],
+      "gem-pro:*kaisaraz": [
         1,
         1
       ]
@@ -27091,7 +27091,7 @@
         "fox (the red fox, a small carnivore (Vulpes vulpes) with red or silver fur)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%95%D7%A2%D7%9C#Hebrew",
-      "ipa": "ʃuːʕɔːl"
+      "ipa": "ʃuʔal"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -27115,8 +27115,8 @@
     "pansemitic_form": "saʕlab",
     "loss": {
       "arabic": 0.024999999999999998,
-      "hebrew": 0.6791666666666667,
-      "joint": 0.7041666666666667
+      "hebrew": 0.6958333333333333,
+      "joint": 0.7208333333333333
     }
   },
   {
@@ -28836,7 +28836,7 @@
         "a male given name, equivalent to English Gabriel"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%92%D7%91%D7%A8%D7%99%D7%90%D7%9C#Hebrew",
-      "ipa": "ɡavriːʔeːl"
+      "ipa": "ɡavʁiʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -28854,12 +28854,12 @@
       "hebrew_pos": "name",
       "similarity": 0.9227
     },
-    "ancestor": "he:ɡavriːʔeːl",
+    "ancestor": "he:ɡavʁiʔel",
     "pansemitic_form": "gawriʔil",
     "loss": {
       "arabic": 0.303125,
-      "hebrew": 0.154,
-      "joint": 0.457125
+      "hebrew": 0.11649999999999999,
+      "joint": 0.41962499999999997
     }
   },
   {
@@ -30981,7 +30981,7 @@
         "thief"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%92%D7%A0%D7%91#Hebrew",
-      "ipa": "ɡanav"
+      "ipa": "ɡaːnab"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -30997,8 +30997,8 @@
     "pansemitic_form": "ganaba",
     "loss": {
       "arabic": 0.14166666666666664,
-      "hebrew": 0.18333333333333335,
-      "joint": 0.32499999999999996
+      "hebrew": 0.16666666666666666,
+      "joint": 0.3083333333333333
     }
   },
   {
@@ -31022,7 +31022,7 @@
         "to steal"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%92%D7%A0%D7%91#Hebrew",
-      "ipa": "ɡanav"
+      "ipa": "ɡaːnab"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -31038,8 +31038,8 @@
     "pansemitic_form": "ganaba",
     "loss": {
       "arabic": 0.14166666666666664,
-      "hebrew": 0.18333333333333335,
-      "joint": 0.32499999999999996
+      "hebrew": 0.16666666666666666,
+      "joint": 0.3083333333333333
     }
   },
   {
@@ -31276,11 +31276,11 @@
         0,
         0
       ],
-      "arc:גְּרָב / גְּרַב": [
+      "fa:جوراب": [
         0,
         1
       ],
-      "fa:جوراب": [
+      "arc:גְּרָב / גְּרַב": [
         0,
         1
       ],
@@ -31332,11 +31332,11 @@
         0,
         0
       ],
-      "arc:גְּרָב / גְּרַב": [
+      "fa:جوراب": [
         0,
         1
       ],
-      "fa:جوراب": [
+      "arc:גְּרָב / גְּרַב": [
         0,
         1
       ],
@@ -32105,7 +32105,7 @@
         "to bow, to bend down, to stoop, to crouch"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%92%D7%97%D7%9F#Hebrew",
-      "ipa": "ɡaχan"
+      "ipa": "ɡaːħan"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -32121,8 +32121,8 @@
     "pansemitic_form": "guxanx",
     "loss": {
       "arabic": 0.4916666666666667,
-      "hebrew": 0.3875,
-      "joint": 0.8791666666666667
+      "hebrew": 0.45416666666666666,
+      "joint": 0.9458333333333333
     }
   },
   {
@@ -32241,11 +32241,11 @@
         0,
         0
       ],
-      "dum:colve": [
+      "gem-pro:*kulbaz": [
         1,
         1
       ],
-      "gem-pro:*kulbaz": [
+      "dum:colve": [
         1,
         1
       ],
@@ -32261,7 +32261,7 @@
       "hebrew_pos": "noun",
       "similarity": 0.9991
     },
-    "ancestor": "en:ɡɒlf",
+    "ancestor": "en:ɡɑlf",
     "pansemitic_form": "galf"
   },
   {
@@ -32712,7 +32712,7 @@
         "to bow, to bend down, to stoop, to crouch"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%92%D7%97%D7%9F#Hebrew",
-      "ipa": "ɡaχan"
+      "ipa": "ɡaːħan"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -32728,8 +32728,8 @@
     "pansemitic_form": "gixanx",
     "loss": {
       "arabic": 0.5750000000000001,
-      "hebrew": 0.3625,
-      "joint": 0.9375
+      "hebrew": 0.4291666666666667,
+      "joint": 1.0041666666666669
     }
   },
   {
@@ -33257,7 +33257,7 @@
         "wise, smart"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%9B%D7%9D#Hebrew",
-      "ipa": "χaχam"
+      "ipa": "ħɑːkɑːm"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -33275,12 +33275,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9991
     },
-    "ancestor": "he:χaχam",
-    "pansemitic_form": "xaxam",
+    "ancestor": "he:ħɑːkɑːm",
+    "pansemitic_form": "xakam",
     "loss": {
-      "arabic": 0.16,
-      "hebrew": 0.040000000000000036,
-      "joint": 0.20000000000000004
+      "arabic": 0.24000000000000005,
+      "hebrew": 0.22999999999999998,
+      "joint": 0.47000000000000003
     }
   },
   {
@@ -33625,7 +33625,7 @@
         "beach, shore, coast"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%95%D7%A3#Hebrew",
-      "ipa": "ħoːf"
+      "ipa": "χof"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -33641,8 +33641,8 @@
     "pansemitic_form": "xafa",
     "loss": {
       "arabic": 0.125,
-      "hebrew": 0.44825000000000004,
-      "joint": 0.57325
+      "hebrew": 0.34825,
+      "joint": 0.47325
     }
   },
   {
@@ -33798,7 +33798,7 @@
         "to wear (a hat)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%91%D7%A9#Hebrew",
-      "ipa": "χavaʃ"
+      "ipa": "ħaːbaʃ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -33886,7 +33886,7 @@
         "to wear (a hat)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%91%D7%A9#Hebrew",
-      "ipa": "χavaʃ"
+      "ipa": "ħaːbaʃ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -34018,7 +34018,7 @@
         "to wear (a hat)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%91%D7%A9#Hebrew",
-      "ipa": "χavaʃ"
+      "ipa": "ħaːbaʃ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -34155,7 +34155,7 @@
         "an eternity"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%93#Hebrew",
-      "ipa": "(ʔ)ad"
+      "ipa": "ʔad"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -37126,7 +37126,7 @@
         "to be wise, become wise, learn"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%9B%D7%9D#Hebrew",
-      "ipa": "χaχam"
+      "ipa": "ħɑːkɑːm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -37142,8 +37142,8 @@
     "pansemitic_form": "xakim",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.23500000000000004,
-      "joint": 0.3350000000000001
+      "hebrew": 0.34500000000000003,
+      "joint": 0.44500000000000006
     }
   },
   {
@@ -37172,7 +37172,7 @@
         "wise, smart"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%9B%D7%9D#Hebrew",
-      "ipa": "χaχam"
+      "ipa": "ħɑːkɑːm"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -37189,8 +37189,8 @@
     "pansemitic_form": "xakim",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.23500000000000004,
-      "joint": 0.3350000000000001
+      "hebrew": 0.34500000000000003,
+      "joint": 0.44500000000000006
     }
   },
   {
@@ -38446,7 +38446,7 @@
         "pigeon, dove"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%95%D7%A0%D7%94#Hebrew",
-      "ipa": "joːnɔː"
+      "ipa": "jona"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -38468,8 +38468,8 @@
     "pansemitic_form": "šawman",
     "loss": {
       "arabic": 0.425,
-      "hebrew": 0.9738333333333333,
-      "joint": 1.3988333333333334
+      "hebrew": 0.8321666666666667,
+      "joint": 1.2571666666666668
     }
   },
   {
@@ -38579,7 +38579,7 @@
         "pigeon, dove"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%95%D7%A0%D7%94#Hebrew",
-      "ipa": "joːnɔː"
+      "ipa": "jona"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -38601,8 +38601,8 @@
     "pansemitic_form": "šawman",
     "loss": {
       "arabic": 0.47500000000000003,
-      "hebrew": 0.9738333333333333,
-      "joint": 1.4488333333333334
+      "hebrew": 0.8321666666666667,
+      "joint": 1.3071666666666668
     }
   },
   {
@@ -40614,7 +40614,7 @@
         "arrow (a sign or symbol used to indicate a direction (e.g.→))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%A5#Hebrew",
-      "ipa": "ħeːsˤ"
+      "ipa": "χet͡s"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -40630,8 +40630,8 @@
     "pansemitic_form": "xuṣwa",
     "loss": {
       "arabic": 0.17,
-      "hebrew": 0.6664,
-      "joint": 0.8364
+      "hebrew": 0.7464000000000001,
+      "joint": 0.9164000000000001
     }
   },
   {
@@ -41757,7 +41757,7 @@
         "sawhorse"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%9E%D7%95%D7%A8#Hebrew",
-      "ipa": "ħamoːʀ"
+      "ipa": "χamoʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -41780,8 +41780,8 @@
     "pansemitic_form": "ximar",
     "loss": {
       "arabic": 0.1,
-      "hebrew": 0.3936,
-      "joint": 0.49360000000000004
+      "hebrew": 0.3136,
+      "joint": 0.41359999999999997
     }
   },
   {
@@ -42552,7 +42552,7 @@
         "destruction"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%95%D7%A8%D7%91%D7%9F#Hebrew",
-      "ipa": "ħurbɔːn"
+      "ipa": "χurban"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -42568,8 +42568,8 @@
     "pansemitic_form": "xarbab",
     "loss": {
       "arabic": 0.3,
-      "hebrew": 0.4303333333333333,
-      "joint": 0.7303333333333333
+      "hebrew": 0.28750000000000003,
+      "joint": 0.5875
     }
   },
   {
@@ -43134,7 +43134,7 @@
         "vase"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%92%D7%A8%D7%98%D7%9C#Hebrew",
-      "ipa": "ʔaɣartˤɔːl"
+      "ipa": "ʔaɡaʁtal"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -43164,8 +43164,8 @@
     "pansemitic_form": "qrṭl",
     "loss": {
       "arabic": 0.31666666666666665,
-      "hebrew": 0.475,
-      "joint": 0.7916666666666666
+      "hebrew": 0.53125,
+      "joint": 0.8479166666666667
     }
   },
   {
@@ -43935,7 +43935,7 @@
         "rough"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A9%D7%95%D7%9F#Hebrew",
-      "ipa": "ʔɔʃun"
+      "ipa": "ʔaʃun"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -43951,8 +43951,8 @@
     "pansemitic_form": "xašin",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.33140000000000003,
-      "joint": 0.33140000000000003
+      "hebrew": 0.24000000000000005,
+      "joint": 0.24000000000000005
     }
   },
   {
@@ -45711,7 +45711,7 @@
         "hook, ring"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%95%D7%97#Hebrew",
-      "ipa": "ħoaħ"
+      "ipa": "χoaχ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -45728,8 +45728,8 @@
     "pansemitic_form": "xawx",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.65,
-      "joint": 0.65
+      "hebrew": 0.6000000000000001,
+      "joint": 0.6000000000000001
     }
   },
   {
@@ -45755,7 +45755,7 @@
         "hook, ring"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%95%D7%97#Hebrew",
-      "ipa": "ħoaħ"
+      "ipa": "χoaχ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -45771,8 +45771,8 @@
     "pansemitic_form": "xawxa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.6599999999999999,
-      "joint": 0.6599999999999999
+      "hebrew": 0.62,
+      "joint": 0.62
     }
   },
   {
@@ -46738,7 +46738,7 @@
         "Ahasuerus (biblical character)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%97%D7%A9%D7%95%D7%A8%D7%95%D7%A9#Hebrew",
-      "ipa": "(ʔ)aχaʃveʁoʃ"
+      "ipa": "ʔaχaʃveʁoʃ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -47186,7 +47186,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47202,8 +47202,8 @@
     "pansemitic_form": "dabar",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.13999999999999999,
-      "joint": 0.13999999999999999
+      "hebrew": 0.12,
+      "joint": 0.12
     }
   },
   {
@@ -47231,7 +47231,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47247,8 +47247,8 @@
     "pansemitic_form": "dabara",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.2333333333333333,
-      "joint": 0.2333333333333333
+      "hebrew": 0.21666666666666665,
+      "joint": 0.21666666666666665
     }
   },
   {
@@ -47384,7 +47384,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47400,8 +47400,8 @@
     "pansemitic_form": "dabara",
     "loss": {
       "arabic": 0.049999999999999996,
-      "hebrew": 0.2333333333333333,
-      "joint": 0.2833333333333333
+      "hebrew": 0.21666666666666665,
+      "joint": 0.26666666666666666
     }
   },
   {
@@ -47498,7 +47498,7 @@
         "bee"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%95%D7%A8%D7%94#Hebrew",
-      "ipa": "dvoːrɔː"
+      "ipa": "dvora"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -47543,7 +47543,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47559,8 +47559,8 @@
     "pansemitic_form": "dabir",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.255,
-      "joint": 0.255
+      "hebrew": 0.23500000000000001,
+      "joint": 0.23500000000000001
     }
   },
   {
@@ -47581,7 +47581,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47597,8 +47597,8 @@
     "pansemitic_form": "dabira",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.32916666666666666,
-      "joint": 0.32916666666666666
+      "hebrew": 0.3125,
+      "joint": 0.3125
     }
   },
   {
@@ -47769,7 +47769,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -47785,8 +47785,8 @@
     "pansemitic_form": "dabir",
     "loss": {
       "arabic": 0.13999999999999999,
-      "hebrew": 0.255,
-      "joint": 0.395
+      "hebrew": 0.23500000000000001,
+      "joint": 0.375
     }
   },
   {
@@ -48197,7 +48197,7 @@
         "Eldaah, one of the sons of Midian."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%9C%D7%93%D7%A2%D7%94#Hebrew",
-      "ipa": "(ʔ)elda(ʔ)a"
+      "ipa": "ʔeldaʔa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -49355,7 +49355,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -49371,8 +49371,8 @@
     "pansemitic_form": "dubir",
     "loss": {
       "arabic": 0.13999999999999999,
-      "hebrew": 0.4,
-      "joint": 0.54
+      "hebrew": 0.38,
+      "joint": 0.52
     }
   },
   {
@@ -49853,7 +49853,7 @@
       "hebrew_pos": "noun",
       "similarity": 0.9598
     },
-    "ancestor": "en:dəʊl",
+    "ancestor": "en:doʊl",
     "pansemitic_form": "daul",
     "loss": {
       "arabic": 0.25,
@@ -49904,7 +49904,7 @@
       "hebrew_pos": "noun",
       "similarity": 1.0014
     },
-    "ancestor": "en:dɒlə",
+    "ancestor": "en:dɑlɚ",
     "pansemitic_form": "dala",
     "loss": {
       "arabic": 0.5386,
@@ -49931,7 +49931,7 @@
         "to speak (say words)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%A8#Hebrew",
-      "ipa": "davaʁ"
+      "ipa": "daːbaːr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -49947,8 +49947,8 @@
     "pansemitic_form": "dibir",
     "loss": {
       "arabic": 0.13999999999999999,
-      "hebrew": 0.37,
-      "joint": 0.51
+      "hebrew": 0.35,
+      "joint": 0.49
     }
   },
   {
@@ -50572,7 +50572,7 @@
         "this, this one."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%94#Hebrew",
-      "ipa": "zɛ"
+      "ipa": "ze"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -50596,8 +50596,8 @@
     "pansemitic_form": "za",
     "loss": {
       "arabic": 0.22499999999999998,
-      "hebrew": 0.15349999999999997,
-      "joint": 0.37849999999999995
+      "hebrew": 0.22149999999999997,
+      "joint": 0.44649999999999995
     }
   },
   {
@@ -50880,7 +50880,7 @@
         "masculine"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%9B%D7%A8#Hebrew",
-      "ipa": "zɔχɔr"
+      "ipa": "zaχaʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -50896,8 +50896,8 @@
     "pansemitic_form": "zakar",
     "loss": {
       "arabic": 0.03,
-      "hebrew": 0.28280000000000005,
-      "joint": 0.3128000000000001
+      "hebrew": 0.16,
+      "joint": 0.19
     }
   },
   {
@@ -50924,7 +50924,7 @@
         "remembrance, remain, remnant"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%9B%D7%A8#Hebrew",
-      "ipa": "zɔχɔr"
+      "ipa": "zaχaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -50940,8 +50940,8 @@
     "pansemitic_form": "zakara",
     "loss": {
       "arabic": 0.024999999999999998,
-      "hebrew": 0.35233333333333333,
-      "joint": 0.37733333333333335
+      "hebrew": 0.25,
+      "joint": 0.275
     }
   },
   {
@@ -50968,7 +50968,7 @@
         "to remember"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%9B%D7%A8#Hebrew",
-      "ipa": "zɔχɔr"
+      "ipa": "zaχaʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -50985,8 +50985,8 @@
     "pansemitic_form": "zakara",
     "loss": {
       "arabic": 0.024999999999999998,
-      "hebrew": 0.35233333333333333,
-      "joint": 0.37733333333333335
+      "hebrew": 0.25,
+      "joint": 0.275
     }
   },
   {
@@ -51142,7 +51142,7 @@
         "this, this one."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%94#Hebrew",
-      "ipa": "zɛ"
+      "ipa": "ze"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -51158,8 +51158,8 @@
     "pansemitic_form": "zu",
     "loss": {
       "arabic": 0.22499999999999998,
-      "hebrew": 0.384,
-      "joint": 0.609
+      "hebrew": 0.316,
+      "joint": 0.5409999999999999
     }
   },
   {
@@ -51313,7 +51313,7 @@
         "remembrance, remain, remnant"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%9B%D7%A8#Hebrew",
-      "ipa": "zɔχɔr"
+      "ipa": "zaχaʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -51329,8 +51329,8 @@
     "pansemitic_form": "zikir",
     "loss": {
       "arabic": 0.16999999999999998,
-      "hebrew": 0.4072,
-      "joint": 0.5771999999999999
+      "hebrew": 0.39,
+      "joint": 0.56
     }
   },
   {
@@ -51360,7 +51360,7 @@
         "masculine singular imperative of רָאָה"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%90%D7%94#Hebrew",
-      "ipa": "rɔʔɔ"
+      "ipa": "ʁaʔa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -51376,8 +51376,8 @@
     "pansemitic_form": "raʔa",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.22849999999999998,
-      "joint": 0.3035
+      "hebrew": 0.075,
+      "joint": 0.15
     }
   },
   {
@@ -51405,7 +51405,7 @@
         "defective spelling of רואה"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%90%D7%94#Hebrew",
-      "ipa": "rɔʔɔ"
+      "ipa": "ʁaʔa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -51421,8 +51421,8 @@
     "pansemitic_form": "raʔa",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.22849999999999998,
-      "joint": 0.3035
+      "hebrew": 0.075,
+      "joint": 0.15
     }
   },
   {
@@ -51638,7 +51638,7 @@
         "shepherd"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A2%D7%94#Hebrew",
-      "ipa": "ro(ʕ)e"
+      "ipa": "roʕe"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -53304,7 +53304,7 @@
         "to satisfy, to please, to placate"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A6%D7%94#Hebrew",
-      "ipa": "ʀɔːsˤɔː"
+      "ipa": "ʁat͡sa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -53320,8 +53320,8 @@
     "pansemitic_form": "raṣiya",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.6689999999999999,
-      "joint": 0.819
+      "hebrew": 0.5499999999999999,
+      "joint": 0.7
     }
   },
   {
@@ -53347,7 +53347,7 @@
         "accept, choose"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A6%D7%94#Hebrew",
-      "ipa": "ʀɔːsˤɔː"
+      "ipa": "ʁat͡sa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -53364,8 +53364,8 @@
     "pansemitic_form": "raṣiya",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.6689999999999999,
-      "joint": 0.819
+      "hebrew": 0.5499999999999999,
+      "joint": 0.7
     }
   },
   {
@@ -53590,7 +53590,7 @@
         "to hunger, to be malnourished"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A2%D7%91#Hebrew",
-      "ipa": "ʁa(ʔ)ev"
+      "ipa": "ʁaʔev"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -53628,7 +53628,7 @@
         "hungry (desirous of food)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A2%D7%91#Hebrew",
-      "ipa": "ʁa(ʔ)ev"
+      "ipa": "ʁaʔev"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -53666,7 +53666,7 @@
         "to hunger, to be malnourished"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A2%D7%91#Hebrew",
-      "ipa": "ʁa(ʔ)ev"
+      "ipa": "ʁaʔev"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -53705,7 +53705,7 @@
         "hunger"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%A2%D7%91#Hebrew",
-      "ipa": "ʁa(ʔ)ev"
+      "ipa": "ʁaʔev"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -54146,7 +54146,7 @@
         "vehicle, chariot"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%9B%D7%91#Hebrew",
-      "ipa": "ʀɛːχɛv"
+      "ipa": "reχev"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -54162,8 +54162,8 @@
     "pansemitic_form": "rakiba",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.46249999999999997,
-      "joint": 0.46249999999999997
+      "hebrew": 0.3625,
+      "joint": 0.3625
     }
   },
   {
@@ -54188,7 +54188,7 @@
         "to ride (a horse or the like)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%9B%D7%91#Hebrew",
-      "ipa": "ʀɛːχɛv"
+      "ipa": "reχev"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -54205,8 +54205,8 @@
     "pansemitic_form": "rakiba",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.46249999999999997,
-      "joint": 0.46249999999999997
+      "hebrew": 0.3625,
+      "joint": 0.3625
     }
   },
   {
@@ -55165,7 +55165,7 @@
         "locust"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A8%D7%91%D7%94#Hebrew",
-      "ipa": "ʔarbɛ"
+      "ipa": "ʔaʁbe"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -55187,8 +55187,8 @@
     "pansemitic_form": "ʔirbay",
     "loss": {
       "arabic": 0.7035714285714285,
-      "hebrew": 0.39699999999999996,
-      "joint": 1.1005714285714285
+      "hebrew": 0.4696666666666667,
+      "joint": 1.1732380952380952
     }
   },
   {
@@ -55214,7 +55214,7 @@
         "space, gap, blank"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%95%D7%97#Hebrew",
-      "ipa": "ʀuːwaħ"
+      "ipa": "ʁuaχ"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -55237,8 +55237,8 @@
     "pansemitic_form": "rux",
     "loss": {
       "arabic": 0.16666666666666666,
-      "hebrew": 0.6,
-      "joint": 0.7666666666666666
+      "hebrew": 0.275,
+      "joint": 0.44166666666666665
     }
   },
   {
@@ -55271,7 +55271,7 @@
         "breath"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%95%D7%97#Hebrew",
-      "ipa": "ʀuːwaħ"
+      "ipa": "ʁuaχ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -55295,8 +55295,8 @@
     "pansemitic_form": "rux",
     "loss": {
       "arabic": 0.16666666666666666,
-      "hebrew": 0.6,
-      "joint": 0.7666666666666666
+      "hebrew": 0.275,
+      "joint": 0.44166666666666665
     }
   },
   {
@@ -55548,7 +55548,7 @@
         "lungs, collectively as a single organ"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A8%D7%90%D7%94#Hebrew",
-      "ipa": "rɔʔɔ"
+      "ipa": "ʁaʔa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -55565,8 +55565,8 @@
     "pansemitic_form": "riʔa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.30625,
-      "joint": 0.30625
+      "hebrew": 0.21875,
+      "joint": 0.21875
     }
   },
   {
@@ -55910,7 +55910,7 @@
       "similarity": 0.9987
     },
     "ancestor": "pt:ʁiu d͡ʒi ʒane(j)ɾu",
-    "pansemitic_form": "riu ji jani(y)ru",
+    "pansemitic_form": "riu ji janiyru",
     "loss": {
       "arabic": 0.4455,
       "hebrew": 0.30683333333333335,
@@ -56341,11 +56341,11 @@
         0,
         0
       ],
-      "fa-cls:زُرنَاپَا": [
+      "syc:ܙܪܝܦܐ": [
         0,
         1
       ],
-      "syc:ܙܪܝܦܐ": [
+      "fa-cls:زُرنَاپَا": [
         0,
         1
       ]
@@ -56493,11 +56493,11 @@
         0,
         2
       ],
-      "pal:zlgwn'": [
+      "ira-pro:*jr̥Hanyam": [
         0,
         3
       ],
-      "ira-pro:*jr̥Hanyam": [
+      "pal:zlgwn'": [
         0,
         3
       ]
@@ -56886,7 +56886,7 @@
         "terror, horrifying object."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%95%D7%95%D7%A2%D7%94#Hebrew",
-      "ipa": "zva(ʔ)a"
+      "ipa": "zawaːʕaː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -56902,8 +56902,8 @@
     "pansemitic_form": "zaʕzaʕa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.5,
-      "joint": 0.5
+      "hebrew": 0.41428571428571426,
+      "joint": 0.41428571428571426
     }
   },
   {
@@ -57754,15 +57754,15 @@
         0,
         0
       ],
-      "syc:ܙܢܓܒܝܠ": [
-        0,
-        1
-      ],
       "oty:𑀇𑀜𑁆𑀘𑀺𑀯𑁂𑀭𑁆": [
         0,
         1
       ],
       "pra-sau:𑀲𑀺𑀁𑀕𑀺𑀯𑁂𑀭": [
+        0,
+        1
+      ],
+      "syc:ܙܢܓܒܝܠ": [
         0,
         1
       ]
@@ -58248,7 +58248,7 @@
         "bee"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%93%D7%91%D7%95%D7%A8%D7%94#Hebrew",
-      "ipa": "dvoːrɔː"
+      "ipa": "dvora"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -58264,8 +58264,8 @@
     "pansemitic_form": "zunbura",
     "loss": {
       "arabic": 0.14285714285714285,
-      "hebrew": 0.5984285714285714,
-      "joint": 0.7412857142857143
+      "hebrew": 0.44742857142857145,
+      "joint": 0.5902857142857143
     }
   },
   {
@@ -58602,7 +58602,7 @@
         "nose ring"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%96%D7%9D#Hebrew",
-      "ipa": "nɛzɛm"
+      "ipa": "nezem"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -58683,7 +58683,7 @@
         "for footbaths, washbowl"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%99%D7%A8#Hebrew",
-      "ipa": "siɾ"
+      "ipa": "siʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -58699,8 +58699,8 @@
     "pansemitic_form": "zir",
     "loss": {
       "arabic": 0.09999999999999999,
-      "hebrew": 0.2333333333333333,
-      "joint": 0.3333333333333333
+      "hebrew": 0.26666666666666666,
+      "joint": 0.36666666666666664
     }
   },
   {
@@ -58800,7 +58800,7 @@
         "to borrow (an item)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%90%D7%9C#Hebrew",
-      "ipa": "ʃa(ʔ)al"
+      "ipa": "ʃaʔal"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -58993,7 +58993,7 @@
         "Sisera, an ancestor of a family of temple slaves who returned from exile with Zerubbabel"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%99%D7%A1%D7%A8%D7%90#Hebrew",
-      "ipa": "sisʁa"
+      "ipa": "siːsaraː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -59009,8 +59009,8 @@
     "pansemitic_form": "sasrin",
     "loss": {
       "arabic": 0.3,
-      "hebrew": 0.49166666666666664,
-      "joint": 0.7916666666666666
+      "hebrew": 0.6458333333333334,
+      "joint": 0.9458333333333333
     }
   },
   {
@@ -59034,7 +59034,7 @@
         "Sisera, an ancestor of a family of temple slaves who returned from exile with Zerubbabel"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%99%D7%A1%D7%A8%D7%90#Hebrew",
-      "ipa": "sisʁa"
+      "ipa": "siːsaraː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -59050,8 +59050,8 @@
     "pansemitic_form": "sasra",
     "loss": {
       "arabic": 0.36,
-      "hebrew": 0.175,
-      "joint": 0.5349999999999999
+      "hebrew": 0.3,
+      "joint": 0.6599999999999999
     }
   },
   {
@@ -59217,7 +59217,7 @@
         "Sisera, an ancestor of a family of temple slaves who returned from exile with Zerubbabel"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%99%D7%A1%D7%A8%D7%90#Hebrew",
-      "ipa": "sisʁa"
+      "ipa": "siːsaraː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -59233,8 +59233,8 @@
     "pansemitic_form": "sasra",
     "loss": {
       "arabic": 0.42000000000000004,
-      "hebrew": 0.175,
-      "joint": 0.595
+      "hebrew": 0.3,
+      "joint": 0.72
     }
   },
   {
@@ -59256,7 +59256,7 @@
         "Sisera, an ancestor of a family of temple slaves who returned from exile with Zerubbabel"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%99%D7%A1%D7%A8%D7%90#Hebrew",
-      "ipa": "sisʁa"
+      "ipa": "siːsaraː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -59272,8 +59272,8 @@
     "pansemitic_form": "sasra",
     "loss": {
       "arabic": 0.5599999999999999,
-      "hebrew": 0.175,
-      "joint": 0.7349999999999999
+      "hebrew": 0.3,
+      "joint": 0.8599999999999999
     }
   },
   {
@@ -59299,7 +59299,7 @@
         "time"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%A2%D7%94#Hebrew",
-      "ipa": "ʃa(ʔ)a"
+      "ipa": "ʃaʔa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -59337,7 +59337,7 @@
         "border, frontier"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%A4%D7%A8#Hebrew",
-      "ipa": "sfɔːr"
+      "ipa": "sipr"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -59353,8 +59353,8 @@
     "pansemitic_form": "safara",
     "loss": {
       "arabic": 0.049999999999999996,
-      "hebrew": 0.3595,
-      "joint": 0.4095
+      "hebrew": 0.3958333333333333,
+      "joint": 0.4458333333333333
     }
   },
   {
@@ -59840,12 +59840,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.9343
     },
-    "ancestor": "en:sænwɪd͡ʒ",
-    "pansemitic_form": "sanwij",
+    "ancestor": "en:sændwɪt͡ʃ",
+    "pansemitic_form": "sandwiš",
     "loss": {
-      "arabic": 0.475,
-      "hebrew": 0.42042857142857143,
-      "joint": 0.8954285714285715
+      "arabic": 0.1875,
+      "hebrew": 0.17757142857142855,
+      "joint": 0.36507142857142855
     }
   },
   {
@@ -60649,8 +60649,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.9464
     },
-    "ancestor": "sem-pro:ʃaħ(a)r",
-    "pansemitic_form": "šax(a)r",
+    "ancestor": "sem-pro:ʃaħar",
+    "pansemitic_form": "šaxar",
     "loss": {
       "arabic": 0.07000000000000002,
       "hebrew": 0.040000000000000015,
@@ -60696,8 +60696,8 @@
       "hebrew_pos": "adj",
       "similarity": 0.7002
     },
-    "ancestor": "sem-pro:ʃaħ(a)r",
-    "pansemitic_form": "šax(a)r",
+    "ancestor": "sem-pro:ʃaħar",
+    "pansemitic_form": "šaxar",
     "loss": {
       "arabic": 0.07000000000000002,
       "hebrew": 0.1386,
@@ -60742,8 +60742,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.7541
     },
-    "ancestor": "sem-pro:ʃaħ(a)r",
-    "pansemitic_form": "šax(a)r",
+    "ancestor": "sem-pro:ʃaħar",
+    "pansemitic_form": "šaxar",
     "loss": {
       "arabic": 0.17500000000000002,
       "hebrew": 0.040000000000000015,
@@ -60788,8 +60788,8 @@
       "hebrew_pos": "adj",
       "similarity": 0.6152
     },
-    "ancestor": "sem-pro:ʃaħ(a)r",
-    "pansemitic_form": "šax(a)r",
+    "ancestor": "sem-pro:ʃaħar",
+    "pansemitic_form": "šaxar",
     "loss": {
       "arabic": 0.17500000000000002,
       "hebrew": 0.1386,
@@ -60989,7 +60989,7 @@
         "seder (the ceremonial meal held on the first night or two nights of Passover)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%93%D7%A8#Hebrew",
-      "ipa": "seðɛr"
+      "ipa": "sedeʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -61005,8 +61005,8 @@
     "pansemitic_form": "sarada",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.5333333333333333,
-      "joint": 0.5333333333333333
+      "hebrew": 0.5643333333333334,
+      "joint": 0.5643333333333334
     }
   },
   {
@@ -61111,7 +61111,7 @@
         "seder (the ceremonial meal held on the first night or two nights of Passover)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%93%D7%A8#Hebrew",
-      "ipa": "seðɛr"
+      "ipa": "sedeʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -61128,8 +61128,8 @@
     "pansemitic_form": "sarid",
     "loss": {
       "arabic": 0.13999999999999999,
-      "hebrew": 0.49219999999999997,
-      "joint": 0.6322
+      "hebrew": 0.475,
+      "joint": 0.615
     }
   },
   {
@@ -61149,7 +61149,7 @@
         "To order, to organize."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%93%D7%A8#Hebrew",
-      "ipa": "seðɛr"
+      "ipa": "sedeʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -61165,8 +61165,8 @@
     "pansemitic_form": "sarad",
     "loss": {
       "arabic": 0.13999999999999999,
-      "hebrew": 0.5,
-      "joint": 0.64
+      "hebrew": 0.5372,
+      "joint": 0.6772
     }
   },
   {
@@ -61189,7 +61189,7 @@
         "defective spelling of סידר."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%93%D7%A8#Hebrew",
-      "ipa": "seðɛr"
+      "ipa": "sedeʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -61968,7 +61968,7 @@
         "to give drink to, to water"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A9%D7%A7%D7%94#Hebrew",
-      "ipa": "(h)iʃka"
+      "ipa": "hiʃka"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -63165,7 +63165,7 @@
         "rock"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%9C%D7%A2#Hebrew",
-      "ipa": "sela(ʕ)"
+      "ipa": "selaʕ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -64226,7 +64226,7 @@
         "a male given name, Shimon, equivalent to English Simon"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F#Hebrew",
-      "ipa": "ʃim(ʔ)on"
+      "ipa": "ʃimʔon"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -64515,7 +64515,7 @@
         "a male given name, Shimon, equivalent to English Simon"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F#Hebrew",
-      "ipa": "ʃim(ʔ)on"
+      "ipa": "ʃimʔon"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -64963,7 +64963,7 @@
         "a male given name, Shimon, equivalent to English Simon"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F#Hebrew",
-      "ipa": "ʃim(ʔ)on"
+      "ipa": "ʃimʔon"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -65726,7 +65726,7 @@
         "lily"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%95%D7%A9%D7%9F#Hebrew",
-      "ipa": "ʃoːʃɔːn"
+      "ipa": "ʃoʃan"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -65748,8 +65748,8 @@
     "pansemitic_form": "zašašan",
     "loss": {
       "arabic": 0.39999999999999997,
-      "hebrew": 0.5499999999999999,
-      "joint": 0.95
+      "hebrew": 0.399,
+      "joint": 0.7989999999999999
     }
   },
   {
@@ -65770,7 +65770,7 @@
         "Susa, Shushan (the ancient capital of Elam, in modern Iran)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%95%D7%A9%D7%9F#Hebrew",
-      "ipa": "ʃuːʃɔːn"
+      "ipa": "ʃuʃan"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -65792,8 +65792,8 @@
     "pansemitic_form": "zašašan",
     "loss": {
       "arabic": 0.39999999999999997,
-      "hebrew": 0.5688571428571428,
-      "joint": 0.9688571428571429
+      "hebrew": 0.4178571428571428,
+      "joint": 0.8178571428571428
     }
   },
   {
@@ -66107,7 +66107,7 @@
         "question"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%90%D7%9C%D7%94#Hebrew",
-      "ipa": "ʃe(ʔ)ela"
+      "ipa": "ʃeʔela"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -67467,7 +67467,7 @@
         "Shevat (the fifth month of the civil year and the eleventh month of the ecclesiastical year in the Jewish calendar, after Tevet and before Adar)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%98#Hebrew",
-      "ipa": "ʃvɔːtˤ"
+      "ipa": "ʃvat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -67489,8 +67489,8 @@
     "pansemitic_form": "šabṭ",
     "loss": {
       "arabic": 0.18125,
-      "hebrew": 0.44999999999999996,
-      "joint": 0.63125
+      "hebrew": 0.575,
+      "joint": 0.75625
     }
   },
   {
@@ -67603,7 +67603,7 @@
         "fine linen, byssus"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%A9#Hebrew",
-      "ipa": "ʃiʃ(ʃ)"
+      "ipa": "ʃiʃʃ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -68296,7 +68296,7 @@
         "a male given name, Shimon, equivalent to English Simon"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F#Hebrew",
-      "ipa": "ʃim(ʔ)on"
+      "ipa": "ʃimʔon"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -68314,8 +68314,8 @@
       "hebrew_pos": "name",
       "similarity": 0.9352
     },
-    "ancestor": "he:ʃim(ʔ)on",
-    "pansemitic_form": "šim(ʔ)an",
+    "ancestor": "he:ʃimʔon",
+    "pansemitic_form": "šimʔan",
     "loss": {
       "arabic": 0.24166666666666667,
       "hebrew": 0.09883333333333333,
@@ -68480,8 +68480,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.6777
     },
-    "ancestor": "ine-pro:(s)ker",
-    "pansemitic_form": "(s)kir",
+    "ancestor": "ine-pro:sker",
+    "pansemitic_form": "skir",
     "loss": {
       "arabic": 0.75,
       "hebrew": 0.8386666666666667,
@@ -68743,7 +68743,7 @@
         "hater, enemy"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%95%D7%A0%D7%90#Hebrew",
-      "ipa": "ɬoːniʔu"
+      "ipa": "ɬoːneːʔ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -68759,8 +68759,8 @@
     "pansemitic_form": "saniʔ",
     "loss": {
       "arabic": 0.09,
-      "hebrew": 0.3655,
-      "joint": 0.4555
+      "hebrew": 0.385,
+      "joint": 0.475
     }
   },
   {
@@ -69436,7 +69436,7 @@
         "to equalize, to make equal"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A9%D7%95%D7%95%D7%94#Hebrew",
-      "ipa": "(h)iʃva"
+      "ipa": "hiʃva"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -70376,7 +70376,7 @@
         "stye"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%A2%D7%95%D7%A8%D7%94#Hebrew",
-      "ipa": "se(ʔ)oʁa"
+      "ipa": "seʔoʁa"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -71077,7 +71077,7 @@
         "a male given name, Shimon, equivalent to English Simon"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%9E%D7%A2%D7%95%D7%9F#Hebrew",
-      "ipa": "ʃim(ʔ)on"
+      "ipa": "ʃimʔon"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -71095,8 +71095,8 @@
       "hebrew_pos": "name",
       "similarity": 0.897
     },
-    "ancestor": "he:ʃim(ʔ)on",
-    "pansemitic_form": "šim(ʔ)an",
+    "ancestor": "he:ʃimʔon",
+    "pansemitic_form": "šimʔan",
     "loss": {
       "arabic": 0.4333333333333333,
       "hebrew": 0.09883333333333333,
@@ -71120,7 +71120,7 @@
         "to hate"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%A0%D7%90#Hebrew",
-      "ipa": "sane"
+      "ipa": "ɬaːneːʔ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -71137,8 +71137,8 @@
     "pansemitic_form": "sanaʔa",
     "loss": {
       "arabic": 0.025000000000000005,
-      "hebrew": 0.31549999999999995,
-      "joint": 0.34049999999999997
+      "hebrew": 0.3905,
+      "joint": 0.41550000000000004
     }
   },
   {
@@ -71203,7 +71203,7 @@
         "roundness, round object"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%94%D7%A8#Hebrew",
-      "ipa": "saharˤ"
+      "ipa": "sahaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -71242,7 +71242,7 @@
         "alternative form of סַהַר (sáhar)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%94%D7%A8#Hebrew",
-      "ipa": "saharˤ"
+      "ipa": "sahaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -71421,7 +71421,7 @@
         "Shevat (the fifth month of the civil year and the eleventh month of the ecclesiastical year in the Jewish calendar, after Tevet and before Adar)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%98#Hebrew",
-      "ipa": "ʃvɔːtˤ"
+      "ipa": "ʃvat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -71443,8 +71443,8 @@
     "pansemitic_form": "šabaṭum",
     "loss": {
       "arabic": 0.46071428571428574,
-      "hebrew": 0.5795714285714285,
-      "joint": 1.0402857142857143
+      "hebrew": 0.5428571428571428,
+      "joint": 1.0035714285714286
     }
   },
   {
@@ -71697,13 +71697,13 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "fa:جوراب": [
-        1,
-        1
-      ],
       "ar:جَوْرَب": [
         2,
         0
+      ],
+      "fa:جوراب": [
+        1,
+        1
       ],
       "pal:*gōrab": [
         2,
@@ -71752,13 +71752,13 @@
       "shared_borrowing_source"
     ],
     "shared_borrowing_sources": {
-      "fa:جوراب": [
-        1,
-        1
-      ],
       "ar:جَوْرَب": [
         2,
         0
+      ],
+      "fa:جوراب": [
+        1,
+        1
       ],
       "pal:*gōrab": [
         2,
@@ -72065,7 +72065,7 @@
         "week (Mishnaic Hebrew)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%AA#Hebrew",
-      "ipa": "ʃabɔs"
+      "ipa": "ʃabat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -72103,7 +72103,7 @@
         "to stop working, to rest"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A9%D7%91%D7%AA#Hebrew",
-      "ipa": "ʃabɔs"
+      "ipa": "ʃabat"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -72851,31 +72851,15 @@
         1,
         0
       ],
-      "enm:chek": [
-        2,
-        1
-      ],
-      "pal:𐭬𐭫𐭪𐭠": [
-        2,
-        1
-      ],
-      "la-med:scaccarium": [
-        2,
-        1
-      ],
-      "iir-pro:*kšáyati": [
-        2,
-        1
-      ],
       "ine-pro:*tek-": [
         2,
         1
       ],
-      "fro:eschek": [
+      "fa-cls:شَاه": [
         2,
         1
       ],
-      "fa-cls:شَاه": [
+      "la-med:scaccarium": [
         2,
         1
       ],
@@ -72887,7 +72871,23 @@
         2,
         1
       ],
+      "iir-pro:*kšáyati": [
+        2,
+        1
+      ],
+      "pal:𐭬𐭫𐭪𐭠": [
+        2,
+        1
+      ],
       "ar:شَاه": [
+        2,
+        1
+      ],
+      "enm:chek": [
+        2,
+        1
+      ],
+      "fro:eschek": [
         2,
         1
       ],
@@ -72895,15 +72895,15 @@
         2,
         1
       ],
-      "fa-cls:شاه": [
-        3,
-        2
-      ],
       "fa:شاه": [
         3,
         2
       ],
       "fro:eschec": [
+        3,
+        2
+      ],
+      "fa-cls:شاه": [
         3,
         2
       ],
@@ -73038,7 +73038,7 @@
         "tzaddik (a very righteous person, especially a Hassidic spiritual leader)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%93%D7%99%D7%A7#Hebrew",
-      "ipa": "sˤadːiq"
+      "ipa": "t͡sadik"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -73054,8 +73054,8 @@
     "pansemitic_form": "ṣadiq",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.06,
-      "joint": 0.12
+      "hebrew": 0.18000000000000002,
+      "joint": 0.24000000000000002
     }
   },
   {
@@ -73119,7 +73119,7 @@
         "seah, an ancient Hebrew unit equivalent to ⅓ of an ephah."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A1%D7%90%D7%94#Hebrew",
-      "ipa": "se(ʔ)a"
+      "ipa": "saʔaː"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -73135,8 +73135,8 @@
     "pansemitic_form": "ṣaʕa",
     "loss": {
       "arabic": 0.25,
-      "hebrew": 0.48575,
-      "joint": 0.73575
+      "hebrew": 0.45,
+      "joint": 0.7
     }
   },
   {
@@ -73266,11 +73266,11 @@
         1,
         1
       ],
-      "gem-pro:*salą": [
+      "lng:sala": [
         1,
         1
       ],
-      "lng:sala": [
+      "gem-pro:*salą": [
         1,
         1
       ],
@@ -73452,7 +73452,7 @@
         "paint"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -73490,7 +73490,7 @@
         "a (male) painter."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -73528,7 +73528,7 @@
         "painted; (he) colored, (he) dyed"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -73615,7 +73615,7 @@
         "paint"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -73652,7 +73652,7 @@
         "a (male) painter."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -73689,7 +73689,7 @@
         "painted; (he) colored, (he) dyed"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -75208,11 +75208,11 @@
         1,
         0
       ],
-      "la:salsus": [
+      "la-vul:*salsa": [
         1,
         1
       ],
-      "la-vul:*salsa": [
+      "la:salsus": [
         1,
         1
       ]
@@ -75613,7 +75613,7 @@
         "excessive spelling of צַיִד"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%99%D7%93#Hebrew",
-      "ipa": "t͡sa(j)id"
+      "ipa": "t͡sajid"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -75652,7 +75652,7 @@
         "hunter"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%99%D7%93#Hebrew",
-      "ipa": "t͡sa(j)id"
+      "ipa": "t͡sajid"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -75693,7 +75693,7 @@
         "excessive spelling of צַיִד"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%99%D7%93#Hebrew",
-      "ipa": "t͡sa(j)id"
+      "ipa": "t͡sajid"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -75735,7 +75735,7 @@
         "hunter"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%99%D7%93#Hebrew",
-      "ipa": "t͡sa(j)id"
+      "ipa": "t͡sajid"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -76001,11 +76001,11 @@
         0,
         1
       ],
-      "akk:𒈨𒁍": [
+      "akk:𒍦𒉺𒀀𒌅": [
         0,
         1
       ],
-      "akk:𒍦𒉺𒀀𒌅": [
+      "akk:𒈨𒁍": [
         0,
         1
       ]
@@ -76179,7 +76179,7 @@
         "paint"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76216,7 +76216,7 @@
         "a (male) painter."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76253,7 +76253,7 @@
         "painted; (he) colored, (he) dyed"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76292,7 +76292,7 @@
         "paint"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76329,7 +76329,7 @@
         "a (male) painter."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76366,7 +76366,7 @@
         "painted; (he) colored, (he) dyed"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "t͡seva(ʕ)"
+      "ipa": "t͡sevaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -76407,7 +76407,7 @@
         "tzaddik (a very righteous person, especially a Hassidic spiritual leader)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%93%D7%99%D7%A7#Hebrew",
-      "ipa": "sˤadːiq"
+      "ipa": "t͡sadik"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -76423,8 +76423,8 @@
     "pansemitic_form": "ṣidiq",
     "loss": {
       "arabic": 0.12,
-      "hebrew": 0.175,
-      "joint": 0.295
+      "hebrew": 0.29500000000000004,
+      "joint": 0.41500000000000004
     }
   },
   {
@@ -76903,7 +76903,7 @@
         "veil"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A2%D7%99%D7%A3#Hebrew",
-      "ipa": "t͡sa(ʔ)if"
+      "ipa": "t͡saʔif"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -76941,7 +76941,7 @@
         "veil"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A2%D7%99%D7%A3#Hebrew",
-      "ipa": "t͡sa(ʔ)if"
+      "ipa": "t͡saʔif"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -76980,7 +76980,7 @@
         "veil"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A2%D7%99%D7%A3#Hebrew",
-      "ipa": "t͡sa(ʔ)if"
+      "ipa": "t͡saʔif"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -77020,7 +77020,7 @@
         "frog"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A4%D7%A8%D7%93%D7%A2#Hebrew",
-      "ipa": "t͡sfaʁdea(ʕ)"
+      "ipa": "t͡sfaʁdeaʕ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -77182,7 +77182,7 @@
         "veil"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A2%D7%99%D7%A3#Hebrew",
-      "ipa": "t͡sa(ʔ)if"
+      "ipa": "t͡saʔif"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -77345,7 +77345,7 @@
         "veil"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A2%D7%99%D7%A3#Hebrew",
-      "ipa": "t͡sa(ʔ)if"
+      "ipa": "t͡saʔif"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -77384,7 +77384,7 @@
         "frog"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%A4%D7%A8%D7%93%D7%A2#Hebrew",
-      "ipa": "t͡sfaʁdea(ʕ)"
+      "ipa": "t͡sfaʁdeaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -77553,7 +77553,7 @@
         "forefinger (the index finger: the first finger next to the thumb)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A6%D7%91%D7%A2#Hebrew",
-      "ipa": "ʔɛsˤbaʕ"
+      "ipa": "ʔet͡sba"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -77569,8 +77569,8 @@
     "pansemitic_form": "ʔiṭabaʕ",
     "loss": {
       "arabic": 0.25,
-      "hebrew": 0.19542857142857142,
-      "joint": 0.4454285714285714
+      "hebrew": 0.44742857142857145,
+      "joint": 0.6974285714285715
     }
   },
   {
@@ -77692,7 +77692,7 @@
         "error, mistake"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%95%D7%AA#Hebrew",
-      "ipa": "ta(ʔ)ut"
+      "ipa": "taʔut"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -77710,8 +77710,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.7509
     },
-    "ancestor": "he:ta(ʔ)ut",
-    "pansemitic_form": "ta(ʔ)ut",
+    "ancestor": "he:taʔut",
+    "pansemitic_form": "taʔut",
     "loss": {
       "arabic": 0.4600000000000001,
       "hebrew": 0.0,
@@ -78227,7 +78227,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -78269,7 +78269,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -78311,7 +78311,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -78353,7 +78353,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -78392,7 +78392,7 @@
         "to taste"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -78524,7 +78524,7 @@
         "lamb (a young sheep)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%9C%D7%94#Hebrew",
-      "ipa": "tˤɔːlɛ"
+      "ipa": "tale"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -78546,8 +78546,8 @@
     "pansemitic_form": "ṭalay",
     "loss": {
       "arabic": 0.19,
-      "hebrew": 0.5128,
-      "joint": 0.7028000000000001
+      "hebrew": 0.48860000000000003,
+      "joint": 0.6786000000000001
     }
   },
   {
@@ -78746,7 +78746,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -78789,7 +78789,7 @@
         "taste, flavour (objective quality of a substance as perceived by the sense of taste)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%98%D7%A2%D7%9D#Hebrew",
-      "ipa": "ta(ʔ)am"
+      "ipa": "taʔam"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -79484,7 +79484,7 @@
         "ellipsis of אֲרוּחַת צׇהֳרַיִם (arukhát-tsohoráyim, “lunch”)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%94%D7%A8%D7%99%D7%99%D7%9D#Hebrew",
-      "ipa": "t͡so(h)oʁajim"
+      "ipa": "t͡sohoʁajim"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -79542,7 +79542,7 @@
         "Shade, a shaded area."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A6%D7%9C#Hebrew",
-      "ipa": "sˤeːl"
+      "ipa": "t͡sel"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -79565,8 +79565,8 @@
     "pansemitic_form": "ṣil",
     "loss": {
       "arabic": 0.31666666666666665,
-      "hebrew": 0.144,
-      "joint": 0.46066666666666667
+      "hebrew": 0.3106666666666667,
+      "joint": 0.6273333333333333
     }
   },
   {
@@ -80520,7 +80520,7 @@
         "lentil, lens"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%93%D7%A9%D7%94#Hebrew",
-      "ipa": "ʕaðɔːʃɔː"
+      "ipa": "ʔadaʃa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -80537,8 +80537,8 @@
     "pansemitic_form": "ʕadasa",
     "loss": {
       "arabic": 0.11666666666666665,
-      "hebrew": 0.369,
-      "joint": 0.48566666666666664
+      "hebrew": 0.19166666666666665,
+      "joint": 0.3083333333333333
     }
   },
   {
@@ -80561,7 +80561,7 @@
         "lentil, lens"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%93%D7%A9%D7%94#Hebrew",
-      "ipa": "ʕaðɔːʃɔː"
+      "ipa": "ʔadaʃa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -80577,8 +80577,8 @@
     "pansemitic_form": "ʕadasa",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.369,
-      "joint": 0.369
+      "hebrew": 0.19166666666666665,
+      "joint": 0.19166666666666665
     }
   },
   {
@@ -80600,7 +80600,7 @@
         "paradise, heaven"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%93%D7%9F#Hebrew",
-      "ipa": "(ʕ)eden"
+      "ipa": "ʕeden"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -80644,7 +80644,7 @@
         "Aden (a port city, the largest city in Yemen; the former capital of South Yemen)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%93%D7%9F#Hebrew",
-      "ipa": "(ʕ)aden"
+      "ipa": "ʕaden"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -80687,7 +80687,7 @@
         "the Temple court"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%A8%D7%94#Hebrew",
-      "ipa": "(ʔ)ezʁa"
+      "ipa": "ʔezʁa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -80731,7 +80731,7 @@
         "help"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%A8%D7%94#Hebrew",
-      "ipa": "(ʔ)ezʁa"
+      "ipa": "ʔezʁa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -81285,7 +81285,7 @@
         "a male given name, Aziz, from Arabic"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%99%D7%96#Hebrew",
-      "ipa": "(ʕ)aziz"
+      "ipa": "ʕaziz"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -81416,7 +81416,7 @@
         "wood"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A5#Hebrew",
-      "ipa": "ʔet͡s"
+      "ipa": "ʕeːsˤ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -81439,8 +81439,8 @@
     "pansemitic_form": "ʕiṣ",
     "loss": {
       "arabic": 0.5549999999999999,
-      "hebrew": 0.644,
-      "joint": 1.1989999999999998
+      "hebrew": 0.144,
+      "joint": 0.699
     }
   },
   {
@@ -81944,7 +81944,7 @@
         "synonym of עלה לרגל (make pilgrimage, visit a holy site)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C%D7%94#Hebrew",
-      "ipa": "(ʔ)ala"
+      "ipa": "ʔala"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -81985,7 +81985,7 @@
         "leech"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C%D7%95%D7%A7%D7%94#Hebrew",
-      "ipa": "(ʕ)aluka"
+      "ipa": "ʕaluka"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -82075,7 +82075,7 @@
         "on, on top of"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C#Hebrew",
-      "ipa": "ʔal"
+      "ipa": "ʕal"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -82098,8 +82098,8 @@
     "pansemitic_form": "ʕalay",
     "loss": {
       "arabic": 0.36,
-      "hebrew": 0.64,
-      "joint": 1.0
+      "hebrew": 0.44000000000000006,
+      "joint": 0.8
     }
   },
   {
@@ -82328,7 +82328,7 @@
         "Spade, ♠"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C%D7%94#Hebrew",
-      "ipa": "(ʔ)ala"
+      "ipa": "ʔala"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -82425,7 +82425,7 @@
         "synonym of עלה לרגל (make pilgrimage, visit a holy site)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C%D7%94#Hebrew",
-      "ipa": "(ʔ)ala"
+      "ipa": "ʔala"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -82475,7 +82475,7 @@
         "fully burnt offering"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9C%D7%94#Hebrew",
-      "ipa": "(ʔ)ala"
+      "ipa": "ʔala"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -82571,7 +82571,7 @@
         "to take a stand (against), stand up (to) (to oppose or resist)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9E%D7%93#Hebrew",
-      "ipa": "(ʕ)amad"
+      "ipa": "ʕamad"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -82618,7 +82618,7 @@
         "to take a stand (against), stand up (to) (to oppose or resist)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9E%D7%93#Hebrew",
-      "ipa": "(ʕ)amad"
+      "ipa": "ʕamad"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -82663,7 +82663,7 @@
         "to take a stand (against), stand up (to) (to oppose or resist)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9E%D7%93#Hebrew",
-      "ipa": "(ʕ)amad"
+      "ipa": "ʕamad"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -82838,7 +82838,7 @@
         "to take a stand (against), stand up (to) (to oppose or resist)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%9E%D7%93#Hebrew",
-      "ipa": "(ʕ)amad"
+      "ipa": "ʕamad"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -83029,7 +83029,7 @@
         "cloud"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A0%D7%9F#Hebrew",
-      "ipa": "(ʔ)anan"
+      "ipa": "ʔanan"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -83070,7 +83070,7 @@
         "poor"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A0%D7%99#Hebrew",
-      "ipa": "(ʔ)ani"
+      "ipa": "ʔani"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -83109,7 +83109,7 @@
         "defective spelling of עוני"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A0%D7%99#Hebrew",
-      "ipa": "(ʔ)ani"
+      "ipa": "ʔani"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -83166,15 +83166,15 @@
         0,
         1
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
-        1,
-        2
-      ],
       "iir-pro:*sambʰārás": [
         1,
         2
       ],
       "ira-pro:*hambāráh": [
+        1,
+        2
+      ],
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -83231,15 +83231,15 @@
         0,
         1
       ],
-      "peo:*𐏃𐎶𐎲𐎠𐎼": [
-        1,
-        2
-      ],
       "iir-pro:*sambʰārás": [
         1,
         2
       ],
       "ira-pro:*hambāráh": [
+        1,
+        2
+      ],
+      "peo:*𐏃𐎶𐎲𐎠𐎼": [
         1,
         2
       ]
@@ -84022,7 +84022,7 @@
         "the Temple court"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%A8%D7%94#Hebrew",
-      "ipa": "(ʔ)ezʁa"
+      "ipa": "ʔezʁa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -84059,7 +84059,7 @@
         "help"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%A8%D7%94#Hebrew",
-      "ipa": "(ʔ)ezʁa"
+      "ipa": "ʔezʁa"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -84212,7 +84212,7 @@
         "weed, cannabis"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A9%D7%91#Hebrew",
-      "ipa": "(ʔ)esev"
+      "ipa": "ʔesev"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -85052,7 +85052,7 @@
         "a male given name, Yeshua or Jeshua, from Biblical Hebrew, variant of יְהוֹשֻׁעַ (y'hoshúa, yĕhōšúaʿ) or יֵשׁוּ (yéshu, yēšū), equivalent to English Joshua or Jesus, Koine Greek Ἰησοῦς (Iēsoûs), or Latin Iēsūs"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A9%D7%95%D7%A2#Hebrew",
-      "ipa": "jeːʃuːʕ"
+      "ipa": "jeʃua"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -85068,8 +85068,8 @@
     "pansemitic_form": "ʕisua",
     "loss": {
       "arabic": 0.25999999999999995,
-      "hebrew": 0.7864,
-      "joint": 1.0464
+      "hebrew": 0.22640000000000002,
+      "joint": 0.48639999999999994
     }
   },
   {
@@ -85146,7 +85146,11 @@
         0,
         0
       ],
-      "gmh:gazze": [
+      "goh:gazza": [
+        1,
+        1
+      ],
+      "gem-pro:*gatwǭ": [
         1,
         1
       ],
@@ -85158,11 +85162,7 @@
         1,
         1
       ],
-      "goh:gazza": [
-        1,
-        1
-      ],
-      "gem-pro:*gatwǭ": [
+      "gmh:gazze": [
         1,
         1
       ],
@@ -85258,7 +85258,7 @@
         "earth, dirt"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A4%D7%A8#Hebrew",
-      "ipa": "(ʔ)afaʁ"
+      "ipa": "ʔafaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -85295,7 +85295,7 @@
         "defective spelling of עפור"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A4%D7%A8#Hebrew",
-      "ipa": "(ʔ)afaʁ"
+      "ipa": "ʔafaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -85335,7 +85335,7 @@
         "youth, young man"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%A4%D7%A8#Hebrew",
-      "ipa": "(ʔ)afaʁ"
+      "ipa": "ʔafaʁ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -85372,7 +85372,7 @@
         "Gaza"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%96%D7%94#Hebrew",
-      "ipa": "(ʔ)aza"
+      "ipa": "ɣɑzːɑː"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -85388,8 +85388,8 @@
     "pansemitic_form": "gaza",
     "loss": {
       "arabic": 0.175,
-      "hebrew": 0.2,
-      "joint": 0.375
+      "hebrew": 0.3375,
+      "joint": 0.5125
     }
   },
   {
@@ -85575,7 +85575,7 @@
         "raven"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%95%D7%A8%D7%91#Hebrew",
-      "ipa": "(ʔ)oʁev"
+      "ipa": "ʔoʁev"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -85620,7 +85620,7 @@
         "raven"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A2%D7%95%D7%A8%D7%91#Hebrew",
-      "ipa": "(ʔ)oʁev"
+      "ipa": "ʔoʁev"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -85782,7 +85782,7 @@
         "those, yon (the masculine plural distant demonstrative pronoun, masculine plural of הוא (hu'))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9D#Hebrew",
-      "ipa": "him(m)"
+      "ipa": "himm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -86038,7 +86038,7 @@
         "to blow, to puff"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A4%D7%95%D7%97#Hebrew",
-      "ipa": "puaχ"
+      "ipa": "puːwaħ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -86054,8 +86054,8 @@
     "pansemitic_form": "puaxa",
     "loss": {
       "arabic": 0.32,
-      "hebrew": 0.16,
-      "joint": 0.48
+      "hebrew": 0.54,
+      "joint": 0.8600000000000001
     }
   },
   {
@@ -86078,7 +86078,7 @@
         "to blow, to puff"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A4%D7%95%D7%97#Hebrew",
-      "ipa": "puaχ"
+      "ipa": "puːwaħ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -86094,8 +86094,8 @@
     "pansemitic_form": "puaxa",
     "loss": {
       "arabic": 0.27999999999999997,
-      "hebrew": 0.16,
-      "joint": 0.43999999999999995
+      "hebrew": 0.54,
+      "joint": 0.8200000000000001
     }
   },
   {
@@ -89852,7 +89852,7 @@
         "wig"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A4%D7%90%D7%94#Hebrew",
-      "ipa": "pe(ʔ)a"
+      "ipa": "peːʔɑː"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -89874,8 +89874,8 @@
     "pansemitic_form": "piʔat",
     "loss": {
       "arabic": 0.38,
-      "hebrew": 0.3264,
-      "joint": 0.7064
+      "hebrew": 0.4814,
+      "joint": 0.8613999999999999
     }
   },
   {
@@ -90550,7 +90550,7 @@
         "Palestine (the region in Western Asia in the Middle East between the Mediterranean Sea and the Jordan River) (especially pre-1948)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A4%D7%9C%D7%A9%D7%AA%D7%99%D7%A0%D7%94#Hebrew",
-      "ipa": "pɔːlɛstiːnɔː"
+      "ipa": "palestina"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -90564,7 +90564,7 @@
         1,
         1
       ],
-      "he:יִשְׂרָאֵל": [
+      "egy:pwrꜣsꜣtj": [
         1,
         2
       ],
@@ -90572,7 +90572,7 @@
         1,
         2
       ],
-      "egy:pwrꜣsꜣtj": [
+      "he:יִשְׂרָאֵל": [
         1,
         2
       ],
@@ -90592,8 +90592,8 @@
     "pansemitic_form": "palaistini",
     "loss": {
       "arabic": 0.3175,
-      "hebrew": 0.3093,
-      "joint": 0.6268
+      "hebrew": 0.1407,
+      "joint": 0.4582
     }
   },
   {
@@ -90631,7 +90631,7 @@
         1,
         1
       ],
-      "he:יִשְׂרָאֵל": [
+      "egy:pwrꜣsꜣtj": [
         1,
         1
       ],
@@ -90639,7 +90639,7 @@
         1,
         1
       ],
-      "egy:pwrꜣsꜣtj": [
+      "he:יִשְׂרָאֵל": [
         1,
         1
       ],
@@ -90839,7 +90839,7 @@
         "wig"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A4%D7%90%D7%94#Hebrew",
-      "ipa": "pe(ʔ)a"
+      "ipa": "peːʔɑː"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -90861,8 +90861,8 @@
     "pansemitic_form": "piʔat",
     "loss": {
       "arabic": 0.73,
-      "hebrew": 0.3264,
-      "joint": 1.0564
+      "hebrew": 0.4814,
+      "joint": 1.2114
     }
   },
   {
@@ -91096,7 +91096,7 @@
       "hebrew_pos": "noun",
       "similarity": 0.9206
     },
-    "ancestor": "en:vɪdiəʊ",
+    "ancestor": "en:vɪdioʊ",
     "pansemitic_form": "widiau",
     "loss": {
       "arabic": 0.75,
@@ -91260,7 +91260,7 @@
         "to vomit"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A7%D7%99%D7%90#Hebrew",
-      "ipa": "(h)eki"
+      "ipa": "heki"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -91567,7 +91567,7 @@
         "to testify as a witness, to accuse"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A7%D7%9D#Hebrew",
-      "ipa": "kam"
+      "ipa": "qɔːm"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -91584,8 +91584,8 @@
     "pansemitic_form": "qama",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.2,
-      "joint": 0.275
+      "hebrew": 0.36424999999999996,
+      "joint": 0.43925
     }
   },
   {
@@ -91606,7 +91606,7 @@
         "ocean"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%95%D7%A7%D7%99%D7%99%D7%A0%D7%95%D7%A1#Hebrew",
-      "ipa": "(ʔ)okjanus"
+      "ipa": "ʔokjanus"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -91663,11 +91663,11 @@
         1,
         0
       ],
-      "itc-pro:*kapjō": [
+      "itc-pro:*kapsos": [
         2,
         1
       ],
-      "itc-pro:*kapsos": [
+      "itc-pro:*kapjō": [
         2,
         1
       ]
@@ -93368,8 +93368,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.7413
     },
-    "ancestor": "ine-pro:(s)ker",
-    "pansemitic_form": "(s)kir",
+    "ancestor": "ine-pro:sker",
+    "pansemitic_form": "skir",
     "loss": {
       "arabic": 0.91875,
       "hebrew": 0.8386666666666667,
@@ -94123,7 +94123,7 @@
         "cat"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%AA%D7%95%D7%9C#Hebrew",
-      "ipa": "ħɔːθuːl"
+      "ipa": "χatul"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -94139,8 +94139,8 @@
     "pansemitic_form": "qaṭal",
     "loss": {
       "arabic": 0.36,
-      "hebrew": 0.6664,
-      "joint": 1.0264
+      "hebrew": 0.325,
+      "joint": 0.685
     }
   },
   {
@@ -94197,7 +94197,7 @@
         "cat"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%AA%D7%95%D7%9C#Hebrew",
-      "ipa": "ħɔːθuːl"
+      "ipa": "χatul"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -94213,8 +94213,8 @@
     "pansemitic_form": "qaṭul",
     "loss": {
       "arabic": 0.36,
-      "hebrew": 0.5214,
-      "joint": 0.8814
+      "hebrew": 0.18,
+      "joint": 0.54
     }
   },
   {
@@ -94281,7 +94281,7 @@
         "cat"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%AA%D7%95%D7%9C#Hebrew",
-      "ipa": "ħɔːθuːl"
+      "ipa": "χatul"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -94297,8 +94297,8 @@
     "pansemitic_form": "qaṭul",
     "loss": {
       "arabic": 0.5,
-      "hebrew": 0.5214,
-      "joint": 1.0213999999999999
+      "hebrew": 0.18,
+      "joint": 0.6799999999999999
     }
   },
   {
@@ -94491,11 +94491,11 @@
         1,
         0
       ],
-      "itc-pro:*kapjō": [
+      "itc-pro:*kapsos": [
         2,
         1
       ],
-      "itc-pro:*kapsos": [
+      "itc-pro:*kapjō": [
         2,
         1
       ]
@@ -94533,7 +94533,7 @@
         "frost (cover of ice)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A4%D7%95%D7%A8#Hebrew",
-      "ipa": "kfoːr"
+      "ipa": "kfor"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -94549,8 +94549,8 @@
     "pansemitic_form": "qafir",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.3464,
-      "joint": 0.4064
+      "hebrew": 0.2864,
+      "joint": 0.3464
     }
   },
   {
@@ -95134,7 +95134,7 @@
         "the Slavs; Slavic lands"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A0%D7%A2%D7%9F#Hebrew",
-      "ipa": "k(e)naʔan"
+      "ipa": "kenaʔan"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -95865,7 +95865,7 @@
         0,
         1
       ],
-      "gem-pro:*kaisaraz": [
+      "orv:цьсарь": [
         1,
         1
       ],
@@ -95873,7 +95873,7 @@
         1,
         1
       ],
-      "orv:цьсарь": [
+      "gem-pro:*kaisaraz": [
         1,
         1
       ]
@@ -96046,7 +96046,7 @@
         "hat"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%95%D7%91%D7%A2#Hebrew",
-      "ipa": "kova(ʕ)"
+      "ipa": "kovaʕ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -96183,7 +96183,7 @@
         "code"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A7%D7%95%D7%93#Hebrew",
-      "ipa": "qoːð"
+      "ipa": "kod"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -96226,8 +96226,8 @@
     "pansemitic_form": "kad",
     "loss": {
       "arabic": 0.375,
-      "hebrew": 0.5143333333333334,
-      "joint": 0.8893333333333334
+      "hebrew": 0.19766666666666666,
+      "joint": 0.5726666666666667
     }
   },
   {
@@ -97205,7 +97205,7 @@
         "cat"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%97%D7%AA%D7%95%D7%9C#Hebrew",
-      "ipa": "ħɔːθuːl"
+      "ipa": "χatul"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -97221,8 +97221,8 @@
     "pansemitic_form": "qiṭul",
     "loss": {
       "arabic": 0.5,
-      "hebrew": 0.5836,
-      "joint": 1.0836000000000001
+      "hebrew": 0.29500000000000004,
+      "joint": 0.795
     }
   },
   {
@@ -97781,11 +97781,11 @@
         1,
         1
       ],
-      "gmw-pro:*kopp": [
+      "gem-pro:*kuppaz": [
         1,
         1
       ],
-      "gem-pro:*kuppaz": [
+      "gmw-pro:*kopp": [
         1,
         1
       ],
@@ -97970,7 +97970,7 @@
         "Masculine singular present participle and present tense of כָּתַב (katáv)."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%95%D7%AA%D7%91#Hebrew",
-      "ipa": "kotev"
+      "ipa": "koːteːb"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -97987,8 +97987,8 @@
     "pansemitic_form": "katib",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.225,
-      "joint": 0.28500000000000003
+      "hebrew": 0.265,
+      "joint": 0.325
     }
   },
   {
@@ -98030,11 +98030,11 @@
         2,
         2
       ],
-      "sa:काम्बोज": [
+      "pi:kamboja": [
         3,
         3
       ],
-      "pi:kamboja": [
+      "sa:कम्बोज": [
         3,
         3
       ],
@@ -98042,7 +98042,7 @@
         3,
         3
       ],
-      "sa:कम्बोज": [
+      "sa:काम्बोज": [
         3,
         3
       ]
@@ -98127,7 +98127,7 @@
         "a surname originating as an occupation, Cohen"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%95%D7%94%D7%9F#Hebrew",
-      "ipa": "ko(h)en"
+      "ipa": "koːhin"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -98143,8 +98143,8 @@
     "pansemitic_form": "kahin",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.145,
-      "joint": 0.205
+      "hebrew": 0.1786,
+      "joint": 0.2386
     }
   },
   {
@@ -98516,7 +98516,7 @@
         "sheep (an ovine animal)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%91%D7%A9#Hebrew",
-      "ipa": "kɛvɛs"
+      "ipa": "keves"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -98901,11 +98901,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -98952,11 +98952,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -99003,11 +99003,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -99054,11 +99054,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -99107,11 +99107,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -99540,7 +99540,7 @@
         "cherub, griffin"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A8%D7%95%D7%91#Hebrew",
-      "ipa": "kəruːβ"
+      "ipa": "karuːb"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -99562,12 +99562,12 @@
       "hebrew_pos": "noun",
       "similarity": 0.763
     },
-    "ancestor": "he:kəruːβ",
+    "ancestor": "he:karuːb",
     "pansemitic_form": "karub",
     "loss": {
       "arabic": 0.35714285714285715,
-      "hebrew": 0.18,
-      "joint": 0.5371428571428571
+      "hebrew": 0.06,
+      "joint": 0.41714285714285715
     }
   },
   {
@@ -100862,7 +100862,7 @@
         "daughter-in-law"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%9C%D7%94#Hebrew",
-      "ipa": "kalːɔː"
+      "ipa": "kala"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -100878,8 +100878,8 @@
     "pansemitic_form": "kana",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.5892499999999999,
-      "joint": 0.6642499999999999
+      "hebrew": 0.32499999999999996,
+      "joint": 0.39999999999999997
     }
   },
   {
@@ -100979,7 +100979,7 @@
         "gathering, union"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A0%D7%A1%D7%99%D7%94#Hebrew",
-      "ipa": "kneːsijːɔː"
+      "ipa": "knesija"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -100995,8 +100995,8 @@
     "pansemitic_form": "kanisiya",
     "loss": {
       "arabic": 0.3125,
-      "hebrew": 0.273625,
-      "joint": 0.586125
+      "hebrew": 0.104,
+      "joint": 0.4165
     }
   },
   {
@@ -101240,7 +101240,7 @@
         "the Slavs; Slavic lands"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A0%D7%A2%D7%9F#Hebrew",
-      "ipa": "k(e)naʔan"
+      "ipa": "kenaʔan"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -101600,11 +101600,11 @@
         1,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         1,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         1,
         1
       ]
@@ -101652,11 +101652,11 @@
         0,
         0
       ],
-      "akk:guḫlum": [
+      "arc:כוחלא": [
         0,
         1
       ],
-      "arc:כוחלא": [
+      "akk:guḫlum": [
         0,
         1
       ]
@@ -102166,11 +102166,11 @@
         0,
         0
       ],
-      "fa-cls:کوفْتَه": [
+      "ota:کوفته": [
         0,
         1
       ],
-      "ota:کوفته": [
+      "fa-cls:کوفْتَه": [
         0,
         1
       ]
@@ -102524,7 +102524,7 @@
         "seat of emotion, conscience"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%9C%D7%99%D7%94#Hebrew",
-      "ipa": "kiljɔː"
+      "ipa": "kilja"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -102541,8 +102541,8 @@
     "pansemitic_form": "kulya",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.25139999999999996,
-      "joint": 0.25139999999999996
+      "hebrew": 0.1,
+      "joint": 0.1
     }
   },
   {
@@ -102799,7 +102799,7 @@
         "comes (an ancient Roman title)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A7%D7%95%D7%9E%D7%99%D7%A1#Hebrew",
-      "ipa": "qomes"
+      "ipa": "komes"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -102821,8 +102821,8 @@
     "pansemitic_form": "kamis",
     "loss": {
       "arabic": 0.4586,
-      "hebrew": 0.165,
-      "joint": 0.6236
+      "hebrew": 0.145,
+      "joint": 0.6036
     }
   },
   {
@@ -102842,7 +102842,7 @@
         "alternative form of קוֹמֵיס"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A7%D7%95%D7%9E%D7%95%D7%A1#Hebrew",
-      "ipa": "qomos"
+      "ipa": "komos"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -102864,8 +102864,8 @@
     "pansemitic_form": "kamis",
     "loss": {
       "arabic": 0.4586,
-      "hebrew": 0.265,
-      "joint": 0.7236
+      "hebrew": 0.24500000000000002,
+      "joint": 0.7036
     }
   },
   {
@@ -102996,7 +102996,7 @@
       "similarity": 0.9998
     },
     "ancestor": "ms:kwalə lumpo(r)",
-    "pansemitic_form": "kwala lumpa(r)",
+    "pansemitic_form": "kwala lumpar",
     "loss": {
       "arabic": 0.23541666666666664,
       "hebrew": 0.2659090909090909,
@@ -103715,19 +103715,7 @@
         0,
         0
       ],
-      "la:chrisma": [
-        1,
-        1
-      ],
-      "grc:χρῖσμα": [
-        1,
-        1
-      ],
       "frm:chresme": [
-        1,
-        1
-      ],
-      "la-lat:crama": [
         1,
         1
       ],
@@ -103735,15 +103723,27 @@
         1,
         1
       ],
+      "la-lat:crama": [
+        1,
+        1
+      ],
+      "grc:χρῖσμα": [
+        1,
+        1
+      ],
+      "la:chrisma": [
+        1,
+        1
+      ],
+      "la-ecc:chrisma": [
+        2,
+        2
+      ],
       "la-lat:crāmum": [
         2,
         2
       ],
       "grc:χρῖσμᾰ": [
-        2,
-        2
-      ],
-      "la-ecc:chrisma": [
         2,
         2
       ]
@@ -103829,7 +103829,7 @@
         "messenger"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%9C%D7%90%D7%9A#Hebrew",
-      "ipa": "mal(ʔ)aχ"
+      "ipa": "malʔaχ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -103876,7 +103876,7 @@
         "Not; used in negating verbs, adjectives, and adverbs."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%90#Hebrew",
-      "ipa": "lo"
+      "ipa": "loː"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -103900,8 +103900,8 @@
     "pansemitic_form": "la",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.2965,
-      "joint": 0.4465
+      "hebrew": 0.4465,
+      "joint": 0.5965
     }
   },
   {
@@ -104635,7 +104635,7 @@
         "grain from which bread is made"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%97%D7%9D#Hebrew",
-      "ipa": "lɛːħɛm"
+      "ipa": "leχem"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -104652,8 +104652,8 @@
     "pansemitic_form": "laxim",
     "loss": {
       "arabic": 0.18,
-      "hebrew": 0.21500000000000002,
-      "joint": 0.395
+      "hebrew": 0.135,
+      "joint": 0.315
     }
   },
   {
@@ -104851,7 +104851,7 @@
         "to joke, to jest, to mock"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9C%D7%A2%D7%99%D7%91#Hebrew",
-      "ipa": "hil(ʔ)iv"
+      "ipa": "hilʔiv"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -105088,7 +105088,7 @@
         "why, for what reason"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%9E%D7%94#Hebrew",
-      "ipa": "lɔmːɔ"
+      "ipa": "lama"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -105104,8 +105104,8 @@
     "pansemitic_form": "lama",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.3035,
-      "joint": 0.3785
+      "hebrew": 0.0,
+      "joint": 0.075
     }
   },
   {
@@ -105131,7 +105131,7 @@
         "why, for what reason"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%9E%D7%94#Hebrew",
-      "ipa": "lɔmːɔ"
+      "ipa": "lama"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -105147,8 +105147,8 @@
     "pansemitic_form": "lama",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.3035,
-      "joint": 0.4535
+      "hebrew": 0.0,
+      "joint": 0.15
     }
   },
   {
@@ -105456,15 +105456,15 @@
         0,
         0
       ],
+      "la:lyra": [
+        1,
+        1
+      ],
       "la:lībra": [
         1,
         1
       ],
       "grc:λύρᾱ": [
-        1,
-        1
-      ],
-      "la:lyra": [
         1,
         1
       ],
@@ -106415,11 +106415,7 @@
         1,
         1
       ],
-      "ine-pro:*lendʰ-": [
-        2,
-        2
-      ],
-      "ine-pro:*plew-": [
+      "cel-pro:*Londinyom": [
         2,
         2
       ],
@@ -106427,7 +106423,11 @@
         2,
         2
       ],
-      "cel-pro:*Londinyom": [
+      "ine-pro:*plew-": [
+        2,
+        2
+      ],
+      "ine-pro:*lendʰ-": [
         2,
         2
       ]
@@ -106802,7 +106802,7 @@
         "birth, childbirth, delivery"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%99%D7%93%D7%94#Hebrew",
-      "ipa": "le(j)da"
+      "ipa": "lejda"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -106982,7 +106982,7 @@
         "why, for what reason"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9C%D7%9E%D7%94#Hebrew",
-      "ipa": "lɔmːɔ"
+      "ipa": "lama"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -106998,8 +106998,8 @@
     "pansemitic_form": "lima",
     "loss": {
       "arabic": 0.075,
-      "hebrew": 0.38125,
-      "joint": 0.45625
+      "hebrew": 0.14375,
+      "joint": 0.21875
     }
   },
   {
@@ -107058,7 +107058,7 @@
         "the Archangel Michael, associated with defending the people of Israel."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%99%D7%9B%D7%90%D7%9C#Hebrew",
-      "ipa": "miχa(ʔ)el"
+      "ipa": "miːkaːʔil"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -107076,12 +107076,12 @@
       "hebrew_pos": "name",
       "similarity": 0.8463
     },
-    "ancestor": "he:miχa(ʔ)el",
-    "pansemitic_form": "mixa(ʔ)il",
+    "ancestor": "he:miːkaːʔil",
+    "pansemitic_form": "mikaʔil",
     "loss": {
-      "arabic": 0.32857142857142857,
-      "hebrew": 0.033142857142857154,
-      "joint": 0.3617142857142857
+      "arabic": 0.3857142857142857,
+      "hebrew": 0.08571428571428572,
+      "joint": 0.4714285714285714
     }
   },
   {
@@ -107202,7 +107202,7 @@
         "very much, completely (as in dead tired)."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%AA#Hebrew",
-      "ipa": "meːθ"
+      "ipa": "met"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -107226,8 +107226,8 @@
     "pansemitic_form": "mawut",
     "loss": {
       "arabic": 0.6399999999999999,
-      "hebrew": 0.6986,
-      "joint": 1.3386
+      "hebrew": 0.5286,
+      "joint": 1.1685999999999999
     }
   },
   {
@@ -107910,7 +107910,7 @@
         "the Archangel Michael, associated with defending the people of Israel."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%99%D7%9B%D7%90%D7%9C#Hebrew",
-      "ipa": "miχa(ʔ)el"
+      "ipa": "miːkaːʔil"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -107928,12 +107928,12 @@
       "hebrew_pos": "name",
       "similarity": 1.0016
     },
-    "ancestor": "he:miχa(ʔ)el",
-    "pansemitic_form": "mixa(ʔ)il",
+    "ancestor": "he:miːkaːʔil",
+    "pansemitic_form": "mikaʔil",
     "loss": {
-      "arabic": 0.5142857142857142,
-      "hebrew": 0.033142857142857154,
-      "joint": 0.5474285714285714
+      "arabic": 0.5428571428571428,
+      "hebrew": 0.08571428571428572,
+      "joint": 0.6285714285714286
     }
   },
   {
@@ -110435,7 +110435,7 @@
         "east"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%96%D7%A8%D7%97#Hebrew",
-      "ipa": "mizrɔːħ"
+      "ipa": "mizʁaχ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -110451,8 +110451,8 @@
     "pansemitic_form": "mašriq",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.4655,
-      "joint": 0.4655
+      "hebrew": 0.4166666666666667,
+      "joint": 0.4166666666666667
     }
   },
   {
@@ -110804,7 +110804,7 @@
         "cave"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%A2%D7%A8%D7%94#Hebrew",
-      "ipa": "me(ʔ)aʁa"
+      "ipa": "meʔaʁa"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -111600,7 +111600,7 @@
         "messenger"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%9C%D7%90%D7%9A#Hebrew",
-      "ipa": "mal(ʔ)aχ"
+      "ipa": "malʔaχ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -111618,8 +111618,8 @@
       "hebrew_pos": "noun",
       "similarity": 1.0037
     },
-    "ancestor": "he:mal(ʔ)aχ",
-    "pansemitic_form": "mal(ʔ)ax",
+    "ancestor": "he:malʔaχ",
+    "pansemitic_form": "malʔax",
     "loss": {
       "arabic": 0.19166666666666665,
       "hebrew": 0.01666666666666668,
@@ -111920,7 +111920,7 @@
         "messenger"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%9C%D7%90%D7%9A#Hebrew",
-      "ipa": "mal(ʔ)aχ"
+      "ipa": "malʔaχ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -111938,8 +111938,8 @@
       "hebrew_pos": "noun",
       "similarity": 0.822
     },
-    "ancestor": "he:mal(ʔ)aχ",
-    "pansemitic_form": "mal(ʔ)ax",
+    "ancestor": "he:malʔaχ",
+    "pansemitic_form": "malʔax",
     "loss": {
       "arabic": 0.28750000000000003,
       "hebrew": 0.01666666666666668,
@@ -112060,10 +112060,6 @@
         0,
         0
       ],
-      "gem-pro:*maltą": [
-        1,
-        1
-      ],
       "enm:malt": [
         1,
         1
@@ -112077,6 +112073,10 @@
         1
       ],
       "gmw-pro:*malt": [
+        1,
+        1
+      ],
+      "gem-pro:*maltą": [
         1,
         1
       ]
@@ -112695,7 +112695,7 @@
         "Quickly, rapidly, fast."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%A8#Hebrew",
-      "ipa": "ma(h)eʁ"
+      "ipa": "maheʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -112736,7 +112736,7 @@
         "fast, quick"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%99%D7%A8#Hebrew",
-      "ipa": "ma(h)iʁ"
+      "ipa": "mahiʁ"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -112985,7 +112985,7 @@
         "time, period of time"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%A9%D7%95%D7%9F#Hebrew",
-      "ipa": "ʔɛʃun"
+      "ipa": "ʔeʃun"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -113001,8 +113001,8 @@
     "pansemitic_form": "mawsim",
     "loss": {
       "arabic": 0.0,
-      "hebrew": 0.8095,
-      "joint": 0.8095
+      "hebrew": 0.8321666666666667,
+      "joint": 0.8321666666666667
     }
   },
   {
@@ -113075,7 +113075,7 @@
         "year"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%95%D7%A2%D7%93#Hebrew",
-      "ipa": "mo(ʔ)ed"
+      "ipa": "moʔed"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -113211,15 +113211,11 @@
         0,
         0
       ],
+      "sga:Maine": [
+        1,
+        1
+      ],
       "la:Meduāna": [
-        1,
-        1
-      ],
-      "la:*Cenomania": [
-        1,
-        1
-      ],
-      "fr:Maine#Etymology_2_2": [
         1,
         1
       ],
@@ -113231,11 +113227,15 @@
         1,
         1
       ],
-      "sga:Maine": [
+      "la:*Cenomania": [
         1,
         1
       ],
       "fr:Maine": [
+        1,
+        1
+      ],
+      "fr:Maine#Etymology_2_2": [
         1,
         1
       ],
@@ -113730,7 +113730,7 @@
         "mind"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%95%D7%97#Hebrew",
-      "ipa": "moːħ"
+      "ipa": "moaχ"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -113752,8 +113752,8 @@
     "pansemitic_form": "mux",
     "loss": {
       "arabic": 0.09999999999999999,
-      "hebrew": 0.2106666666666667,
-      "joint": 0.3106666666666667
+      "hebrew": 0.233,
+      "joint": 0.333
     }
   },
   {
@@ -114747,7 +114747,7 @@
         "engineering (the application of mathematics and the physical sciences to the needs of humanity and the development of technology)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A0%D7%93%D7%A1%D7%94#Hebrew",
-      "ipa": "(h)andasa"
+      "ipa": "handasa"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -114795,7 +114795,7 @@
         "engineer (person qualified or professionally engaged in engineering)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%A0%D7%93%D7%A1#Hebrew",
-      "ipa": "me(h)andes"
+      "ipa": "mehandes"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -114848,7 +114848,7 @@
         "defective spelling of מהונדס"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%A0%D7%93%D7%A1#Hebrew",
-      "ipa": "me(h)andes"
+      "ipa": "mehandes"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -114938,7 +114938,7 @@
         "music (an art form, created by organizing pitch, rhythm, and sounds made using musical instruments and/or singing)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94#Hebrew",
-      "ipa": "muːziːqɔː"
+      "ipa": "muzika"
     },
     "match_layers": [
       "direct_cognate_he→ar",
@@ -114961,8 +114961,8 @@
     "pansemitic_form": "musiki",
     "loss": {
       "arabic": 0.2625,
-      "hebrew": 0.37800000000000006,
-      "joint": 0.6405000000000001
+      "hebrew": 0.17916666666666667,
+      "joint": 0.44166666666666665
     }
   },
   {
@@ -114982,7 +114982,7 @@
         "alternative form of מוּזִיקָה (múzika)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%95%D7%A1%D7%99%D7%A7%D7%94#Hebrew",
-      "ipa": "muːsiːqɔː"
+      "ipa": "musika"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -114998,8 +114998,8 @@
     "pansemitic_form": "musiqa",
     "loss": {
       "arabic": 0.15,
-      "hebrew": 0.22616666666666663,
-      "joint": 0.37616666666666665
+      "hebrew": 0.01666666666666668,
+      "joint": 0.16666666666666669
     }
   },
   {
@@ -115204,7 +115204,7 @@
         "cherub, griffin"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9B%D7%A8%D7%95%D7%91#Hebrew",
-      "ipa": "kəruːβ"
+      "ipa": "karuːb"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -115220,8 +115220,8 @@
     "pansemitic_form": "mixrab",
     "loss": {
       "arabic": 0.08333333333333333,
-      "hebrew": 0.7875,
-      "joint": 0.8708333333333333
+      "hebrew": 0.6833333333333332,
+      "joint": 0.7666666666666666
     }
   },
   {
@@ -115625,7 +115625,7 @@
         "key (to a lock, to a code)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%A4%D7%AA%D7%97#Hebrew",
-      "ipa": "mafteaχ"
+      "ipa": "mapteːħ"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -115642,8 +115642,8 @@
     "pansemitic_form": "miftiax",
     "loss": {
       "arabic": 0.17142857142857143,
-      "hebrew": 0.1152857142857143,
-      "joint": 0.2867142857142857
+      "hebrew": 0.32957142857142857,
+      "joint": 0.501
     }
   },
   {
@@ -116455,7 +116455,7 @@
         "the Archangel Michael, associated with defending the people of Israel."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%99%D7%9B%D7%90%D7%9C#Hebrew",
-      "ipa": "miχa(ʔ)el"
+      "ipa": "miːkaːʔil"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -116473,12 +116473,12 @@
       "hebrew_pos": "name",
       "similarity": 0.9518
     },
-    "ancestor": "he:miχa(ʔ)el",
-    "pansemitic_form": "mixa(ʔ)il",
+    "ancestor": "he:miːkaːʔil",
+    "pansemitic_form": "mikaʔil",
     "loss": {
-      "arabic": 0.12857142857142856,
-      "hebrew": 0.033142857142857154,
-      "joint": 0.1617142857142857
+      "arabic": 0.18571428571428572,
+      "hebrew": 0.08571428571428572,
+      "joint": 0.27142857142857146
     }
   },
   {
@@ -116723,7 +116723,7 @@
         "port"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%9E%D7%9C#Hebrew",
-      "ipa": "nɔːmeːl"
+      "ipa": "namel"
     },
     "match_layers": [
       "direct_cognate_ar→he",
@@ -116750,8 +116750,8 @@
     "pansemitic_form": "limin",
     "loss": {
       "arabic": 0.7899999999999999,
-      "hebrew": 0.82,
-      "joint": 1.6099999999999999
+      "hebrew": 0.6613999999999999,
+      "joint": 1.4513999999999998
     }
   },
   {
@@ -116940,7 +116940,7 @@
         "paper"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%99%D7%99%D7%A8#Hebrew",
-      "ipa": "njɔːr"
+      "ipa": "nijar"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -116962,8 +116962,8 @@
     "pansemitic_form": "nur",
     "loss": {
       "arabic": 0.3416666666666666,
-      "hebrew": 0.517,
-      "joint": 0.8586666666666667
+      "hebrew": 0.54,
+      "joint": 0.8816666666666666
     }
   },
   {
@@ -118450,7 +118450,7 @@
         "We; the subject form of the first-person plural personal pronoun."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%97%D7%A0%D7%95#Hebrew",
-      "ipa": "naχnu"
+      "ipa": "naħnuː"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -118472,8 +118472,8 @@
     "pansemitic_form": "nixnu",
     "loss": {
       "arabic": 0.155,
-      "hebrew": 0.135,
-      "joint": 0.29000000000000004
+      "hebrew": 0.215,
+      "joint": 0.37
     }
   },
   {
@@ -121112,7 +121112,7 @@
         "feminine"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%A7%D7%91%D7%94#Hebrew",
-      "ipa": "naqeːvɔː"
+      "ipa": "nekeva"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -121128,8 +121128,8 @@
     "pansemitic_form": "naqaba",
     "loss": {
       "arabic": 0.2625,
-      "hebrew": 0.31666666666666665,
-      "joint": 0.5791666666666666
+      "hebrew": 0.231,
+      "joint": 0.49350000000000005
     }
   },
   {
@@ -121552,7 +121552,7 @@
         "to whine"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%94%D7%A7#Hebrew",
-      "ipa": "na(h)ak"
+      "ipa": "nahak"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -121729,7 +121729,7 @@
         "paper"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%99%D7%99%D7%A8#Hebrew",
-      "ipa": "njɔːr"
+      "ipa": "nijar"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -121751,8 +121751,8 @@
     "pansemitic_form": "nur",
     "loss": {
       "arabic": 0.6041666666666666,
-      "hebrew": 0.517,
-      "joint": 1.1211666666666666
+      "hebrew": 0.54,
+      "joint": 1.1441666666666666
     }
   },
   {
@@ -121912,7 +121912,7 @@
         "paper"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%99%D7%99%D7%A8#Hebrew",
-      "ipa": "njɔːr"
+      "ipa": "nijar"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -121934,8 +121934,8 @@
     "pansemitic_form": "nur",
     "loss": {
       "arabic": 0.55625,
-      "hebrew": 0.517,
-      "joint": 1.07325
+      "hebrew": 0.54,
+      "joint": 1.09625
     }
   },
   {
@@ -122486,7 +122486,7 @@
       "similarity": 0.8487
     },
     "ancestor": "en:n(j)uːtɹɒn",
-    "pansemitic_form": "n(y)utran",
+    "pansemitic_form": "nyutran",
     "loss": {
       "arabic": 0.3607142857142857,
       "hebrew": 0.4704285714285715,
@@ -122516,7 +122516,7 @@
         "paper"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%99%D7%99%D7%A8#Hebrew",
-      "ipa": "njɔːr"
+      "ipa": "nijar"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -122538,8 +122538,8 @@
     "pansemitic_form": "nur",
     "loss": {
       "arabic": 0.09999999999999999,
-      "hebrew": 0.517,
-      "joint": 0.617
+      "hebrew": 0.54,
+      "joint": 0.64
     }
   },
   {
@@ -122809,11 +122809,11 @@
         0,
         0
       ],
-      "itc-pro:*neptūnos": [
+      "ine-pro:*nébʰos": [
         1,
         1
       ],
-      "ine-pro:*nébʰos": [
+      "itc-pro:*neptūnos": [
         1,
         1
       ]
@@ -123053,7 +123053,7 @@
         "feminine"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%A0%D7%A7%D7%91%D7%94#Hebrew",
-      "ipa": "naqeːvɔː"
+      "ipa": "nekeva"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -123069,8 +123069,8 @@
     "pansemitic_form": "niqaba",
     "loss": {
       "arabic": 0.16666666666666666,
-      "hebrew": 0.4124999999999999,
-      "joint": 0.5791666666666666
+      "hebrew": 0.1791666666666667,
+      "joint": 0.3458333333333333
     }
   },
   {
@@ -123235,11 +123235,11 @@
         0,
         0
       ],
-      "la:Nīcaea": [
+      "grc:Νίκαια": [
         1,
         1
       ],
-      "grc:Νίκαια": [
+      "la:Nīcaea": [
         1,
         1
       ],
@@ -123388,7 +123388,7 @@
       "similarity": 0.8192
     },
     "ancestor": "en:n(j)uːtɹɒn",
-    "pansemitic_form": "n(y)utran",
+    "pansemitic_form": "nyutran",
     "loss": {
       "arabic": 0.1464285714285714,
       "hebrew": 0.4704285714285715,
@@ -123431,7 +123431,7 @@
       "similarity": 0.8487
     },
     "ancestor": "en:n(j)uːtɹɒn",
-    "pansemitic_form": "n(y)utran",
+    "pansemitic_form": "nyutran",
     "loss": {
       "arabic": 0.1464285714285714,
       "hebrew": 0.4704285714285715,
@@ -124152,7 +124152,7 @@
         "those, yon (the masculine plural distant demonstrative pronoun, masculine plural of הוא (hu'))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9D#Hebrew",
-      "ipa": "him(m)"
+      "ipa": "himm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -124195,7 +124195,7 @@
         "those, yon (the masculine plural distant demonstrative pronoun, masculine plural of הוא (hu'))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9D#Hebrew",
-      "ipa": "him(m)"
+      "ipa": "himm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -124351,7 +124351,7 @@
         "engineering (the application of mathematics and the physical sciences to the needs of humanity and the development of technology)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%A0%D7%93%D7%A1%D7%94#Hebrew",
-      "ipa": "(h)andasa"
+      "ipa": "handasa"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -124401,7 +124401,7 @@
         "engineer (person qualified or professionally engaged in engineering)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%A0%D7%93%D7%A1#Hebrew",
-      "ipa": "me(h)andes"
+      "ipa": "mehandes"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -124448,7 +124448,7 @@
         "defective spelling of מהונדס"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%9E%D7%94%D7%A0%D7%93%D7%A1#Hebrew",
-      "ipa": "me(h)andes"
+      "ipa": "mehandes"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -124875,7 +124875,7 @@
         0,
         0
       ],
-      "dra-pro:*ēla": [
+      "sa:एला": [
         0,
         1
       ],
@@ -124883,7 +124883,7 @@
         0,
         1
       ],
-      "sa:एला": [
+      "dra-pro:*ēla": [
         0,
         1
       ]
@@ -125014,7 +125014,7 @@
         "those, yon (the masculine plural distant demonstrative pronoun, masculine plural of הוא (hu'))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9D#Hebrew",
-      "ipa": "him(m)"
+      "ipa": "himm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -125248,7 +125248,7 @@
         "those, yon (the masculine plural distant demonstrative pronoun, masculine plural of הוא (hu'))"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%9D#Hebrew",
-      "ipa": "him(m)"
+      "ipa": "himm"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -125599,7 +125599,7 @@
         "this, this one."
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%96%D7%94#Hebrew",
-      "ipa": "zɛ"
+      "ipa": "ze"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -125615,8 +125615,8 @@
     "pansemitic_form": "haza",
     "loss": {
       "arabic": 0.1875,
-      "hebrew": 0.43925,
-      "joint": 0.6267499999999999
+      "hebrew": 0.47324999999999995,
+      "joint": 0.66075
     }
   },
   {
@@ -125636,7 +125636,7 @@
         "to be hostile to, to hate, to be an enemy to"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%90%D7%99%D7%91#Hebrew",
-      "ipa": "ʔajav"
+      "ipa": "ʔaːjab"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -125652,8 +125652,8 @@
     "pansemitic_form": "ʔawaʔiba",
     "loss": {
       "arabic": 0.18125,
-      "hebrew": 0.3875,
-      "joint": 0.56875
+      "hebrew": 0.375,
+      "joint": 0.55625
     }
   },
   {
@@ -126646,7 +126646,7 @@
         "darling, beloved"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%93%D7%99%D7%93#Hebrew",
-      "ipa": "jɔːðiːð"
+      "ipa": "jadid"
     },
     "match_layers": [
       "direct_cognate_ar→he"
@@ -126662,8 +126662,8 @@
     "pansemitic_form": "wadud",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.6414,
-      "joint": 0.7014
+      "hebrew": 0.21000000000000002,
+      "joint": 0.27
     }
   },
   {
@@ -126684,7 +126684,7 @@
         "darling, beloved"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%93%D7%99%D7%93#Hebrew",
-      "ipa": "jɔːðiːð"
+      "ipa": "jadid"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -126700,8 +126700,8 @@
     "pansemitic_form": "wadid",
     "loss": {
       "arabic": 0.06,
-      "hebrew": 0.5414,
-      "joint": 0.6013999999999999
+      "hebrew": 0.11000000000000001,
+      "joint": 0.17
     }
   },
   {
@@ -128120,7 +128120,7 @@
         "ibex"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A2%D7%9C#Hebrew",
-      "ipa": "ja(ʔ)el"
+      "ipa": "jaʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -128203,7 +128203,7 @@
         "ibex"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A2%D7%9C#Hebrew",
-      "ipa": "ja(ʔ)el"
+      "ipa": "jaʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -128248,7 +128248,7 @@
         "ibex"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A2%D7%9C#Hebrew",
-      "ipa": "ja(ʔ)el"
+      "ipa": "jaʔel"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -128868,7 +128868,7 @@
         "wine (an alcoholic beverage made by fermenting grape juice, with an ABV ranging from 5.5–16%)"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%99%D7%9F#Hebrew",
-      "ipa": "ja(j)in"
+      "ipa": "jajin"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -129379,7 +129379,7 @@
         "To give up, to despair"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%AA%D7%99%D7%99%D7%90%D7%A9#Hebrew",
-      "ipa": "hitja(ʔ)eʃ"
+      "ipa": "hitjaʔeʃ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -129418,7 +129418,7 @@
         "To despair"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%99%D7%90%D7%A9#Hebrew",
-      "ipa": "je(ʔ)eʃ"
+      "ipa": "jeʔeʃ"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -129988,7 +129988,7 @@
         "a male given name, Yeshua or Jeshua, from Biblical Hebrew, variant of יְהוֹשֻׁעַ (y'hoshúa, yĕhōšúaʿ) or יֵשׁוּ (yéshu, yēšū), equivalent to English Joshua or Jesus, Koine Greek Ἰησοῦς (Iēsoûs), or Latin Iēsūs"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%A9%D7%95%D7%A2#Hebrew",
-      "ipa": "jeːʃuːʕ"
+      "ipa": "jeʃua"
     },
     "match_layers": [
       "direct_cognate_he→ar"
@@ -130004,8 +130004,8 @@
     "pansemitic_form": "yasuaʕ",
     "loss": {
       "arabic": 0.16666666666666666,
-      "hebrew": 0.31549999999999995,
-      "joint": 0.48216666666666663
+      "hebrew": 0.34883333333333333,
+      "joint": 0.5155
     }
   },
   {
@@ -130156,7 +130156,7 @@
         "a male given name, equivalent to English Joshua"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%94%D7%95%D7%A9%D7%A2#Hebrew",
-      "ipa": "jhoːʃuːʕ"
+      "ipa": "jehoʃua"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -130174,12 +130174,12 @@
       "hebrew_pos": "name",
       "similarity": 0.8936
     },
-    "ancestor": "he:jhoːʃuːʕ",
-    "pansemitic_form": "yhašuʕ",
+    "ancestor": "he:jehoʃua",
+    "pansemitic_form": "yihašua",
     "loss": {
-      "arabic": 0.17500000000000002,
-      "hebrew": 0.19883333333333333,
-      "joint": 0.37383333333333335
+      "arabic": 0.5642857142857143,
+      "hebrew": 0.10357142857142856,
+      "joint": 0.6678571428571428
     }
   },
   {
@@ -130673,7 +130673,7 @@
         "to happen, take place, occur"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%94%D7%99%D7%94#Hebrew",
-      "ipa": "(h)aja"
+      "ipa": "haja"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -131135,7 +131135,7 @@
         "pigeon, dove"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%95%D7%A0%D7%94#Hebrew",
-      "ipa": "joːnɔː"
+      "ipa": "jona"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -131157,12 +131157,12 @@
       "hebrew_pos": "name",
       "similarity": 0.9129
     },
-    "ancestor": "he:joːnɔː",
+    "ancestor": "he:jona",
     "pansemitic_form": "yana",
     "loss": {
       "arabic": 0.565,
-      "hebrew": 0.4125,
-      "joint": 0.9774999999999999
+      "hebrew": 0.14825,
+      "joint": 0.7132499999999999
     }
   },
   {
@@ -131188,7 +131188,7 @@
         "pigeon, dove"
       ],
       "wiktionary": "https://en.wiktionary.org/wiki/%D7%99%D7%95%D7%A0%D7%94#Hebrew",
-      "ipa": "joːnɔː"
+      "ipa": "jona"
     },
     "match_layers": [
       "shared_borrowing_source"
@@ -131214,12 +131214,12 @@
       "hebrew_pos": "name",
       "similarity": 0.9133
     },
-    "ancestor": "he:joːnɔː",
+    "ancestor": "he:jona",
     "pansemitic_form": "yana",
     "loss": {
       "arabic": 0.65,
-      "hebrew": 0.4125,
-      "joint": 1.0625
+      "hebrew": 0.14825,
+      "joint": 0.79825
     }
   },
   {

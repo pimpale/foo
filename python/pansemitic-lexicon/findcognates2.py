@@ -824,7 +824,7 @@ def main():
             lang=lang,
             word=canonical,
             kaikki_romanization=roman or None,
-            ipa=partial.ipa if partial else None,
+            pronunciations=partial.pronunciations if partial else [],
         )
 
     def _surface_ipa(source: SharedSource) -> str | None:

@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Self
 
 def _geminate(form: str) -> str:
@@ -123,23 +123,7 @@ def _resolve_tiers(tiers: list[str | None]) -> str | None:
     return best[2] if best else None
 
 
-def _normalize_kaikki_ipa(raw: str | None) -> str | None:
-    """Strip kaikki's IPA wrapper (/…/ or […]), prosodic marks, and geminates."""
-    if not raw:
-        return None
-    m = _IPA_DELIMITED.search(raw)
-    out = m.group(1) if m else raw
-    out = out.split(",")[0].strip()
-    # Some kaikki IPA strings are malformed and only include one edge
-    # delimiter (e.g. "/braːɡ"); strip leftover wrapper chars.
-    out = out.strip("/[]")
-    for c in "ˈˌ.":
-        out = out.replace(c, "")
-    out = out.strip()
-    # Some kaikki IPA spells gemination as a doubled letter split across
-    # syllables (e.g. /ebˈbuː.bum/ → ebbuːbum).  Collapse to ː convention.
-    out = _geminate(out)
-    return out or None
+
 
 
 def canonical_from_entry(entry: dict[str, Any]) -> str:
@@ -157,13 +141,40 @@ def _romanization_from_entry(entry: dict[str, Any]) -> str | None:
     return None
 
 
-def _ipa_from_entry(entry: dict[str, Any]) -> str | None:
+def _ipa_from_entry(entry: dict[str, Any]) -> list[IpaRealization]:
+    ipa_list = []
     for s in entry.get("sounds", []):
         ipa = s.get("ipa")
         if ipa:
-            return ipa
-    return None
+            ipa_list.append(IpaRealization(ipa=ipa, tags=s.get("tags", [])).normalize())
+    return ipa_list
 
+@dataclass
+class IpaRealization:
+    """
+    Structured IPA data including different dialects or variants.
+    """
+    ipa: str
+    tags: list[str]
+    
+    def normalize(self) -> IpaRealization :
+        """Strip kaikki's IPA wrapper (/…/ or […]), prosodic marks, and geminates."""
+
+        m = _IPA_DELIMITED.search(self.ipa)
+        out = m.group(1) if m else self.ipa
+        out = out.split(",")[0].strip()
+        # Some kaikki IPA strings are malformed and only include one edge
+        # delimiter (e.g. "/braːɡ"); strip leftover wrapper chars.
+        out = out.strip("/[]")
+        for c in "ˈˌ.":
+            out = out.replace(c, "")
+        out = out.strip()
+        # Some kaikki IPA spells gemination as a doubled letter split across
+        # syllables (e.g. /ebˈbuː.bum/ → ebbuːbum).  Collapse to ː convention.
+        out = _geminate(out)
+        # set 
+        return IpaRealization(ipa=out, tags=self.tags)
+    
 
 @dataclass
 class PartialSource:
@@ -174,7 +185,7 @@ class PartialSource:
     lang: str
     word: str
     kaikki_romanization: str | None = None
-    ipa: str | None = None  # already normalized at construction time
+    pronunciations: list[IpaRealization] = field(default_factory=list)
 
     @classmethod
     def from_kaikki_entry(cls, entry: dict[str, Any]) -> Self | None:
@@ -187,7 +198,7 @@ class PartialSource:
             lang=lang,
             word=word,
             kaikki_romanization=_romanization_from_entry(entry),
-            ipa=_normalize_kaikki_ipa(_ipa_from_entry(entry)),
+            pronunciations=_ipa_from_entry(entry),
         )
 
     @property
@@ -243,7 +254,7 @@ class SharedSource(PartialSource):
             lang=lang,
             word=word,
             kaikki_romanization=entry.kaikki_romanization if entry else None,
-            ipa=entry.ipa if entry else None,
+            pronunciations=entry.pronunciations if entry else [],
             template_tr=citation.template_tr if citation else None,
         )
 

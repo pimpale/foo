@@ -108,7 +108,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 إِسْتَاد,ʔistād,אִצְטַדְיוֹן,itstadyón,stadian,stadium
 إِسْحَاق,ʔisḥāq,יִצְחָק,yitskhák,yiṣxaq,"a male given name, Ishaq or Ishak, equivalent to English Isaac or Yitzchak"
 إِسْفَنْج,ʔisfanj,סְפוֹג,sfog,spangas,sponge
-إِسْمَاعِيل,ʔismāʕīl,יִשְׁמָעֵאל,yishma'él,(y)išma(ʔ)il,"Ishmael, Ismail"
+إِسْمَاعِيل,ʔismāʕīl,יִשְׁמָעֵאל,yishma'él,yišmaʔil,"Ishmael, Ismail"
 إِصْبَع,ʔiṣbaʕ,אֶצְבַּע,étsba,ʔiṣbaʕ,"finger, toe"
 إِطْرِيَة,ʔiṭriya,אִטְרִיָּה,itriyá,ʔitrian,thin noodles or vermicelli cooked in broth
 إِقْلِيم,ʔiqlīm,אַקְלִים,aklím,ʔiqlim,"region, climate (geographical area of the earth, particularly a zone of latitude)"
@@ -126,12 +126,12 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 التَّلْمُود,at-talmūd,תַּלְמוּד,talmúd,talmud,Talmud
 التَّوْرَاة,at-tawrāh,תּוֹרָה,torá,tara,"the Torah, Pentateuch"
 الدَّار الْبَيْضَاء,ad-dār al-bayḍāʔ,קָזַבְּלַנְקָה,kazablánka,ʔadar albayṣaʔ,"Casablanca (the capital city of the region of Casablanca-Settat, Morocco)"
-السَّبْت,as-sabt,שַׁבָּת,shabát,šabas,the Sabbath
+السَّبْت,as-sabt,שַׁבָּת,shabát,šabat,the Sabbath
 السَّلَامُ عَلَيْكُمْ,as-salāmu ʕalaykum,שָׁלוֹם עֲלֵיכֶם,shalóm alekhém,salamuʕalaykum,"peace be upon you; good day; hello; hail, salaam alaikum, assalamu alaikum"
 الصِّين,aṣ-ṣīn,סִין,sin,tsina,China (a region and country in East Asia)
 الفَاسِخ,al-fāsiḵ,פֶּסַח,pésakh,pasix,"Passover, Pesach"
 اللّٰه,allāh,אֱלוֹהַּ,elóah,ʔalah,God
-اللّٰه,allāh,אֲללַּהּ,alláh,ʔala(h),God
+اللّٰه,allāh,אֲללַּהּ,alláh,ʔalah,God
 النَّقَب,an-naqab,נֶגֶב,négev,nigiw,the Negev (a desert in Israel)
 النِّيل,an-nīl,נִילוּס,nilus,nilas,the Nile
 الْأُرْدُن,al-ʔurdun,יַרְדֵּן,yardén,ʔurdun,Jordan (a country in West Asia in the Middle East)
@@ -167,8 +167,8 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 بَابُونَج,bābūnaj,בַּבּוֹנָג,babonág,babunaj,"camomile (Matricaria gen., Anthemis gen. and Chamaemelum gen.)"
 بَابِل,bābil,בָּבֶל,bavél,babilim,"Babylon (an ancient city, the ancient capital of Babylonia in modern Iraq, built on the banks of the Euphrates)"
 بَادَ,bāda,אָבַד,avád,ʔabada,"to perish, to die, to become extinct"
-بَار,bār,בָּאר,bár,ba,bar (place where alcoholic beverages are sold)
-بَار,bār,בָּר,bar,ba,bar (place where alcoholic beverages are sold)
+بَار,bār,בָּאר,bár,bar,bar (place where alcoholic beverages are sold)
+بَار,bār,בָּר,bar,bar,bar (place where alcoholic beverages are sold)
 بَارَكَ,bāraka,בֵּרֵךְ,berékh,baraka,to bless
 بَاز,bāz,בַּז,baz,baz,hawk
 بَالِيه,bālēh,בָּלֵט,balét,bali,ballet
@@ -341,7 +341,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 جِين,jīn,גֶּן,gen,gin,gene
 جِينْز,jīnz,גִ׳ינְס,jins,jinz,jeans
 حَاج,ḥāj,הגה,hagé,ʔigu,"camelthorn, manna tree, Alhagi gen. et spp."
-حَاخَام,ḥāḵām,חָכָם,khakhám,xaxam,rabbi
+حَاخَام,ḥāḵām,חָכָם,khakhám,xakam,rabbi
 حَادٍ,ḥādin,חַד,khad-,xadin,first (only in composed numbers)
 حَادّ,ḥādd,חַד,khad-,xad,"sharp, pointed"
 حَارّ,ḥārr,חָרִיף,kharíf,xarif,"hot, burning"
@@ -555,7 +555,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 رِجْل,rijl,רֶגֶל,régel,rigl,"an extremity; a limb, a leg"
 رِمْش,rimš,רִיס,ris,rims,eyelash
 رِيق,rīq,רֹק,roq,riq,"saliva, spittle"
-رِيُو دِي جَانِيرُو,riyō dī jānērō,רִיוּ דֵה זַ׳נֵירוּ,riu de janeiru,riu ji jani(y)ru,"Rio de Janeiro (a state of the Southeast Region, Brazil)"
+رِيُو دِي جَانِيرُو,riyō dī jānērō,רִיוּ דֵה זַ׳נֵירוּ,riu de janeiru,riu ji janiyru,"Rio de Janeiro (a state of the Southeast Region, Brazil)"
 زَاوِيَة,zāwiya,זָוִית,zavít,zawiya,"angle, corner, edge"
 زَبَرْجَد,zabarjad,אִזְמַרְגָּד,izmargád,zmaragdas,aquamarine
 زَبَّلَ,zabbala,זֶבֶל,zével,zabala,"to fertilize, to treat with manure or compost"
@@ -592,7 +592,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 سَافِر,sāfir,סֵפֶר,séfer,safir,writer
 سَاق,sāq,שׁוֹק,shok,saq,shank
 سَام,sām,שֵׁם,shem,sam,Shem
-سَانْدْوِيتْش,sandwitš,סֶנְדְוִיץ׳,séndvich,sanwij,sandwich
+سَانْدْوِيتْش,sandwitš,סֶנְדְוִיץ׳,séndvich,sandwiš,sandwich
 سَاو بَاوْلُو,sāw bāwlō,סָאוּ פָּאוּלוּ,sau paulu,saw pawlu,"a municipality, the state capital of São Paulo, Brazil"
 سَبَب,sabab,סִבָּה,sibá,sabab,"cause, grounds, aetiological reason"
 سَبَى,sabā,שָׁבָה,shavá,saba,"to captivate, to captive"
@@ -603,7 +603,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 سَبْح,sabḥ,שֶׁבַח,shévakh,sabax,"praise, laudation"
 سَبْي,saby,שֶׁבִי,shévi,sabyi,captivity
 سَجَدَ,sajada,סָגַד,sagád,sagada,"to prostrate oneself, to bow down"
-سَحَر,saḥar,שַׁחַר,shákhar,šax(a)r,dawn
+سَحَر,saḥar,שַׁחַר,shákhar,šaxar,dawn
 سَرَطَان,saraṭān,סִרְטֵן,sirtén,saraṭan,"cancer, carcinoma"
 سَرَطَان,saraṭān,סַרְטָן,sartán,saraṭan,"cancer, carcinoma"
 سَطْح,saṭḥ,שֶׁטַח,shétakh,saṭax,surface
@@ -666,7 +666,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 سِلْسِلَة,silsila,שַׁרְשֶׁרֶת,sharshéret,silsilat,chain
 سِلْفِي,silfī,סֶלְפִי,sélfi,silfi,selfie
 سِمْسِم,simsim,שֻׁמְשֹׁם,shumshóm,simsim,sesame (plant or seed)
-سِمْعَان,simʕān,שִׁמְעוֹן,shim'ón,šim(ʔ)an,"a male given name from Hebrew, equivalent to English Simon"
+سِمْعَان,simʕān,שִׁמְעוֹן,shim'ón,šimʔan,"a male given name from Hebrew, equivalent to English Simon"
 سِنَة,sina,שֵׁנָה,sheiná,sina,slumber; nap
 سِنْجَار,sinjār,שִׁנְעָר,shin'ár,sinjar,"Singar (a city in Nineveh Province, Iraq)"
 سِيَاج,siyāj,סְיָג,sə'yág,siyaga,fence
@@ -689,7 +689,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 شَلَّال,šallāl,שְׁלוּלִית,shlulít,šalalit,waterfall
 شَمَر,šamar,שֻׁמָּר,šumár,šimru,fennel (Foeniculum gen.)
 شَمْبَانْيَا,šambānyā,שַׁמְפַּנְיָה,shampánya,šapan,champagne (beverage)
-شَمْعُون,šamʕūn,שִׁמְעוֹן,shim'ón,šim(ʔ)an,"a surname from Hebrew, equivalent to English Simon"
+شَمْعُون,šamʕūn,שִׁמְעוֹן,shim'ón,šimʔan,"a surname from Hebrew, equivalent to English Simon"
 شَنَأَ,šanaʔa,שָׂנֵא,sané,sanaʔa,to hate intensely
 شَهِيد,šahīd,שָׂהֵד,sahéd,sahid,witness
 شَهْر,šahr,סַהַר,sáhar,sahar,month (unit of time)
@@ -1006,7 +1006,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 كُوب,kūb,קאפּ,káp,kupa,"glass, cup"
 كُور,kūr,כּוּר,kur,kini,"furnace, smelting furnace, forge"
 كُونْلِي,konlī,קונלי,kónli,kanli,a transliteration of the English surname Conley
-كُوَالَا لُمْبُور,kuwālā lumbūr,קוּאָלָה לוּמְפּוּר,kuala lumpur,kwala lumpa(r),Kuala Lumpur (a federal territory of Malaysia)
+كُوَالَا لُمْبُور,kuwālā lumbūr,קוּאָלָה לוּמְפּוּר,kuala lumpur,kwala lumpar,Kuala Lumpur (a federal territory of Malaysia)
 كِتَاب,kitāb,כְּתָב,k'táv,kitab,"letter, note, paper, piece of writing, message"
 كِتَابَة,kitāba,כְּתֹבֶת,k'tóvet,kitabat,writing
 كِرْبَاس,kirbās,כַּרְפַּס,karpás,karpasa,cotton-cloth
@@ -1044,7 +1044,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 لِفْت,lift,לֶפֶת,léfet,lapt,turnip (Brassica rapa subsp. rapa)
 لِمَا,limā,לָ֫מָּה,láma,lima,"for what (relative, not interrogative)"
 لِمَاذَا,li-māḏā,לָמָּה זֶה,láma zé,limaza,why
-ميشال,mīšāl,מִיכָאֵל,mikha'él,mixa(ʔ)il,a male given name of French origin
+ميشال,mīšāl,מִיכָאֵל,mikha'él,mikaʔil,a male given name of French origin
 مَا,mā,מָה,ma,ma,"that which, what"
 مَاء,māʔ,מַיִם,máyim,maʔim,water
 مَاتَ,māta,מֵת,mét,mawut,to die
@@ -1052,7 +1052,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 مَالِح,māliḥ,מָלוּחַ,malúakh,maliax,"salty, saline."
 مَاهَ,māha,מַיִם,máyim,may,to abound with water
 مَايُو,māyū,מַאי,may,mayus,May (fifth month of the Gregorian calendar)
-مَايْكَل,māykal,מִיכָאֵל,mikha'él,mixa(ʔ)il,"a male given name, equivalent to English Michael"
+مَايْكَل,māykal,מִיכָאֵל,mikha'él,mikaʔil,"a male given name, equivalent to English Michael"
 مَبْسُوط,mabsūṭ,מַבְּסוּט,mabsút,mabsuṭ,cheerful
 مَبْنًى,mabnan,מִבְנֶה,mivné,mabnan,building
 مَتَى,matā,מָתַי,matái,matai,when (at what time?)
@@ -1094,7 +1094,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 مَلَأَ,malaʔa,מָלֵא,malé,malaʔa,to fill
 مَلَأَ,malaʔa,מֻלָּא,mulá,malaʔa,to fill
 مَلَك,malak,מֶלֶךְ,mélekh,malk,angel
-مَلَك,malak,מַלְאָךְ,mal'ákh,mal(ʔ)ax,angel
+مَلَك,malak,מַלְאָךְ,mal'ákh,malʔax,angel
 مَلَّاح,mallāḥ,מַלָּח,mallā́ḥ,malaxum,"mariner, shipman, sailor, helmsman"
 مَلَّحَ,mallaḥa,מֶלַח,mélaḥ,milx,to salt
 مَلِك,malik,מֶלֶךְ,mélekh,malk,"king, sovereign, monarch"
@@ -1157,7 +1157,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 مِنْخَل,minḵal,מוֹהַל,mohál,minxal,"sieve, sifter"
 مِنْشَار,minšār,מַסּוֹר,masór,minsar,saw
 مِيتَة,mīta,מִיתָה,mitá,mita,manner of death
-مِيخَائِيل,mīḵāʔīl,מִיכָאֵל,mikha'él,mixa(ʔ)il,"a male given name from Hebrew, equivalent to English Michael"
+مِيخَائِيل,mīḵāʔīl,מִיכָאֵל,mikha'él,mikaʔil,"a male given name from Hebrew, equivalent to English Michael"
 مِيل,mīl,מִיל,míl,mil,mile
 مِيم,mīm,מֶם,mem,mim,meme
 مِينَاء,mīnāʔ,נָמֵל,namél,limin,"port, harbor"
@@ -1212,7 +1212,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 نُحَاس,nuḥās,נְחֹשֶׁת,n'khóshet,nxuxas,copper
 نُسْخَة,nusḵa,נוּסָח,nusákh,nusaxa,transcript
 نُقْطَة,nuqṭa,נְקֻדָּה,n'kudá,nuquṭa,"dot, point"
-نُوتْرُون,nutrūn,נֵיטְרוֹן,neitrón,n(y)utran,neutron
+نُوتْرُون,nutrūn,נֵיטְרוֹן,neitrón,nyutran,neutron
 نُور,nūr,נִיר,nir,nur,"lamp, light, lantern"
 نُور,nūr,נוּר,nur,nur,illumination
 نُوفِمْبِر,nūfimbir,נוֹבֶמְבֶּר,novémber,nawimbir,November (eleventh month of the Gregorian calendar)
@@ -1222,7 +1222,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 نِير,nīr,מָנוֹר,manór,niru,"beam, a transverse piece of wood in a loom"
 نِيس,nīs,ניס,nis,nis,"Nice (a coastal city, the capital of Alpes-Maritimes department in the Provence-Alpes-Côte d'Azur region in southeast France)"
 نِينْجَا,nīnjā,נִינְגָ׳ה,nínja,ninja,ninja
-نْيُوتْرُون,nyutrūn,נֵיטְרוֹן,neitrón,n(y)utran,neutron
+نْيُوتْرُون,nyutrūn,נֵיטְרוֹן,neitrón,nyutran,neutron
 هَاجَر,hājar,הָגָר,hagár,hagar,"a female given name, Hajar, equivalent to English Hagar or Hager"
 هَدَس,hadas,הֲדַס,haḏás,hadas,myrtle (Myrtus gen. et spp.)
 هَلَكَ,halaka,הָלַךְ,halákh,halak,"to ruin, to annihilate, to destroy"
@@ -1267,7 +1267,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 يَد,yad,יָד,yád,yad,"an appendage of a body (as of an animal), a foreleg"
 يَسُوع,yasūʕ,יֵשׁוּעַ,yeshúa,yasuaʕ,Jesus of Nazareth
 يَسِير,yasīr,יָשָׁר,yashár,yasir,short (of time)
-يَشُوع,yašūʕ,יְהוֹשֻׁעַ,y'hoshúa,yhašuʕ,Joshua
+يَشُوع,yašūʕ,יְהוֹשֻׁעַ,y'hoshúa,yihašua,Joshua
 يَشْب,yašb,‮יָשְׁפֵה‬,yošp̄e,yašbi,jasper
 يَشْم,yašm,‮יָשְׁפֵה‬,yošp̄e,yašmi,jade
 يَمِين,yamīn,יָמִין,yamín,yamin,right hand
