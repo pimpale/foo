@@ -12,7 +12,6 @@ Outputs:
 """
 
 import os
-import re
 import sys
 import time
 from collections import defaultdict
@@ -23,26 +22,17 @@ import numpy as np
 import orjson
 from sentence_transformers import SentenceTransformer
 
+from reconstruction import ArabicWord, HebrewWord
+
 DATA_DIR = Path("data")
 ALL_WORDS_FILE = DATA_DIR / "kaikki.org-dictionary-all-words.jsonl"
 SENSES_FILE = Path("senses.json")
 EMBEDDINGS_FILE = Path("embeddings.npy")
 
-ARABIC_DIACRITICS = re.compile(r"[\u064B-\u065F\u0670\u0640]")
-HEBREW_DIACRITICS = re.compile(r"[\u0591-\u05BD\u05BF-\u05C7]")
-
 _AR = b'"ar"'
 _HE = b'"he"'
 
 BATCH_SIZE = 1024
-
-
-def normalize_arabic(text: str) -> str:
-    return ARABIC_DIACRITICS.sub("", text).strip()
-
-
-def normalize_hebrew(text: str) -> str:
-    return HEBREW_DIACRITICS.sub("", text).strip()
 
 
 def _extract_canonical(entry):
@@ -139,7 +129,7 @@ def build_sense_records(raw_senses):
     idx = 0
 
     for lang, word, canonical, pos, gloss_text, roman in raw_senses:
-        norm = normalize_arabic(word) if lang == "ar" else normalize_hebrew(word)
+        norm = (ArabicWord if lang == "ar" else HebrewWord).normalize(word)
         key = (lang, canonical, pos, gloss_text)
         if key in seen:
             continue

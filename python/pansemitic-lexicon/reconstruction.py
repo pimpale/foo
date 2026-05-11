@@ -141,6 +141,12 @@ def _expand_triliteral_root(form: str) -> str:
     return form
 
 
+_ARABIC_DIACRITICS = re.compile(r"[ً-ٰٟـ]")
+_HEBREW_DIACRITICS = re.compile(r"[֑-ֽֿ-ׇ]")
+# Syriac vowel marks and combining diacritics in the Syriac block (U+0700–U+074F).
+_SYRIAC_DIACRITICS = re.compile(r"[ܑܰ-݊]")
+
+
 def _normalize_hebrew_vowel_marks(form: str) -> str:
     """Drop Hebrew romanization stress marks but preserve macron length."""
     out = []
@@ -238,7 +244,12 @@ class ArabicWord(Word):
     @property
     def lang(self) -> str:
         return "ar"
-    
+
+    @classmethod
+    def normalize(cls, text: str) -> str:
+        """Strip Arabic harakat / tatweel — returns the bare consonantal skeleton."""
+        return _ARABIC_DIACRITICS.sub("", text).strip()
+
     @classmethod
     def from_romanization(cls, text: str) -> Self:
         """Arabic romanization → IPA (lossless: preserves length + gemination)."""
@@ -292,6 +303,11 @@ class HebrewWord(Word):
     @property
     def lang(self) -> str:
         return "he"
+
+    @classmethod
+    def normalize(cls, text: str) -> str:
+        """Strip niqud / cantillation — returns the bare consonantal skeleton."""
+        return _HEBREW_DIACRITICS.sub("", text).strip()
 
     @classmethod
     def from_romanization(cls, text: str) -> Self:
@@ -1034,6 +1050,19 @@ class AramaicWord(Word):
         return "arc"
 
     @classmethod
+    def normalize(cls, text: str) -> str:
+        """Strip Hebrew-script niqud — Aramaic uses the same diacritic block."""
+        return _HEBREW_DIACRITICS.sub("", text).strip()
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Aramaic scholarly romanization → IPA. Reuses Hebrew conventions
+        (ʾ, ʿ, ś, š, ḏ, ṯ, ḫ, ḥ, p̄, ḇ, macron length, etc.)."""
+        if not text:
+            return cls(word=text)
+        return cls(word=HebrewWord.from_romanization(text).to_ipa())
+
+    @classmethod
     def from_aramaic(cls, text) -> Self:
         """Aramaic (Hebrew script + nikkud) → IPA.  Dagesh preserved as ː."""
         if not text:
@@ -1057,6 +1086,96 @@ class AramaicWord(Word):
         form = "".join(result)
 
         # Strip trailing ʔ (Aramaic emphatic state -א).
+        form = form.rstrip('ʔ')
+
+        return cls.from_ipa(form)
+
+
+# ── Syriac (Syriac script) → IPA ────────────────────────────────
+_SYRIAC_CONSONANTS = {
+    'ܐ': 'ʔ', 'ܒ': 'b', 'ܓ': 'g', 'ܔ': 'g', 'ܕ': 'd', 'ܖ': 'd',
+    'ܗ': 'h', 'ܘ': 'w', 'ܙ': 'z', 'ܚ': 'ħ', 'ܛ': 'tˤ', 'ܜ': 'tˤ',
+    'ܝ': 'j', 'ܞ': 'jh', 'ܟ': 'k', 'ܠ': 'l', 'ܡ': 'm', 'ܢ': 'n',
+    'ܣ': 's', 'ܤ': 's', 'ܥ': 'ʕ', 'ܦ': 'p', 'ܧ': 'p', 'ܨ': 'sˤ',
+    'ܩ': 'q', 'ܪ': 'r', 'ܫ': 'ʃ', 'ܬ': 't', 'ܭ': 't', 'ܮ': 'd͡ʒ',
+    'ܯ': 'tˤ',
+}
+
+# Syriac vowel marks (East + West traditions).  We collapse them to the
+# nearest IPA quality; zqapha is rendered /a/ to match the Eastern tradition.
+_SYRIAC_VOWELS = {
+    'ܰ': 'a',   # pthaha above
+    'ܱ': 'a',   # pthaha below
+    'ܲ': 'a',   # pthaha dotted
+    'ܳ': 'a',   # zqapha above
+    'ܴ': 'a',   # zqapha below
+    'ܵ': 'a',   # zqapha dotted
+    'ܶ': 'e',   # rbasa above
+    'ܷ': 'e',   # rbasa below
+    'ܸ': 'e',   # dotted zlama horizontal
+    'ܹ': 'i',   # dotted zlama angular
+    'ܺ': 'i',   # hbasa above
+    'ܻ': 'i',   # hbasa below
+    'ܼ': 'u',   # hbasa-esasa dotted
+    'ܽ': 'u',   # esasa above
+    'ܾ': 'u',   # esasa below
+    'ܿ': 'o',   # rwaha
+}
+
+# Marks to skip (qushshaya/rukkakha pronunciation dots, syame plural marker,
+# combining alaph/dalath, accents, etc.).  They aren't phonemic at this layer.
+_SYRIAC_SKIP = {
+    '݀',  # feminine dot
+    '݁',  # qushshaya
+    '݂',  # rukkakha
+    '݃',  # two vertical dots above
+    '݄',  # two vertical dots below
+    '݅',  # three dots above
+    '݆',  # three dots below
+    '݇',  # oblique line above
+    '݈',  # oblique line below
+    '݉',  # music
+    '݊',  # barrekh
+    'ܑ',  # superscript alaph
+}
+
+
+class SyriacWord(Word):
+    @property
+    def lang(self) -> str:
+        return "syc"
+
+    @classmethod
+    def normalize(cls, text: str) -> str:
+        """Strip Syriac vowel marks and diacritics."""
+        return _SYRIAC_DIACRITICS.sub("", text).strip()
+
+    @classmethod
+    def from_romanization(cls, text: str) -> Self:
+        """Syriac scholarly romanization → IPA. Reuses Hebrew conventions."""
+        if not text:
+            return cls(word=text)
+        return cls(word=HebrewWord.from_romanization(text).to_ipa())
+
+    @classmethod
+    def from_syriac(cls, text) -> Self:
+        """Syriac (Syriac script + vowel marks) → IPA."""
+        if not text:
+            return cls(word=text)
+
+        result: list[str] = []
+        for c in text:
+            if c in _SYRIAC_CONSONANTS:
+                result.append(_SYRIAC_CONSONANTS[c])
+            elif c in _SYRIAC_VOWELS:
+                result.append(_SYRIAC_VOWELS[c])
+            elif c in _SYRIAC_SKIP:
+                continue
+            # else: ignore punctuation, spaces, etc.
+
+        form = "".join(result)
+
+        # Strip trailing ʔ (Syriac emphatic state, written with final alaph).
         form = form.rstrip('ʔ')
 
         return cls.from_ipa(form)
@@ -1227,7 +1346,7 @@ class PansemiticWord(Word):
         form = ancestor.to_pansemitic_ipa()
 
         # Semitic-family sources: f reflects older *p.
-        if ancestor.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc"):
+        if ancestor.lang in ("sem-pro", "sem-wes-pro", "ar", "akk", "arc", "syc"):
             form = form.replace("f", "p")
 
         for src, dst in _IPA_TO_PANSEMITIC_IPA:
@@ -1334,6 +1453,10 @@ def word_from_sharedsource(src: SharedSource) -> Word:
             if ipa:
                 return AramaicWord.from_ipa(ipa)
             return AramaicWord.from_aramaic(src.word)
+        case "syc":
+            if ipa:
+                return SyriacWord.from_ipa(ipa)
+            return SyriacWord.from_syriac(src.word)
         case "egy":
             if ipa:
                 return EgyptianWord.from_ipa(ipa)

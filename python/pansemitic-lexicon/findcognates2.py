@@ -26,7 +26,7 @@ import time
 from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Callable, Self
+from typing import Any, Self
 
 import numpy as np
 import orjson
@@ -35,8 +35,10 @@ from loss import LossBreakdown, ipa_distance, triplet_loss_breakdown
 from kaikki import PartialSource, SharedSource, canonical_from_entry
 from reconstruction import (
     ArabicWord,
+    AramaicWord,
     HebrewWord,
     PansemiticWord,
+    SyriacWord,
     reconstruct_ancestor,
     word_from_sharedsource,
     ReconstructionError,
@@ -57,9 +59,6 @@ ROMANIZATION_TIER_DIFFS_FILE = Path("romanization_tier_differences.csv")
 SENSES_FILE = Path("senses.json")
 EMBEDDINGS_FILE = Path("embeddings.npy")
 FALSE_POSITIVES_FILE = Path("false-positives.txt")
-
-ARABIC_DIACRITICS = re.compile(r"[\u064B-\u065F\u0670\u0640]")
-HEBREW_DIACRITICS = re.compile(r"[\u0591-\u05BD\u05BF-\u05C7]")
 
 ETYMON_SEM_PRO = re.compile(r"sem-pro:([^<>\s]+)")
 ETYMON_LANG_WORD = re.compile(r"([a-z]{2,}(?:-[a-z]+)*):([^<>\s:]+)")
@@ -100,21 +99,21 @@ class WordData:
 @dataclass
 class ScanCounts:
     """Per-chunk counts used for progress reporting."""
-    ar: int = 0
-    he: int = 0
+    by_lang: dict[str, int] = field(default_factory=dict)
     lines: int = 0
 
     def add(self, other: Self) -> None:
-        self.ar += other.ar
-        self.he += other.he
+        for lang, n in other.by_lang.items():
+            self.by_lang[lang] = self.by_lang.get(lang, 0) + n
         self.lines += other.lines
 
 
 @dataclass
 class KaikkiScanResult:
     """All indexes built from one (or merged across many) kaikki scans."""
-    ar_words: dict[str, WordData] = field(default_factory=dict)
-    he_words: dict[str, WordData] = field(default_factory=dict)
+    semitic_words: dict[str, dict[str, WordData]] = field(
+        default_factory=lambda: {lang: {} for lang in SEMITIC_LANGS}
+    )
     borrow_graph: dict[tuple[str, str], set[tuple[str, str]]] = field(
         default_factory=lambda: defaultdict(set)
     )
@@ -122,9 +121,17 @@ class KaikkiScanResult:
     kaikki_partials: dict[tuple[str, str], PartialSource] = field(default_factory=dict)
     counts: ScanCounts = field(default_factory=ScanCounts)
 
+    @property
+    def ar_words(self) -> dict[str, WordData]:
+        return self.semitic_words["ar"]
+
+    @property
+    def he_words(self) -> dict[str, WordData]:
+        return self.semitic_words["he"]
+
     def merge(self, other: Self) -> None:
-        self._merge_words(self.ar_words, other.ar_words)
-        self._merge_words(self.he_words, other.he_words)
+        for lang, words in other.semitic_words.items():
+            self._merge_words(self.semitic_words.setdefault(lang, {}), words)
         self._merge_setvalued(self.borrow_graph, other.borrow_graph)
         self._merge_first_wins(self.template_tr_index, other.template_tr_index)
         self._merge_first_wins(self.kaikki_partials, other.kaikki_partials)
@@ -221,28 +228,38 @@ class RomanizationTierObservation:
     uses: int = 0
 
 
-def normalize_arabic(text: str) -> str:
-    # return text.strip()
-    return ARABIC_DIACRITICS.sub("", text).strip()
-
-
-def normalize_hebrew(text: str) -> str:
-    # return text.strip()
-    return HEBREW_DIACRITICS.sub("", text).strip()
+# Per-language config consulted by the unpointed-citation resolver.  Maps a
+# Semitic lang code to its `Word` subclass; the class provides both
+# `normalize(text)` (for unpointed lookup) and `from_romanization(text)` (for
+# IPA-distance disambiguation).
+SEMITIC_LANG_CONFIG: dict[str, type] = {
+    "ar": ArabicWord,
+    "he": HebrewWord,
+    "arc": AramaicWord,
+    "syc": SyriacWord,
+}
+SEMITIC_LANGS = frozenset(SEMITIC_LANG_CONFIG)
 
 
 def _process_semitic_entry(
     entry: dict[str, Any],
-    target_lang: str,
-    normalize_self: Callable[[str], str],
-    normalize_target: Callable[[str], str],
+    lang_code: str,
     words: dict[str, WordData],
     canonical: str,
+    target_lang: str | None = None,
 ) -> None:
-    """Process a single Arabic or Hebrew kaikki entry."""
+    """Process a Semitic kaikki entry — captures romanization, etymology
+    sources, glosses, and (if *target_lang* is given) cognate refs aimed at
+    that language."""
     word = entry.get("word", "")
     if not word:
         return
+
+    normalize_self = SEMITIC_LANG_CONFIG[lang_code].normalize
+    normalize_target = (
+        SEMITIC_LANG_CONFIG[target_lang].normalize
+        if target_lang in SEMITIC_LANG_CONFIG else None
+    )
 
     norm = normalize_self(word)
     if canonical not in words:
@@ -259,7 +276,7 @@ def _process_semitic_entry(
         args = tmpl.get("args", {})
         name = tmpl.get("name", "")
 
-        if name == "cog" and args.get("1") == target_lang:
+        if normalize_target is not None and name == "cog" and args.get("1") == target_lang:
             cog_word = args.get("2", "")
             if cog_word:
                 raw = cog_word
@@ -269,7 +286,7 @@ def _process_semitic_entry(
                     raw = arg3
                 wd.cognates.add((normalize_target(cog_word), raw))
 
-        if name == "etymon":
+        if normalize_target is not None and name == "etymon":
             for v in args.values():
                 if not isinstance(v, str):
                     continue
@@ -308,16 +325,16 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
     if not word:
         return
 
-    # Hebrew/Arabic entries with homographs at the unpointed lemma (e.g.
+    # Semitic entries with homographs at the unpointed lemma (e.g. Hebrew
     # דָּוִד "David" and דּוֹד "uncle" both write דוד) must NOT alias
     # word↔canonical: doing so would merge two distinct etymologies into one
-    # graph node.  For he/ar we write only to the canonical; unpointed
+    # graph node.  For Semitic langs we write only to the canonical; unpointed
     # citations get resolved post-merge in _resolve_semitic_citations.
     # All other languages keep the alias so cross-language citations to
     # either the bare word or a script-diacritized canonical (Greek macrons,
     # etc.) reach the same node.
     canonical = canonical_from_entry(entry)
-    if lang_code in ("he", "ar"):
+    if lang_code in SEMITIC_LANGS:
         node_keys = {(lang_code, canonical or word)}
     else:
         node_keys = {(lang_code, word)}
@@ -367,29 +384,24 @@ def _extract_borrowing(entry, lang_code, borrow_graph, template_tr_index):
 def _resolve_unpointed_semitic(
     src_lang: str,
     src_word: str,
-    he_words: dict[str, WordData],
-    ar_words: dict[str, WordData],
-    he_n2c: dict[str, list[str]],
-    ar_n2c: dict[str, list[str]],
+    words: dict[str, WordData],
+    n2c: dict[str, list[str]],
     tr_options: set[str] | None = None,
 ) -> list[str] | None:
-    """Resolve a possibly-unpointed Hebrew/Arabic citation to pointed canonical(s).
+    """Resolve a possibly-unpointed Semitic citation to pointed canonical(s).
 
     Returns None if no rewriting is needed (already canonical or no candidates).
     Returns [c] if uniquely resolvable, or [c1, c2, ...] for fan-out when the
     citation is ambiguous and tr-based disambiguation cannot pick one.
     """
-    if src_lang not in ("he", "ar"):
+    word_cls = SEMITIC_LANG_CONFIG.get(src_lang)
+    if word_cls is None:
         return None
-    words = he_words if src_lang == "he" else ar_words
-    n2c = he_n2c if src_lang == "he" else ar_n2c
-    normalize = normalize_hebrew if src_lang == "he" else normalize_arabic
-    word_cls = HebrewWord if src_lang == "he" else ArabicWord
 
     if src_word in words:
         return None  # already a pointed canonical we know
 
-    candidates = n2c.get(normalize(src_word), [])
+    candidates = n2c.get(word_cls.normalize(src_word), [])
     if not candidates:
         return None
     if len(candidates) == 1:
@@ -426,20 +438,19 @@ def _resolve_unpointed_semitic(
 
 
 def _resolve_semitic_citations(scan: KaikkiScanResult) -> tuple[int, int]:
-    """Rewrite unpointed Hebrew/Arabic citations to specific pointed canonicals.
+    """Rewrite unpointed Semitic citations to specific pointed canonicals.
 
     Returns (resolved_unique, fanned_out) — the number of citation keys that
     collapsed to one canonical and the number that fanned out to multiple.
     """
-    he_words = scan.he_words
-    ar_words = scan.ar_words
-
-    he_n2c: dict[str, list[str]] = defaultdict(list)
-    for c, wd in he_words.items():
-        he_n2c[wd.norm].append(c)
-    ar_n2c: dict[str, list[str]] = defaultdict(list)
-    for c, wd in ar_words.items():
-        ar_n2c[wd.norm].append(c)
+    # Per-lang norm→[canonicals] index, populated for every Semitic lang
+    # we know about.
+    n2c_by_lang: dict[str, dict[str, list[str]]] = {}
+    for lang in SEMITIC_LANGS:
+        idx: dict[str, list[str]] = defaultdict(list)
+        for c, wd in scan.semitic_words.get(lang, {}).items():
+            idx[wd.norm].append(c)
+        n2c_by_lang[lang] = idx
 
     tr_options: dict[tuple[str, str], set[str]] = defaultdict(set)
     for k, v in scan.template_tr_index.items():
@@ -447,23 +458,26 @@ def _resolve_semitic_citations(scan: KaikkiScanResult) -> tuple[int, int]:
             tr_options[k].add(v)
 
     citation_keys: set[tuple[str, str]] = set(scan.template_tr_index.keys())
-    for wd in he_words.values():
-        citation_keys.update(wd.borrow_sources)
-    for wd in ar_words.values():
-        citation_keys.update(wd.borrow_sources)
+    for words in scan.semitic_words.values():
+        for wd in words.values():
+            citation_keys.update(wd.borrow_sources)
     for tgts in scan.borrow_graph.values():
         citation_keys.update(tgts)
 
     mapping: dict[tuple[str, str], list[tuple[str, str]]] = {}
     n_unique = n_fanout = 0
     for k in citation_keys:
+        lang = k[0]
+        if lang not in SEMITIC_LANGS:
+            continue
         resolved = _resolve_unpointed_semitic(
-            k[0], k[1], he_words, ar_words, he_n2c, ar_n2c,
+            lang, k[1],
+            scan.semitic_words[lang], n2c_by_lang[lang],
             tr_options=tr_options.get(k) or None,
         )
         if resolved is None:
             continue
-        mapping[k] = [(k[0], c) for c in resolved]
+        mapping[k] = [(lang, c) for c in resolved]
         if len(resolved) == 1:
             n_unique += 1
         else:
@@ -472,13 +486,14 @@ def _resolve_semitic_citations(scan: KaikkiScanResult) -> tuple[int, int]:
     if not mapping:
         return 0, 0
 
-    for wd in (*he_words.values(), *ar_words.values()):
-        if not wd.borrow_sources:
-            continue
-        new_set: set[tuple[str, str]] = set()
-        for s in wd.borrow_sources:
-            new_set.update(mapping.get(s, [s]))
-        wd.borrow_sources = new_set
+    for words in scan.semitic_words.values():
+        for wd in words.values():
+            if not wd.borrow_sources:
+                continue
+            new_set: set[tuple[str, str]] = set()
+            for s in wd.borrow_sources:
+                new_set.update(mapping.get(s, [s]))
+            wd.borrow_sources = new_set
 
     new_graph: dict[tuple[str, str], set[tuple[str, str]]] = defaultdict(set)
     for src, tgts in scan.borrow_graph.items():
@@ -556,19 +571,16 @@ def _process_chunk(
             entry = orjson.loads(line)
             lc = entry.get("lang_code", "")
 
-            if lc == "ar":
-                result.counts.ar += 1
-                canonical = canonical_from_entry(entry)
+            if lc in SEMITIC_LANGS:
+                result.counts.by_lang[lc] = result.counts.by_lang.get(lc, 0) + 1
+                # ar↔he is the cognate-matching pair; other Semitic langs are
+                # captured solely for unpointed-citation disambiguation, so
+                # they have no target_lang.
+                target_lang = {"ar": "he", "he": "ar"}.get(lc)
                 _process_semitic_entry(
-                    entry, "he", normalize_arabic, normalize_hebrew, result.ar_words,
-                    canonical=canonical,
-                )
-            elif lc == "he":
-                result.counts.he += 1
-                canonical = canonical_from_entry(entry)
-                _process_semitic_entry(
-                    entry, "ar", normalize_hebrew, normalize_arabic, result.he_words,
-                    canonical=canonical,
+                    entry, lc, result.semitic_words[lc],
+                    canonical=canonical_from_entry(entry),
+                    target_lang=target_lang,
                 )
 
             # Build a PartialSource for any entry (feeds tier3 + IPA lookup).
@@ -631,9 +643,9 @@ def build_all_indexes(
         merged.merge(partial)
 
     c = merged.counts
+    by_lang = " ".join(f"{lang}:{c.by_lang.get(lang, 0):,}" for lang in SEMITIC_LANG_CONFIG)
     print(f"  ... done: {c.lines:,} lines total "
-          f"(ar:{c.ar:,} he:{c.he:,}"
-          f" graph:{len(merged.borrow_graph):,} nodes)"
+          f"({by_lang} graph:{len(merged.borrow_graph):,} nodes)"
           f"\n  ... {len(merged.template_tr_index):,} template transliterations,"
           f" {len(merged.kaikki_partials):,} kaikki partial sources")
 

@@ -86,6 +86,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 أُكْلَال,ʔuklāl,יוקולילי,yukuleyli,yukalili,ukulele
 أُكْلَة,ʔukla,אׇכְלָה,okhlá,ʔukla,"morsel, bit of food"
 أُمَّة,ʔumma,אֻמָּה,'umá,ʔuma,"community, people, nation"
+أُمّ,ʔumm,אִמָּא,'íma,ʔim,mother
 أُمّ,ʔumm,אֵם,em,ʔim,mother
 أُنَاس,ʔunās,אֱנוֹשׁ,enósh,ʔinaš,"persons, people"
 أُنْبُوب,ʔunbūb,אַבּוּב,abúv,ʔibubum,"tube, pipe"
@@ -586,7 +587,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 زِير,zīr,סִיר,sír,zir,"cask, tub, vat, large jug"
 سَأَلَ,saʔala,שָׁאַל,sha'ál,saʔala,"to ask, inquire"
 سَارَة,sāra,שָׂרָה,sará,sara,"Sarah, wife of Abraham and mother of Isaac"
-سَاعَة,sāʕa,שָׁעָה,sha'á,saʕa,hour (unit of time)
+سَاعَة,sāʕa,שָׁעָה,sha'á,šaʕta,hour (unit of time)
 سَافِر,sāfir,סֵפֶר,séfer,safir,writer
 سَاق,sāq,שׁוֹק,shok,saq,shank
 سَام,sām,שֵׁם,shem,sam,Shem
@@ -608,7 +609,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,meaning
 سَعَلَ,saʕala,הִשְׁתַּעֵל,hishta'él,histaʕala,to cough
 سَعِير,saʕīr,סַעַר,sá'ar,saʕir,hell
 سَفُّود,saffūd,שִׁפּוּד,shipúd,safud,"spit, brochette, skewer"
-سَفِينَة,safīna,סְפִינָה,sfiná,spynita,"ship, vessel"
+سَفِينَة,safīna,סְפִינָה,sfiná,sapinta,"ship, vessel"
 سَقَى,saqā,הִשְׁקָה,hishká,hisaqa,to give (someone) (a drink)
 سَكَتَ,sakata,שָׁקַט,shakát,sakata,to be silent
 سَكَر,sakar,סַיְדֶּר,sáider,šikar,wine
