@@ -141,12 +141,29 @@ def _romanization_from_entry(entry: dict[str, Any]) -> str | None:
     return None
 
 
+# Substrings in kaikki's free-form `note` field that we promote to synthetic
+# tags so they participate in dialect selection.  Egyptian carries period
+# information here (e.g. "Late Egyptian, c. 800 BCE") rather than as a real
+# tag, so without this Egyptian period preference is unreachable.
+_NOTE_TAG_SYNONYMS: list[tuple[str, str]] = [
+    ("Late Egyptian", "Late-Egyptian"),
+    ("Middle Egyptian", "Middle-Egyptian"),
+    ("Old Egyptian", "Old-Egyptian"),
+]
+
+
 def _ipa_from_entry(entry: dict[str, Any]) -> list[IpaRealization]:
     ipa_list = []
     for s in entry.get("sounds", []):
         ipa = s.get("ipa")
-        if ipa:
-            ipa_list.append(IpaRealization(ipa=ipa, tags=s.get("tags", [])).normalize())
+        if not ipa:
+            continue
+        tags = list(s.get("tags", []))
+        note = s.get("note") or ""
+        for substr, synth in _NOTE_TAG_SYNONYMS:
+            if substr in note and synth not in tags:
+                tags.append(synth)
+        ipa_list.append(IpaRealization(ipa=ipa, tags=tags).normalize())
     return ipa_list
 
 @dataclass

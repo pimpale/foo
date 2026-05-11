@@ -1173,8 +1173,10 @@ _IPA_TO_PANSEMITIC_IPA: list[tuple[str, str]] = [
     ("ʈ", "t"), ("ɖ", "d"),
     # Retroflex laterals collapse → l
     ("ɭ", "l"),
-    # Rhotic schwa / low vowel
-    ("ɚ", "a"), ("ʌ", "a"),
+    # R-colored vowels — unfold the rhoticity to an explicit /r/ so it
+    # survives the pansemitic reduction (transistor /tɹænˈzɪstɚ/ → tranzistar).
+    ("ɚ", "ar"), ("ɝ", "ar"),
+    ("ʌ", "a"),
     # Aspiration / palatalization aren't phonemic for Semitic — drop.
     ("ʰ", ""), ("ʱ", ""), ("ʲ", ""), ("ˠ", ""),
     ("ʼ", ""),
@@ -1267,6 +1269,10 @@ def get_dialect(pronounciations: list[IpaRealization], ordered_tags: list[str]) 
 _DIALECT_PREFERENCES: dict[str, list[str]] = {
     "he": ["Biblical-Hebrew", "Modern-Israeli-Hebrew", "*"],
     "en": ["General-American", "Received-Pronunciation", "*"],
+    # Egyptian period tags are synthesized from sounds[].note in kaikki.py
+    # (see _NOTE_TAG_SYNONYMS); the substring "Late Egyptian" also matches
+    # the "latest" / "Amarna-period" / "reconstructed" Late Egyptian notes.
+    "egy": ["Late-Egyptian", "Middle-Egyptian", "Old-Egyptian", "*"],
 }
 
 
