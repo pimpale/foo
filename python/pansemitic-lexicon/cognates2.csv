@@ -243,13 +243,13 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 إِيدْز,ʔīdz,אֵיְדְּס,éyds,ʔidz,shared_borrowing_source
 التَّلْمُود,at-talmūd,תַּלְמוּד,talmúd,talmud,shared_borrowing_source
 التَّوْرَاة,at-tawrāh,תּוֹרָה,torá,tara,shared_borrowing_source
-الدَّار الْبَيْضَاء,ad-dār al-bayḍāʔ,קָזַבְּלַנְקָה,kazablánka,ʔadar albayṣaʔ,shared_borrowing_source
+الدَّار الْبَيْضَاء,ad-dār al-bayḍāʔ,קָזַבְּלַנְקָה,kazablánka,dar albayṣaʔ,shared_borrowing_source
 الرَّبّ,ar-rabb,רַב,ráv,rab,direct_cognate_ar→he
 السَّبْت,as-sabt,שַׁבָּת,shabát,šabat,shared_borrowing_source
 السَّبْت,as-sabt,שָׁבַת,shavát,šapatum,shared_borrowing_source
 السَّلَامُ عَلَيْكُمْ,as-salāmu ʕalaykum,שָׁלוֹם עֲלֵיכֶם,shalóm alekhém,salamuʕalaykum,direct_cognate_ar→he;direct_cognate_he→ar
-السُّعُودِيَّة,as-suʕūdiyya,סָעוּדְיָה,sa'údya,ʔasuʕudiya,shared_borrowing_source
-الشَّام,aš-šām,שְׂמֹאל,s'mól,ʔasšam,direct_cognate_ar→he
+السُّعُودِيَّة,as-suʕūdiyya,סָעוּדְיָה,sa'údya,suʕudiya,shared_borrowing_source
+الشَّام,aš-šām,שְׂמֹאל,s'mól,samal,direct_cognate_ar→he
 الصِّين,aṣ-ṣīn,סִין,sin,tsina,shared_borrowing_source
 الفَاسِخ,al-fāsiḵ,פֶּסַח,pésakh,pasix,direct_cognate_ar→he
 اللّٰه,allāh,אֱלוֹהַּ,elóah,ʔalah,direct_cognate_ar→he
@@ -261,13 +261,13 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 النِّيل,an-nīl,נָהָר,nahár,nahar,shared_borrowing_source
 الْأُرْدُن,al-ʔurdun,יַרְדֵּן,yardén,ʔurdun,direct_cognate_ar→he
 الْإِسْكَنْدَر,al-ʔiskandar,אָלֶכְּסָנְדֶר,aleksánder,ʔaliksandras,shared_borrowing_source
-الْبَحْرَيْن,al-baḥrayn,בַּחְרֵיְן,bakhréyn,ʔalbaxrayn,shared_borrowing_source
+الْبَحْرَيْن,al-baḥrayn,בַּחְרֵיְן,bakhréyn,baxrayn,shared_borrowing_source
 الْعِبْرِيَّة,al-ʕibriyya,עִבְרִית,ivrít,ʕibrit,shared_borrowing_source
-الْعِرَاق,al-ʕirāq,עיראק,'irák,ʔalʕiraq,shared_borrowing_source
+الْعِرَاق,al-ʕirāq,עיראק,'irák,ʕiraq,shared_borrowing_source
 الْفُرَات,al-furāt,פְּרָת,p'rát,puratu,direct_cognate_he→ar;shared_borrowing_source
-الْقَاهِرَة,al-qāhira,קָהִיר,kahír,ʔalqahira,shared_borrowing_source
+الْقَاهِرَة,al-qāhira,קָהִיר,kahír,qahira,shared_borrowing_source
 الْقَنْتْ,al-qant,ראשת,rasht,liwk,shared_borrowing_source
-الْقُرْآن,al-qurʔān,קֻרְאָן,kur'án,ʔalqurʔan,shared_borrowing_source
+الْقُرْآن,al-qurʔān,קֻרְאָן,kur'án,qurʔan,shared_borrowing_source
 الْقِرِم,al-qirim,קְרִים,krim,qurum,shared_borrowing_source
 الْمَكْسِيك,al-maksīk,מֶקְסִיקוֹ,méksiko,mixika,shared_borrowing_source
 الْمُشْتَرِي,al-muštarī,יָשָׁר,yashár,muštari,direct_cognate_ar→he
@@ -276,9 +276,9 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 اَلتَّنَاخ,at-tanāḵ,תָּנָ״ךְ,tanákh,tanax,shared_borrowing_source
 اَلرَّحْمٰن,ar-raḥmān,הָרַחֲמָן,haraḥaman,haraxaman,direct_cognate_he→ar
 اَللّٰهُمَّ,allāhumma,אֱלֹהִים,elohím,ʔilahim,shared_borrowing_source
-اَلمُخَا,al-muḵā,מוֹקָה,móka,ʔalmuxa,shared_borrowing_source
+اَلمُخَا,al-muḵā,מוֹקָה,móka,muxa,shared_borrowing_source
 اَلْ,al-,אֵל,el,,direct_cognate_ar→he
-اَلْ,al-,אַ־,a-,ʔal-,shared_borrowing_source
+اَلْ,al-,אַ־,a-,,shared_borrowing_source
 اَلْ,al-,הַ־,ha-,,direct_cognate_he→ar
 اَلْمِشْنَاه,al-mišnāh,מִשְׁנָה,mishná,mišni,shared_borrowing_source
 اِبْن,ibn,אִבְּן,ibn,ʔibn,shared_borrowing_source
@@ -491,7 +491,7 @@ arabic,arabic_romanization,hebrew,hebrew_romanization,pansemitic,layers
 بِنْت,bint,בַּת,bat,bint,direct_cognate_ar→he;shared_borrowing_source
 بِنْش,benš,בַּנְק,bánk,bankiz,shared_borrowing_source
 بِيتْزَا,bītzā,פִּיצָה,pítsa,pitsa,shared_borrowing_source
-بِيتْزَا,bītzā,פִּיתָה,píta,,shared_borrowing_source
+بِيتْزَا,bītzā,פִּיתָה,píta,pita,shared_borrowing_source
 بِيرَة,bīra,בִּירָה,birá,bia,direct_cognate_he→ar;shared_borrowing_source
 بِيرُقْرَاطِيَّة,bīruqrāṭiyya,בִּירוֹקְרַטְיָה,berokrátya,byrakrasi,shared_borrowing_source
 بِيقِيَّة,bīqiyya,דְּיוֹקָן,d'yokán,wiyk,shared_borrowing_source

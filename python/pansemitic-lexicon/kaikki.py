@@ -18,14 +18,17 @@ import unicodedata
 from dataclasses import dataclass, field
 from typing import Any, Self
 
-def _geminate(form: str) -> str:
-    """Collapse runs of identical letters into letter + ː.
+_IPA_UNIT_MODIFIERS = "ˤʰʲʷˠʼ̃"
+_IPA_UNIT = rf"[^\W\d_]͡[^\W\d_][{_IPA_UNIT_MODIFIERS}]*|[^\W\d_][{_IPA_UNIT_MODIFIERS}]*"
 
-    Applied to the raw romanization *before* single-char substitutions so
-    that doubled scholar-notation letters (e.g. ṣṣ) collapse cleanly and
-    the ː survives downstream (ṣṣ → ṣː → sˤː).
+def _geminate(form: str) -> str:
+    """Collapse runs of identical consonant/vowel units into unit + ː.
+
+    Handles single-codepoint letters (ss → sː), pharyngealized units
+    after conversion (sˤsˤ → sˤː), and tie-bar affricates
+    (d͡ʒd͡ʒ → d͡ʒː).
     """
-    return re.sub(r"([^\W\d_])\1+", r"\1ː", form)
+    return re.sub(rf"({_IPA_UNIT})(?:\1)+", r"\1ː", form)
 
 
 _IPA_DELIMITED = re.compile(r"[/\[]([^/\]]+)[/\]]")
@@ -175,7 +178,7 @@ class IpaRealization:
     tags: list[str]
     
     def normalize(self) -> IpaRealization :
-        """Strip kaikki's IPA wrapper (/…/ or […]), prosodic marks, and geminates."""
+        """Strip kaikki's IPA wrapper (/…/ or […])"""
 
         m = _IPA_DELIMITED.search(self.ipa)
         out = m.group(1) if m else self.ipa
@@ -183,13 +186,6 @@ class IpaRealization:
         # Some kaikki IPA strings are malformed and only include one edge
         # delimiter (e.g. "/braːɡ"); strip leftover wrapper chars.
         out = out.strip("/[]")
-        for c in "ˈˌ.":
-            out = out.replace(c, "")
-        out = out.strip()
-        # Some kaikki IPA spells gemination as a doubled letter split across
-        # syllables (e.g. /ebˈbuː.bum/ → ebbuːbum).  Collapse to ː convention.
-        out = _geminate(out)
-        # set 
         return IpaRealization(ipa=out, tags=self.tags)
     
 

@@ -192,10 +192,6 @@ class Word:
     """
     word: str
 
-    @property
-    def lang(self) -> str:
-        raise NotImplementedError("Subclasses must implement lang property")
-
     @classmethod
     def from_ipa(cls, ipa: str) -> Self:
         """Wrap a pre-existing IPA string, normalizing combining marks.
@@ -210,7 +206,13 @@ class Word:
 
         # eliminate parens
         ipa = ipa.replace("(", "").replace(")", "")
-
+        
+        for c in "ˈˌ.":
+            ipa = ipa.replace(c, "")
+        # Some kaikki IPA spells gemination as a doubled letter split across
+        # syllables (e.g. /ebˈbuː.bum/ → ebːuːbum).  Collapse to ː convention.
+        ipa = _geminate(ipa)
+        
         ipa = _strip_combining(ipa).strip()
 
         # Apply hard attack to all initial vowels for synchronization purposes.
@@ -251,18 +253,21 @@ class ArabicWord(Word):
         return _ARABIC_DIACRITICS.sub("", text).strip()
 
     @classmethod
+    def from_ipa(cls, ipa: str) -> Self:
+        """Wrap a pre-existing IPA string, normalizing combining marks."""
+        # if the definite is marked in ipa by a . or -
+        ipa = re.sub(r"^ʔ?a(?:sˤ|tˤ|dˤ|ðˤ|[tθdðrzsʃln])[\.\-]", "", ipa)
+        # if the definite is marked in ipa by a ː
+        ipa = re.sub(r"^ʔ?a(sˤ|tˤ|dˤ|ðˤ|[tθdðrzsʃln])ː", r"\1", ipa)
+        
+        return super().from_ipa(ipa)
+
+    @classmethod
     def from_romanization(cls, text: str) -> Self:
         """Arabic romanization → IPA (lossless: preserves length + gemination)."""
         if not text:
             return cls(word=text)
         form = text.lower()
-
-        # Strip definite-article assimilated prefixes (al-, an-, aš-, aṣ-, aṭ-, aḍ-).
-        form = re.sub(r"^a[lrnsṣṭḍ]-", "", form)
-
-        # Gemination on the raw romanization.  Done before substitutions so
-        # that doubled multi-char targets (ṣṣ → ṣː → sˤː) survive.
-        form = _geminate(form)
 
         # Digraph first
         form = form.replace("sh", "ʃ")
@@ -1189,21 +1194,20 @@ class GenericWord(Word):
     original language tag so language-specific pansemitic rewrites (such as
     Semitic ``f -> p``) do not accidentally fire for unrelated languages.
     """
-
-    def __init__(self, word: str, lang: str):
-        self.word = word
-        self._lang_tag = lang
+    _lang_tag: str|None = None
 
     @classmethod
-    def from_ipa(cls, ipa: str, lang: str) -> "GenericWord":
-        ipa = ipa.replace("V", "a")
-        ipa = _strip_combining(ipa).strip()
-        if ipa and ipa[0] in VOWELS:
-            ipa = "ʔ" + ipa
-        return cls(word=ipa, lang=lang)
+    def from_ipa(cls, ipa: str, lang: str|None = None) -> "GenericWord":
+        if not lang:
+            raise ValueError("lang must be provided for GenericWord.from_ipa")
+        x = super().from_ipa(ipa)
+        x._lang_tag = lang
+        return x
 
     @classmethod
-    def from_romanization(cls, text: str, lang: str) -> "GenericWord":
+    def from_romanization(cls, text: str, lang: str|None = None) -> "GenericWord":
+        if not lang:
+            raise ValueError("lang must be provided for GenericWord.from_romanization")
         # Reuse the broad SemProWord transliteration cleanup so dotted / marked
         # scholarly Latin input gets mapped into the same IPA-ish internal
         # alphabet, but preserve the original language tag.
@@ -1212,6 +1216,8 @@ class GenericWord(Word):
 
     @property
     def lang(self) -> str:
+        if not self._lang_tag:
+            raise ValueError("GenericWord instance missing lang tag")
         return self._lang_tag
 
 
@@ -1445,7 +1451,7 @@ def word_from_sharedsource(src: SharedSource) -> Word:
             if ipa:
                 return AfrasianWord.from_ipa(ipa)
             return AfrasianWord.from_romanization(src.word)
-        case "grc":
+        case "grc" | "gkm":
             if ipa:
                 return GreekWord.from_ipa(ipa)
             return GreekWord.from_greek(src.word)
@@ -1767,4 +1773,3 @@ def merge_roots_aligned(
     if not word:
         raise EmptyAncestorError()
     return ReconstructedSemProWord(word=word), unresolved
-

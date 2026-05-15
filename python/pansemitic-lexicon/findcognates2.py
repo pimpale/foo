@@ -1141,7 +1141,7 @@ def main():
     print(f"Writing {GOOD_CSV_FILE} …")
     with open(GOOD_CSV_FILE, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "pansemitic", "meaning"])
+        writer.writerow(["arabic", "arabic_romanization", "hebrew", "hebrew_romanization", "pansemitic", "arabic_meaning", "hebrew_meaning"])
         for entry in good_results:
             writer.writerow([
                 entry.arabic.canonical,
@@ -1150,6 +1150,7 @@ def main():
                 entry.hebrew.roman,
                 entry.pansemitic_form or "",
                 entry.best_sense_match.arabic_sense if entry.best_sense_match else "",
+                entry.best_sense_match.hebrew_sense if entry.best_sense_match else "",
             ])
 
     tier1_available = sum(1 for obs in romanization_tier_obs.values() if obs.tier1)
