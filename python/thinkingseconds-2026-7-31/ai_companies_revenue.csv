@@ -1,0 +1,197 @@
+Id,Company,Date,Annualized revenue (USD),Annualized revenue type,Scope,Revenue amount (normalize to annual),Period revenue,Period type,Other revenue info,Confidence,Source 1,Source 2,Source 3,Notes,Report date,Source type,Graph note
+500M July 2026,DeepSeek,2026-07-14,450000000.0,Annualized run rate,Full company,450000000.0,,,,Likely,https://www.theinformation.com/articles/deepseeks-annualized-revenue-nears-500-million-boosting-fundraise-ipo-plans?rc=9mzoog,,,"""The three-year-old startup’s annualized revenue reached between $400 million and $500 million recently thanks to sales of cloud-based access to its AI models through an application programming interface, the three people said.""
+
+450M is an estimate that is the midpoint of the reported range. ",2026-07-14,Media report,
+Moonshot 300M June 2026,Moonshot AI,2026-06-30,300000000.0,Annual recurring revenue (ARR),Full company,300000000.0,,,,Likely,https://www.bloomberg.com/news/articles/2026-07-21/china-s-moonshot-in-talks-on-pre-ipo-funds-at-50-billion-value,,,"""The startup judged the time was right after annual recurring revenue — a gauge of future sales — hit $300 million in June, they said, asking to remain unidentified discussing a private deal. Moonshot achieved $200 million in annual recurring revenue in April, Bloomberg News has reported.""",2026-07-19,Media report,
+May 2026 47B,Anthropic,2026-05-15,47000000000.0,Annualized run rate,Full company,47000000000.0,,,,Likely,https://www.anthropic.com/news/series-h,https://www.ft.com/content/a40cafcc-0fa4-4e70-9e24-90d826aea56d?syn-25a6b1a6=1,https://www.theinformation.com/articles/openai-held-1-billion-revenue-lead-anthropic-first-quarter?rc=9mzoog,"""…and our run-rate revenue crossed $47 billion earlier this month."" Unclear when in May—interpolating to middle of month (May 15).
+
+Mid-month is roughly corroborated by other media reporting. FT reported on May 7 that Anthropic would reach $45 billion run rate ""imminently"". The Information reported on May 21 that Anthropic’s annualized revenue ""recently neared $45 billion"". ",2026-05-28,Company disclosure,
+Moonshot 200M April 2026,Moonshot AI,2026-04-30,200000000.0,Annual recurring revenue (ARR),Full company,200000000.0,,,,Likely,https://www.bloomberg.com/news/articles/2026-05-07/kimi-chatbot-maker-moonshot-ai-valued-at-20-billion-in-meituan-led-round,,,"""Food delivery leader Meituan’s venture arm led the round that boosts Moonshot’s valuation to more than $20 billion, according to a statement from financial advisor HF Capital, which advised some of the backers. In April, Moonshot’s annual recurring revenue topped $200 million, driven by subscriptions to its Kimi chatbot and AI model services, the statement said.""
+
+This is a report of a credible third-party statement, comparable to media reports of leaks",2026-05-07,Media report,
+Anthropic 30B April,Anthropic,2026-04-06,30000000000.0,Annualized run rate,Full company,30000000000.0,,,,Confident,https://www.anthropic.com/news/google-broadcom-partnership-compute,,,"""Our run-rate revenue has now surpassed $30 billion—up from approximately $9 billion at the end of 2025.""",2026-04-06,Company disclosure,
+March 2026 19B,Anthropic,2026-03-03,19000000000.0,Annualized run rate,Full company,19000000000.0,,,,Confident,https://x.com/apoorv03/status/2029018856342290550?s=20,https://www.bloomberg.com/news/articles/2026-03-03/anthropic-nears-20-billion-revenue-run-rate-amid-pentagon-feud,,"Bloomberg: ""The artificial intelligence company recently surpassed $19 billion in run-rate revenue, up from $9 billion at the end of 2025 and roughly $14 billion a few weeks ago.""
+
+Confirmed by Dario Amodei remarks at a conference on March 3 (relayed on social media).",2026-03-03,"Company disclosure,Media report",
+March 2026 25B,OpenAI,2026-02-28,25000000000.0,Annualized run rate,Full company,25000000000.0,,,,Likely,https://www.theinformation.com/articles/openai-tops-25-billion-annualized-revenue-anthropic-narrows-gap?rc=9mzoog,,,"""OpenAI topped $25 billion in annualized revenue as of the end of last month, according to a person familiar with the figure""
+
+Based on last month * 12. article also notes OAI reached a $30B run rate if only looking at revenue spikes in the last week",2026-03-05,Media report,
+Feb 2026 14B,Anthropic,2026-02-12,14000000000.0,Annualized run rate,Full company,14000000000.0,,,,Confident,https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation,,,"Today, our run-rate revenue is $14 billion, with this figure growing over 10x annually in each of those past three years.",2026-02-12,Company disclosure,
+Feb 26 400M,Mistral AI,2026-01-31,400000000.0,Annualized run rate,Full company,400000000.0,,,,Likely,https://www.ft.com/content/664249e7-e8d5-4425-b397-ad3ed590b305,,,"""Arthur Mensch, Mistral’s co-founder and chief executive, told the FT that its annualised revenue run rate — a measure of the previous month’s sales multiplied by 12 — was “north of $400mn”, compared with just $20mn a year ago.""",2026-02-11,Media report,
+21B end-2025,OpenAI,2025-12-31,21400000000.0,Annualized run rate,Full company,21400000000.0,,,,Likely,https://www.theinformation.com/articles/openai-tops-25-billion-annualized-revenue-anthropic-narrows-gap?rc=9mzoog,https://openai.com/index/a-business-that-scales-with-the-value-of-intelligence/,,"Per The Information: ""...the $21.4 billion in annualized revenue the company was generating at the end of the year""
+
+OpenAI said in January: ""While revenue followed the same curve growing 3X year over year, or 10X from 2023 to 2025: $2B ARR in 2023, $6B in 2024, and $20B+ in 2025.""
+
+Based on the x axis label on the accompanying graph (2025E), 20B appears to an approximate or projected figure rather than an official figure. ",2026-03-04,Media report,
+end-2025 9B,Anthropic,2025-12-31,9000000000.0,Annualized run rate,Full company,9000000000.0,,,,Likely,https://www.bloomberg.com/news/articles/2026-01-21/anthropic-s-revenue-run-rate-tops-9-billion-as-vcs-pile-in,,,"""Anthropic’s revenue run rate has more than doubled since last summer, and hit over $9 billion at the end of 2025, according to people familiar with the details, all of whom asked not to be identified discussing private information.""
+
+Dario Amodei has also recently describe Anthropic's run rate at $10 billion when discussing Anthropic's growth rate over time ($100m to $1bn to 10bn), but this may be a rough/rounded.",2026-01-21,Media report,
+2025 full year,Anthropic,2025-12-31,,,Full company,,4500000000.0,Year,,Likely,https://www.theinformation.com/articles/anthropic-hikes-2026-revenue-forecast-20-delays-will-go-cash-flow-positive,,,"""The vast majority of Anthropic’s $4.5 billion in revenue last year...""",2026-01-27,Media report,
+2025 13B,OpenAI,2025-12-31,,,Full company,,13000000000.0,Year,,Likely,https://www.nytimes.com/2026/02/11/technology/openai-revenue-challenge.html,,,"""Last year, OpenAI pulled in about $13 billion in revenue, according to a person with knowledge of the company.""",2026-02-11,Media report,
+end-2025 240M,Cohere,2025-12-31,240000000.0,Annual recurring revenue (ARR),Full company,240000000.0,,,Memo: >50% QoQ revenue growth throughout 2025; gross margins averaged ~70% in 2025.,Likely,https://www.cnbc.com/2026/02/13/ai-startup-cohere-revenue-ipo.html,https://www.theglobeandmail.com/business/technology/article-cohere-artificial-intelligence-forecast-recurring-revenue-llms/,,"February 2026 investor memo (viewed by CNBC): Cohere hit roughly $240M in annual recurring revenue in 2025, surpassing its $200M target. 
+Exact date not specified, assumed to be end of year.
+
+Value is ""roughly"" per the memo; leaked memo rather than public disclosure, hence Likely.",2026-02-13,Media report,
+Dec 2025 19B,OpenAI,2025-12-18,19000000000.0,Annualized run rate,Full company,19000000000.0,,,,Likely,https://www.theinformation.com/articles/openais-organizational-problems-hurt-chatgpt?rc=9mzoog,,,"""The company is now generating more than $19 billion in annualized revenue, largely from such subscriptions, up from $6 billion in annualized revenue in January. That suggests it will hit its goal, set in August, of reaching $20 billion in annualized revenue by the end of this year""",2025-12-18,Media report,
+Claude Code 1B,Anthropic,2025-11-30,,Annualized run rate,Product/division,1000000000.0,,,,Confident,https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone,,,"""In November, Claude Code achieved a significant milestone: just six months after becoming available to the public, it reached $1 billion in run-rate revenue.""",2025-12-02,Company disclosure,
+Oct 2025 7B,Anthropic,2025-10-21,7000000000.0,Annualized run rate,Full company,7000000000.0,,,,Confident,https://www.anthropic.com/news/statement-dario-amodei-american-ai-leadership,https://www.reuters.com/business/retail-consumer/anthropic-aims-nearly-triple-annualized-revenue-2026-sources-say-2025-10-15/,,"From Amodei's statement: ""Anthropic is the fastest-growing software company in history, with revenue growing from a $1B to $7B run rate over the last nine months.""
+
+This follows/corroborates a report a week earlier from Reuters: ""Anthropic told Reuters its annual revenue run rate is approaching $7 billion this month"".",2025-10-21,Company disclosure,
+Oct 2025 150M,Cohere,2025-10-20,150000000.0,Annualized run rate,Full company,150000000.0,,,,Confident,https://www.bloomberg.com/news/articles/2025-10-20/nvidia-backed-cohere-to-offer-secondary-sale-of-employee-shares,,,"Company statement alongside its employee tender offer announcement (Bloomberg, Oct 20, 2025): Cohere ""said it has reached $150 million in annualized revenue"", up from $100M in May. 
+
+Reported on October 20, 2025. Exact date not certain.",2025-10-20,Company disclosure,
+H2 2025,Z.ai (Zhipu),2025-10-01,153000000.0,Period interpolation,Full company,153000000.0,,,,Likely,https://www.bloomberg.com/news/articles/2026-03-31/zhipu-s-losses-climb-60-after-chinese-ai-rivalry-worsens,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,"Interpolated from average revenue over H2 2025 to the midpoint of H2 2025.
+
+Z.ai reported 724.3 million RMB total revenue in 2025 (Bloomberg). Per their IPO filings, they had 190.9 million RMB revenue in H1 2025. This implies 533.4M RMB revenue in H2 2025. Using 6.989 RMB to USD from December 31, 2025, that's ~$76.3M USD in H2 2025 which annualizes to $153M USD per year.
+
+Interpolating the average revenue rate over H2 2025 to the midpoint of H2 2025 should be a decent approximation, though growing revenue over time means that revenue run rate hits average revenue over time at slightly after the midpoint of the period.
+",2026-03-31,"Company disclosure,Other","Date is approximate, based on interpolating average revenue rate in H1 2025 to midpoint of H1"
+Q3 2025 107M,xAI,2025-09-30,428000000.0,Period interpolation,Full company,428000000.0,428000000.0,Quarter,,Likely,https://www.bloomberg.com/news/articles/2026-01-09/musk-s-xai-reports-higher-quarterly-loss-plans-to-power-optimus,,,"107M revenue in Q3 2025, per people familiar with xAI's financial information.
+
+Also 63M gross profit",2026-01-09,Media report,Interpolated from quarterly revenue
+3B API,OpenAI,2025-08-26,,Annual recurring revenue (ARR),Product/division,3000000000.0,,,,Likely,https://www.ft.com/content/b81d5fb6-26e9-417a-a0cc-6b6689b70c98,,,"""the start-up’s API sales revenues, which account for roughly a quarter of current annual recurring revenue of $12bn.""",2025-08-26,Media report,
+August 2025 13B,OpenAI,2025-08-01,13000000000.0,Annual recurring revenue (ARR),Full company,13000000000.0,,,,Likely,https://www.nytimes.com/2025/08/01/business/dealbook/openai-ai-mega-funding-deal.html,,,"""DealBook hears that the company’s annual recurring revenue has soared to $13 billion, up from $10 billion in June — and is projected to surpass $20 billion by the end of the year.""
+
+",2025-08-01,Media report,
+July 2025 12B,OpenAI,2025-07-30,12000000000.0,Annualized run rate,Full company,12000000000.0,,,,Confident,https://www.cnbc.com/2025/08/20/openai-compute-ai.html ,https://www.theinformation.com/articles/openai-hits-12-billion-annualized-revenue-breaks-700-million-chatgpt-weekly-active-users?rc=9mzoog,,"CFO Sarah Friar said on CNBC that July was the first month that OpenAI achieved 1B in revenue.
+
+Corroborated by a report from The Information:
+
+""OpenAI roughly doubled its revenue in the first seven months of the year, reaching $12 billion in annualized revenue, according to a person who spoke to OpenAI executives.""
+
+Quote implies the revenue rate was achieved sometime July but timing is unclear: could be late July?
+
+There is another report of 13B from just two days later: could be new information, or rounding. ",2025-07-30,Company disclosure,
+July 2025 5B,Anthropic,2025-07-29,5000000000.0,Annual recurring revenue (ARR),Full company,5000000000.0,,,,Likely,https://www.bloomberg.com/news/articles/2025-07-29/anthropic-nears-deal-to-raise-funding-at-170-billion-valuation,https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation,,"""As the most recent funding talks came together, Anthropic’s sales have surged. The company was generating about $4 billion in annual recurring revenue earlier this month, Bloomberg previously reported. By the end of July, that number had climbed to about $5 billion, according to one of the people. The company expects its recurring revenue could hit $9 billion by the end of this year.""
+
+This was also corroborated by Anthropic in its Series F announcement, citing annualized run-rate
+
+""At the beginning of 2025, less than two years after launch, Anthropic’s run-rate revenue had grown to approximately $1 billion. By August 2025, just eight months later, our run-rate revenue reached over $5 billion—making Anthropic one of the fastest-growing technology companies in history.""",2025-07-29,Company disclosure,
+July 2025 4B,Anthropic,2025-07-01,4000000000.0,Annualized run rate,Full company,4000000000.0,,,,Likely,https://www.theinformation.com/articles/anthropic-revenue-hits-4-billion-annual-pace-competition-cursor-intensifies?rc=9mzoog,,,"""Anthropic Revenue Hits $4 Billion Annual Pace as Competition With Cursor Intensifies""
+
+""The hiring underscores the frenetic nature of talent moves in the AI field this year. It also comes as Anthropic’s revenue is accelerating as businesses pay to access its Claude AI models. It reached a pace of $4 billion annually, or $333 million per month, up almost four times from the start of the year, according to people familiar with the finances.""",2025-07-01,Media report,
+H1 2025 4.3B,OpenAI,2025-06-30,,,Full company,,4300000000.0,Half-year,4.3B in H1,Likely,https://www.theinformation.com/articles/openais-first-half-results-4-3-billion-sales-2-5-billion-cash-burn?rc=9mzoog,,,"""OpenAI generated around $4.3 billion in revenue in the first half of 2025, about 16% more than it generated all of last year, according to financial disclosures to shareholders.""",2025-09-29,Media report,
+Q2 2025 59M,xAI,2025-06-30,236000000.0,Period interpolation,Full company,236000000.0,236000000.0,Quarter,,Likely,https://www.bloomberg.com/news/articles/2026-01-09/musk-s-xai-reports-higher-quarterly-loss-plans-to-power-optimus,,,"$59M revenue in Q2 2025, per people familiar with xAI's financial information.
+Also 14M gross profit",2026-01-09,Media report,Interpolated from quarterly revenue
+June 2025 100M,Mistral AI,2025-06-11,100000000.0,Annualized run rate,Full company,100000000.0,,,,Confident,https://www.wsj.com/tech/ai/fears-over-u-s-ai-dominance-boost-business-for-frances-mistral-14405419,,,"""The trend is accelerating the adoption of Mistral’s AI models, putting the company on pace to earn revenue of more than $100 million a year, Mensch said.""",2025-06-11,Company disclosure,
+June 2025 10B,OpenAI,2025-06-09,10000000000.0,Annual recurring revenue (ARR),Full company,10000000000.0,,,,Likely,https://www.cnbc.com/2025/06/09/openai-hits-10-billion-in-annualized-revenue-fueled-by-chatgpt-growth.html,,,"""OpenAI has hit $10 billion in annual recurring revenue, or ARR, less than three years after launching its popular ChatGPT chatbot. The figure includes sales from the company’s consumer products; ChatGPT business products; and its application programming interface, or API. It excludes licensing revenue from Microsoft and large one-time deals, according to an OpenAI spokesperson. For all of last year, OpenAI had around $5.5 billion in ARR. Reaching its meteoric growth rates requires a substantial amount of cash. The San Francisco-based startup lost about $5 billion last year.""
+
+the line about ""For all of last year, OpenAI had around $5.5 billion in ARR."" probably means $5.5B as of end of 2024, but unclear. check article for clarification?
+
+Also could be higher under different accounting, due to the Microsoft license exclusion. This may be a different standard from other OpenAI revenue reports.",2025-06-09,Company disclosure,
+May 2025 3B,Anthropic,2025-05-30,3000000000.0,Annualized run rate,Full company,3000000000.0,,,,Likely,https://www.cnbc.com/2025/05/30/anthropic-hits-3-billion-in-annualized-revenue-on-business-demand-for-ai.html,,,"""Artificial intelligence developer Anthropic is making about $3 billion in annualized revenue, according to two sources familiar with the matter, in an early validation of generative AI use in the business world.
+The milestone, which projects the company’s current sales over the course of a year, is a significant jump from December 2024 when the metric was nearly $1 billion, the sources said. The figure crossed $2 billion around the end of March, and at May’s end it hit $3 billion, one of the sources said.""",2025-05-30,Media report,
+May 2025 100M,Cohere,2025-05-15,100000000.0,Annualized run rate,Full company,100000000.0,,,,Likely,https://finance.yahoo.com/news/ai-firm-cohere-doubles-annualized-203247578.html,https://www.bloomberg.com/news/articles/2025-05-20/ai-startup-cohere-has-doubled-sales-so-far-this-year-ceo-says,,"Reuters (May 15, 2025): ""crossed an annualized revenue of $100 million as of May 2025"", per one person familiar; the company told Reuters annualized revenue had doubled since the beginning of the year, driven by private deployments in regulated sectors (~85% of business, per company). 
+
+CEO Aidan Gomez told Bloomberg that Cohere had more than doubled sales in 2025 without specifying levels (May 20, 2025).",2025-05-15,Media report,
+April 2025 ChatGPT,OpenAI,2025-04-01,,Annual recurring revenue (ARR),Product/division,4800000000.0,,,20M subscribers * 240/year (at minimum) = floor of 4.8B / year,Likely,https://www.theinformation.com/articles/chatgpt-revenue-surges-30-just-three-months ,,,"""ChatGPT has hit 20 million paid subscribers, according to a spokesperson. That’s up from 15.5 million at the end of last year, as we previously reported.
+...
+The strong growth rate suggests ChatGPT is currently generating at least $415 million in revenue per month (a pace of $5 billion a year), up 30% from at least $333 million per month ($4 billion annually) at the end of last year.
+
+The actual figure could be somewhat higher, given that corporate ChatGPT plans are more expensive and the company has had early success selling $200-a-month Pro plans, which are 10 times more expensive than basic ChatGPT Plus plans.""",2025-04-01,Company disclosure,
+H1 2025,Z.ai (Zhipu),2025-04-01,53300000.0,Period interpolation,Full company,53300000.0,,,,Likely,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,,"Interpolated from average revenue over H1 2025 to the midpoint of H1 2025. Z.ai only reports annual and biannual revenue. 
+
+Per IPO docs: ""For the six months ended June 30, 2024 and 2025, our revenue was RMB44.9 million and RMB190.9 million, respectively.""
+
+Exchange rate on June 30, 2025 was 0.1396 RMB per USD.
+This is 26.65 million USD in H1 2025 or an annualized run rate of $53.3 million.
+
+Interpolating the average revenue rate over H1 2025 to the midpoint of H1 2025 leads to a $53.3M run rate achieved around April 1, 2024. This should be a decent approximation, though growing revenue over time means that revenue run rate hits average revenue over time at slightly after the midpoint of the period.
+
+(Interpolation is a likely estimate, revenue for period is Confident, since it's ~ground truth from IPO documents)",2025-12-30,"Company disclosure,Other","Date is approximate, based on interpolating average revenue rate in H1 2025 to midpoint of H1"
+March 2025 2B,Anthropic,2025-03-31,2000000000.0,Annualized run rate,Full company,2000000000.0,,,,Confident,https://www.cnbc.com/2025/05/16/anthropic-ai-credit-facility.html,https://www.cnbc.com/2025/05/30/anthropic-hits-3-billion-in-annualized-revenue-on-business-demand-for-ai.html ,,"""Annualized revenue reached $2 billion in the first quarter, the company confirmed, more than doubling from a $1 billion rate in the prior period.""
+
+Additionally, a second source corroborates $2B annualized revenue by end of March:
+
+""The figure crossed $2 billion around the end of March""
+https://www.cnbc.com/2025/05/30/anthropic-hits-3-billion-in-annualized-revenue-on-business-demand-for-ai.html ",2025-05-16,Company disclosure,
+Q1 2025 43M,xAI,2025-03-31,172000000.0,Period interpolation,Full company,172000000.0,172000000.0,Quarter,,Likely,https://www.bloomberg.com/news/articles/2026-01-09/musk-s-xai-reports-higher-quarterly-loss-plans-to-power-optimus,,,"43M revenue in Q1 2025, per people familiar with xAI's financial information. also 14M gross profit
+
+This is lower than a previously-reported figure of $52M. Taking the more recently-reported figure to be more credible.
+
+https://www.reuters.com/business/musks-xai-expects-annual-earnings-over-13-billion-by-2029-bloomberg-reports-2025-06-06/ ",2026-01-09,Media report,Interpolated from quarterly revenue
+March 2025 1.4B,Anthropic,2025-03-01,1400000000.0,Annualized run rate,Full company,1400000000.0,,,,Likely,https://www.theinformation.com/articles/anthropics-claude-drives-strong-revenue-growth-while-powering-manus-sensation?rc=9mzoog ,,,"""Its annualized revenue—a measure of the past month's revenue multiplied by 12—has grown from $1 billion at the end of last year to $1.4 billion as of earlier this month, according to a person who has seen the numbers.""",2025-03-11,Media report,
+Feb 2025 70M,Cohere,2025-02-24,70000000.0,Annualized run rate,Full company,70000000.0,,,,Likely,https://www.theinformation.com/articles/cohere-boosts-revenue-pace-to-70-million-on-overseas-growth,https://finance.yahoo.com/news/nvidia-backed-coheres-revenue-surpasses-175021738.html,,"The Information (Feb 24, 2025): annualized revenue surpassed $70M, more than tripling over the past year, with ~25% of revenue now from outside North America. 
+
+Dated at report date, though The Information describes it as ""start of year"", which could mean eg January 1. A separate report claims Cohere doubled its revenue to $100M from the start of 2025. This could be explained by rapid growth in Jan/Feb from 50M to 70M, or the reports could be inconsistent. Accordingly, dated to reported date in February. https://finance.yahoo.com/news/ai-firm-cohere-doubles-annualized-203247578.html 
+
+The same Feb 2025 report cited a 2023 pitch deck projecting $444.3M annualized by Dec 2024; The Information noted actuals fell ~85% short of that projection.",2025-02-24,Media report,
+December 2024 1B,Anthropic,2024-12-31,1000000000.0,Annualized run rate,Full company,1000000000.0,,,,Likely,https://www.cnbc.com/2025/01/22/google-agrees-to-new-1-billion-investment-in-anthropic.html,,,"""In December, Anthropic’s revenue hit an annualized $1 billion, which was an increase of roughly 10x year over year, the source said. The company’s revenue comes primarily from enterprise sales.""",2025-01-22,Media report,
+Dec 2024 5.5B,OpenAI,2024-12-31,5500000000.0,Annual recurring revenue (ARR),Full company,5500000000.0,,,,Likely,https://www.cnbc.com/2025/06/09/openai-hits-10-billion-in-annualized-revenue-fueled-by-chatgpt-growth.html,,,"""For all of last year, OpenAI had around $5.5 billion in [annual recurring revenue]."" This quote doesn't quite make sense—OpenAI definitely did not have flat ARR across 2024. The most likely interpretation is that OpenAI reached 5.5B at the end of last year.",2025-06-09,Media report,
+2024 3.7B,OpenAI,2024-12-31,,,Full company,3700000000.0,3700000000.0,Year,,Likely,https://www.bloomberg.com/news/articles/2025-03-26/openai-expects-revenue-will-triple-to-12-7-billion-this-year,,,"""The San Francisco-based company generated $3.7 billion in annual revenue last year, said the person, who spoke on condition of anonymity to discuss internal communications""",2025-03-26,Media report,
+2024 full year,Anthropic,2024-12-31,,,Full company,,381000000.0,Year,,Likely,https://www.theinformation.com/articles/anthropic-lowers-profit-margin-projection-revenue-skyrockets?rc=9mzoog,,,"""Still, [Anthropic's] 2025 revenue is nearly 12 times higher than its 2024 revenue of $381 million, a remarkable growth rate for a company that size.""",2026-01-22,Media report,
+Nov 2024 100M,xAI,2024-11-20,100000000.0,Annualized run rate,Full company,100000000.0,,,,Likely,https://www.wsj.com/tech/ai/elon-musks-startup-xai-valued-at-50-billion-in-new-funding-round-7e3669dc,,,"""The startup recently told investors its revenue has reached $100 million on an annualized basis""",2024-11-20,Media report,
+H2 2024,Z.ai (Zhipu),2024-10-01,37500000.0,Period interpolation,Full company,37500000.0,,,,Likely,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,,"Interpolated from average revenue over H2 2024 to the midpoint of H2 2024.
+
+From IPO prospectus: ""In 2022, 2023 and 2024, our revenue was RMB57.4 million, RMB124.5 million and RMB312.4 million, respectively, representing a CAGR of over 130%. For the six months ended June 30, 2024 and 2025, our revenue was RMB44.9 million and RMB190.9 million, respectively.""
+
+Subtracting 44.9 million from H1 2024 from 2024's 312.4 million total is 267.5M RMB.
+
+At ~0.14 RMB per USD, this is ~$37.45M USD.
+
+Interpolating the average revenue rate over H2 2024 to the midpoint of H2 2024, which should be a decent approximation, leads to a $37.4M run rate achieved around October 1, 2024.",2025-12-30,Company disclosure,"Date is approximate, based on interpolating average revenue rate in H2 2024 to midpoint of H2"
+Sep 2024 4B,OpenAI,2024-09-12,4000000000.0,Annual recurring revenue (ARR),Full company,4000000000.0,,,,Likely,https://www.wsj.com/tech/ai/united-arab-emirates-fund-in-talks-to-invest-in-openai-fd4e4977?,,,"""Altman has told investors that the startup’s annualized recurring revenues—a projection of annual revenue based on recent receipts—recently hit about $4 billion.""",2024-09-12,Media report,
+August 2024 3.6B,OpenAI,2024-08-15,3600000000.0,Annualized run rate,Full company,3600000000.0,,,,Likely,https://www.nytimes.com/2024/09/27/technology/openai-chatgpt-investors-funding.html,,,"""OpenAI’s monthly revenue hit $300 million in August, up 1,700 percent since the beginning of 2023, and the company expects about $3.7 billion in annual sales this year, according to financial documents reviewed by The New York Times.""",2024-09-27,Media report,
+June 2024 3.4B,OpenAI,2024-06-12,3400000000.0,Annualized run rate,Full company,3400000000.0,,,,Likely,https://www.theinformation.com/articles/openais-annualized-revenue-doubles-to-3-4-billion-since-late-2023?rc=9mzoog,,,"""OpenAI has more than doubled its annualized revenue to $3.4 billion in the past six months or so, OpenAI CEO Sam Altman has told staff, a sign that growth in the ChatGPT developer’s business is accelerating despite intensifying competition.""
+
+Possibly disputed by OpenAI, but OpenAI didn't provide any more details, so it's likely roughly accurate.
+
+""An OpenAI spokeswoman said the financial details were “inaccurate,” without elaborating.""",2024-06-12,Media report,
+H1 2024,Z.ai (Zhipu),2024-04-01,12400000.0,Period interpolation,Full company,12400000.0,,,,Likely,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,,"Interpolated from average revenue over H1 2024 to the midpoint of H1 2024.
+
+""For the six months ended June 30, 2024 and 2025, our revenue was RMB44.9 million and RMB190.9 million, respectively.""
+
+Exchange rate on June 30, 2025 was 0.1396 RMB per USD.
+This is 6.18 million USD in H1 2024 or annualized run rate of $12.4M.
+
+Interpolating the average revenue rate over H1 2024 to the midpoint of H1 2024, which should be a decent approximation, leads to a $12.4M run rate achieved around April 1, 2024.
+
+(Interpolation is a likely estimate, revenue for period is Confident, since it's ~ground truth from IPO documents)",2025-12-30,Company disclosure,
+March 2024 22M,Cohere,2024-03-15,22000000.0,Annualized run rate,Full company,22000000.0,,,,Likely,https://finance.yahoo.com/news/exclusive-ai-startup-cohere-seeks-042607354.html,https://www.theglobeandmail.com/business/article-ai-startup-cohere-seeks-5-billion-valuation-in-latest-fundraising/,,"Reuters (March 21, 2024): annualized run rate reached $22M ""this month"" (March 2024), attributed to the Command-R launch. A separate Globe and Mail source confirmed the fundraising and revenue figures. Exact day within March unspecified, so dated to mid-month per midpoint convention; report published March 21.",2024-03-21,Media report,
+2024 87M,Anthropic,2024-01-01,87000000.0,Annualized run rate,Full company,87000000.0,,,,Confident,https://www.anthropic.com/news/anthropic-expands-global-leadership-in-enterprise-ai-naming-chris-ciauri-as-managing-director-of,,,"""our run-rate revenue has grown from $87 million at the start of 2024 to over $5 billion in August 2025""",2025-09-26,Company disclosure,
+Dec 2023 2B,OpenAI,2023-12-31,2000000000.0,Annualized run rate,Full company,2000000000.0,,,,Likely,https://www.ft.com/content/81ac0e78-5b9b-43c2-b135-d11c47480119,,,"""OpenAI’s revenues have surpassed $2bn on an annualised basis, as the runaway success of its flagship artificial intelligence product ChatGPT puts it among the fastest-growing technology companies in history. The San Francisco-based start-up’s yearly run rate — a measure of the previous month’s revenue multiplied by 12 — hit the $2bn milestone in December 2023, according to two people with knowledge of its finances.""",2024-02-09,Media report,
+700M ChatGPT 2023,OpenAI,2023-12-31,,,Product/division,700000000.0,700000000.0,Year,$700M ChatGPT revenue in 2023,Likely,https://www.nytimes.com/2024/09/27/technology/openai-chatgpt-investors-funding.html,,,"from leaked documents shown to investors:
+
+""The company expects ChatGPT to bring in $2.7 billion in revenue this year, up from $700 million in 2023""",2024-09-27,Media report,
+Dec 2023 13M,Cohere,2023-12-31,13000000.0,Annualized run rate,Full company,13000000.0,,,,Likely,https://finance.yahoo.com/news/exclusive-ai-startup-cohere-seeks-042607354.html,,,"Reuters (March 21, 2024), reporting on the ~$5B fundraise: annualized run rate grew to $22M in March, ""from $13 million in December"" as Command-R launched. Per Reuters, The Information first reported the December run-rate figure (March 20, 2024). Dated as of December 2023 (end of month).",2024-03-21,Media report,
+1.6B Dec 2023,OpenAI,2023-12-30,1600000000.0,Annualized run rate,Full company,1600000000.0,,,,Confident,https://www.theinformation.com/articles/openais-annualized-revenue-tops-1-6-billion-as-customers-shrug-off-ceo-drama?rc=9mzoog,,,"""OpenAI recently topped $1.6 billion in annualized revenue on strong growth from its ChatGPT product, up from $1.3 billion as of mid-October, according to two people with knowledge of the figure."" ",2023-12-30,Media report,
+1.3B Oct 2023,OpenAI,2023-10-10,1300000000.0,Annualized run rate,Full company,1300000000.0,,,,Likely,https://www.theinformation.com/articles/openais-revenue-crossed-1-3-billion-annualized-rate-ceo-tells-staff?rc=9mzoog,,,"""ChatGPT maker OpenAI is generating revenue at a pace of $1.3 billion a year, CEO Sam Altman told staff this week, according to several people with knowledge of the matter.""
+
+Also refers to Anthropic's contemporaneous $100M in ARR ",2023-10-12,Media report,
+October 2023 100M,Anthropic,2023-10-01,100000000.0,Annualized run rate,Full company,100000000.0,,,,Likely,https://www.theinformation.com/articles/openai-rival-anthropic-in-talks-to-raise-2-billion-from-google-others-as-ai-arms-race-accelerates?rc=4ylmkj,,,"""Anthropic has told some investors it has been generating revenue at a $100 million annualized rate.""
+
+Also projected 200M by 2023-end: ""By the end of this year, Anthropic projected it would generate revenue at a $200 million annualized pace, implying nearly $17 million in monthly revenue, one of the people said""",2023-10-03,Media report,
+Aug 2023 1B,OpenAI,2023-08-29,1000000000.0,Annualized run rate,Full company,1000000000.0,,,,Likely,https://www.theinformation.com/articles/openai-passes-1-billion-revenue-pace-as-big-companies-boost-ai-spending?rc=4ylmkj,,,"""OpenAI is currently on pace to generate more than $1 billion in revenue over the next 12 months from the sale of artificial intelligence software and the computing capacity that powers it. That’s far ahead of revenue projections the company previously shared with its shareholders, according to a person with direct knowledge of the situation.""",2023-08-29,Media report,
+2023,Z.ai (Zhipu),2023-07-01,17600000.0,Period interpolation,Full company,17600000.0,,,,Likely,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,,"Interpolated from average revenue over 2023 to the midpoint of 2023.
+
+From IPO prospectus: ""In 2022, 2023 and 2024, our revenue was RMB57.4 million, RMB124.5 million and RMB312.4 million, respectively, representing a CAGR of over 130%.""
+
+per the IRS's average annual exchange rates, 7.075 RMD per USD, RMB124.5M is $17.597M in 2023.
+
+Interpolating the average revenue rate over 2023 to the midpoint of 2023, which should be a decent approximation, leads to a ~$17.6M run rate achieved around July 1, 2023.
+(Interpolation is a likely estimate, revenue for period is Confident, since it's ~ground truth from IPO documents)",2025-12-30,Company disclosure,
+March 2023 100Ms,OpenAI,2023-03-01,200000000.0,Annualized run rate,Full company,200000000.0,,,"""hundreds of millions"" in annual revenue",Likely,https://www.theinformation.com/articles/openais-losses-doubled-to-540-million-as-it-developed-chatgpt?rc=9mzoog,,,"""Even as revenue has picked up—reaching an annual pace of hundreds of millions of dollars just weeks after OpenAI launched a paid version of the chatbot in February""
+
+Estimating ""weeks"" to mean ~4 weeks (ChatGPT Plus was launched on Feb 1, 2023), and ""hundreds of millions"" as >200M.
+
+Note that while the in the exact revenue as of this report is uncertain, the 200M mark was likely crossed shortly after launch, so the timing of the 200M threshold is not very uncertain (+/- one month or so).",2023-05-04,Media report,"Reportedly ""hundreds of millions"""
+2022 28M,OpenAI,2022-12-31,,,Full company,28000000.0,28000000.0,Year,"$28,000,000 revenue in 2022",Likely,https://www.theinformation.com/articles/openai-passes-1-billion-revenue-pace-as-big-companies-boost-ai-spending?rc=9mzoog,,,"""OpenAI generated just $28 million in revenue last year before it started charging for its groundbreaking chatbot, ChatGPT""",2023-08-29,Media report,
+2022,Z.ai (Zhipu),2022-07-01,8600000.0,Period interpolation,Full company,8600000.0,,,,Likely,https://www1.hkexnews.hk/app/sehk/2025/107977/a128413/sehk25121901755.pdf,,,"Interpolated from average revenue over 2022 to the midpoint of 2022.
+
+From IPO prospectus: ""In 2022, 2023 and 2024, our revenue was RMB57.4 million, RMB124.5 million and RMB312.4 million, respectively, representing a CAGR of over 130%.""
+
+RMB to USD was 6.73 on average per IRS (https://www.irs.gov/individuals/international-taxpayers/yearly-average-currency-exchange-rates ), which makes this ~8.53M for 2023.
+
+Interpolating the average revenue rate over 2022 to the midpoint of 2022, which should be a decent approximation, leads to a ~$8.5M run rate achieved around July 1, 2022.
+(Interpolation is a likely estimate, revenue for period is Confident, since it's ~ground truth from IPO documents)",2025-12-30,Company disclosure,
+2024,Mistral AI,,,,Full company,,,,,Uncertain,https://sifted.eu/articles/is-mistral-worth-12bn,https://www.theinformation.com/articles/mistral-an-openai-rival-in-europe-in-talks-to-raise-capital-at-a-5-billion-valuation?rc=9mzoog,https://techcrunch.com/2025/02/10/mistral-gets-down-to-business/,"Mistral's annualized revenue/annual revenue in 2024 is unclear, but full-year revenue may have been ~30M, and Mistral appears to have passed 30M annualized sometime in 2024.
+
+Sifted writes that ""Maxime Corbani, a Paris-based investor in open source startups, points out that Mistral’s revenues have already grown significantly from 2024, when the company achieved €30m in annual recurring revenues.""
+
+The source is Corbani, who may have inside information.
+
+Per TechCrunch: ""According to multiple sources, Mistral only had tens of millions of euros in revenue in 2024."".
+
+Mistral only recently started to generate revenue as of April 2024, per The Information:
+""The company, which has just recently begun to generate revenue, in December raised $415 million at a valuation of $2 billion.""",2025-09-11,Media report,
+Q1 2026 MaaS/API,Z.ai (Zhipu),,,,Product/division,,,,,,,,,,,,

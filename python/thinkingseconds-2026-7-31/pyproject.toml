@@ -1,0 +1,12 @@
+[project]
+name = "thinkingseconds"
+version = "0.1.0"
+description = "How many geniuses are in the data center right now?"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "pandas>=2.3.3",
+    "scipy>=1.16.3",
+    "statsmodels>=0.14.6",
+]
